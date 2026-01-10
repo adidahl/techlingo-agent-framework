@@ -62,6 +62,9 @@ def a1_modularizer_prompt(source_text: str, *, difficulty: DifficultyLevel, conf
         Create a course map for: "AI Core Capabilities and Responsibility".
 
         STRICT CONSTRAINT: Use ONLY information present in the source text. Do not use external knowledge.
+        
+        STRICT CONSTRAINT: You must cover ALL subjects, terms, and parts present in the source text. Do not miss any concepts.
+
 
         Constraints:
         - Exactly {config.modules_count} modules.
@@ -104,6 +107,8 @@ def a2_scaffolder_prompt(course_map_json: str, *, difficulty: DifficultyLevel, c
         {blooms_reqs}
 
         STRICT CONSTRAINT: Use ONLY information present in the source text. Do not use external knowledge.
+        STRICT CONSTRAINT: Verify that the exercises cover all subjects/terms defined in the lesson SLOs derived from the text.
+
 
         Constraints:
         - Each lesson must include:
