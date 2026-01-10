@@ -1,9 +1,7 @@
 from __future__ import annotations
 
 from textwrap import dedent
-
-from .config import WorkflowConfig
-from .models import DifficultyLevel
+from .config import WorkflowConfig, DifficultyLevel
 
 
 SYSTEM_JSON_ONLY = dedent(

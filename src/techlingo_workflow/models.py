@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from .config import WorkflowConfig
+from .config import WorkflowConfig, DifficultyLevel
 
 from datetime import datetime
 from enum import Enum
@@ -14,12 +14,6 @@ class BloomsLevel(str, Enum):
     understanding = "Understanding"
     applying = "Applying"
     analyzing_evaluating = "Analyzing/Evaluating"
-
-
-class DifficultyLevel(str, Enum):
-    beginner = "beginner"
-    intermediate = "intermediate"
-    advanced = "advanced"
 
 
 class Feedback(BaseModel):

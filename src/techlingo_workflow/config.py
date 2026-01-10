@@ -7,8 +7,19 @@ from typing import Dict
 from pydantic import BaseModel, Field
 
 
+from enum import Enum
+
+class DifficultyLevel(str, Enum):
+    beginner = "beginner"
+    intermediate = "intermediate"
+    advanced = "advanced"
+
+
 class WorkflowConfig(BaseModel):
     """Configuration for the Techlingo workflow constraints."""
+    
+    # Global Settings
+    difficulty: DifficultyLevel = Field(DifficultyLevel.beginner, description="Overall course difficulty.")
     
     # A1: Curriculum Structure
     modules_count: int = Field(6, description="Fixed number of modules in the course.")

@@ -9,10 +9,9 @@ from typing import Optional
 import typer
 from dotenv import load_dotenv
 
-from .config import load_workflow_config
+from .config import load_workflow_config, DifficultyLevel
 from .io import read_input_text, write_json, write_text
 from .models import PipelineState, WorkflowRunResult
-from .models import DifficultyLevel
 from .workflow import build_techlingo_workflow
 
 
@@ -36,9 +35,9 @@ def run(
         None,
         help="OpenAI chat model id. If omitted, uses OPENAI_CHAT_MODEL_ID from .env/environment.",
     ),
-    difficulty: DifficultyLevel = typer.Option(
-        DifficultyLevel.beginner,
-        help="Difficulty of generated questions.",
+    difficulty: Optional[DifficultyLevel] = typer.Option(
+        None,
+        help="Difficulty of generated questions. Overrides config if set.",
     ),
     verbose: bool = typer.Option(
         False,
@@ -83,18 +82,21 @@ def run(
             
     loaded_config = load_workflow_config(config_path)
     
+    # Resolve difficulty: CLI arg > Config > Default(Beginner)
+    final_difficulty = difficulty or loaded_config.difficulty
+    
     state = PipelineState(
         run_id=run_id,
         run_dir=str(run_dir),
         input_text=text,
         model_id=model_id,
-        difficulty=difficulty,
+        difficulty=final_difficulty,
         config=loaded_config,
     )
 
     typer.echo(f"Run started: {run_id}")
     typer.echo(f"Run dir: {run_dir}")
-    typer.echo(f"Difficulty: {difficulty.value}")
+    typer.echo(f"Difficulty: {final_difficulty.value}")
 
     def _get_executor_id(evt: object) -> str | None:
         # Different AF versions may use slightly different attribute names.
