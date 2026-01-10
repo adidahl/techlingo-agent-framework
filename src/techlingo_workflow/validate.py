@@ -4,6 +4,7 @@ import json
 from collections import Counter
 from typing import Any
 
+from .config import WorkflowConfig
 from .llm import LLMClient
 from .models import (
     BloomsLevel,
@@ -25,27 +26,27 @@ def _count_lessons(course: Course) -> int:
     return sum(len(m.lessons) for m in course.modules)
 
 
-def validate_course(course: Course) -> ValidationReport:
+def validate_course(course: Course, config: WorkflowConfig) -> ValidationReport:
     issues: list[ValidationIssue] = []
 
     # Module count
-    if len(course.modules) != 6:
+    if len(course.modules) != config.modules_count:
         issues.append(
             ValidationIssue(
                 severity="error",
                 path="modules",
-                message=f"Expected exactly 6 modules, got {len(course.modules)}.",
+                message=f"Expected exactly {config.modules_count} modules, got {len(course.modules)}.",
             )
         )
 
     # Lesson count
     lesson_count = _count_lessons(course)
-    if not (20 <= lesson_count <= 25):
+    if not (config.min_lessons_total <= lesson_count <= config.max_lessons_total):
         issues.append(
             ValidationIssue(
                 severity="error",
                 path="modules[*].lessons",
-                message=f"Expected total lessons 20–25, got {lesson_count}.",
+                message=f"Expected total lessons {config.min_lessons_total}–{config.max_lessons_total}, got {lesson_count}.",
             )
         )
 
@@ -59,12 +60,12 @@ def validate_course(course: Course) -> ValidationReport:
                 )
 
             # Flashcards checks (schema v2)
-            if len(lesson.flashcards) != 8:
+            if len(lesson.flashcards) != config.flashcards_per_lesson:
                 issues.append(
                     ValidationIssue(
                         severity="error",
                         path=f"{base_path}.flashcards",
-                        message=f"Expected exactly 8 flashcards, got {len(lesson.flashcards)}.",
+                        message=f"Expected exactly {config.flashcards_per_lesson} flashcards, got {len(lesson.flashcards)}.",
                     )
                 )
             for fi, fc in enumerate(lesson.flashcards):
@@ -80,12 +81,12 @@ def validate_course(course: Course) -> ValidationReport:
                         ValidationIssue(severity="error", path=f"{fc_path}.back", message="Flashcard back must be non-empty.")
                     )
 
-            if len(lesson.exercises) != 8:
+            if len(lesson.exercises) != config.exercises_per_lesson:
                 issues.append(
                     ValidationIssue(
                         severity="error",
                         path=f"{base_path}.exercises",
-                        message=f"Expected exactly 8 exercises, got {len(lesson.exercises)}.",
+                        message=f"Expected exactly {config.exercises_per_lesson} exercises, got {len(lesson.exercises)}.",
                     )
                 )
                 # Skip deeper distribution checks if exercise count is wrong
@@ -93,12 +94,7 @@ def validate_course(course: Course) -> ValidationReport:
 
             levels = [ex.blooms_level.value for ex in lesson.exercises]
             dist = Counter(levels)
-            expected = {
-                BloomsLevel.remembering.value: 2,
-                BloomsLevel.understanding.value: 2,
-                BloomsLevel.applying.value: 2,
-                BloomsLevel.analyzing_evaluating.value: 2,
-            }
+            expected = config.blooms_distribution
             if dist != expected:
                 issues.append(
                     ValidationIssue(
@@ -110,15 +106,7 @@ def validate_course(course: Course) -> ValidationReport:
 
             # Exercise type mix (schema v2)
             type_counts = Counter(ex.question_type for ex in lesson.exercises)
-            expected_types = Counter(
-                {
-                    "single_choice": 1,
-                    "multi_choice": 2,
-                    "true_false": 2,
-                    "fill_gaps": 2,
-                    "rearrange": 1,
-                }
-            )
+            expected_types = Counter(config.question_type_distribution)
             if type_counts != expected_types:
                 issues.append(
                     ValidationIssue(
@@ -405,9 +393,9 @@ async def check_source_fidelity(course: Course, source_text: str, llm: LLMClient
 
 
 async def repair_course_if_needed(
-    course: Course, llm: LLMClient, *, max_repairs: int = 1, source_text: str | None = None
+    course: Course, llm: LLMClient, config: WorkflowConfig, *, max_repairs: int = 1, source_text: str | None = None
 ) -> tuple[Course, ValidationReport]:
-    report = validate_course(course)
+    report = validate_course(course, config)
     
     # Run source fidelity check if source_text is provided
     if source_text:
@@ -423,11 +411,11 @@ async def repair_course_if_needed(
     for _ in range(max_repairs):
         issues_json = json.dumps([i.model_dump() for i in report.issues], ensure_ascii=False, indent=2)
         course_json = repaired.model_dump_json(indent=2)
-        repaired_data = await llm.run_json(a5_repair_prompt(course_json, issues_json))
+        repaired_data = await llm.run_json(a5_repair_prompt(course_json, issues_json, config))
         repaired = Course.model_validate(repaired_data)
         
         # Re-validate structure
-        report = validate_course(repaired)
+        report = validate_course(repaired, config)
         
         # Re-validate source fidelity (optional: can be expensive, but needed for strictness)
         if source_text:

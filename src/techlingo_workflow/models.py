@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from .config import WorkflowConfig
+
 from datetime import datetime
 from enum import Enum
 from typing import Annotated, Any, Literal, Optional, Union
@@ -168,6 +170,9 @@ class PipelineState(BaseModel):
     a4_course: Optional[Course] = None
     a5_course: Optional[Course] = None
     validation_report: Optional[ValidationReport] = None
+    
+    # Configuration
+    config: WorkflowConfig = Field(default_factory=lambda: WorkflowConfig())
 
 
 class WorkflowRunResult(BaseModel):

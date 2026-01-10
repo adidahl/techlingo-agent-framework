@@ -9,6 +9,7 @@ from typing import Optional
 import typer
 from dotenv import load_dotenv
 
+from .config import load_workflow_config
 from .io import read_input_text, write_json, write_text
 from .models import PipelineState, WorkflowRunResult
 from .models import DifficultyLevel
@@ -44,6 +45,11 @@ def run(
         "--verbose/--no-verbose",
         help="Print workflow progress events (and agent streaming updates when available).",
     ),
+    config_path: Optional[Path] = typer.Option(
+        None,
+        "--config",
+        help="Path to workflow_config.json. Defaults to workflow_config.json if present, or internal defaults.",
+    ),
 ) -> None:
     """Run the Techlingo A1–A5 workflow and write JSON artifacts to disk."""
     # Important: load .env BEFORE reading OPENAI_* vars. (Typer's envvar= reads too early.)
@@ -68,12 +74,22 @@ def run(
 
     workflow = build_techlingo_workflow()
     run_id, run_dir = new_run_dir(out_dir)
+    
+    # Load config from passed path or default location
+    if not config_path:
+        default_config = Path("workflow_config.json")
+        if default_config.exists():
+            config_path = default_config
+            
+    loaded_config = load_workflow_config(config_path)
+    
     state = PipelineState(
         run_id=run_id,
         run_dir=str(run_dir),
         input_text=text,
         model_id=model_id,
         difficulty=difficulty,
+        config=loaded_config,
     )
 
     typer.echo(f"Run started: {run_id}")

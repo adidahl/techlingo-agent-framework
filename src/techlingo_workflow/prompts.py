@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from textwrap import dedent
 
+from .config import WorkflowConfig
 from .models import DifficultyLevel
 
 
@@ -51,7 +52,7 @@ def difficulty_contract(difficulty: DifficultyLevel) -> str:
     )
 
 
-def a1_modularizer_prompt(source_text: str, *, difficulty: DifficultyLevel) -> str:
+def a1_modularizer_prompt(source_text: str, *, difficulty: DifficultyLevel, config: WorkflowConfig) -> str:
     return dedent(
         f"""\
         {difficulty_contract(difficulty)}
@@ -65,8 +66,8 @@ def a1_modularizer_prompt(source_text: str, *, difficulty: DifficultyLevel) -> s
         STRICT CONSTRAINT: Use ONLY information present in the source text. Do not use external knowledge.
 
         Constraints:
-        - Exactly 6 modules.
-        - Total lessons across all modules: 20 to 25.
+        - Exactly {config.modules_count} modules.
+        - Total lessons across all modules: {config.min_lessons_total} to {config.max_lessons_total}.
         - Each lesson must have exactly one SLO (single, clear, measurable learning objective).
         - Keep lesson titles and SLOs novice-friendly (no unexplained jargon).
 
@@ -89,7 +90,10 @@ def a1_modularizer_prompt(source_text: str, *, difficulty: DifficultyLevel) -> s
     )
 
 
-def a2_scaffolder_prompt(course_map_json: str, *, difficulty: DifficultyLevel) -> str:
+def a2_scaffolder_prompt(course_map_json: str, *, difficulty: DifficultyLevel, config: WorkflowConfig) -> str:
+    blooms_reqs = "\n".join([f"- {k}: {v} exercises" for k, v in config.blooms_distribution.items()])
+    type_reqs = "\n".join([f"    - {k}: {v}" for k, v in config.question_type_distribution.items()])
+
     return dedent(
         f"""\
         {difficulty_contract(difficulty)}
@@ -98,23 +102,16 @@ def a2_scaffolder_prompt(course_map_json: str, *, difficulty: DifficultyLevel) -
         {course_map_json}
 
         Task (A2 Scaffolder - Q&A Generator):
-        For EACH lesson SLO, generate exactly 8 exercises with vertical progression using Bloom's Taxonomy:
-        - Remembering: 2 exercises
-        - Understanding: 2 exercises
-        - Applying: 2 exercises
-        - Analyzing/Evaluating: 2 exercises
+        For EACH lesson SLO, generate exactly {config.exercises_per_lesson} exercises with vertical progression using Bloom's Taxonomy:
+        {blooms_reqs}
 
         STRICT CONSTRAINT: Use ONLY information present in the source text. Do not use external knowledge.
 
         Constraints:
         - Each lesson must include:
-          - exercises: exactly 8 items, with this exact per-lesson mix:
-            - single_choice: 1
-            - multi_choice: 2
-            - true_false: 2
-            - fill_gaps: 2
-            - rearrange: 1
-          - flashcards: exactly 8 items
+          - exercises: exactly {config.exercises_per_lesson} items, with this exact per-lesson mix:
+        {type_reqs}
+          - flashcards: exactly {config.flashcards_per_lesson} items
         - Every exercise must include:
           - blooms_level (one of: Remembering, Understanding, Applying, Analyzing/Evaluating)
           - question_type (one of: single_choice, multi_choice, true_false, fill_gaps, rearrange)
@@ -186,7 +183,8 @@ def a2_scaffolder_prompt(course_map_json: str, *, difficulty: DifficultyLevel) -
     )
 
 
-def a3_scenario_designer_prompt(course_json: str, *, difficulty: DifficultyLevel) -> str:
+def a3_scenario_designer_prompt(course_json: str, *, difficulty: DifficultyLevel, config: WorkflowConfig) -> str:
+    blooms_counts = "/".join([str(v) for v in config.blooms_distribution.values()])
     return dedent(
         f"""\
         {difficulty_contract(difficulty)}
@@ -208,7 +206,7 @@ def a3_scenario_designer_prompt(course_json: str, *, difficulty: DifficultyLevel
 
         Constraints:
         - Do not change lesson/module structure.
-        - Preserve Bloom level counts per lesson (2/2/2/2).
+        - Preserve Bloom level counts per lesson ({blooms_counts}).
         - Preserve each exercise's question_type and required fields.
         - For fill_gaps and rearrange, keep the structure valid (parts/word_bank/correct_order).
         - Do not add or remove exercises.
@@ -220,7 +218,7 @@ def a3_scenario_designer_prompt(course_json: str, *, difficulty: DifficultyLevel
     )
 
 
-def a4_feedback_architect_prompt(course_json: str, *, difficulty: DifficultyLevel) -> str:
+def a4_feedback_architect_prompt(course_json: str, *, difficulty: DifficultyLevel, config: WorkflowConfig) -> str:
     return dedent(
         f"""\
         {difficulty_contract(difficulty)}
@@ -292,24 +290,23 @@ def a5_source_check_prompt(course_json: str, source_text: str) -> str:
     )
 
 
-def a5_repair_prompt(bad_course_json: str, issues_json: str) -> str:
+def a5_repair_prompt(bad_course_json: str, issues_json: str, config: WorkflowConfig) -> str:
+    blooms_reqs = ", ".join([f"{v} {k}" for k, v in config.blooms_distribution.items()])
+    type_reqs = "\n".join([f"          - {k}: {v}" for k, v in config.question_type_distribution.items()])
+
     return dedent(
         f"""\
         You must repair the course JSON to satisfy all constraints.
         Return ONLY corrected JSON.
 
         Constraints to satisfy:
-        - Exactly 6 modules.
-        - Total lessons across modules: 20 to 25.
-        - Each lesson has exactly 8 exercises.
-        - Bloom distribution per lesson: 2 Remembering, 2 Understanding, 2 Applying, 2 Analyzing/Evaluating.
-        - Exercise type mix per lesson (exact counts within the 8 exercises):
-          - single_choice: 1
-          - multi_choice: 2
-          - true_false: 2
-          - fill_gaps: 2
-          - rearrange: 1
-        - Each lesson has exactly 8 flashcards.
+        - Exactly {config.modules_count} modules.
+        - Total lessons across modules: {config.min_lessons_total} to {config.max_lessons_total}.
+        - Each lesson has exactly {config.exercises_per_lesson} exercises.
+        - Bloom distribution per lesson: {blooms_reqs}.
+        - Exercise type mix per lesson (exact counts within the {config.exercises_per_lesson} exercises):
+{type_reqs}
+        - Each lesson has exactly {config.flashcards_per_lesson} flashcards.
         - Every Applying and Analyzing/Evaluating exercise must be scenario-based (prompt must clearly describe a scenario + decision point).
         - For scenario-based single_choice and multi_choice exercises: each incorrect option must include paired feedback (intrinsic + instructional).
         - For single_choice and multi_choice exercises:
