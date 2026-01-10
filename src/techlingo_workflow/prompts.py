@@ -227,27 +227,31 @@ def a4_feedback_architect_prompt(course_json: str, *, difficulty: DifficultyLeve
         {course_json}
 
         Task (A4 Feedback Architect - Instructional Coaching):
+        You must populate all feedback fields for every exercise.
+        
         For ALL single_choice and multi_choice exercises:
+        - Add 'feedback_for_correct' (1-2 sentences reinforcing why the answer is right).
         - Add a 'rationale' (2-3 sentences) for EVERY option (both correct and incorrect).
         - Add a 'better_fit' (1-2 sentences) for EVERY incorrect option.
+        - For EVERY incorrect option, you MUST add a 'feedback' object with:
+            - intrinsic: realistic consequence/system reaction to the error.
+            - instructional: conversational coaching that explains the violated principle.
 
-        For scenario-based exercises (Applying and Analyzing/Evaluating):
-        - Also ensure scenario-based feedback is present (as before).
-        - For incorrect responses:
-          - intrinsic: realistic consequence/system reaction
-          - instructional: conversational coaching that explains the violated principle and remediation
+        For true_false exercises:
+        - Add 'feedback_for_correct' (1-2 sentences).
+        - Add 'feedback_for_incorrect' object (intrinsic + instructional) explaining why the user's choice was wrong.
+
+        For fill_gaps / rearrange:
+        - Add 'feedback_for_correct' (brief reinforcement).
 
         STRICT CONSTRAINT: Use ONLY information present in the source text. Do not use external knowledge.
 
         Constraints:
-        - For single_choice and multi_choice exercises:
-          - Populate 'rationale' for all options.
-            - Why is this option correct or incorrect in this specific context?
-          - Populate 'better_fit' for all incorrect options (is_correct=false).
-            - Describe a context where this option WOULD be the correct answer (e.g., "This would be correct if you were optimizing for X instead of Y").
-          - Preserve existing 'feedback' objects if present (or add them if missing for scenario-based incorrect options).
-        - For true_false exercises: set feedback_for_incorrect (if scenario-based).
-        - Feedback must be an object with keys intrinsic + instructional.
+        - Populate 'rationale' for all options.
+        - Populate 'better_fit' for all incorrect options.
+        - Ensure 'feedback' object (intrinsic + instructional) is present for ALL incorrect options in single/multi choice.
+        - Ensure 'feedback_for_correct' is present for ALL exercises.
+        - Ensure 'feedback_for_incorrect' is present for ALL true_false exercises.
         - Do not remove existing fields.
         - Keep feedback/rationale concise and learner-friendly.
         - Do not add or remove exercises or flashcards.

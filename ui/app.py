@@ -35,6 +35,7 @@ class ChoiceUIOption:
     label: str
     is_correct: bool
     feedback: Optional[Feedback]
+    rationale: Optional[str] = None
 
 
 def _list_runs(outputs_dir: Path) -> list[Path]:
@@ -85,7 +86,7 @@ def _choice_options_for_exercise(ex: SingleChoiceExercise | MultiChoiceExercise,
     opts: list[ChoiceUIOption] = []
     for oi, o in enumerate(ex.options):
         fb = o.feedback if isinstance(o.feedback, Feedback) else None
-        opts.append(ChoiceUIOption(id=str(oi), label=o.text, is_correct=o.is_correct, feedback=fb))
+        opts.append(ChoiceUIOption(id=str(oi), label=o.text, is_correct=o.is_correct, feedback=fb, rationale=o.rationale))
     rnd = random.Random(seed)
     rnd.shuffle(opts)
     return opts
@@ -96,6 +97,7 @@ def _ensure_state() -> None:
     st.session_state.setdefault("quiz_started", False)
     st.session_state.setdefault("quiz_index", 0)
     st.session_state.setdefault("quiz_answers", {})  # idx -> answer payload (type-specific)
+    st.session_state.setdefault("quiz_submitted", set()) # set of indices
     st.session_state.setdefault("quiz_seed", 0)
 
 
@@ -103,6 +105,7 @@ def _reset_quiz(seed: int) -> None:
     st.session_state.quiz_started = True
     st.session_state.quiz_index = 0
     st.session_state.quiz_answers = {}
+    st.session_state.quiz_submitted = set()
     st.session_state.quiz_seed = seed
 
 
@@ -110,6 +113,7 @@ def _stop_quiz() -> None:
     st.session_state.quiz_started = False
     st.session_state.quiz_index = 0
     st.session_state.quiz_answers = {}
+    st.session_state.quiz_submitted = set()
 
 
 def _coerce_v1_to_v2(data: dict[str, Any]) -> dict[str, Any]:
@@ -232,111 +236,195 @@ def _render_exercise_browse(ex: Any) -> None:
         st.caption("Unsupported exercise type for browse view.")
 
 
-def _render_exercise_quiz(ex: Any, *, idx: int, seed: int) -> tuple[bool, Optional[Feedback]]:
-    """
-    Returns:
-      - is_correct (best-effort live grading)
-      - feedback (if incorrect and available)
-    """
+def _render_feedback_block(is_correct: bool, correct_feedback: Optional[str], incorrect_feedback: Optional[Feedback|str], rationale: Optional[str] = None, correct_answer_label: Optional[str] = None, correct_answer_rationale: Optional[str] = None):
+    if is_correct:
+        st.success("Correct! ✅")
+        if correct_feedback:
+            st.markdown(f"**Feedback:** {correct_feedback}")
+    else:
+        st.error("Incorrect ❌")
+        if incorrect_feedback:
+            if isinstance(incorrect_feedback, Feedback):
+                st.markdown(f"**Intrinsic Feedback:** {incorrect_feedback.intrinsic}")
+                st.markdown(f"**Instructional Feedback:** {incorrect_feedback.instructional}")
+            else:
+                st.markdown(f"**Feedback:** {incorrect_feedback}")
+
+    if rationale:
+        st.info(f"**Rationale:** {rationale}")
+
+    if not is_correct and correct_answer_label:
+        st.markdown("---")
+        st.markdown(f"**Correct Answer:** {correct_answer_label}")
+        if correct_answer_rationale:
+             st.markdown(f"**Rationale:** {correct_answer_rationale}")
+
+
+def _render_exercise_quiz(ex: Any, *, idx: int, seed: int) -> None:
     key = str(idx)
     saved = st.session_state.quiz_answers.get(key)
+    submitted = idx in st.session_state.quiz_submitted
+    
+    # Common container for inputs
+    container = st.container()
 
-    if isinstance(ex, SingleChoiceExercise):
-        options = _choice_options_for_exercise(ex, seed=seed)
-        labels = [o.label for o in options]
-        id_by_label = {o.label: o.id for o in options}
-        opt_by_id = {o.id: o for o in options}
+    # Determine correctness and gather feedback info
+    is_correct = False
+    correct_feedback = getattr(ex, "feedback_for_correct", None)
+    incorrect_feedback = None
+    rationale = None
+    correct_answer_label = None
+    correct_answer_rationale = None
 
-        prev_id = cast(Optional[str], saved) if isinstance(saved, str) else None
-        prev_label = next((o.label for o in options if o.id == prev_id), None)
-        default_index = labels.index(prev_label) if prev_label in labels else 0
-        choice_label = st.radio("Choose one", labels, index=default_index)
-        choice_id = id_by_label[choice_label]
-        st.session_state.quiz_answers[key] = choice_id
+    # Logic to capture input and determine state
+    with container:
+        if isinstance(ex, SingleChoiceExercise):
+            options = _choice_options_for_exercise(ex, seed=seed)
+            labels = [o.label for o in options]
+            id_by_label = {o.label: o.id for o in options}
+            opt_by_id = {o.id: o for o in options}
 
-        chosen = opt_by_id[choice_id]
-        return chosen.is_correct, (chosen.feedback if (not chosen.is_correct) else None)
+            prev_id = cast(Optional[str], saved) if isinstance(saved, str) else None
+            prev_label = next((o.label for o in options if o.id == prev_id), None)
+            default_index = labels.index(prev_label) if prev_label in labels else 0
+            
+            choice_label = st.radio("Choose one", labels, index=default_index, disabled=submitted)
+            if not submitted:
+                choice_id = id_by_label[choice_label]
+                st.session_state.quiz_answers[key] = choice_id
+            
+            # If submitted, calculate feedback
+            if submitted and prev_id:
+                chosen = opt_by_id[prev_id]
+                is_correct = chosen.is_correct
+                incorrect_feedback = chosen.feedback
+                rationale = chosen.rationale
+                
+                correct_opt = next((o for o in options if o.is_correct), None)
+                if correct_opt:
+                    correct_answer_label = correct_opt.label
+                    correct_answer_rationale = correct_opt.rationale
 
-    if isinstance(ex, MultiChoiceExercise):
-        options = _choice_options_for_exercise(ex, seed=seed)
-        labels = [o.label for o in options]
-        id_by_label = {o.label: o.id for o in options}
-        opt_by_id = {o.id: o for o in options}
+        elif isinstance(ex, MultiChoiceExercise):
+            options = _choice_options_for_exercise(ex, seed=seed)
+            labels = [o.label for o in options]
+            id_by_label = {o.label: o.id for o in options}
+            opt_by_id = {o.id: o for o in options}
 
-        prev_ids = saved if isinstance(saved, list) else []
-        prev_labels = [next((o.label for o in options if o.id == pid), None) for pid in prev_ids]
-        prev_labels = [p for p in prev_labels if p in labels]
+            prev_ids = saved if isinstance(saved, list) else []
+            prev_labels = [next((o.label for o in options if o.id == pid), None) for pid in prev_ids]
+            
+            picked_labels = st.multiselect("Choose all that apply", labels, default=prev_labels, disabled=submitted)
+            if not submitted:
+                 picked_ids = [id_by_label[l] for l in picked_labels]
+                 st.session_state.quiz_answers[key] = picked_ids
+            
+            if submitted:
+                 picked_ids = prev_ids
+                 correct_ids = {o.id for o in options if o.is_correct}
+                 picked_set = set(picked_ids)
+                 is_correct = picked_set == correct_ids
+                 
+                 if not is_correct:
+                    wrong = next((opt_by_id[i] for i in picked_ids if not opt_by_id[i].is_correct), None)
+                    if wrong:
+                        incorrect_feedback = wrong.feedback
 
-        picked_labels = st.multiselect("Choose all that apply", labels, default=prev_labels)
-        picked_ids = [id_by_label[l] for l in picked_labels]
-        st.session_state.quiz_answers[key] = picked_ids
+        elif isinstance(ex, TrueFalseExercise):
+            prev = saved if isinstance(saved, bool) else None
+            options = ["True", "False"]
+            default_idx = 0 if prev is True else 1 if prev is False else 0
+            
+            picked = st.radio("True or False?", options, index=default_idx, disabled=submitted)
+            if not submitted:
+                ans = picked == "True"
+                st.session_state.quiz_answers[key] = ans
+            
+            if submitted and prev is not None:
+                is_correct = prev == ex.correct_answer
+                incorrect_feedback = ex.feedback_for_incorrect
 
-        correct_ids = {o.id for o in options if o.is_correct}
-        picked_set = set(picked_ids)
-        is_correct = picked_set == correct_ids
+        elif isinstance(ex, FillGapsExercise):
+            gaps: list[FillGapsGapPart] = [p for p in ex.parts if isinstance(p, FillGapsGapPart)]
+            prev_vals = saved if isinstance(saved, list) else [""] * len(gaps)
+            
+            st.markdown("Fill in the blanks:")
+            preview = []
+            gap_i = 0
+            for p in ex.parts:
+                if isinstance(p, FillGapsTextPart):
+                    preview.append(p.text)
+                else:
+                    preview.append(f"____({gap_i+1})____")
+                    gap_i += 1
+            st.code("".join(preview))
 
-        feedback: Optional[Feedback] = None
-        if not is_correct:
-            # Show the first incorrect option’s feedback if available.
-            wrong = next((opt_by_id[i] for i in picked_ids if not opt_by_id[i].is_correct), None)
-            if wrong and wrong.feedback:
-                feedback = wrong.feedback
-        return is_correct, feedback
+            vals = []
+            for gi, gap in enumerate(gaps):
+                placeholder = gap.placeholder or ""
+                val = st.text_input(f"Gap {gi+1}", value=prev_vals[gi] if gi < len(prev_vals) else "", placeholder=placeholder, disabled=submitted)
+                vals.append(val)
+            
+            if not submitted:
+                st.session_state.quiz_answers[key] = vals
+            
+            if submitted:
+                is_correct = all(_accepted_match(prev_vals[i], gaps[i].accepted_answers) for i in range(len(gaps)))
+                if not is_correct:
+                    correct_lbls = []
+                    for gi, gap in enumerate(gaps):
+                         correct_lbls.append(f"Gap {gi+1}: {', '.join(gap.accepted_answers)}")
+                    correct_answer_label = "\n".join(correct_lbls)
 
-    if isinstance(ex, TrueFalseExercise):
-        prev = saved if isinstance(saved, bool) else None
-        default = "True" if prev is True else "False" if prev is False else "True"
-        picked = st.radio("True or False?", ["True", "False"], index=0 if default == "True" else 1)
-        ans = picked == "True"
-        st.session_state.quiz_answers[key] = ans
-        is_correct = ans == ex.correct_answer
-        fb = ex.feedback_for_incorrect if (not is_correct and isinstance(ex.feedback_for_incorrect, Feedback)) else None
-        return is_correct, fb
+        elif isinstance(ex, RearrangeExercise):
+            prev_order = saved if isinstance(saved, list) else []
+            st.markdown("Arrange the tokens into the correct order:")
+            st.caption("Word bank: " + " | ".join(ex.word_bank))
 
-    if isinstance(ex, FillGapsExercise):
-        gaps: list[FillGapsGapPart] = [p for p in ex.parts if isinstance(p, FillGapsGapPart)]
-        prev_vals = saved if isinstance(saved, list) else [""] * len(gaps)
-        vals: list[str] = []
+            order = []
+            for pi in range(len(ex.correct_order)):
+                default_val = prev_order[pi] if pi < len(prev_order) and prev_order[pi] in ex.word_bank else ex.word_bank[0]
+                picked = st.selectbox(
+                    f"Position {pi+1}", 
+                    ex.word_bank, 
+                    index=ex.word_bank.index(default_val), 
+                    key=f"rearr_{idx}_{pi}",
+                    disabled=submitted
+                )
+                order.append(picked)
+            
+            if not submitted:
+                st.session_state.quiz_answers[key] = order
+            
+            if submitted:
+                 is_correct = prev_order == ex.correct_order
+                 if not is_correct:
+                     correct_answer_label = " | ".join(ex.correct_order)
 
-        st.markdown("Fill in the blanks:")
-        # Render sentence with inline inputs (best-effort in Streamlit: we show inputs below + preview above)
-        preview = []
-        gap_i = 0
-        for p in ex.parts:
-            if isinstance(p, FillGapsTextPart):
-                preview.append(p.text)
-            else:
-                preview.append(f"____({gap_i+1})____")
-                gap_i += 1
-        st.code("".join(preview))
+    # Render Feedback if submitted
+    if submitted:
+        _render_feedback_block(is_correct, correct_feedback, incorrect_feedback, rationale, correct_answer_label, correct_answer_rationale)
 
-        for gi, gap in enumerate(gaps):
-            placeholder = gap.placeholder or ""
-            v = st.text_input(f"Gap {gi+1}", value=prev_vals[gi] if gi < len(prev_vals) else "", placeholder=placeholder)
-            vals.append(v)
+    # Action Buttons
+    b_cols = st.columns([0.2, 0.2, 0.6])
+    
+    with b_cols[0]:
+        if not submitted:
+            # Check if answer is provided before enabling "Submit"?
+            # For now, just enable it.
+            if st.button("Answer", type="primary"):
+                 st.session_state.quiz_submitted.add(idx)
+                 st.rerun()
+        else:
+            if st.button("Continue", type="primary"):
+                 st.session_state.quiz_index = idx + 1 # Move to next
+                 st.rerun()
 
-        st.session_state.quiz_answers[key] = vals
-        ok = all(_accepted_match(vals[i], gaps[i].accepted_answers) for i in range(len(gaps)))
-        return ok, None
-
-    if isinstance(ex, RearrangeExercise):
-        prev_order = saved if isinstance(saved, list) else []
-        st.markdown("Arrange the tokens into the correct order:")
-        st.caption("Word bank: " + " | ".join(ex.word_bank))
-
-        # Simple, deterministic UI: choose the token for each position.
-        order: list[str] = []
-        for pi in range(len(ex.correct_order)):
-            default = prev_order[pi] if pi < len(prev_order) and prev_order[pi] in ex.word_bank else ex.word_bank[0]
-            picked = st.selectbox(f"Position {pi+1}", ex.word_bank, index=ex.word_bank.index(default), key=f"rearr_{idx}_{pi}")
-            order.append(picked)
-
-        st.session_state.quiz_answers[key] = order
-        is_correct = order == ex.correct_order
-        return is_correct, None
-
-    st.warning("Unsupported exercise type in quiz.")
-    return False, None
+    with b_cols[1]:
+        if submitted:
+             if st.button("Reset"):
+                 st.session_state.quiz_submitted.remove(idx)
+                 st.rerun()
 
 
 def main() -> None:
@@ -382,16 +470,27 @@ def main() -> None:
 
     with tab_browse:
         left, right = st.columns([0.4, 0.6], gap="large")
+        lesson = None
 
         with left:
             st.subheader("Course outline")
             mod_titles = [m.title for m in course.modules]
-            mod_i = st.selectbox("Module", list(range(len(mod_titles))), format_func=lambda i: mod_titles[i])
-            lesson_titles = [l.title for l in course.modules[mod_i].lessons]
-            lesson_i = st.selectbox("Lesson", list(range(len(lesson_titles))), format_func=lambda i: lesson_titles[i])
-            lesson = course.modules[mod_i].lessons[lesson_i]
-            st.markdown(f"**SLO:** {lesson.slo}")
-            st.markdown(f"**Exercises:** {len(lesson.exercises)}")
+            
+            if not mod_titles:
+                st.info("No modules in this course.")
+            else:
+                mod_i = st.selectbox("Module", list(range(len(mod_titles))), format_func=lambda i: mod_titles[i])
+                
+                if mod_i is not None:
+                    lesson_titles = [l.title for l in course.modules[mod_i].lessons]
+                    if not lesson_titles:
+                        st.info("No lessons in this module.")
+                    else:
+                        lesson_i = st.selectbox("Lesson", list(range(len(lesson_titles))), format_func=lambda i: lesson_titles[i])
+                        if lesson_i is not None:
+                            lesson = course.modules[mod_i].lessons[lesson_i]
+                            st.markdown(f"**SLO:** {lesson.slo}")
+                            st.markdown(f"**Exercises:** {len(lesson.exercises)}")
 
             with st.expander("Pipeline artifacts (A1–A5)", expanded=False):
                 artifacts_dir = run_dir / "artifacts"
@@ -403,25 +502,29 @@ def main() -> None:
                     st.caption("No artifacts found in this run.")
                 else:
                     art_choice = st.selectbox("Artifact file", artifacts, format_func=lambda p: p.name)
-                    st.code(_load_json_preview(art_choice), language="json")
+                    if art_choice:
+                        st.code(_load_json_preview(art_choice), language="json")
 
         with right:
-            st.subheader("Exercises")
-            for ei, ex in enumerate(lesson.exercises):
-                header = f"{ei+1}. {ex.blooms_level.value}"
-                with st.expander(header, expanded=(ei == 0)):
-                    _render_exercise_browse(ex)
+            if lesson:
+                st.subheader("Exercises")
+                for ei, ex in enumerate(lesson.exercises):
+                    header = f"{ei+1}. {ex.blooms_level.value}"
+                    with st.expander(header, expanded=(ei == 0)):
+                        _render_exercise_browse(ex)
 
-            st.subheader("Flashcards")
-            if lesson.flashcards:
-                for fi, fc in enumerate(lesson.flashcards):
-                    with st.expander(f"{fi+1}. {fc.front}", expanded=(fi == 0)):
-                        st.markdown(f"**Front:** {fc.front}")
-                        st.markdown(f"**Back:** {fc.back}")
-                        if fc.hint:
-                            st.caption(f"Hint: {fc.hint}")
+                st.subheader("Flashcards")
+                if lesson.flashcards:
+                    for fi, fc in enumerate(lesson.flashcards):
+                        with st.expander(f"{fi+1}. {fc.front}", expanded=(fi == 0)):
+                            st.markdown(f"**Front:** {fc.front}")
+                            st.markdown(f"**Back:** {fc.back}")
+                            if fc.hint:
+                                st.caption(f"Hint: {fc.hint}")
+                else:
+                    st.caption("No flashcards present.")
             else:
-                st.caption("No flashcards present.")
+                st.info("Select a lesson to view details.")
 
     with tab_quiz:
         st.subheader("Full-course quiz")
@@ -456,22 +559,18 @@ def main() -> None:
         st.markdown(f"### {getattr(ex_obj, 'prompt', '')}")
         st.caption(f"Type: `{getattr(ex_obj, 'question_type', 'unknown')}`")
 
-        is_correct, feedback = _render_exercise_quiz(ex_obj, idx=idx, seed=st.session_state.quiz_seed + idx)
-        if feedback:
-            st.markdown("**Feedback (if you’re wrong):**")
-            st.markdown(f"- intrinsic: {feedback.intrinsic}")
-            st.markdown(f"- instructional: {feedback.instructional}")
-
-        nav = st.columns([0.2, 0.2, 0.6])
+        _render_exercise_quiz(ex_obj, idx=idx, seed=st.session_state.quiz_seed + idx)
+        
+        # Navigation handled in _render_exercise_quiz, but we keep Back and Finish
+        nav = st.columns([0.2, 0.8])
         with nav[0]:
             if st.button("Back", disabled=(idx == 0)):
                 st.session_state.quiz_index = max(0, idx - 1)
                 st.rerun()
+        
         with nav[1]:
-            if st.button("Next", disabled=(idx >= len(flat) - 1)):
-                st.session_state.quiz_index = min(len(flat) - 1, idx + 1)
-                st.rerun()
-        with nav[2]:
+            # Show "Finish" only if on last question and answered?
+            # Or just always show?
             if st.button("Finish + Review", disabled=(len(st.session_state.quiz_answers) < len(flat))):
                 st.session_state.quiz_index = len(flat)  # sentinel
                 st.rerun()
