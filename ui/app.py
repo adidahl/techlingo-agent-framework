@@ -557,8 +557,6 @@ def main() -> None:
         )
         ex_obj = cast(Any, ex["exercise"])
         st.markdown(f"### {getattr(ex_obj, 'prompt', '')}")
-        st.caption(f"Type: `{getattr(ex_obj, 'question_type', 'unknown')}`")
-
         _render_exercise_quiz(ex_obj, idx=idx, seed=st.session_state.quiz_seed + idx)
         
         # Navigation handled in _render_exercise_quiz, but we keep Back and Finish
