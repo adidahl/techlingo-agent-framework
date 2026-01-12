@@ -18,6 +18,17 @@ SYSTEM_JSON_ONLY = dedent(
 
 
 def difficulty_contract(difficulty: DifficultyLevel) -> str:
+    if difficulty == DifficultyLevel.novice:
+        return dedent(
+            """\
+            Difficulty: novice
+            - Use extremely simple, self-evident language.
+            - Focus on basic recognition and obvious facts.
+            - Ensure questions are very easy, almost trivial.
+            - No technical jargon whatsoever.
+            - Scenarios should be very simple and everyday.
+            """
+        )
     if difficulty == DifficultyLevel.beginner:
         return dedent(
             """\
@@ -50,7 +61,9 @@ def difficulty_contract(difficulty: DifficultyLevel) -> str:
     )
 
 
-def a1_modularizer_prompt(source_text: str, *, difficulty: DifficultyLevel, config: WorkflowConfig) -> str:
+def a1_modularizer_prompt(source_text: str, *, difficulty: DifficultyLevel, config: WorkflowConfig, override_title: str | None = None) -> str:
+    target_title = override_title if override_title else "AI Core Capabilities and Responsibility"
+    
     return dedent(
         f"""\
         {difficulty_contract(difficulty)}
@@ -59,7 +72,7 @@ def a1_modularizer_prompt(source_text: str, *, difficulty: DifficultyLevel, conf
         {source_text}
 
         Task (A1 Modularizer - Curriculum Mapping & Chunking):
-        Create a course map for: "AI Core Capabilities and Responsibility".
+        Create a course map for: "{target_title}".
 
         STRICT CONSTRAINT: Use ONLY information present in the source text. Do not use external knowledge.
         
@@ -74,7 +87,7 @@ def a1_modularizer_prompt(source_text: str, *, difficulty: DifficultyLevel, conf
 
         Output JSON schema:
         {{
-          "title": "AI Core Capabilities and Responsibility",
+          "title": "{target_title}",
           "modules": [
             {{
               "title": "Module Title",
@@ -91,7 +104,8 @@ def a1_modularizer_prompt(source_text: str, *, difficulty: DifficultyLevel, conf
     )
 
 
-def a2_scaffolder_prompt(course_map_json: str, *, difficulty: DifficultyLevel, config: WorkflowConfig) -> str:
+def a2_scaffolder_prompt(course_map_json: str, *, difficulty: DifficultyLevel, config: WorkflowConfig, override_title: str | None = None) -> str:
+    target_title = override_title if override_title else "AI Core Capabilities and Responsibility"
     blooms_reqs = "\n".join([f"- {k}: {v} exercises" for k, v in config.blooms_distribution.items()])
     type_reqs = "\n".join([f"    - {k}: {v}" for k, v in config.question_type_distribution.items()])
 
@@ -114,7 +128,14 @@ def a2_scaffolder_prompt(course_map_json: str, *, difficulty: DifficultyLevel, c
         - Each lesson must include:
           - exercises: exactly {config.exercises_per_lesson} items, with this exact per-lesson mix:
         {type_reqs}
-          - flashcards: exactly {config.flashcards_per_lesson} items
+          - flashcards: exactly {config.flashcards_per_lesson} items.
+            - STRICT CONSTRAINT: Atomic & Concise. Each flashcard must cover exactly ONE simple concept.
+            - Front: specific term, question, or scenario (max 10 words).
+            - Back: clear, direct definition or answer (max 15 words).
+            - FORBIDDEN: Do NOT generate "summaries", "lists of items", or "overview" cards.
+            - FORBIDDEN: Do NOT enable "List 3 types of..." style cards.
+            - Good: "What is X?" -> "X is ..."
+            - Good: "Action for X?" -> "Do Y."
         - Every exercise must include:
           - blooms_level (one of: Remembering, Understanding, Applying, Analyzing/Evaluating)
           - question_type (one of: single_choice, multi_choice, true_false, fill_gaps, rearrange)
@@ -135,15 +156,17 @@ def a2_scaffolder_prompt(course_map_json: str, *, difficulty: DifficultyLevel, c
           - parts: array of objects with discriminator field 'type'
             - {{"type":"text","text":"..."}}
             - {{"type":"gap","accepted_answers":["..."],"placeholder":"..."}}
-          - include at least 1 gap part
+          - include at least 1 gap part.
+          - STRICT CONSTRAINT: Semantic Coherence. The text surrounding the gap MUST provide enough context so that the accepted answer is the only logical choice. Do not create gaps where any random noun could fit.
         - rearrange:
-          - word_bank: list of tokens
-          - correct_order: list of tokens in correct order
-          - correct_order must use the same tokens as word_bank
+          - word_bank: list of tokens (words or short phrases).
+          - correct_order: list of tokens in correct order.
+          - correct_order must use the same tokens as word_bank.
+          - Task must be "Reconstruct the sentence" or "Order the steps". Do NOT use scenarios for this type.
 
         Output JSON schema (must be valid and complete):
         {{
-          "title": "AI Core Capabilities and Responsibility",
+          "title": "{target_title}",
           "modules": [
             {{
               "title": "Module Title",
@@ -184,8 +207,7 @@ def a2_scaffolder_prompt(course_map_json: str, *, difficulty: DifficultyLevel, c
         }}
         """
     )
-
-
+    
 def a3_scenario_designer_prompt(course_json: str, *, difficulty: DifficultyLevel, config: WorkflowConfig) -> str:
     blooms_counts = "/".join([str(v) for v in config.blooms_distribution.values()])
     return dedent(
@@ -196,13 +218,24 @@ def a3_scenario_designer_prompt(course_json: str, *, difficulty: DifficultyLevel
         {course_json}
 
         Task (A3 Merrill’s Agent - Scenario Designer):
-        Rewrite exercises to ensure contextual relevance:
-        - Every Applying and Analyzing/Evaluating exercise MUST be scenario-based (include scenario + clear decision point in prompt).
-        - Preferably make Understanding exercises scenario-based too (when natural).
+        Rewrite exercises to ensure contextual relevance and stylistic variety:
+        
+        1. **Higher-Order Thinking (Applying, Analyzing/Evaluating)**:
+           - MUST be scenario-based (EXCEPT 'rearrange' and 'fill_gaps').
+           - Include a brief scenario + clear decision point/problem.
+        
+        2. **Lower-Order Thinking (Remembering, Understanding)**:
+           - MUST be **DIRECT** questions (NO "Scenario:" prefix, NO "You are a..." framing).
+           - Focus on clear, concise concept checking.
+           - Exception: If the concept is abstract, a very brief example is okay, but avoid full role-play scenarios.
+        
+        3. **Specific Type Constraints**:
+           - **rearrange**: Do NOT use scenarios. Prompt should be "Arrange the following steps..." or "Reconstruct the sentence...".
+           - **fill_gaps**: Do NOT use scenarios. Prompt should be a direct statement with missing key terms. Ensure the sentence makes sense grammatically even with the gap.
 
         STRICT CONSTRAINT: Use ONLY information present in the source text. Do not use external knowledge.
 
-        Scenario requirements (for scenario-based items):
+        Scenario requirements (for Applying/Analyzing only, excluding rearrange/fill_gaps):
         - Problem-centered trigger event
         - Relatable protagonist (role/title)
         - Clear decision point in the question
@@ -237,7 +270,7 @@ def a4_feedback_architect_prompt(course_json: str, *, difficulty: DifficultyLeve
         - Add a 'rationale' (2-3 sentences) for EVERY option (both correct and incorrect).
         - Add a 'better_fit' (1-2 sentences) for EVERY incorrect option.
         - For EVERY incorrect option, you MUST add a 'feedback' object with:
-            - intrinsic: realistic consequence/system reaction to the error.
+            - intrinsic: realistic consequence within the context of the scenario (never a software system error unless the context IS software systems).
             - instructional: conversational coaching that explains the violated principle.
 
         For true_false exercises:
@@ -247,7 +280,12 @@ def a4_feedback_architect_prompt(course_json: str, *, difficulty: DifficultyLeve
         For fill_gaps / rearrange:
         - Add 'feedback_for_correct' (brief reinforcement).
 
-        STRICT CONSTRAINT: Use ONLY information present in the source text. Do not use external knowledge.
+        STRICT CONSTRAINT: Use ONLY information present in the source text. Do not use external knowledge. Verify that every explanation can be pointed to in the source text.
+        
+        NEGATIVE CONSTRAINTS:
+        - Do NOT use terms like 'SLO', 'learning objective', 'system', 'tool', or 'AI'.
+        - Do NOT frame feedback as 'The system will...' or 'The tool suggests...'.
+        - Ensure feedback sounds like a human mentor, not a software debugger.
 
         Constraints:
         - Populate 'rationale' for all options.
@@ -281,13 +319,15 @@ def a5_source_check_prompt(course_json: str, source_text: str) -> str:
         1. Review every exercise in the course.
         2. Check if the CORRECT ANSWER is explicitly supported by the Source Text.
         3. If the answer requires outside knowledge, flag it.
+        4. Check 'fill_gaps' exercises: does the sentence make grammatical sense when filled? Is the context sufficient to derive the answer?
+        5. Check 'rearrange' exercises: is the "correct order" a valid, logical sentence or sequence?
 
         Output JSON schema:
         {{
           "issues": [
             {{
               "path": "modules[0].lessons[0].exercises[0]",
-              "message": "Answer relies on external knowledge about X, which is not in the source text."
+              "message": "Answer relies on external knowledge... OR Fill-gap sentence is grammatically broken... OR Rearrange order is illogical..."
             }}
           ]
         }}
@@ -314,19 +354,138 @@ def a5_repair_prompt(bad_course_json: str, issues_json: str, config: WorkflowCon
         - Exercise type mix per lesson (exact counts within the {config.exercises_per_lesson} exercises):
 {type_reqs}
         - Each lesson has exactly {config.flashcards_per_lesson} flashcards.
-        - Every Applying and Analyzing/Evaluating exercise must be scenario-based (prompt must clearly describe a scenario + decision point).
+        - Every Applying and Analyzing/Evaluating exercise must be scenario-based (EXCEPT rearrange/fill_gaps).
         - For scenario-based single_choice and multi_choice exercises: each incorrect option must include paired feedback (intrinsic + instructional).
         - For single_choice and multi_choice exercises:
           - ALL options must have a 'rationale' (2-3 sentences explaining why it is correct/incorrect).
           - ALL incorrect options must have a 'better_fit' (1-2 sentences describing where it would be correct).
         - For scenario-based true_false exercises: feedback_for_incorrect must be present (intrinsic + instructional).
+        - For fill_gaps: Ensure grammatical correctness and semantic coherence (no "guess the noun" games).
+        - For rearrange: Ensure the final order forms a logical sentence or process step. DO NOT use scenarios.
 
         Validation issues:
         {issues_json}
-
+        
         Current course JSON:
         {bad_course_json}
         """
     )
 
 
+
+def analyzer_prompt(source_text: str) -> str:
+    return dedent(
+        f"""\
+        You are an expert Text Analyst and Linguist.
+        Your goal is to break down the source text into its constituent parts to ensure absolutely NOTHING is missed.
+        
+        Source Text:
+        {source_text}
+        
+        Task:
+        Analyze the text and identify EVERY:
+        - Term (key vocabulary)
+        - Definition (explicit or implicit)
+        - Explanation (how things work, why they matter)
+        - Example (illustrations of concepts)
+        - Analogy (comparisons)
+        - Subject (main topics)
+
+        You must also recommend a course structure (Workflow Config) based on the depth and breadth of the content.
+        - modules_count: typically 1 (since input is usually a single module/unit). Only suggest >1 if content is massive and clearly distinct sections.
+        - lessons_total: typically 5-15 depending on content length.
+        - exercises_per_lesson: typically 15-30 (as requested for robust practice).
+        - flashcards_per_lesson: typically 6-10
+        - blooms_distribution: how many of each level per lesson (Remembering/Understanding/Applying/Analyzing/Evaluating)
+        - question_type_distribution: exact mix of question types per lesson. 
+          STRICT CONSTRAINTS:
+          1. Must sum EXACTLY to exercises_per_lesson.
+          2. Use ONLY these keys: "single_choice", "multi_choice", "true_false", "fill_gaps", "rearrange".
+          3. DO NOT use "short_answer" or any other keys.
+
+        
+        Output JSON schema:
+        {{
+            "input_summary": "Brief summary of the text",
+            "parts": [
+                {{
+                    "type": "term|definition|explanation|example|analogy|subject",
+                    "content": "The actual text snippet or summary of the part",
+                    "context": "Optional context if needed"
+                }}
+            ],
+            "metadata": {{
+                "total_parts": 0,
+                "parts_by_type": {{
+                    "term": 0,
+                    "definition": 0,
+                    "explanation": 0,
+                    "example": 0,
+                    "analogy": 0,
+                    "subject": 0
+                }},
+                "estimated_questions_needed": 0,
+                "completeness_score": 0.0
+            }},
+            "recommended_config": {{
+                "difficulty": "beginner|intermediate|advanced",
+                "modules_count": 0,
+                "min_lessons_total": 0,
+                "max_lessons_total": 0,
+                "exercises_per_lesson": 0,
+                "flashcards_per_lesson": 0,
+                "blooms_distribution": {{
+                    "Remembering": 0,
+                    "Understanding": 0,
+                    "Applying": 0,
+                    "Analyzing/Evaluating": 0
+                }},
+                "question_type_distribution": {{
+                    "single_choice": 0,
+                    "multi_choice": 0,
+                    "true_false": 0,
+                    "fill_gaps": 0,
+                    "rearrange": 0
+                }}
+            }}
+        }}
+        
+        STRICT CONSTRAINT FOR 'difficulty':
+        You MUST pick exactly ONE value: "beginner", "intermediate", or "advanced".
+        Do NOT combine them (e.g., "beginner-to-intermediate" is INVALID).
+        pick the single closest difficulty level.
+        """
+    )
+
+
+def reviewer_prompt(source_text: str, current_analysis_json: str) -> str:
+    return dedent(
+        f"""\
+        You are a meticulous Content Reviewer.
+        Your goal is to check if the previous analysis missed ANYTHING from the source text.
+        
+        Source Text:
+        {source_text}
+        
+        Current Analysis:
+        {current_analysis_json}
+        
+        Task:
+        1. Compare the Source Text against the Current Analysis.
+        2. Identify any missing Terms, Definitions, Explanations, Examples, Analogies, or Subjects.
+        3. If items are missing, add them.
+        4. If items are incorrect, fix them.
+        6. Verify and Refine the `recommended_config`:
+           - Ensure it pushes for deep learning (e.g., higher Bloom's levels).
+           - Ensure exercises_per_lesson is 15-30.
+           - Ensure question_type_distribution sums EXACTLY to exercises_per_lesson.
+           - Ensure question_type_distribution ONLY uses keys: "single_choice", "multi_choice", "true_false", "fill_gaps", "rearrange".
+           - REMOVE any invalid keys like "short_answer".
+        
+        STRICT CONSTRAINT FOR 'difficulty':
+        Ensure 'difficulty' is exactly one of: "beginner", "intermediate", "advanced".
+        If it contains a range like "beginner-to-intermediate", CHANGE it to the single highest level (e.g., "intermediate").
+        
+        Output the FULL validated/corrected JSON using the same schema.
+        """
+    )

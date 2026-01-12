@@ -11,8 +11,8 @@ from dotenv import load_dotenv
 
 from .config import load_workflow_config, DifficultyLevel
 from .io import read_input_text, write_json, write_text
-from .models import PipelineState, WorkflowRunResult
-from .workflow import build_techlingo_workflow
+from .models import PipelineState, WorkflowRunResult, TextAnalysisResult
+from .workflow import build_techlingo_workflow, build_analysis_workflow
 
 
 app = typer.Typer(no_args_is_help=True)
@@ -48,6 +48,11 @@ def run(
         None,
         "--config",
         help="Path to workflow_config.json. Defaults to workflow_config.json if present, or internal defaults.",
+    ),
+    title: Optional[str] = typer.Option(
+        None,
+        "--title",
+        help="Manual override for the output course/module title.",
     ),
 ) -> None:
     """Run the Techlingo A1–A5 workflow and write JSON artifacts to disk."""
@@ -92,11 +97,14 @@ def run(
         model_id=model_id,
         difficulty=final_difficulty,
         config=loaded_config,
+        override_title=title,
     )
 
     typer.echo(f"Run started: {run_id}")
     typer.echo(f"Run dir: {run_dir}")
     typer.echo(f"Difficulty: {final_difficulty.value}")
+    if title:
+        typer.echo(f"Title Override: {title}")
 
     def _get_executor_id(evt: object) -> str | None:
         # Different AF versions may use slightly different attribute names.
@@ -221,3 +229,133 @@ def run(
     typer.echo(f"Outputs: {result.run_dir}")
 
 
+
+@app.command()
+def analyze(
+    input_text: Optional[str] = typer.Option(None, help="Raw source text to analyze."),
+    input_file: Optional[Path] = typer.Option(None, exists=True, dir_okay=False, help="Path to a text file input."),
+    out_dir: Path = typer.Option(Path("outputs"), help="Output directory for run artifacts."),
+    dotenv_path: Optional[Path] = typer.Option(None, help="Optional .env path (defaults to .env in repo root)."),
+    model_id: Optional[str] = typer.Option(
+        None,
+        help="OpenAI chat model id. If omitted, uses OPENAI_CHAT_MODEL_ID from .env/environment.",
+    ),
+    verbose: bool = typer.Option(
+        False,
+        "--verbose/--no-verbose",
+        help="Print workflow progress events (and agent streaming updates when available).",
+    ),
+) -> None:
+    """Run the Text Analysis workflow (Analyzer -> Reviewer)."""
+    env_path = dotenv_path if dotenv_path is not None else Path(".env")
+    load_dotenv(env_path, override=False)
+
+    if not model_id:
+        model_id = os.getenv("OPENAI_CHAT_MODEL_ID")
+
+    if not os.getenv("OPENAI_API_KEY"):
+        raise typer.BadParameter("OPENAI_API_KEY is required. Set it in .env.")
+
+    if not model_id:
+        raise typer.BadParameter(
+            "OpenAI model id is required. Set OPENAI_CHAT_MODEL_ID in .env or pass --model-id."
+        )
+
+    text = read_input_text(input_text, str(input_file) if input_file else None)
+
+    from .io import new_run_dir
+
+    workflow = build_analysis_workflow()
+    run_id, run_dir = new_run_dir(out_dir)
+    
+    state = PipelineState(
+        run_id=run_id,
+        run_dir=str(run_dir),
+        input_text=text,
+        model_id=model_id,
+    )
+
+    typer.echo(f"Analysis Run started: {run_id}")
+    typer.echo(f"Run dir: {run_dir}")
+
+    def _get_executor_id(evt: object) -> str | None:
+        return (
+            getattr(evt, "executor_id", None)
+            or getattr(evt, "executorId", None)
+            or getattr(evt, "ExecutorId", None)
+        )
+
+    async def _run() -> TextAnalysisResult:
+        output: TextAnalysisResult | None = None
+        started_at: dict[str, float] = {}
+
+        async for evt in workflow.run_stream(state):
+            name = evt.__class__.__name__
+            executor_id = _get_executor_id(evt)
+
+            # Surface logs
+            if name == "StageLogEvent":
+                msg = getattr(evt, "message", None)
+                ts = time.strftime("%H:%M:%S")
+                if msg:
+                    typer.echo(f"[{ts}] {msg}")
+
+            # Progress tracking
+            ts = time.strftime("%H:%M:%S")
+            if name in {"ExecutorInvokedEvent", "ExecutorInvokeEvent"} and executor_id:
+                started_at[executor_id] = time.monotonic()
+                typer.echo(f"[{ts}] START {executor_id}")
+
+            elif name in {"ExecutorCompletedEvent", "ExecutorCompleteEvent"} and executor_id:
+                dt = ""
+                if executor_id in started_at:
+                    dt = f" ({time.monotonic() - started_at[executor_id]:.1f}s)"
+                typer.echo(f"[{ts}] DONE  {executor_id}{dt}")
+
+            elif name == "ExecutorFailedEvent" and executor_id:
+                details = getattr(evt, "details", None)
+                msg = getattr(details, "message", None) if details is not None else None
+                typer.echo(f"[{ts}] FAIL  {executor_id}: {msg or 'unknown error'}")
+
+            if verbose:
+                 if name not in {
+                    "StageLogEvent",
+                    "ExecutorInvokedEvent",
+                    "ExecutorInvokeEvent",
+                    "ExecutorCompletedEvent",
+                    "ExecutorCompleteEvent",
+                    "ExecutorFailedEvent",
+                    "WorkflowOutputEvent",
+                    "WorkflowErrorEvent",
+                    "WorkflowStartedEvent",
+                    "SuperStepStartedEvent",
+                    "SuperStepCompletedEvent",
+                }:
+                    typer.echo(f"[{ts}] EVENT {name}: {evt}")
+
+            if name == "WorkflowOutputEvent":
+                output = getattr(evt, "data", None)
+
+            if name == "WorkflowErrorEvent":
+                exc = getattr(evt, "exception", None)
+                raise RuntimeError(str(exc) if exc is not None else "WorkflowErrorEvent")
+
+        if output is None:
+            raise RuntimeError("Workflow completed without WorkflowOutputEvent.")
+        return output
+
+    try:
+        result = asyncio.run(_run())
+    except KeyboardInterrupt:
+        typer.echo("\nInterrupted (Ctrl+C).")
+        raise typer.Exit(code=130)
+
+    typer.echo(f"Analysis complete: {run_id}")
+    
+    # Save recommended config
+    rec_config_path = run_dir / "recommended_workflow_config.json"
+    write_json(rec_config_path, result.recommended_config.model_dump(mode="json"))
+    typer.echo(f"Recommended config written to: {rec_config_path}")
+
+    typer.echo(f"Outputs: {result.parts[0].content[:50]}..." if result.parts else "No parts found")
+    typer.echo(f"Full artifacts in: {run_dir}")

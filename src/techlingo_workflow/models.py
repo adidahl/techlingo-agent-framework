@@ -147,6 +147,36 @@ class ValidationReport(BaseModel):
     repaired: bool = False
 
 
+class TextPartType(str, Enum):
+    term = "term"
+    definition = "definition"
+    explanation = "explanation"
+    example = "example"
+    analogy = "analogy"
+    subject = "subject"
+
+
+class TextPart(BaseModel):
+    type: TextPartType
+    content: str
+    context: Optional[str] = Field(default=None, description="Surrounding context if needed for clarity.")
+
+
+class TextAnalysisMetadata(BaseModel):
+    total_parts: int
+    parts_by_type: dict[TextPartType, int]
+    estimated_questions_needed: int = Field(..., description="Estimated number of questions needed to cover all parts.")
+    completeness_score: float = Field(..., description="0.0 to 1.0 score of how complete this analysis is.")
+
+
+class TextAnalysisResult(BaseModel):
+    input_summary: str
+    parts: list[TextPart]
+    metadata: TextAnalysisMetadata
+    recommended_config: WorkflowConfig = Field(..., description="Recommended workflow configuration based on analysis.")
+
+
+
 class PipelineState(BaseModel):
     """State passed through the workflow between executors."""
 
@@ -164,9 +194,12 @@ class PipelineState(BaseModel):
     a4_course: Optional[Course] = None
     a5_course: Optional[Course] = None
     validation_report: Optional[ValidationReport] = None
+    analysis_result: Optional[TextAnalysisResult] = None
     
     # Configuration
     config: WorkflowConfig = Field(default_factory=lambda: WorkflowConfig())
+    override_title: Optional[str] = Field(default=None, description="Manual override for the output course/module title.")
+
 
 
 class WorkflowRunResult(BaseModel):
@@ -174,5 +207,7 @@ class WorkflowRunResult(BaseModel):
     run_dir: str
     course: Course
     validation_report: ValidationReport
+
+
 
 

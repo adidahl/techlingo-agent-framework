@@ -8,12 +8,14 @@ from typing_extensions import Never
 from .events import StageLogEvent
 from .io import write_json
 from .llm import LLMClient
-from .models import Course, PipelineState, ValidationReport, WorkflowRunResult
+from .models import Course, PipelineState, ValidationReport, WorkflowRunResult, TextAnalysisResult
 from .prompts import (
     a1_modularizer_prompt,
     a2_scaffolder_prompt,
     a3_scenario_designer_prompt,
     a4_feedback_architect_prompt,
+    analyzer_prompt,
+    reviewer_prompt,
 )
 from .validate import repair_course_if_needed, validate_course
 
@@ -27,7 +29,7 @@ async def a1_modularizer(state: PipelineState, ctx: WorkflowContext[PipelineStat
     await ctx.add_event(StageLogEvent("A1: starting modularizer (course map)"))
     llm = LLMClient(model_id=state.model_id, name="A1_Modularizer")
     await ctx.add_event(StageLogEvent("A1: calling LLM"))
-    data = await llm.run_json(a1_modularizer_prompt(state.input_text, difficulty=state.difficulty, config=state.config))
+    data = await llm.run_json(a1_modularizer_prompt(state.input_text, difficulty=state.difficulty, config=state.config, override_title=state.override_title))
     await ctx.add_event(StageLogEvent("A1: received LLM response, writing artifact"))
     state.a1_course_map = data
     write_json(_artifact_path(state, "a1_course_map.json"), data)
@@ -43,7 +45,12 @@ async def a2_scaffolder(state: PipelineState, ctx: WorkflowContext[PipelineState
     llm = LLMClient(model_id=state.model_id, name="A2_Scaffolder")
     course_map_json = json.dumps(state.a1_course_map, ensure_ascii=False, indent=2)
     await ctx.add_event(StageLogEvent("A2: calling LLM (this step can take a few minutes)"))
-    data = await llm.run_json(a2_scaffolder_prompt(course_map_json, difficulty=state.difficulty, config=state.config))
+    data = await llm.run_json(a2_scaffolder_prompt(
+        course_map_json, 
+        difficulty=state.difficulty, 
+        config=state.config,
+        override_title=state.override_title
+    ))
     await ctx.add_event(StageLogEvent("A2: received LLM response, validating schema"))
     course = Course.model_validate(data)
     course.difficulty = state.difficulty
@@ -120,3 +127,69 @@ async def a5_validator(state: PipelineState, ctx: WorkflowContext[Never, Workflo
     )
 
 
+
+@executor(id="text_analyzer")
+async def text_analyzer(state: PipelineState, ctx: WorkflowContext[PipelineState]) -> None:
+    await ctx.add_event(StageLogEvent("Analyzer: starting text analysis"))
+    llm = LLMClient(model_id=state.model_id, name="Text_Analyzer")
+    
+    await ctx.add_event(StageLogEvent("Analyzer: calling LLM"))
+    data = await llm.run_json(analyzer_prompt(state.input_text))
+    
+    await ctx.add_event(StageLogEvent("Analyzer: received LLM response, parsing"))
+    result = TextAnalysisResult.model_validate(data)
+    state.analysis_result = result
+    
+    write_json(_artifact_path(state, "analysis_initial.json"), result.model_dump(mode="json"))
+    await ctx.add_event(StageLogEvent("Analyzer: done, forwarding to Reviewer"))
+    await ctx.send_message(state)
+
+
+@executor(id="text_reviewer")
+async def text_reviewer(state: PipelineState, ctx: WorkflowContext[Never, TextAnalysisResult]) -> None:
+    if state.analysis_result is None:
+        raise RuntimeError("Reviewer requires analysis result.")
+        
+    await ctx.add_event(StageLogEvent("Reviewer: starting review"))
+    llm = LLMClient(model_id=state.model_id, name="Text_Reviewer")
+    
+    current_json = state.analysis_result.model_dump_json(indent=2)
+    
+    await ctx.add_event(StageLogEvent("Reviewer: calling LLM to check content"))
+    data = await llm.run_json(reviewer_prompt(state.input_text, current_json))
+    
+    await ctx.add_event(StageLogEvent("Reviewer: received LLM response, parsing"))
+    final_result = TextAnalysisResult.model_validate(data)
+    state.analysis_result = final_result
+    
+    await ctx.add_event(StageLogEvent("Reviewer: writing final artifact"))
+    write_json(_artifact_path(state, "analysis_final.json"), final_result.model_dump(mode="json"))
+    
+    # Also write a text summary as requested
+    summary_path = f"{state.run_dir}/analysis_summary.txt"
+    with open(summary_path, "w") as f:
+        f.write(f"Analysis Summary for: {final_result.input_summary}\n")
+        f.write(f"Completeness Score: {final_result.metadata.completeness_score}\n")
+        f.write(f"Estimated Questions: {final_result.metadata.estimated_questions_needed}\n")
+        f.write("--------------------------------------------------\n")
+        f.write(f"Terms: {final_result.metadata.parts_by_type.get('term', 0)}\n")
+        f.write(f"Definitions: {final_result.metadata.parts_by_type.get('definition', 0)}\n")
+        f.write(f"Explanations: {final_result.metadata.parts_by_type.get('explanation', 0)}\n")
+        f.write(f"Examples: {final_result.metadata.parts_by_type.get('example', 0)}\n")
+        f.write(f"Analogies: {final_result.metadata.parts_by_type.get('analogy', 0)}\n")
+        f.write(f"Subjects: {final_result.metadata.parts_by_type.get('subject', 0)}\n")
+        f.write("--------------------------------------------------\n")
+        f.write("Recommended Configuration:\n")
+        f.write(json.dumps(final_result.recommended_config.model_dump(mode="json"), indent=2))
+        f.write("\n")
+        f.write("\n--- Parts Details ---\n")
+        for part in final_result.parts:
+            f.write(f"[{part.type.upper()}] {part.content}\n")
+            if part.context:
+                f.write(f"  Context: {part.context}\n")
+            f.write("\n")
+            
+    await ctx.add_event(StageLogEvent(f"Reviewer: Summary written to {summary_path}"))
+    
+    await ctx.add_event(StageLogEvent("Reviewer: done, emitting final output"))
+    await ctx.yield_output(final_result)
