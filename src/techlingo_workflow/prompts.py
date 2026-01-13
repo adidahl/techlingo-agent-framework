@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from textwrap import dedent
+from typing import Any
 from .config import WorkflowConfig, DifficultyLevel
 
 
@@ -104,14 +105,35 @@ def a1_modularizer_prompt(source_text: str, *, difficulty: DifficultyLevel, conf
     )
 
 
-def a2_scaffolder_prompt(course_map_json: str, *, difficulty: DifficultyLevel, config: WorkflowConfig, override_title: str | None = None) -> str:
+def a2_scaffolder_prompt(
+    course_map_json: str, 
+    *, 
+    difficulty: DifficultyLevel, 
+    config: WorkflowConfig, 
+    override_title: str | None = None,
+    validation_issues: list[dict[str, Any]] | None = None
+) -> str:
     target_title = override_title if override_title else "AI Core Capabilities and Responsibility"
     blooms_reqs = "\n".join([f"- {k}: {v} exercises" for k, v in config.blooms_distribution.items()])
     type_reqs = "\n".join([f"    - {k}: {v}" for k, v in config.question_type_distribution.items()])
 
+    # Construct feedback section if issues exist
+    feedback_section = ""
+    if validation_issues:
+        issues_str = "\n".join([f"- {i['severity'].upper()} at {i['path']}: {i['message']}" for i in validation_issues])
+        feedback_section = dedent(f"""
+        CRITICAL INSTRUCTION - PREVIOUS ATTEMPT FAILED VALIDATION
+        Your previous output had the following errors. You MUST fix them in this new attempt:
+        {issues_str}
+        
+        Refuse to generate the same broken content again.
+        """)
+
     return dedent(
         f"""\
         {difficulty_contract(difficulty)}
+
+        {feedback_section}
 
         Input course map JSON:
         {course_map_json}

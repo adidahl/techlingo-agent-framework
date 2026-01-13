@@ -44,12 +44,21 @@ async def a2_scaffolder(state: PipelineState, ctx: WorkflowContext[PipelineState
     await ctx.add_event(StageLogEvent("A2: starting scaffolder (8 exercises per lesson)"))
     llm = LLMClient(model_id=state.model_id, name="A2_Scaffolder")
     course_map_json = json.dumps(state.a1_course_map, ensure_ascii=False, indent=2)
+    
+    # Check for previous validation errors to pass for self-correction
+    validation_issues = None
+    if state.validation_report and not state.validation_report.ok:
+         # Only pass errors, warnings don't trigger a retry usually
+         validation_issues = [i.model_dump() for i in state.validation_report.issues if i.severity == "error"]
+         await ctx.add_event(StageLogEvent(f"A2: self-correcting retry {state.retry_count}. Injecting {len(validation_issues)} errors."))
+
     await ctx.add_event(StageLogEvent("A2: calling LLM (this step can take a few minutes)"))
     data = await llm.run_json(a2_scaffolder_prompt(
         course_map_json, 
         difficulty=state.difficulty, 
         config=state.config,
-        override_title=state.override_title
+        override_title=state.override_title,
+        validation_issues=validation_issues
     ))
     await ctx.add_event(StageLogEvent("A2: received LLM response, validating schema"))
     course = Course.model_validate(data)
@@ -110,6 +119,16 @@ async def a5_validator(state: PipelineState, ctx: WorkflowContext[Never, Workflo
     repaired_course.difficulty = state.difficulty
     state.a5_course = repaired_course
     state.validation_report = report
+
+    # Loop Logic: If invalid and we haven't maxed out retries, send back to A2
+    MAX_RETRIES = 2
+    if not report.ok and state.retry_count < MAX_RETRIES:
+        state.retry_count += 1
+        await ctx.add_event(StageLogEvent(f"A5: Validation failed (errors found). Looping back to A2 (Attempt {state.retry_count}/{MAX_RETRIES})."))
+        # We DO NOT yield output here. We loop back.
+        # The edges in workflow.py will handle the routing, but we need to ensure we don't proceed to 'yield_output'.
+        await ctx.send_message(state)
+        return
 
     await ctx.add_event(StageLogEvent("A5: writing final artifacts"))
     write_json(_artifact_path(state, "a5_course.json"), repaired_course.model_dump(mode="json"))

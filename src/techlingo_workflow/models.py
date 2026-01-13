@@ -199,6 +199,7 @@ class PipelineState(BaseModel):
     # Configuration
     config: WorkflowConfig = Field(default_factory=lambda: WorkflowConfig())
     override_title: Optional[str] = Field(default=None, description="Manual override for the output course/module title.")
+    retry_count: int = Field(default=0, description="Number of times the workflow has looped back for self-correction.")
 
 
 
