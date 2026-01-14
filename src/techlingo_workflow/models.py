@@ -130,6 +130,10 @@ class Course(BaseModel):
         default=None,
         description="Optional short summary of the source content used to generate this course.",
     )
+    thought_process: Optional[list[str]] = Field(
+        default=None,
+        description="Step-by-step reasoning log from the agent.",
+    )
     generated_at: datetime = Field(default_factory=datetime.utcnow)
     schema_version: str = "v2"
 
@@ -145,6 +149,10 @@ class ValidationReport(BaseModel):
     issues: list[ValidationIssue] = Field(default_factory=list)
     counts: dict[str, Any] = Field(default_factory=dict)
     repaired: bool = False
+    thought_process: Optional[list[str]] = Field(
+        default=None,
+        description="Step-by-step reasoning log from the agent.",
+    )
 
 
 class TextPartType(str, Enum):
@@ -174,6 +182,10 @@ class TextAnalysisResult(BaseModel):
     parts: list[TextPart]
     metadata: TextAnalysisMetadata
     recommended_config: WorkflowConfig = Field(..., description="Recommended workflow configuration based on analysis.")
+    thought_process: Optional[list[str]] = Field(
+        default=None,
+        description="Step-by-step reasoning log from the agent.",
+    )
 
 
 

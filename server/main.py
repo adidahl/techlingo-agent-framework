@@ -120,6 +120,7 @@ async def websocket_endpoint(websocket: WebSocket):
             if name == "StageLogEvent":
                 msg = getattr(evt, "message", None)
                 if msg:
+                     print(msg, flush=True)
                      await websocket.send_json({"type": "log", "ts": ts, "message": msg})
 
             elif name in {"ExecutorInvokedEvent", "ExecutorInvokeEvent"} and executor_id:
@@ -249,6 +250,7 @@ async def websocket_analyze(websocket: WebSocket):
                 if name == "StageLogEvent":
                     msg = getattr(evt, "message", None)
                     if msg:
+                         print(msg, flush=True)
                          await websocket.send_json({"type": "log", "ts": ts, "message": msg})
 
                 elif name in {"ExecutorInvokedEvent", "ExecutorInvokeEvent"} and executor_id:

@@ -31,6 +31,11 @@ async def a1_modularizer(state: PipelineState, ctx: WorkflowContext[PipelineStat
     await ctx.add_event(StageLogEvent("A1: calling LLM"))
     data = await llm.run_json(a1_modularizer_prompt(state.input_text, difficulty=state.difficulty, config=state.config, override_title=state.override_title))
     await ctx.add_event(StageLogEvent("A1: received LLM response, writing artifact"))
+
+    if "thought_process" in data and isinstance(data["thought_process"], list):
+        thought_str = "\n".join([f"  > {t}" for t in data["thought_process"]])
+        await ctx.add_event(StageLogEvent(f"A1 Thought Process:\n{thought_str}"))
+
     state.a1_course_map = data
     write_json(_artifact_path(state, "a1_course_map.json"), data)
     await ctx.add_event(StageLogEvent("A1: done, forwarding to A2"))
@@ -61,6 +66,11 @@ async def a2_scaffolder(state: PipelineState, ctx: WorkflowContext[PipelineState
         validation_issues=validation_issues
     ))
     await ctx.add_event(StageLogEvent("A2: received LLM response, validating schema"))
+
+    if "thought_process" in data and isinstance(data["thought_process"], list):
+        thought_str = "\n".join([f"  > {t}" for t in data["thought_process"]])
+        await ctx.add_event(StageLogEvent(f"A2 Thought Process:\n{thought_str}"))
+
     course = Course.model_validate(data)
     course.difficulty = state.difficulty
     state.a2_course = course
@@ -79,6 +89,11 @@ async def a3_scenario_designer(state: PipelineState, ctx: WorkflowContext[Pipeli
     await ctx.add_event(StageLogEvent("A3: calling LLM"))
     data = await llm.run_json(a3_scenario_designer_prompt(course_json, difficulty=state.difficulty, config=state.config))
     await ctx.add_event(StageLogEvent("A3: received LLM response, validating schema"))
+
+    if "thought_process" in data and isinstance(data["thought_process"], list):
+        thought_str = "\n".join([f"  > {t}" for t in data["thought_process"]])
+        await ctx.add_event(StageLogEvent(f"A3 Thought Process:\n{thought_str}"))
+
     course = Course.model_validate(data)
     course.difficulty = state.difficulty
     state.a3_course = course
@@ -97,6 +112,11 @@ async def a4_feedback_architect(state: PipelineState, ctx: WorkflowContext[Pipel
     await ctx.add_event(StageLogEvent("A4: calling LLM"))
     data = await llm.run_json(a4_feedback_architect_prompt(course_json, difficulty=state.difficulty, config=state.config))
     await ctx.add_event(StageLogEvent("A4: received LLM response, validating schema"))
+
+    if "thought_process" in data and isinstance(data["thought_process"], list):
+        thought_str = "\n".join([f"  > {t}" for t in data["thought_process"]])
+        await ctx.add_event(StageLogEvent(f"A4 Thought Process:\n{thought_str}"))
+
     course = Course.model_validate(data)
     course.difficulty = state.difficulty
     state.a4_course = course
@@ -119,6 +139,18 @@ async def a5_validator(state: PipelineState, ctx: WorkflowContext[Never, Workflo
     repaired_course.difficulty = state.difficulty
     state.a5_course = repaired_course
     state.validation_report = report
+
+    # Log repairs thought process if available
+    if repaired_course.thought_process:
+        thought_str = "\n".join([f"  > {t}" for t in repaired_course.thought_process])
+        await ctx.add_event(StageLogEvent(f"A5 Repair Thought Process:\n{thought_str}"))
+
+    # Log validation issues
+    if not report.ok:
+        issues_str = "\n".join([f"  - [{i.severity.upper()}] {i.path}: {i.message}" for i in report.issues])
+        await ctx.add_event(StageLogEvent(f"A5 Validation Issues:\n{issues_str}"))
+    else:
+        await ctx.add_event(StageLogEvent("A5 Validation passed."))
 
     # Loop Logic: If invalid and we haven't maxed out retries, send back to A2
     MAX_RETRIES = 2
@@ -156,6 +188,11 @@ async def text_analyzer(state: PipelineState, ctx: WorkflowContext[PipelineState
     data = await llm.run_json(analyzer_prompt(state.input_text))
     
     await ctx.add_event(StageLogEvent("Analyzer: received LLM response, parsing"))
+
+    if "thought_process" in data and isinstance(data["thought_process"], list):
+        thought_str = "\n".join([f"  > {t}" for t in data["thought_process"]])
+        await ctx.add_event(StageLogEvent(f"Analyzer Thought Process:\n{thought_str}"))
+
     result = TextAnalysisResult.model_validate(data)
     state.analysis_result = result
     
@@ -178,6 +215,11 @@ async def text_reviewer(state: PipelineState, ctx: WorkflowContext[Never, TextAn
     data = await llm.run_json(reviewer_prompt(state.input_text, current_json))
     
     await ctx.add_event(StageLogEvent("Reviewer: received LLM response, parsing"))
+
+    if "thought_process" in data and isinstance(data["thought_process"], list):
+        thought_str = "\n".join([f"  > {t}" for t in data["thought_process"]])
+        await ctx.add_event(StageLogEvent(f"Reviewer Thought Process:\n{thought_str}"))
+
     final_result = TextAnalysisResult.model_validate(data)
     state.analysis_result = final_result
     

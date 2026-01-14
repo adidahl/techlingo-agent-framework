@@ -88,6 +88,11 @@ def a1_modularizer_prompt(source_text: str, *, difficulty: DifficultyLevel, conf
 
         Output JSON schema:
         {{
+          "thought_process": [
+            "Step 1: Analyzed source text...",
+            "Step 2: identified key themes...",
+            "Step 3: decided on module structure..."
+          ],
           "title": "{target_title}",
           "modules": [
             {{
@@ -144,6 +149,9 @@ def a2_scaffolder_prompt(
 
         STRICT CONSTRAINT: Use ONLY information present in the source text. Do not use external knowledge.
         STRICT CONSTRAINT: Verify that the exercises cover all subjects/terms defined in the lesson SLOs derived from the text.
+        STRICT CONSTRAINT: Do NOT reference the source text in your questions.
+        - Forbidden: "According to the text...", "As mentioned in the document...", "In this example...".
+        - Required: Teach the concept directly as a fact. (e.g., "AI is..." instead of "The text says AI is...").
 
 
         Constraints:
@@ -172,6 +180,7 @@ def a2_scaffolder_prompt(
           - 2 or 3 options where is_correct=true
           - Set option feedback/rationale/better_fit fields to null in A2 (they will be added later).
         - true_false:
+          - prompt: The learner-facing question or instruction (e.g., "Is the following statement true or false?").
           - statement: the statement to judge
           - correct_answer: true/false
         - fill_gaps:
@@ -188,6 +197,11 @@ def a2_scaffolder_prompt(
 
         Output JSON schema (must be valid and complete):
         {{
+          "thought_process": [
+            "Step 1: Reviewing input map...",
+            "Step 2: Generating exercises for Lesson 1...",
+            "Step 3: verifying Bloom's taxonomy distribution..."
+          ],
           "title": "{target_title}",
           "modules": [
             {{
@@ -203,12 +217,12 @@ def a2_scaffolder_prompt(
                       "prompt": "...",
 
                       "options": [
-                        {{ "text": "...", "is_correct": true, "error_type": null, "feedback": null, "rationale": null, "better_fit": null }},
-                        {{ "text": "...", "is_correct": false, "error_type": "...", "feedback": null, "rationale": null, "better_fit": null }}
+                        {{ "text": "...", "is_correct": true, "error_type": None, "feedback": None, "rationale": None, "better_fit": None }},
+                        {{ "text": "...", "is_correct": False, "error_type": "...", "feedback": None, "rationale": None, "better_fit": None }}
                       ],
 
                       "statement": "...",
-                      "correct_answer": true,
+                      "correct_answer": True,
 
                       "parts": [
                         {{ "type": "text", "text": "..." }},
@@ -256,6 +270,9 @@ def a3_scenario_designer_prompt(course_json: str, *, difficulty: DifficultyLevel
            - **fill_gaps**: Do NOT use scenarios. Prompt should be a direct statement with missing key terms. Ensure the sentence makes sense grammatically even with the gap.
 
         STRICT CONSTRAINT: Use ONLY information present in the source text. Do not use external knowledge.
+        STRICT CONSTRAINT: No Meta-References.
+        - The scenarios and questions must exist in the real world, not "in the document".
+        - NEVER say "As described in the text".
 
         Scenario requirements (for Applying/Analyzing only, excluding rearrange/fill_gaps):
         - Problem-centered trigger event
@@ -272,6 +289,8 @@ def a3_scenario_designer_prompt(course_json: str, *, difficulty: DifficultyLevel
         - Keep the correct answer semantically correct.
 
         Output: return the FULL updated course JSON (same schema as input).
+        
+        IMPORTANT: Start your JSON with a "thought_process" field (array of strings) explaining your decisions for the scenario updates.
         """
     )
 
@@ -307,6 +326,8 @@ def a4_feedback_architect_prompt(course_json: str, *, difficulty: DifficultyLeve
         NEGATIVE CONSTRAINTS:
         - Do NOT use terms like 'SLO', 'learning objective', 'system', 'tool', or 'AI'.
         - Do NOT frame feedback as 'The system will...' or 'The tool suggests...'.
+        - Do NOT reference "the text", "the document", or "the example" in feedback.
+        - Explain the concept as an expert, not as someone reading a book.
         - Ensure feedback sounds like a human mentor, not a software debugger.
 
         Constraints:
@@ -320,6 +341,8 @@ def a4_feedback_architect_prompt(course_json: str, *, difficulty: DifficultyLeve
         - Do not add or remove exercises or flashcards.
 
         Output: return the FULL updated course JSON.
+        
+        IMPORTANT: Start your JSON with a "thought_process" field (array of strings) explaining your feedback generation strategy.
         """
     )
 
@@ -328,8 +351,7 @@ def a5_source_check_prompt(course_json: str, source_text: str) -> str:
     return dedent(
         f"""\
         You are a strict Fact Checker and Editor.
-        Your goal is to identify exercises where the correct answer relies on external knowledge NOT present in the source text.
-        Even if a question is factually correct in the real world, if the source text does not support it, it is a HALLUCINATION.
+        Your goal is to identify ALL quality issues: Hallucinations, Logical Flaws, Bad Formatting, and Broken Integrity.
 
         Source Text:
         {source_text}
@@ -338,18 +360,31 @@ def a5_source_check_prompt(course_json: str, source_text: str) -> str:
         {course_json}
 
         Task:
-        1. Review every exercise in the course.
-        2. Check if the CORRECT ANSWER is explicitly supported by the Source Text.
-        3. If the answer requires outside knowledge, flag it.
-        4. Check 'fill_gaps' exercises: does the sentence make grammatical sense when filled? Is the context sufficient to derive the answer?
-        5. Check 'rearrange' exercises: is the "correct order" a valid, logical sentence or sequence?
+        Review every exercise and flag ANY of the following issues:
+
+        1. **Hallucinations**: The CORRECT ANSWER relies on external knowledge NOT in the source text.
+        2. **Formatting Artifacts**: Content contains leftover text from scraping/PDFs (e.g., "Expand table", "Image 1", "Click to view", "Note:", "Table 2", "Page 5").
+        3. **Question Type Integrity**:
+           - **true_false**: Questions MUST be statements to judge (e.g., "AI is scalable."), NOT instructions (e.g., "Choose the best tool...", "Decide which..."). They MUST NOT offer choices in the text.
+        4. **Logical Validity**:
+           - Is the question logically sound? (No self-contradictions).
+           - Is the "Correct" answer actually correct based on the premise and source text?
+           - **rearrange**: Is the "correct_order" a valid grammatical sentence (in the target language) or a logical process sequence?
+           - **fill_gaps**: Is the gap unique? Does the context logically force the accepted answer?
+        5. **Meta-References**:
+           - Does the content refer to "the text", "the document", "the section", or "this example"?
+           - Flag these as errors. The content must stand alone.
 
         Output JSON schema:
         {{
+          "thought_process": [
+            "Step 1: checking exercise 1...",
+            "Step 2: evaluating correctness & integrity..."
+          ],
           "issues": [
             {{
               "path": "modules[0].lessons[0].exercises[0]",
-              "message": "Answer relies on external knowledge... OR Fill-gap sentence is grammatically broken... OR Rearrange order is illogical..."
+              "message": "Found artifact 'Expand table'... OR T/F question is phrased as MCQ... OR Rearrange order is nonsense..."
             }}
           ]
         }}
@@ -367,6 +402,8 @@ def a5_repair_prompt(bad_course_json: str, issues_json: str, config: WorkflowCon
         f"""\
         You must repair the course JSON to satisfy all constraints.
         Return ONLY corrected JSON.
+        
+        IMPORTANT: Start your JSON with a "thought_process" field (array of strings) explaining the repairs you are making.
 
         Constraints to satisfy:
         - Exactly {config.modules_count} modules.
@@ -382,8 +419,15 @@ def a5_repair_prompt(bad_course_json: str, issues_json: str, config: WorkflowCon
           - ALL options must have a 'rationale' (2-3 sentences explaining why it is correct/incorrect).
           - ALL incorrect options must have a 'better_fit' (1-2 sentences describing where it would be correct).
         - For scenario-based true_false exercises: feedback_for_incorrect must be present (intrinsic + instructional).
-        - For fill_gaps: Ensure grammatical correctness and semantic coherence (no "guess the noun" games).
-        - For rearrange: Ensure the final order forms a logical sentence or process step. DO NOT use scenarios.
+        - For fill_gaps: Ensure grammatical correctness, semantic coherence, and that context uniquely determines the answer.
+        - For rearrange: Ensure the final order forms a valid grammatical sentence (in existing language) or logical process step.
+        - **Formatting**: REMOVE all scraping artifacts (e.g., "Expand table", "Image 1", "click here").
+        - **Integrity**: TRUE/FALSE questions MUST be statements (declarative sentences), NOT instructions (e.g., "Choose the tool").
+        - **Schema**: TRUE/FALSE exercises MUST have both:
+            - `prompt`: The learner-facing question/scenario (e.g., "Scenario: ... True or False?").
+            - `statement`: The core statement to judge (e.g., "The tool is appropriate.").
+        - **Logic**: Ensure all questions and answers are logically valid and properly structured.
+        - **Meta-References**: REMOVE all pointers to "the text", "the document", or "examples above". Rewrite as direct statements.
 
         Validation issues:
         {issues_json}
@@ -428,6 +472,11 @@ def analyzer_prompt(source_text: str) -> str:
         
         Output JSON schema:
         {{
+            "thought_process": [
+                "Step 1: Reading text...",
+                "Step 2: Identified main subjects...",
+                "Step 3: Extracting terms..."
+            ],
             "input_summary": "Brief summary of the text",
             "parts": [
                 {{
@@ -509,5 +558,7 @@ def reviewer_prompt(source_text: str, current_analysis_json: str) -> str:
         If it contains a range like "beginner-to-intermediate", CHANGE it to the single highest level (e.g., "intermediate").
         
         Output the FULL validated/corrected JSON using the same schema.
+        
+        IMPORTANT: Start your JSON with a "thought_process" field (array of strings) detailing your review findings and what you fixed.
         """
     )
