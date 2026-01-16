@@ -1,314 +1,419 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
-import styles from "./page.module.css";
+import { useState } from "react";
+import {
+    Button,
+    Textfield,
+    Select,
+    Label,
+    Heading,
+    Paragraph,
+} from "@digdir/designsystemet-react";
+import { useGenerator } from "../../hooks/useGenerator";
+import Console from "../../components/Console";
+import styles from "../layout.module.css";
+import { Search, Check, Upload, Download, Zap } from "lucide-react";
 
-type LogMessage = {
-    ts: string;
-    executor?: string;
-    message?: string;
-    event?: string;
-    duration?: number;
-    type: "log" | "progress" | "error" | "complete" | "start";
-    run_id?: string;
-    run_dir?: string;
-};
+import { useAnalyzer } from "../../hooks/useAnalyzer";
 
 export default function GeneratorPage() {
-    const [inputText, setInputText] = useState("");
-    const [moduleTitle, setModuleTitle] = useState("");
+    const { status, logs, startGenerator, result, error } = useGenerator();
+    const {
+        status: analyzeStatus,
+        result: analysisResult,
+        error: analyzeError,
+        progress: analyzeProgress,
+        currentStep: analyzeStep,
+        logs: analyzeLogs,
+        analyzeText
+    } = useAnalyzer();
+
+    const [topic, setTopic] = useState("");
+    const [title, setTitle] = useState("");
     const [difficulty, setDifficulty] = useState("beginner");
-    const [configJson, setConfigJson] = useState(
-        JSON.stringify(
-            {
-                difficulty: "beginner",
-                modules_count: 1,
-                min_lessons_total: 5,
-                max_lessons_total: 10,
-                exercises_per_lesson: 15,
-                flashcards_per_lesson: 5,
-                blooms_distribution: {
-                    "Remembering": 3,
-                    "Understanding": 4,
-                    "Applying": 4,
-                    "Analyzing/Evaluating": 4
-                },
-                question_type_distribution: {
-                    "single_choice": 3,
-                    "multi_choice": 3,
-                    "true_false": 3,
-                    "fill_gaps": 3,
-                    "rearrange": 3
-                }
-            },
-            null,
-            4
-        )
-    );
-    const [status, setStatus] = useState<"idle" | "running" | "completed" | "error">("idle");
-    const [logs, setLogs] = useState<LogMessage[]>([]);
-    const [result, setResult] = useState<any>(null);
-    const wsRef = useRef<WebSocket | null>(null);
-    const logEndRef = useRef<HTMLDivElement>(null);
 
-    // Auto-scroll logs
-    useEffect(() => {
-        logEndRef.current?.scrollIntoView({ behavior: "smooth" });
-    }, [logs]);
+    const [showAnalyzeLogs, setShowAnalyzeLogs] = useState(false);
 
-    const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files?.[0];
-        if (file) {
-            const text = await file.text();
-            setInputText(text);
+    const defaultTemplate = {
+        difficulty: "beginner",
+        modules_count: 1,
+        min_lessons_total: 1,
+        max_lessons_total: 1,
+        exercises_per_lesson: 5,
+        flashcards_per_lesson: 3,
+        blooms_distribution: {
+            "Remembering": 2,
+            "Understanding": 1,
+            "Applying": 1,
+            "Analyzing/Evaluating": 1
+        },
+        question_type_distribution: {
+            "single_choice": 1,
+            "multi_choice": 1,
+            "true_false": 1,
+            "fill_gaps": 1,
+            "rearrange": 1
         }
+    };
+
+    // Config state - initialized with default template
+    const [config, setConfig] = useState<any>(defaultTemplate);
+    const [configJson, setConfigJson] = useState(JSON.stringify(defaultTemplate, null, 2));
+    const [configFileName, setConfigFileName] = useState("Default Template");
+    const [jsonError, setJsonError] = useState<string | null>(null);
+
+    // Update both object and text when external sources (upload, analysis, template) change config
+    const updateConfigCompletely = (newConfig: any, sourceName: string) => {
+        setConfig(newConfig);
+        setConfigJson(JSON.stringify(newConfig, null, 2));
+        setConfigFileName(sourceName);
+        setJsonError(null);
+    };
+
+    const handleConfigUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            try {
+                const json = JSON.parse(event.target?.result as string);
+                updateConfigCompletely(json, file.name);
+            } catch (err) {
+                alert("Invalid JSON file");
+            }
+        };
+        reader.readAsText(file);
+    };
+
+    const handleTextFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            setTopic(event.target?.result as string);
+        };
+        reader.readAsText(file);
+    };
+
+    const handleDownloadTemplate = () => {
+        // Use the current config if valid, or fallback to default
+        const templateToDownload = config || defaultTemplate;
+
+        const blob = new Blob([JSON.stringify(templateToDownload, null, 2)], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "workflow_config.json";
+        a.click();
+        URL.revokeObjectURL(url);
+        URL.revokeObjectURL(url);
     };
 
     const handleAnalyze = () => {
-        if (!inputText) return;
-
-        // Reset logs but keep status
-        setLogs([]);
-        setStatus("running");
-
-        const ws = new WebSocket("ws://localhost:8000/ws/analyze");
-        wsRef.current = ws;
-
-        ws.onopen = () => {
-            ws.send(JSON.stringify({ input_text: inputText }));
-        };
-
-        ws.onmessage = (event) => {
-            const data = JSON.parse(event.data);
-            if (data.type === "complete") {
-                // Analysis complete
-                setStatus("idle"); // Go back to idle so user can click Generate
-                ws.close();
-
-                // Update Config with recommended values
-                if (data.result && data.result.recommended_config) {
-                    setConfigJson(JSON.stringify(data.result.recommended_config, null, 4));
-                    if (data.result.recommended_config.difficulty) {
-                        setDifficulty(data.result.recommended_config.difficulty);
-                    }
-                    setLogs((prev) => [...prev, { type: "log", ts: data.ts, message: "✅ Config updated with AI recommendations!" }]);
-                }
-            } else {
-                setLogs((prev) => [...prev, data]);
-                if (data.type === "error") {
-                    setStatus("error");
-                }
-            }
-        };
-
-        ws.onerror = (error) => {
-            setLogs((prev) => [...prev, { type: "error", ts: "", message: "Analysis WebSocket connection failed." }]);
-            setStatus("error");
-        };
+        if (!topic.trim()) return;
+        // Don't auto-show logs to avoid jumping the page
+        analyzeText(topic);
     };
 
-    const handleRun = () => {
-        if (!inputText) return;
+    const applyRecommendedConfig = () => {
+        if (analysisResult?.recommended_config) {
+            updateConfigCompletely(analysisResult.recommended_config, "Recommended Config (Applied)");
+        }
+    };
 
-        // Validation
+    const handleDifficultyChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const val = e.target.value;
+        setDifficulty(val);
+
+        // Sync with config if it exists
+        if (config) {
+            const updated = { ...config, difficulty: val };
+            setConfig(updated);
+            setConfigJson(JSON.stringify(updated, null, 2));
+        }
+    };
+
+    const handleJsonChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        const newValue = e.target.value;
+        setConfigJson(newValue);
         try {
-            const config = JSON.parse(configJson);
-            const exercisesCount = config.exercises_per_lesson;
-
-            const bloomsSum = Object.values(config.blooms_distribution || {}).reduce((a: any, b: any) => a + b, 0);
-            if (bloomsSum !== exercisesCount) {
-                setLogs([{ type: "error", ts: "", message: `Validation Error: Bloom's distribution sum (${bloomsSum}) does not match exercises_per_lesson (${exercisesCount})` }]);
-                setStatus("error");
-                return;
+            if (newValue.trim() === "") {
+                setConfig(null);
+                setJsonError(null);
+            } else {
+                const parsed = JSON.parse(newValue);
+                setConfig(parsed);
+                setJsonError(null);
             }
+        } catch (err) {
+            setJsonError("Invalid JSON syntax");
+        }
+    };
 
-            const typesSum = Object.values(config.question_type_distribution || {}).reduce((a: any, b: any) => a + b, 0);
-            if (typesSum !== exercisesCount) {
-                setLogs([{ type: "error", ts: "", message: `Validation Error: Question type distribution sum (${typesSum}) does not match exercises_per_lesson (${exercisesCount})` }]);
-                setStatus("error");
-                return;
-            }
-
-        } catch (e) {
-            setLogs([{ type: "error", ts: "", message: "Invalid JSON Config" }]);
-            setStatus("error");
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!topic.trim()) return;
+        if (jsonError) {
+            alert("Please fix JSON errors in config before generating.");
             return;
         }
-
-        // Reset
-        setLogs([]);
-        setResult(null);
-        setStatus("running");
-
-        // Connect
-        const ws = new WebSocket("ws://localhost:8000/ws/run");
-        wsRef.current = ws;
-
-        ws.onopen = () => {
-            // Send init payload
-            try {
-                const config = JSON.parse(configJson);
-                ws.send(JSON.stringify({
-                    input_text: inputText,
-                    config,
-                    title: moduleTitle,
-                    difficulty: difficulty
-                }));
-            } catch (err) {
-                setLogs((prev) => [...prev, { type: "error", ts: "", message: "Invalid JSON Config" }]);
-                ws.close();
-                setStatus("error");
-            }
-        };
-
-        ws.onmessage = (event) => {
-            const data = JSON.parse(event.data);
-            if (data.type === "complete") {
-                setResult(data);
-                setStatus("completed");
-                ws.close();
-            } else {
-                setLogs((prev) => [...prev, data]);
-                if (data.type === "error") {
-                    // Don't close immediately, let user see error
-                    setStatus("error");
-                }
-            }
-        };
-
-        ws.onerror = (error) => {
-            console.error("WebSocket error:", error);
-            setLogs((prev) => [...prev, { type: "error", ts: "", message: "WebSocket connection failed. Is the server running?" }]);
-            setStatus("error");
-        };
-
-        ws.onclose = () => {
-            if (status === "running") {
-                // If closed unexpectedly
-            }
-        };
+        startGenerator({
+            input_text: topic,
+            difficulty: difficulty,
+            title: title || undefined,
+            config: config || undefined
+        });
     };
 
+    const isRunning = status === "connecting" || status === "running";
+    const isAnalyzing = analyzeStatus === "analyzing";
+
     return (
-        <div className={styles.container}>
-            <h1 className={styles.title}>TechLingo Generator</h1>
+        <div style={{ maxWidth: "1200px", margin: "0 auto", width: "100%" }}>
+            <div className="card">
+                <Heading level={1} data-size="xl" style={{ marginBottom: "var(--ds-spacing-2)" }}>
+                    Course Generator
+                </Heading>
+                <Paragraph style={{ marginBottom: "var(--ds-spacing-8)", color: "var(--color-text-secondary)" }}>
+                    Create interactive courses tailored to your specific needs.
+                </Paragraph>
 
-            <div className={styles.section}>
-                <label className={styles.label}>1. Select Input File (Text)</label>
-                <input type="file" accept=".txt,.md" onChange={handleFileUpload} />
-                <br />
-                <br />
-                <label className={styles.label}>Or paste text:</label>
-                <textarea
-                    className={styles.textarea}
-                    rows={5}
-                    value={inputText}
-                    onChange={(e) => setInputText(e.target.value)}
-                    placeholder="Paste course source material here..."
-                />
-            </div>
+                <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
 
-            <div className={styles.section}>
-                <label className={styles.label}>2. Module Settings</label>
-                <div style={{ display: "flex", gap: "20px", flexDirection: "row", flexWrap: "wrap" }}>
-                    <div style={{ flex: 1, minWidth: "200px" }}>
-                        <label style={{ display: "block", marginBottom: "5px", fontSize: "0.9rem", color: "#666" }}>Module Title (Optional Override)</label>
-                        <input
-                            type="text"
-                            value={moduleTitle}
-                            onChange={(e) => setModuleTitle(e.target.value)}
-                            placeholder="e.g. AI Core Capabilities"
+                    {/* Top Row: Input & Analysis */}
+                    <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr", gap: "2rem" }}>
+                        <div>
+                            <Textfield
+                                aria-label="Topic or Text"
+                                placeholder="Paste your content or describe the topic..."
+                                value={topic}
+                                onChange={(e) => setTopic(e.target.value)}
+                                disabled={isRunning || isAnalyzing}
+                                required
+                                rows={8}
+                                multiline
+                                style={{ borderRadius: "12px" }}
+                            />
+
+                            <div style={{ marginTop: "1rem", display: "flex", gap: "1rem" }}>
+                                <Button
+                                    type="button"
+                                    onClick={handleAnalyze}
+                                    disabled={isRunning || isAnalyzing || !topic.trim()}
+                                    className="btn-lime" // Custom green class
+                                    style={{ borderRadius: "12px", padding: "0.5rem 1.5rem", display: "flex", alignItems: "center", gap: "0.5rem" }}
+                                >
+                                    <Search size={18} />
+                                    {isAnalyzing ? "Analyzing..." : "Analyze Content"}
+                                </Button>
+
+                                <div style={{ position: "relative", overflow: "hidden" }}>
+                                    <Button type="button" disabled={isRunning || isAnalyzing} className="btn-orange" style={{ borderRadius: "12px", padding: "0.5rem 1.5rem", display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                                        <Upload size={18} />
+                                        Upload File (.txt, .md)
+                                    </Button>
+                                    <input
+                                        type="file"
+                                        accept=".txt,.md"
+                                        onChange={handleTextFileUpload}
+                                        disabled={isRunning || isAnalyzing}
+                                        style={{ position: "absolute", left: 0, top: 0, opacity: 0, cursor: "pointer", height: "100%", width: "100%" }}
+                                    />
+                                </div>
+                            </div>
+
+
+                            {analyzeError && <p style={{ color: "red", fontSize: "0.9rem", marginTop: "0.5rem" }}>{analyzeError}</p>}
+                        </div>
+
+                        {/* Analysis Card */}
+                        {analysisResult && (
+                            <div style={{ padding: "1.5rem", borderRadius: "16px", backgroundColor: "#F8FAC3", color: "#0B2318" }}>
+                                <Heading level={3} data-size="xs" style={{ marginBottom: "1rem" }}>Analysis Insights</Heading>
+                                <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem", fontSize: "0.9rem", marginBottom: "1rem" }}>
+                                    <div style={{ display: "flex", justifyContent: "space-between" }}>
+                                        <span>Parts Found:</span>
+                                        <strong>{analysisResult.metadata.total_parts}</strong>
+                                    </div>
+                                    <div style={{ display: "flex", justifyContent: "space-between" }}>
+                                        <span>Est. Questions:</span>
+                                        <strong>{analysisResult.metadata.estimated_questions_needed}</strong>
+                                    </div>
+                                    <div style={{ display: "flex", justifyContent: "space-between" }}>
+                                        <span>Completeness:</span>
+                                        <strong>{Math.round(analysisResult.metadata.completeness_score * 100)}%</strong>
+                                    </div>
+                                </div>
+                                <Button
+                                    type="button"
+                                    onClick={applyRecommendedConfig}
+                                    disabled={isRunning || isAnalyzing}
+                                    className="btn-lime"
+                                    style={{ width: "100%", borderRadius: "12px", display: "flex", alignItems: "center", justifyContent: "center", gap: "0.5rem" }}
+                                >
+                                    <Check size={18} />
+                                    Apply Settings
+                                </Button>
+                            </div>
+                        )}
+                    </div>
+
+                    {/* Combined Analysis Feedback Block */}
+                    {(isAnalyzing || analyzeLogs.length > 0) && (
+                        <div style={{
+                            marginTop: "1.5rem",
+                            padding: "1rem",
+                            backgroundColor: "#F9FAFB",
+                            borderRadius: "16px",
+                            border: "1px solid #E5E7EB"
+                        }}>
+                            {/* Progress UI */}
+                            {isAnalyzing && (
+                                <div style={{ marginBottom: analyzeLogs.length > 0 ? "1rem" : "0" }}>
+                                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.5rem" }}>
+                                        <span style={{ fontSize: "0.85rem", fontWeight: 600, color: "#374151" }}>{analyzeStep}</span>
+                                        <span style={{ fontSize: "0.8rem", color: "#6B7280" }}>{analyzeProgress}%</span>
+                                    </div>
+                                    <div className="progress-container" style={{ margin: "0", height: "8px" }}>
+                                        <div className="progress-bar" style={{ width: `${analyzeProgress}%` }} />
+                                    </div>
+                                </div>
+                            )}
+
+                            {/* Logs Toggle */}
+                            {analyzeLogs.length > 0 && (
+                                <div>
+                                    <div
+                                        onClick={() => setShowAnalyzeLogs(!showAnalyzeLogs)}
+                                        style={{
+                                            display: "flex",
+                                            alignItems: "center",
+                                            gap: "0.5rem",
+                                            cursor: "pointer",
+                                            fontWeight: 600,
+                                            fontSize: "0.85rem",
+                                            color: "#6B7280"
+                                        }}
+                                    >
+                                        <span>{showAnalyzeLogs ? "▼ Hide Detailed Logs" : "▶ Show Detailed Logs"}</span>
+                                    </div>
+                                    {showAnalyzeLogs && (
+                                        <div style={{
+                                            height: "200px",
+                                            overflow: "hidden",
+                                            borderRadius: "8px",
+                                            marginTop: "0.75rem",
+                                            position: "relative"
+                                        }}>
+                                            <Console logs={analyzeLogs} />
+                                        </div>
+                                    )}
+                                </div>
+                            )}
+                        </div>
+                    )}
+
+                    <div style={{ borderTop: "1px solid #eee", paddingTop: "2rem", display: "flex", flexDirection: "column", gap: "1.5rem" }}>
+                        <div>
+                            <Label htmlFor="course-title" id="label-title" style={{ marginBottom: "var(--ds-spacing-2)" }}>Course Title (Optional)</Label>
+                            <Textfield
+                                id="course-title"
+                                aria-labelledby="label-title"
+                                value={title}
+                                onChange={(e) => setTitle(e.target.value)}
+                                disabled={isRunning}
+                            />
+                        </div>
+                        <div>
+                            <Label htmlFor="difficulty-select" style={{ marginBottom: "var(--ds-spacing-2)" }}>Difficulty Level</Label>
+                            <Select
+                                id="difficulty-select"
+                                value={difficulty}
+                                onChange={handleDifficultyChange}
+                                disabled={isRunning || isAnalyzing}
+                            >
+                                <Select.Option value="novice">Novice</Select.Option>
+                                <Select.Option value="beginner">Beginner</Select.Option>
+                                <Select.Option value="intermediate">Intermediate</Select.Option>
+                                <Select.Option value="advanced">Advanced</Select.Option>
+                            </Select>
+                        </div>
+                    </div>
+
+
+                    {/* Configuration */}
+                    <div style={{ borderTop: "1px solid #eee", paddingTop: "2rem" }}>
+                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1rem" }}>
+                            <Heading level={3} data-size="sm">Workflow Configuration</Heading>
+                            <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
+                                <div style={{ position: "relative", overflow: "hidden" }}>
+                                    <Button type="button" disabled={isRunning || isAnalyzing} className="btn-orange" data-size="sm" style={{ borderRadius: "10px", display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                                        <Upload size={16} />
+                                        Upload JSON
+                                    </Button>
+                                    <input
+                                        type="file"
+                                        accept=".json"
+                                        onChange={handleConfigUpload}
+                                        disabled={isRunning || isAnalyzing}
+                                        style={{ position: "absolute", left: 0, top: 0, opacity: 0, cursor: "pointer", height: "100%", width: "100%" }}
+                                    />
+                                </div>
+                                <Button type="button" disabled={isRunning || isAnalyzing} className="btn-orange" data-size="sm" onClick={handleDownloadTemplate} style={{ borderRadius: "10px", display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                                    <Download size={16} />
+                                    Download Template
+                                </Button>
+                            </div>
+                        </div>
+
+                        <Textfield
+                            aria-label="Config Editor"
+                            value={configJson}
+                            onChange={handleJsonChange}
+                            disabled={isRunning}
+                            multiline
+                            rows={8}
                             style={{
-                                width: "100%",
-                                padding: "10px",
-                                border: "1px solid #ddd",
-                                borderRadius: "4px",
-                                fontSize: "1rem"
+                                fontFamily: 'monospace',
+                                fontSize: '0.85rem',
+                                borderRadius: '12px',
+                                border: jsonError ? "1px solid red" : "1px solid #eee"
                             }}
                         />
-                    </div>
-                    <div style={{ width: "200px" }}>
-                        <label style={{ display: "block", marginBottom: "5px", fontSize: "0.9rem", color: "#666" }}>Difficulty</label>
-                        <select
-                            value={difficulty}
-                            onChange={(e) => setDifficulty(e.target.value)}
-                            style={{
-                                width: "100%",
-                                padding: "10px",
-                                border: "1px solid #ddd",
-                                borderRadius: "4px",
-                                fontSize: "1rem",
-                                backgroundColor: "white"
-                            }}
-                        >
-                            <option value="novice">Novice</option>
-                            <option value="beginner">Beginner</option>
-                            <option value="intermediate">Intermediate</option>
-                            <option value="advanced">Advanced</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-            <div className={styles.section}>
-                <label className={styles.label}>3. Workflow Configuration (JSON)</label>
-                <div style={{ marginBottom: "10px" }}>
-                    <button
-                        className={styles.button}
-                        onClick={handleAnalyze}
-                        disabled={status === "running" || !inputText}
-                        style={{ marginRight: "10px", backgroundColor: "#2196F3" }}
-                    >
-                        Analyze & Recommend Config
-                    </button>
-                    <small style={{ color: "#666" }}>AI will analyze text and suggest optimal settings.</small>
-                </div>
-                <textarea
-                    className={styles.textarea}
-                    rows={8}
-                    value={configJson}
-                    onChange={(e) => setConfigJson(e.target.value)}
-                />
-            </div>
-
-            <button className={styles.button} onClick={handleRun} disabled={status === "running" || !inputText}>
-                {status === "running" ? "Generating..." : "Generate Course"}
-            </button>
-
-            {status !== "idle" && (
-                <div className={styles.section} style={{ marginTop: "2rem" }}>
-                    <label className={styles.label}>Progress Log</label>
-                    <div className={styles.logs}>
-                        {logs.map((log, i) => (
-                            <div key={i}>
-                                <span style={{ color: "#888", marginRight: "10px" }}>{log.ts}</span>
-                                {log.type === "progress" && (
-                                    <span>{log.event === "start" ? "🚀 START" : "✅ DONE "} {log.executor} {log.duration ? `(${log.duration.toFixed(1)}s)` : ""}</span>
-                                )}
-                                {log.type === "log" && (
-                                    <span>{log.message}</span>
-                                )}
-                                {log.type === "error" && (
-                                    <span style={{ color: "red" }}>❌ {log.executor ? `${log.executor}: ` : ""}{log.message}</span>
-                                )}
-                                {log.type === "start" && (
-                                    <span style={{ color: "cyan" }}>Run Started: {log.run_id} ({log.run_dir})</span>
-                                )}
+                        {configFileName && (
+                            <div style={{ fontSize: "0.8rem", color: "#888", marginTop: "0.5rem", fontStyle: "italic" }}>
+                                Values from: {configFileName}
                             </div>
-                        ))}
-                        <div ref={logEndRef} />
+                        )}
                     </div>
-                </div>
-            )}
 
-            {result && (
-                <div className={styles.result}>
-                    <h2>Generation Complete!</h2>
-                    <div className={styles.markdown}>
-                        <pre style={{ whiteSpace: "pre-wrap" }}>{result.markdown}</pre>
+                    <div style={{ marginTop: "1rem" }}>
+                        <Button
+                            type="submit"
+                            disabled={isRunning || isAnalyzing || !topic || !!jsonError}
+                            className="btn-lime"
+                            style={{ padding: "0.75rem 3rem", fontSize: "1rem", borderRadius: "12px", display: "flex", alignItems: "center", gap: "0.75rem" }}
+                        >
+                            <Zap size={20} fill="currentColor" />
+                            {isRunning ? "Generating Course..." : "Generate Course"}
+                        </Button>
                     </div>
-                </div>
-            )}
+                </form>
+
+                {(isRunning || status === "completed" || status === "error") && (
+                    <div style={{ marginTop: "3rem", padding: "1.5rem", borderTop: "1px solid #eee" }}>
+                        <Heading level={2} data-size="sm" style={{ marginBottom: "1rem" }}>
+                            System Logs
+                        </Heading>
+                        {error && <div style={{ color: "#FF6B6B", marginBottom: "1rem" }}>{error}</div>}
+                        <div style={{ height: "400px", borderRadius: "12px", overflow: "hidden" }}>
+                            <Console logs={logs} />
+                        </div>
+                    </div>
+                )}
+            </div>
         </div>
     );
 }

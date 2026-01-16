@@ -209,23 +209,28 @@ async def websocket_analyze(websocket: WebSocket):
             await websocket.close()
             return
 
+        # Send start event immediately to clear "Connecting..." status
         await websocket.send_json({
             "type": "start",
             "run_id": run_id,
             "run_dir": run_dir,
             "ts": time.strftime("%H:%M:%S")
         })
+        
+        await websocket.send_json({"type": "log", "ts": time.strftime("%H:%M:%S"), "message": "System: Connection established. Initializing agents..."})
 
-        # Build Workflow
+        # Build Workflow (now cached/pre-built)
+        await websocket.send_json({"type": "log", "ts": time.strftime("%H:%M:%S"), "message": "System: Loading agent workflow..."})
         workflow_graph = build_analysis_workflow()
         
+        await websocket.send_json({"type": "log", "ts": time.strftime("%H:%M:%S"), "message": "System: Agent state initialized. Starting execution..."})
+
         # Initialize State
         state = PipelineState(
             run_id=run_id,
             run_dir=run_dir,
             input_text=input_text,
             model_id=os.getenv("OPENAI_CHAT_MODEL_ID", "gpt-4o"),
-            # Config is not needed for analysis, but state requires it. passing default.
             config=WorkflowConfig(), 
             difficulty=DifficultyLevel.beginner
         )
