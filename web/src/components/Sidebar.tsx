@@ -43,6 +43,11 @@ export default function Sidebar() {
                     <Box size={20} />
                     Generator
                 </Link>
+
+                <Link href="/viewer" className={`sidebar-link ${pathname === "/viewer" ? "active" : ""}`}>
+                    <Box size={20} />
+                    Run Viewer
+                </Link>
             </div>
 
             <div style={{ marginTop: "auto" }}>

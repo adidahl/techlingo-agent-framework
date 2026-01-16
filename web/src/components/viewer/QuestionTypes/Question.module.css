@@ -1,0 +1,87 @@
+.questionContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    border: 1px solid #E5E7EB;
+    /* Subtle light gray border */
+    border-radius: var(--border-radius-card);
+    /* Use app card radius */
+    background: var(--color-bg-card);
+    /* White card background */
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    /* Subtle shadow like .card */
+}
+
+.optionsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.optionLabel {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
+    padding: 0.75rem 1rem;
+    border-radius: 12px;
+    border: 1px solid #E5E7EB;
+    background-color: var(--color-bg-main);
+    /* Slightly offset from card bg */
+    transition: all 0.2s ease;
+}
+
+.optionLabel:hover {
+    background-color: #F0F2F5;
+    /* Slightly darker on hover */
+    border-color: #D1D5DB;
+}
+
+.optionLabel input {
+    accent-color: var(--color-accent-lime);
+    /* Attempts to color native radio/checkbox */
+    width: 1.25rem;
+    height: 1.25rem;
+}
+
+.disabled {
+    pointer-events: none;
+    opacity: 0.8;
+    background-color: #F9FAFB;
+}
+
+.feedbackContainer {
+    margin-top: 1rem;
+    padding: 1rem;
+    border-radius: 12px;
+    font-size: 0.95rem;
+}
+
+.feedbackCorrect {
+    background-color: rgba(197, 234, 72, 0.15);
+    /* Lime tint */
+    border: 1px solid rgba(197, 234, 72, 0.5);
+    color: #0B2318;
+}
+
+.feedbackIncorrect {
+    background-color: rgba(239, 68, 68, 0.1);
+    /* Red tint */
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    color: #991B1B;
+}
+
+.gapInput {
+    border: 1px solid #D1D5DB;
+    border-radius: 8px;
+    padding: 0.5rem 0.75rem;
+    font-family: inherit;
+    font-size: 1rem;
+}
+
+.gapInput:focus {
+    outline: none;
+    border-color: var(--color-accent-lime);
+    box-shadow: 0 0 0 3px rgba(197, 234, 72, 0.2);
+}
