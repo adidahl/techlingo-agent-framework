@@ -8,6 +8,7 @@ from typing import Optional
 
 import typer
 from dotenv import load_dotenv
+from pydantic import ValidationError
 
 from .config import load_workflow_config, DifficultyLevel
 from .io import read_input_text, write_json, write_text
@@ -85,11 +86,23 @@ def run(
         if default_config.exists():
             config_path = default_config
             
-    loaded_config = load_workflow_config(config_path)
-    
+    try:
+        loaded_config = load_workflow_config(config_path)
+    except ValidationError as e:
+        # Surface a clean, actionable message instead of a raw pydantic traceback.
+        problems = "\n".join(f"  - {err['msg']}" for err in e.errors())
+        raise typer.BadParameter(
+            f"Invalid workflow config ({config_path}):\n{problems}"
+        )
+
     # Resolve difficulty: CLI arg > Config > Default(Beginner)
     final_difficulty = difficulty or loaded_config.difficulty
-    
+
+    # Resolve course title: explicit --title > source filename > internal default.
+    # The document's filename is the title the author gave it, so use it automatically.
+    if not title and input_file is not None:
+        title = input_file.stem
+
     state = PipelineState(
         run_id=run_id,
         run_dir=str(run_dir),
@@ -197,6 +210,12 @@ def run(
     except KeyboardInterrupt:
         typer.echo("\nInterrupted (Ctrl+C). Partial outputs may exist in the run dir above.")
         raise typer.Exit(code=130)
+
+    # Force the resolved title onto the final course so it matches the source
+    # document (filename) or explicit --title exactly, regardless of what the LLM
+    # produced. (Mirrors how `difficulty` is force-set inside the executors.)
+    if title:
+        result.course.title = title
 
     # Write canonical outputs at run root
     run_dir = Path(result.run_dir)

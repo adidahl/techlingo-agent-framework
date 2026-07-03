@@ -6,7 +6,8 @@ A framework for building and deploying AI agents.
 
 ### Prerequisites
 
-- Python 3.10+
+- Python 3.13 (recommended; pinned in `.python-version`)
+  - Note: Python 3.14 is **not yet supported** — the `agent-framework` beta has no compatible wheels for it. Use 3.13.
 - pip
 
 ### Installation

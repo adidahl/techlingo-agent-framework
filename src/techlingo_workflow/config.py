@@ -59,16 +59,33 @@ class WorkflowConfig(BaseModel):
         blooms_sum = sum(self.blooms_distribution.values())
         if blooms_sum != self.exercises_per_lesson:
             raise ValueError(
-                f"Sum of blooms_distribution ({blooms_sum}) must match exercises_per_lesson ({self.exercises_per_lesson})."
+                f"blooms_distribution sums to {blooms_sum} but exercises_per_lesson is "
+                f"{self.exercises_per_lesson}. Fix: make the blooms_distribution values add up "
+                f"to {self.exercises_per_lesson} (or change exercises_per_lesson to {blooms_sum})."
             )
-            
+
         # Check Question Types
         types_sum = sum(self.question_type_distribution.values())
         if types_sum != self.exercises_per_lesson:
             raise ValueError(
-                f"Sum of question_type_distribution ({types_sum}) must match exercises_per_lesson ({self.exercises_per_lesson})."
+                f"question_type_distribution sums to {types_sum} but exercises_per_lesson is "
+                f"{self.exercises_per_lesson}. Fix: make the question_type_distribution values add up "
+                f"to {self.exercises_per_lesson} (or change exercises_per_lesson to {types_sum})."
             )
-            
+
+        # Check lesson bounds are sane and can accommodate every module (>= 1 lesson each).
+        if self.min_lessons_total > self.max_lessons_total:
+            raise ValueError(
+                f"min_lessons_total ({self.min_lessons_total}) cannot exceed "
+                f"max_lessons_total ({self.max_lessons_total})."
+            )
+        if self.modules_count > self.min_lessons_total:
+            raise ValueError(
+                f"modules_count ({self.modules_count}) exceeds min_lessons_total "
+                f"({self.min_lessons_total}); each module needs at least one lesson. "
+                f"Fix: raise min_lessons_total to >= {self.modules_count} (or lower modules_count)."
+            )
+
         return self
 
 def get_default_config() -> WorkflowConfig:

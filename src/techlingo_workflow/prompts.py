@@ -64,7 +64,19 @@ def difficulty_contract(difficulty: DifficultyLevel) -> str:
 
 def a1_modularizer_prompt(source_text: str, *, difficulty: DifficultyLevel, config: WorkflowConfig, override_title: str | None = None) -> str:
     target_title = override_title if override_title else "AI Core Capabilities and Responsibility"
-    
+
+    # Deterministic per-module lesson plan. The self-correction loop re-runs A2
+    # (not A1), so A1's module/lesson counts are never fixed downstream — they
+    # must be exact on the first try. Giving explicit per-module counts (instead
+    # of a range) dramatically improves adherence. Target the top of the allowed
+    # range and distribute as evenly as possible across modules.
+    target_total = max(config.max_lessons_total, config.modules_count)
+    base, rem = divmod(target_total, config.modules_count)
+    per_module = [base + (1 if i < rem else 0) for i in range(config.modules_count)]
+    lesson_plan = "\n".join(
+        f"          - Module {i + 1}: EXACTLY {n} lesson(s)." for i, n in enumerate(per_module)
+    )
+
     return dedent(
         f"""\
         {difficulty_contract(difficulty)}
@@ -76,13 +88,15 @@ def a1_modularizer_prompt(source_text: str, *, difficulty: DifficultyLevel, conf
         Create a course map for: "{target_title}".
 
         STRICT CONSTRAINT: Use ONLY information present in the source text. Do not use external knowledge.
-        
+
         STRICT CONSTRAINT: You must cover ALL subjects, terms, and parts present in the source text. Do not miss any concepts.
 
 
         Constraints:
-        - Exactly {config.modules_count} modules.
-        - Total lessons across all modules: {config.min_lessons_total} to {config.max_lessons_total}.
+        - EXACTLY {config.modules_count} modules — no more, no fewer.
+        - The number of lessons per module MUST be exactly:
+{lesson_plan}
+        - This gives EXACTLY {sum(per_module)} lessons in total (within the allowed {config.min_lessons_total}–{config.max_lessons_total}).
         - Each lesson must have exactly one SLO (single, clear, measurable learning objective).
         - Keep lesson titles and SLOs novice-friendly (no unexplained jargon).
 
@@ -168,9 +182,9 @@ def a2_scaffolder_prompt(
             - Good: "Action for X?" -> "Do Y."
         - Every exercise must include:
           - blooms_level (one of: Remembering, Understanding, Applying, Analyzing/Evaluating)
-          - question_type (one of: single_choice, multi_choice, true_false, fill_gaps, rearrange)
+          - question_type: MUST be EXACTLY one of: single_choice, multi_choice, true_false, fill_gaps, rearrange. NEVER invent other values (e.g. "scenario_based" is INVALID).
           - prompt (learner-facing prompt; may include scenario/context)
-        - For Applying and Analyzing/Evaluating exercises, the prompt must clearly include a scenario and a decision point.
+        - For Applying and Analyzing/Evaluating exercises, the prompt TEXT must clearly describe a scenario and a decision point (this affects the wording, not the question_type).
         - Keep answers concise and unambiguous.
         - single_choice:
           - options: 4 options, each has text + is_correct + (error_type for incorrect options)
@@ -217,12 +231,12 @@ def a2_scaffolder_prompt(
                       "prompt": "...",
 
                       "options": [
-                        {{ "text": "...", "is_correct": true, "error_type": None, "feedback": None, "rationale": None, "better_fit": None }},
-                        {{ "text": "...", "is_correct": False, "error_type": "...", "feedback": None, "rationale": None, "better_fit": None }}
+                        {{ "text": "...", "is_correct": true, "error_type": null, "feedback": null, "rationale": null, "better_fit": null }},
+                        {{ "text": "...", "is_correct": false, "error_type": "...", "feedback": null, "rationale": null, "better_fit": null }}
                       ],
 
                       "statement": "...",
-                      "correct_answer": True,
+                      "correct_answer": true,
 
                       "parts": [
                         {{ "type": "text", "text": "..." }},
@@ -256,9 +270,14 @@ def a3_scenario_designer_prompt(course_json: str, *, difficulty: DifficultyLevel
         Task (A3 Merrill’s Agent - Scenario Designer):
         Rewrite exercises to ensure contextual relevance and stylistic variety:
         
+        CRITICAL: `question_type` MUST stay EXACTLY one of:
+        single_choice, multi_choice, true_false, fill_gaps, rearrange.
+        NEVER invent other values (e.g. "scenario_based" is INVALID). "Scenario-based"
+        below describes the wording of the `prompt` text, NOT the question_type.
+
         1. **Higher-Order Thinking (Applying, Analyzing/Evaluating)**:
-           - MUST be scenario-based (EXCEPT 'rearrange' and 'fill_gaps').
-           - Include a brief scenario + clear decision point/problem.
+           - The `prompt` TEXT must describe a real-world scenario (EXCEPT 'rearrange' and 'fill_gaps').
+           - Include a brief scenario + clear decision point/problem in the prompt text.
         
         2. **Lower-Order Thinking (Remembering, Understanding)**:
            - MUST be **DIRECT** questions (NO "Scenario:" prefix, NO "You are a..." framing).
@@ -350,8 +369,7 @@ def a4_feedback_architect_prompt(course_json: str, *, difficulty: DifficultyLeve
 def a5_source_check_prompt(course_json: str, source_text: str) -> str:
     return dedent(
         f"""\
-        You are a strict Fact Checker and Editor.
-        Your goal is to identify ALL quality issues: Hallucinations, Logical Flaws, Bad Formatting, and Broken Integrity.
+        You are a precise Fact Checker. Flag ONLY confirmed, concrete defects.
 
         Source Text:
         {source_text}
@@ -360,36 +378,42 @@ def a5_source_check_prompt(course_json: str, source_text: str) -> str:
         {course_json}
 
         Task:
-        Review every exercise and flag ANY of the following issues:
+        Report an issue ONLY when you are highly confident it is a real defect and
+        can quote the exact offending text. Flag ONLY these categories:
 
-        1. **Hallucinations**: The CORRECT ANSWER relies on external knowledge NOT in the source text.
-        2. **Formatting Artifacts**: Content contains leftover text from scraping/PDFs (e.g., "Expand table", "Image 1", "Click to view", "Note:", "Table 2", "Page 5").
-        3. **Question Type Integrity**:
-           - **true_false**: Questions MUST be statements to judge (e.g., "AI is scalable."), NOT instructions (e.g., "Choose the best tool...", "Decide which..."). They MUST NOT offer choices in the text.
-        4. **Logical Validity**:
-           - Is the question logically sound? (No self-contradictions).
-           - Is the "Correct" answer actually correct based on the premise and source text?
-           - **rearrange**: Is the "correct_order" a valid grammatical sentence (in the target language) or a logical process sequence?
-           - **fill_gaps**: Is the gap unique? Does the context logically force the accepted answer?
-        5. **Meta-References**:
-           - Does the content refer to "the text", "the document", "the section", or "this example"?
-           - Flag these as errors. The content must stand alone.
+        1. **Hallucinations**: The CORRECT ANSWER states a fact that is NOT supported
+           anywhere in the source text. Quote the unsupported claim. (Do NOT flag
+           mere paraphrasing or reasonable summarization of source content.)
+        2. **Formatting Artifacts**: A literal leftover string from scraping/PDFs is
+           present (e.g., "Expand table", "Image 1", "Click to view", "Page 5"). Quote it.
+        3. **true_false integrity**: The `statement` field is NOT a declarative
+           statement that can be judged true/false, OR the statement text itself
+           lists multiple options to choose from. A scenario/context sentence
+           BEFORE a judgeable statement is ACCEPTABLE — do NOT flag it.
+        4. **Meta-References**: The content literally says "the text", "the document",
+           "the section", "as described", or "this example". Quote the phrase.
+
+        STRICT SCOPING RULES (to avoid false positives):
+        - DO NOT flag `rearrange` exercises for the correct_order "restating",
+          "mirroring", "matching", or being "redundant with" the prompt — that is
+          the INTENDED nature of a rearrange task and is NOT a defect.
+        - DO NOT report stylistic preferences, "could be clearer", "should be
+          rephrased", or anything hedged with "appears", "potentially", "might",
+          "slightly", or "needs checking". If you are not certain it is a real
+          defect, do not report it.
 
         Output JSON schema:
         {{
-          "thought_process": [
-            "Step 1: checking exercise 1...",
-            "Step 2: evaluating correctness & integrity..."
-          ],
+          "thought_process": ["Step 1: ...", "Step 2: ..."],
           "issues": [
             {{
               "path": "modules[0].lessons[0].exercises[0]",
-              "message": "Found artifact 'Expand table'... OR T/F question is phrased as MCQ... OR Rearrange order is nonsense..."
+              "message": "Confirmed defect with exact quote, e.g. Formatting artifact 'Expand table' present."
             }}
           ]
         }}
 
-        Return ONLY valid JSON. If no issues found, return {{ "issues": [] }}.
+        Return ONLY valid JSON. If no confirmed defects, return {{ "issues": [] }}.
         """
     )
 

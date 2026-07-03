@@ -1,0 +1,83 @@
+# Introduction to generative AI and agents
+
+## How generative AI works
+- **What generative AI is** — Describe generative AI as technology that can create human-like content using learned patterns, not magic.
+  - Example Question: What is generative AI?
+    - ✅ Technology that creates human-like content from learned patterns
+      - Rationale: This matches the course idea of generative AI. It creates human-like content by using patterns it learned.
+    - ❌ A camera that only copies pictures
+      - Rationale: This describes copying images, not creating new content from learned patterns. Generative AI is about producing human-like content, not only duplicating pictures.
+      - Better Fit: This would fit a device that makes copies of existing pictures.
+    - ❌ A rule that blocks all new content
+      - Rationale: This is the opposite of what generative AI does. Generative AI creates content instead of blocking all new content.
+      - Better Fit: This would fit a rule that limits or filters content.
+    - ❌ A person who writes every answer by hand
+      - Rationale: Generative AI is technology, not a person. The course describes it as technology that creates content using learned patterns.
+      - Better Fit: This would fit a person writing answers without help.
+- **Tokens, vectors, and embeddings** — Explain how text is split into tokens and turned into embeddings with help from a transformer.
+  - Example Question: What is a token?
+    - ✅ A small piece of text
+      - Rationale: This matches the course definition. A token is a small piece of text.
+    - ❌ A full conversation history
+      - Rationale: A token is smaller than a full conversation history. The course describes it as a small piece of text.
+      - Better Fit: This would fit a long record of messages in a chat.
+    - ❌ A tool used by agents
+      - Rationale: A token is text, not a tool. The course defines it as a small piece of text.
+      - Better Fit: This would fit something used by agents to do a task.
+    - ❌ A final answer only
+      - Rationale: A token is a small piece of text, not only a final answer. The course uses it as part of how text is handled.
+      - Better Fit: This would fit the last response in a chat.
+## Making and improving prompts
+- **How models predict the next word** — Explain how an LLM uses a prompt and context to predict the most likely next token.
+  - Example Question: What does an LLM predict next?
+    - ✅ The most likely next token
+      - Rationale: This matches the course description. An LLM predicts the most likely next token.
+    - ❌ A random tool
+      - Rationale: The course says the model predicts the next token, not a tool. This answer points to a different kind of choice.
+      - Better Fit: This would fit choosing something to use for a task.
+    - ❌ Only the first word
+      - Rationale: The course says the model predicts the next token, not only the first word. The focus is on the next part in the sequence.
+      - Better Fit: This would fit a task that only looks at the beginning of a sentence.
+    - ❌ The user's job title
+      - Rationale: A user's job title is not what the course says the model predicts. The course focuses on the next token.
+      - Better Fit: This would fit a profile field about a person.
+- **Prompts, history, and RAG** — Identify system prompts, user prompts, conversation history, and retrieval augmented generation as ways to improve responses.
+  - Example Question: Which prompt gives instructions for the model?
+    - ✅ System prompt
+      - Rationale: This is the prompt that gives instructions for the model, as stated in the course.
+    - ❌ User prompt
+      - Rationale: The course says the system prompt gives instructions. The user prompt is the user's request.
+      - Better Fit: This would fit a request from the person using the model.
+    - ❌ Conversation history
+      - Rationale: Conversation history is not the same as the instructions prompt. The course treats it as earlier messages in a chat.
+      - Better Fit: This would fit earlier messages in a conversation.
+    - ❌ RAG
+      - Rationale: The course says RAG is a way to improve responses, not the instructions prompt.
+      - Better Fit: This would fit retrieval augmented generation.
+## AI agents and teamwork
+- **Building blocks of an AI agent** — Describe the three key parts of an AI agent: an LLM, instructions, and tools.
+  - Example Question: What is one key part of an AI agent?
+    - ✅ An LLM
+      - Rationale: This is one of the three key parts named in the course.
+    - ❌ A camera
+      - Rationale: A camera is not one of the three key parts named here. The course names an LLM, instructions, and tools.
+      - Better Fit: This would fit a device used to take pictures.
+    - ❌ A fixed poster
+      - Rationale: The course describes an AI agent as having an LLM, instructions, and tools. A fixed poster is not one of those parts.
+      - Better Fit: This would fit a printed sign on a wall.
+    - ❌ A random number
+      - Rationale: A random number is not one of the key parts in the course. The course names an LLM, instructions, and tools.
+      - Better Fit: This would fit a number chosen without a task.
+- **Multi-agent systems** — Explain how multiple agents can work together by sharing tasks through prompts.
+  - Example Question: What is a multi-agent system?
+    - ✅ Multiple agents working together
+      - Rationale: This matches the course definition. A multi-agent system means multiple agents work together.
+    - ❌ One agent with no tasks
+      - Rationale: The course says a multi-agent system has more than one agent. One agent with no tasks is not that idea.
+      - Better Fit: This would fit a single agent that is idle.
+    - ❌ A single prompt only
+      - Rationale: The course defines a multi-agent system as multiple agents working together. A single prompt is much narrower than that.
+      - Better Fit: This would fit a single message sent to a model.
+    - ❌ A list of tokens
+      - Rationale: Tokens are small pieces of text, not agents. The course says a multi-agent system has multiple agents working together.
+      - Better Fit: This would fit a sequence of text pieces.

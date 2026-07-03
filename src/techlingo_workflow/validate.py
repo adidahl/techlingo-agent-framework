@@ -4,6 +4,8 @@ import json
 from collections import Counter
 from typing import Any
 
+from pydantic import ValidationError
+
 from .config import WorkflowConfig
 from .llm import LLMClient
 from .models import (
@@ -392,11 +394,42 @@ async def check_source_fidelity(course: Course, source_text: str, llm: LLMClient
         ]
 
 
+def normalize_course(course: Course) -> Course:
+    """Deterministically enforce mechanical constraints the LLM may violate.
+
+    Some constraints are purely mechanical and should never be left to chance.
+    Currently: guarantee that every ``rearrange`` exercise's ``word_bank`` and
+    ``correct_order`` share the same token multiset by regenerating the word bank
+    from the (authoritative) correct order. Uses a seeded shuffle so runs stay
+    reproducible.
+    """
+    import random
+
+    for module in course.modules:
+        for lesson in module.lessons:
+            for ex in lesson.exercises:
+                if isinstance(ex, RearrangeExercise):
+                    if Counter(ex.word_bank) != Counter(ex.correct_order):
+                        shuffled = list(ex.correct_order)
+                        random.Random(len(shuffled)).shuffle(shuffled)
+                        ex.word_bank = shuffled
+                elif isinstance(ex, (SingleChoiceExercise, MultiChoiceExercise)):
+                    # `error_type` is a required category label on every incorrect
+                    # option; downstream stages (A3/A4) that rewrite options sometimes
+                    # drop it. It is not content-sensitive, so guarantee its presence
+                    # with a sensible default instead of letting it block the course.
+                    for opt in ex.options:
+                        if not opt.is_correct and not (opt.error_type and opt.error_type.strip()):
+                            opt.error_type = "misconception"
+    return course
+
+
 async def repair_course_if_needed(
     course: Course, llm: LLMClient, config: WorkflowConfig, *, max_repairs: int = 1, source_text: str | None = None
 ) -> tuple[Course, ValidationReport]:
+    course = normalize_course(course)
     report = validate_course(course, config)
-    
+
     # Run source fidelity check if source_text is provided
     if source_text:
         source_issues = await check_source_fidelity(course, source_text, llm)
@@ -411,9 +444,22 @@ async def repair_course_if_needed(
     for _ in range(max_repairs):
         issues_json = json.dumps([i.model_dump() for i in report.issues], ensure_ascii=False, indent=2)
         course_json = repaired.model_dump_json(indent=2)
-        repaired_data = await llm.run_json(a5_repair_prompt(course_json, issues_json, config))
-        repaired = Course.model_validate(repaired_data)
-        
+        try:
+            _, candidate = await llm.run_json_model(a5_repair_prompt(course_json, issues_json, config), Course)
+        except (ValidationError, json.JSONDecodeError) as e:
+            # The repair model couldn't produce a valid corrected course even after
+            # retries. Never crash the run over this: keep the last valid version
+            # (from A4 or a prior successful repair) and stop repairing.
+            report.issues.append(
+                ValidationIssue(
+                    severity="warning",
+                    path="global",
+                    message=f"Automated repair could not produce a valid course ({type(e).__name__}); returning best available version.",
+                )
+            )
+            break
+        repaired = normalize_course(candidate)
+
         # Re-validate structure
         report = validate_course(repaired, config)
         

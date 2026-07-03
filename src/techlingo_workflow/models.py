@@ -81,7 +81,10 @@ class FillGapsGapPart(BaseModel):
     placeholder: Optional[str] = Field(default=None, description="Optional placeholder shown in the UI.")
 
 
-FillGapsPart = Annotated[Union[FillGapsTextPart, FillGapsGapPart], Field(discriminator="type")]
+# Plain union (no discriminator) so the JSON schema emits `anyOf` instead of
+# `oneOf`; OpenAI Structured Outputs rejects `oneOf`. Pydantic still discriminates
+# correctly via each member's distinct `type` Literal. See RESILIENCE_PLAN.md §9.
+FillGapsPart = Union[FillGapsTextPart, FillGapsGapPart]
 
 
 class FillGapsExercise(ExerciseBase):
@@ -98,10 +101,10 @@ class RearrangeExercise(ExerciseBase):
     correct_order: list[str] = Field(..., description="Tokens in the correct order (must use the same tokens).")
 
 
-Exercise = Annotated[
-    Union[SingleChoiceExercise, MultiChoiceExercise, TrueFalseExercise, FillGapsExercise, RearrangeExercise],
-    Field(discriminator="question_type"),
-]
+# Plain union (no discriminator) → schema emits `anyOf`, accepted by OpenAI
+# Structured Outputs. Members are still discriminated by their distinct
+# `question_type` Literal. See RESILIENCE_PLAN.md §9.
+Exercise = Union[SingleChoiceExercise, MultiChoiceExercise, TrueFalseExercise, FillGapsExercise, RearrangeExercise]
 
 
 class Flashcard(BaseModel):
