@@ -47,15 +47,24 @@ export async function getRuns(): Promise<RunInfo[]> {
 
 export async function getCourse(runId: string): Promise<CourseData | null> {
     const runPath = path.join(OUTPUTS_DIR, runId);
-    const coursePath = path.join(runPath, "course.json");
+    // The viewer renders the rich internal format. New runs write it to
+    // course.internal.json (course.json is now the TechLingo-native output);
+    // older runs only have the internal format in course.json.
+    const candidates = [
+        path.join(runPath, "course.internal.json"),
+        path.join(runPath, "course.json"),
+    ];
 
-    try {
-        const data = await fs.readFile(coursePath, "utf-8");
-        return JSON.parse(data);
-    } catch (error) {
-        console.error(`Error loading course for run ${runId}:`, error);
-        return null;
+    for (const candidate of candidates) {
+        try {
+            const data = await fs.readFile(candidate, "utf-8");
+            return JSON.parse(data);
+        } catch {
+            // try next candidate
+        }
     }
+    console.error(`Error loading course for run ${runId}: no readable course file`);
+    return null;
 }
 
 export async function getArtifacts(runId: string): Promise<string[]> {

@@ -66,6 +66,7 @@ async def websocket_endpoint(websocket: WebSocket):
         
         model_id = request_data.get("model_id") or os.getenv("OPENAI_CHAT_MODEL_ID")
         override_title = request_data.get("title")
+        course_key = request_data.get("course_key")
         
         if not model_id:
              await websocket.send_json({"type": "error", "message": "OpenAI model ID not found."})
@@ -148,13 +149,24 @@ async def websocket_endpoint(websocket: WebSocket):
         if output:
             # Save artifacts (similar to CLI)
             run_path = Path(output.run_dir)
-            
-            # Serialize course/output for frontend
-            course_data = output.course.model_dump(mode="json")
+
+            from techlingo_workflow.emit import emit_and_validate, slugify
+            from techlingo_workflow.validate_techlingo import TechLingoValidationError
+
             validation_report = output.validation_report.model_dump(mode="json")
 
-            write_json(run_path / "course.json", course_data)
+            # Rich internal model kept for viewers/debug; canonical course.json is
+            # the TechLingo-native output the importer consumes.
+            write_json(run_path / "course.internal.json", output.course.model_dump(mode="json"))
             write_json(run_path / "validation_report.json", validation_report)
+
+            resolved_course_key = course_key or slugify(output.course.title, fallback="course")
+            try:
+                tl_course = emit_and_validate(output.course, course_key=resolved_course_key)
+                write_json(run_path / "course.json", tl_course.model_dump(mode="json"))
+            except TechLingoValidationError as e:
+                await websocket.send_json({"type": "error", "message": f"TechLingo output invalid: {e}"})
+                raise
             
             # Markdown generation
             md_lines: List[str] = []

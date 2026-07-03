@@ -55,6 +55,12 @@ def run(
         "--title",
         help="Manual override for the output course/module title.",
     ),
+    course_key: Optional[str] = typer.Option(
+        None,
+        "--course-key",
+        help="Stable import_key for the emitted course (e.g. 'ai-900'). "
+        "Falls back to a slug of the title if omitted (explicit key recommended for production imports).",
+    ),
 ) -> None:
     """Run the Techlingo A1–A5 workflow and write JSON artifacts to disk."""
     # Important: load .env BEFORE reading OPENAI_* vars. (Typer's envvar= reads too early.)
@@ -217,10 +223,25 @@ def run(
     if title:
         result.course.title = title
 
-    # Write canonical outputs at run root
+    # Write canonical outputs at run root.
     run_dir = Path(result.run_dir)
-    write_json(run_dir / "course.json", result.course.model_dump(mode="json"))
+
+    # The rich internal model is kept for viewers/debug; the canonical
+    # `course.json` is the TechLingo-native output that the importer consumes.
+    from .emit import emit_and_validate, slugify
+    from .validate_techlingo import TechLingoValidationError
+
+    write_json(run_dir / "course.internal.json", result.course.model_dump(mode="json"))
     write_json(run_dir / "validation_report.json", result.validation_report.model_dump())
+
+    resolved_course_key = course_key or slugify(result.course.title, fallback="course")
+    try:
+        tl_course = emit_and_validate(result.course, course_key=resolved_course_key)
+    except TechLingoValidationError as e:
+        typer.echo(f"\nERROR: emitted course is not TechLingo-native:\n{e}")
+        raise typer.Exit(code=1)
+    write_json(run_dir / "course.json", tl_course.model_dump(mode="json"))
+    typer.echo(f"TechLingo course key: {resolved_course_key}")
 
     # Minimal human-readable summary
     md_lines: list[str] = []

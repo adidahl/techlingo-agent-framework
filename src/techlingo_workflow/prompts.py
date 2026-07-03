@@ -201,7 +201,8 @@ def a2_scaffolder_prompt(
           - parts: array of objects with discriminator field 'type'
             - {{"type":"text","text":"..."}}
             - {{"type":"gap","accepted_answers":["..."],"placeholder":"..."}}
-          - include at least 1 gap part.
+          - MUST include EXACTLY ONE gap part (the target app has a single text input). Never create two or more gaps in one fill_gaps exercise.
+          - The single gap may list multiple accepted_answers (synonyms/valid alternatives) — that is encouraged.
           - STRICT CONSTRAINT: Semantic Coherence. The text surrounding the gap MUST provide enough context so that the accepted answer is the only logical choice. Do not create gaps where any random noun could fit.
         - rearrange:
           - word_bank: list of tokens (words or short phrases).
@@ -286,7 +287,7 @@ def a3_scenario_designer_prompt(course_json: str, *, difficulty: DifficultyLevel
         
         3. **Specific Type Constraints**:
            - **rearrange**: Do NOT use scenarios. Prompt should be "Arrange the following steps..." or "Reconstruct the sentence...".
-           - **fill_gaps**: Do NOT use scenarios. Prompt should be a direct statement with missing key terms. Ensure the sentence makes sense grammatically even with the gap.
+           - **fill_gaps**: Do NOT use scenarios. Prompt should be a direct statement with missing key terms. Ensure the sentence makes sense grammatically even with the gap. Keep EXACTLY ONE gap part — never split into multiple gaps.
 
         STRICT CONSTRAINT: Use ONLY information present in the source text. Do not use external knowledge.
         STRICT CONSTRAINT: No Meta-References.
@@ -443,7 +444,7 @@ def a5_repair_prompt(bad_course_json: str, issues_json: str, config: WorkflowCon
           - ALL options must have a 'rationale' (2-3 sentences explaining why it is correct/incorrect).
           - ALL incorrect options must have a 'better_fit' (1-2 sentences describing where it would be correct).
         - For scenario-based true_false exercises: feedback_for_incorrect must be present (intrinsic + instructional).
-        - For fill_gaps: Ensure grammatical correctness, semantic coherence, and that context uniquely determines the answer.
+        - For fill_gaps: Ensure grammatical correctness, semantic coherence, that context uniquely determines the answer, and that there is EXACTLY ONE gap part.
         - For rearrange: Ensure the final order forms a valid grammatical sentence (in existing language) or logical process step.
         - **Formatting**: REMOVE all scraping artifacts (e.g., "Expand table", "Image 1", "click here").
         - **Integrity**: TRUE/FALSE questions MUST be statements (declarative sentences), NOT instructions (e.g., "Choose the tool").

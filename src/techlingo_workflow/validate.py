@@ -289,12 +289,14 @@ def validate_course(course: Course, config: WorkflowConfig) -> ValidationReport:
 
                 elif isinstance(ex, FillGapsExercise):
                     gap_count = sum(1 for p in ex.parts if getattr(p, "type", None) == "gap")
-                    if gap_count < 1:
+                    # TechLingo mobile has a single text input, so fill_blank must
+                    # carry exactly one gap (see TECHLINGO_OUTPUT_PLAN.md §Phase-0.6).
+                    if gap_count != 1:
                         issues.append(
                             ValidationIssue(
                                 severity="error",
                                 path=f"{ex_path}.parts",
-                                message="fill_gaps must include at least 1 gap part.",
+                                message=f"fill_gaps must include exactly 1 gap part, got {gap_count}.",
                             )
                         )
                     for pi, part in enumerate(ex.parts):

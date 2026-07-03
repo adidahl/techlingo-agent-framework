@@ -22,9 +22,14 @@ def list_runs(outputs_dir: Path) -> list[Path]:
 
 
 def load_course(run_dir: Path) -> Course:
-    course_path = run_dir / "course.json"
+    # The viewer renders the rich internal format. New runs write it to
+    # course.internal.json (course.json is now the TechLingo-native output);
+    # older runs only have the internal format in course.json.
+    course_path = run_dir / "course.internal.json"
     if not course_path.exists():
-        raise FileNotFoundError(f"Missing course.json at {course_path}")
+        course_path = run_dir / "course.json"
+    if not course_path.exists():
+        raise FileNotFoundError(f"Missing course.internal.json/course.json at {run_dir}")
     data: dict[str, Any] = json.loads(course_path.read_text(encoding="utf-8"))
     data = _coerce_v1_to_v2(data)
     return Course.model_validate(data)
