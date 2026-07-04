@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import asyncio
 import json
 
 from agent_framework import WorkflowContext, executor
@@ -8,20 +9,83 @@ from typing_extensions import Never
 from .events import StageLogEvent
 from .io import write_json
 from .llm import LLMClient
-from .models import ConceptAtom, Course, PipelineState, ValidationReport, WorkflowRunResult, TextAnalysisResult
+from .models import (
+    ConceptAtom,
+    Course,
+    Lesson,
+    LessonGen,
+    Module,
+    PipelineState,
+    ValidationReport,
+    WorkflowRunResult,
+    TextAnalysisResult,
+)
 from .prompts import (
     a1_modularizer_prompt,
-    a2_scaffolder_prompt,
-    a3_scenario_designer_prompt,
-    a4_feedback_architect_prompt,
+    a2_lesson_prompt,
+    a3_lesson_prompt,
+    a4_lesson_prompt,
     analyzer_prompt,
     reviewer_prompt,
 )
-from .validate import repair_course_if_needed, validate_course
+from .validate import issues_by_lesson, repair_course_if_needed, validate_course
 
 
 def _artifact_path(state: PipelineState, name: str) -> str:
     return f"{state.run_dir}/artifacts/{name}"
+
+
+# Cap on simultaneous per-lesson LLM calls (rate-limit friendly, still ~Nx
+# faster than sequential for full-course passes).
+MAX_CONCURRENT_LESSON_CALLS = 4
+
+
+async def _gather_limited(coros: list) -> list:
+    sem = asyncio.Semaphore(MAX_CONCURRENT_LESSON_CALLS)
+
+    async def _guarded(coro):
+        async with sem:
+            return await coro
+
+    return await asyncio.gather(*(_guarded(c) for c in coros))
+
+
+def _tf_answer_patterns(tf_per_lesson: int, num_lessons: int) -> list[list[bool]]:
+    """Course-wide alternating true_false answer pattern, sliced per lesson.
+
+    Dictating exact answers per lesson keeps the course balanced even though
+    each lesson is generated in an isolated completion (starts with False
+    because generators default to all-true).
+    """
+    total = tf_per_lesson * num_lessons
+    seq = [i % 2 == 1 for i in range(total)]
+    return [seq[i * tf_per_lesson : (i + 1) * tf_per_lesson] for i in range(num_lessons)]
+
+
+def _lesson_to_plain(lesson: Lesson) -> Lesson:
+    """LessonGen -> Lesson (drops the thought_process field from artifacts)."""
+    return Lesson.model_validate(lesson.model_dump(exclude={"thought_process"}))
+
+
+def _all_lesson_keys(course: Course) -> list[str]:
+    return [f"{mi}:{li}" for mi, m in enumerate(course.modules) for li in range(len(m.lessons))]
+
+
+def _failed_lesson_keys(report: ValidationReport | None) -> set[str] | None:
+    """Lesson keys ("mi:li") with errors, or None when a full regeneration is needed.
+
+    None is returned when any error is not attributable to a single lesson
+    (e.g. wrong module count) — those can only be fixed by regenerating all.
+    """
+    if report is None:
+        return None
+    per_lesson = issues_by_lesson(report)
+    lesson_error_paths = {p for issues in per_lesson.values() for i in issues if i.severity == "error" for p in [i.path]}
+    keys = {k for k, issues in per_lesson.items() if any(i.severity == "error" for i in issues)}
+    for issue in report.issues:
+        if issue.severity == "error" and issue.path not in lesson_error_paths:
+            return None
+    return keys
 
 
 def _analysis_inventory_json(state: PipelineState) -> str | None:
@@ -220,40 +284,153 @@ async def a1_modularizer(state: PipelineState, ctx: WorkflowContext[PipelineStat
 async def a2_scaffolder(state: PipelineState, ctx: WorkflowContext[PipelineState]) -> None:
     if state.a1_course_map is None:
         raise RuntimeError("A2 requires A1 course map.")
-    await ctx.add_event(StageLogEvent("A2: starting scaffolder (8 exercises per lesson)"))
-    llm = LLMClient(model_id=state.model_id, name="A2_Scaffolder")
-    course_map_json = json.dumps(state.a1_course_map, ensure_ascii=False, indent=2)
-    
-    # Check for previous validation errors to pass for self-correction
-    validation_issues = None
-    if state.validation_report and not state.validation_report.ok:
-         # Only pass errors, warnings don't trigger a retry usually
-         validation_issues = [i.model_dump() for i in state.validation_report.issues if i.severity == "error"]
-         await ctx.add_event(StageLogEvent(f"A2: self-correcting retry {state.retry_count}. Injecting {len(validation_issues)} errors."))
 
-    await ctx.add_event(StageLogEvent("A2: calling LLM (this step can take a few minutes)"))
-    data, course = await llm.run_json_model(a2_scaffolder_prompt(
-        course_map_json,
-        state.input_text,
-        difficulty=state.difficulty,
-        config=state.config,
-        override_title=state.override_title,
-        validation_issues=validation_issues
-    ), Course)
-    await ctx.add_event(StageLogEvent("A2: received LLM response, validating schema"))
+    map_modules = state.a1_course_map.get("modules") or []
+    course_title = state.override_title or state.a1_course_map.get("title") or "Course"
+    lesson_entries: list[tuple[int, int, dict, str]] = []  # (mi, li, lesson_map, module_title)
+    for mi, module in enumerate(map_modules):
+        for li, lesson_map in enumerate(module.get("lessons") or []):
+            lesson_entries.append((mi, li, lesson_map, module.get("title", f"Module {mi + 1}")))
 
-    if "thought_process" in data and isinstance(data["thought_process"], list):
-        thought_str = "\n".join([f"  > {t}" for t in data["thought_process"]])
-        await ctx.add_event(StageLogEvent(f"A2 Thought Process:\n{thought_str}"))
+    # Cross-lesson context: tell each generator what the OTHER lessons own, so it
+    # stays inside its own concept pack.
+    def _other_lessons_note(current_key: str) -> str:
+        lines = []
+        for mi, li, lesson_map, _ in lesson_entries:
+            if f"{mi}:{li}" == current_key:
+                continue
+            ids = [c.get("id", "?") for c in (lesson_map.get("concepts") or [])]
+            lines.append(f"- \"{lesson_map.get('title', '?')}\": {ids}")
+        if not lines:
+            return ""
+        return "Other lessons in this course own these concepts — do NOT write exercises about them:\n" + "\n".join(lines)
 
-    course.difficulty = state.difficulty
-    # If A2 forgot to echo the concept packs back, restore them from the A1 map so
-    # downstream coverage validation still has ground truth.
+    # Deterministic per-lesson true/false answer pattern (course-wide alternation).
+    tf_per_lesson = state.config.question_type_distribution.get("true_false", 0)
+    tf_patterns = _tf_answer_patterns(tf_per_lesson, len(lesson_entries))
+
+    # Retry economics: regenerate ONLY the lessons that failed validation; clean
+    # lessons are reused untouched from the last validated course. None => all.
+    retrying = state.validation_report is not None and not state.validation_report.ok
+    prev_course = state.a5_course if retrying else None
+    failed_keys = _failed_lesson_keys(state.validation_report) if retrying else None
+    per_lesson_issues = issues_by_lesson(state.validation_report) if retrying else {}
+    structure_matches = prev_course is not None and [
+        len(m.lessons) for m in prev_course.modules
+    ] == [len(m.get("lessons") or []) for m in map_modules]
+    partial = retrying and failed_keys is not None and structure_matches
+
+    if partial:
+        to_generate = [e for e in lesson_entries if f"{e[0]}:{e[1]}" in failed_keys]
+        await ctx.add_event(
+            StageLogEvent(
+                f"A2: self-correcting retry {state.retry_count} — regenerating only "
+                f"{len(to_generate)}/{len(lesson_entries)} failed lesson(s): {sorted(failed_keys)}"
+            )
+        )
+    else:
+        to_generate = lesson_entries
+        note = f" (retry {state.retry_count}, full regeneration)" if retrying else ""
+        await ctx.add_event(
+            StageLogEvent(f"A2: generating {len(to_generate)} lessons concurrently{note} "
+                          f"(max {MAX_CONCURRENT_LESSON_CALLS} at a time)")
+        )
+
+    async def _gen_lesson(mi: int, li: int, lesson_map: dict, module_title: str) -> tuple[int, int, Lesson]:
+        key = f"{mi}:{li}"
+        issues = [i.model_dump() for i in per_lesson_issues.get(key, []) if i.severity == "error"] or None
+        llm = LLMClient(model_id=state.model_id, name=f"A2_Scaffolder_{mi}_{li}")
+        seq_index = next(idx for idx, e in enumerate(lesson_entries) if (e[0], e[1]) == (mi, li))
+        _, lesson = await llm.run_json_model(
+            a2_lesson_prompt(
+                json.dumps(lesson_map, ensure_ascii=False, indent=2),
+                state.input_text,
+                difficulty=state.difficulty,
+                config=state.config,
+                course_title=course_title,
+                module_title=module_title,
+                other_lessons_note=_other_lessons_note(key),
+                tf_answers=tf_patterns[seq_index],
+                validation_issues=issues,
+            ),
+            LessonGen,
+        )
+        await ctx.add_event(StageLogEvent(f"A2: lesson {key} (\"{lesson.title}\") generated"))
+        return mi, li, _lesson_to_plain(lesson)
+
+    results = await _gather_limited([_gen_lesson(*e) for e in to_generate])
+    generated = {f"{mi}:{li}": lesson for mi, li, lesson in results}
+
+    # Assemble the course: fresh lessons where generated, reused ones elsewhere.
+    modules: list[Module] = []
+    for mi, module in enumerate(map_modules):
+        lessons: list[Lesson] = []
+        for li in range(len(module.get("lessons") or [])):
+            key = f"{mi}:{li}"
+            if key in generated:
+                lessons.append(generated[key])
+            else:
+                lessons.append(prev_course.modules[mi].lessons[li])
+        modules.append(Module(title=module.get("title", f"Module {mi + 1}"), lessons=lessons))
+
+    course = Course(title=course_title, difficulty=state.difficulty, modules=modules)
+    # If a lesson generator forgot to echo the concept pack back, restore it from
+    # the A1 map so downstream coverage validation still has ground truth.
     _seed_concepts_from_map(course, state.a1_course_map)
+
     state.a2_course = course
+    state.dirty_lessons = sorted(generated.keys())
     await ctx.add_event(StageLogEvent("A2: writing artifact, forwarding to A3"))
     write_json(_artifact_path(state, "a2_course.json"), course.model_dump(mode="json"))
     await ctx.send_message(state)
+
+
+async def _rewrite_lessons_chunked(
+    state: PipelineState,
+    ctx: WorkflowContext[PipelineState],
+    source_course: Course,
+    *,
+    stage: str,
+    agent_prefix: str,
+    prompt_builder,
+) -> Course:
+    """Shared chunked rewrite for A3/A4: process only the dirty lessons, concurrently.
+
+    Clean lessons pass through untouched — they already carry the previous
+    pass's scenarios/feedback and re-running them only risks damage.
+    """
+    dirty = set(state.dirty_lessons) if state.dirty_lessons is not None else set(_all_lesson_keys(source_course))
+    course = source_course.model_copy(deep=True)
+
+    targets: list[tuple[int, int, Lesson]] = [
+        (mi, li, lesson)
+        for mi, m in enumerate(course.modules)
+        for li, lesson in enumerate(m.lessons)
+        if f"{mi}:{li}" in dirty
+    ]
+    await ctx.add_event(
+        StageLogEvent(
+            f"{stage}: rewriting {len(targets)}/{sum(len(m.lessons) for m in course.modules)} lesson(s) "
+            f"concurrently (max {MAX_CONCURRENT_LESSON_CALLS} at a time)"
+        )
+    )
+
+    async def _rewrite(mi: int, li: int, lesson: Lesson) -> tuple[int, int, Lesson]:
+        llm = LLMClient(model_id=state.model_id, name=f"{agent_prefix}_{mi}_{li}")
+        _, updated = await llm.run_json_model(
+            prompt_builder(lesson.model_dump_json(indent=2)),
+            LessonGen,
+        )
+        await ctx.add_event(StageLogEvent(f"{stage}: lesson {mi}:{li} (\"{lesson.title}\") done"))
+        return mi, li, _lesson_to_plain(updated)
+
+    results = await _gather_limited([_rewrite(*t) for t in targets])
+    for mi, li, updated in results:
+        course.modules[mi].lessons[li] = updated
+
+    course.difficulty = state.difficulty
+    _restore_concept_metadata(source_course, course)
+    return course
 
 
 @executor(id="a3_scenario_designer")
@@ -261,21 +438,16 @@ async def a3_scenario_designer(state: PipelineState, ctx: WorkflowContext[Pipeli
     if state.a2_course is None:
         raise RuntimeError("A3 requires A2 course.")
     await ctx.add_event(StageLogEvent("A3: starting scenario designer (make L3/L4 scenario-based)"))
-    llm = LLMClient(model_id=state.model_id, name="A3_ScenarioDesigner")
-    course_json = state.a2_course.model_dump_json(indent=2)
-    await ctx.add_event(StageLogEvent("A3: calling LLM"))
-    data, course = await llm.run_json_model(
-        a3_scenario_designer_prompt(course_json, state.input_text, difficulty=state.difficulty, config=state.config),
-        Course,
+    course = await _rewrite_lessons_chunked(
+        state,
+        ctx,
+        state.a2_course,
+        stage="A3",
+        agent_prefix="A3_ScenarioDesigner",
+        prompt_builder=lambda lesson_json: a3_lesson_prompt(
+            lesson_json, state.input_text, difficulty=state.difficulty, config=state.config
+        ),
     )
-    await ctx.add_event(StageLogEvent("A3: received LLM response, validating schema"))
-
-    if "thought_process" in data and isinstance(data["thought_process"], list):
-        thought_str = "\n".join([f"  > {t}" for t in data["thought_process"]])
-        await ctx.add_event(StageLogEvent(f"A3 Thought Process:\n{thought_str}"))
-
-    course.difficulty = state.difficulty
-    _restore_concept_metadata(state.a2_course, course)
     state.a3_course = course
     await ctx.add_event(StageLogEvent("A3: writing artifact, forwarding to A4"))
     write_json(_artifact_path(state, "a3_course.json"), course.model_dump(mode="json"))
@@ -287,21 +459,16 @@ async def a4_feedback_architect(state: PipelineState, ctx: WorkflowContext[Pipel
     if state.a3_course is None:
         raise RuntimeError("A4 requires A3 course.")
     await ctx.add_event(StageLogEvent("A4: starting feedback architect (paired feedback for distractors)"))
-    llm = LLMClient(model_id=state.model_id, name="A4_FeedbackArchitect")
-    course_json = state.a3_course.model_dump_json(indent=2)
-    await ctx.add_event(StageLogEvent("A4: calling LLM"))
-    data, course = await llm.run_json_model(
-        a4_feedback_architect_prompt(course_json, state.input_text, difficulty=state.difficulty, config=state.config),
-        Course,
+    course = await _rewrite_lessons_chunked(
+        state,
+        ctx,
+        state.a3_course,
+        stage="A4",
+        agent_prefix="A4_FeedbackArchitect",
+        prompt_builder=lambda lesson_json: a4_lesson_prompt(
+            lesson_json, state.input_text, difficulty=state.difficulty, config=state.config
+        ),
     )
-    await ctx.add_event(StageLogEvent("A4: received LLM response, validating schema"))
-
-    if "thought_process" in data and isinstance(data["thought_process"], list):
-        thought_str = "\n".join([f"  > {t}" for t in data["thought_process"]])
-        await ctx.add_event(StageLogEvent(f"A4 Thought Process:\n{thought_str}"))
-
-    course.difficulty = state.difficulty
-    _restore_concept_metadata(state.a3_course, course)
     state.a4_course = course
     await ctx.add_event(StageLogEvent("A4: writing artifact, forwarding to A5"))
     write_json(_artifact_path(state, "a4_course.json"), course.model_dump(mode="json"))

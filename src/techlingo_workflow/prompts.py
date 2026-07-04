@@ -212,36 +212,40 @@ def _bloom_type_plan(config: WorkflowConfig) -> str:
     return "\n".join(lines)
 
 
-def a2_scaffolder_prompt(
-    course_map_json: str,
+def a2_lesson_prompt(
+    lesson_map_json: str,
     source_text: str,
     *,
     difficulty: DifficultyLevel,
     config: WorkflowConfig,
-    override_title: str | None = None,
-    validation_issues: list[dict[str, Any]] | None = None
+    course_title: str,
+    module_title: str,
+    other_lessons_note: str,
+    tf_answers: list[bool],
+    validation_issues: list[dict[str, Any]] | None = None,
 ) -> str:
-    target_title = override_title if override_title else "AI Core Capabilities and Responsibility"
+    """Per-lesson generation prompt (chunked A2).
+
+    One lesson per completion keeps output size bounded by lesson size, so
+    exercises_per_lesson can grow without hitting output-token limits, and
+    lesson calls can run concurrently.
+    """
     blooms_reqs = "\n".join([f"- {k}: {v} exercises" for k, v in config.blooms_distribution.items()])
     type_reqs = "\n".join([f"    - {k}: {v}" for k, v in config.question_type_distribution.items()])
     bloom_plan = _bloom_type_plan(config)
+    tf_pattern = ", ".join("false" if not a else "true" for a in tf_answers)
 
     # Construct feedback section if issues exist
     feedback_section = ""
     if validation_issues:
         issues_str = "\n".join([f"- {i['severity'].upper()} at {i['path']}: {i['message']}" for i in validation_issues])
         feedback_section = dedent(f"""
-        CRITICAL INSTRUCTION - PREVIOUS ATTEMPT FAILED VALIDATION
-        Your previous output had the following errors. You MUST fix them in this new attempt:
+        CRITICAL INSTRUCTION - THE PREVIOUS VERSION OF THIS LESSON FAILED VALIDATION
+        It had the following errors. You MUST fix them in this new attempt:
         {issues_str}
 
-        Fix ONLY what the errors describe. EVERYTHING ELSE must still satisfy the original
-        constraints below — in particular: the EXACT module and lesson structure from the
-        course map (same number of modules, same lessons in each), the exact per-lesson
-        exercise count and question-type mix, and the Bloom distribution. Do NOT drop or
-        merge modules or lessons while fixing exercise-level errors.
-
-        Refuse to generate the same broken content again.
+        Fix ONLY what the errors describe; everything else must still satisfy the
+        constraints below (exact exercise count, type mix, Bloom assignment).
         """)
 
     return dedent(
@@ -254,13 +258,16 @@ def a2_scaffolder_prompt(
         grounded in it):
         {source_text}
 
-        Input course map JSON (each lesson carries a "concepts" content pack — the atoms
-        your exercises must cover):
-        {course_map_json}
+        You are generating ONE lesson of the course "{course_title}", module "{module_title}".
+        {other_lessons_note}
 
-        Task (A2 Scaffolder - Q&A Generator):
-        For EACH lesson, generate exactly {config.exercises_per_lesson} exercises drawing on the
-        lesson's concepts and the source text, using Bloom's Taxonomy per lesson:
+        This lesson's map entry (its "concepts" content pack is the item bank your
+        exercises must cover):
+        {lesson_map_json}
+
+        Task (A2 Scaffolder - Q&A Generator, single lesson):
+        Generate exactly {config.exercises_per_lesson} exercises for THIS lesson, drawing on its
+        concepts and the source text, using this Bloom distribution:
         {blooms_reqs}
 
         STRICT CONSTRAINT: Use ONLY information present in the source text. Do not use external knowledge.
@@ -269,24 +276,23 @@ def a2_scaffolder_prompt(
         - Required: Teach the concept directly as a fact. (e.g., "AI is..." instead of "The text says AI is...").
 
         CONCEPT COVERAGE (hard rules):
-        - Every exercise MUST include "concept_id" set to the id of one concept from ITS OWN lesson's concepts.
-        - Cover as many DISTINCT concepts as possible: when a lesson has at least as many
+        - Every exercise MUST include "concept_id" set to the id of one concept from THIS lesson's concepts.
+        - Cover as many DISTINCT concepts as possible: when the lesson has at least as many
           concepts as exercises, EVERY exercise must use a DIFFERENT concept_id. Only
           revisit a concept when there are more exercises than concepts.
         - Every exercise must test a DIFFERENT fact or aspect. NEVER re-ask the same fact
           with a different question type — that is the #1 failure mode to avoid. If two
           exercises share a concept, they must probe different details of it (e.g., its
           definition vs. its use case vs. how it differs from a sibling concept).
-        - Copy each lesson's "concepts" array VERBATIM from the input course map into your output.
+        - Copy the lesson's "concepts" array VERBATIM from the map entry into your output.
 
         BLOOM/TYPE COUPLING (hard rules):
         - Applying and Analyzing/Evaluating exercises MUST be single_choice or multi_choice,
           and their prompt TEXT must describe a realistic scenario with a decision point.
         - true_false, fill_gaps, and rearrange exercises MUST be Remembering or Understanding.
-        - USE THIS EXACT PER-LESSON ASSIGNMENT (it satisfies both distributions — follow it
-          for every lesson; you may swap Remembering<->Understanding between the lower-order
-          types when it fits the content better, but NEVER put Applying or
-          Analyzing/Evaluating on true_false/fill_gaps/rearrange):
+        - USE THIS EXACT ASSIGNMENT (it satisfies both distributions; you may swap
+          Remembering<->Understanding between the lower-order types when it fits the content
+          better, but NEVER put Applying or Analyzing/Evaluating on true_false/fill_gaps/rearrange):
 {bloom_plan}
 
         DISTRACTOR POLICY (hard rules):
@@ -301,22 +307,20 @@ def a2_scaffolder_prompt(
         - An option must never restate the prompt (no tautologies).
 
         VARIETY:
-        - Vary the phrasing of prompts across exercises and lessons; never repeat an identical
-          stem twice in the same lesson.
+        - Vary the phrasing of prompts across exercises; never repeat an identical stem twice.
 
         Constraints:
-        - Each lesson must include:
-          - exercises: exactly {config.exercises_per_lesson} items, with this exact per-lesson mix:
+        - exercises: exactly {config.exercises_per_lesson} items, with this exact mix:
         {type_reqs}
-          - flashcards: exactly {config.flashcards_per_lesson} items.
-            - STRICT CONSTRAINT: Atomic & Concise. Each flashcard must cover exactly ONE concept,
-              and different flashcards in a lesson must cover DIFFERENT concepts.
-            - Front: specific term, question, or scenario (max 10 words).
-            - Back: clear, direct definition or answer (max 15 words).
-            - FORBIDDEN: Do NOT generate "summaries", "lists of items", or "overview" cards.
-            - FORBIDDEN: Do NOT enable "List 3 types of..." style cards.
-            - Good: "What is X?" -> "X is ..."
-            - Good: "Action for X?" -> "Do Y."
+        - flashcards: exactly {config.flashcards_per_lesson} items.
+          - STRICT CONSTRAINT: Atomic & Concise. Each flashcard must cover exactly ONE concept,
+            and different flashcards must cover DIFFERENT concepts.
+          - Front: specific term, question, or scenario (max 10 words).
+          - Back: clear, direct definition or answer (max 15 words).
+          - FORBIDDEN: Do NOT generate "summaries", "lists of items", or "overview" cards.
+          - FORBIDDEN: Do NOT enable "List 3 types of..." style cards.
+          - Good: "What is X?" -> "X is ..."
+          - Good: "Action for X?" -> "Do Y."
         - Every exercise must include:
           - blooms_level (one of: Remembering, Understanding, Applying, Analyzing/Evaluating)
           - question_type: MUST be EXACTLY one of: single_choice, multi_choice, true_false, fill_gaps, rearrange. NEVER invent other values (e.g. "scenario_based" is INVALID).
@@ -334,10 +338,9 @@ def a2_scaffolder_prompt(
           - prompt: The learner-facing question or instruction (e.g., "True or false?").
           - statement: the statement to judge
           - correct_answer: true/false
-          - BALANCE (mechanical rule): ALTERNATE the answers course-wide. The 1st true_false
-            exercise you write (counting across all lessons in order) has correct_answer=false,
-            the 2nd true, the 3rd false, and so on. When a lesson has several true_false
-            exercises, keep alternating within the lesson. Never make them all true.
+          - MANDATORY ANSWER PATTERN: this lesson has exactly {len(tf_answers)} true_false
+            exercise(s); in the order you write them, their correct_answer values MUST be:
+            [{tf_pattern}]. This pattern balances answers across the whole course.
           - A FALSE statement must be a true statement with exactly ONE detail swapped for a
             confusable sibling term or fact (minimal corruption) — e.g. attribute object
             detection's behavior to image classification. Never write absurd false statements.
@@ -359,60 +362,50 @@ def a2_scaffolder_prompt(
             sentences, split into genuinely reorderable pieces — never 2-3 giveaway chunks.
           - Task must be "Reconstruct the sentence" or "Order the steps". Do NOT use scenarios for this type.
 
-        Output JSON schema (must be valid and complete):
+        Output JSON schema — return ONE lesson object (NOT a course, NOT an array):
         {{
           "thought_process": [
-            "Step 1: Reviewing input map...",
-            "Step 2: Generating exercises for Lesson 1...",
-            "Step 3: verifying Bloom's taxonomy distribution..."
+            "Step 1: Reviewed the lesson concepts...",
+            "Step 2: Assigned exercises to concepts...",
+            "Step 3: Verified the type mix and Bloom assignment..."
           ],
-          "title": "{target_title}",
-          "modules": [
+          "title": "Lesson Title (keep from the map entry)",
+          "slo": "SLO (keep from the map entry)",
+          "concepts": [
+            {{ "id": "...", "label": "...", "summary": "...", "confusable_with": ["..."] }}
+          ],
+          "exercises": [
             {{
-              "title": "Module Title",
-              "lessons": [
-                {{
-                  "title": "Lesson Title",
-                  "slo": "SLO",
-                  "concepts": [
-                    {{ "id": "...", "label": "...", "summary": "...", "confusable_with": ["..."] }}
-                  ],
-                  "exercises": [
-                    {{
-                      "blooms_level": "Remembering|Understanding|Applying|Analyzing/Evaluating",
-                      "question_type": "single_choice|multi_choice|true_false|fill_gaps|rearrange",
-                      "prompt": "...",
-                      "concept_id": "...",
+              "blooms_level": "Remembering|Understanding|Applying|Analyzing/Evaluating",
+              "question_type": "single_choice|multi_choice|true_false|fill_gaps|rearrange",
+              "prompt": "...",
+              "concept_id": "...",
 
-                      "options": [
-                        {{ "text": "...", "is_correct": true, "error_type": null, "feedback": null, "rationale": null, "better_fit": null }},
-                        {{ "text": "...", "is_correct": false, "error_type": "...", "feedback": null, "rationale": null, "better_fit": null }}
-                      ],
+              "options": [
+                {{ "text": "...", "is_correct": true, "error_type": null, "feedback": null, "rationale": null, "better_fit": null }},
+                {{ "text": "...", "is_correct": false, "error_type": "...", "feedback": null, "rationale": null, "better_fit": null }}
+              ],
 
-                      "statement": "...",
-                      "correct_answer": true,
+              "statement": "...",
+              "correct_answer": true,
 
-                      "parts": [
-                        {{ "type": "text", "text": "..." }},
-                        {{ "type": "gap", "accepted_answers": ["..."], "placeholder": "..." }}
-                      ],
+              "parts": [
+                {{ "type": "text", "text": "..." }},
+                {{ "type": "gap", "accepted_answers": ["..."], "placeholder": "..." }}
+              ],
 
-                      "word_bank": ["..."],
-                      "correct_order": ["..."]
-                    }}
-                  ],
-                  "flashcards": [
-                    {{ "front": "...", "back": "...", "hint": "..." }}
-                  ]
-                }}
-              ]
+              "word_bank": ["..."],
+              "correct_order": ["..."]
             }}
+          ],
+          "flashcards": [
+            {{ "front": "...", "back": "...", "hint": "..." }}
           ]
         }}
         """
     )
     
-def a3_scenario_designer_prompt(course_json: str, source_text: str, *, difficulty: DifficultyLevel, config: WorkflowConfig) -> str:
+def a3_lesson_prompt(lesson_json: str, source_text: str, *, difficulty: DifficultyLevel, config: WorkflowConfig) -> str:
     blooms_counts = "/".join([str(v) for v in config.blooms_distribution.values()])
     return dedent(
         f"""\
@@ -421,11 +414,11 @@ def a3_scenario_designer_prompt(course_json: str, source_text: str, *, difficult
         Source Text (ground truth for every scenario detail):
         {source_text}
 
-        Input course JSON:
-        {course_json}
+        Input lesson JSON (one lesson of a larger course):
+        {lesson_json}
 
-        Task (A3 Merrill’s Agent - Scenario Designer):
-        Rewrite exercises to ensure contextual relevance and stylistic variety:
+        Task (A3 Merrill’s Agent - Scenario Designer, single lesson):
+        Rewrite this lesson's exercises to ensure contextual relevance and stylistic variety:
 
         CRITICAL: `question_type` MUST stay EXACTLY one of:
         single_choice, multi_choice, true_false, fill_gaps, rearrange.
@@ -459,10 +452,10 @@ def a3_scenario_designer_prompt(course_json: str, source_text: str, *, difficult
         - Clear decision point in the question
 
         Constraints:
-        - Do not change lesson/module structure.
-        - Preserve every lesson's "concepts" array and every exercise's "concept_id" EXACTLY as given.
-        - Preserve Bloom level counts per lesson ({blooms_counts}).
-        - Preserve each exercise's question_type and required fields.
+        - Preserve the lesson's "concepts" array and every exercise's "concept_id" EXACTLY as given.
+        - Preserve Bloom level counts ({blooms_counts}).
+        - Preserve each exercise's question_type, order, and required fields.
+        - Preserve every true_false exercise's correct_answer value EXACTLY (do not flip answers).
         - Keep distractors plausible (sibling concepts / real misconceptions); never introduce
           absurd or out-of-domain options while rewriting.
         - For fill_gaps and rearrange, keep the structure valid (parts/word_bank/correct_order).
@@ -470,14 +463,15 @@ def a3_scenario_designer_prompt(course_json: str, source_text: str, *, difficult
         - Do not add or remove flashcards.
         - Keep the correct answer semantically correct.
 
-        Output: return the FULL updated course JSON (same schema as input).
+        Output: return the FULL updated lesson JSON (same schema as the input lesson —
+        a single lesson object, NOT a course).
 
         IMPORTANT: Start your JSON with a "thought_process" field (array of strings) explaining your decisions for the scenario updates.
         """
     )
 
 
-def a4_feedback_architect_prompt(course_json: str, source_text: str, *, difficulty: DifficultyLevel, config: WorkflowConfig) -> str:
+def a4_lesson_prompt(lesson_json: str, source_text: str, *, difficulty: DifficultyLevel, config: WorkflowConfig) -> str:
     return dedent(
         f"""\
         {difficulty_contract(difficulty)}
@@ -485,11 +479,11 @@ def a4_feedback_architect_prompt(course_json: str, source_text: str, *, difficul
         Source Text (ground truth — every explanation must be verifiable against it):
         {source_text}
 
-        Input course JSON:
-        {course_json}
+        Input lesson JSON (one lesson of a larger course):
+        {lesson_json}
 
-        Task (A4 Feedback Architect - Instructional Coaching):
-        You must populate all feedback fields for every exercise.
+        Task (A4 Feedback Architect - Instructional Coaching, single lesson):
+        You must populate all feedback fields for every exercise in this lesson.
         
         For ALL single_choice and multi_choice exercises:
         - Add 'feedback_for_correct' (1-2 sentences reinforcing why the answer is right).
@@ -522,12 +516,13 @@ def a4_feedback_architect_prompt(course_json: str, source_text: str, *, difficul
         - Ensure 'feedback_for_correct' is present for ALL exercises.
         - Ensure 'feedback_for_incorrect' is present for ALL true_false exercises.
         - Do not remove existing fields.
-        - Preserve every lesson's "concepts" array and every exercise's "concept_id" EXACTLY as given.
+        - Preserve the lesson's "concepts" array and every exercise's "concept_id" EXACTLY as given.
+        - Preserve every true_false exercise's correct_answer value EXACTLY.
         - Keep feedback/rationale concise and learner-friendly.
         - Do not add or remove exercises or flashcards.
 
-        Output: return the FULL updated course JSON.
-        
+        Output: return the FULL updated lesson JSON (a single lesson object, NOT a course).
+
         IMPORTANT: Start your JSON with a "thought_process" field (array of strings) explaining your feedback generation strategy.
         """
     )
@@ -642,32 +637,32 @@ def a5_tf_rebalance_prompt(items_json: str, source_text: str, *, to_false: bool 
     )
 
 
-def a5_repair_prompt(bad_course_json: str, issues_json: str, config: WorkflowConfig) -> str:
+def a5_lesson_repair_prompt(lesson_json: str, issues_json: str, config: WorkflowConfig) -> str:
+    """Per-lesson repair (chunked A5). Only lessons with errors get repaired,
+    so clean lessons can never be damaged by a whole-course rewrite."""
     blooms_reqs = ", ".join([f"{v} {k}" for k, v in config.blooms_distribution.items()])
     type_reqs = "\n".join([f"          - {k}: {v}" for k, v in config.question_type_distribution.items()])
 
     return dedent(
         f"""\
-        You must repair the course JSON to satisfy all constraints.
-        Return ONLY corrected JSON.
-        
+        You must repair ONE lesson of a course so it satisfies all constraints.
+        Return ONLY the corrected lesson JSON (a single lesson object, NOT a course).
+
         IMPORTANT: Start your JSON with a "thought_process" field (array of strings) explaining the repairs you are making.
 
         Constraints to satisfy:
-        - Exactly {config.modules_count} modules.
-        - Total lessons across modules: {config.min_lessons_total} to {config.max_lessons_total}.
-        - Each lesson has exactly {config.exercises_per_lesson} exercises.
-        - Bloom distribution per lesson: {blooms_reqs}.
-        - Exercise type mix per lesson (exact counts within the {config.exercises_per_lesson} exercises):
+        - The lesson has exactly {config.exercises_per_lesson} exercises.
+        - Bloom distribution: {blooms_reqs}.
+        - Exercise type mix (exact counts within the {config.exercises_per_lesson} exercises):
 {type_reqs}
-        - Each lesson has exactly {config.flashcards_per_lesson} flashcards.
+        - The lesson has exactly {config.flashcards_per_lesson} flashcards.
         - **Bloom/type coupling**: Applying and Analyzing/Evaluating exercises MUST be
           single_choice or multi_choice with a scenario + decision point in the prompt text.
           true_false, fill_gaps, and rearrange MUST be Remembering or Understanding.
         - **Concept coverage**: every exercise must have a `concept_id` matching one concept
-          from its lesson's `concepts` array; cover as many distinct concepts per lesson as
-          possible (when concepts >= exercises, every exercise uses a different concept).
-          Preserve `concepts` arrays.
+          from the lesson's `concepts` array; cover as many distinct concepts as possible
+          (when concepts >= exercises, every exercise uses a different concept).
+          Preserve the `concepts` array.
         - **No duplicates**: no two exercises may test the same fact (even with different
           question types). If flagged as near-duplicates, rewrite one to target a different
           fact or aspect of the concept.
@@ -678,9 +673,9 @@ def a5_repair_prompt(bad_course_json: str, issues_json: str, config: WorkflowCon
         - For single_choice and multi_choice exercises:
           - ALL options must have a 'rationale' (2-3 sentences explaining why it is correct/incorrect).
           - ALL incorrect options must have a 'better_fit' (1-2 sentences describing where it would be correct).
-        - **True/False balance**: roughly half of all true_false exercises across the course
-          must have correct_answer=false; a false statement is a true statement with exactly
-          ONE detail swapped for a confusable sibling term (never absurd).
+        - **True/False answers**: keep every true_false exercise's correct_answer value
+          EXACTLY as it is (the answer pattern is balanced course-wide); fix only the
+          statement/prompt wording when flagged.
         - For fill_gaps: Ensure grammatical correctness, semantic coherence, that context uniquely determines the answer, and that there is EXACTLY ONE gap part. The gap must be a key technical term, never a generic word.
         - For rearrange: word_bank must have 4-8 tokens, each at most 4 words; the final order forms a valid grammatical sentence or logical process steps.
         - **Formatting**: REMOVE all scraping artifacts (e.g., "Expand table", "Image 1", "click here").
@@ -691,11 +686,12 @@ def a5_repair_prompt(bad_course_json: str, issues_json: str, config: WorkflowCon
         - **Logic**: Ensure all questions and answers are logically valid and properly structured.
         - **Meta-References**: REMOVE all pointers to "the text", "the document", or "examples above". Rewrite as direct statements. Never write questions ABOUT the course itself (e.g., "What is this course about?").
 
-        Validation issues:
+        Validation issues for THIS lesson (paths are relative to the course; ignore the
+        module/lesson prefix and fix the referenced exercises):
         {issues_json}
-        
-        Current course JSON:
-        {bad_course_json}
+
+        Current lesson JSON:
+        {lesson_json}
         """
     )
 

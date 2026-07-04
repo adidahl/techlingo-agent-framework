@@ -23,6 +23,7 @@ class LLMClient:
         instructions: str = SYSTEM_JSON_ONLY,
         name: str = "TechlingoPipeline",
     ) -> None:
+        self.model_id = model_id
         self._agent = ChatAgent(
             chat_client=OpenAIChatClient(model_id=model_id),
             name=name,

@@ -10,7 +10,12 @@ from collections import Counter
 
 from techlingo_workflow.config import WorkflowConfig
 from techlingo_workflow.emit import build_techlingo_course
-from techlingo_workflow.executors import _restore_concept_metadata, _seed_concepts_from_map
+from techlingo_workflow.executors import (
+    _failed_lesson_keys,
+    _restore_concept_metadata,
+    _seed_concepts_from_map,
+    _tf_answer_patterns,
+)
 from techlingo_workflow.models import (
     BloomsLevel,
     ChoiceOption,
@@ -32,6 +37,7 @@ from techlingo_workflow.models import ValidationIssue, ValidationReport
 from techlingo_workflow.validate import (
     _content_quality_issues,
     attempt_badness,
+    issues_by_lesson,
     normalize_course,
     validate_course,
 )
@@ -222,13 +228,22 @@ def test_unknown_concept_id_is_rejected():
 
 
 def test_overdrilled_concept_is_rejected():
-    # 4 exercises on object-detection, 1 on image-classification: cap is
-    # max(ceil(5/2), 2) = 3, so 4 on one concept must be rejected.
+    # All 5 exercises on object-detection: cap is max(ceil(5/2)+1, 2) = 4,
+    # so 5 on one concept must be rejected.
     course = _course([
         _lesson(exercises=[_sc(), _mc("object-detection"), _tf("object-detection"), _fg("object-detection"), _ra("object-detection")])
     ])
     report = validate_course(course, _small_config())
     assert any("over-drilled" in i.message for i in _errors(report))
+
+
+def test_one_over_even_split_is_tolerated():
+    # 3 on object-detection, 2 on image-classification: within the +1 slack.
+    course = _course([
+        _lesson(exercises=[_sc(), _mc("object-detection"), _tf("image-classification"), _fg(), _ra("object-detection")])
+    ])
+    report = validate_course(course, _small_config())
+    assert not any("over-drilled" in i.message for i in _errors(report))
 
 
 def test_low_distinct_concept_coverage_is_rejected():
@@ -374,6 +389,49 @@ def test_attempt_badness_prefers_many_content_errors_over_one_structural():
     )
     assert attempt_badness(content) < attempt_badness(shape)
     assert attempt_badness(shape) < attempt_badness(structural)
+
+
+# ---------------------------------------------------------------------------
+# Chunked generation helpers
+# ---------------------------------------------------------------------------
+
+def test_tf_answer_patterns_alternate_course_wide():
+    patterns = _tf_answer_patterns(3, 2)
+    assert patterns == [[False, True, False], [True, False, True]]
+    flat = [a for p in patterns for a in p]
+    assert abs(flat.count(True) - flat.count(False)) <= 1
+
+
+def _report(issues):
+    return ValidationReport(ok=False, issues=issues)
+
+
+def test_issues_by_lesson_groups_by_path():
+    report = _report([
+        ValidationIssue(severity="error", path="modules[0].lessons[1].exercises[2].prompt", message="x"),
+        ValidationIssue(severity="error", path="modules[1].lessons[0].exercises", message="y"),
+        ValidationIssue(severity="warning", path="modules[0].lessons[1].exercises[3]", message="z"),
+        ValidationIssue(severity="error", path="modules", message="course-level"),
+    ])
+    grouped = issues_by_lesson(report)
+    assert set(grouped) == {"0:1", "1:0"}
+    assert len(grouped["0:1"]) == 2
+
+
+def test_failed_lesson_keys_returns_only_failing_lessons():
+    report = _report([
+        ValidationIssue(severity="error", path="modules[0].lessons[1].exercises[2]", message="dup"),
+        ValidationIssue(severity="warning", path="modules[2].lessons[0].exercises[0]", message="minor"),
+    ])
+    assert _failed_lesson_keys(report) == {"0:1"}
+
+
+def test_failed_lesson_keys_requests_full_regen_on_course_level_error():
+    report = _report([
+        ValidationIssue(severity="error", path="modules", message="Expected exactly 3 modules, got 1."),
+        ValidationIssue(severity="error", path="modules[0].lessons[0].exercises[1]", message="dup"),
+    ])
+    assert _failed_lesson_keys(report) is None
 
 
 # ---------------------------------------------------------------------------

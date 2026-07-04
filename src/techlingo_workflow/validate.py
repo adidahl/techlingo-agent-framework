@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import asyncio
 import json
 import re
 from collections import Counter
@@ -15,6 +16,8 @@ from .models import (
     Feedback,
     FillGapsExercise,
     Flashcard,
+    Lesson,
+    LessonGen,
     MultiChoiceExercise,
     RearrangeExercise,
     SingleChoiceExercise,
@@ -22,7 +25,7 @@ from .models import (
     ValidationIssue,
     ValidationReport,
 )
-from .prompts import a5_repair_prompt
+from .prompts import a5_lesson_repair_prompt
 
 
 def _count_lessons(course: Course) -> int:
@@ -229,8 +232,11 @@ def validate_course(course: Course, config: WorkflowConfig) -> ValidationReport:
                                 f"different concepts instead of revisiting the same one.",
                             )
                         )
-                    # Over-drill cap: no single concept hogs the lesson.
-                    cap = max(math.ceil(len(lesson.exercises) / len(concept_ids)), 2)
+                    # Over-drill cap: no single concept hogs the lesson. The +1
+                    # slack matters: generators reliably land one over the exact
+                    # even split, and that is pedagogically fine — the gate is
+                    # for gross over-drilling, not perfect balance.
+                    cap = max(math.ceil(len(lesson.exercises) / len(concept_ids)) + 1, 2)
                     over = {cid: n for cid, n in assigned.items() if n > cap}
                     if over:
                         issues.append(
@@ -262,7 +268,11 @@ def validate_course(course: Course, config: WorkflowConfig) -> ValidationReport:
                     )
 
                 if ex.blooms_level in {BloomsLevel.applying, BloomsLevel.analyzing_evaluating}:
-                    looks_like_scenario = any(
+                    # A scenario prompt describes a situation before the question,
+                    # which needs length — keyword lists alone false-positive on
+                    # perfectly good scenarios ("A product team is choosing...").
+                    # Only warn when the prompt is BOTH short and keyword-free.
+                    looks_like_scenario = len(ex.prompt.split()) >= 12 or any(
                         key in prompt_lc
                         for key in (
                             "scenario",
@@ -789,6 +799,25 @@ def normalize_course(course: Course) -> Course:
     return course
 
 
+_LESSON_PATH_RE = re.compile(r"^modules\[(\d+)\]\.lessons\[(\d+)\]")
+
+
+def issues_by_lesson(report: ValidationReport | None) -> dict[str, list[ValidationIssue]]:
+    """Group issues by the lesson ("mi:li") their path points into.
+
+    Issues whose path does not name a specific lesson (course-level structure,
+    cross-course balance) are omitted — they cannot be fixed lesson-locally.
+    """
+    grouped: dict[str, list[ValidationIssue]] = {}
+    if report is None:
+        return grouped
+    for issue in report.issues:
+        m = _LESSON_PATH_RE.match(issue.path)
+        if m:
+            grouped.setdefault(f"{m.group(1)}:{m.group(2)}", []).append(issue)
+    return grouped
+
+
 def error_count(report: ValidationReport) -> int:
     return sum(1 for i in report.issues if i.severity == "error")
 
@@ -914,29 +943,66 @@ async def repair_course_if_needed(
     if report.ok:
         return course, report
 
-    # LLM repairs sometimes make things WORSE (drop modules, break the type mix).
-    # Track the best version seen and return that, never blindly the last attempt.
+    # LLM repairs sometimes make things WORSE. Repair is chunked per lesson —
+    # only the offending lessons are rewritten (clean ones can't be damaged) and
+    # the best version seen is returned, never blindly the last attempt.
     best_course, best_report = course, report
 
     repaired = course
     for _ in range(max_repairs):
-        issues_json = json.dumps([i.model_dump() for i in report.issues], ensure_ascii=False, indent=2)
-        course_json = repaired.model_dump_json(indent=2)
-        try:
-            _, candidate = await llm.run_json_model(a5_repair_prompt(course_json, issues_json, config), Course)
-        except (ValidationError, json.JSONDecodeError) as e:
-            # The repair model couldn't produce a valid corrected course even after
-            # retries. Never crash the run over this: keep the last valid version
-            # (from A4 or a prior successful repair) and stop repairing.
+        per_lesson = issues_by_lesson(report)
+        failing = {
+            key: issues
+            for key, issues in per_lesson.items()
+            if any(i.severity == "error" for i in issues)
+        }
+        if not failing:
+            # Only course-level errors remain (module/lesson counts, cross-course
+            # balance) — not fixable lesson-locally; the A5->A2 loop handles them.
+            break
+
+        async def _repair_lesson(key: str, issues: list[ValidationIssue]) -> tuple[str, Lesson] | None:
+            mi, li = (int(x) for x in key.split(":"))
+            lesson = repaired.modules[mi].lessons[li]
+            issues_json = json.dumps([i.model_dump() for i in issues], ensure_ascii=False, indent=2)
+            lesson_llm = LLMClient(model_id=llm.model_id, name=f"A5_LessonRepair_{mi}_{li}")
+            try:
+                _, candidate = await lesson_llm.run_json_model(
+                    a5_lesson_repair_prompt(lesson.model_dump_json(indent=2), issues_json, config),
+                    LessonGen,
+                )
+            except (ValidationError, json.JSONDecodeError):
+                return None  # keep this lesson as-is; validation still reports it
+            return key, Lesson.model_validate(candidate.model_dump(exclude={"thought_process"}))
+
+        sem = asyncio.Semaphore(4)
+
+        async def _guarded(key: str, issues: list[ValidationIssue]):
+            async with sem:
+                return await _repair_lesson(key, issues)
+
+        results = await asyncio.gather(*(_guarded(k, v) for k, v in failing.items()))
+
+        candidate_course = repaired.model_copy(deep=True)
+        applied = 0
+        for result in results:
+            if result is None:
+                continue
+            key, lesson = result
+            mi, li = (int(x) for x in key.split(":"))
+            candidate_course.modules[mi].lessons[li] = lesson
+            applied += 1
+        if applied == 0:
             best_report.issues.append(
                 ValidationIssue(
                     severity="warning",
                     path="global",
-                    message=f"Automated repair could not produce a valid course ({type(e).__name__}); returning best available version.",
+                    message="Automated lesson repair could not produce valid lessons; returning best available version.",
                 )
             )
             break
-        repaired = normalize_course(candidate)
+
+        repaired = normalize_course(candidate_course)
 
         # Re-validate structure
         report = validate_course(repaired, config)

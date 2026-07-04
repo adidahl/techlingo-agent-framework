@@ -339,3 +339,53 @@ distinct concepts) + over-drill cap (max(ceil(E/C), 2) per concept).
 - `_validate_a1_map` meta-guard: rejects concept atoms about the course/module
   itself ("training module overview") so "What is this course about?" questions
   can't come back through a sloppy A1 map.
+
+## 11. Chunked per-lesson generation (2026-07-04)
+
+**Motivation:** A2/A3/A4 generated/rewrote the WHOLE course in one completion, so
+output size scaled with course size — raising exercises_per_lesson (user wants
+15+, later more) risked output-token truncation, and every loop retry paid for
+the full course. Bottleneck removed:
+
+- **A2/A3/A4 now work per lesson** (`a2_lesson_prompt`/`a3_lesson_prompt`/
+  `a4_lesson_prompt`, response model `LessonGen`), up to 4 lessons concurrently
+  (`MAX_CONCURRENT_LESSON_CALLS`). Output per call is bounded by lesson size,
+  independent of course size.
+- **Course assembly is deterministic**: module/lesson structure comes from the
+  A1 map in Python — A2 can no longer collapse modules or lose lessons (an
+  entire class of structural regressions is gone by construction).
+- **True/false balance is dictated, not requested**: `_tf_answer_patterns()`
+  computes a course-wide alternating answer pattern and each lesson prompt gets
+  its exact slice ("your 3 true_false answers MUST be [false, true, false]").
+- **Partial regeneration on loop retries**: `PipelineState.dirty_lessons` +
+  `_failed_lesson_keys()` — A2 regenerates only failing lessons (clean ones are
+  reused untouched), and A3/A4 rewrite only the dirty ones. Cheaper loops, and
+  clean lessons can never be damaged by a retry.
+- **A5 repair is per lesson too** (`a5_lesson_repair_prompt` +
+  `issues_by_lesson()`): only offending lessons get rewritten; course-level
+  structural errors are left to the A5->A2 loop (which now regenerates all via
+  the deterministic assembly).
+
+Gotchas:
+- A3/A4/repair prompts explicitly forbid flipping true_false answers (the
+  pattern is balanced course-wide; a per-lesson rewrite has no global view).
+- `LLMClient` now exposes `.model_id` so repair can spawn per-lesson clients.
+
+### §11.1 Post-chunking calibration (2026-07-04)
+
+First chunked run (run-20260704-140117: 90 exercises, gpt-5.4) converged to just
+2 recurring errors + 47 identical warnings; both gates were miscalibrated, not
+the content:
+- Over-drill cap now ceil(E/C)+1 (generators reliably land one over the exact
+  even split; the gate is for gross over-drilling, not perfect balance).
+- The "should read as a scenario" warning fires only for prompts that are BOTH
+  short (<12 words) AND keyword-free — long situation-describing prompts ("A
+  product team is choosing...") are scenarios even without magic keywords.
+With these, the 90-question course validates ok:true / 0 errors / 0 warnings.
+Verified results: TF balance exactly 9:9 (dictated pattern), first pass ~4.5 min
+for 90 exercises (6 lessons x 4 concurrent), loop retries touch only failed
+lessons (4/6 then 3/6).
+
+NOTE 2026-07-04: final fresh verification run hit OpenAI `429 insufficient_quota`
+(billing) — re-run `python main.py run --input-file sample.txt` once quota is
+topped up; expected to converge to ok:true with 0-1 loops.

@@ -145,6 +145,19 @@ class Lesson(BaseModel):
     flashcards: list[Flashcard] = Field(default_factory=list)
 
 
+class LessonGen(Lesson):
+    """LLM response shape for chunked per-lesson generation/rewriting.
+
+    Chunking keeps each completion's output bounded by lesson size (not course
+    size), so raising exercises_per_lesson can never hit output-token limits.
+    """
+
+    thought_process: Optional[list[str]] = Field(
+        default=None,
+        description="Step-by-step reasoning log from the agent.",
+    )
+
+
 class Module(BaseModel):
     title: str
     lessons: list[Lesson] = Field(default_factory=list)
@@ -241,6 +254,12 @@ class PipelineState(BaseModel):
     # is always the best-scoring attempt, never blindly the last one.
     best_course: Optional[Course] = None
     best_report: Optional[ValidationReport] = None
+
+    # Lessons touched in the current loop pass, as "mi:li" keys. On a retry, A2
+    # regenerates only the failing lessons and A3/A4 rewrite only these — clean
+    # lessons are never re-run through an LLM again (cheaper, and immune to
+    # regeneration-made-it-worse). None means all lessons are dirty (first pass).
+    dirty_lessons: Optional[list[str]] = None
     
     # Configuration
     config: WorkflowConfig = Field(default_factory=lambda: WorkflowConfig())
