@@ -4,7 +4,16 @@ import warnings
 
 from agent_framework import WorkflowBuilder
 from .models import PipelineState
-from .executors import a1_modularizer, a2_scaffolder, a3_scenario_designer, a4_feedback_architect, a5_validator, text_analyzer, text_reviewer
+from .executors import (
+    a1_modularizer,
+    a2_scaffolder,
+    a3_scenario_designer,
+    a4_feedback_architect,
+    a5_validator,
+    content_inventory,
+    text_analyzer,
+    text_reviewer,
+)
 
 # Filter warnings at the module level
 warnings.filterwarnings(
@@ -18,9 +27,13 @@ def should_loop(state: PipelineState) -> bool:
 
 # Pre-build workflows using function references
 # We ignore the warning because we purposely build these once at module level
+# A0 (content inventory) runs first so A1 gets a coverage checklist of every
+# term/definition/example in the source — the content packs A2 draws questions
+# from are built against it.
 _techlingo_workflow = (
     WorkflowBuilder()
-    .set_start_executor(a1_modularizer)
+    .set_start_executor(content_inventory)
+    .add_edge(content_inventory, a1_modularizer)
     .add_edge(a1_modularizer, a2_scaffolder)
     .add_edge(a2_scaffolder, a3_scenario_designer)
     .add_edge(a3_scenario_designer, a4_feedback_architect)

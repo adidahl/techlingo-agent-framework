@@ -229,3 +229,113 @@ minimal probe:
 **Priority:** medium. The pipeline already never crashes and reaches `ok:true`
 via Layers 2–4. Enabling Structured Outputs would remove an entire class of
 retries (cheaper, faster, more deterministic) — worth doing, not urgent.
+
+## 10. Question-quality architecture overhaul (2026-07-04)
+
+**Root cause found:** A2 (question generator) never received the source text —
+only A1's course map (titles + one-sentence SLOs). With one fact per lesson, the
+5 question types became 5 re-skins of the same sentence ("What is this course
+mainly about?", all-true true/false, rearrange that reconstructs the SLO, absurd
+distractors like "Cook lunch"). No prompt tuning could fix a data-flow problem.
+
+**Changes:**
+- **A0 Content Inventory** now runs first in the main workflow (same analyzer
+  LLM pass the standalone `analyze` command uses); its parts feed A1 as a
+  coverage checklist. Non-fatal on failure.
+- **A1 emits per-lesson content packs**: `concepts[]` atoms (id/label/summary/
+  confusable_with), skips meta/navigation source content (welcome paragraphs).
+- **A2/A3/A4 receive the full source text.** A2 tags every exercise with
+  `concept_id` and must spread exercises evenly across concepts. Distractor
+  policy: confusable siblings only, no absurd options, no tautologies, balanced
+  true/false via minimal-corruption false statements, fill-gap answers must be
+  key terms, rearrange 4–8 short tokens.
+- **Bloom/type coupling** (enforced in config validator + course validator):
+  Applying/Analyzing ⇒ scenario single/multi choice; true_false/fill_gaps/
+  rearrange ⇒ Remembering/Understanding. Default question_type_distribution
+  changed to 4/4/3/2/2 to stay feasible.
+- **Deterministic gates in validate.py** (all tested in
+  tests/test_quality_gates.py): near-duplicate detection via Jaccard on content
+  signatures (error within lesson ≥0.6, warning across lessons ≥0.8), all-same
+  true/false answers (error at ≥3), tautology + correct-longest-option bias
+  (warnings), rearrange token count/length.
+- **normalize_course**: word_bank is ALWAYS a seeded shuffle of correct_order
+  (previously only when multisets differed — courses shipped with the answer
+  pre-arranged!), generic prompt stems rotate through template banks, exercises
+  sorted easy→hard (Bloom rank, then recognition→production mechanic).
+- **Concept metadata plumbing**: `_seed_concepts_from_map` (A1→A2 safety net)
+  and `_restore_concept_metadata` (A3/A4 index-aligned restoration) keep
+  concepts/concept_id alive without trusting LLM echo-back; emit.py carries
+  `concept_id` into every TLQuestion.options for future app-side adaptivity.
+
+**Gotchas for the future:**
+- The A5→A2 loop now sends content-quality errors (duplicates, balance) back to
+  A2 — these are fixable by regeneration, unlike the old purely-structural ones.
+- Validation runs the duplicate check pairwise over all exercises (fine up to a
+  few hundred; revisit if course sizes explode).
+- `difficulty` now explicitly means language simplicity, NOT content triviality
+  (difficulty_contract rewritten).
+
+### §10.1 Retry-degradation fixes (2026-07-04, after first E2E)
+
+First E2E run exposed a failure mode: **the A5→A2 retry made things worse** (the
+regenerated attempt collapsed 3 modules into 1, dropped true_false from the type
+mix, and the A5 LLM repair inflated a lesson to 27 exercises). Fixes, all verified:
+
+- **Best-attempt-wins**: `PipelineState.best_course/best_report` track the
+  best-scoring attempt (fewest errors) across the loop; `a5_validator` yields the
+  best attempt, never blindly the last. Same principle inside
+  `repair_course_if_needed`: a repair candidate replaces the current version only
+  if it has FEWER errors.
+- **Retry anchoring**: the A2 validation-feedback section now explicitly says
+  "fix ONLY the listed errors; keep the exact module/lesson structure and type mix".
+- **Deterministic Bloom/type plan**: `_bloom_type_plan(config)` solves the
+  coupling constraint (Applying/Analyzing→choice; tf/fg/ra→R/U) in Python and
+  hands A2 the finished per-lesson assignment — the LLM repeatedly failed to
+  solve it on its own (kept putting Analyzing on rearrange).
+- **True/false alternation**: "roughly half false" was ignored; replaced with a
+  mechanical rule (1st tf across the course = false, 2nd = true, alternating).
+- **Fact-checker false positives**: source-check prompt now excludes domain
+  vocabulary ("document analysis") from meta-reference flagging, excludes concept
+  summaries from paraphrase flagging, and forbids reporting issues whose own
+  description concludes there is no defect.
+
+### §10.2 Second E2E round findings (2026-07-04)
+
+Run 3 (with §10.1 fixes) exposed three more systematic failure modes, each now
+fixed deterministically:
+
+1. **A1 itself violates the module plan** (produced 4 modules/7 lessons despite
+   "EXACTLY 3"). Since the loop re-runs A2 (never A1), a bad map poisons every
+   attempt. Fix: `_validate_a1_map()` in executors.py — deterministic structural
+   check (module count, lesson total, ≥2 concepts/lesson, unique concept ids)
+   with up to 3 A1 retries carrying concrete feedback, while it's still one
+   cheap LLM call.
+2. **Raw error-count best-attempt picked the wrong winner**: attempt 2 (1 module,
+   5 errors) beat attempt 1 (correct-shaped, 9 content nitpicks). Fix:
+   `attempt_badness()` — lexicographic (structural, shape, content) ranking used
+   both in `a5_validator` and inside `repair_course_if_needed`.
+3. **All-true true/false survives every prompt instruction** (even mechanical
+   alternation). Fix: `rebalance_true_false()` targeted micro-repair — a narrow
+   LLM call rewrites every other statement into a minimally-corrupted FALSE one
+   (with fresh feedback), instead of regenerating the whole course.
+
+Also relaxed: per-lesson concept "evenness" (max-min ≤ 1) was unachievable with
+more concepts than exercises; replaced with a coverage floor (use min(C,E)
+distinct concepts) + over-drill cap (max(ceil(E/C), 2) per concept).
+
+### §10.3 Final polish (2026-07-04)
+
+- `rebalance_true_false` now fires proactively whenever the minority answer class
+  is under 1/3 (not only on all-same), topping the split up to ~half/half before
+  validation; direction-aware prompt handles the (rare) all-false case.
+- A1 prompt: concepts must be DISJOINT facts — merge same-mechanism aliases
+  ("speech recognition" / "speech-to-text") into one atom. Overlapping atoms were
+  the root cause of recurring per-lesson coverage errors: A2 kept "using two
+  concepts" that were really the same fact.
+- `rebalance_true_false` flip-guard: the answer is flipped ONLY when the
+  rewritten statement actually differs (Jaccard < 0.9) — an unchanged rewrite
+  marked false shipped a true statement with a false answer key (caught live by
+  the A5 fact-checker in run-20260704-095222).
+- `_validate_a1_map` meta-guard: rejects concept atoms about the course/module
+  itself ("training module overview") so "What is this course about?" questions
+  can't come back through a sloppy A1 map.

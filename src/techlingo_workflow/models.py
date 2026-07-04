@@ -23,6 +23,23 @@ class Feedback(BaseModel):
 FeedbackLike = Feedback | str
 
 
+class ConceptAtom(BaseModel):
+    """One teachable fact/term extracted from the source — the unit exercises target.
+
+    A lesson carries several atoms; every exercise points at exactly one via
+    `concept_id`, which is what lets validation enforce coverage (no concept
+    over-drilled, none skipped) and lets the app track skills per question.
+    """
+
+    id: str = Field(..., description="Stable kebab-case id, unique within the course (e.g., 'object-detection').")
+    label: str = Field(..., description="Short human name of the concept/term (e.g., 'Object detection').")
+    summary: str = Field(..., description="The teachable fact, stated directly from the source (1-2 sentences).")
+    confusable_with: list[str] = Field(
+        default_factory=list,
+        description="Ids of sibling concepts a learner could confuse this with — the preferred distractor pool.",
+    )
+
+
 class ChoiceOption(BaseModel):
     text: str
     is_correct: bool
@@ -45,6 +62,10 @@ class ExerciseBase(BaseModel):
     blooms_level: BloomsLevel
     question_type: Literal["single_choice", "multi_choice", "true_false", "fill_gaps", "rearrange"]
     prompt: str = Field(..., description="Learner-facing prompt (may include scenario/context).")
+    concept_id: Optional[str] = Field(
+        default=None,
+        description="Id of the ConceptAtom (from the lesson's concepts) this exercise tests.",
+    )
 
 
 class SingleChoiceExercise(ExerciseBase):
@@ -116,6 +137,10 @@ class Flashcard(BaseModel):
 class Lesson(BaseModel):
     title: str
     slo: str = Field(..., description="Single, measurable learning objective.")
+    concepts: list[ConceptAtom] = Field(
+        default_factory=list,
+        description="Content pack for this lesson: the concept atoms exercises must cover.",
+    )
     exercises: list[Exercise] = Field(default_factory=list)
     flashcards: list[Flashcard] = Field(default_factory=list)
 
@@ -210,6 +235,12 @@ class PipelineState(BaseModel):
     a5_course: Optional[Course] = None
     validation_report: Optional[ValidationReport] = None
     analysis_result: Optional[TextAnalysisResult] = None
+
+    # Best attempt seen across the A5->A2 self-correction loop. Regeneration can
+    # come back WORSE than the attempt it was meant to fix, so the final output
+    # is always the best-scoring attempt, never blindly the last one.
+    best_course: Optional[Course] = None
+    best_report: Optional[ValidationReport] = None
     
     # Configuration
     config: WorkflowConfig = Field(default_factory=lambda: WorkflowConfig())

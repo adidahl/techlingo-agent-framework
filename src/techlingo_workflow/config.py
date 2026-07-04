@@ -44,11 +44,11 @@ class WorkflowConfig(BaseModel):
     
     question_type_distribution: Dict[str, int] = Field(
         default_factory=lambda: {
-            "single_choice": 3,
-            "multi_choice": 3,
+            "single_choice": 4,
+            "multi_choice": 4,
             "true_false": 3,
-            "fill_gaps": 3,
-            "rearrange": 3
+            "fill_gaps": 2,
+            "rearrange": 2
         },
         description="Number of exercises per question type."
     )
@@ -71,6 +71,24 @@ class WorkflowConfig(BaseModel):
                 f"question_type_distribution sums to {types_sum} but exercises_per_lesson is "
                 f"{self.exercises_per_lesson}. Fix: make the question_type_distribution values add up "
                 f"to {self.exercises_per_lesson} (or change exercises_per_lesson to {types_sum})."
+            )
+
+        # Bloom <-> question-type coupling feasibility. Applying and
+        # Analyzing/Evaluating exercises must be scenario-based choice questions
+        # (single/multi), while true_false / fill_gaps / rearrange are mechanically
+        # Remembering/Understanding formats. That coupling is only satisfiable when
+        # the higher-order Bloom slots fit inside the choice-type slots.
+        higher_order = self.blooms_distribution.get("Applying", 0) + self.blooms_distribution.get(
+            "Analyzing/Evaluating", 0
+        )
+        choice_slots = self.question_type_distribution.get("single_choice", 0) + self.question_type_distribution.get(
+            "multi_choice", 0
+        )
+        if higher_order > choice_slots:
+            raise ValueError(
+                f"Applying + Analyzing/Evaluating ({higher_order}) exceeds single_choice + multi_choice "
+                f"({choice_slots}). Higher-order Bloom exercises must be scenario-based choice questions, "
+                f"so raise the choice-type counts or lower the higher-order Bloom counts."
             )
 
         # Check lesson bounds are sane and can accommodate every module (>= 1 lesson each).

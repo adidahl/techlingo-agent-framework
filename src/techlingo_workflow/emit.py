@@ -115,6 +115,7 @@ def _emit_choice(ex, blooms: str, original_type: str, import_key: str) -> TLQues
             "options": [_option_to_jsonable(o) for o in ex.options],
             "blooms_level": blooms,
             "original_question_type": original_type,
+            "concept_id": ex.concept_id,
         },
         correct_answer=correct_answer,
         explanation=ex.feedback_for_correct,
@@ -130,6 +131,7 @@ def _emit_true_false(ex, blooms: str, import_key: str) -> TLQuestion:
         options={
             "blooms_level": blooms,
             "original_question_type": "true_false",
+            "concept_id": ex.concept_id,
             "feedback_for_incorrect": _feedback_to_jsonable(ex.feedback_for_incorrect),
         },
         correct_answer="true" if ex.correct_answer else "false",
@@ -165,6 +167,7 @@ def _emit_fill_blank(ex, blooms: str, import_key: str) -> TLQuestion:
             "parts": [p.model_dump() for p in ex.parts],
             "blooms_level": blooms,
             "original_question_type": "fill_gaps",
+            "concept_id": ex.concept_id,
         },
         correct_answer=correct_answer,
         explanation=None,
@@ -181,6 +184,7 @@ def _emit_arrange(ex, blooms: str, import_key: str) -> TLQuestion:
             "correct_order": list(ex.correct_order),
             "blooms_level": blooms,
             "original_question_type": "rearrange",
+            "concept_id": ex.concept_id,
         },
         # Mobile builds draggable words from correct_answer.split(" ").
         correct_answer=" ".join(ex.correct_order),
