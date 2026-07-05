@@ -48,6 +48,14 @@ export const ViewerContainer: React.FC<Props> = ({ initialRuns }) => {
         load();
     }, [selectedRunId]);
 
+    // Silent re-fetch after an edit/regeneration (no loading flicker; the
+    // editor UI stays mounted and the updated question appears in place).
+    const refreshCourse = async () => {
+        if (!selectedRunId) return;
+        const data = await getCourse(selectedRunId);
+        if (data) setCourse(data);
+    };
+
     const seed = selectedRunId ? Math.abs(selectedRunId.split("").reduce((a, b) => { a = ((a << 5) - a) + b.charCodeAt(0); return a & a }, 0)) : 0;
 
     return (
@@ -82,7 +90,7 @@ export const ViewerContainer: React.FC<Props> = ({ initialRuns }) => {
                             <Tabs.Tab value="quiz">Interactive Quiz</Tabs.Tab>
                         </Tabs.List>
                         <Tabs.Panel value="browse" style={{ paddingTop: '1.5rem' }}>
-                            <BrowseTab course={course} />
+                            <BrowseTab course={course} runId={selectedRunId} onCourseChanged={refreshCourse} />
                         </Tabs.Panel>
                         <Tabs.Panel value="quiz" style={{ paddingTop: '1.5rem' }}>
                             <QuizTab course={course} seed={seed} />

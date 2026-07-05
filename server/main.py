@@ -8,7 +8,7 @@ import time
 from pathlib import Path
 from typing import Optional, List
 
-from fastapi import FastAPI, WebSocket, WebSocketDisconnect
+from fastapi import FastAPI, HTTPException, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from dotenv import load_dotenv
@@ -72,6 +72,101 @@ def _resolve_backend_for_request(request_data: dict) -> tuple[str | None, str | 
 @app.get("/")
 def read_root():
     return {"status": "ok", "message": "TechLingo API is running"}
+
+
+# ---------------------------------------------------------------------------
+# Post-run editing: manual exercise edits + single-question regeneration.
+# All writes go through editing.save_course (normalize → re-emit → re-validate),
+# so the canonical course.json can never drift from the edited internal course.
+# ---------------------------------------------------------------------------
+
+OUTPUTS_DIR = Path("outputs")
+
+
+class ExerciseEditRequest(BaseModel):
+    module_index: int
+    lesson_index: int
+    exercise_index: int
+    exercise: dict
+
+
+class RegenerateRequest(BaseModel):
+    module_index: int
+    lesson_index: int
+    exercise_index: int
+    instructions: Optional[str] = None
+    backend: Optional[str] = None
+    model_id: Optional[str] = None
+
+
+def _run_dir_or_404(run_id: str) -> Path:
+    # Run ids are directory names; refuse anything that could escape outputs/.
+    if not run_id or "/" in run_id or "\\" in run_id or ".." in run_id:
+        raise HTTPException(status_code=400, detail="Invalid run id.")
+    run_dir = OUTPUTS_DIR / run_id
+    if not run_dir.is_dir():
+        raise HTTPException(status_code=404, detail=f"Run '{run_id}' not found.")
+    return run_dir
+
+
+@app.put("/api/runs/{run_id}/exercise")
+def edit_exercise(run_id: str, req: ExerciseEditRequest):
+    """Apply a manual edit to one exercise, then re-emit + re-validate the course."""
+    from techlingo_workflow.editing import (
+        EditError,
+        apply_exercise_edit,
+        load_internal_course,
+        save_course,
+        _report_payload,
+    )
+
+    run_dir = _run_dir_or_404(run_id)
+    try:
+        course = load_internal_course(run_dir)
+        edited = apply_exercise_edit(
+            course, req.module_index, req.lesson_index, req.exercise_index, req.exercise
+        )
+        report = save_course(run_dir, course)
+    except EditError as e:
+        raise HTTPException(status_code=422, detail=str(e))
+    return _report_payload(report, edited)
+
+
+@app.post("/api/runs/{run_id}/exercise/regenerate")
+async def regenerate_exercise_endpoint(run_id: str, req: RegenerateRequest):
+    """Regenerate one exercise with the LLM (subscription backend by default)."""
+    from techlingo_workflow.editing import (
+        EditError,
+        load_internal_course,
+        regenerate_exercise,
+        save_course,
+        _report_payload,
+    )
+    from techlingo_workflow.llm import LLMClient
+
+    run_dir = _run_dir_or_404(run_id)
+    backend_name, model_label, backend_error = _resolve_backend_for_request(
+        {"backend": req.backend, "model_id": req.model_id}
+    )
+    if backend_error:
+        raise HTTPException(status_code=422, detail=backend_error)
+    try:
+        course = load_internal_course(run_dir)
+        llm = LLMClient(model_id=model_label, name="Question_Regenerator")
+        regenerated = await regenerate_exercise(
+            course,
+            req.module_index,
+            req.lesson_index,
+            req.exercise_index,
+            llm,
+            req.instructions,
+        )
+        report = save_course(run_dir, course)
+    except EditError as e:
+        raise HTTPException(status_code=422, detail=str(e))
+    payload = _report_payload(report, regenerated)
+    payload["model_id"] = model_label
+    return payload
 
 @app.websocket("/ws/run")
 async def websocket_endpoint(websocket: WebSocket):

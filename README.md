@@ -98,6 +98,20 @@ Default configuration (`workflow_config.json`):
 }
 ```
 
+### Editing questions after a run (web)
+
+Open **Run Viewer → Browse Course** in the web app: every question has
+**✏️ Edit** (form per question type) and **🪄 Regenerate** (one LLM call on the
+default backend, with an optional note on what should be better). Both go
+through `PUT/POST /api/runs/{run_id}/exercise[...]` on the FastAPI server, which
+edits `course.internal.json`, **re-emits** the TechLingo-native `course.json`,
+and re-runs the deterministic quality gates — the result banner tells you
+immediately if an edit broke an invariant. Never edit `course.json` by hand.
+
+Guardrails: question_type can't change, regeneration pins blooms/concept_id,
+true/false answers keep the course-wide balance, rearrange word banks are
+re-shuffled automatically.
+
 ### Outputs
 Each run writes a folder under `outputs/run-YYYYMMDD-HHMMSS/` containing:
 - `course.json` (final structured output)
