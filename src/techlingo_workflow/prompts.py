@@ -360,6 +360,12 @@ def a2_lesson_prompt(
           - PREFER ordering the steps of a process described in the source (e.g., how a model
             is trained and then used). Sentence reconstruction is allowed only for definition
             sentences, split into genuinely reorderable pieces — never 2-3 giveaway chunks.
+          - STRICT CONSTRAINT: exactly ONE valid order. The app grades against a single
+            correct_order, so every other arrangement of the tokens must be wrong (ungrammatical
+            or logically broken). NEVER build the sentence around a comma-separated list of
+            interchangeable items (e.g. "power chatbots, create content, translate text") —
+            those items can be reordered and still be correct, which makes the exercise
+            unfair. If the fact you want to test is a list, use multi_choice instead.
           - Task must be "Reconstruct the sentence" or "Order the steps". Do NOT use scenarios for this type.
 
         Output JSON schema — return ONE lesson object (NOT a course, NOT an array):
@@ -677,7 +683,7 @@ def a5_lesson_repair_prompt(lesson_json: str, issues_json: str, config: Workflow
           EXACTLY as it is (the answer pattern is balanced course-wide); fix only the
           statement/prompt wording when flagged.
         - For fill_gaps: Ensure grammatical correctness, semantic coherence, that context uniquely determines the answer, and that there is EXACTLY ONE gap part. The gap must be a key technical term, never a generic word.
-        - For rearrange: word_bank must have 4-8 tokens, each at most 4 words; the final order forms a valid grammatical sentence or logical process steps.
+        - For rearrange: word_bank must have 4-8 tokens, each at most 4 words; the final order forms a valid grammatical sentence or logical process steps. Exactly ONE order may be valid — never comma-separated interchangeable list items (any other arrangement must be wrong).
         - **Formatting**: REMOVE all scraping artifacts (e.g., "Expand table", "Image 1", "click here").
         - **Integrity**: TRUE/FALSE questions MUST be statements (declarative sentences), NOT instructions (e.g., "Choose the tool").
         - **Schema**: TRUE/FALSE exercises MUST have both:

@@ -1,16 +1,12 @@
 import React from 'react';
 import { FillGapsExercise, QuestionProps, FillGapsPart } from '../types';
+import { gradeGapAnswer, GapGrade } from '../grading';
 import styles from './Question.module.css';
 
-// Simple normalization helper to match python logic
-function normalizeText(s: string): string {
-    return (s || "").trim().toLowerCase().split(/\s+/).join(" ");
-}
-
-function checkMatch(user: string, accepted: string[] | undefined): boolean {
-    if (!accepted) return false;
-    const u = normalizeText(user);
-    return accepted.some(a => normalizeText(a) === u);
+// Grading spec v1 (GRADING_SPEC.md): exact match after normalization, or a
+// small typo (edit distance scaled by answer length) — same as the mobile app.
+function gradeGap(user: string, accepted: string[] | undefined): GapGrade {
+    return gradeGapAnswer(user, accepted || []);
 }
 
 export const FillGaps: React.FC<QuestionProps<FillGapsExercise>> = ({ exercise, value, onChange, submitted }) => {
@@ -62,13 +58,20 @@ export const FillGaps: React.FC<QuestionProps<FillGapsExercise>> = ({ exercise, 
 const FeedbackDisplay: React.FC<{ exercise: FillGapsExercise, userValues: string[] }> = ({ exercise, userValues }) => {
     const gaps = exercise.parts.filter(p => p.type === 'gap');
 
-    // Check all matches
-    const correctMatches = gaps.map((g, i) => checkMatch(userValues[i], g.accepted_answers));
+    // Check all matches (exact or tolerated typo counts as correct)
+    const grades = gaps.map((g, i) => gradeGap(userValues[i], g.accepted_answers));
+    const correctMatches = grades.map(g => g !== 'wrong');
     const isAllCorrect = correctMatches.every(Boolean);
+    const hadTypo = grades.some(g => g === 'typo');
 
     return (
         <div className={`${styles.feedbackContainer} ${isAllCorrect ? styles.feedbackCorrect : styles.feedbackIncorrect}`}>
             <div><strong>{isAllCorrect ? "Correct! ✅" : "Incorrect ❌"}</strong></div>
+            {isAllCorrect && hadTypo && (
+                <div style={{ marginTop: '0.25rem', fontSize: '0.9rem' }}>
+                    You have a small typo — accepted: {gaps.map(g => (g.accepted_answers || [])[0]).join(', ')}
+                </div>
+            )}
 
             {!isAllCorrect && (
                 <div style={{ marginTop: '0.5rem' }}>

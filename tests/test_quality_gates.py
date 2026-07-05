@@ -332,6 +332,38 @@ def test_rearrange_with_two_giveaway_chunks_is_rejected():
     assert any("4-8 tokens" in i.message for i in _errors(report))
 
 
+def test_rearrange_interchangeable_list_items_are_rejected():
+    # "power chatbots, / create content, / translate text," can be reordered
+    # freely and still be correct — the app grades one order, so this is unfair.
+    ra = RearrangeExercise(
+        blooms_level=BloomsLevel.understanding,
+        concept_id="object-detection",
+        prompt="Reconstruct the sentence.",
+        word_bank=["create content,", "Generative AI is", "power chatbots,", "commonly used to",
+                   "translate text,", "and summarize documents"],
+        correct_order=["Generative AI is", "commonly used to", "power chatbots,",
+                       "create content,", "translate text,", "and summarize documents"],
+    )
+    course = _course([_lesson(exercises=[_sc(), _mc(), _tf(), _fg(), ra])])
+    report = validate_course(course, _small_config())
+    assert any("ambiguous" in i.message and i.severity == "error" for i in report.issues)
+
+
+def test_rearrange_order_forced_sentence_is_not_flagged_as_ambiguous():
+    # A single mid-sentence comma (e.g. "After training,") does not make the
+    # order interchangeable; the gate must not fire on order-forced content.
+    ra = RearrangeExercise(
+        blooms_level=BloomsLevel.understanding,
+        concept_id="object-detection",
+        prompt="Order the steps.",
+        word_bank=["the model", "After training,", "labels new images", "automatically"],
+        correct_order=["After training,", "the model", "labels new images", "automatically"],
+    )
+    course = _course([_lesson(exercises=[_sc(), _mc(), _tf(), _fg(), ra])])
+    report = validate_course(course, _small_config())
+    assert not any("ambiguous" in i.message for i in report.issues)
+
+
 # ---------------------------------------------------------------------------
 # normalize_course
 # ---------------------------------------------------------------------------

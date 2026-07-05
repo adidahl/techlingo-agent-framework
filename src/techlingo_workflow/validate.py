@@ -529,6 +529,26 @@ def validate_course(course: Course, config: WorkflowConfig) -> ValidationReport:
                                 message="rearrange.correct_order must use the same tokens (multiset) as word_bank.",
                             )
                         )
+                    # Ambiguity gate: two or more comma-terminated tokens means the
+                    # sentence enumerates interchangeable list items ("power chatbots,"
+                    # "create content," ...) — several orders are equally correct, but
+                    # the app grades against exactly one. Only order-forced content
+                    # (process steps, grammatically constrained sentences) is valid.
+                    comma_tokens = [t for t in ex.correct_order if t.rstrip().endswith(",")]
+                    if len(comma_tokens) >= 2:
+                        issues.append(
+                            ValidationIssue(
+                                severity="error",
+                                path=f"{ex_path}.correct_order",
+                                message=(
+                                    f"rearrange order is ambiguous: tokens {comma_tokens} are "
+                                    "interchangeable list items, so multiple orders are correct "
+                                    "but the app accepts only one. Rewrite as an order-forced "
+                                    "sequence (process steps, cause->effect) or use a different "
+                                    "question type for this fact."
+                                ),
+                            )
+                        )
 
     issues.extend(_content_quality_issues(course))
 
