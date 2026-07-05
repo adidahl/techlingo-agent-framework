@@ -39,6 +39,7 @@ export interface FillGapsPart {
     text?: string;       // for text parts
     placeholder?: string; // for gap parts
     accepted_answers?: string[]; // for gap parts
+    rejected_answers?: string[]; // confusables fuzzy matching must never accept
 }
 
 export interface FillGapsExercise extends BaseExercise {
@@ -50,6 +51,8 @@ export interface RearrangeExercise extends BaseExercise {
     question_type: "rearrange";
     word_bank: string[];
     correct_order: string[];
+    // 0-based positions in correct_order that may permute among themselves
+    interchangeable_groups?: number[][];
 }
 
 export type Exercise =

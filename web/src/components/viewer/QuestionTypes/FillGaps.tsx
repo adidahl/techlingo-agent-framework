@@ -5,8 +5,9 @@ import styles from './Question.module.css';
 
 // Grading spec v1 (GRADING_SPEC.md): exact match after normalization, or a
 // small typo (edit distance scaled by answer length) — same as the mobile app.
-function gradeGap(user: string, accepted: string[] | undefined): GapGrade {
-    return gradeGapAnswer(user, accepted || []);
+// rejected_answers (concept confusables like LLM/SLM) are never accepted.
+function gradeGap(user: string, part: FillGapsPart): GapGrade {
+    return gradeGapAnswer(user, part.accepted_answers || [], part.rejected_answers || []);
 }
 
 export const FillGaps: React.FC<QuestionProps<FillGapsExercise>> = ({ exercise, value, onChange, submitted }) => {
@@ -59,7 +60,7 @@ const FeedbackDisplay: React.FC<{ exercise: FillGapsExercise, userValues: string
     const gaps = exercise.parts.filter(p => p.type === 'gap');
 
     // Check all matches (exact or tolerated typo counts as correct)
-    const grades = gaps.map((g, i) => gradeGap(userValues[i], g.accepted_answers));
+    const grades = gaps.map((g, i) => gradeGap(userValues[i], g));
     const correctMatches = grades.map(g => g !== 'wrong');
     const isAllCorrect = correctMatches.every(Boolean);
     const hadTypo = grades.some(g => g === 'typo');

@@ -349,6 +349,46 @@ def test_rearrange_interchangeable_list_items_are_rejected():
     assert any("ambiguous" in i.message and i.severity == "error" for i in report.issues)
 
 
+def test_rearrange_comma_list_with_declared_groups_is_accepted():
+    ra = RearrangeExercise(
+        blooms_level=BloomsLevel.understanding,
+        concept_id="object-detection",
+        prompt="Reconstruct the sentence.",
+        word_bank=["create content,", "Generative AI is", "power chatbots,", "commonly used to",
+                   "translate text,", "and summarize documents"],
+        correct_order=["Generative AI is", "commonly used to", "power chatbots,",
+                       "create content,", "translate text,", "and summarize documents"],
+        interchangeable_groups=[[2, 3, 4]],  # the three list items may permute
+    )
+    course = _course([_lesson(exercises=[_sc(), _mc(), _tf(), _fg(), ra])])
+    report = validate_course(course, _small_config())
+    assert not any("ambiguous" in i.message for i in report.issues)
+
+
+def test_rearrange_invalid_groups_are_rejected():
+    ra = _ra()
+    ra.interchangeable_groups = [[0, 99]]  # out of range
+    course = _course([_lesson(exercises=[_sc(), _mc(), _tf(), _fg(), ra])])
+    report = validate_course(course, _small_config())
+    assert any("interchangeable_groups" in i.message and i.severity == "error" for i in report.issues)
+
+
+def test_gap_rejected_answers_supplemented_from_confusables():
+    fg = _fg()
+    course = _course([_lesson(exercises=[_sc(), _mc(), _tf(), fg, _ra()])])
+    lesson = course.modules[0].lessons[0]
+    # give the tested concept a confusable that is not already accepted
+    concept = next(c for c in lesson.concepts if c.id == fg.concept_id)
+    concept.confusable_with = ["object detection", "image classification"]  # 2nd == accepted
+    normalize_course(course)
+    gap = next(p for p in fg.parts if getattr(p, "type", None) == "gap")
+    assert "object detection" in gap.rejected_answers
+    assert "image classification" not in gap.rejected_answers  # accepted answers never rejected
+    # idempotent: normalizing again does not duplicate
+    normalize_course(course)
+    assert gap.rejected_answers.count("object detection") == 1
+
+
 def test_rearrange_order_forced_sentence_is_not_flagged_as_ambiguous():
     # A single mid-sentence comma (e.g. "After training,") does not make the
     # order interchangeable; the gate must not fire on order-forced content.

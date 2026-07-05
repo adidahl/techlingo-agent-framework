@@ -1,5 +1,6 @@
 import React from 'react';
 import { RearrangeExercise, QuestionProps } from '../types';
+import { isOrderAccepted } from '../grading';
 import styles from './Question.module.css';
 
 import { StyledSelect } from '../Styled';
@@ -47,8 +48,8 @@ export const Rearrange: React.FC<QuestionProps<RearrangeExercise>> = ({ exercise
 
 const FeedbackDisplay: React.FC<{ exercise: RearrangeExercise, currentOrder: string[] }> = ({ exercise, currentOrder }) => {
 
-    // Check equality
-    const isCorrect = JSON.stringify(currentOrder) === JSON.stringify(exercise.correct_order);
+    // Spec §5: exact order, or any permutation within declared interchangeable groups.
+    const isCorrect = isOrderAccepted(currentOrder, exercise.correct_order, exercise.interchangeable_groups || []);
 
     return (
         <div className={`${styles.feedbackContainer} ${isCorrect ? styles.feedbackCorrect : styles.feedbackIncorrect}`}>

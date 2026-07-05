@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import asyncio
 import json
+import math
 import re
 from collections import Counter
 from typing import Any
@@ -529,13 +530,51 @@ def validate_course(course: Course, config: WorkflowConfig) -> ValidationReport:
                                 message="rearrange.correct_order must use the same tokens (multiset) as word_bank.",
                             )
                         )
+                    # Declared interchangeable groups must be structurally sound:
+                    # valid disjoint positions, each group >= 2, bounded expansion.
+                    group_positions: set[int] = set()
+                    groups_valid = True
+                    expansion = 1
+                    for group in ex.interchangeable_groups:
+                        if len(group) < 2 or len(set(group)) != len(group):
+                            groups_valid = False
+                        if any(i < 0 or i >= len(ex.correct_order) for i in group):
+                            groups_valid = False
+                        if group_positions.intersection(group):
+                            groups_valid = False  # overlapping groups
+                        group_positions.update(group)
+                        expansion *= math.factorial(len(group))
+                    if ex.interchangeable_groups and not groups_valid:
+                        issues.append(
+                            ValidationIssue(
+                                severity="error",
+                                path=f"{ex_path}.interchangeable_groups",
+                                message="interchangeable_groups must be disjoint groups of >=2 "
+                                "distinct valid 0-based positions into correct_order.",
+                            )
+                        )
+                    elif expansion > 24:
+                        issues.append(
+                            ValidationIssue(
+                                severity="error",
+                                path=f"{ex_path}.interchangeable_groups",
+                                message=f"interchangeable_groups expand to {expansion} accepted "
+                                "orders (max 24); split the exercise instead.",
+                            )
+                        )
                     # Ambiguity gate: two or more comma-terminated tokens means the
                     # sentence enumerates interchangeable list items ("power chatbots,"
                     # "create content," ...) — several orders are equally correct, but
                     # the app grades against exactly one. Only order-forced content
-                    # (process steps, grammatically constrained sentences) is valid.
-                    comma_tokens = [t for t in ex.correct_order if t.rstrip().endswith(",")]
-                    if len(comma_tokens) >= 2:
+                    # (process steps, grammatically constrained sentences) is valid —
+                    # UNLESS the flexibility is explicitly declared via
+                    # interchangeable_groups covering those positions.
+                    comma_positions = [
+                        i for i, t in enumerate(ex.correct_order) if t.rstrip().endswith(",")
+                    ]
+                    undeclared = [i for i in comma_positions if i not in group_positions]
+                    if len(comma_positions) >= 2 and (not groups_valid or undeclared):
+                        comma_tokens = [ex.correct_order[i] for i in comma_positions]
                         issues.append(
                             ValidationIssue(
                                 severity="error",
@@ -544,8 +583,9 @@ def validate_course(course: Course, config: WorkflowConfig) -> ValidationReport:
                                     f"rearrange order is ambiguous: tokens {comma_tokens} are "
                                     "interchangeable list items, so multiple orders are correct "
                                     "but the app accepts only one. Rewrite as an order-forced "
-                                    "sequence (process steps, cause->effect) or use a different "
-                                    "question type for this fact."
+                                    "sequence (process steps, cause->effect), use a different "
+                                    "question type, or declare interchangeable_groups covering "
+                                    "those positions."
                                 ),
                             )
                         )
@@ -803,6 +843,23 @@ def normalize_course(course: Course) -> Course:
                     if _normalize_stem(ex.prompt) in _GENERIC_FILL_STEMS:
                         ex.prompt = _FILL_TEMPLATES[fill_counter % len(_FILL_TEMPLATES)]
                     fill_counter += 1
+                    # Supplement each gap's rejected_answers with the tested
+                    # concept's confusables: fuzzy graders must never accept a
+                    # near-miss that is actually a DIFFERENT domain term
+                    # (gap "LLM" must reject "SLM"). Deterministic + idempotent.
+                    concept = next((c for c in lesson.concepts if c.id == ex.concept_id), None)
+                    if concept is not None:
+                        for part in ex.parts:
+                            if getattr(part, "type", None) != "gap":
+                                continue
+                            accepted_norm = {a.strip().lower() for a in part.accepted_answers}
+                            existing_norm = {r.strip().lower() for r in part.rejected_answers}
+                            for confusable in concept.confusable_with:
+                                label = confusable.strip()
+                                low = label.lower()
+                                if label and low not in accepted_norm and low not in existing_norm:
+                                    part.rejected_answers.append(label)
+                                    existing_norm.add(low)
                 elif isinstance(ex, (SingleChoiceExercise, MultiChoiceExercise)):
                     # `error_type` is a required category label on every incorrect
                     # option; downstream stages (A3/A4) that rewrite options sometimes

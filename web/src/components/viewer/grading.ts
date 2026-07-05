@@ -62,6 +62,31 @@ export function typoTolerance(normalizedAnswerLength: number): number {
  * accepted one. Current course data does not carry rejected_answers yet
  * (schema phase 2) — pass [] until it does.
  */
+/**
+ * Spec §5: rearrange acceptance. The order is correct when it equals
+ * correct_order, or differs only by permutations WITHIN each declared
+ * interchangeable group: positions outside every group must match exactly,
+ * and each group's positions must hold the same multiset of tokens.
+ */
+export function isOrderAccepted(
+    order: string[],
+    correctOrder: string[],
+    interchangeableGroups: number[][] = [],
+): boolean {
+    if (order.length !== correctOrder.length) return false;
+    const grouped = new Set<number>();
+    for (const g of interchangeableGroups) for (const i of g) grouped.add(i);
+    for (let i = 0; i < correctOrder.length; i++) {
+        if (!grouped.has(i) && order[i] !== correctOrder[i]) return false;
+    }
+    for (const g of interchangeableGroups) {
+        const got = g.map(i => order[i]).sort();
+        const want = g.map(i => correctOrder[i]).sort();
+        if (got.length !== want.length || got.some((t, k) => t !== want[k])) return false;
+    }
+    return true;
+}
+
 export function gradeGapAnswer(
     userInput: string,
     acceptedAnswers: string[],

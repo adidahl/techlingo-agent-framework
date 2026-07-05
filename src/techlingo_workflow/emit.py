@@ -11,6 +11,7 @@ See TECHLINGO_OUTPUT_PLAN.md for the mapping and Phase-0 decisions.
 
 from __future__ import annotations
 
+import itertools
 import json
 import re
 import unicodedata
@@ -143,12 +144,14 @@ def _emit_fill_blank(ex, blooms: str, import_key: str) -> TLQuestion:
     """fill_gaps -> fill_blank. Assumes exactly one gap (enforced upstream)."""
     text_pieces: list[str] = []
     accepted: list[str] = []
+    rejected: list[str] = []
     for part in ex.parts:
         ptype = getattr(part, "type", None)
         if ptype == "gap":
             text_pieces.append("___")
             if not accepted:  # first gap wins (single-gap contract)
                 accepted = list(part.accepted_answers)
+                rejected = list(getattr(part, "rejected_answers", []) or [])
         else:
             text_pieces.append(part.text)
 
@@ -165,6 +168,9 @@ def _emit_fill_blank(ex, blooms: str, import_key: str) -> TLQuestion:
         question_text="".join(text_pieces),
         options={
             "parts": [p.model_dump() for p in ex.parts],
+            # Convenience copy of the single gap's answer semantics so the
+            # importer/grader doesn't have to walk `parts` (GRADING_SPEC §4).
+            "rejected_answers": rejected,
             "blooms_level": blooms,
             "original_question_type": "fill_gaps",
             "concept_id": ex.concept_id,
@@ -174,18 +180,57 @@ def _emit_fill_blank(ex, blooms: str, import_key: str) -> TLQuestion:
     )
 
 
+def expand_accepted_orders(
+    correct_order: list[str], groups: list[list[int]], *, limit: int = 24
+) -> list[list[str]]:
+    """All orders reachable by permuting tokens within each declared group.
+
+    Canonical order first, deterministic sequence, hard-capped at `limit`
+    (validation rejects courses that would exceed it). Empty groups -> just
+    the canonical order.
+    """
+    orders: list[list[str]] = [list(correct_order)]
+    for group in groups:
+        positions = sorted(group)
+        expanded: list[list[str]] = []
+        for order in orders:
+            for perm in itertools.permutations(positions):
+                candidate = list(order)
+                for src, dst in zip(positions, perm):
+                    candidate[dst] = order[src]
+                if candidate not in expanded:
+                    expanded.append(candidate)
+                if len(expanded) >= limit:
+                    break
+            if len(expanded) >= limit:
+                break
+        orders = expanded
+    # Canonical first, no duplicates (already deduped per step).
+    canonical = list(correct_order)
+    if canonical in orders:
+        orders.remove(canonical)
+    return [canonical] + orders[: max(0, limit - 1)]
+
+
 def _emit_arrange(ex, blooms: str, import_key: str) -> TLQuestion:
+    groups = list(getattr(ex, "interchangeable_groups", []) or [])
+    options: dict = {
+        "word_bank": list(ex.word_bank),
+        "correct_order": list(ex.correct_order),
+        "blooms_level": blooms,
+        "original_question_type": "rearrange",
+        "concept_id": ex.concept_id,
+    }
+    if groups:
+        # Legitimately order-flexible content: graders accept ANY listed order
+        # (GRADING_SPEC §5). Absent field = only correct_order is accepted.
+        options["interchangeable_groups"] = groups
+        options["accepted_orders"] = expand_accepted_orders(ex.correct_order, groups)
     return TLQuestion(
         import_key=import_key,
         question_type="arrange_sentence",
         question_text=ex.prompt,
-        options={
-            "word_bank": list(ex.word_bank),
-            "correct_order": list(ex.correct_order),
-            "blooms_level": blooms,
-            "original_question_type": "rearrange",
-            "concept_id": ex.concept_id,
-        },
+        options=options,
         # Mobile builds draggable words from correct_answer.split(" ").
         correct_answer=" ".join(ex.correct_order),
         explanation=None,

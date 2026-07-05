@@ -200,6 +200,47 @@ def test_emit_and_validate_passes():
     assert validate_techlingo_course(tl) == []
 
 
+def test_emit_arrange_expands_interchangeable_groups():
+    ra = _rearrange()
+    ra.interchangeable_groups = [[1, 2]]
+    tl = build_techlingo_course(_course([ra]), course_key="k")
+    q = tl.modules[0].lessons[0].exercises[0]
+    orders = q.options["accepted_orders"]
+    assert orders[0] == ra.correct_order  # canonical first
+    assert len(orders) == 2
+    swapped = list(ra.correct_order)
+    swapped[1], swapped[2] = swapped[2], swapped[1]
+    assert swapped in orders
+    assert q.options["interchangeable_groups"] == [[1, 2]]
+
+
+def test_emit_arrange_without_groups_omits_accepted_orders():
+    tl = build_techlingo_course(_course([_rearrange()]), course_key="k")
+    assert "accepted_orders" not in tl.modules[0].lessons[0].exercises[0].options
+
+
+def test_emit_fill_blank_carries_rejected_answers():
+    fg = _fill_gaps()
+    gap = next(p for p in fg.parts if getattr(p, "type", None) == "gap")
+    gap.rejected_answers = ["SLM"]
+    tl = build_techlingo_course(_course([fg]), course_key="k")
+    q = tl.modules[0].lessons[0].exercises[0]
+    assert q.options["rejected_answers"] == ["SLM"]
+    gap_part = next(p for p in q.options["parts"] if p.get("type") == "gap")
+    assert gap_part["rejected_answers"] == ["SLM"]
+
+
+def test_expand_accepted_orders_bounded_and_deduped():
+    from techlingo_workflow.emit import expand_accepted_orders
+
+    order = ["a", "b", "c", "d"]
+    orders = expand_accepted_orders(order, [[0, 1], [2, 3]])  # 2 independent pairs -> 4
+    assert orders[0] == order and len(orders) == 4
+    assert ["b", "a", "d", "c"] in orders
+    # identical tokens permute into duplicates -> deduped to just the canonical
+    assert expand_accepted_orders(["x", "x", "y"], [[0, 1]]) == [["x", "x", "y"]]
+
+
 def _run_all():
     fns = [v for k, v in sorted(globals().items()) if k.startswith("test_") and callable(v)]
     failures = 0

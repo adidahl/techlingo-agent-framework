@@ -99,6 +99,11 @@ class FillGapsTextPart(BaseModel):
 class FillGapsGapPart(BaseModel):
     type: Literal["gap"] = "gap"
     accepted_answers: list[str] = Field(..., description="Accepted answers for this gap (case-insensitive match).")
+    rejected_answers: list[str] = Field(
+        default_factory=list,
+        description="Confusable terms that graders must NEVER accept, even via typo "
+        "tolerance (e.g. gap 'LLM' rejects 'SLM'). Typically the concept's confusables.",
+    )
     placeholder: Optional[str] = Field(default=None, description="Optional placeholder shown in the UI.")
 
 
@@ -120,6 +125,14 @@ class RearrangeExercise(ExerciseBase):
     question_type: Literal["rearrange"] = "rearrange"
     word_bank: list[str] = Field(..., description="Tokens to rearrange.")
     correct_order: list[str] = Field(..., description="Tokens in the correct order (must use the same tokens).")
+    interchangeable_groups: list[list[int]] = Field(
+        default_factory=list,
+        description="0-based positions in correct_order that may be permuted among "
+        "themselves (each group independently) and still be correct. Declares "
+        "legitimately order-flexible segments; graders accept any such arrangement. "
+        "Generated questions should have a unique order (empty list); this is "
+        "authored mainly by human editors.",
+    )
 
 
 # Plain union (no discriminator) → schema emits `anyOf`, accepted by OpenAI

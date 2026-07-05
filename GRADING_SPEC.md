@@ -54,23 +54,25 @@ UX recommendation on `typo`: accept, but show the canonical spelling
 ("You have a small typo — accepted: parameters"), like Duolingo.
 
 `rejected_answers` (per gap) are known confusables the fuzzy match must never
-absorb (gap "LLM" rejects "SLM"). **Schema note:** current `course.json` does
-not carry `rejected_answers` yet — clients MUST implement the guard and treat a
-missing field as `[]`, so shipping the field later (generator emits it from
-concept-pack confusables) needs no client change.
+absorb (gap "LLM" rejects "SLM"). **Schema note (shipped 2026-07-05):**
+`course.json` fill_blank questions carry `options.rejected_answers` (convenience
+copy) and `options.parts[gap].rejected_answers`; the generator auto-fills them
+from concept-pack confusables. Clients MUST treat a missing field as `[]`.
 
 ## 5. Rearrange
 
 Grade by exact sequence equality against `correct_order` (tokens compared as
 raw strings, no normalization — the learner arranges given tokens, not typing).
 
-The generator guarantees uniqueness: a deterministic gate rejects sentences
-built from interchangeable comma-list items ("power chatbots, create content,
-translate text"), so exactly one order is correct by construction.
-**Schema note:** a future optional `accepted_orders: string[][]` (expanded from
-authored interchangeable groups) would allow legitimately order-flexible
-content; clients should grade by membership when the field is present and fall
-back to `correct_order` equality when absent.
+The generator guarantees uniqueness by default: a deterministic gate rejects
+sentences built from interchangeable comma-list items ("power chatbots, create
+content, translate text"), so exactly one order is correct by construction.
+
+**Schema note (shipped 2026-07-05):** legitimately order-flexible questions
+carry `options.accepted_orders: string[][]` (max 24, canonical order first,
+expanded from authored `options.interchangeable_groups`). Clients MUST grade by
+membership when `accepted_orders` is present and fall back to `correct_order`
+equality when absent.
 
 ## 6. Other types
 

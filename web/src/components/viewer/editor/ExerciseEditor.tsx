@@ -114,11 +114,16 @@ export const ExerciseEditor: React.FC<Props> = ({ exercise, saving, onSave, onCa
                         {part.type === 'text' ? (
                             <TextArea value={part.text || ''} onChange={(v) => updatePart(i, { ...part, text: v })} rows={1} />
                         ) : (
-                            <div style={{ flex: 1 }}>
+                            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
                                 <TextInput
                                     value={(part.accepted_answers || []).join(', ')}
                                     placeholder="accepted answers, comma-separated"
                                     onChange={(v) => updatePart(i, { ...part, accepted_answers: v.split(',').map(s => s.trim()).filter(Boolean) })}
+                                />
+                                <TextInput
+                                    value={(part.rejected_answers || []).join(', ')}
+                                    placeholder="rejected answers (confusables typo-match must never accept, e.g. SLM), comma-separated"
+                                    onChange={(v) => updatePart(i, { ...part, rejected_answers: v.split(',').map(s => s.trim()).filter(Boolean) })}
                                 />
                             </div>
                         )}
@@ -154,6 +159,22 @@ export const ExerciseEditor: React.FC<Props> = ({ exercise, saving, onSave, onCa
                 >
                     + Add token
                 </StyledButton>
+                <div style={{ marginTop: '1rem' }}>
+                    <label style={labelStyle}>Interchangeable positions (optional)</label>
+                    <TextInput
+                        value={(d.interchangeable_groups || []).map(g => g.map(i => i + 1).join(',')).join('; ')}
+                        placeholder='e.g. "3,4,5" — positions whose order may swap; multiple groups split by ";"'
+                        onChange={(v) => {
+                            const groups = v.split(';')
+                                .map(g => g.split(',').map(s => parseInt(s.trim(), 10) - 1).filter(n => Number.isInteger(n) && n >= 0))
+                                .filter(g => g.length >= 2);
+                            update({ interchangeable_groups: groups } as Partial<Exercise>);
+                        }}
+                    />
+                    <div style={{ fontSize: '0.8rem', color: 'var(--color-text-secondary)', marginTop: '0.25rem' }}>
+                        Declare list items that are correct in any order (1-based positions above). Leave empty for a single fixed order.
+                    </div>
+                </div>
             </>
         );
     };

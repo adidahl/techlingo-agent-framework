@@ -347,9 +347,12 @@ def a2_lesson_prompt(
         - fill_gaps:
           - parts: array of objects with discriminator field 'type'
             - {{"type":"text","text":"..."}}
-            - {{"type":"gap","accepted_answers":["..."],"placeholder":"..."}}
+            - {{"type":"gap","accepted_answers":["..."],"rejected_answers":["..."],"placeholder":"..."}}
           - MUST include EXACTLY ONE gap part (the target app has a single text input). Never create two or more gaps in one fill_gaps exercise.
           - The single gap may list multiple accepted_answers (synonyms/valid alternatives) — that is encouraged.
+          - rejected_answers: confusable terms the grader must NEVER accept even as a
+            near-miss typo (e.g. gap "LLM" -> rejected_answers ["SLM"]). Use the
+            concept's confusables; empty list if none apply.
           - The gap must be a KEY TECHNICAL TERM (a concept label or a term from the source),
             never a generic word like "fair", "content", or "good".
           - STRICT CONSTRAINT: Semantic Coherence. The text surrounding the gap MUST provide enough context so that the accepted answer is the only logical choice. Do not create gaps where any random noun could fit.
