@@ -71,7 +71,7 @@ export const ViewerContainer: React.FC<Props> = ({ initialRuns }) => {
             {course && !loading && (
                 <div style={{ marginTop: '2rem' }}>
                     <div style={{ marginBottom: '1rem', fontSize: '0.9rem', color: 'var(--color-text-subtle)' }}>
-                        <strong>Topic:</strong> {course.topic || "Unknown"} •
+                        <strong>Topic:</strong> {course.title || course.topic || "Unknown"} •
                         <strong> Difficulty:</strong> {course.difficulty?.value || course.difficulty || "Unknown"} •
                         <strong> Modules:</strong> {course.modules?.length || 0}
                     </div>

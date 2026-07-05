@@ -17,6 +17,12 @@ from dotenv import load_dotenv
 _SRC = Path(__file__).parent.parent / "src"
 sys.path.insert(0, str(_SRC))
 
+from techlingo_workflow.backends import (
+    BACKEND_OPENAI,
+    preflight_backend,
+    resolve_backend_name,
+    resolve_model_label,
+)
 from techlingo_workflow.io import new_run_dir, write_json, write_text
 from techlingo_workflow.models import PipelineState, TextAnalysisResult
 from techlingo_workflow.workflow import build_techlingo_workflow, build_analysis_workflow
@@ -41,6 +47,27 @@ class RunRequest(BaseModel):
     config: Optional[WorkflowConfig] = None
     difficulty: Optional[DifficultyLevel] = None
     model_id: Optional[str] = None
+    backend: Optional[str] = None  # openai | claude-code | codex (default: TECHLINGO_LLM_BACKEND env)
+
+
+def _resolve_backend_for_request(request_data: dict) -> tuple[str | None, str | None, str | None]:
+    """Resolve (backend_name, model_label, error). Same rules as the CLI:
+    request field > TECHLINGO_LLM_BACKEND env > openai; preflight the CLI
+    backends so a logged-out seat fails fast with an actionable message."""
+    try:
+        backend_name = resolve_backend_name(request_data.get("backend"))
+        model_label = resolve_model_label(backend_name, request_data.get("model_id"))
+    except ValueError as e:
+        return None, None, str(e)
+    if backend_name != BACKEND_OPENAI:
+        failures = [
+            f"{check}: {detail}"
+            for check, ok, detail in preflight_backend(backend_name)
+            if not ok
+        ]
+        if failures:
+            return None, None, f"Backend '{backend_name}' failed preflight: " + "; ".join(failures)
+    return backend_name, model_label, None
 
 @app.get("/")
 def read_root():
@@ -64,17 +91,12 @@ async def websocket_endpoint(websocket: WebSocket):
         difficulty_str = request_data.get("difficulty")
         difficulty = DifficultyLevel(difficulty_str) if difficulty_str else config.difficulty
         
-        model_id = request_data.get("model_id") or os.getenv("OPENAI_CHAT_MODEL_ID")
         override_title = request_data.get("title")
         course_key = request_data.get("course_key")
-        
-        if not model_id:
-             await websocket.send_json({"type": "error", "message": "OpenAI model ID not found."})
-             await websocket.close()
-             return
 
-        if not os.getenv("OPENAI_API_KEY"):
-             await websocket.send_json({"type": "error", "message": "OPENAI_API_KEY not found."})
+        backend_name, model_id, backend_error = _resolve_backend_for_request(request_data)
+        if backend_error:
+             await websocket.send_json({"type": "error", "message": backend_error})
              await websocket.close()
              return
 
@@ -95,9 +117,11 @@ async def websocket_endpoint(websocket: WebSocket):
         workflow = build_techlingo_workflow()
         
         await websocket.send_json({
-            "type": "start", 
-            "run_id": run_id, 
+            "type": "start",
+            "run_id": run_id,
             "run_dir": str(run_dir),
+            "backend": backend_name,
+            "model_id": model_id,
             "config": config.model_dump(mode="json")
         })
 
@@ -180,9 +204,10 @@ async def websocket_endpoint(websocket: WebSocket):
             write_text(run_path / "course.md", md_content + "\n")
 
             await websocket.send_json({
-                "type": "complete", 
+                "type": "complete",
                 "run_id": output.run_id,
-                "course": course_data,
+                # Internal (rich) course format — same shape the Run Viewer renders.
+                "course": output.course.model_dump(mode="json"),
                 "report": validation_report,
                 "markdown": md_content
             })
@@ -237,13 +262,19 @@ async def websocket_analyze(websocket: WebSocket):
         
         await websocket.send_json({"type": "log", "ts": time.strftime("%H:%M:%S"), "message": "System: Agent state initialized. Starting execution..."})
 
+        backend_name, model_id, backend_error = _resolve_backend_for_request(payload)
+        if backend_error:
+            await websocket.send_json({"type": "error", "message": backend_error})
+            await websocket.close()
+            return
+
         # Initialize State
         state = PipelineState(
             run_id=run_id,
             run_dir=run_dir,
             input_text=input_text,
-            model_id=os.getenv("OPENAI_CHAT_MODEL_ID", "gpt-4o"),
-            config=WorkflowConfig(), 
+            model_id=model_id,
+            config=WorkflowConfig(),
             difficulty=DifficultyLevel.beginner
         )
 

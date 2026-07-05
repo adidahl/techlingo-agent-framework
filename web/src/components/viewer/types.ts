@@ -95,7 +95,8 @@ export interface Module {
 
 export interface Course {
     schema_version: string;
-    topic: string; // or title?
+    title?: string;   // internal format (current runs)
+    topic?: string;   // legacy runs
     difficulty: any;
     modules: Module[];
 }
