@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import asyncio
-import os
 import time
 from pathlib import Path
 from typing import Optional
@@ -10,6 +9,13 @@ import typer
 from dotenv import load_dotenv
 from pydantic import ValidationError
 
+from .backends import (
+    BACKEND_OPENAI,
+    KNOWN_BACKENDS,
+    preflight_backend,
+    resolve_backend_name,
+    resolve_model_label,
+)
 from .config import load_workflow_config, DifficultyLevel
 from .io import read_input_text, write_json, write_text
 from .models import PipelineState, WorkflowRunResult, TextAnalysisResult
@@ -17,6 +23,28 @@ from .workflow import build_techlingo_workflow, build_analysis_workflow
 
 
 app = typer.Typer(no_args_is_help=True)
+
+
+def _resolve_backend_and_model(backend: Optional[str], model_id: Optional[str]) -> tuple[str, str]:
+    """Resolve (backend name, backend-qualified model label) or exit with a clean message."""
+    try:
+        backend_name = resolve_backend_name(backend)
+        model_label = resolve_model_label(backend_name, model_id)
+    except ValueError as e:
+        raise typer.BadParameter(str(e))
+    return backend_name, model_label
+
+
+def _preflight_or_die(backend_name: str) -> None:
+    """Fail fast (binary/auth) before burning pipeline time on a broken backend."""
+    if backend_name == BACKEND_OPENAI:
+        return  # key presence already enforced by resolve_model_label
+    failures = [(check, detail) for check, ok, detail in preflight_backend(backend_name) if not ok]
+    if failures:
+        problems = "\n".join(f"  - {check}: {detail}" for check, detail in failures)
+        raise typer.BadParameter(
+            f"Backend '{backend_name}' failed preflight:\n{problems}"
+        )
 
 
 @app.callback()
@@ -34,7 +62,14 @@ def run(
     dotenv_path: Optional[Path] = typer.Option(None, help="Optional .env path (defaults to .env in repo root)."),
     model_id: Optional[str] = typer.Option(
         None,
-        help="OpenAI chat model id. If omitted, uses OPENAI_CHAT_MODEL_ID from .env/environment.",
+        help="Model id for the chosen backend (openai: OPENAI_CHAT_MODEL_ID; "
+        "claude-code: e.g. 'sonnet'/'opus'; codex: CLI default if omitted).",
+    ),
+    backend: Optional[str] = typer.Option(
+        None,
+        "--backend",
+        help=f"LLM backend: {' | '.join(KNOWN_BACKENDS)}. "
+        "Defaults to TECHLINGO_LLM_BACKEND or 'openai'.",
     ),
     difficulty: Optional[DifficultyLevel] = typer.Option(
         None,
@@ -67,16 +102,8 @@ def run(
     env_path = dotenv_path if dotenv_path is not None else Path(".env")
     load_dotenv(env_path, override=False)
 
-    if not model_id:
-        model_id = os.getenv("OPENAI_CHAT_MODEL_ID")
-
-    if not os.getenv("OPENAI_API_KEY"):
-        raise typer.BadParameter("OPENAI_API_KEY is required. Set it in .env.")
-
-    if not model_id:
-        raise typer.BadParameter(
-            "OpenAI model id is required. Set OPENAI_CHAT_MODEL_ID in .env or pass --model-id."
-        )
+    backend_name, model_id = _resolve_backend_and_model(backend, model_id)
+    _preflight_or_die(backend_name)
 
     text = read_input_text(input_text, str(input_file) if input_file else None)
 
@@ -121,6 +148,7 @@ def run(
 
     typer.echo(f"Run started: {run_id}")
     typer.echo(f"Run dir: {run_dir}")
+    typer.echo(f"Backend/model: {model_id}")
     typer.echo(f"Difficulty: {final_difficulty.value}")
     if title:
         typer.echo(f"Title Override: {title}")
@@ -278,7 +306,14 @@ def analyze(
     dotenv_path: Optional[Path] = typer.Option(None, help="Optional .env path (defaults to .env in repo root)."),
     model_id: Optional[str] = typer.Option(
         None,
-        help="OpenAI chat model id. If omitted, uses OPENAI_CHAT_MODEL_ID from .env/environment.",
+        help="Model id for the chosen backend (openai: OPENAI_CHAT_MODEL_ID; "
+        "claude-code: e.g. 'sonnet'/'opus'; codex: CLI default if omitted).",
+    ),
+    backend: Optional[str] = typer.Option(
+        None,
+        "--backend",
+        help=f"LLM backend: {' | '.join(KNOWN_BACKENDS)}. "
+        "Defaults to TECHLINGO_LLM_BACKEND or 'openai'.",
     ),
     verbose: bool = typer.Option(
         False,
@@ -290,16 +325,8 @@ def analyze(
     env_path = dotenv_path if dotenv_path is not None else Path(".env")
     load_dotenv(env_path, override=False)
 
-    if not model_id:
-        model_id = os.getenv("OPENAI_CHAT_MODEL_ID")
-
-    if not os.getenv("OPENAI_API_KEY"):
-        raise typer.BadParameter("OPENAI_API_KEY is required. Set it in .env.")
-
-    if not model_id:
-        raise typer.BadParameter(
-            "OpenAI model id is required. Set OPENAI_CHAT_MODEL_ID in .env or pass --model-id."
-        )
+    backend_name, model_id = _resolve_backend_and_model(backend, model_id)
+    _preflight_or_die(backend_name)
 
     text = read_input_text(input_text, str(input_file) if input_file else None)
 
@@ -317,6 +344,7 @@ def analyze(
 
     typer.echo(f"Analysis Run started: {run_id}")
     typer.echo(f"Run dir: {run_dir}")
+    typer.echo(f"Backend/model: {model_id}")
 
     def _get_executor_id(evt: object) -> str | None:
         return (
@@ -399,3 +427,72 @@ def analyze(
 
     typer.echo(f"Outputs: {result.parts[0].content[:50]}..." if result.parts else "No parts found")
     typer.echo(f"Full artifacts in: {run_dir}")
+
+
+@app.command()
+def doctor(
+    backend: Optional[str] = typer.Option(
+        None,
+        "--backend",
+        help="Only check this backend. Default: check all of "
+        f"{', '.join(KNOWN_BACKENDS)}.",
+    ),
+    ping: bool = typer.Option(
+        False,
+        "--ping",
+        help="Also run one tiny completion per backend to prove end-to-end (uses seat/API quota).",
+    ),
+    dotenv_path: Optional[Path] = typer.Option(None, help="Optional .env path (defaults to .env in repo root)."),
+) -> None:
+    """Preflight the LLM backends: binary + version + auth (and optionally a live ping)."""
+    env_path = dotenv_path if dotenv_path is not None else Path(".env")
+    load_dotenv(env_path, override=False)
+
+    if backend is not None:
+        try:
+            targets = [resolve_backend_name(backend)]
+        except ValueError as e:
+            raise typer.BadParameter(str(e))
+    else:
+        targets = list(KNOWN_BACKENDS)
+
+    any_failed = False
+    for name in targets:
+        typer.echo(f"\n[{name}]")
+        checks = preflight_backend(name)
+        backend_ok = all(ok for _, ok, _ in checks)
+        for check, ok, detail in checks:
+            mark = "OK " if ok else "FAIL"
+            typer.echo(f"  {mark} {check}: {detail}")
+        if not backend_ok:
+            any_failed = True
+            continue
+
+        if ping:
+            try:
+                model_label = resolve_model_label(name, None)
+            except ValueError as e:
+                typer.echo(f"  SKIP ping: {e}")
+                any_failed = True
+                continue
+            from .llm import LLMClient
+
+            async def _ping() -> dict:
+                client = LLMClient(model_id=model_label, name="Doctor_Ping")
+                return await client.run_json(
+                    'Reply with exactly this JSON object and nothing else: {"ok": true}'
+                )
+            try:
+                t0 = time.monotonic()
+                data = asyncio.run(_ping())
+                dt = time.monotonic() - t0
+                ok = data.get("ok") is True
+                typer.echo(f"  {'OK ' if ok else 'FAIL'} ping ({model_label}): {data} ({dt:.1f}s)")
+                any_failed = any_failed or not ok
+            except Exception as e:  # noqa: BLE001 - report, don't crash the doctor
+                typer.echo(f"  FAIL ping ({model_label}): {type(e).__name__}: {e}")
+                any_failed = True
+
+    if any_failed:
+        raise typer.Exit(code=1)
+    typer.echo("\nAll checks passed.")

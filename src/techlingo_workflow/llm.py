@@ -5,30 +5,54 @@ from typing import Any, TypeVar
 
 from pydantic import BaseModel, ValidationError
 
-from agent_framework import ChatAgent
-from agent_framework.openai import OpenAIChatClient
-
+from .backends import CompletionBackend, backend_from_label, default_timeout_s
 from .prompts import SYSTEM_JSON_ONLY
 
 T = TypeVar("T", bound=BaseModel)
 
 
 class LLMClient:
-    """Thin wrapper around Microsoft Agent Framework OpenAIChatClient with JSON enforcement."""
+    """JSON-enforcing LLM wrapper over a pluggable completion backend.
+
+    The backend (OpenAI API, Claude Code CLI, Codex CLI) only turns one prompt
+    into one raw text completion; everything that makes the pipeline robust —
+    JSON extraction, schema-error feedback retries — lives here and is
+    backend-agnostic.
+    """
 
     def __init__(
         self,
         *,
-        model_id: str,
+        model_id: str | None = None,
         instructions: str = SYSTEM_JSON_ONLY,
         name: str = "TechlingoPipeline",
+        backend: CompletionBackend | None = None,
+        timeout_s: float | None = None,
     ) -> None:
-        self.model_id = model_id
-        self._agent = ChatAgent(
-            chat_client=OpenAIChatClient(model_id=model_id),
-            name=name,
-            instructions=instructions,
-        )
+        if backend is None:
+            if not model_id:
+                raise ValueError("LLMClient requires either a model_id label or a backend.")
+            # model_id may be backend-qualified ("claude-code:sonnet") or a bare
+            # OpenAI model id ("gpt-4o-mini") — backend_from_label handles both.
+            backend = backend_from_label(model_id, agent_name=name)
+        self._backend = backend
+        self.model_id = model_id or backend.model_label
+        self._instructions = instructions
+        self._timeout_s = timeout_s if timeout_s is not None else default_timeout_s()
+
+    @property
+    def backend(self) -> CompletionBackend:
+        return self._backend
+
+    async def _complete(self, prompt: str, response_model: type[BaseModel] | None = None) -> str:
+        return (
+            await self._backend.complete(
+                prompt,
+                system=self._instructions,
+                response_model=response_model,
+                timeout_s=self._timeout_s,
+            )
+        ).strip()
 
     @staticmethod
     def _extract_json(text: str) -> str:
@@ -62,9 +86,7 @@ class LLMClient:
         last_err: Exception | None = None
         current = prompt
         for _ in range(max_retries + 1):
-            result = await self._agent.run(current)
-            # Agent Framework returns a rich response; str() typically yields text content.
-            text = str(result).strip()
+            text = await self._complete(current)
             try:
                 return json.loads(self._extract_json(text))
             except json.JSONDecodeError as e:
@@ -85,36 +107,20 @@ class LLMClient:
         """Run, parse, and validate against `model` with maximum resilience.
 
         Defense in depth:
-          1. **Structured Outputs** — pass ``response_format=model`` so OpenAI
-             constrains generation to the schema; invalid JSON and invented
-             enum/discriminator values become impossible at the API level.
-          2. **Repair retry** — if anything still slips through (or the schema is
-             rejected and we fall back to prompt-only mode), feed the JSON/schema
-             error back and ask for a correction instead of crashing the run.
+          1. **Structured output at the backend** — OpenAI Structured Outputs or
+             codex `--output-schema` constrain generation to the schema when the
+             backend supports it (each backend degrades gracefully when not).
+          2. **Repair retry** — if anything still slips through, feed the
+             JSON/schema error back and ask for a correction instead of
+             crashing the run.
 
         Returns the raw dict (callers still read fields like ``thought_process``)
         alongside the validated model.
         """
         last_err: Exception | None = None
         current = prompt
-        use_structured = True
-        attempts = 0
-        while attempts <= max_retries:
-            try:
-                if use_structured:
-                    result = await self._agent.run(current, response_format=model)
-                else:
-                    result = await self._agent.run(current)
-            except Exception as e:  # noqa: BLE001 - schema may be rejected by the framework/API
-                # Structured Outputs unsupported for this schema/model: drop to
-                # prompt-only mode once (layer 2 takes over) without burning a retry.
-                if use_structured:
-                    use_structured = False
-                    last_err = e
-                    continue
-                raise
-            attempts += 1
-            text = str(result).strip()
+        for _ in range(max_retries + 1):
+            text = await self._complete(current, response_model=model)
             try:
                 data = json.loads(self._extract_json(text))
             except json.JSONDecodeError as e:
@@ -159,5 +165,3 @@ class LLMClient:
                 )
         assert last_err is not None
         raise last_err
-
-

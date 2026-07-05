@@ -1,6 +1,11 @@
 # Subscription Backends Plan — Claude Code & Codex CLI as LLM engines
 
-**Status:** planned (next session) · **Author:** 2026-07-04 session
+**Status:** implemented v1 (2026-07-04) — §1–§4 done (`backends.py`, `--backend` flag,
+`doctor` command, env vars); 21 unit tests in `tests/test_backends.py`; live `doctor --ping`
+green for both CLIs. E2E finding: claude `-p` default thinking makes A2/A4 lesson calls run
+7–15+ min → timeout default is now 1200 s and `CLAUDE_CODE_EFFORT` (→ `--effort`) is the
+speed lever; go-forward config is `CLAUDE_CODE_EFFORT=medium TECHLINGO_MAX_CONCURRENCY=2`.
+Still open: full E2E on both backends + quality comparison (§5.3). · **Author:** 2026-07-04 session
 **Goal:** run the whole A0–A5 pipeline through the company-paid **Claude Enterprise**
 and **Codex Pro** subscriptions instead of the pay-per-token OpenAI API
 (~$5/build today → $0 marginal). Both backends selectable per run; OpenAI API

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import asyncio
 import json
+import os
 
 from agent_framework import WorkflowContext, executor
 from typing_extensions import Never
@@ -36,8 +37,16 @@ def _artifact_path(state: PipelineState, name: str) -> str:
 
 
 # Cap on simultaneous per-lesson LLM calls (rate-limit friendly, still ~Nx
-# faster than sequential for full-course passes).
-MAX_CONCURRENT_LESSON_CALLS = 4
+# faster than sequential for full-course passes). Tune with
+# TECHLINGO_MAX_CONCURRENCY (2-3 recommended for subscription CLI backends).
+def _max_concurrent_lesson_calls() -> int:
+    try:
+        return max(1, int(os.getenv("TECHLINGO_MAX_CONCURRENCY", "4")))
+    except ValueError:
+        return 4
+
+
+MAX_CONCURRENT_LESSON_CALLS = _max_concurrent_lesson_calls()
 
 
 async def _gather_limited(coros: list) -> list:

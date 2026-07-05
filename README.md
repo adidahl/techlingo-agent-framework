@@ -45,7 +45,37 @@ Question-quality rules enforced deterministically (no LLM) in `validate.py`:
 - rearrange: 4–8 shuffled tokens (never shipped pre-arranged), generic prompt stems rotated
 
 Notes:
-- You must set both `OPENAI_API_KEY` and `OPENAI_CHAT_MODEL_ID` in `.env` (or pass `--model-id`).
+- With the default `openai` backend you must set both `OPENAI_API_KEY` and `OPENAI_CHAT_MODEL_ID` in `.env` (or pass `--model-id`).
+
+### LLM backends (subscription CLIs — $0 marginal cost)
+
+The pipeline can run its completions through three interchangeable backends
+(see `SUBSCRIPTION_BACKENDS_PLAN.md`):
+
+| Backend | Engine | Cost | Structured output |
+|---|---|---|---|
+| `openai` (default) | OpenAI API via agent_framework | per token | OpenAI Structured Outputs + fallback |
+| `claude-code` | headless `claude -p` (Claude subscription seat) | $0 marginal | prompt-schema + pydantic repair retries |
+| `codex` | `codex exec` (Codex subscription seat) | $0 marginal | real `--output-schema` from pydantic |
+
+```bash
+# Preflight: binary + version + auth per backend (add --ping for a live 1-call test)
+python main.py doctor
+
+# Run the whole pipeline on a subscription seat
+python main.py run --input-file sample.txt --backend claude-code   # or: --backend codex
+python main.py run --input-file sample.txt --backend claude-code --model-id opus
+```
+
+Selection and tuning via env (CLI flags win):
+- `TECHLINGO_LLM_BACKEND` — `openai` | `claude-code` | `codex`
+- `CLAUDE_CODE_MODEL` (default `sonnet`) / `CODEX_MODEL` (default: CLI default)
+- `CLAUDE_CODE_EFFORT` — thinking budget per call (`low`/`medium`/`high`; unset = CLI default). Complex lesson calls think for minutes at the default — `medium` is the speed lever.
+- `TECHLINGO_MAX_CONCURRENCY` — parallel per-lesson calls (default 4; use 2–3 on subscription seats)
+- `TECHLINGO_LLM_TIMEOUT_S` — per-completion timeout (default 1200; one A2/A4 lesson call through `claude -p` can need >10 min under concurrency)
+
+`PipelineState.model_id` records the backend-qualified label (e.g.
+`claude-code:sonnet`) in every artifact, so runs stay comparable across backends.
 
 ### Configuration
 

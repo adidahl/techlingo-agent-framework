@@ -389,3 +389,39 @@ lessons (4/6 then 3/6).
 NOTE 2026-07-04: final fresh verification run hit OpenAI `429 insufficient_quota`
 (billing) — re-run `python main.py run --input-file sample.txt` once quota is
 topped up; expected to converge to ok:true with 0-1 loops.
+
+## 12. Subscription CLI backends — E2E comparison (2026-07-05)
+
+Both subscription backends produced a fully valid TechLingo-native course from
+`sample.txt` at $0 marginal cost (same config: concurrency 2, 3 modules /
+6 lessons / 90 exercises / 24 flashcards):
+
+| | `claude-code` (sonnet, effort=medium) | `codex` (gpt-5.5) |
+|---|---|---|
+| Run id | run-20260705-093147 | run-20260705-094444 |
+| Validation | **ok:true, 0 errors, 0 warnings** | **ok:true, 0 errors, 0 warnings** |
+| A5 repair loops | 0 | 0 |
+| Wall time | 57.1 min | **27.4 min** |
+| Slowest stage | A4 1344s | A4 455s |
+| Structured output | prompt-schema + pydantic retries | real `--output-schema` (strict-transformed) |
+
+Verdict (spot-check of Applying/Analyzing questions, lessons 1 & 6):
+- **claude-code**: noticeably richer scenarios and tighter distractors — options
+  are parallel, plausible alternatives (e.g. transparency-vs-fairness-testing
+  discrimination in the Responsible AI lesson). Preferred when quality matters.
+- **codex**: passes every deterministic gate and is ~2x faster, but distractors
+  are thinner (vocabulary terms rather than competing capabilities) and prompt
+  wording occasionally clunky ("Which choices support fairness and bias?").
+  Good for fast iteration on pipeline/config changes.
+- Recommended default: `claude-code` for deliverable builds, `codex` for dev
+  loops. OpenAI API path retained for A/B baselines.
+
+Operational findings (encoded in backends.py / env defaults):
+- claude `-p` default thinking makes A2/A4 lesson calls run 7-15+ min →
+  `CLAUDE_CODE_EFFORT=medium` roughly halves A1/A2 (A4 still ~22 min/stage);
+  timeout default is 1200s with one timeout retry.
+- codex `--output-schema` = OpenAI strict mode: schema must be transformed
+  (additionalProperties:false + all-required), and dict-typed fields
+  (TextAnalysisResult.parts_by_type) can't be expressed at all → automatic
+  fallback to prompt-schema mode per model (`strict_schema_or_none`).
+- codex stderr starts with a banner — error extraction must take the TAIL.
