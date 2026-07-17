@@ -45,6 +45,9 @@ export interface FillGapsPart {
 export interface FillGapsExercise extends BaseExercise {
     question_type: "fill_gaps";
     parts: FillGapsPart[];
+    // Why the accepted term is right (shown after answering). Absent on old courses.
+    explanation?: string | null;
+    feedback_for_incorrect?: Feedback | string | null;
 }
 
 export interface RearrangeExercise extends BaseExercise {
@@ -53,6 +56,9 @@ export interface RearrangeExercise extends BaseExercise {
     correct_order: string[];
     // 0-based positions in correct_order that may permute among themselves
     interchangeable_groups?: number[][];
+    // Why this order is correct (shown after answering). Absent on old courses.
+    explanation?: string | null;
+    feedback_for_incorrect?: Feedback | string | null;
 }
 
 export type Exercise =

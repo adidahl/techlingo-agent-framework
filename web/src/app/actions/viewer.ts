@@ -30,7 +30,10 @@ export async function getRuns(): Promise<RunInfo[]> {
         const entries = await fs.readdir(OUTPUTS_DIR, { withFileTypes: true });
 
         const runs = entries
-            .filter((e) => e.isDirectory() && e.name.startsWith("run-"))
+            // Symlinked run dirs count too (e.g. a course-workspace build dir
+            // bridged into outputs/ for review); Dirent reports the link
+            // itself, not its target, so isDirectory() alone would hide them.
+            .filter((e) => (e.isDirectory() || e.isSymbolicLink()) && e.name.startsWith("run-"))
             .map((e) => ({
                 id: e.name,
                 name: e.name,

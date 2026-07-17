@@ -51,9 +51,22 @@ const FeedbackDisplay: React.FC<{ exercise: RearrangeExercise, currentOrder: str
     // Spec §5: exact order, or any permutation within declared interchangeable groups.
     const isCorrect = isOrderAccepted(currentOrder, exercise.correct_order, exercise.interchangeable_groups || []);
 
+    const fbi = exercise.feedback_for_incorrect;
+
     return (
         <div className={`${styles.feedbackContainer} ${isCorrect ? styles.feedbackCorrect : styles.feedbackIncorrect}`}>
             <div><strong>{isCorrect ? "Correct! ✅" : "Incorrect ❌"}</strong></div>
+
+            {!isCorrect && fbi && (
+                <div style={{ marginTop: '0.5rem' }}>
+                    {typeof fbi === 'string' ? <div>{fbi}</div> : (
+                        <>
+                            {fbi.intrinsic && <div>{fbi.intrinsic}</div>}
+                            {fbi.instructional && <div style={{ fontStyle: 'italic' }}>{fbi.instructional}</div>}
+                        </>
+                    )}
+                </div>
+            )}
 
             {!isCorrect && (
                 <div style={{ marginTop: '0.5rem' }}>
@@ -61,6 +74,12 @@ const FeedbackDisplay: React.FC<{ exercise: RearrangeExercise, currentOrder: str
                     <div style={{ marginTop: '0.5rem', padding: '0.5rem', background: 'rgba(0,0,0,0.05)', borderRadius: '4px' }}>
                         {exercise.correct_order.join(" | ")}
                     </div>
+                </div>
+            )}
+
+            {exercise.explanation && (
+                <div style={{ marginTop: '0.5rem' }}>
+                    <strong>Why:</strong> {exercise.explanation}
                 </div>
             )}
         </div>

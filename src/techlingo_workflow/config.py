@@ -17,7 +17,18 @@ class DifficultyLevel(str, Enum):
 
 
 class WorkflowConfig(BaseModel):
-    """Configuration for the Techlingo workflow constraints."""
+    """Configuration for the Techlingo workflow constraints.
+
+    PRECEDENCE (Phase 2b cell worksheets — see worksheet.py): for any lesson
+    whose concept pack is fully depth-classified, `exercises_per_lesson`,
+    `blooms_distribution`, and `question_type_distribution` are DERIVED from
+    the lesson's cell worksheet (quota table per concept depth) and the values
+    configured here are ignored for that lesson — both at generation and at
+    validation. The configured values still: (a) govern legacy lessons without
+    such a pack, (b) size A1's concepts-per-lesson cap via
+    `exercises_per_lesson`, and (c) must satisfy this model's sum/coupling
+    validator (they are a coherent legacy fallback, not dead weight).
+    """
     
     # Global Settings
     difficulty: DifficultyLevel = Field(DifficultyLevel.beginner, description="Overall course difficulty.")

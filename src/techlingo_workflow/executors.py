@@ -30,6 +30,7 @@ from .prompts import (
     reviewer_prompt,
 )
 from .validate import issues_by_lesson, repair_course_if_needed, validate_course
+from .worksheet import CELL_QUOTAS, DEFAULT_DEPTH, assign_tf_answers, build_lesson_worksheet
 
 
 def _artifact_path(state: PipelineState, name: str) -> str:
@@ -105,11 +106,29 @@ def _analysis_inventory_json(state: PipelineState) -> str | None:
     return json.dumps(parts, ensure_ascii=False, indent=2)
 
 
+def _stamp_default_depths(a1_map: dict) -> None:
+    """Fill missing/invalid concept depths with the default, in place.
+
+    The A1 retry loop asks for a depth on every atom; this is the safety net
+    that keeps the worksheet contract total even when the best surviving map
+    is imperfect — every downstream consumer (worksheets, validation, graph)
+    can then rely on depth being present.
+    """
+    for module in a1_map.get("modules") or []:
+        for lesson in module.get("lessons") or []:
+            for concept in lesson.get("concepts") or []:
+                if isinstance(concept, dict) and concept.get("depth") not in CELL_QUOTAS:
+                    concept["depth"] = DEFAULT_DEPTH
+
+
 def _seed_concepts_from_map(course: Course, a1_map: dict) -> None:
-    """Copy per-lesson concepts from the A1 map into the course when A2 dropped them.
+    """Copy per-lesson concepts from the A1 map into the course when A2 dropped
+    them, and restore per-concept `depth` when the A2 echo stripped it.
 
     Index-aligned: A2 must mirror the map's module/lesson structure, so position
-    is the join key. Best-effort — mismatched shapes just skip.
+    is the join key. Best-effort — mismatched shapes just skip. Depth is the
+    worksheet-mode switch (worksheet.py), so it must never be lost to a sloppy
+    echo — the map is its ground truth.
     """
     map_modules = a1_map.get("modules") or []
     for mi, module in enumerate(course.modules):
@@ -119,13 +138,21 @@ def _seed_concepts_from_map(course: Course, a1_map: dict) -> None:
         for li, lesson in enumerate(module.lessons):
             if li >= len(map_lessons):
                 break
-            if lesson.concepts:
-                continue
             raw = map_lessons[li].get("concepts") or []
-            try:
-                lesson.concepts = [ConceptAtom.model_validate(c) for c in raw]
-            except Exception:  # noqa: BLE001 - malformed map concepts must never sink the run
-                continue
+            if not lesson.concepts:
+                try:
+                    lesson.concepts = [ConceptAtom.model_validate(c) for c in raw]
+                except Exception:  # noqa: BLE001 - malformed map concepts must never sink the run
+                    continue
+            else:
+                map_depths = {
+                    c.get("id"): c.get("depth")
+                    for c in raw
+                    if isinstance(c, dict) and c.get("depth") in CELL_QUOTAS
+                }
+                for atom in lesson.concepts:
+                    if atom.depth is None and atom.id in map_depths:
+                        atom.depth = map_depths[atom.id]
 
 
 def _validate_a1_map(a1_map: dict, config) -> list[str]:
@@ -177,6 +204,12 @@ def _validate_a1_map(a1_map: dict, config) -> list[str]:
                     problems.append(f"Concept id '{cid}' is duplicated; ids must be unique across the course.")
                 else:
                     seen_concept_ids.add(cid)
+                if c.get("depth") not in CELL_QUOTAS:
+                    problems.append(
+                        f"Concept '{cid or c.get('label', '?')}' must declare \"depth\" as one of "
+                        f"{sorted(CELL_QUOTAS)} (got {c.get('depth')!r}). Depth drives how many "
+                        "exercises the concept gets per difficulty rung."
+                    )
                 meta_text = f"{cid} {c.get('label', '')} {c.get('summary', '')}".lower()
                 if any(marker in meta_text for marker in meta_markers):
                     problems.append(
@@ -198,6 +231,13 @@ def _restore_concept_metadata(prev: Course, new: Course) -> None:
         for pl, nl in zip(pm.lessons, nm.lessons):
             if pl.concepts and not nl.concepts:
                 nl.concepts = [c.model_copy(deep=True) for c in pl.concepts]
+            else:
+                # Echoed concepts may come back stripped of `depth` — the
+                # worksheet-mode switch. Restore it by id from the previous pass.
+                prev_depths = {c.id: c.depth for c in pl.concepts if c.depth}
+                for atom in nl.concepts:
+                    if atom.depth is None and atom.id in prev_depths:
+                        atom.depth = prev_depths[atom.id]
             for pe, ne in zip(pl.exercises, nl.exercises):
                 if not ne.concept_id and pe.concept_id:
                     ne.concept_id = pe.concept_id
@@ -277,6 +317,8 @@ async def a1_modularizer(state: PipelineState, ctx: WorkflowContext[PipelineStat
                 f"({best_problem_count} problem(s))."
             )
         )
+    # Depth must be total for the cell worksheets — default any survivor gaps.
+    _stamp_default_depths(data)
     await ctx.add_event(StageLogEvent("A1: received LLM response, writing artifact"))
 
     if "thought_process" in data and isinstance(data["thought_process"], list):
@@ -314,7 +356,23 @@ async def a2_scaffolder(state: PipelineState, ctx: WorkflowContext[PipelineState
             return ""
         return "Other lessons in this course own these concepts — do NOT write exercises about them:\n" + "\n".join(lines)
 
-    # Deterministic per-lesson true/false answer pattern (course-wide alternation).
+    # Cell worksheets (Phase 2b): expand each lesson's concept pack into the
+    # exact (concept, rung, variant, type, Bloom) plan, with true_false answers
+    # alternated course-wide across the worksheets. Deterministic from the map,
+    # so loop retries regenerate against an identical contract. A lesson whose
+    # concepts don't parse (or are absent) falls back to the legacy
+    # config-distribution prompt below.
+    worksheets: list[list | None] = []
+    for _mi, _li, lesson_map, _mt in lesson_entries:
+        try:
+            atoms = [ConceptAtom.model_validate(c) for c in (lesson_map.get("concepts") or [])]
+            worksheets.append(build_lesson_worksheet(atoms) if atoms else None)
+        except Exception:  # noqa: BLE001 - malformed pack -> legacy path, never sink the run
+            worksheets.append(None)
+    assign_tf_answers([ws for ws in worksheets if ws])
+
+    # Deterministic per-lesson true/false answer pattern (course-wide alternation)
+    # for lessons WITHOUT a worksheet (legacy fallback).
     tf_per_lesson = state.config.question_type_distribution.get("true_false", 0)
     tf_patterns = _tf_answer_patterns(tf_per_lesson, len(lesson_entries))
 
@@ -360,6 +418,7 @@ async def a2_scaffolder(state: PipelineState, ctx: WorkflowContext[PipelineState
                 module_title=module_title,
                 other_lessons_note=_other_lessons_note(key),
                 tf_answers=tf_patterns[seq_index],
+                worksheet=worksheets[seq_index],
                 validation_issues=issues,
             ),
             LessonGen,

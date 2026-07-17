@@ -64,8 +64,13 @@ def test_split_backend_label():
     assert split_backend_label("claude-code") == ("claude-code", None)
     assert split_backend_label("codex:gpt-5-codex") == ("codex", "gpt-5-codex")
     assert split_backend_label("codex") == ("codex", None)
-    assert split_backend_label("gpt-4o-mini") == ("openai", "gpt-4o-mini")
-    assert split_backend_label("openai:gpt-4o") == ("openai", "gpt-4o")
+    # Bare OpenAI labels (old artifacts) are rejected with the removal message.
+    for legacy in ("gpt-4o-mini", "openai:gpt-4o"):
+        try:
+            split_backend_label(legacy)
+            assert False, f"legacy openai label accepted: {legacy}"
+        except ValueError as e:
+            assert "removed" in str(e)
 
 
 def test_backend_label_round_trip():
@@ -77,7 +82,7 @@ def test_backend_label_round_trip():
 def test_resolve_backend_name_env_and_flag():
     old = os.environ.pop("TECHLINGO_LLM_BACKEND", None)
     try:
-        assert resolve_backend_name(None) == "openai"
+        assert resolve_backend_name(None) == "claude-code"  # new default
         os.environ["TECHLINGO_LLM_BACKEND"] = "codex"
         assert resolve_backend_name(None) == "codex"
         assert resolve_backend_name("claude-code") == "claude-code"  # flag wins over env
@@ -86,6 +91,11 @@ def test_resolve_backend_name_env_and_flag():
             assert False, "unknown backend accepted"
         except ValueError:
             pass
+        try:
+            resolve_backend_name("openai")
+            assert False, "removed openai backend accepted"
+        except ValueError as e:
+            assert "removed" in str(e)
     finally:
         os.environ.pop("TECHLINGO_LLM_BACKEND", None)
         if old is not None:
@@ -93,10 +103,7 @@ def test_resolve_backend_name_env_and_flag():
 
 
 def test_resolve_model_label_per_backend():
-    saved = {
-        k: os.environ.pop(k, None)
-        for k in ("CLAUDE_CODE_MODEL", "CODEX_MODEL", "OPENAI_CHAT_MODEL_ID", "OPENAI_API_KEY")
-    }
+    saved = {k: os.environ.pop(k, None) for k in ("CLAUDE_CODE_MODEL", "CODEX_MODEL")}
     try:
         assert resolve_model_label("claude-code", None) == "claude-code:sonnet"  # recommended default
         assert resolve_model_label("claude-code", "opus") == "claude-code:opus"
@@ -108,18 +115,10 @@ def test_resolve_model_label_per_backend():
         assert resolve_model_label("codex", None) == "codex:o3"
 
         try:
-            resolve_model_label("openai", None)
-            assert False, "openai without model id accepted"
+            resolve_model_label("openai", "gpt-4o")
+            assert False, "removed openai backend accepted"
         except ValueError:
             pass
-        os.environ["OPENAI_CHAT_MODEL_ID"] = "gpt-4o-mini"
-        try:
-            resolve_model_label("openai", None)
-            assert False, "openai without api key accepted"
-        except ValueError:
-            pass
-        os.environ["OPENAI_API_KEY"] = "sk-test"
-        assert resolve_model_label("openai", None) == "gpt-4o-mini"  # unqualified (back-compat)
     finally:
         for k, v in saved.items():
             os.environ.pop(k, None)

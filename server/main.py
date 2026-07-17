@@ -18,7 +18,6 @@ _SRC = Path(__file__).parent.parent / "src"
 sys.path.insert(0, str(_SRC))
 
 from techlingo_workflow.backends import (
-    BACKEND_OPENAI,
     preflight_backend,
     resolve_backend_name,
     resolve_model_label,
@@ -47,26 +46,25 @@ class RunRequest(BaseModel):
     config: Optional[WorkflowConfig] = None
     difficulty: Optional[DifficultyLevel] = None
     model_id: Optional[str] = None
-    backend: Optional[str] = None  # openai | claude-code | codex (default: TECHLINGO_LLM_BACKEND env)
+    backend: Optional[str] = None  # claude-code | codex (default: TECHLINGO_LLM_BACKEND env)
 
 
 def _resolve_backend_for_request(request_data: dict) -> tuple[str | None, str | None, str | None]:
     """Resolve (backend_name, model_label, error). Same rules as the CLI:
-    request field > TECHLINGO_LLM_BACKEND env > openai; preflight the CLI
-    backends so a logged-out seat fails fast with an actionable message."""
+    request field > TECHLINGO_LLM_BACKEND env > claude-code; preflight the CLI
+    backend so a logged-out seat fails fast with an actionable message."""
     try:
         backend_name = resolve_backend_name(request_data.get("backend"))
         model_label = resolve_model_label(backend_name, request_data.get("model_id"))
     except ValueError as e:
         return None, None, str(e)
-    if backend_name != BACKEND_OPENAI:
-        failures = [
-            f"{check}: {detail}"
-            for check, ok, detail in preflight_backend(backend_name)
-            if not ok
-        ]
-        if failures:
-            return None, None, f"Backend '{backend_name}' failed preflight: " + "; ".join(failures)
+    failures = [
+        f"{check}: {detail}"
+        for check, ok, detail in preflight_backend(backend_name)
+        if not ok
+    ]
+    if failures:
+        return None, None, f"Backend '{backend_name}' failed preflight: " + "; ".join(failures)
     return backend_name, model_label, None
 
 @app.get("/")

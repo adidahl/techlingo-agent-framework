@@ -174,9 +174,12 @@ def _emit_fill_blank(ex, blooms: str, import_key: str) -> TLQuestion:
             "blooms_level": blooms,
             "original_question_type": "fill_gaps",
             "concept_id": ex.concept_id,
+            "feedback_for_incorrect": _feedback_to_jsonable(
+                getattr(ex, "feedback_for_incorrect", None)
+            ),
         },
         correct_answer=correct_answer,
-        explanation=None,
+        explanation=getattr(ex, "explanation", None),
     )
 
 
@@ -226,6 +229,10 @@ def _emit_arrange(ex, blooms: str, import_key: str) -> TLQuestion:
         # (GRADING_SPEC §5). Absent field = only correct_order is accepted.
         options["interchangeable_groups"] = groups
         options["accepted_orders"] = expand_accepted_orders(ex.correct_order, groups)
+    # Same convention as true_false: key always present, None when unauthored.
+    options["feedback_for_incorrect"] = _feedback_to_jsonable(
+        getattr(ex, "feedback_for_incorrect", None)
+    )
     return TLQuestion(
         import_key=import_key,
         question_type="arrange_sentence",
@@ -233,7 +240,7 @@ def _emit_arrange(ex, blooms: str, import_key: str) -> TLQuestion:
         options=options,
         # Mobile builds draggable words from correct_answer.split(" ").
         correct_answer=" ".join(ex.correct_order),
-        explanation=None,
+        explanation=getattr(ex, "explanation", None),
     )
 
 
@@ -250,6 +257,16 @@ def _emit_exercise(ex, import_key: str) -> TLQuestion:
     if isinstance(ex, RearrangeExercise):
         return _emit_arrange(ex, blooms, import_key)
     raise TypeError(f"Unknown exercise type: {type(ex).__name__}")
+
+
+def emit_question(ex, import_key: str) -> TLQuestion:
+    """Public single-exercise transform (internal Exercise -> TLQuestion).
+
+    The workspace compiler builds TL courses from bank items instead of a whole
+    internal Course, so it needs the per-exercise mapping as a stable entry
+    point. Same encodings as the full-course path — one implementation.
+    """
+    return _emit_exercise(ex, import_key)
 
 
 def _emit_flashcard(fc: Flashcard, import_key: str) -> TLFlashcard:

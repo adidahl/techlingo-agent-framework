@@ -34,6 +34,13 @@ class ConceptAtom(BaseModel):
     id: str = Field(..., description="Stable kebab-case id, unique within the course (e.g., 'object-detection').")
     label: str = Field(..., description="Short human name of the concept/term (e.g., 'Object detection').")
     summary: str = Field(..., description="The teachable fact, stated directly from the source (1-2 sentences).")
+    depth: Optional[Literal["fact", "mechanism", "decision"]] = Field(
+        default=None,
+        description="How far the concept can be meaningfully drilled: 'fact' (a term/definition), "
+        "'mechanism' (how something works, a distinction or trade-off), 'decision' (when to "
+        "choose it over alternatives). Drives the exercise quota per difficulty rung "
+        "(ARCHITECTURE.md §3.1/§3.3).",
+    )
     confusable_with: list[str] = Field(
         default_factory=list,
         description="Ids of sibling concepts a learner could confuse this with — the preferred distractor pool.",
@@ -119,6 +126,14 @@ class FillGapsExercise(ExerciseBase):
         ...,
         description="Structured sentence parts with gaps; UI renders by interleaving text and input fields.",
     )
+    explanation: Optional[str] = Field(
+        default=None,
+        description="Why the accepted answer is the right term here (shown after answering, right or wrong).",
+    )
+    feedback_for_incorrect: Optional[FeedbackLike] = Field(
+        default=None,
+        description="Coaching shown when the learner types a wrong term (paired intrinsic + instructional).",
+    )
 
 
 class RearrangeExercise(ExerciseBase):
@@ -132,6 +147,14 @@ class RearrangeExercise(ExerciseBase):
         "legitimately order-flexible segments; graders accept any such arrangement. "
         "Generated questions should have a unique order (empty list); this is "
         "authored mainly by human editors.",
+    )
+    explanation: Optional[str] = Field(
+        default=None,
+        description="Why this order is correct (the logic/sequence), shown after answering.",
+    )
+    feedback_for_incorrect: Optional[FeedbackLike] = Field(
+        default=None,
+        description="Coaching shown on a wrong arrangement (paired intrinsic + instructional).",
     )
 
 
@@ -250,7 +273,7 @@ class PipelineState(BaseModel):
     run_dir: str
 
     input_text: str
-    model_id: str = Field(..., description="OpenAI chat model id to use (e.g., from OPENAI_CHAT_MODEL_ID).")
+    model_id: str = Field(..., description="Backend-qualified model label (e.g. 'claude-code:sonnet', 'codex').")
     difficulty: DifficultyLevel = DifficultyLevel.beginner
 
     # Step artifacts (structured)

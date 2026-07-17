@@ -131,13 +131,24 @@ def a1_modularizer_prompt(
         teachable atom from the source: a term with its definition, a distinction between two
         things, a fact, or a named example. These concepts are the item bank the question
         generator will draw from, so make each summary a complete, self-contained fact.
-        - 2 to {max_concepts} concepts per lesson (each lesson has only {config.exercises_per_lesson} exercises,
-          so more concepts than that cannot be covered).
+        - 2 to {max_concepts} concepts per lesson (exercises are generated per concept,
+          so lesson size follows directly from its concept count).
         - Each concept has: id (kebab-case, unique across the WHOLE course), label, summary
-          (the fact itself, 1-2 sentences, stated directly from the source), and
-          confusable_with (ids of sibling concepts a learner could mix it up with — e.g.
-          image-classification vs object-detection vs semantic-segmentation; these become
-          distractor material).
+          (the fact itself, 1-2 sentences, stated directly from the source), depth (see
+          below), and confusable_with (ids of sibling concepts a learner could mix it up
+          with — e.g. image-classification vs object-detection vs semantic-segmentation;
+          these become distractor material).
+        - DEPTH (required on EVERY concept): classify how far the concept can be
+          meaningfully drilled. Exactly one of:
+          - "fact": a term, definition, or standalone fact ("token", "NFKC"). The learner
+            can recognize and reproduce it, but there is nothing to apply or choose.
+          - "mechanism": how something works, a distinction, or a trade-off (LLM vs SLM,
+            how a model is trained then used). Supports application questions.
+          - "decision": choosing between approaches/services in a situation (which Azure
+            service/approach fits this scenario). Supports scenario analysis questions —
+            use this whenever the source presents selection criteria or alternatives.
+          A decision-depth concept SHOULD list its competing siblings in confusable_with
+          (they are the distractor pool for its scenario questions).
         - Every substantive fact from the source must live in exactly one concept.
         - Concepts must be DISJOINT facts. If two candidate concepts are the same mechanism
           under different names (e.g., "speech recognition" and "speech-to-text"), MERGE
@@ -173,6 +184,7 @@ def a1_modularizer_prompt(
                       "id": "object-detection",
                       "label": "Object detection",
                       "summary": "Object detection is a form of computer vision where the model is trained to identify the location of specific objects in an image.",
+                      "depth": "mechanism",
                       "confusable_with": ["image-classification", "semantic-segmentation"]
                     }}
                   ]
@@ -212,6 +224,89 @@ def _bloom_type_plan(config: WorkflowConfig) -> str:
     return "\n".join(lines)
 
 
+def _worksheet_sections(worksheet: list) -> tuple[str, str, str, str]:
+    """The worksheet-mode replacements for (task, coverage, coupling, tf) blocks.
+
+    The worksheet dictates every cell (concept, rung, variant, type, Bloom), so
+    the distribution/coupling constraint text collapses into "follow the rows"
+    plus the rung ladder semantics and the variant surface rules (§4.2)."""
+    from .worksheet import (
+        format_worksheet_rows,
+        worksheet_blooms_distribution,
+        worksheet_type_distribution,
+    )
+
+    rows = format_worksheet_rows(worksheet)
+    type_mix = ", ".join(f"{k}: {v}" for k, v in sorted(worksheet_type_distribution(worksheet).items()))
+    blooms_mix = ", ".join(f"{k}: {v}" for k, v in sorted(worksheet_blooms_distribution(worksheet).items()))
+    n = len(worksheet)
+
+    task_section = dedent(
+        f"""\
+        Task (A2 Scaffolder - Q&A Generator, single lesson):
+        Generate exactly {n} exercises for THIS lesson by following the EXERCISE
+        WORKSHEET below — one exercise per row, in this exact order. Each row dictates
+        that exercise's concept_id, question_type, and blooms_level (resulting mix:
+        {type_mix}; Blooms: {blooms_mix})."""
+    )
+
+    coverage_section = dedent(
+        f"""\
+        EXERCISE WORKSHEET (hard rules — the exact cell plan for this lesson):
+{_indent(rows, 10)}
+
+        How to read a row: "R<n>" is the difficulty rung of the cell; "variant k of m"
+        means this lesson contains m exercises probing the SAME concept at the SAME rung.
+        Follow every row EXACTLY: same concept_id, same question_type, same blooms_level,
+        and (for true_false) the dictated correct_answer.
+
+        RUNG LADDER (what each rung's question must feel like):
+        - R1 Recognize: pick the right option — direct recognition of the concept's
+          definition or key fact.
+        - R2 Judge: verify a statement about the concept (true_false).
+        - R3 Produce: the learner produces the answer — types the key term (fill_gaps)
+          or reconstructs the fact/process (rearrange).
+        - R4 Apply: a realistic scenario with a decision point where the concept is
+          applied.
+        - R5 Analyze: a scenario that discriminates between plausible sibling
+          approaches — the distractors are the concept's confusables, and choosing
+          requires weighing WHY this concept fits over its alternatives.
+
+        VARIANTS (hard rules — this is what makes the course feel varied, not repetitive):
+        - Rows marked "variant 1 of m" / "variant 2 of m" for the same concept and rung
+          MAY test the same core fact, but each variant MUST differ in SURFACE:
+          a different scenario/context, a different angle or aspect of the concept,
+          a different distractor subset (draw on different confusables), a different
+          gap term or sentence (fill_gaps), a different statement (true_false).
+        - Rephrasing the same sentence is NOT a different surface. If variant 1 asks the
+          definition head-on, variant 2 approaches from a use case, a contrast with a
+          confusable sibling, or a concrete example from the source.
+        - Copy the lesson's "concepts" array VERBATIM from the map entry into your output.
+
+        SCENARIO RULE (hard rule): every Applying and Analyzing/Evaluating exercise's
+        prompt TEXT must describe a realistic scenario with a decision point.
+        true_false, fill_gaps, and rearrange stay direct questions (no scenarios)."""
+    )
+
+    tf_rows = [i + 1 for i, c in enumerate(worksheet) if c.question_type == "true_false"]
+    tf_constraint = dedent(
+        f"""\
+        - MANDATORY ANSWER VALUES: the correct_answer of every true_false exercise is
+            dictated by its worksheet row (rows {tf_rows}) — follow each row exactly.
+            This pattern balances answers across the whole course. A row demanding a
+            FALSE statement means: state a plausible-but-wrong version of the fact
+            (minimal corruption, see below), never an absurd statement."""
+    )
+
+    count_line = f"- exercises: exactly {n} items, one per worksheet row, in worksheet order."
+    return task_section, coverage_section, tf_constraint, count_line
+
+
+def _indent(text: str, spaces: int) -> str:
+    pad = " " * spaces
+    return "\n".join(pad + line for line in text.splitlines())
+
+
 def a2_lesson_prompt(
     lesson_map_json: str,
     source_text: str,
@@ -222,18 +317,73 @@ def a2_lesson_prompt(
     module_title: str,
     other_lessons_note: str,
     tf_answers: list[bool],
+    worksheet: list | None = None,
     validation_issues: list[dict[str, Any]] | None = None,
 ) -> str:
     """Per-lesson generation prompt (chunked A2).
 
     One lesson per completion keeps output size bounded by lesson size, so
-    exercises_per_lesson can grow without hitting output-token limits, and
-    lesson calls can run concurrently.
+    lesson size can grow without hitting output-token limits, and lesson calls
+    can run concurrently.
+
+    Two modes (precedence documented in worksheet.py):
+    - ``worksheet`` given (Phase 2b): the cell worksheet dictates every
+      exercise's concept/type/Bloom/true-false answer; ``tf_answers`` and the
+      config distributions are ignored.
+    - ``worksheet=None`` (legacy: lessons without a depth-classified concept
+      pack): the config distributions + deterministic Bloom/type plan +
+      dictated tf_answers pattern, unchanged.
     """
-    blooms_reqs = "\n".join([f"- {k}: {v} exercises" for k, v in config.blooms_distribution.items()])
-    type_reqs = "\n".join([f"    - {k}: {v}" for k, v in config.question_type_distribution.items()])
-    bloom_plan = _bloom_type_plan(config)
-    tf_pattern = ", ".join("false" if not a else "true" for a in tf_answers)
+    if worksheet:
+        task_section, coverage_section, tf_constraint, count_line = _worksheet_sections(worksheet)
+        coupling_section = ""
+    else:
+        blooms_reqs = "\n".join([f"- {k}: {v} exercises" for k, v in config.blooms_distribution.items()])
+        type_reqs = "\n".join([f"    - {k}: {v}" for k, v in config.question_type_distribution.items()])
+        bloom_plan = _bloom_type_plan(config)
+        tf_pattern = ", ".join("false" if not a else "true" for a in tf_answers)
+        task_section = dedent(
+            f"""\
+            Task (A2 Scaffolder - Q&A Generator, single lesson):
+            Generate exactly {config.exercises_per_lesson} exercises for THIS lesson, drawing on its
+            concepts and the source text, using this Bloom distribution:
+            {blooms_reqs}"""
+        )
+        coverage_section = dedent(
+            """\
+            CONCEPT COVERAGE (hard rules):
+            - Every exercise MUST include "concept_id" set to the id of one concept from THIS lesson's concepts.
+            - Cover as many DISTINCT concepts as possible: when the lesson has at least as many
+              concepts as exercises, EVERY exercise must use a DIFFERENT concept_id. Only
+              revisit a concept when there are more exercises than concepts.
+            - Every exercise must test a DIFFERENT fact or aspect. NEVER re-ask the same fact
+              with a different question type — that is the #1 failure mode to avoid. If two
+              exercises share a concept, they must probe different details of it (e.g., its
+              definition vs. its use case vs. how it differs from a sibling concept).
+            - Copy the lesson's "concepts" array VERBATIM from the map entry into your output."""
+        )
+        coupling_section = dedent(
+            f"""\
+            BLOOM/TYPE COUPLING (hard rules):
+            - Applying and Analyzing/Evaluating exercises MUST be single_choice or multi_choice,
+              and their prompt TEXT must describe a realistic scenario with a decision point.
+            - true_false, fill_gaps, and rearrange exercises MUST be Remembering or Understanding.
+            - USE THIS EXACT ASSIGNMENT (it satisfies both distributions; you may swap
+              Remembering<->Understanding between the lower-order types when it fits the content
+              better, but NEVER put Applying or Analyzing/Evaluating on true_false/fill_gaps/rearrange):
+{bloom_plan}"""
+        )
+        tf_constraint = dedent(
+            f"""\
+            - MANDATORY ANSWER PATTERN: this lesson has exactly {len(tf_answers)} true_false
+                exercise(s); in the order you write them, their correct_answer values MUST be:
+                [{tf_pattern}]. This pattern balances answers across the whole course."""
+        )
+        count_line = dedent(
+            f"""\
+            - exercises: exactly {config.exercises_per_lesson} items, with this exact mix:
+            {type_reqs}"""
+        )
 
     # Construct feedback section if issues exist
     feedback_section = ""
@@ -265,35 +415,16 @@ def a2_lesson_prompt(
         exercises must cover):
         {lesson_map_json}
 
-        Task (A2 Scaffolder - Q&A Generator, single lesson):
-        Generate exactly {config.exercises_per_lesson} exercises for THIS lesson, drawing on its
-        concepts and the source text, using this Bloom distribution:
-        {blooms_reqs}
+        {task_section}
 
         STRICT CONSTRAINT: Use ONLY information present in the source text. Do not use external knowledge.
         STRICT CONSTRAINT: Do NOT reference the source text in your questions.
         - Forbidden: "According to the text...", "As mentioned in the document...", "In this example...".
         - Required: Teach the concept directly as a fact. (e.g., "AI is..." instead of "The text says AI is...").
 
-        CONCEPT COVERAGE (hard rules):
-        - Every exercise MUST include "concept_id" set to the id of one concept from THIS lesson's concepts.
-        - Cover as many DISTINCT concepts as possible: when the lesson has at least as many
-          concepts as exercises, EVERY exercise must use a DIFFERENT concept_id. Only
-          revisit a concept when there are more exercises than concepts.
-        - Every exercise must test a DIFFERENT fact or aspect. NEVER re-ask the same fact
-          with a different question type — that is the #1 failure mode to avoid. If two
-          exercises share a concept, they must probe different details of it (e.g., its
-          definition vs. its use case vs. how it differs from a sibling concept).
-        - Copy the lesson's "concepts" array VERBATIM from the map entry into your output.
+        {coverage_section}
 
-        BLOOM/TYPE COUPLING (hard rules):
-        - Applying and Analyzing/Evaluating exercises MUST be single_choice or multi_choice,
-          and their prompt TEXT must describe a realistic scenario with a decision point.
-        - true_false, fill_gaps, and rearrange exercises MUST be Remembering or Understanding.
-        - USE THIS EXACT ASSIGNMENT (it satisfies both distributions; you may swap
-          Remembering<->Understanding between the lower-order types when it fits the content
-          better, but NEVER put Applying or Analyzing/Evaluating on true_false/fill_gaps/rearrange):
-{bloom_plan}
+        {coupling_section}
 
         DISTRACTOR POLICY (hard rules):
         - Every distractor must be PLAUSIBLE: a real concept, term, or fact from this course
@@ -310,8 +441,7 @@ def a2_lesson_prompt(
         - Vary the phrasing of prompts across exercises; never repeat an identical stem twice.
 
         Constraints:
-        - exercises: exactly {config.exercises_per_lesson} items, with this exact mix:
-        {type_reqs}
+        {count_line}
         - flashcards: exactly {config.flashcards_per_lesson} items.
           - STRICT CONSTRAINT: Atomic & Concise. Each flashcard must cover exactly ONE concept,
             and different flashcards must cover DIFFERENT concepts.
@@ -338,9 +468,7 @@ def a2_lesson_prompt(
           - prompt: The learner-facing question or instruction (e.g., "True or false?").
           - statement: the statement to judge
           - correct_answer: true/false
-          - MANDATORY ANSWER PATTERN: this lesson has exactly {len(tf_answers)} true_false
-            exercise(s); in the order you write them, their correct_answer values MUST be:
-            [{tf_pattern}]. This pattern balances answers across the whole course.
+        {tf_constraint}
           - A FALSE statement must be a true statement with exactly ONE detail swapped for a
             confusable sibling term or fact (minimal corruption) — e.g. attribute object
             detection's behavior to image classification. Never write absurd false statements.
@@ -415,7 +543,6 @@ def a2_lesson_prompt(
     )
     
 def a3_lesson_prompt(lesson_json: str, source_text: str, *, difficulty: DifficultyLevel, config: WorkflowConfig) -> str:
-    blooms_counts = "/".join([str(v) for v in config.blooms_distribution.values()])
     return dedent(
         f"""\
         {difficulty_contract(difficulty)}
@@ -462,9 +589,12 @@ def a3_lesson_prompt(lesson_json: str, source_text: str, *, difficulty: Difficul
 
         Constraints:
         - Preserve the lesson's "concepts" array and every exercise's "concept_id" EXACTLY as given.
-        - Preserve Bloom level counts ({blooms_counts}).
+        - Preserve each exercise's blooms_level EXACTLY as given.
         - Preserve each exercise's question_type, order, and required fields.
         - Preserve every true_false exercise's correct_answer value EXACTLY (do not flip answers).
+        - When two exercises probe the SAME concept at the same difficulty (variants), keep
+          their scenarios/framings clearly DIFFERENT from each other — never rewrite them
+          toward the same situation or wording.
         - Keep distractors plausible (sibling concepts / real misconceptions); never introduce
           absurd or out-of-domain options while rewriting.
         - For fill_gaps and rearrange, keep the structure valid (parts/word_bank/correct_order).
@@ -507,7 +637,11 @@ def a4_lesson_prompt(lesson_json: str, source_text: str, *, difficulty: Difficul
         - Add 'feedback_for_incorrect' object (intrinsic + instructional) explaining why the user's choice was wrong.
 
         For fill_gaps / rearrange:
-        - Add 'feedback_for_correct' (brief reinforcement).
+        - Add 'explanation' (1-2 sentences: WHY the accepted answer / order is right —
+          the underlying fact or logic, not a restatement of the answer).
+        - Add 'feedback_for_incorrect' object (intrinsic + instructional) coaching a
+          learner who typed a wrong term / arranged a wrong order. For fill_gaps,
+          address the likely confusion with the gap's rejected/confusable terms.
 
         STRICT CONSTRAINT: Use ONLY information present in the source text. Do not use external knowledge. Verify that every explanation can be pointed to in the source text.
         
@@ -522,8 +656,9 @@ def a4_lesson_prompt(lesson_json: str, source_text: str, *, difficulty: Difficul
         - Populate 'rationale' for all options.
         - Populate 'better_fit' for all incorrect options.
         - Ensure 'feedback' object (intrinsic + instructional) is present for ALL incorrect options in single/multi choice.
-        - Ensure 'feedback_for_correct' is present for ALL exercises.
-        - Ensure 'feedback_for_incorrect' is present for ALL true_false exercises.
+        - Ensure 'feedback_for_correct' is present for ALL single/multi choice and true_false exercises.
+        - Ensure 'feedback_for_incorrect' is present for ALL true_false, fill_gaps, and rearrange exercises.
+        - Ensure 'explanation' is present for ALL fill_gaps and rearrange exercises.
         - Do not remove existing fields.
         - Preserve the lesson's "concepts" array and every exercise's "concept_id" EXACTLY as given.
         - Preserve every true_false exercise's correct_answer value EXACTLY.
@@ -646,11 +781,59 @@ def a5_tf_rebalance_prompt(items_json: str, source_text: str, *, to_false: bool 
     )
 
 
-def a5_lesson_repair_prompt(lesson_json: str, issues_json: str, config: WorkflowConfig) -> str:
+def a5_lesson_repair_prompt(
+    lesson_json: str,
+    issues_json: str,
+    config: WorkflowConfig,
+    *,
+    worksheet: list | None = None,
+) -> str:
     """Per-lesson repair (chunked A5). Only lessons with errors get repaired,
-    so clean lessons can never be damaged by a whole-course rewrite."""
-    blooms_reqs = ", ".join([f"{v} {k}" for k, v in config.blooms_distribution.items()])
-    type_reqs = "\n".join([f"          - {k}: {v}" for k, v in config.question_type_distribution.items()])
+    so clean lessons can never be damaged by a whole-course rewrite.
+
+    ``worksheet`` (Phase 2b) carries the lesson's own cell plan; when given, the
+    exercise count / distributions / coverage constraints come from it instead
+    of the config (which no longer describes worksheet lessons)."""
+    if worksheet:
+        from .worksheet import (
+            format_worksheet_rows,
+            worksheet_blooms_distribution,
+            worksheet_type_distribution,
+        )
+
+        blooms_reqs = ", ".join(f"{v} {k}" for k, v in sorted(worksheet_blooms_distribution(worksheet).items()))
+        type_reqs = "\n".join(
+            f"          - {k}: {v}" for k, v in sorted(worksheet_type_distribution(worksheet).items())
+        )
+        exercise_count = len(worksheet)
+        coverage_rule = dedent(
+            f"""\
+            - **Cell worksheet**: the lesson was generated against this exact plan — one
+              exercise per row (concept_id, question_type, blooms_level all dictated; the
+              set of exercises must still match it after your repair):
+{format_worksheet_rows(worksheet)}
+            - **Concept coverage**: every exercise must have a `concept_id` matching one concept
+              from the lesson's `concepts` array, per the worksheet rows above.
+              Preserve the `concepts` array (including each concept's `depth`).
+            - **No duplicates**: exercises probing the SAME concept at the SAME rung (variants)
+              MAY test the same fact but MUST differ clearly in surface (different scenario,
+              angle, distractor subset, gap, or statement). Any OTHER pair of exercises must
+              not test the same fact. If flagged as near-duplicates, rewrite one accordingly."""
+        )
+    else:
+        blooms_reqs = ", ".join([f"{v} {k}" for k, v in config.blooms_distribution.items()])
+        type_reqs = "\n".join([f"          - {k}: {v}" for k, v in config.question_type_distribution.items()])
+        exercise_count = config.exercises_per_lesson
+        coverage_rule = dedent(
+            """\
+            - **Concept coverage**: every exercise must have a `concept_id` matching one concept
+              from the lesson's `concepts` array; cover as many distinct concepts as possible
+              (when concepts >= exercises, every exercise uses a different concept).
+              Preserve the `concepts` array.
+            - **No duplicates**: no two exercises may test the same fact (even with different
+              question types). If flagged as near-duplicates, rewrite one to target a different
+              fact or aspect of the concept."""
+        )
 
     return dedent(
         f"""\
@@ -660,21 +843,15 @@ def a5_lesson_repair_prompt(lesson_json: str, issues_json: str, config: Workflow
         IMPORTANT: Start your JSON with a "thought_process" field (array of strings) explaining the repairs you are making.
 
         Constraints to satisfy:
-        - The lesson has exactly {config.exercises_per_lesson} exercises.
+        - The lesson has exactly {exercise_count} exercises.
         - Bloom distribution: {blooms_reqs}.
-        - Exercise type mix (exact counts within the {config.exercises_per_lesson} exercises):
+        - Exercise type mix (exact counts within the {exercise_count} exercises):
 {type_reqs}
         - The lesson has exactly {config.flashcards_per_lesson} flashcards.
         - **Bloom/type coupling**: Applying and Analyzing/Evaluating exercises MUST be
           single_choice or multi_choice with a scenario + decision point in the prompt text.
           true_false, fill_gaps, and rearrange MUST be Remembering or Understanding.
-        - **Concept coverage**: every exercise must have a `concept_id` matching one concept
-          from the lesson's `concepts` array; cover as many distinct concepts as possible
-          (when concepts >= exercises, every exercise uses a different concept).
-          Preserve the `concepts` array.
-        - **No duplicates**: no two exercises may test the same fact (even with different
-          question types). If flagged as near-duplicates, rewrite one to target a different
-          fact or aspect of the concept.
+        {coverage_rule}
         - **Distractors**: every distractor must be a plausible sibling concept or real
           misconception from the course; REPLACE absurd/out-of-domain options (e.g., "Cook
           lunch") with plausible ones. No option may restate the prompt.

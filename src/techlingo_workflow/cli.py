@@ -10,7 +10,6 @@ from dotenv import load_dotenv
 from pydantic import ValidationError
 
 from .backends import (
-    BACKEND_OPENAI,
     KNOWN_BACKENDS,
     preflight_backend,
     resolve_backend_name,
@@ -23,6 +22,11 @@ from .workflow import build_techlingo_workflow, build_analysis_workflow
 
 
 app = typer.Typer(no_args_is_help=True)
+
+# Workspace-centric course commands (ARCHITECTURE.md Phase 1): init/build/compile/status.
+from .cli_course import course_app  # noqa: E402
+
+app.add_typer(course_app, name="course")
 
 
 def _resolve_backend_and_model(backend: Optional[str], model_id: Optional[str]) -> tuple[str, str]:
@@ -37,8 +41,6 @@ def _resolve_backend_and_model(backend: Optional[str], model_id: Optional[str]) 
 
 def _preflight_or_die(backend_name: str) -> None:
     """Fail fast (binary/auth) before burning pipeline time on a broken backend."""
-    if backend_name == BACKEND_OPENAI:
-        return  # key presence already enforced by resolve_model_label
     failures = [(check, detail) for check, ok, detail in preflight_backend(backend_name) if not ok]
     if failures:
         problems = "\n".join(f"  - {check}: {detail}" for check, detail in failures)
@@ -62,14 +64,14 @@ def run(
     dotenv_path: Optional[Path] = typer.Option(None, help="Optional .env path (defaults to .env in repo root)."),
     model_id: Optional[str] = typer.Option(
         None,
-        help="Model id for the chosen backend (openai: OPENAI_CHAT_MODEL_ID; "
-        "claude-code: e.g. 'sonnet'/'opus'; codex: CLI default if omitted).",
+        help="Model id for the chosen backend (claude-code: e.g. 'sonnet'/'opus'; "
+        "codex: CLI default if omitted).",
     ),
     backend: Optional[str] = typer.Option(
         None,
         "--backend",
         help=f"LLM backend: {' | '.join(KNOWN_BACKENDS)}. "
-        "Defaults to TECHLINGO_LLM_BACKEND or 'openai'.",
+        "Defaults to TECHLINGO_LLM_BACKEND or 'claude-code'.",
     ),
     difficulty: Optional[DifficultyLevel] = typer.Option(
         None,
@@ -98,7 +100,7 @@ def run(
     ),
 ) -> None:
     """Run the Techlingo A1–A5 workflow and write JSON artifacts to disk."""
-    # Important: load .env BEFORE reading OPENAI_* vars. (Typer's envvar= reads too early.)
+    # Important: load .env BEFORE reading backend env vars. (Typer's envvar= reads too early.)
     env_path = dotenv_path if dotenv_path is not None else Path(".env")
     load_dotenv(env_path, override=False)
 
@@ -306,14 +308,14 @@ def analyze(
     dotenv_path: Optional[Path] = typer.Option(None, help="Optional .env path (defaults to .env in repo root)."),
     model_id: Optional[str] = typer.Option(
         None,
-        help="Model id for the chosen backend (openai: OPENAI_CHAT_MODEL_ID; "
-        "claude-code: e.g. 'sonnet'/'opus'; codex: CLI default if omitted).",
+        help="Model id for the chosen backend (claude-code: e.g. 'sonnet'/'opus'; "
+        "codex: CLI default if omitted).",
     ),
     backend: Optional[str] = typer.Option(
         None,
         "--backend",
         help=f"LLM backend: {' | '.join(KNOWN_BACKENDS)}. "
-        "Defaults to TECHLINGO_LLM_BACKEND or 'openai'.",
+        "Defaults to TECHLINGO_LLM_BACKEND or 'claude-code'.",
     ),
     verbose: bool = typer.Option(
         False,

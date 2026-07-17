@@ -11,6 +11,85 @@ interface Props {
     onCourseChanged?: () => Promise<void> | void;
 }
 
+/** Author-facing view of the per-answer explanations the generator ships:
+ *  rationale (why right/wrong), better_fit (where the distractor WOULD be
+ *  correct) and paired intrinsic/instructional feedback. Learners see these
+ *  progressively in quiz mode; authors want them at a glance while reviewing. */
+const ExplanationsPanel: React.FC<{ exercise: Exercise }> = ({ exercise }) => {
+    const ex = exercise as any;
+    const boxStyle: React.CSSProperties = {
+        marginTop: '0.75rem', padding: '0.75rem 1rem', borderRadius: '8px',
+        background: 'rgba(148,163,184,0.08)', border: '1px solid rgba(148,163,184,0.25)',
+        fontSize: '0.85rem', lineHeight: 1.5,
+    };
+    const titleStyle: React.CSSProperties = {
+        fontWeight: 700, fontSize: '0.75rem', textTransform: 'uppercase',
+        letterSpacing: '0.04em', color: 'var(--color-text-secondary)', marginBottom: '0.5rem',
+    };
+
+    if (ex.question_type === 'single_choice' || ex.question_type === 'multi_choice') {
+        const options = ex.options || [];
+        if (!options.some((o: any) => o.rationale || o.better_fit || o.feedback)) return null;
+        return (
+            <div style={boxStyle}>
+                <div style={titleStyle}>Explanations (per answer)</div>
+                {options.map((o: any, oi: number) => (
+                    <div key={oi} style={{ marginBottom: oi < options.length - 1 ? '0.6rem' : 0 }}>
+                        <div><span style={{ marginRight: '0.35rem' }}>{o.is_correct ? '✅' : '❌'}</span><strong>{o.text}</strong></div>
+                        {o.rationale && <div>{o.rationale}</div>}
+                        {!o.is_correct && o.better_fit && (
+                            <div style={{ fontStyle: 'italic', color: 'var(--color-text-secondary)' }}>Would be correct when: {o.better_fit}</div>
+                        )}
+                    </div>
+                ))}
+                {ex.feedback_for_correct && (
+                    <div style={{ marginTop: '0.6rem', borderTop: '1px solid rgba(148,163,184,0.25)', paddingTop: '0.5rem' }}>
+                        <strong>On correct:</strong> {ex.feedback_for_correct}
+                    </div>
+                )}
+            </div>
+        );
+    }
+
+    if (ex.question_type === 'true_false') {
+        const fi = ex.feedback_for_incorrect;
+        if (!fi && !ex.feedback_for_correct) return null;
+        return (
+            <div style={boxStyle}>
+                <div style={titleStyle}>Explanations</div>
+                {ex.feedback_for_correct && <div><strong>On correct:</strong> {ex.feedback_for_correct}</div>}
+                {fi && typeof fi === 'string' && <div><strong>On incorrect:</strong> {fi}</div>}
+                {fi && typeof fi === 'object' && (
+                    <div>
+                        <strong>On incorrect:</strong> {fi.intrinsic}
+                        {fi.instructional && <div style={{ fontStyle: 'italic' }}>{fi.instructional}</div>}
+                    </div>
+                )}
+            </div>
+        );
+    }
+
+    if (ex.question_type === 'fill_gaps' || ex.question_type === 'rearrange') {
+        const fi = ex.feedback_for_incorrect;
+        if (!ex.explanation && !fi) return null; // old courses predate these fields
+        return (
+            <div style={boxStyle}>
+                <div style={titleStyle}>Explanations</div>
+                {ex.explanation && <div><strong>Why:</strong> {ex.explanation}</div>}
+                {fi && typeof fi === 'string' && <div><strong>On incorrect:</strong> {fi}</div>}
+                {fi && typeof fi === 'object' && (
+                    <div>
+                        <strong>On incorrect:</strong> {fi.intrinsic}
+                        {fi.instructional && <div style={{ fontStyle: 'italic' }}>{fi.instructional}</div>}
+                    </div>
+                )}
+            </div>
+        );
+    }
+
+    return null;
+};
+
 interface BannerState {
     kind: 'ok' | 'error';
     text: string;
@@ -205,13 +284,24 @@ export const BrowseTab: React.FC<Props> = ({ course, runId, onCourseChanged }) =
                                                         onCancel={() => setEditingIdx(null)}
                                                     />
                                                 ) : (
-                                                    <ExerciseRenderer
-                                                        exercise={ex}
-                                                        value={null}
-                                                        onChange={() => { }}
-                                                        submitted={false}
-                                                        seed={i}
-                                                    />
+                                                    <>
+                                                        {/* The learner-facing prompt. QuizTab shows it as the
+                                                            question heading; Browse previously skipped it, so
+                                                            choice questions appeared as bare option lists. */}
+                                                        {ex.prompt && (
+                                                            <div style={{ fontSize: '1.05rem', fontWeight: 600, lineHeight: 1.5, marginBottom: '0.75rem' }}>
+                                                                {ex.prompt}
+                                                            </div>
+                                                        )}
+                                                        <ExerciseRenderer
+                                                            exercise={ex}
+                                                            value={null}
+                                                            onChange={() => { }}
+                                                            submitted={false}
+                                                            seed={i}
+                                                        />
+                                                        <ExplanationsPanel exercise={ex} />
+                                                    </>
                                                 )}
                                             </div>
                                         ))}

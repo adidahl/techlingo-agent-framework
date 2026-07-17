@@ -65,12 +65,25 @@ const FeedbackDisplay: React.FC<{ exercise: FillGapsExercise, userValues: string
     const isAllCorrect = correctMatches.every(Boolean);
     const hadTypo = grades.some(g => g === 'typo');
 
+    const fbi = exercise.feedback_for_incorrect;
+
     return (
         <div className={`${styles.feedbackContainer} ${isAllCorrect ? styles.feedbackCorrect : styles.feedbackIncorrect}`}>
             <div><strong>{isAllCorrect ? "Correct! ✅" : "Incorrect ❌"}</strong></div>
             {isAllCorrect && hadTypo && (
                 <div style={{ marginTop: '0.25rem', fontSize: '0.9rem' }}>
                     You have a small typo — accepted: {gaps.map(g => (g.accepted_answers || [])[0]).join(', ')}
+                </div>
+            )}
+
+            {!isAllCorrect && fbi && (
+                <div style={{ marginTop: '0.5rem' }}>
+                    {typeof fbi === 'string' ? <div>{fbi}</div> : (
+                        <>
+                            {fbi.intrinsic && <div>{fbi.intrinsic}</div>}
+                            {fbi.instructional && <div style={{ fontStyle: 'italic' }}>{fbi.instructional}</div>}
+                        </>
+                    )}
                 </div>
             )}
 
@@ -85,6 +98,12 @@ const FeedbackDisplay: React.FC<{ exercise: FillGapsExercise, userValues: string
                             </li>
                         ))}
                     </ul>
+                </div>
+            )}
+
+            {exercise.explanation && (
+                <div style={{ marginTop: '0.5rem' }}>
+                    <strong>Why:</strong> {exercise.explanation}
                 </div>
             )}
         </div>

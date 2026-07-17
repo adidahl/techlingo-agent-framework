@@ -414,7 +414,10 @@ Verdict (spot-check of Applying/Analyzing questions, lessons 1 & 6):
   wording occasionally clunky ("Which choices support fairness and bias?").
   Good for fast iteration on pipeline/config changes.
 - Recommended default: `claude-code` for deliverable builds, `codex` for dev
-  loops. OpenAI API path retained for A/B baselines.
+  loops. ~~OpenAI API path retained for A/B baselines.~~ **UPDATE 2026-07-16:
+  the OpenAI API backend was REMOVED entirely (owner decision — subscription
+  CLIs only; quota had been dead since 2026-07-04 anyway). `claude-code` is now
+  the default backend.**
 
 Operational findings (encoded in backends.py / env defaults):
 - claude `-p` default thinking makes A2/A4 lesson calls run 7-15+ min →
@@ -425,3 +428,48 @@ Operational findings (encoded in backends.py / env defaults):
   (TextAnalysisResult.parts_by_type) can't be expressed at all → automatic
   fallback to prompt-schema mode per model (`strict_schema_or_none`).
 - codex stderr starts with a banner — error extraction must take the TAIL.
+
+## 13. Cell-quota worksheets replace the Bloom/type plan (2026-07-17, Phase 2b)
+
+For lessons with a depth-classified concept pack, `_bloom_type_plan` (§10.1) is
+superseded by the **cell worksheet** (`worksheet.py`): A1 tags every atom with
+`depth` (fact|mechanism|decision), and the ARCHITECTURE §3.3 quota table
+expands deterministically into the exact per-lesson list of
+(concept, rung, variant, question_type, blooms) cells A2 must produce. What
+this changes for the failure-mode machinery in this file:
+
+- **Distributions are derived, not configured.** `exercises_per_lesson` /
+  type/Bloom mixes come from the worksheet per lesson; the config values remain
+  the legacy fallback (lessons without a depth-classified pack) and the A1
+  concepts-per-lesson sizing hint. Precedence documented on `WorkflowConfig`.
+- **T/F dictation moved into the worksheet.** `_tf_answer_patterns` (§11) still
+  serves legacy lessons; worksheet lessons carry the dictated answer on each
+  true_false cell (course-wide alternation, starts false). Every R2 cell has 2
+  variants, so each pair lands one true + one false statement by construction.
+- **"Never re-ask the same fact" got a variant tier.** Same-cell items MAY
+  share the fact (that is what variants are for) but must differ in surface —
+  prompt-surface Jaccard < 0.7 (statement for true_false, sentence for
+  fill_gaps/rearrange). Cross-cell pairs keep the §10 signature thresholds.
+- **New gates**: ladder completeness (every concept covered at its
+  depth-required rungs; exact per-cell variant counts) = error; decision-depth
+  concept with zero confusables = warning (weak distractor pool).
+- **Rung is persisted at generation time** on bank items from the worksheet
+  cell; `derive_rung()` stays as the legacy-payload fallback. The worksheet's
+  (Bloom, type) pairs are chosen so both always agree under current constants
+  (tested invariant).
+- **Echo-hardening extended to `depth`** (the worksheet-mode switch):
+  `_seed_concepts_from_map`, `_restore_concept_metadata`, and the A5 repair
+  path all restore per-concept depth by id; `_validate_a1_map` requires it and
+  `_stamp_default_depths` defaults survivors to `fact`.
+- **Recycler consumes variants properly**: concepts still holding UNSEEN
+  candidates are recycled first, so a 2b bank yields zero exact-item repeats
+  across a lesson's levels (seen repeats remain the fallback only when every
+  pool is exhausted).
+- **Cost**: ~1.5–2× per-file build wall time vs Phase-1 (oversampled bank of
+  ~5–9 items/concept). `--lessons 1` remains the fast-test lever.
+
+Gotcha for the future: the A5→A2 loop regenerates a lesson against the SAME
+worksheet (deterministic from the map), so retries can never drift the lesson
+shape; but any change to the quota table / type rotation constants re-shapes
+every course on the next full build — bump expectations in
+`tests/test_worksheet.py` deliberately when tuning them.

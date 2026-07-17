@@ -27,10 +27,45 @@ from .models import (
     ValidationReport,
 )
 from .prompts import a5_lesson_repair_prompt
+from .workspace import derive_rung
+from .worksheet import (
+    DEFAULT_DEPTH,
+    RUNG_NAMES,
+    WorksheetCell,
+    build_lesson_worksheet,
+    normalized_depth,
+    required_rungs,
+    worksheet_applies,
+    worksheet_blooms_distribution,
+    worksheet_type_distribution,
+)
 
 
 def _count_lessons(course: Course) -> int:
     return sum(len(m.lessons) for m in course.modules)
+
+
+def _lesson_worksheet(lesson: Lesson) -> list[WorksheetCell] | None:
+    """The lesson's cell worksheet, or None for legacy lessons.
+
+    Precedence (see worksheet.py): a lesson whose concept pack is fully
+    depth-classified is validated against its OWN worksheet-derived shape;
+    the configured distributions only apply to lessons without one."""
+    if not worksheet_applies(lesson.concepts):
+        return None
+    return build_lesson_worksheet(lesson.concepts)
+
+
+def _restore_lesson_depths(prev: Lesson, new: Lesson) -> None:
+    """Re-attach concept depths an LLM rewrite stripped (depth is the
+    worksheet-mode switch; losing it silently changes validation shape)."""
+    prev_depths = {c.id: c.depth for c in prev.concepts if c.depth}
+    if not new.concepts:
+        new.concepts = [c.model_copy(deep=True) for c in prev.concepts]
+        return
+    for atom in new.concepts:
+        if atom.depth is None and atom.id in prev_depths:
+            atom.depth = prev_depths[atom.id]
 
 
 # ---------------------------------------------------------------------------
@@ -95,6 +130,34 @@ _ALLOWED_BLOOMS_BY_TYPE: dict[str, frozenset[BloomsLevel]] = {
 # Similarity thresholds for near-duplicate detection.
 _DUP_WITHIN_LESSON = 0.6  # error: same fact re-asked in another wrapper
 _DUP_ACROSS_LESSONS = 0.8  # warning: same fact drilled in two lessons
+# Variant tier (§4.4): items in the SAME cell (concept × rung within a lesson)
+# MAY test the same fact — that is what variants are for — but their learner-
+# visible surface must differ. Error at prompt-surface Jaccard >= this.
+_SAME_CELL_SURFACE_MAX = 0.7
+
+
+def _exercise_cell(lesson_key: str, ex: Any) -> tuple[str, str, int] | None:
+    """(lesson, concept, rung) — the bank cell this exercise belongs to, or
+    None when it has no concept_id (legacy content; strict dedup tier applies)."""
+    if not ex.concept_id:
+        return None
+    return (lesson_key, ex.concept_id, derive_rung(ex.blooms_level.value, ex.question_type))
+
+
+def _surface_tokens(ex: Any) -> set[str]:
+    """Tokens of the exercise's learner-visible SURFACE (wording/scenario), as
+    opposed to `_exercise_signature` which captures the tested FACT. Same-cell
+    variants are allowed to share the fact, so they are compared on surface:
+    for true_false the statement carries the surface (the prompt is a generic
+    stem); for fill_gaps/rearrange the sentence being completed/rebuilt does."""
+    pieces: list[str] = [ex.prompt]
+    if isinstance(ex, TrueFalseExercise):
+        pieces = [ex.statement]
+    elif isinstance(ex, FillGapsExercise):
+        pieces.extend(p.text for p in ex.parts if getattr(p, "type", None) == "text")
+    elif isinstance(ex, RearrangeExercise):
+        pieces.append(" ".join(ex.correct_order))
+    return _content_tokens(" ".join(pieces))
 
 
 def validate_course(course: Course, config: WorkflowConfig) -> ValidationReport:
@@ -152,12 +215,34 @@ def validate_course(course: Course, config: WorkflowConfig) -> ValidationReport:
                         ValidationIssue(severity="error", path=f"{fc_path}.back", message="Flashcard back must be non-empty.")
                     )
 
-            if len(lesson.exercises) != config.exercises_per_lesson:
+            # Phase 2b: a fully depth-classified concept pack makes the lesson's
+            # expected shape a DERIVED quantity (its cell worksheet); the config
+            # distributions only govern lessons without one (legacy).
+            cells = _lesson_worksheet(lesson)
+
+            # Confusable reciprocity (§4.4): decision-depth concepts feed their
+            # R4/R5 distractors and rejected_answers from confusable_with — an
+            # empty pool means weak scenario questions. Warning, not blocking.
+            for ci, concept in enumerate(lesson.concepts):
+                if concept.depth == "decision" and not concept.confusable_with:
+                    issues.append(
+                        ValidationIssue(
+                            severity="warning",
+                            path=f"{base_path}.concepts[{ci}]",
+                            message=f"Decision-depth concept '{concept.id}' has no confusable_with "
+                            "siblings — its scenario distractors and rejected_answers have no "
+                            "source. List the competing concepts it is chosen over.",
+                        )
+                    )
+
+            expected_count = len(cells) if cells is not None else config.exercises_per_lesson
+            if len(lesson.exercises) != expected_count:
+                derived = " (derived from the lesson's cell worksheet)" if cells is not None else ""
                 issues.append(
                     ValidationIssue(
                         severity="error",
                         path=f"{base_path}.exercises",
-                        message=f"Expected exactly {config.exercises_per_lesson} exercises, got {len(lesson.exercises)}.",
+                        message=f"Expected exactly {expected_count} exercises{derived}, got {len(lesson.exercises)}.",
                     )
                 )
                 # Skip deeper distribution checks if exercise count is wrong
@@ -165,8 +250,8 @@ def validate_course(course: Course, config: WorkflowConfig) -> ValidationReport:
 
             levels = [ex.blooms_level.value for ex in lesson.exercises]
             dist = Counter(levels)
-            expected = config.blooms_distribution
-            if dist != expected:
+            expected = worksheet_blooms_distribution(cells) if cells is not None else config.blooms_distribution
+            if dist != Counter(expected):
                 issues.append(
                     ValidationIssue(
                         severity="error",
@@ -177,7 +262,11 @@ def validate_course(course: Course, config: WorkflowConfig) -> ValidationReport:
 
             # Exercise type mix (schema v2)
             type_counts = Counter(ex.question_type for ex in lesson.exercises)
-            expected_types = Counter(config.question_type_distribution)
+            expected_types = (
+                Counter(worksheet_type_distribution(cells))
+                if cells is not None
+                else Counter(config.question_type_distribution)
+            )
             if type_counts != expected_types:
                 issues.append(
                     ValidationIssue(
@@ -219,35 +308,41 @@ def validate_course(course: Course, config: WorkflowConfig) -> ValidationReport:
                 # Coverage checks only make sense once every exercise carries a
                 # valid id (missing/unknown ids already errored above).
                 if sum(assigned.values()) == len(lesson.exercises) and lesson.exercises:
-                    import math
+                    if cells is not None:
+                        # Worksheet lessons: exact cell accounting (ladder
+                        # completeness + variant quotas) replaces the generic
+                        # floor/cap — the worksheet IS the coverage contract.
+                        issues.extend(_worksheet_cell_issues(base_path, lesson, cells))
+                    else:
+                        import math
 
-                    # Coverage floor: use as many DISTINCT concepts as possible.
-                    required_distinct = min(len(concept_ids), len(lesson.exercises))
-                    if len(assigned) < required_distinct:
-                        issues.append(
-                            ValidationIssue(
-                                severity="error",
-                                path=f"{base_path}.exercises[*].concept_id",
-                                message=f"Exercises must cover at least {required_distinct} distinct concepts "
-                                f"(got {len(assigned)}: {dict(assigned)}). Spread exercises across "
-                                f"different concepts instead of revisiting the same one.",
+                        # Coverage floor: use as many DISTINCT concepts as possible.
+                        required_distinct = min(len(concept_ids), len(lesson.exercises))
+                        if len(assigned) < required_distinct:
+                            issues.append(
+                                ValidationIssue(
+                                    severity="error",
+                                    path=f"{base_path}.exercises[*].concept_id",
+                                    message=f"Exercises must cover at least {required_distinct} distinct concepts "
+                                    f"(got {len(assigned)}: {dict(assigned)}). Spread exercises across "
+                                    f"different concepts instead of revisiting the same one.",
+                                )
                             )
-                        )
-                    # Over-drill cap: no single concept hogs the lesson. The +1
-                    # slack matters: generators reliably land one over the exact
-                    # even split, and that is pedagogically fine — the gate is
-                    # for gross over-drilling, not perfect balance.
-                    cap = max(math.ceil(len(lesson.exercises) / len(concept_ids)) + 1, 2)
-                    over = {cid: n for cid, n in assigned.items() if n > cap}
-                    if over:
-                        issues.append(
-                            ValidationIssue(
-                                severity="error",
-                                path=f"{base_path}.exercises[*].concept_id",
-                                message=f"Concept(s) over-drilled (max {cap} exercises per concept in this "
-                                f"lesson): {over}. Move the extra exercises to uncovered concepts.",
+                        # Over-drill cap: no single concept hogs the lesson. The +1
+                        # slack matters: generators reliably land one over the exact
+                        # even split, and that is pedagogically fine — the gate is
+                        # for gross over-drilling, not perfect balance.
+                        cap = max(math.ceil(len(lesson.exercises) / len(concept_ids)) + 1, 2)
+                        over = {cid: n for cid, n in assigned.items() if n > cap}
+                        if over:
+                            issues.append(
+                                ValidationIssue(
+                                    severity="error",
+                                    path=f"{base_path}.exercises[*].concept_id",
+                                    message=f"Concept(s) over-drilled (max {cap} exercises per concept in this "
+                                    f"lesson): {over}. Move the extra exercises to uncovered concepts.",
+                                )
                             )
-                        )
 
             # Scenario + structure + feedback checks for Applying / Analyzing/Evaluating
             for ei, ex in enumerate(lesson.exercises):
@@ -438,6 +533,17 @@ def validate_course(course: Course, config: WorkflowConfig) -> ValidationReport:
                         )
 
                 elif isinstance(ex, FillGapsExercise):
+                    # Soft nudge, not a gate: every other type ships per-answer
+                    # coaching; a production-format answer deserves one too.
+                    # Warning only — old courses (pre-2026-07-16) predate the field.
+                    if not (ex.explanation or "").strip():
+                        issues.append(
+                            ValidationIssue(
+                                severity="warning",
+                                path=f"{ex_path}.explanation",
+                                message="fill_gaps has no explanation (why the accepted term is right).",
+                            )
+                        )
                     gap_count = sum(1 for p in ex.parts if getattr(p, "type", None) == "gap")
                     # TechLingo mobile has a single text input, so fill_blank must
                     # carry exactly one gap (see TECHLINGO_OUTPUT_PLAN.md §Phase-0.6).
@@ -470,6 +576,14 @@ def validate_course(course: Course, config: WorkflowConfig) -> ValidationReport:
                                 )
 
                 elif isinstance(ex, RearrangeExercise):
+                    if not (ex.explanation or "").strip():
+                        issues.append(
+                            ValidationIssue(
+                                severity="warning",
+                                path=f"{ex_path}.explanation",
+                                message="rearrange has no explanation (why this order is correct).",
+                            )
+                        )
                     # Fewer than 4 tokens is trivially solvable (a 2-3 chunk split
                     # gives the answer away); more than 8 exceeds the app's UX.
                     if len(ex.word_bank) < 4:
@@ -601,6 +715,55 @@ def validate_course(course: Course, config: WorkflowConfig) -> ValidationReport:
     return ValidationReport(ok=ok, issues=issues, counts=counts, repaired=False)
 
 
+def _worksheet_cell_issues(base_path: str, lesson: Lesson, cells: list[WorksheetCell]) -> list[ValidationIssue]:
+    """Exact cell accounting for a worksheet lesson (ARCHITECTURE.md §4.4).
+
+    Ladder completeness — every concept covered at each of its depth-required
+    rungs — is the error that blocks publish; variant-count drift and cells the
+    worksheet never asked for are errors of the same rank (the compiler's level
+    composition and recycling budgets assume the quota table).
+    """
+    issues: list[ValidationIssue] = []
+    depth_by_id = {c.id: normalized_depth(c.depth) for c in lesson.concepts}
+    expected = Counter((c.concept_id, c.rung) for c in cells)
+    actual = Counter(
+        (ex.concept_id, derive_rung(ex.blooms_level.value, ex.question_type)) for ex in lesson.exercises
+    )
+    for concept_id, rung in sorted(expected):
+        want, got = expected[(concept_id, rung)], actual.get((concept_id, rung), 0)
+        if got == 0:
+            depth = depth_by_id.get(concept_id, DEFAULT_DEPTH)
+            rungs = ", ".join(f"R{r}" for r in required_rungs(depth))
+            issues.append(
+                ValidationIssue(
+                    severity="error",
+                    path=f"{base_path}.exercises[*]",
+                    message=f"Ladder incomplete: concept '{concept_id}' (depth={depth}) has no exercise "
+                    f"at rung R{rung} ({RUNG_NAMES[rung]}). Required rungs for depth '{depth}': {rungs}.",
+                )
+            )
+        elif got != want:
+            issues.append(
+                ValidationIssue(
+                    severity="error",
+                    path=f"{base_path}.exercises[*]",
+                    message=f"Cell (concept '{concept_id}', R{rung} {RUNG_NAMES[rung]}) must contain exactly "
+                    f"{want} exercise(s) per the worksheet, got {got}.",
+                )
+            )
+    for concept_id, rung in sorted(set(actual) - set(expected), key=lambda t: (t[0] or "", t[1])):
+        issues.append(
+            ValidationIssue(
+                severity="error",
+                path=f"{base_path}.exercises[*]",
+                message=f"Unexpected cell: {actual[(concept_id, rung)]} exercise(s) target concept "
+                f"'{concept_id}' at rung R{rung}, but the worksheet has no such cell. Regenerate "
+                "them against the worksheet rows.",
+            )
+        )
+    return issues
+
+
 def _content_quality_issues(course: Course) -> list[ValidationIssue]:
     """Course-wide content-quality gates: duplicates, T/F balance, tautologies, length bias.
 
@@ -610,20 +773,39 @@ def _content_quality_issues(course: Course) -> list[ValidationIssue]:
     """
     issues: list[ValidationIssue] = []
 
-    # Collect signatures once.
-    entries: list[tuple[str, str, Any, set[str]]] = []  # (lesson_key, ex_path, ex, signature)
+    # Collect signatures once. (lesson_key, ex_path, ex, signature, cell, surface)
+    entries: list[tuple[str, str, Any, set[str], tuple | None, set[str]]] = []
     for mi, mod in enumerate(course.modules):
         for li, lesson in enumerate(mod.lessons):
             lesson_key = f"{mi}:{li}"
             for ei, ex in enumerate(lesson.exercises):
                 ex_path = f"modules[{mi}].lessons[{li}].exercises[{ei}]"
-                entries.append((lesson_key, ex_path, ex, _exercise_signature(ex)))
+                entries.append(
+                    (lesson_key, ex_path, ex, _exercise_signature(ex), _exercise_cell(lesson_key, ex), _surface_tokens(ex))
+                )
 
     # Near-duplicate detection: the "same fact, different wrapper" failure mode.
+    # Variant tier (§4.4): two items in the SAME cell are variants — sharing the
+    # fact is their job, so the fact-signature check does not apply; instead
+    # their learner-visible surface must differ. Everything else keeps the
+    # strict fact-signature thresholds.
     for i in range(len(entries)):
         for j in range(i + 1, len(entries)):
-            lk_i, path_i, _, sig_i = entries[i]
-            lk_j, path_j, _, sig_j = entries[j]
+            lk_i, path_i, _, sig_i, cell_i, surf_i = entries[i]
+            lk_j, path_j, _, sig_j, cell_j, surf_j = entries[j]
+            if cell_i is not None and cell_i == cell_j:
+                surface_sim = _jaccard(surf_i, surf_j)
+                if surface_sim >= _SAME_CELL_SURFACE_MAX:
+                    issues.append(
+                        ValidationIssue(
+                            severity="error",
+                            path=path_j,
+                            message=f"Same-cell variant of {path_i} (surface similarity {surface_sim:.2f}): "
+                            "variants may test the same fact but must differ in surface — use a "
+                            "different scenario, angle, distractor subset, gap, or statement.",
+                        )
+                    )
+                continue
             sim = _jaccard(sig_i, sig_j)
             if lk_i == lk_j and sim >= _DUP_WITHIN_LESSON:
                 issues.append(
@@ -645,7 +827,7 @@ def _content_quality_issues(course: Course) -> list[ValidationIssue]:
 
     # True/false answer balance: if every statement is true (or every one false),
     # learners stop reading the statements.
-    tf = [(path, ex) for _, path, ex, _ in entries if isinstance(ex, TrueFalseExercise)]
+    tf = [(path, ex) for _, path, ex, *_ in entries if isinstance(ex, TrueFalseExercise)]
     if len(tf) >= 3:
         true_count = sum(1 for _, ex in tf if ex.correct_answer)
         if true_count == len(tf) or true_count == 0:
@@ -662,7 +844,7 @@ def _content_quality_issues(course: Course) -> list[ValidationIssue]:
 
     # Tautology: a correct option whose content words all appear in the prompt is
     # answerable without any knowledge.
-    for _, path, ex, _ in entries:
+    for _, path, ex, *_ in entries:
         if isinstance(ex, (SingleChoiceExercise, MultiChoiceExercise)):
             prompt_tokens = _content_tokens(ex.prompt)
             for oi, opt in enumerate(ex.options):
@@ -681,7 +863,7 @@ def _content_quality_issues(course: Course) -> list[ValidationIssue]:
 
     # Length bias: if the correct single_choice option is almost always the longest,
     # learners can game the quiz without reading.
-    sc = [ex for _, _, ex, _ in entries if isinstance(ex, SingleChoiceExercise) and len(ex.options) >= 4]
+    sc = [ex for _, _, ex, *_ in entries if isinstance(ex, SingleChoiceExercise) and len(ex.options) >= 4]
     if len(sc) >= 4:
         biased = 0
         for ex in sc:
@@ -879,19 +1061,32 @@ def normalize_course(course: Course) -> Course:
 _LESSON_PATH_RE = re.compile(r"^modules\[(\d+)\]\.lessons\[(\d+)\]")
 
 
-def issues_by_lesson(report: ValidationReport | None) -> dict[str, list[ValidationIssue]]:
+def issues_by_lesson(
+    report: ValidationReport | None, course: Course | None = None
+) -> dict[str, list[ValidationIssue]]:
     """Group issues by the lesson ("mi:li") their path points into.
 
     Issues whose path does not name a specific lesson (course-level structure,
     cross-course balance) are omitted — they cannot be fixed lesson-locally.
+
+    When ``course`` is given, keys pointing OUTSIDE its shape are dropped too:
+    the A5 fact-checker is an LLM and can hallucinate an index (seen live:
+    "lessons[7]" in a 6-lesson module, run 2026-07-17 file 11 — IndexError in
+    the repair loop). An unmappable issue can't be repaired lesson-locally, so
+    it is skipped rather than crashing the run.
     """
     grouped: dict[str, list[ValidationIssue]] = {}
     if report is None:
         return grouped
     for issue in report.issues:
         m = _LESSON_PATH_RE.match(issue.path)
-        if m:
-            grouped.setdefault(f"{m.group(1)}:{m.group(2)}", []).append(issue)
+        if not m:
+            continue
+        mi, li = int(m.group(1)), int(m.group(2))
+        if course is not None:
+            if mi >= len(course.modules) or li >= len(course.modules[mi].lessons):
+                continue
+        grouped.setdefault(f"{mi}:{li}", []).append(issue)
     return grouped
 
 
@@ -1027,7 +1222,8 @@ async def repair_course_if_needed(
 
     repaired = course
     for _ in range(max_repairs):
-        per_lesson = issues_by_lesson(report)
+        # course-bounded: hallucinated fact-check indices must not crash repair.
+        per_lesson = issues_by_lesson(report, repaired)
         failing = {
             key: issues
             for key, issues in per_lesson.items()
@@ -1045,12 +1241,21 @@ async def repair_course_if_needed(
             lesson_llm = LLMClient(model_id=llm.model_id, name=f"A5_LessonRepair_{mi}_{li}")
             try:
                 _, candidate = await lesson_llm.run_json_model(
-                    a5_lesson_repair_prompt(lesson.model_dump_json(indent=2), issues_json, config),
+                    a5_lesson_repair_prompt(
+                        lesson.model_dump_json(indent=2),
+                        issues_json,
+                        config,
+                        worksheet=_lesson_worksheet(lesson),
+                    ),
                     LessonGen,
                 )
             except (ValidationError, json.JSONDecodeError):
                 return None  # keep this lesson as-is; validation still reports it
-            return key, Lesson.model_validate(candidate.model_dump(exclude={"thought_process"}))
+            fixed = Lesson.model_validate(candidate.model_dump(exclude={"thought_process"}))
+            # A repair echo that strips concept depths would silently flip the
+            # lesson back to legacy-shape validation — restore them.
+            _restore_lesson_depths(lesson, fixed)
+            return key, fixed
 
         sem = asyncio.Semaphore(4)
 

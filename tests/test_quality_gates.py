@@ -490,6 +490,23 @@ def test_issues_by_lesson_groups_by_path():
     assert len(grouped["0:1"]) == 2
 
 
+def test_issues_by_lesson_drops_indices_outside_course_shape():
+    # The A5 fact-checker is an LLM and can hallucinate lesson indices (seen
+    # live 2026-07-17: "lessons[7]" in a 6-lesson module -> IndexError in the
+    # repair loop). With the course passed, unmappable keys are dropped.
+    lesson = Lesson(title="Only lesson", slo="s", exercises=[], flashcards=[])
+    course = Course(title="c", modules=[Module(title="m", lessons=[lesson])])
+    report = _report([
+        ValidationIssue(severity="error", path="modules[0].lessons[0].exercises[1]", message="real"),
+        ValidationIssue(severity="error", path="modules[0].lessons[7].exercises[0]", message="hallucinated lesson"),
+        ValidationIssue(severity="error", path="modules[3].lessons[0].exercises[0]", message="hallucinated module"),
+    ])
+    assert set(issues_by_lesson(report, course)) == {"0:0"}
+    # Back-compat: without a course, grouping is unchanged (callers that only
+    # aggregate, never index, keep seeing every lesson-shaped path).
+    assert set(issues_by_lesson(report)) == {"0:0", "0:7", "3:0"}
+
+
 def test_failed_lesson_keys_returns_only_failing_lessons():
     report = _report([
         ValidationIssue(severity="error", path="modules[0].lessons[1].exercises[2]", message="dup"),

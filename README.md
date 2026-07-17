@@ -19,12 +19,82 @@ pip install -r requirements.txt
 ### Usage
 
 ```bash
-# 1) Create .env from the template and set your key
+# 1) Create .env from the template (backend selection; no API keys needed)
 cp example.env .env
 
 # 2) Run the A0–A5 workflow on the included sample input
 python main.py run --input-file sample.txt --out-dir outputs
 ```
+
+### Course workspaces (folder of .md files → importable course)
+
+Phase 1 of ARCHITECTURE.md: build a whole course from ANY folder of markdown
+files (1 file = 1 course module), incrementally, into a git-friendly workspace.
+
+```bash
+# 1) Create the workspace (copies sources in)
+python main.py course init courses/ai-901 --from documents/ai-901 --course-key ai-901 --title "AI-901"
+
+# 2) Build: runs the A0–A5 pipeline once per CHANGED source file only
+python main.py course build courses/ai-901 --backend codex     # or claude-code (default)
+python main.py course build courses/ai-901 --only "5. Introduction to computer vision concepts.md"
+# Fast pipeline test: one lesson per file instead of 5-6
+python main.py course build courses/ai-901 --only "5. Introduction to computer vision concepts.md" --lessons 1
+
+# 3) Compile: deterministic, no LLM — levels + checkpoints, versioned bundle + flat course.json
+python main.py course compile courses/ai-901
+
+# 4) Inspect freshness + content counts
+python main.py course status courses/ai-901
+```
+
+The workspace (`courses/<id>/`) is the canonical, git-versioned content store:
+`graph/concepts.yaml` (concept graph with stable ids — mastery/telemetry key on
+them), `curriculum.yaml` (modules → lessons → concept ids), `bank/*.json`
+(exercise bank items addressed `concept × rung R1–R5 × variant`), and
+`build_state.json` (source hashes → incremental rebuilds). `dist/<id>-v<N>/`
+holds compiled bundles; `course.flat.json` inside is exactly today's importer
+format. Pinned or human-edited bank items survive rebuilds (provenance
+contract). See ARCHITECTURE.md §3–6.
+
+**Levels & checkpoints (Phase 2a).** `compile.yaml` drives the deterministic
+level compiler (ARCHITECTURE.md §5; every choice is seeded — same workspace +
+same `compile.yaml` → byte-identical bundle). With `levels: 3` (the default)
+each lesson emits one unit per level, playable in today's app (level = unit):
+
+- **L1 Foundations** (`<lesson>-l1`) — rungs R1–R2 + the lesson's flashcards;
+- **L2 Apply** (`-l2`) — R3–R4, plus `recycle.l2` (default 0.40) share of the
+  lesson's concepts recycled with one R1/R2 item each — an unseen variant of
+  the same concept×rung cell (concepts still holding unseen variants are
+  recycled first; a seen repeat happens only when every pool is exhausted);
+- **L3 Master** (`-l3`) — R5 plus `recycle.l3` (0.30) R3/R4 recycling.
+
+No item ever appears twice within a unit; empty levels are skipped with a
+note. `checkpoints: per_module` appends a `<module>-checkpoint` unit (1–2
+items per concept, highest rung + unseen variants preferred, grown toward
+`session_size_hint`), and `final_review: true` adds a course-wide Final
+Review unit weighted decision > mechanism > fact when concept depth exists.
+`levels: 1` keeps the Phase-1 flat output (one unit per lesson) byte-for-byte.
+
+**Cell-quota generation with variants (Phase 2b).** A1 classifies every
+concept atom by `depth` — `fact` | `mechanism` | `decision` — and each lesson
+is generated against a deterministic **cell worksheet** expanded from the
+quota table (`worksheet.py`, tunable): fact → R1×2 R2×2 R3×1 (5 items),
+mechanism → +R3×2 R4×1 (7), decision → R1×1 R2×2 R3×2 R4×2 R5×2 (9). Each
+worksheet row dictates one exercise's concept, question type, Bloom level and
+(for true/false) the correct answer; variants of the same concept×rung cell
+may test the same fact but must differ in surface (different scenario, angle,
+distractor subset, gap, or statement). `exercises_per_lesson` and the type/
+Bloom distributions are therefore **derived per lesson** (~4–6 concepts →
+~24–40 items); the configured values only serve lessons without a
+depth-classified pack. The bank's rung is assigned by the worksheet at
+generation time and persisted on each item (`derive_rung()` remains the
+fallback for legacy payloads).
+
+> **Build time:** oversampling variants makes a full per-file build take
+> **~1.5–2× longer** than the Phase-1 numbers (a file that took ~30 min on
+> `codex` is now ~45–60 min; `claude-code` proportionally more). Overnight
+> batch territory — incremental builds and `--lessons 1` keep iteration cheap.
 
 ### Pipeline
 
@@ -38,24 +108,30 @@ A5 Validator          — deterministic quality gates + LLM fact-check + repair,
 ```
 
 Question-quality rules enforced deterministically (no LLM) in `validate.py`:
-- every exercise targets one `concept_id`; coverage spread evenly per lesson
-- near-duplicate detection (same fact re-asked in a different wrapper = error)
+- every exercise targets one `concept_id`; worksheet lessons get exact cell
+  accounting — **ladder completeness** (every concept covered at each of its
+  depth-required rungs = error) and per-cell variant quotas; legacy lessons
+  keep the coverage floor / over-drill cap
+- near-duplicate detection (same fact re-asked in a different wrapper = error);
+  variant-aware tier: items in the SAME concept×rung cell may share the fact
+  but must differ in surface (prompt-surface Jaccard < 0.7)
+- confusable reciprocity: a decision-depth concept with zero `confusable_with`
+  siblings is flagged (weak distractor / rejected_answers pool)
 - Bloom/type coupling (Applying/Analyzing ⇒ scenario choice questions; true_false/fill_gaps/rearrange ⇒ Remembering/Understanding)
 - true/false answer balance, tautology and correct-option-length-bias checks
 - rearrange: 4–8 shuffled tokens (never shipped pre-arranged), generic prompt stems rotated
 
 Notes:
-- With the default `openai` backend you must set both `OPENAI_API_KEY` and `OPENAI_CHAT_MODEL_ID` in `.env` (or pass `--model-id`).
+- The OpenAI API backend was removed (2026-07-16) — the pipeline runs exclusively on the subscription CLI backends below.
 
 ### LLM backends (subscription CLIs — $0 marginal cost)
 
-The pipeline can run its completions through three interchangeable backends
-(see `SUBSCRIPTION_BACKENDS_PLAN.md`):
+The pipeline runs its completions through two interchangeable subscription-CLI
+backends (see `SUBSCRIPTION_BACKENDS_PLAN.md`; the OpenAI API path was removed 2026-07-16):
 
 | Backend | Engine | Cost | Structured output |
 |---|---|---|---|
-| `openai` (default) | OpenAI API via agent_framework | per token | OpenAI Structured Outputs + fallback |
-| `claude-code` | headless `claude -p` (Claude subscription seat) | $0 marginal | prompt-schema + pydantic repair retries |
+| `claude-code` (default) | headless `claude -p` (Claude subscription seat) | $0 marginal | prompt-schema + pydantic repair retries |
 | `codex` | `codex exec` (Codex subscription seat) | $0 marginal | real `--output-schema` from pydantic |
 
 ```bash
@@ -68,7 +144,7 @@ python main.py run --input-file sample.txt --backend claude-code --model-id opus
 ```
 
 Selection and tuning via env (CLI flags win):
-- `TECHLINGO_LLM_BACKEND` — `openai` | `claude-code` | `codex`
+- `TECHLINGO_LLM_BACKEND` — `claude-code` | `codex`
 - `CLAUDE_CODE_MODEL` (default `sonnet`) / `CODEX_MODEL` (default: CLI default)
 - `CLAUDE_CODE_EFFORT` — thinking budget per call (`low`/`medium`/`high`; unset = CLI default). Complex lesson calls think for minutes at the default — `medium` is the speed lever.
 - `TECHLINGO_MAX_CONCURRENCY` — parallel per-lesson calls (default 4; use 2–3 on subscription seats)

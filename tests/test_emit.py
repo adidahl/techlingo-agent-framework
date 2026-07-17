@@ -67,7 +67,7 @@ def _true_false() -> TrueFalseExercise:
     )
 
 
-def _fill_gaps(accepted=None) -> FillGapsExercise:
+def _fill_gaps(accepted=None, explanation=None, feedback_for_incorrect=None) -> FillGapsExercise:
     return FillGapsExercise(
         blooms_level=BloomsLevel.applying,
         prompt="Complete the sentence.",
@@ -76,16 +76,20 @@ def _fill_gaps(accepted=None) -> FillGapsExercise:
             FillGapsGapPart(accepted_answers=accepted or ["human-like content"], placeholder="content"),
             FillGapsTextPart(text=" using learned patterns."),
         ],
+        explanation=explanation,
+        feedback_for_incorrect=feedback_for_incorrect,
     )
 
 
-def _rearrange() -> RearrangeExercise:
+def _rearrange(explanation=None, feedback_for_incorrect=None) -> RearrangeExercise:
     tokens = ["Generative", "AI", "creates", "human-like", "content"]
     return RearrangeExercise(
         blooms_level=BloomsLevel.analyzing_evaluating,
         prompt="Reconstruct the sentence.",
         word_bank=list(reversed(tokens)),
         correct_order=tokens,
+        explanation=explanation,
+        feedback_for_incorrect=feedback_for_incorrect,
     )
 
 
@@ -161,6 +165,40 @@ def test_arrange_joined_sentence():
     assert q.question_type == "arrange_sentence"
     assert q.correct_answer == "Generative AI creates human-like content"
     assert q.correct_answer.split(" ") == q.options["correct_order"]
+
+
+def test_fill_blank_explanation_and_feedback_carried():
+    ex = _fill_gaps(
+        explanation="Small models are cheaper to run locally.",
+        feedback_for_incorrect=Feedback(intrinsic="i", instructional="x"),
+    )
+    tl = build_techlingo_course(_course([ex]), course_key="ai-900")
+    q = tl.modules[0].lessons[0].exercises[0]
+    assert q.explanation == "Small models are cheaper to run locally."
+    assert q.options["feedback_for_incorrect"] == {"intrinsic": "i", "instructional": "x"}
+
+    # Unauthored (old content): field absent -> None, key present-but-null (TF convention).
+    tl2 = build_techlingo_course(_course([_fill_gaps()]), course_key="ai-900")
+    q2 = tl2.modules[0].lessons[0].exercises[0]
+    assert q2.explanation is None
+    assert q2.options["feedback_for_incorrect"] is None
+
+
+def test_arrange_explanation_and_feedback_carried():
+    ex = _rearrange(
+        explanation="The pipeline goes input, model, output.",
+        feedback_for_incorrect="Check which step produces the data the next one needs.",
+    )
+    tl = build_techlingo_course(_course([ex]), course_key="ai-900")
+    q = tl.modules[0].lessons[0].exercises[0]
+    assert q.explanation == "The pipeline goes input, model, output."
+    # FeedbackLike may be a plain string; it passes through unchanged.
+    assert q.options["feedback_for_incorrect"] == "Check which step produces the data the next one needs."
+
+    tl2 = build_techlingo_course(_course([_rearrange()]), course_key="ai-900")
+    q2 = tl2.modules[0].lessons[0].exercises[0]
+    assert q2.explanation is None
+    assert q2.options["feedback_for_incorrect"] is None
 
 
 def test_positional_import_keys():

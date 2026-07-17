@@ -3,10 +3,13 @@
 `LLMClient` keeps all JSON-extraction / schema-repair logic and delegates only
 the raw completion to one of these backends:
 
-- ``OpenAIBackend``     — the existing agent_framework ChatAgent path (API, per-token).
 - ``ClaudeCodeBackend`` — headless `claude -p` subprocess (Claude subscription seat).
 - ``CodexBackend``      — `codex exec` subprocess (Codex subscription seat), with
   real structured output via ``--output-schema``.
+
+The OpenAI API backend was REMOVED on 2026-07-16 (owner decision: subscription
+CLIs only, $0 marginal cost). Old artifacts carrying bare OpenAI model labels
+(e.g. ``"gpt-4o"``) can no longer be used to reconstruct clients.
 
 Backend + model are carried through the pipeline as one backend-qualified label
 (e.g. ``"claude-code:sonnet"``) stored in ``PipelineState.model_id``, so every
@@ -27,15 +30,19 @@ from typing import Protocol, runtime_checkable
 
 from pydantic import BaseModel
 
-BACKEND_OPENAI = "openai"
 BACKEND_CLAUDE_CODE = "claude-code"
 BACKEND_CODEX = "codex"
-KNOWN_BACKENDS = (BACKEND_OPENAI, BACKEND_CLAUDE_CODE, BACKEND_CODEX)
+KNOWN_BACKENDS = (BACKEND_CLAUDE_CODE, BACKEND_CODEX)
+
+_OPENAI_REMOVED_MSG = (
+    "The OpenAI API backend was removed (2026-07-16). "
+    f"Use one of: {', '.join(KNOWN_BACKENDS)} (subscription CLIs, $0 marginal cost)."
+)
 
 # CLI versions these subprocess adapters were built and tested against.
 # `doctor` warns (not fails) on drift — flags may change between versions.
 TESTED_CLAUDE_VERSION = "2.1.186"
-TESTED_CODEX_VERSION = "0.133.0"
+TESTED_CODEX_VERSION = "0.144.5"
 
 # Seat rate-limit backoff (seconds). Module-level so tests can zero it out.
 _RATE_LIMIT_BACKOFF_S: tuple[float, ...] = (30.0, 90.0)
@@ -96,7 +103,7 @@ def classify_failure(message: str) -> type[BackendError]:
 class CompletionBackend(Protocol):
     """One raw prompt → one raw text completion. No JSON parsing, no retries on content."""
 
-    name: str          # "openai" | "claude-code" | "codex"
+    name: str          # "claude-code" | "codex"
     model_label: str   # backend-qualified, e.g. "claude-code:sonnet" — goes into artifacts
 
     async def complete(
@@ -169,72 +176,6 @@ async def _with_transient_retries(fn, *, label: str):
             if timeout_retries <= 0:
                 raise
             timeout_retries -= 1
-
-
-# ---------------------------------------------------------------------------
-# OpenAI (existing API path — zero behavior change)
-# ---------------------------------------------------------------------------
-
-
-class OpenAIBackend:
-    """Wraps the agent_framework ChatAgent path, incl. Structured-Outputs fallback."""
-
-    name = BACKEND_OPENAI
-
-    def __init__(self, model_id: str, *, agent_name: str = "TechlingoPipeline") -> None:
-        if not model_id:
-            raise ValueError("OpenAIBackend requires a model id (OPENAI_CHAT_MODEL_ID / --model-id).")
-        self.model_id = model_id
-        # Unqualified label for back-compat: openai artifacts keep plain model ids.
-        self.model_label = model_id
-        self._agent_name = agent_name
-        self._agents: dict[str, object] = {}  # system prompt -> ChatAgent
-        # Schema rejection is deterministic per (model, schema): remember which
-        # response models Structured Outputs refused so we don't re-burn a call.
-        self._structured_unsupported: set[type[BaseModel]] = set()
-
-    def _get_agent(self, system: str):
-        agent = self._agents.get(system)
-        if agent is None:
-            from agent_framework import ChatAgent
-            from agent_framework.openai import OpenAIChatClient
-
-            agent = ChatAgent(
-                chat_client=OpenAIChatClient(model_id=self.model_id),
-                name=self._agent_name,
-                instructions=system,
-            )
-            self._agents[system] = agent
-        return agent
-
-    async def complete(
-        self,
-        prompt: str,
-        *,
-        system: str,
-        response_model: type[BaseModel] | None = None,
-        timeout_s: float | None = None,
-    ) -> str:
-        timeout_s = timeout_s if timeout_s is not None else default_timeout_s()
-        agent = self._get_agent(system)
-        # Layer 1: Structured Outputs — constrain generation to the schema.
-        if response_model is not None and response_model not in self._structured_unsupported:
-            try:
-                result = await asyncio.wait_for(
-                    agent.run(prompt, response_format=response_model), timeout=timeout_s
-                )
-                return str(result).strip()
-            except TimeoutError:
-                raise BackendTimeoutError(f"openai completion timed out after {timeout_s:.0f}s")
-            except Exception:  # noqa: BLE001 - schema may be rejected by the framework/API
-                # Drop to prompt-only mode; LLMClient's layer 2 (extract + repair
-                # retries) takes over. Same fallback the old LLMClient had.
-                self._structured_unsupported.add(response_model)
-        try:
-            result = await asyncio.wait_for(agent.run(prompt), timeout=timeout_s)
-        except TimeoutError:
-            raise BackendTimeoutError(f"openai completion timed out after {timeout_s:.0f}s")
-        return str(result).strip()
 
 
 # ---------------------------------------------------------------------------
@@ -509,7 +450,9 @@ def split_backend_label(label: str) -> tuple[str, str | None]:
 
     "claude-code:sonnet" -> ("claude-code", "sonnet")
     "codex"              -> ("codex", None)        # CLI default model
-    "gpt-4o-mini"        -> ("openai", "gpt-4o-mini")   # back-compat: bare = openai
+
+    Bare OpenAI model ids (old artifacts, e.g. "gpt-4o") are rejected with an
+    actionable message — the API backend no longer exists.
     """
     for backend in (BACKEND_CLAUDE_CODE, BACKEND_CODEX):
         if label == backend:
@@ -517,20 +460,20 @@ def split_backend_label(label: str) -> tuple[str, str | None]:
         if label.startswith(backend + ":"):
             model = label[len(backend) + 1 :]
             return backend, (model or None)
-    if label.startswith(BACKEND_OPENAI + ":"):
-        return BACKEND_OPENAI, label[len(BACKEND_OPENAI) + 1 :]
-    return BACKEND_OPENAI, label
+    raise ValueError(f"Unrecognized model label {label!r}. {_OPENAI_REMOVED_MSG}")
 
 
 def create_backend(
     backend: str, model: str | None, *, agent_name: str = "TechlingoPipeline"
 ) -> CompletionBackend:
-    if backend == BACKEND_OPENAI:
-        return OpenAIBackend(model or "", agent_name=agent_name)
+    # agent_name kept for signature stability; subprocess backends don't use it.
+    del agent_name
     if backend == BACKEND_CLAUDE_CODE:
         return ClaudeCodeBackend(model)
     if backend == BACKEND_CODEX:
         return CodexBackend(model)
+    if backend == "openai":
+        raise ValueError(_OPENAI_REMOVED_MSG)
     raise ValueError(f"Unknown LLM backend {backend!r}. Known: {', '.join(KNOWN_BACKENDS)}")
 
 
@@ -543,9 +486,11 @@ def backend_from_label(
 
 
 def resolve_backend_name(cli_value: str | None) -> str:
-    """--backend flag > TECHLINGO_LLM_BACKEND env > 'openai'."""
-    name = (cli_value or os.getenv("TECHLINGO_LLM_BACKEND") or BACKEND_OPENAI).strip().lower()
+    """--backend flag > TECHLINGO_LLM_BACKEND env > 'claude-code'."""
+    name = (cli_value or os.getenv("TECHLINGO_LLM_BACKEND") or BACKEND_CLAUDE_CODE).strip().lower()
     if name not in KNOWN_BACKENDS:
+        if name == "openai":
+            raise ValueError(_OPENAI_REMOVED_MSG)
         raise ValueError(
             f"Unknown LLM backend {name!r}. Known: {', '.join(KNOWN_BACKENDS)}"
         )
@@ -557,15 +502,6 @@ def resolve_model_label(backend: str, model_id: str | None) -> str:
 
     Raises ValueError with an actionable message when required config is missing.
     """
-    if backend == BACKEND_OPENAI:
-        model = model_id or os.getenv("OPENAI_CHAT_MODEL_ID")
-        if not model:
-            raise ValueError(
-                "OpenAI model id is required. Set OPENAI_CHAT_MODEL_ID in .env or pass --model-id."
-            )
-        if not os.getenv("OPENAI_API_KEY"):
-            raise ValueError("OPENAI_API_KEY is required for --backend openai. Set it in .env.")
-        return model  # unqualified for back-compat with existing artifacts
     if backend == BACKEND_CLAUDE_CODE:
         model = model_id or os.getenv("CLAUDE_CODE_MODEL") or "sonnet"
         return f"{BACKEND_CLAUDE_CODE}:{model}"
@@ -596,11 +532,6 @@ def _run_quick(argv: list[str], *, timeout_s: float = 15.0) -> tuple[int, str]:
 def preflight_backend(backend: str) -> list[tuple[str, bool, str]]:
     """Check binary presence/version + auth for a backend. Returns (check, ok, detail)."""
     checks: list[tuple[str, bool, str]] = []
-    if backend == BACKEND_OPENAI:
-        has_key = bool(os.getenv("OPENAI_API_KEY"))
-        checks.append(("OPENAI_API_KEY", has_key, "set" if has_key else "missing — set it in .env"))
-        return checks
-
     binary = "claude" if backend == BACKEND_CLAUDE_CODE else "codex"
     tested = TESTED_CLAUDE_VERSION if backend == BACKEND_CLAUDE_CODE else TESTED_CODEX_VERSION
     path = shutil.which(binary)

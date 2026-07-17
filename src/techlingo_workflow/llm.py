@@ -14,7 +14,7 @@ T = TypeVar("T", bound=BaseModel)
 class LLMClient:
     """JSON-enforcing LLM wrapper over a pluggable completion backend.
 
-    The backend (OpenAI API, Claude Code CLI, Codex CLI) only turns one prompt
+    The backend (Claude Code CLI, Codex CLI) only turns one prompt
     into one raw text completion; everything that makes the pipeline robust —
     JSON extraction, schema-error feedback retries — lives here and is
     backend-agnostic.
@@ -32,8 +32,7 @@ class LLMClient:
         if backend is None:
             if not model_id:
                 raise ValueError("LLMClient requires either a model_id label or a backend.")
-            # model_id may be backend-qualified ("claude-code:sonnet") or a bare
-            # OpenAI model id ("gpt-4o-mini") — backend_from_label handles both.
+            # model_id is a backend-qualified label ("claude-code:sonnet", "codex:o3").
             backend = backend_from_label(model_id, agent_name=name)
         self._backend = backend
         self.model_id = model_id or backend.model_label
@@ -107,9 +106,9 @@ class LLMClient:
         """Run, parse, and validate against `model` with maximum resilience.
 
         Defense in depth:
-          1. **Structured output at the backend** — OpenAI Structured Outputs or
-             codex `--output-schema` constrain generation to the schema when the
-             backend supports it (each backend degrades gracefully when not).
+          1. **Structured output at the backend** — codex `--output-schema`
+             constrains generation to the schema when the backend supports it
+             (claude-code degrades gracefully to prompt-schema mode).
           2. **Repair retry** — if anything still slips through, feed the
              JSON/schema error back and ask for a correction instead of
              crashing the run.
