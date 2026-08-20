@@ -57,6 +57,15 @@ holds compiled bundles; `course.flat.json` inside is exactly today's importer
 format. Pinned or human-edited bank items survive rebuilds (provenance
 contract). See ARCHITECTURE.md §3–6.
 
+**Publication safety.** A source is promoted into the canonical graph,
+curriculum, and banks only when its hard A0–A5 validation report passes. A
+failed challenger is recorded as failed, returns a non-zero build status, and
+leaves the last-known-good content intact. `course compile` also refuses dirty,
+failed, unvalidated, configuration-stale, or bank-tampered workspaces. Valid
+bundles are written to a staging directory and atomically promoted; their
+manifest and `build_state.json` record source-set, validation-report,
+workflow-config, compile-config, bank, and compiled-artifact SHA-256 hashes.
+
 **Levels & checkpoints (Phase 2a).** `compile.yaml` drives the deterministic
 level compiler (ARCHITECTURE.md §5; every choice is seeded — same workspace +
 same `compile.yaml` → byte-identical bundle). With `levels: 3` (the default)
@@ -74,7 +83,42 @@ note. `checkpoints: per_module` appends a `<module>-checkpoint` unit (1–2
 items per concept, highest rung + unseen variants preferred, grown toward
 `session_size_hint`), and `final_review: true` adds a course-wide Final
 Review unit weighted decision > mechanism > fact when concept depth exists.
-`levels: 1` keeps the Phase-1 flat output (one unit per lesson) byte-for-byte.
+`levels: 1` keeps the Phase-1 flat shape and importer encoding (one unit per
+lesson); `session-v2` intentionally changes learner order and may permute choice
+presentation while preserving content and answer semantics.
+
+**Final learner-sequence QA.** Variant selection now considers unseen status,
+mechanic mix, T/F answers, and correct-option positions. A shared seeded
+scheduler orders flat lessons, levels, checkpoints, final review, and runtime
+practice selections without changing selected content or answers. The emitted
+artifact is revalidated and ships with `quality_report.json`.
+
+```bash
+# Read-only deterministic audit; optional JSON has exact unit/item paths.
+python main.py course quality courses/ai-901 --output /tmp/ai901-quality.json
+
+# Reproduce the checked corpus before/after audit without writing a bundle.
+PYTHONPATH=src python scripts/ai901_sequence_audit.py --pretty
+```
+
+**Optional qualitative Gauntlet.** Human-curated reference drafts, explicit
+hash-bound approval, an isolated 12-dimension critic, narrow editor, inverse
+blind A/B comparison, champion retention, budgets, and immutable history are
+available after deterministic QA. Live calls require explicit `--execute`;
+edited champions are recorded as proposals and never silently written to
+canonical banks.
+
+```bash
+python main.py course reference draft courses/ai-901 --unit UNIT \
+  --reference-id REF --annotation "Why this exact session is strong"
+python main.py course reference promote courses/ai-901 REF --approved-by "Reviewer"
+python main.py course gauntlet run courses/ai-901 --unit UNIT          # dry run
+python main.py course gauntlet run courses/ai-901 --unit UNIT --execute
+python main.py course gauntlet history list courses/ai-901
+```
+
+See [QUALITY_GAUNTLET.md](QUALITY_GAUNTLET.md) for configuration, publication,
+reference approval, history review, migration details, and known limitations.
 
 **Cell-quota generation with variants (Phase 2b).** A1 classifies every
 concept atom by `depth` — `fact` | `mechanism` | `decision` — and each lesson
@@ -214,4 +258,3 @@ pytest
 ## License
 
 MIT
-

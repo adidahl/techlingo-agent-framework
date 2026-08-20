@@ -280,12 +280,19 @@ deterministic gates from RESILIENCE_PLAN.md carry over. What changes is
 
 ### 4.3 Incremental builds
 
-- `build_state.json` records per-source-file content hashes at last build.
+- `build_state.json` (`build-state-v2`, with in-place v1 loading) separates the
+  latest attempt from `last_known_good` and records source, workflow-config,
+  validation-report, bank, and compiled-artifact hashes.
 - Dirty set = changed files → concepts sourced from them → lessons containing
   those concepts (via curriculum.yaml) → only those lessons re-enter A2–A5.
 - Unchanged lessons' bank files are byte-untouched (their `source_hash` still
   matches). This extends the existing `dirty_lessons` mechanism from run-scope
   to workspace-scope.
+- Hard validation failure never enters the canonical workspace. Validated
+  graph/curriculum/bank changes and their state checkpoint promote together
+  with rollback on interruption; versioned bundles use a staging directory and
+  a final atomic rename. The compiler refuses unresolved/unknown validation,
+  source or configuration drift, bank drift, and invalid emitted artifacts.
 
 ### 4.4 Quality gates (delta on top of existing)
 
@@ -304,13 +311,24 @@ calibrated judge). New:
 - **Confusable reciprocity**: `confusable_with` pairs feed distractors and
   `rejected_answers` (GRADING_SPEC) — gate warns when a decision-depth concept
   has zero confusables (weak distractor pool).
+- **Worksheet authority**: dictated rows are validated in exact order before
+  fold-in. Concept, rung, question type, Bloom level, and dictated T/F answer
+  must match the row which assigns the persisted variant; aggregate balance is
+  not a substitute for row identity.
+- **Final-sequence gate**: the emitted learner artifact is independently
+  re-parsed and checked after selection, ordering, and option presentation.
+  The machine-readable `sequence-quality-v1` report names exact unit/item
+  paths, distributions, streaks, rolling windows, concept collisions,
+  correct-option positions, rung rhythm, prompt stems, and every configured
+  relaxation. Unexplained experience violations block publication.
 
 ---
 
 ## 5. Curriculum Compiler (deterministic, no LLM)
 
 Pure function: `compile(workspace, compile.yaml) → CompiledCourse → bundle`.
-Seeded; identical inputs produce byte-identical bundles.
+Seeded; identical inputs produce an identical learner artifact and quality
+report. Bundle version/timestamp provenance intentionally changes per publish.
 
 ```yaml
 # compile.yaml (defaults shown)
@@ -321,6 +339,30 @@ session_size_hint: 12
 checkpoints: per_module              # per_module | none
 final_review: true
 seed: 901
+experience:
+  max_same_mechanic_streak: 2
+  max_same_ui_family_streak: 2
+  max_same_true_false_answer_streak: 2
+  mechanics_window_size: 6
+  min_mechanics_per_window: 3
+  avoid_adjacent_same_concept: true
+  max_search_states: 100000
+  relaxation_order: [mechanics_window, true_false_answer_streak, ui_family_streak, mechanic_streak, concept_adjacency]
+sequence_quality:
+  max_same_correct_position_streak: 2
+  max_downward_rung_jump: 1
+  block_on_errors: true
+  permute_choice_options: true
+gauntlet:
+  critic_backend: null             # claude-code | codex when enabled
+  critic_model: null               # backend-qualified model label
+  qualitative_required_for_publication: false
+  max_rounds: 4
+  plateau_rounds: 2
+  repeated_loss_rounds: 2
+  minimum_improvement_margin: 0.02
+  confidence_threshold: 0.65
+  human_review_threshold: 0.40
 ```
 
 ### 5.1 Levels (bridge: level = unit) — AGREED
@@ -328,26 +370,31 @@ seed: 901
 Each lesson compiles into `levels` units. Unit `import_key` =
 `<lesson-key>-l<N>`; title = `"<Lesson title> · Level N"` (localizable).
 
-- **Level 1 — Foundations**: per concept: R1(v1) + R2(v1). Flashcards attach
-  here. ~2×C items, easy→hard sort (existing logic).
-- **Level 2 — Apply**: per concept: R3(v1); mechanism/decision concepts add
-  R4(v1). Plus recycling: `recycle.l2` share of the lesson's concepts get one
-  **unseen** R1/R2 variant (v2). Concept priority for recycling: most
+- **Level 1 — Foundations**: per concept: one R1 + one R2 candidate. Flashcards
+  attach here. Among unseen variants, selection jointly balances learner
+  mechanic, T/F answer, and correct-option position before stable variant/seed
+  tie-breaks.
+- **Level 2 — Apply**: per concept: R3; mechanism/decision concepts add R4.
+  Plus recycling: `recycle.l2` share of the lesson's concepts get one
+  **unseen** R1/R2 variant. Concept priority for recycling: most
   confusables first, then seeded round-robin (deterministic proxy for
   "hardest" until telemetry exists).
-- **Level 3 — Master**: decision concepts: R5(v1[,v2]); all: unseen R4/R3
+- **Level 3 — Master**: decision concepts: R5 variants; all: unseen R4/R3
   variants; plus `recycle.l3` share recycled via remaining unseen variants.
 
-No item ever appears twice across a lesson's levels; recycling always spends
-unseen variants — repetition of *concepts*, variety of *questions*.
+No item appears twice inside one learner unit. Recycling spends unseen variants
+first; a legacy bank with too few candidates may reuse an exact item across
+different levels, which is explicit fallback behavior rather than silent loss.
+Depth-classified variant banks avoid that fallback.
 
 ### 5.2 Checkpoints & final review
 
 - **Module checkpoint** unit (`<module-key>-checkpoint`): samples 1–2 items per
-  core concept of the module, preferring the highest available rung and unseen
-  variants; falls back to seen items when the bank is exhausted (checkpoints
-  legitimately re-ask). This is the Duolingo unit-review equivalent and the
-  natural future placement-test ("jump ahead") instrument.
+  core concept of the module inside a high-rung band, jointly preferring unseen
+  content and underrepresented mechanics/answers/positions; falls back to seen
+  items when the bank is exhausted (checkpoints legitimately re-ask). This is
+  the Duolingo unit-review equivalent and the natural future placement-test
+  ("jump ahead") instrument.
 - **Course final review**: same sampler over decision/mechanism concepts across
   all modules.
 
@@ -359,6 +406,28 @@ app composes *practice* sessions dynamically; the compiled path (levels,
 checkpoints) remains the progression skeleton. No recompilation needed for the
 transition — the bundle carries both.
 
+### 5.4 Shared experience scheduler
+
+Selection and order are separate deterministic stages. `experience.py`
+projects bank or runtime items into one immutable metadata view, selects
+unseen variants with experience-aware tie-breaks, and schedules the exact
+selection with seeded bounded search. Identity, payload hashes, selected
+coverage, answer data, and schema are never relaxable. Feasible pools enforce
+both the authored mechanic and the rendered UI family (`single_choice` and
+`multi_choice` share `multiple_choice`), plus local T/F, rolling-window, and
+concept-adjacency constraints. An impossible pool follows the configured
+cumulative relaxation order, still minimizes the unavoidable violation, and
+records a scheduler attestation bound to the policy, scope, seed, predecessor
+profile, and item hashes. The final validator independently reproduces the
+infeasibility proof; a free-form reason cannot waive a violation. Bounded-search
+exhaustion fails the build instead of authorizing relaxation.
+
+Choice options are deterministically permuted only at presentation emission.
+The multiset of complete option objects and every correctness flag is asserted
+unchanged, then `correct_answer` is re-derived and the final TechLingo artifact
+is validated again. This fixes answer-position patterns without rewriting bank
+content.
+
 ---
 
 ## 6. Bundle & import contract
@@ -368,7 +437,7 @@ transition — the bundle carries both.
 ```
 dist/<course-id>-v<N>/
   manifest.json           # schema_version bundle-v1, course meta, entity list + content hashes,
-                          # generator version, compile seed, created_at
+                          # source/config/bank/artifact provenance, generator, seed, created_at
   course.json             # course + module/unit TREE only (keys, titles, order, level markers)
   units/<unit-key>.json   # per-unit: meta + questions + flashcards — TLQuestion encoding UNCHANGED
   concepts.json           # runtime concept registry: id, label, summary, confusables,
@@ -398,6 +467,39 @@ rejected_answers all stay exactly as shipped. Additive only.
 `compile --flat` emits today's single `course.json` (one unit per lesson, no
 levels) for the current importer, until the bundle importer exists. Phase 1
 ships both; flat mode retires when the app reads bundles.
+
+### 6.4 Qualitative Gauntlet and references
+
+Deterministic gates remain the publication authority. The optional Gauntlet
+runs afterward over the exact ordered `ArtifactSnapshot` shown to learners:
+
+1. an isolated critic receives only the goal, complete 12-dimension rubric,
+   relevant source excerpts, explicitly approved references, and the final
+   artifact;
+2. a separate editor applies the critic's single largest actionable gap within
+   structurally enforced item/session/course scope;
+3. the challenger must pass the full hard gate; content-changing repairs also
+   receive a fresh source-fidelity critique before comparison;
+4. a blind comparator strips identifying metadata and judges deterministic
+   inverse A/B orders; unstable, low-confidence, or protected-dimension
+   regression keeps the champion or requires human review;
+5. bounded round/time/token/cost, plateau, repeated-loss, success, no-gap, and
+   human decisions stop the loop while retaining the best valid champion.
+
+History stores concise evidence, hashes, usage, repairs, relaxations, decisions,
+and stop reasons—never private reasoning. Reference sessions are versioned
+drafts until a named human promotes the exact reviewed content hash with a
+timezone-aware approval. If no approved reference exists, the critic runs from
+sources/rubric and explicitly lowers reference confidence.
+
+`qualitative_required_for_publication: true` makes the bundle boundary require
+a coherent publication-eligible record for every exact compiled unit. The
+record is bound to course/unit/champion hashes plus the complete Gauntlet
+policy and rubric, current source hashes, approved-reference hashes, and actual
+model/backend roles. Any context drift invalidates the evidence. Gauntlet
+edits are deliberately not written back to canonical banks automatically; an
+edited champion must be reviewed/applied through the authored content path,
+recompiled, and re-evaluated before it can satisfy that exact coverage gate.
 
 ---
 
@@ -438,8 +540,8 @@ A practice/lesson session of ~12–15 items:
 ~60% new           — cells of the current level not yet passed
 ~25% review        — due concepts (lowest effective strength), unseen variants preferred
 ~15% mistakes      — from the mistakes queue (an item leaves after 2 correct redemptions)
-constraints        — max 2 items per concept per session; never adjacent;
-                     easy→hard ordering; after 2 consecutive wrong answers,
+constraints        — max 2 selected items per concept; shared deterministic
+                     experience scheduler; after 2 consecutive wrong answers,
                      de-escalate: inject a lower-rung item of the same concept
 target             — ~80% expected success (Duolingo's sweet spot); without
                      telemetry, rung distance from the user's proven rung is the

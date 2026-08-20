@@ -1,28 +1,32 @@
-# TechLingo Session Spec — v1 (2026-07-17)
+# TechLingo Session Spec — v2 (2026-08-20)
 
 How the app composes a PRACTICE session from the imported exercise bank and
 the learner's mastery state (MASTERY_SPEC.md). This is the Duolingo loop in
 one algorithm: a confidence opener, mostly new material, the things fading
-from memory, and your own past mistakes — never two of the same concept in a
-row, always easy → hard.
+from memory, and your own past mistakes. The selected buckets retain their
+meaning while one shared deterministic experience scheduler creates the exact
+learner-facing order.
 
-Scope note (bridge era): compiled LEVEL units (Lesson · Level 1/2/3) are
-played as ordinary units — the app needs nothing from this spec for them.
-This spec governs the **Practice / Review** surface. Post-bridge, the same
-composer can also assemble level sessions dynamically; nothing changes in the
-algorithm, only the item pool it is pointed at.
+Scope note (bridge era): compiled LEVEL units (Lesson · Level 1/2/3), module
+checkpoints, final review, and runtime **Practice / Review** all use the same
+experience policy and scheduler. The compiler schedules selected bank items;
+the runtime first selects its mastery buckets and then schedules that exact
+selection with the warm-up pinned.
 
 Reference implementation: `compose_session()` in
 `src/techlingo_workflow/learning_specs.py`; vectors in
-`tests/test_learning_specs.py`. Deterministic by design — NO randomness; every
-tie broken by `item_key` — so implementations are vector-testable.
+`tests/test_learning_specs.py`. Deterministic by design: a configured seed and
+stable SHA-256 tie ranks replace process-global randomness, so implementations
+are vector-testable.
 
 ## 1. Inputs
 
 - **Pool**: candidate exercises — for course practice, every ACTIVE imported
   question of the course in curriculum order. Each carries (from `options`):
-  `item_key`, `concept_id`, `rung` (1–5), plus a per-user `seen` flag (the
-  user answered it before).
+  `item_key`, `concept_id`, `rung` (1–5), `variant`, original learner
+  mechanic, T/F answer where applicable, correct option indexes, Bloom level,
+  module/lesson ownership, plus a per-user `seen` flag. Older imported items
+  without the additive experience fields remain valid and use `unknown`.
 - **User state** per concept: mastery row (MASTERY_SPEC) + `proven_rung` =
   highest rung ever answered correctly (0 = none).
 - **Mistake queue**: item_keys answered wrong, oldest first; an item leaves
@@ -48,12 +52,29 @@ budget: 1 warm-up + body (session_size - 1)
    `rung ≤ proven_rung + 1` (never-seen concept ⇒ gate 1). If the gate leaves
    slots unfilled (small pools), a second pass relaxes the gate and takes any
    unseen item — acceptable: ordering still plays its lower rungs first.
-5. CONSTRAINTS — across the WHOLE session: max 2 items per concept; no item
-   twice.
-6. ORDER — warm-up pinned first; body sorted by rung ascending, ties by
-   bucket (mistakes, review, new) then item_key. Then one forward pass: no two
-   same-concept items adjacent (conflicting item swaps with the next
-   non-conflicting one).
+5. SELECTION INVARIANTS — across the WHOLE session: max 2 selected items per
+   concept; no item twice; bucket membership is frozen before ordering.
+6. ORDER — warm-up is pinned first. Seeded bounded search schedules the body
+   while preserving every selected item and its payload. Defaults:
+   - no adjacent same-concept questions when feasible;
+   - at most 2 consecutive questions of one original learner mechanic;
+   - at most 2 consecutive questions of one rendered UI family (notably,
+     `single_choice` and `multi_choice` both render as `multiple_choice`);
+   - at most 2 consecutive identical T/F answers;
+   - at least 3 mechanics in every full 6-question window when the selected
+     pool exposes at least 3 known mechanics.
+   Candidate scoring keeps a broadly easy-to-hard direction, retains
+   mistake/review/new semantics, distributes recognition/production/scenario
+   work, and discourages repeated T/F alternation and correct-option patterns.
+7. RELAXATION — correctness, identity, schema, bucket membership, and selected
+   coverage are never relaxed. Experience constraints relax cumulatively in
+   this order: rolling-window diversity, T/F-answer streak, rendered UI-family
+   streak, original-mechanic streak, concept adjacency. Every cumulative
+   relaxation decision is scheduler-attested with its policy, scope, seed,
+   predecessor profile, affected item keys, configured/observed value, and
+   proof. Only an independently reproduced, mathematically unavoidable actual
+   violation can waive a hard sequence issue. Exhausting the bounded search is
+   a fatal diagnostic, never evidence that a constraint is infeasible.
 ```
 
 ## 3. In-session behavior (normative)
@@ -94,7 +115,7 @@ Expected: warm-up `l1/alpha/r1/v1`; mistakes `[]` (floor(5×0.15)=0); review
 via the relaxed pass); final order:
 
 ```
-l1/alpha/r1/v1 · l1/beta/r1/v2 · l2/gamma/r1/v1 · l1/beta/r2/v1 · l2/gamma/r2/v1 · l1/alpha/r3/v1
+l1/alpha/r1/v1 · l1/beta/r1/v2 · l2/gamma/r1/v1 · l1/beta/r2/v1 · l1/alpha/r3/v1 · l2/gamma/r2/v1
 ```
 
 With `session_size = 12` and queue `[l2/gamma/r2/v1]`: mistakes takes it
@@ -102,5 +123,10 @@ With `session_size = 12` and queue `[l2/gamma/r2/v1]`: mistakes takes it
 
 ## 6. Versioning
 
-Shares, caps, thresholds, ordering, or tie-break changes bump the major
-version, together with MASTERY_SPEC when coupled. Same-commit rule as always.
+v2 is an additive metadata migration plus an intentional ordering change. The
+mastery bucket shares, rung gates, concept cap, and mistake semantics from v1
+are unchanged. Old callers may omit every new `PoolItem` field and retain a
+valid deterministic session; known metadata activates the stronger experience
+constraints. Shares, caps, thresholds, ordering, or tie-break changes bump the
+major version, together with MASTERY_SPEC when coupled. Same-commit rule as
+always.

@@ -32,6 +32,7 @@ from .worksheet import (
     DEFAULT_DEPTH,
     RUNG_NAMES,
     WorksheetCell,
+    assign_tf_answers,
     build_lesson_worksheet,
     normalized_depth,
     required_rungs,
@@ -163,6 +164,20 @@ def _surface_tokens(ex: Any) -> set[str]:
 def validate_course(course: Course, config: WorkflowConfig) -> ValidationReport:
     issues: list[ValidationIssue] = []
 
+    # Reconstruct the exact course-wide worksheet contract once, including
+    # the dictated alternating T/F answers. Building a lesson worksheet alone
+    # leaves ``tf_answer`` unset, which would reduce the row gate back to an
+    # aggregate-only check for the very variants it is meant to authorize.
+    worksheets_by_lesson: dict[tuple[int, int], list[WorksheetCell]] = {}
+    ordered_worksheets: list[list[WorksheetCell]] = []
+    for module_index, module in enumerate(course.modules):
+        for lesson_index, candidate_lesson in enumerate(module.lessons):
+            candidate = _lesson_worksheet(candidate_lesson)
+            if candidate is not None:
+                worksheets_by_lesson[(module_index, lesson_index)] = candidate
+                ordered_worksheets.append(candidate)
+    assign_tf_answers(ordered_worksheets)
+
     # Module count
     if len(course.modules) != config.modules_count:
         issues.append(
@@ -218,7 +233,7 @@ def validate_course(course: Course, config: WorkflowConfig) -> ValidationReport:
             # Phase 2b: a fully depth-classified concept pack makes the lesson's
             # expected shape a DERIVED quantity (its cell worksheet); the config
             # distributions only govern lessons without one (legacy).
-            cells = _lesson_worksheet(lesson)
+            cells = worksheets_by_lesson.get((mi, li))
 
             # Confusable reciprocity (§4.4): decision-depth concepts feed their
             # R4/R5 distractors and rejected_answers from confusable_with — an
@@ -724,6 +739,60 @@ def _worksheet_cell_issues(base_path: str, lesson: Lesson, cells: list[Worksheet
     composition and recycling budgets assume the quota table).
     """
     issues: list[ValidationIssue] = []
+    # The generator is instructed to emit one exercise per worksheet row in
+    # exact order.  Variant identity is assigned from that encounter order when
+    # the result is folded into a bank, so row correspondence must be an
+    # authoritative gate rather than a prompt-only convention.
+    for index, (cell, exercise) in enumerate(zip(cells, lesson.exercises)):
+        path = f"{base_path}.exercises[{index}]"
+        actual_blooms = exercise.blooms_level.value
+        mismatches: list[str] = []
+        if exercise.concept_id != cell.concept_id:
+            mismatches.append(
+                f"concept_id={exercise.concept_id!r} (expected {cell.concept_id!r})"
+            )
+        if exercise.question_type != cell.question_type:
+            mismatches.append(
+                f"question_type={exercise.question_type!r} (expected {cell.question_type!r})"
+            )
+        if actual_blooms != cell.blooms_level:
+            mismatches.append(
+                f"blooms_level={actual_blooms!r} (expected {cell.blooms_level!r})"
+            )
+        if (
+            cell.question_type == "true_false"
+            and cell.tf_answer is not None
+            and getattr(exercise, "correct_answer", None) is not cell.tf_answer
+        ):
+            mismatches.append(
+                f"correct_answer={getattr(exercise, 'correct_answer', None)!r} "
+                f"(expected {cell.tf_answer!r})"
+            )
+        if mismatches:
+            issues.append(
+                ValidationIssue(
+                    severity="error",
+                    path=path,
+                    message=(
+                        f"Worksheet row {index + 1} / variant v{cell.variant} at "
+                        f"(concept '{cell.concept_id}', R{cell.rung}) drifted: "
+                        + "; ".join(mismatches)
+                        + ". Restore the exact row before bank variant assignment."
+                    ),
+                )
+            )
+    if len(lesson.exercises) != len(cells):
+        issues.append(
+            ValidationIssue(
+                severity="error",
+                path=f"{base_path}.exercises",
+                message=(
+                    f"Worksheet row count mismatch: expected {len(cells)} ordered rows, "
+                    f"got {len(lesson.exercises)}."
+                ),
+            )
+        )
+
     depth_by_id = {c.id: normalized_depth(c.depth) for c in lesson.concepts}
     expected = Counter((c.concept_id, c.rung) for c in cells)
     actual = Counter(
@@ -1306,5 +1375,3 @@ async def repair_course_if_needed(
     if best_course is not course:
         best_report.repaired = True
     return best_course, best_report
-
-

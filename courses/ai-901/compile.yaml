@@ -7,3 +7,67 @@ session_size_hint: 12
 checkpoints: per_module
 final_review: true
 seed: 901
+experience:
+  max_same_mechanic_streak: 2
+  max_same_ui_family_streak: 2
+  max_same_true_false_answer_streak: 2
+  mechanics_window_size: 6
+  min_mechanics_per_window: 3
+  avoid_adjacent_same_concept: true
+  max_search_states: 100000
+  relaxation_order:
+    - mechanics_window
+    - true_false_answer_streak
+    - ui_family_streak
+    - mechanic_streak
+    - concept_adjacency
+sequence_quality:
+  max_same_correct_position_streak: 2
+  prompt_stem_words: 5
+  max_repeated_prompt_stem: 2
+  max_downward_rung_jump: 1
+  max_same_rung_streak: 6
+  block_on_errors: true
+  permute_choice_options: true
+gauntlet:
+  critic_backend: null
+  critic_model: null
+  builder_model: null
+  max_rounds: 4
+  plateau_rounds: 2
+  repeated_loss_rounds: 2
+  minimum_improvement_margin: 0.02
+  confidence_threshold: 0.65
+  human_review_threshold: 0.40
+  max_time_seconds: null
+  max_tokens: null
+  max_cost_usd: null
+  qualitative_required_for_publication: false
+  quality_thresholds:
+    factual_fidelity: 0.80
+    answer_unambiguity: 0.80
+    distractor_plausibility: 0.80
+    misconception_quality: 0.80
+    cognitive_progression: 0.80
+    mechanic_rhythm_variation: 0.80
+    prompt_language_variation: 0.80
+    scenario_authenticity: 0.80
+    feedback_usefulness: 0.80
+    difficulty_appropriateness: 0.80
+    terminology_consistency: 0.80
+    overall_learner_experience: 0.80
+  comparison_seed: 901
+  protected_dimensions:
+    - factual_fidelity
+    - answer_unambiguity
+  unstable_comparison_requires_human_review: true
+  identifying_metadata_keys:
+    - artifact_id
+    - builder_model
+    - candidate_role
+    - challenger
+    - champion
+    - critic_model
+    - generated_at
+    - item_key
+    - model_id

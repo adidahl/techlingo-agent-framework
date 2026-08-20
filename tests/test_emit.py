@@ -25,6 +25,12 @@ from techlingo_workflow.models import (
     SingleChoiceExercise,
     TrueFalseExercise,
 )
+from techlingo_workflow.techlingo_models import (
+    TLCourse,
+    TLFlashcard,
+    TLModule,
+    TLUnit,
+)
 from techlingo_workflow.validate_techlingo import validate_techlingo_course
 
 
@@ -236,6 +242,59 @@ def test_emit_and_validate_passes():
     )
     tl = emit_and_validate(course, course_key="ai-900")
     assert validate_techlingo_course(tl) == []
+
+
+def test_output_validator_rejects_structurally_empty_hierarchy_nodes():
+    empty_course = TLCourse(import_key="c", title="Course", modules=[])
+    assert validate_techlingo_course(empty_course) == [
+        "course.modules[] is empty; a course must contain at least one module."
+    ]
+
+    empty_module = TLCourse(
+        import_key="c",
+        title="Course",
+        modules=[TLModule(import_key="m", title="Module", lessons=[])],
+    )
+    assert validate_techlingo_course(empty_module) == [
+        "modules[0].lessons[] is empty; a module must contain at least one unit."
+    ]
+
+    empty_unit = TLCourse(
+        import_key="c",
+        title="Course",
+        modules=[
+            TLModule(
+                import_key="m",
+                title="Module",
+                lessons=[TLUnit(import_key="u", title="Unit", slo="Learn", exercises=[])],
+            )
+        ],
+    )
+    assert validate_techlingo_course(empty_unit) == [
+        "modules[0].lessons[0] is empty; a unit must contain at least one question or flashcard."
+    ]
+
+
+def test_output_validator_allows_flashcard_only_units():
+    course = TLCourse(
+        import_key="c",
+        title="Course",
+        modules=[
+            TLModule(
+                import_key="m",
+                title="Module",
+                lessons=[
+                    TLUnit(
+                        import_key="u",
+                        title="Unit",
+                        slo="Learn",
+                        flashcards=[TLFlashcard(import_key="f", front="Front", back="Back")],
+                    )
+                ],
+            )
+        ],
+    )
+    assert validate_techlingo_course(course) == []
 
 
 def test_emit_arrange_expands_interchangeable_groups():

@@ -16,8 +16,15 @@ import math
 from dataclasses import dataclass, field
 from typing import Optional
 
+from .experience import (
+    CompositionDiagnostics,
+    ExperienceItem,
+    ExperiencePolicy,
+    compose_experience,
+)
+
 MASTERY_SPEC_VERSION = "mastery-v1"
-SESSION_SPEC_VERSION = "session-v1"
+SESSION_SPEC_VERSION = "session-v2"
 
 # ---------------------------------------------------------------------------
 # MASTERY_SPEC v1 — per-(user, course, concept) strength with time decay
@@ -114,6 +121,14 @@ class PoolItem:
     rung: int
     variant: int = 1
     seen: bool = False
+    mechanic: str = "unknown"
+    true_false_answer: Optional[bool] = None
+    correct_option_indexes: tuple[int, ...] = ()
+    blooms_level: Optional[str] = None
+    module_key: Optional[str] = None
+    lesson_key: Optional[str] = None
+    prompt: str = ""
+    payload_hash: Optional[str] = None
 
 
 @dataclass
@@ -131,6 +146,7 @@ class SessionPlan:
     review: list[str] = field(default_factory=list)
     mistakes: list[str] = field(default_factory=list)
     final_order: list[str] = field(default_factory=list)  # what the learner actually plays
+    composition_diagnostics: Optional[CompositionDiagnostics] = None
 
 
 def _bucket_counts(session_size: int, *, mistakes_available: int, review_available: int) -> tuple[int, int, int]:
@@ -150,8 +166,10 @@ def compose_session(
     *,
     now_days: float,
     session_size: int = 12,
+    experience_policy: ExperiencePolicy = ExperiencePolicy(),
+    seed: int = 0,
 ) -> SessionPlan:
-    """Deterministic session composition (no RNG — ties broken by item_key).
+    """Deterministic session composition (seeded, with stable SHA-256 tie ranks).
 
     1. warm-up: the lowest-rung UNSEEN-or-seen item of the user's STRONGEST
        mastered concept (effective >= DUE_THRESHOLD); omitted when none exists.
@@ -163,10 +181,10 @@ def compose_session(
        pool, next unproven rung first (proven_rung + 1, capped at the cell that
        exists), unseen variants first, max MAX_ITEMS_PER_CONCEPT per concept
        across the WHOLE session.
-    5. Final order: rung ascending (easy → hard), warm-up pinned first;
-       equal-rung ties keep bucket order (mistakes, review, new) then item_key.
-       No two same-concept items may be adjacent — resolved by swapping the
-       later item with the next non-conflicting one (single pass).
+    5. Final order: shared seeded experience scheduler, with warm-up pinned.
+       Bucket membership stays intact while concept, authored-mechanic,
+       rendered UI-family, local-answer, option-position, rolling-window, and
+       difficulty-rhythm policy is applied.
     """
     by_key = {p.item_key: p for p in pool}
     concept_count: dict[str, int] = {}
@@ -253,23 +271,40 @@ def compose_session(
             if can_take(item) and not item.seen:
                 take(item, plan.new)
 
-    # --- 5. final ordering --------------------------------------------------------
-    bucket_rank = {}
-    for rank, bucket in enumerate((plan.mistakes, plan.review, plan.new)):
-        for key in bucket:
-            bucket_rank[key] = rank
-    body = sorted(
-        (k for k in bucket_rank),
-        key=lambda k: (by_key[k].rung, bucket_rank[k], k),
+    # --- 5. final learner-facing ordering ---------------------------------------
+    roles = {
+        **{key: "warmup" for key in plan.warmup},
+        **{key: "mistake" for key in plan.mistakes},
+        **{key: "review" for key in plan.review},
+        **{key: "new" for key in plan.new},
+    }
+    selected_keys = [*plan.warmup, *plan.mistakes, *plan.review, *plan.new]
+    metadata = [
+        ExperienceItem(
+            item_key=key,
+            concept_id=by_key[key].concept_id,
+            rung=by_key[key].rung,
+            variant=by_key[key].variant,
+            mechanic=by_key[key].mechanic,
+            true_false_answer=by_key[key].true_false_answer,
+            correct_option_indexes=by_key[key].correct_option_indexes,
+            blooms_level=by_key[key].blooms_level,
+            module_key=by_key[key].module_key,
+            lesson_key=by_key[key].lesson_key,
+            learning_status=roles[key],
+            prompt=by_key[key].prompt,
+            payload_hash=by_key[key].payload_hash,
+        )
+        for key in selected_keys
+    ]
+    composition = compose_experience(
+        metadata,
+        policy=experience_policy,
+        seed=seed,
+        scope="runtime-session",
+        pinned_item_keys=plan.warmup,
     )
-    ordered = plan.warmup + body
-    # No two same-concept items adjacent: single forward pass, swap ahead.
-    for i in range(1, len(ordered) - 1):
-        if by_key[ordered[i]].concept_id == by_key[ordered[i - 1]].concept_id:
-            for j in range(i + 1, len(ordered)):
-                if by_key[ordered[j]].concept_id != by_key[ordered[i - 1]].concept_id:
-                    ordered[i], ordered[j] = ordered[j], ordered[i]
-                    break
+    ordered = [item.item_key for item in composition.ordered]
 
     return SessionPlan(
         warmup=plan.warmup,
@@ -277,4 +312,5 @@ def compose_session(
         review=plan.review,
         mistakes=plan.mistakes,
         final_order=ordered,
+        composition_diagnostics=composition.diagnostics,
     )

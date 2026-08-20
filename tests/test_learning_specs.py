@@ -151,16 +151,19 @@ def test_session_vector_composition():
         "l2/gamma/r1/v1",
         "l2/gamma/r2/v1",
     ]
-    # final order: warm-up pinned, then rung-ascending; same-concept adjacency
-    # resolved by swapping ahead (beta r1 -> gamma r1 -> beta r2 -> gamma r2).
+    # final order: warm-up pinned, then the shared deterministic experience
+    # scheduler preserves every bucket item, avoids concept adjacency, and
+    # keeps a broadly easy-to-hard rhythm without rigid rung blocks.
     assert plan.final_order == [
         "l1/alpha/r1/v1",
         "l1/beta/r1/v2",
         "l2/gamma/r1/v1",
         "l1/beta/r2/v1",
-        "l2/gamma/r2/v1",
         "l1/alpha/r3/v1",
+        "l2/gamma/r2/v1",
     ]
+    assert plan.composition_diagnostics is not None
+    assert plan.composition_diagnostics.relaxations == ()
 
 
 def test_session_max_two_per_concept_and_size():

@@ -24,17 +24,23 @@ from .emit import slugify
 from .graph_merge import merge_source_concepts
 from .io import write_json
 from .models import Course, PipelineState
+from .publication_safety import banks_sha256, hash_data
 from .runner import stream_pipeline
 from .workspace import (
+    BUILD_STATE_SCHEMA,
     BankItem,
     BankFlashcard,
     BuildState,
+    ConceptGraph,
     Curriculum,
     CurriculumLesson,
     CurriculumModule,
     LessonBank,
+    SourcePublication,
     SourceState,
     Workspace,
+    WorkspaceError,
+    _atomic_write_text,
     canonical_json,
     derive_rung,
     make_item_key,
@@ -265,8 +271,16 @@ class BuildPlan:
 
 
 def plan_build(ws: Workspace, state: BuildState, cfg_hash: str, *, force: bool = False) -> BuildPlan:
+    banks = list(ws.iter_banks())
+    banks_by_lesson = {bank.lesson: bank for bank in banks}
+    current_bank_hash = banks_sha256(banks_by_lesson)
+    global_bank_evidence_ok = (
+        state.schema_version == BUILD_STATE_SCHEMA
+        and state.bank_sha256 is not None
+        and state.bank_sha256 == current_bank_hash
+    )
+    global_config_evidence_ok = state.workflow_config_hash == cfg_hash
     plan = BuildPlan()
-    config_changed = state.workflow_config_hash is not None and state.workflow_config_hash != cfg_hash
     for src in ws.iter_sources():
         prev = state.sources.get(src.name)
         if force:
@@ -277,10 +291,38 @@ def plan_build(ws: Workspace, state: BuildState, cfg_hash: str, *, force: bool =
             plan.dirty.append((src, "content changed"))
         elif prev.status == "failed":
             plan.dirty.append((src, "previous build failed"))
-        elif config_changed:
+        elif prev.validation_ok is not True:
+            plan.dirty.append((src, "previous validation missing or failed"))
+        elif prev.config_sha256 is not None and prev.config_sha256 != cfg_hash:
             plan.dirty.append((src, "workflow config changed"))
+        elif state.workflow_config_hash is not None and not global_config_evidence_ok:
+            plan.dirty.append((src, "workflow config changed"))
+        elif state.schema_version != BUILD_STATE_SCHEMA:
+            plan.dirty.append((src, "legacy publication evidence requires rebuild"))
+        elif prev.config_sha256 is None or prev.validation_report_sha256 is None:
+            plan.dirty.append((src, "publication evidence missing"))
+        elif prev.last_known_good is None:
+            plan.dirty.append((src, "last-known-good publication evidence missing"))
         else:
-            plan.clean.append(src)
+            lkg = prev.last_known_good
+            source_banks = {
+                key: bank for key, bank in banks_by_lesson.items() if bank.module in lkg.module_keys
+            }
+            source_evidence_ok = (
+                lkg.source_sha256 == prev.sha256
+                and lkg.config_sha256 == prev.config_sha256 == cfg_hash
+                and lkg.validation_report_sha256 == prev.validation_report_sha256
+                and lkg.module_keys == prev.module_keys
+                and lkg.bank_sha256 == banks_sha256(source_banks)
+            )
+            if (
+                not source_evidence_ok
+                or not global_bank_evidence_ok
+                or not global_config_evidence_ok
+            ):
+                plan.dirty.append((src, "publication evidence no longer matches canonical content"))
+            else:
+                plan.clean.append(src)
     return plan
 
 
@@ -323,6 +365,99 @@ class SourceBuildOutcome:
     concepts_created: int = 0
     concepts_matched: int = 0
     concepts_retired: int = 0
+    validation_report_sha256: Optional[str] = None
+    bank_sha256: Optional[str] = None
+    promoted_state: Optional[BuildState] = field(default=None, repr=False)
+
+
+def _promote_generated_state(
+    ws: Workspace,
+    *,
+    curriculum: Curriculum,
+    graph: ConceptGraph,
+    banks: list[LessonBank],
+    stale_lesson_keys: set[str],
+    build_state: Optional[BuildState] = None,
+    expected_snapshot_sha256: Optional[dict[str, str]] = None,
+    expected_source: Optional[tuple[Path, str]] = None,
+) -> None:
+    """Promote one validated source with rollback across canonical files.
+
+    Each individual save is an atomic replace (workspace.py).  This wrapper
+    additionally snapshots every affected file and restores the complete LKG
+    set on any exception, including Ctrl-C during the short promotion window.
+    Pipeline execution and validation happen before this function is called.
+    """
+
+    # The shared workspace lock spans the complete multi-file transaction and
+    # its final build-state commit.  Individual save methods take the same
+    # re-entrant lock, so no other cooperating build or publisher can observe
+    # or promote an interleaved canonical state.
+    with ws.publication_lock():
+        if expected_snapshot_sha256 is not None:
+            current_snapshot = {
+                "curriculum": hash_data(ws.load_curriculum()),
+                "graph": hash_data(ws.load_graph()),
+                "banks": banks_sha256(list(ws.iter_banks())),
+                "build_state": hash_data(ws.load_build_state()),
+            }
+            changed = [
+                name
+                for name, expected_hash in expected_snapshot_sha256.items()
+                if current_snapshot.get(name) != expected_hash
+            ]
+            if changed:
+                raise WorkspaceError(
+                    "canonical workspace changed while the source challenger was being "
+                    f"prepared ({', '.join(changed)}); retry the build"
+                )
+        if expected_source is not None:
+            source_path, source_hash = expected_source
+            if not source_path.exists() or ws.source_hash(source_path) != source_hash:
+                raise WorkspaceError(
+                    f"source changed while its challenger was being prepared: {source_path.name}"
+                )
+
+        paths = [ws.build_state_path] if build_state is not None else []
+        paths.extend(ws.bank_path(bank.lesson) for bank in banks)
+        paths.extend(ws.bank_path(key) for key in stale_lesson_keys)
+        paths.extend([ws.graph_path, ws.curriculum_path])
+        # Preserve insertion order while removing collisions (a regenerated bank
+        # can also appear in stale_lesson_keys when a caller supplies bad input).
+        paths = list(dict.fromkeys(paths))
+        originals = {path: path.read_bytes() if path.exists() else None for path in paths}
+
+        try:
+            for bank in banks:
+                ws.save_bank(bank)
+            for stale_key in stale_lesson_keys - {bank.lesson for bank in banks}:
+                ws.delete_bank(stale_key)
+            ws.save_graph(graph)
+            # Install curriculum after every bank it references and the matching
+            # graph are durable.  When supplied, build_state is the final commit
+            # marker and is rolled back with the content on interruption.
+            ws.save_curriculum(curriculum)
+            if build_state is not None:
+                ws.save_build_state(build_state)
+        except BaseException as promotion_error:
+            rollback_errors: list[str] = []
+            for path, original in originals.items():
+                try:
+                    if original is None:
+                        try:
+                            path.unlink()
+                        except FileNotFoundError:
+                            pass
+                    else:
+                        _atomic_write_text(path, original.decode("utf-8"))
+                except BaseException as rollback_error:  # pragma: no cover - catastrophic filesystem failure
+                    rollback_errors.append(f"{path}: {rollback_error}")
+            if rollback_errors:
+                details = "; ".join(rollback_errors)
+                raise RuntimeError(
+                    f"promotion failed and rollback was incomplete: {details}"
+                ) from promotion_error
+            raise
 
 
 def build_source(
@@ -332,12 +467,15 @@ def build_source(
     model_label: str,
     config: WorkflowConfig,
     echo: Callable[[str], None],
+    build_state: Optional[BuildState] = None,
+    config_sha256: Optional[str] = None,
 ) -> SourceBuildOutcome:
     """Run the pipeline for ONE source file and fold the result into the
     workspace. Any exception is caught by the caller (per-file isolation)."""
     file_stem = src.stem
     file_slug = slugify(file_stem, fallback="source")
-    source_sha = ws.source_hash(src)
+    source_text = src.read_text(encoding="utf-8")
+    source_sha = sha256_text(source_text)
 
     # Fresh, wiped run dir per source keeps artifacts from going stale.
     run_dir = ws.build_dir / file_slug
@@ -348,7 +486,7 @@ def build_source(
     state = PipelineState(
         run_id=f"{ws.root.name}-{file_slug}",
         run_dir=str(run_dir),
-        input_text=src.read_text(encoding="utf-8"),
+        input_text=source_text,
         model_id=model_label,
         difficulty=DifficultyLevel(config.difficulty),
         config=config,
@@ -366,18 +504,45 @@ def build_source(
     write_json(run_dir / "course.internal.json", result.course.model_dump(mode="json"))
     write_json(run_dir / "validation_report.json", result.validation_report.model_dump())
 
+    validation_report_sha = hash_data(result.validation_report)
+    errors = [issue for issue in result.validation_report.issues if issue.severity == "error"]
+    if not result.validation_report.ok or errors:
+        return SourceBuildOutcome(
+            source=src.name,
+            ok=False,
+            validation_ok=False,
+            error=f"blocking validation failed ({len(errors)} error(s))",
+            validation_report_sha256=validation_report_sha,
+        )
+
     # ---- deterministic fold-in ------------------------------------------------
-    curriculum = ws.load_curriculum()
-    graph = ws.load_graph()
+    # Load every canonical fold-in input and its precondition hashes from one
+    # lock-protected snapshot.  The expensive model run already completed, so
+    # the lock is held only for deterministic IO.
+    with ws.publication_lock():
+        if not src.exists() or ws.source_hash(src) != source_sha:
+            raise WorkspaceError(
+                f"source changed while its challenger was being generated: {src.name}"
+            )
+        curriculum = ws.load_curriculum()
+        graph = ws.load_graph()
+        canonical_banks = {bank.lesson: bank for bank in ws.iter_banks()}
+        if build_state is not None:
+            build_state = ws.load_build_state()
+        promotion_snapshot = {
+            "curriculum": hash_data(curriculum),
+            "graph": hash_data(graph),
+            "banks": banks_sha256(canonical_banks),
+            "build_state": hash_data(ws.load_build_state()),
+        }
 
     old_modules = [m for m in curriculum.modules if m.source_file == src.name]
     replaced_lesson_keys = {l.key for m in old_modules for l in m.lessons}
-    old_banks = {}
-    for key in replaced_lesson_keys:
-        try:
-            old_banks[key] = ws.load_bank(key)
-        except FileNotFoundError:
-            pass
+    old_banks = {
+        key: canonical_banks[key]
+        for key in replaced_lesson_keys
+        if key in canonical_banks
+    }
 
     taken_lesson_keys = {
         l.key for m in curriculum.modules if m.source_file != src.name for l in m.lessons
@@ -402,17 +567,52 @@ def build_source(
     )
     apply_id_remap(converted, merge.id_remap)
 
-    # Persist: banks (respecting protected items), curriculum, graph.
+    # Promote only after hard validation: banks (respecting protected items),
+    # curriculum, and graph move together or roll back to the previous LKG.
     new_lesson_keys = {b.lesson for b in converted.banks}
     for bank in converted.banks:
         carry_over_protected_items(bank, old_banks.get(bank.lesson))
-        ws.save_bank(bank)
-    for stale_key in replaced_lesson_keys - new_lesson_keys:
-        ws.delete_bank(stale_key)
 
     _insert_modules(curriculum, converted.modules, source_file=src.name)
-    ws.save_curriculum(curriculum)
-    ws.save_graph(merge.graph)
+    source_bank_hash = banks_sha256(converted.banks)
+    promoted_state: Optional[BuildState] = None
+    if build_state is not None:
+        if not config_sha256:
+            raise ValueError("config_sha256 is required when promoting build state")
+        promoted_state = build_state.model_copy(deep=True)
+        built_at = utc_now_iso()
+        promoted_state.sources[src.name] = SourceState(
+            sha256=source_sha,
+            status="ok",
+            built_at=built_at,
+            module_keys=[module.key for module in converted.modules],
+            validation_ok=True,
+            config_sha256=config_sha256,
+            validation_report_sha256=validation_report_sha,
+            last_known_good=SourcePublication(
+                source_sha256=source_sha,
+                config_sha256=config_sha256,
+                bank_sha256=source_bank_hash,
+                validation_report_sha256=validation_report_sha,
+                promoted_at=built_at,
+                module_keys=[module.key for module in converted.modules],
+            ),
+        )
+        projected_banks = dict(canonical_banks)
+        for stale_key in replaced_lesson_keys - new_lesson_keys:
+            projected_banks.pop(stale_key, None)
+        projected_banks.update({bank.lesson: bank for bank in converted.banks})
+        promoted_state.bank_sha256 = banks_sha256(projected_banks)
+    _promote_generated_state(
+        ws,
+        curriculum=curriculum,
+        graph=merge.graph,
+        banks=converted.banks,
+        stale_lesson_keys=replaced_lesson_keys - new_lesson_keys,
+        build_state=promoted_state,
+        expected_snapshot_sha256=promotion_snapshot,
+        expected_source=(src, source_sha),
+    )
 
     return SourceBuildOutcome(
         source=src.name,
@@ -424,6 +624,9 @@ def build_source(
         concepts_created=len(merge.created),
         concepts_matched=len(set(merge.matched)),
         concepts_retired=len(merge.retired),
+        validation_report_sha256=validation_report_sha,
+        bank_sha256=source_bank_hash,
+        promoted_state=promoted_state,
     )
 
 
@@ -461,7 +664,15 @@ def build_course(
     for src, _reason in plan.dirty:
         echo(f"\n=== {src.name} ===")
         try:
-            outcome = build_source(ws, src, model_label=model_label, config=config, echo=echo)
+            outcome = build_source(
+                ws,
+                src,
+                model_label=model_label,
+                config=config,
+                echo=echo,
+                build_state=state,
+                config_sha256=cfg_hash,
+            )
         except Exception as e:  # noqa: BLE001 — per-file isolation is the point
             import traceback
 
@@ -473,14 +684,53 @@ def build_course(
             echo(f"FAILED {src.name}: {outcome.error}")
         outcomes.append(outcome)
 
-        state.sources[src.name] = SourceState(
-            sha256=ws.source_hash(src),
-            status="ok" if outcome.ok else "failed",
-            built_at=utc_now_iso(),
-            module_keys=outcome.module_keys,
-            validation_ok=outcome.validation_ok,
+        if outcome.ok:
+            if outcome.promoted_state is None:
+                raise AssertionError("successful source build did not atomically promote build state")
+            state = outcome.promoted_state
+        else:
+            # Merge the failed attempt into the latest state while holding the
+            # same shared lock.  A long-running failed challenger must never
+            # overwrite another process's successful source promotion.
+            with ws.publication_lock():
+                state = ws.load_build_state()
+                previous = state.sources.get(src.name)
+                current_source_hash = (
+                    ws.source_hash(src) if src.exists() else sha256_text("")
+                )
+                state.sources[src.name] = SourceState(
+                    sha256=current_source_hash,
+                    status="failed",
+                    built_at=utc_now_iso(),
+                    module_keys=previous.module_keys if previous else [],
+                    validation_ok=outcome.validation_ok,
+                    config_sha256=cfg_hash,
+                    validation_report_sha256=outcome.validation_report_sha256,
+                    error=outcome.error,
+                    last_known_good=previous.last_known_good if previous else None,
+                )
+                # No canonical content changed, so this single atomic checkpoint
+                # is sufficient for a failed attempt and remains Ctrl-C safe.
+                ws.save_build_state(state)
+
+    # The workspace-wide config hash is advanced only when every current
+    # source is a validated success under this exact config.  Per-source hashes
+    # make interrupted config migrations resume correctly on the next build.
+    with ws.publication_lock():
+        state = ws.load_build_state()
+        current_names = {source.name for source in ws.iter_sources()}
+        fully_built = all(
+            (source_state := state.sources.get(name)) is not None
+            and source_state.status == "ok"
+            and source_state.validation_ok is True
+            and source_state.config_sha256 == cfg_hash
+            and source_state.validation_report_sha256 is not None
+            and source_state.last_known_good is not None
+            for name in current_names
         )
-        state.workflow_config_hash = cfg_hash
-        ws.save_build_state(state)  # checkpoint after every file — Ctrl+C safe
+        if fully_built:
+            state.workflow_config_hash = cfg_hash
+            state.bank_sha256 = banks_sha256(list(ws.iter_banks()))
+        ws.save_build_state(state)
 
     return outcomes

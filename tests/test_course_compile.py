@@ -24,6 +24,7 @@ from techlingo_workflow.course_build import (
     resolve_build_config,
 )
 from techlingo_workflow.graph_merge import merge_source_concepts
+from techlingo_workflow.publication_safety import banks_sha256
 from techlingo_workflow.models import (
     BloomsLevel,
     ChoiceOption,
@@ -48,6 +49,7 @@ from techlingo_workflow.workspace import (
     CurriculumLesson,
     CurriculumModule,
     LessonBank,
+    SourcePublication,
     SourceState,
     Workspace,
     init_workspace,
@@ -264,11 +266,33 @@ def test_plan_build_incremental_logic():
         plan = plan_build(ws, BuildState(), h)
         assert [r for _, r in plan.dirty] == ["new file", "new file"]
 
+        report_hash = sha256_text("validated")
+        empty_bank_hash = banks_sha256({})
+
+        def valid_state(content: str) -> SourceState:
+            source_hash = sha256_text(content)
+            return SourceState(
+                sha256=source_hash,
+                status="ok",
+                validation_ok=True,
+                config_sha256=h,
+                validation_report_sha256=report_hash,
+                last_known_good=SourcePublication(
+                    source_sha256=source_hash,
+                    config_sha256=h,
+                    bank_sha256=empty_bank_hash,
+                    validation_report_sha256=report_hash,
+                    promoted_at="2026-08-20T00:00:00Z",
+                    module_keys=[],
+                ),
+            )
+
         state = BuildState(
             workflow_config_hash=h,
+            bank_sha256=empty_bank_hash,
             sources={
-                "1. First.md": SourceState(sha256=sha256_text("alpha"), status="ok"),
-                "2. Second.md": SourceState(sha256=sha256_text("beta"), status="ok"),
+                "1. First.md": valid_state("alpha"),
+                "2. Second.md": valid_state("beta"),
             },
         )
         plan = plan_build(ws, state, h)
@@ -282,7 +306,15 @@ def test_plan_build_incremental_logic():
         plan = plan_build(ws, state, h)
         assert [(p.name, r) for p, r in plan.dirty] == [("1. First.md", "previous build failed")]
 
-        state.sources["1. First.md"] = SourceState(sha256=sha256_text("alpha EDITED"), status="ok")
+        state.sources["1. First.md"] = SourceState(
+            sha256=sha256_text("alpha EDITED"), status="ok", validation_ok=False
+        )
+        plan = plan_build(ws, state, h)
+        assert [(p.name, r) for p, r in plan.dirty] == [
+            ("1. First.md", "previous validation missing or failed")
+        ]
+
+        state.sources["1. First.md"] = valid_state("alpha EDITED")
         plan = plan_build(ws, state, "different-config-hash-stored")
         # stored hash differs from current -> everything dirty
         state.workflow_config_hash = "old-hash"
@@ -388,6 +420,43 @@ def _compiled_workspace(tmp: Path, cfg: CompileConfig | None = None, course: Cou
     ws = init_workspace(tmp / "ws", course_id="demo", title="Demo Course", source_files=list(docs.iterdir()))
     ws.save_compile_config(cfg if cfg is not None else _flat_cfg())
     _populate_ws_from_course(ws, course if course is not None else _internal_course(), "1. Intro to AI.md")
+    # Synthetic fold-in represents a pipeline result whose hard validation
+    # passed.  Publication now requires that fact to be explicit and hashed.
+    source = ws.sources_dir / "1. Intro to AI.md"
+    workflow_hash = config_hash(resolve_build_config({}, "beginner"))
+    source_hash = ws.source_hash(source)
+    report_hash = sha256_text("synthetic-valid-report")
+    source_banks = list(ws.iter_banks())
+    source_bank_hash = banks_sha256(source_banks)
+    module_keys = [
+        module.key
+        for module in ws.load_curriculum().modules
+        if module.source_file == source.name
+    ]
+    ws.save_build_state(
+        BuildState(
+            workflow_config_hash=workflow_hash,
+            bank_sha256=source_bank_hash,
+            sources={
+                source.name: SourceState(
+                    sha256=source_hash,
+                    status="ok",
+                    module_keys=module_keys,
+                    validation_ok=True,
+                    config_sha256=workflow_hash,
+                    validation_report_sha256=report_hash,
+                    last_known_good=SourcePublication(
+                        source_sha256=source_hash,
+                        config_sha256=workflow_hash,
+                        bank_sha256=source_bank_hash,
+                        validation_report_sha256=report_hash,
+                        promoted_at="2026-08-20T00:00:00Z",
+                        module_keys=module_keys,
+                    ),
+                )
+            },
+        )
+    )
     return ws
 
 
@@ -414,18 +483,23 @@ def test_compile_workspace_produces_valid_flat_course():
         assert units[0].flashcards[0].import_key == "what-is-generative-ai-f0"
         q1 = units[0].exercises[0]
         assert q1.import_key == "what-is-generative-ai-q1"
-        assert q1.options["item_key"] == "what-is-generative-ai/generative-ai/r1/v1"
-        assert q1.options["rung"] == 1
-        assert q1.options["concept_id"] == "generative-ai"
-        # Full bank in bank order — nothing held back for recycling in flat mode.
-        assert _item_keys(units[0]) == [
+        expected = {
             "what-is-generative-ai/generative-ai/r1/v1",
             "what-is-generative-ai/generative-ai/r1/v2",
             "what-is-generative-ai/llm-vs-slm/r2/v1",
             "what-is-generative-ai/llm-vs-slm/r3/v1",
             "what-is-generative-ai/llm-vs-slm/r4/v1",
             "what-is-generative-ai/generative-ai/r5/v1",
-        ]
+        }
+        # Flat mode still emits every active bank item exactly once, but v2
+        # deliberately schedules the learner-facing order instead of retaining
+        # the pathological raw bank blocks.
+        assert set(_item_keys(units[0])) == expected
+        assert len(_item_keys(units[0])) == len(expected)
+        assert q1.options["item_key"] in expected
+        assert q1.options["concept_id"] in {"generative-ai", "llm-vs-slm"}
+        assert 1 <= q1.options["rung"] <= 5
+        assert compiled.sequence_quality.ok
         assert compiled.unit_counts == {"lesson": 2}
         assert compiled.notes == []
 
@@ -440,7 +514,12 @@ def test_compile_skips_retired_items_and_keeps_dense_keys():
         unit = compiled.tl_course.modules[0].lessons[0]
         assert len(unit.exercises) == 5
         assert unit.exercises[0].import_key == "what-is-generative-ai-q1"  # dense positional keys
-        assert unit.exercises[0].options["item_key"] == "what-is-generative-ai/generative-ai/r1/v2"
+        keys = _item_keys(unit)
+        assert "what-is-generative-ai/generative-ai/r1/v1" not in keys
+        assert len(keys) == len(set(keys)) == 5
+        assert [q.import_key for q in unit.exercises] == [
+            f"what-is-generative-ai-q{index}" for index in range(1, 6)
+        ]
 
 
 def test_compile_is_deterministic():
@@ -475,7 +554,14 @@ def test_write_bundle_manifest_hashes_and_versioning():
         assert manifest["schema_version"] == "bundle-v1"
         assert manifest["compile"]["levels"] == 1 and manifest["compile"]["seed"] == 901
         kinds = {e["kind"] for e in manifest["entities"]}
-        assert kinds == {"unit", "course", "concepts", "bank", "flat-course"}
+        assert kinds == {
+            "unit",
+            "course",
+            "concepts",
+            "bank",
+            "flat-course",
+            "sequence-quality",
+        }
         for entity in manifest["entities"]:
             text = (out1.bundle_dir / entity["path"]).read_text(encoding="utf-8")
             assert sha256_text(text) == entity["sha256"], f"hash mismatch for {entity['path']}"
@@ -483,6 +569,9 @@ def test_write_bundle_manifest_hashes_and_versioning():
         # Flat course in the bundle parses as a valid TL course tree.
         flat = json.loads(out1.flat_path.read_text(encoding="utf-8"))
         assert flat["import_key"] == "demo" and len(flat["modules"]) == 1
+        quality = json.loads((out1.bundle_dir / "quality_report.json").read_text(encoding="utf-8"))
+        assert quality["schema_version"] == "sequence-quality-v1"
+        assert quality["summary"]["ok"] is True
 
         out2 = write_bundle(ws.root, compiled, flat=False)
         assert out2.version == 2 and out2.flat_path is None
@@ -534,7 +623,7 @@ def test_levels_partition_by_rung_with_recycling():
         ]
         by_key = _units_by_key(compiled)
 
-        # L1 Foundations: R1-R2, lowest variant per cell (v2 stays unseen fuel).
+        # L1 Foundations: one experience-aware variant per R1/R2 cell.
         l1 = by_key["what-is-generative-ai-l1"]
         assert l1.title == "What Is Generative AI? · Level 1"
         assert _item_keys(l1) == [
@@ -548,8 +637,14 @@ def test_levels_partition_by_rung_with_recycling():
         assert l2.title == "What Is Generative AI? · Level 2"
         keys2 = _item_keys(l2)
         assert len(keys2) == 3
-        assert keys2[-2:] == ["what-is-generative-ai/llm-vs-slm/r3/v1", "what-is-generative-ai/llm-vs-slm/r4/v1"]
-        assert keys2[0] in {
+        assert {
+            "what-is-generative-ai/llm-vs-slm/r3/v1",
+            "what-is-generative-ai/llm-vs-slm/r4/v1",
+        }.issubset(keys2)
+        assert (set(keys2) - {
+            "what-is-generative-ai/llm-vs-slm/r3/v1",
+            "what-is-generative-ai/llm-vs-slm/r4/v1",
+        }).pop() in {
             "what-is-generative-ai/generative-ai/r1/v2",  # unseen variant of the R1 cell
             "what-is-generative-ai/llm-vs-slm/r2/v1",     # or the seen-repeat fallback
         }
@@ -562,10 +657,13 @@ def test_levels_partition_by_rung_with_recycling():
             "what-is-generative-ai/generative-ai/r5/v1",
         ]
 
-        # easy -> hard inside every unit
+        # The shared scheduler avoids rigid rung blocks while keeping every
+        # transition locally understandable (at most a two-rung soft drop in
+        # this adversarial tiny pool) and all hard sequence gates valid.
         for unit in units:
             rungs = [q.options["rung"] for q in unit.exercises]
-            assert rungs == sorted(rungs), unit.import_key
+            assert max((left - right for left, right in zip(rungs, rungs[1:])), default=0) <= 2
+            assert len(_item_keys(unit)) == len(set(_item_keys(unit)))
 
         # ai-agents: 1 concept -> both recycle quotas round to 0; no R5 -> L3 skipped.
         assert _item_keys(by_key["ai-agents-l1"]) == ["ai-agents/ai-agents/r2/v1"]
@@ -646,8 +744,15 @@ def test_module_checkpoint_sampling():
         assert "what-is-generative-ai/generative-ai/r5/v1" in by_concept["generative-ai"]
         assert "what-is-generative-ai/llm-vs-slm/r4/v1" in by_concept["llm-vs-slm"]
         assert "ai-agents/ai-agents/r3/v1" in by_concept["ai-agents"]
-        rungs = [q.options["rung"] for q in checkpoint.exercises]
-        assert rungs == sorted(rungs)
+        report = next(
+            unit_report
+            for unit_report in compiled.sequence_quality.units
+            if unit_report.metrics.unit_path.endswith(":1-intro-to-ai-checkpoint")
+        )
+        assert report.metrics.largest_downward_rung_jump <= 2
+        assert report.metrics.nondecreasing_transition_ratio >= 0.6
+        assert report.metrics.maximum_mechanic_streak <= 2
+        assert not [issue for issue in report.issues if issue.severity == "error"]
 
 
 def test_checkpoint_growth_respects_session_size_hint():

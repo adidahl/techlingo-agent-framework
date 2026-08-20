@@ -378,6 +378,27 @@ def test_worksheet_lesson_valid_passes_with_derived_shape():
     assert report.ok
 
 
+def test_worksheet_rows_are_authoritative_not_only_aggregate_counts():
+    lesson = _worksheet_lesson()
+    # These two rows occupy the same concept/rung cell. Swapping them preserves
+    # every aggregate count but would invert the encounter-order variant IDs.
+    lesson.exercises[0], lesson.exercises[1] = lesson.exercises[1], lesson.exercises[0]
+    errors = _errors(validate_course(_course(lesson), _config()).issues)
+    assert any("Worksheet row 1 / variant v1" in error and "question_type" in error for error in errors)
+    assert any("Worksheet row 2 / variant v2" in error and "question_type" in error for error in errors)
+
+
+def test_worksheet_true_false_answer_is_bound_to_exact_variant_row():
+    lesson = _worksheet_lesson()
+    # Global and per-cell T/F balance remain one true/one false, but v1/v2 are
+    # reversed. The exact worksheet gate must catch this before bank fold-in.
+    lesson.exercises[2].correct_answer = True
+    lesson.exercises[3].correct_answer = False
+    errors = _errors(validate_course(_course(lesson), _config()).issues)
+    assert any("Worksheet row 3 / variant v1" in error and "correct_answer" in error for error in errors)
+    assert any("Worksheet row 4 / variant v2" in error and "correct_answer" in error for error in errors)
+
+
 def test_ladder_incomplete_is_error():
     lesson = _worksheet_lesson()
     # Drop the mechanism concept's only R4 exercise (the last one) AND its R3
@@ -613,10 +634,21 @@ def test_worksheet_bank_compiles_levels_with_zero_item_repeats():
         ]
         keys = [q.options["item_key"] for u in level_units for q in u.exercises]
         assert len(keys) == len(set(keys)), f"item repeated across levels: {keys}"
-        # L3 recycles the mechanism concept's UNSEEN R3 variant, not a repeat of
-        # the fact concept's only (already seen) R3 item.
+        # L3 recycles whichever mechanism R3 variant L2 did not select. The
+        # experience-aware selector may choose v1 or v2 first; unseen behavior,
+        # not the historical lowest-variant ordering, is the invariant.
+        l2_mechanism_r3 = [
+            q.options["item_key"]
+            for u in level_units
+            if u.import_key.endswith("-l2")
+            for q in u.exercises
+            if q.options["item_key"].startswith("indexing-basics/index-refresh/r3/")
+        ]
         l3_keys = [q.options["item_key"] for u in level_units if u.import_key.endswith("-l3") for q in u.exercises]
-        assert l3_keys == ["indexing-basics/index-refresh/r3/v2"], l3_keys
+        assert set(l2_mechanism_r3 + l3_keys) == {
+            "indexing-basics/index-refresh/r3/v1",
+            "indexing-basics/index-refresh/r3/v2",
+        }
 
         # The levels:1 flat path stays intact for worksheet banks.
         ws.save_compile_config(CompileConfig(levels=1, checkpoints="none", final_review=False))

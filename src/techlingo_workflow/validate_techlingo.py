@@ -47,6 +47,8 @@ def validate_techlingo_course(course: TLCourse) -> List[str]:
         problems.append("course.import_key is missing.")
     if not course.title.strip():
         problems.append("course.title is empty.")
+    if not course.modules:
+        problems.append("course.modules[] is empty; a course must contain at least one module.")
 
     for mi, module in enumerate(course.modules):
         mpath = f"modules[{mi}]"
@@ -54,6 +56,10 @@ def validate_techlingo_course(course: TLCourse) -> List[str]:
             problems.append(f"{mpath}.import_key is missing.")
         if not module.title.strip():
             problems.append(f"{mpath}.title is empty.")
+        if not module.lessons:
+            problems.append(
+                f"{mpath}.lessons[] is empty; a module must contain at least one unit."
+            )
 
         for ui, unit in enumerate(module.lessons):
             upath = f"{mpath}.lessons[{ui}]"
@@ -61,6 +67,10 @@ def validate_techlingo_course(course: TLCourse) -> List[str]:
                 problems.append(f"{upath}.import_key is missing.")
             if not unit.title.strip():
                 problems.append(f"{upath}.title is empty.")
+            if not unit.exercises and not unit.flashcards:
+                problems.append(
+                    f"{upath} is empty; a unit must contain at least one question or flashcard."
+                )
 
             for qi, q in enumerate(unit.exercises):
                 qpath = f"{upath}.exercises[{qi}]"

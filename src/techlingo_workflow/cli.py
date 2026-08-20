@@ -18,7 +18,6 @@ from .backends import (
 from .config import load_workflow_config, DifficultyLevel
 from .io import read_input_text, write_json, write_text
 from .models import PipelineState, WorkflowRunResult, TextAnalysisResult
-from .workflow import build_techlingo_workflow, build_analysis_workflow
 
 
 app = typer.Typer(no_args_is_help=True)
@@ -111,6 +110,7 @@ def run(
 
     # Build workflow and state in-process so we can stream progress events.
     from .io import new_run_dir
+    from .workflow import build_techlingo_workflow
 
     workflow = build_techlingo_workflow()
     run_id, run_dir = new_run_dir(out_dir)
@@ -333,6 +333,10 @@ def analyze(
     text = read_input_text(input_text, str(input_file) if input_file else None)
 
     from .io import new_run_dir
+
+    # Keep deterministic `course` commands importable without the optional LLM
+    # workflow runtime; only this live analysis path needs agent-framework.
+    from .workflow import build_analysis_workflow
 
     workflow = build_analysis_workflow()
     run_id, run_dir = new_run_dir(out_dir)

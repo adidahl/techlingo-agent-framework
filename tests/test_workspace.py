@@ -10,12 +10,16 @@ from __future__ import annotations
 import tempfile
 from pathlib import Path
 
+import pytest
+from pydantic import ValidationError
+
 from techlingo_workflow.graph_merge import merge_source_concepts
 from techlingo_workflow.models import ConceptAtom
 from techlingo_workflow.workspace import (
     BankFlashcard,
     BankItem,
     BuildState,
+    CompileConfig,
     Concept,
     ConceptGraph,
     Curriculum,
@@ -94,6 +98,81 @@ def test_init_workspace_creates_layout_and_sorted_sources():
         cfg = ws.load_compile_config()
         assert (cfg.levels, cfg.checkpoints, cfg.final_review) == (3, "per_module", True)
         assert cfg.recycle == {"l2": 0.40, "l3": 0.30} and cfg.seed == 901
+        assert cfg.experience.max_same_mechanic_streak == 2
+        assert cfg.experience.relaxation_order[-1] == "concept_adjacency"
+        assert cfg.sequence_quality.block_on_errors is True
+        assert cfg.gauntlet.qualitative_required_for_publication is False
+
+
+def test_compile_quality_configuration_fails_closed_when_incoherent():
+    with pytest.raises(ValidationError, match="min_mechanics_per_window"):
+        CompileConfig.model_validate(
+            {"experience": {"mechanics_window_size": 2, "min_mechanics_per_window": 3}}
+        )
+    with pytest.raises(ValidationError, match="relaxation_order"):
+        CompileConfig.model_validate(
+            {"experience": {"relaxation_order": ["mechanic_streak"] * 4}}
+        )
+    with pytest.raises(ValidationError, match="configured together"):
+        CompileConfig.model_validate({"gauntlet": {"critic_backend": "codex"}})
+    with pytest.raises(ValidationError, match="required when qualitative QA"):
+        CompileConfig.model_validate(
+            {"gauntlet": {"qualitative_required_for_publication": True}}
+        )
+
+
+@pytest.mark.parametrize(
+    "payload, message",
+    [
+        ({"session_size_hint": 0}, "session_size_hint"),
+        ({"recycle": {"l2": -0.01}}, "between 0 and 1"),
+        ({"recycle": {"l3": 1.01}}, "between 0 and 1"),
+        ({"recycle": {"l2": float("nan")}}, "finite values"),
+        ({"recycle": {"l4": 0.2}}, "unknown recycle levels"),
+        ({"recycle": {"l2": True}}, "not booleans"),
+        ({"experince": {}}, "Extra inputs are not permitted"),
+        (
+            {"experience": {"max_same_mechanic_strek": 2}},
+            "Extra inputs are not permitted",
+        ),
+        (
+            {"sequence_quality": {"block_on_erors": True}},
+            "Extra inputs are not permitted",
+        ),
+        (
+            {"gauntlet": {"critic_backed": "codex"}},
+            "Extra inputs are not permitted",
+        ),
+    ],
+)
+def test_compile_configuration_rejects_invalid_values_and_unknown_keys(
+    payload, message
+):
+    with pytest.raises(ValidationError, match=message):
+        CompileConfig.model_validate(payload)
+
+
+def test_compile_configuration_keeps_valid_partial_recycle_maps_compatible():
+    cfg = CompileConfig.model_validate(
+        {
+            "session_size_hint": 1,
+            "recycle": {"l2": 0},
+            "experience": {
+                "max_same_ui_family_streak": 3,
+                "relaxation_order": [
+                    "mechanics_window",
+                    "true_false_answer_streak",
+                    "mechanic_streak",
+                    "concept_adjacency",
+                ],
+            },
+        }
+    )
+    assert cfg.recycle == {"l2": 0.0}
+    assert cfg.experience.relaxation_order[2:4] == [
+        "ui_family_streak",
+        "mechanic_streak",
+    ]
 
 
 def test_init_workspace_refuses_overwrite():
