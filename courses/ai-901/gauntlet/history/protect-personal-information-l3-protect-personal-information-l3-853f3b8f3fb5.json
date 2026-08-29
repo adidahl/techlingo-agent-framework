@@ -1,0 +1,817 @@
+{
+  "schema_version": "techlingo-gauntlet-record-v1",
+  "compiled_artifact_sha256": "69c9d18537cc04d4d24f6ffad549e8d9c17ee1b85b2ba8dc167de6c8be33ae73",
+  "unit_key": "protect-personal-information-l3",
+  "champion": {
+    "artifact_id": "ai-901:protect-personal-information-l3",
+    "course_id": "ai-901",
+    "session_id": "protect-personal-information-l3",
+    "items": [
+      {
+        "item_key": "protect-personal-information/endpoint-api-key/r3/v2",
+        "path": "modules/8:9-get-started-with-text-analysis-in-azure/units/11:protect-personal-information-l3/questions/0",
+        "payload": {
+          "import_key": "protect-personal-information-l3-q1",
+          "question_type": "arrange_sentence",
+          "question_text": "Arrange the parts to form the correct statement.",
+          "options": {
+            "word_bank": [
+              "An endpoint is",
+              "the service URL",
+              "API requests",
+              "for authorized",
+              "from application code."
+            ],
+            "correct_order": [
+              "An endpoint is",
+              "the service URL",
+              "for authorized",
+              "API requests",
+              "from application code."
+            ],
+            "blooms_level": "Understanding",
+            "original_question_type": "rearrange",
+            "concept_id": "endpoint-api-key",
+            "feedback_for_incorrect": {
+              "intrinsic": "The request destination would be described unclearly.",
+              "instructional": "Define the endpoint as the service URL, then state what requests it receives."
+            },
+            "item_key": "protect-personal-information/endpoint-api-key/r3/v2",
+            "rung": 3,
+            "variant": 2,
+            "module_key": "9-get-started-with-text-analysis-in-azure",
+            "lesson_key": "protect-personal-information",
+            "learning_status": "review"
+          },
+          "correct_answer": "An endpoint is the service URL for authorized API requests from application code.",
+          "explanation": "An endpoint is the service URL that receives authorized API requests from application code.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "protect-personal-information/azure-openai-api-and-responses-api/r5/v1",
+        "path": "modules/8:9-get-started-with-text-analysis-in-azure/units/11:protect-personal-information-l3/questions/1",
+        "payload": {
+          "import_key": "protect-personal-information-l3-q2",
+          "question_type": "multiple_choice",
+          "question_text": "A support lead is building a review chat tool. Users need summaries and follow-up questions, and the tool does not need fixed values. Which choices best fit? Select all that apply.",
+          "options": {
+            "options": [
+              {
+                "text": "Azure OpenAI API",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "Azure OpenAI API lets application code communicate with a deployed Foundry model. It provides the application-to-model connection.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Responses API",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "Responses API supports complete language-model interactions. It fits conversational summaries and follow-up questions.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Azure Language SDK",
+                "is_correct": false,
+                "error_type": "Concept confusion",
+                "rationale": "Azure Language SDK supports specialized structured capabilities such as language and PII detection. It is not the best fit for flexible multi-turn conversational analysis.",
+                "better_fit": "Use this when an app needs structured, deterministic language or PII analysis.",
+                "feedback": {
+                  "intrinsic": "Users could receive narrow structured results instead of conversational follow-ups.",
+                  "instructional": "For summaries and follow-up questions without fixed values, use a general-purpose model through Azure OpenAI and Responses API."
+                }
+              },
+              {
+                "text": "A general-purpose model",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "A general-purpose model can summarize reviews and answer natural-language follow-ups. It supports contextual conversational analysis.",
+                "better_fit": null,
+                "feedback": null
+              }
+            ],
+            "blooms_level": "Analyzing/Evaluating",
+            "original_question_type": "multi_choice",
+            "concept_id": "azure-openai-api-and-responses-api",
+            "item_key": "protect-personal-information/azure-openai-api-and-responses-api/r5/v1",
+            "rung": 5,
+            "variant": 1,
+            "module_key": "9-get-started-with-text-analysis-in-azure",
+            "lesson_key": "protect-personal-information",
+            "learning_status": "new"
+          },
+          "correct_answer": "[0,1,3]",
+          "explanation": "Correct. These choices support contextual conversation without requiring fixed values.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "protect-personal-information/pii-detection-and-redaction/r5/v1",
+        "path": "modules/8:9-get-started-with-text-analysis-in-azure/units/11:protect-personal-information-l3/questions/2",
+        "payload": {
+          "import_key": "protect-personal-information-l3-q3",
+          "question_type": "multiple_choice",
+          "question_text": "A bank analyst must share loan applications with reviewers. Names and addresses must be masked, not merely listed. Which approach best fits?",
+          "options": {
+            "options": [
+              {
+                "text": "Named entity recognition",
+                "is_correct": false,
+                "error_type": "Concept confusion",
+                "rationale": "Named entity recognition can list people and locations. It does not mask their values in the documents.",
+                "better_fit": "Use this when reviewers need an entity list and the source text may remain visible.",
+                "feedback": {
+                  "intrinsic": "Names and addresses could still be visible to reviewers.",
+                  "instructional": "The requirement to mask details calls for PII detection with redaction."
+                }
+              },
+              {
+                "text": "Language detection",
+                "is_correct": false,
+                "error_type": "Concept confusion",
+                "rationale": "Language detection identifies a language and its confidence score. It has no role in masking names or addresses.",
+                "better_fit": "Use this when applications must be routed by language.",
+                "feedback": {
+                  "intrinsic": "Borrowers' identity details would remain unprotected.",
+                  "instructional": "Language identification does not provide privacy masking."
+                }
+              },
+              {
+                "text": "PII detection with redaction",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "PII detection identifies names and addresses as sensitive details. Redaction masks or removes them, meeting the sharing requirement.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Entity recognition",
+                "is_correct": false,
+                "error_type": "Concept confusion",
+                "rationale": "Entity recognition finds items in text but does not itself hide sensitive values. The decision requires making those values unavailable.",
+                "better_fit": "Use this when extracting mentions of people, places, or organizations for analysis.",
+                "feedback": {
+                  "intrinsic": "Personal details could remain visible in shared documents.",
+                  "instructional": "Use detection plus redaction when sensitive entities must be masked."
+                }
+              }
+            ],
+            "blooms_level": "Analyzing/Evaluating",
+            "original_question_type": "single_choice",
+            "concept_id": "pii-detection-and-redaction",
+            "item_key": "protect-personal-information/pii-detection-and-redaction/r5/v1",
+            "rung": 5,
+            "variant": 1,
+            "module_key": "9-get-started-with-text-analysis-in-azure",
+            "lesson_key": "protect-personal-information",
+            "learning_status": "new"
+          },
+          "correct_answer": "2",
+          "explanation": "Correct. It identifies and masks the borrowers' sensitive details.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "protect-personal-information/client-application-api-client-library/r3/v2",
+        "path": "modules/8:9-get-started-with-text-analysis-in-azure/units/11:protect-personal-information-l3/questions/3",
+        "payload": {
+          "import_key": "protect-personal-information-l3-q4",
+          "question_type": "fill_blank",
+          "question_text": "Rules that define how software communicates are an ___.",
+          "options": {
+            "parts": [
+              {
+                "type": "text",
+                "text": "Rules that define how software communicates are an "
+              },
+              {
+                "type": "gap",
+                "accepted_answers": [
+                  "API",
+                  "application programming interface"
+                ],
+                "rejected_answers": [
+                  "client library",
+                  "client application",
+                  "MCP server",
+                  "azure-openai-api-and-responses-api",
+                  "azure-language-sdk",
+                  "mcp-client-and-server"
+                ],
+                "placeholder": "technical term"
+              },
+              {
+                "type": "text",
+                "text": "."
+              }
+            ],
+            "rejected_answers": [
+              "client library",
+              "client application",
+              "MCP server",
+              "azure-openai-api-and-responses-api",
+              "azure-language-sdk",
+              "mcp-client-and-server"
+            ],
+            "blooms_level": "Remembering",
+            "original_question_type": "fill_gaps",
+            "concept_id": "client-application-api-client-library",
+            "feedback_for_incorrect": {
+              "intrinsic": "Communication rules could be confused with code or an application.",
+              "instructional": "A client library is ready-made code; an API is the communication interface."
+            },
+            "item_key": "protect-personal-information/client-application-api-client-library/r3/v2",
+            "rung": 3,
+            "variant": 2,
+            "module_key": "9-get-started-with-text-analysis-in-azure",
+            "lesson_key": "protect-personal-information",
+            "learning_status": "review"
+          },
+          "correct_answer": "[\"API\",\"application programming interface\"]",
+          "explanation": "An API defines rules for communication between software.",
+          "points": 1
+        }
+      }
+    ],
+    "metadata": {
+      "module_key": "9-get-started-with-text-analysis-in-azure",
+      "unit_title": "Protect personal information · Level 3",
+      "unit_slo": "Identify when Azure Language should detect a language or protect personal information.",
+      "constraint_relaxations": []
+    }
+  },
+  "history": {
+    "schema_version": "techlingo-gauntlet-history-v1",
+    "run_id": "protect-personal-information-l3-853f3b8f3fb5",
+    "started_at": "2026-08-28T02:11:51.810819Z",
+    "finished_at": "2026-08-28T02:26:05.781573Z",
+    "initial_champion_hash": "e63fba60c2f95c0e8577f39d6a98246188bf245c1c62c8209b47494f7697f4cd",
+    "final_champion_hash": "e63fba60c2f95c0e8577f39d6a98246188bf245c1c62c8209b47494f7697f4cd",
+    "evaluation_context": {
+      "schema_version": "techlingo-evaluation-context-v1",
+      "goal": "Produce an excellent, source-faithful learner session while preserving all deterministic correctness, identity, and sequence constraints.",
+      "source_fidelity_goal": "Independently verify the hard-gated edited challenger against the supplied source material. Reject unsupported facts, answers, explanations, feedback, or terminology changes; do not edit the artifact.",
+      "gauntlet_policy": {
+        "critic_backend": "codex",
+        "critic_model": "codex:gpt-5.6-luna",
+        "builder_model": "codex:gpt-5.6-terra",
+        "max_rounds": 4,
+        "plateau_rounds": 2,
+        "repeated_loss_rounds": 2,
+        "minimum_improvement_margin": 0.02,
+        "confidence_threshold": 0.65,
+        "human_review_threshold": 0.4,
+        "max_time_seconds": null,
+        "max_tokens": null,
+        "max_cost_usd": null,
+        "qualitative_required_for_publication": true,
+        "quality_thresholds": {
+          "factual_fidelity": 0.8,
+          "answer_unambiguity": 0.8,
+          "distractor_plausibility": 0.8,
+          "misconception_quality": 0.8,
+          "cognitive_progression": 0.8,
+          "mechanic_rhythm_variation": 0.8,
+          "prompt_language_variation": 0.8,
+          "scenario_authenticity": 0.8,
+          "feedback_usefulness": 0.8,
+          "difficulty_appropriateness": 0.8,
+          "terminology_consistency": 0.8,
+          "overall_learner_experience": 0.8
+        },
+        "comparison_seed": 901,
+        "protected_dimensions": [
+          "factual_fidelity",
+          "answer_unambiguity"
+        ],
+        "unstable_comparison_requires_human_review": true,
+        "identifying_metadata_keys": [
+          "artifact_id",
+          "builder_model",
+          "candidate_role",
+          "challenger",
+          "champion",
+          "critic_model",
+          "generated_at",
+          "import_key",
+          "item_key",
+          "model_id",
+          "path",
+          "version_id"
+        ]
+      },
+      "gauntlet_policy_sha256": "035ba75a6dc056e4680b4c7cb97f2859ec5160f72633534a4550ba69e8061ac4",
+      "rubric": {
+        "criteria": {
+          "factual_fidelity": "Every claim and answer is faithful to the supplied source.",
+          "answer_unambiguity": "Each item has one defensible answer under its instructions.",
+          "distractor_plausibility": "Distractors are credible without becoming defensible answers.",
+          "misconception_quality": "Wrong choices diagnose realistic learner misconceptions.",
+          "cognitive_progression": "The ordered session builds understanding at a coherent pace.",
+          "mechanic_rhythm_variation": "Mechanics vary naturally without disruptive repetition.",
+          "prompt_language_variation": "Prompt stems avoid formulaic repetition.",
+          "scenario_authenticity": "Scenarios resemble credible decisions or tasks.",
+          "feedback_usefulness": "Feedback explains the governing concept and next step.",
+          "difficulty_appropriateness": "Difficulty matches the stated audience and session position.",
+          "terminology_consistency": "Terms are used consistently with the source and across items.",
+          "overall_learner_experience": "The exact final sequence is coherent, varied, and instructive."
+        }
+      },
+      "rubric_sha256": "34290a842f2ed7e30b7a98ba70ac97d967c864424010cd31255f97cdce0b57d5",
+      "sources": [
+        {
+          "input_id": "9. Get started with text analysis in Azure.md",
+          "sha256": "8f78119975e8831c999691da33ad83b6005101bd6189763dca095b0c2c474d85",
+          "location": "sources/9. Get started with text analysis in Azure.md"
+        }
+      ],
+      "approved_references": [],
+      "models": {
+        "builder_model": "codex:gpt-5.6-terra",
+        "critic_backend": "codex",
+        "critic_model": "codex:gpt-5.6-luna",
+        "critic_fresh_context": true,
+        "editor_backend": "codex",
+        "editor_model": "codex:gpt-5.6-luna",
+        "editor_fresh_context": true,
+        "comparator_backend": "codex",
+        "comparator_model": "codex:gpt-5.6-luna",
+        "comparator_fresh_context": true
+      },
+      "context_sha256": "2a1271d2cfc3ffc3e9f5f4a4cebbc59dfe00094df2231c1864cf0db8a798796a"
+    },
+    "initial_hard_gate": {
+      "artifact_sha256": "e63fba60c2f95c0e8577f39d6a98246188bf245c1c62c8209b47494f7697f4cd",
+      "passed": true,
+      "issues": [],
+      "checks": {
+        "schema_and_answers": true,
+        "identity": true,
+        "final_sequence": true
+      },
+      "metrics": {},
+      "constraint_relaxations": []
+    },
+    "rounds": [
+      {
+        "round_number": 1,
+        "champion_hash_before": "e63fba60c2f95c0e8577f39d6a98246188bf245c1c62c8209b47494f7697f4cd",
+        "critic": {
+          "result": {
+            "dimensions": [
+              {
+                "dimension": "factual_fidelity",
+                "score": 0.9,
+                "evidence": [
+                  {
+                    "statement": "The selected answers and explanations generally match the source: the Responses API and general-purpose models support flexible conversational analysis, PII detection with redaction protects sensitive details, and an API defines software communication rules.",
+                    "item_keys": [
+                      "protect-personal-information/azure-openai-api-and-responses-api/r5/v1",
+                      "protect-personal-information/pii-detection-and-redaction/r5/v1",
+                      "protect-personal-information/client-application-api-client-library/r3/v2"
+                    ],
+                    "paths": [
+                      "modules/8:9-get-started-with-text-analysis-in-azure/units/11:protect-personal-information-l3/questions/1",
+                      "modules/8:9-get-started-with-text-analysis-in-azure/units/11:protect-personal-information-l3/questions/2",
+                      "modules/8:9-get-started-with-text-analysis-in-azure/units/11:protect-personal-information-l3/questions/3"
+                    ]
+                  },
+                  {
+                    "statement": "The endpoint item is broadly faithful, but it slightly conflates the service URL with authorization; the source assigns authorization to the API key sent with the request.",
+                    "item_keys": [
+                      "protect-personal-information/endpoint-api-key/r3/v2"
+                    ],
+                    "paths": [
+                      "modules/8:9-get-started-with-text-analysis-in-azure/units/11:protect-personal-information-l3/questions/0"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "answer_unambiguity",
+                "score": 0.87,
+                "evidence": [
+                  {
+                    "statement": "Each item has a defined answer, and the multi-select item explicitly identifies the three compatible choices for conversational analysis without fixed structured values.",
+                    "item_keys": [
+                      "protect-personal-information/azure-openai-api-and-responses-api/r5/v1"
+                    ],
+                    "paths": [
+                      "modules/8:9-get-started-with-text-analysis-in-azure/units/11:protect-personal-information-l3/questions/1"
+                    ]
+                  },
+                  {
+                    "statement": "The fill-in item accepts two equivalent forms of the same term, API and application programming interface, without introducing competing concepts.",
+                    "item_keys": [
+                      "protect-personal-information/client-application-api-client-library/r3/v2"
+                    ],
+                    "paths": [
+                      "modules/8:9-get-started-with-text-analysis-in-azure/units/11:protect-personal-information-l3/questions/3"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "distractor_plausibility",
+                "score": 0.74,
+                "evidence": [
+                  {
+                    "statement": "The PII item includes plausible confusions such as language detection and named entity recognition, but Named entity recognition and Entity recognition are near-duplicate distractors and provide limited contrast.",
+                    "item_keys": [
+                      "protect-personal-information/pii-detection-and-redaction/r5/v1"
+                    ],
+                    "paths": [
+                      "modules/8:9-get-started-with-text-analysis-in-azure/units/11:protect-personal-information-l3/questions/2"
+                    ]
+                  },
+                  {
+                    "statement": "Azure Language SDK is a credible distractor for flexible model use because the source distinguishes it as a specialized structured-analysis SDK.",
+                    "item_keys": [
+                      "protect-personal-information/azure-openai-api-and-responses-api/r5/v1"
+                    ],
+                    "paths": [
+                      "modules/8:9-get-started-with-text-analysis-in-azure/units/11:protect-personal-information-l3/questions/1"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "misconception_quality",
+                "score": 0.76,
+                "evidence": [
+                  {
+                    "statement": "The distractors diagnose several realistic confusions: treating entity recognition as redaction, treating language detection as privacy protection, and using a deterministic SDK for conversational analysis.",
+                    "item_keys": [
+                      "protect-personal-information/azure-openai-api-and-responses-api/r5/v1",
+                      "protect-personal-information/pii-detection-and-redaction/r5/v1"
+                    ],
+                    "paths": [
+                      "modules/8:9-get-started-with-text-analysis-in-azure/units/11:protect-personal-information-l3/questions/1",
+                      "modules/8:9-get-started-with-text-analysis-in-azure/units/11:protect-personal-information-l3/questions/2"
+                    ]
+                  },
+                  {
+                    "statement": "The two entity-recognition distractors overlap so closely that they do not diagnose meaningfully different misconceptions.",
+                    "item_keys": [
+                      "protect-personal-information/pii-detection-and-redaction/r5/v1"
+                    ],
+                    "paths": [
+                      "modules/8:9-get-started-with-text-analysis-in-azure/units/11:protect-personal-information-l3/questions/2"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "cognitive_progression",
+                "score": 0.63,
+                "evidence": [
+                  {
+                    "statement": "The sequence moves from an endpoint definition to an applied model/API selection and PII decision, then returns to a basic API-definition recall item, creating a backward step in cognitive demand.",
+                    "item_keys": [
+                      "protect-personal-information/endpoint-api-key/r3/v2",
+                      "protect-personal-information/azure-openai-api-and-responses-api/r5/v1",
+                      "protect-personal-information/pii-detection-and-redaction/r5/v1",
+                      "protect-personal-information/client-application-api-client-library/r3/v2"
+                    ],
+                    "paths": [
+                      "modules/8:9-get-started-with-text-analysis-in-azure/units/11:protect-personal-information-l3/questions/0",
+                      "modules/8:9-get-started-with-text-analysis-in-azure/units/11:protect-personal-information-l3/questions/1",
+                      "modules/8:9-get-started-with-text-analysis-in-azure/units/11:protect-personal-information-l3/questions/2",
+                      "modules/8:9-get-started-with-text-analysis-in-azure/units/11:protect-personal-information-l3/questions/3"
+                    ]
+                  },
+                  {
+                    "statement": "The stated SLO requires identifying when Azure Language should detect a language or protect personal information, but no item makes language detection the correct decision; it appears only as a distractor.",
+                    "item_keys": [
+                      "protect-personal-information/azure-openai-api-and-responses-api/r5/v1",
+                      "protect-personal-information/pii-detection-and-redaction/r5/v1"
+                    ],
+                    "paths": [
+                      "modules/8:9-get-started-with-text-analysis-in-azure/units/11:protect-personal-information-l3/questions/1",
+                      "modules/8:9-get-started-with-text-analysis-in-azure/units/11:protect-personal-information-l3/questions/2"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "mechanic_rhythm_variation",
+                "score": 0.85,
+                "evidence": [
+                  {
+                    "statement": "The four-item sequence uses arrange-sentence, multi-select, single-select, and fill-blank mechanics, providing meaningful variation; only the middle two items share a multiple-choice family.",
+                    "item_keys": [
+                      "protect-personal-information/endpoint-api-key/r3/v2",
+                      "protect-personal-information/azure-openai-api-and-responses-api/r5/v1",
+                      "protect-personal-information/pii-detection-and-redaction/r5/v1",
+                      "protect-personal-information/client-application-api-client-library/r3/v2"
+                    ],
+                    "paths": [
+                      "modules/8:9-get-started-with-text-analysis-in-azure/units/11:protect-personal-information-l3/questions/0",
+                      "modules/8:9-get-started-with-text-analysis-in-azure/units/11:protect-personal-information-l3/questions/1",
+                      "modules/8:9-get-started-with-text-analysis-in-azure/units/11:protect-personal-information-l3/questions/2",
+                      "modules/8:9-get-started-with-text-analysis-in-azure/units/11:protect-personal-information-l3/questions/3"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "prompt_language_variation",
+                "score": 0.91,
+                "evidence": [
+                  {
+                    "statement": "The prompt stems vary across arrangement, scenario-based multi-select, scenario-based single-select, and definition completion rather than repeating one formula.",
+                    "item_keys": [
+                      "protect-personal-information/endpoint-api-key/r3/v2",
+                      "protect-personal-information/azure-openai-api-and-responses-api/r5/v1",
+                      "protect-personal-information/pii-detection-and-redaction/r5/v1",
+                      "protect-personal-information/client-application-api-client-library/r3/v2"
+                    ],
+                    "paths": [
+                      "modules/8:9-get-started-with-text-analysis-in-azure/units/11:protect-personal-information-l3/questions/0",
+                      "modules/8:9-get-started-with-text-analysis-in-azure/units/11:protect-personal-information-l3/questions/1",
+                      "modules/8:9-get-started-with-text-analysis-in-azure/units/11:protect-personal-information-l3/questions/2",
+                      "modules/8:9-get-started-with-text-analysis-in-azure/units/11:protect-personal-information-l3/questions/3"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "scenario_authenticity",
+                "score": 0.78,
+                "evidence": [
+                  {
+                    "statement": "The support-review chat and bank-loan sharing scenarios represent credible application decisions involving conversational analysis and privacy redaction.",
+                    "item_keys": [
+                      "protect-personal-information/azure-openai-api-and-responses-api/r5/v1",
+                      "protect-personal-information/pii-detection-and-redaction/r5/v1"
+                    ],
+                    "paths": [
+                      "modules/8:9-get-started-with-text-analysis-in-azure/units/11:protect-personal-information-l3/questions/1",
+                      "modules/8:9-get-started-with-text-analysis-in-azure/units/11:protect-personal-information-l3/questions/2"
+                    ]
+                  },
+                  {
+                    "statement": "The endpoint arrangement and API definition are decontextualized recall tasks, so only half of the session uses authentic work situations.",
+                    "item_keys": [
+                      "protect-personal-information/endpoint-api-key/r3/v2",
+                      "protect-personal-information/client-application-api-client-library/r3/v2"
+                    ],
+                    "paths": [
+                      "modules/8:9-get-started-with-text-analysis-in-azure/units/11:protect-personal-information-l3/questions/0",
+                      "modules/8:9-get-started-with-text-analysis-in-azure/units/11:protect-personal-information-l3/questions/3"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "feedback_usefulness",
+                "score": 0.82,
+                "evidence": [
+                  {
+                    "statement": "The PII and model-selection items explain the consequence of the error, identify the governing distinction, and state the better-fit approach.",
+                    "item_keys": [
+                      "protect-personal-information/azure-openai-api-and-responses-api/r5/v1",
+                      "protect-personal-information/pii-detection-and-redaction/r5/v1"
+                    ],
+                    "paths": [
+                      "modules/8:9-get-started-with-text-analysis-in-azure/units/11:protect-personal-information-l3/questions/1",
+                      "modules/8:9-get-started-with-text-analysis-in-azure/units/11:protect-personal-information-l3/questions/2"
+                    ]
+                  },
+                  {
+                    "statement": "The endpoint item's incorrect feedback is vague and does not explicitly distinguish the endpoint URL from the API key's authorization role.",
+                    "item_keys": [
+                      "protect-personal-information/endpoint-api-key/r3/v2"
+                    ],
+                    "paths": [
+                      "modules/8:9-get-started-with-text-analysis-in-azure/units/11:protect-personal-information-l3/questions/0"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "difficulty_appropriateness",
+                "score": 0.79,
+                "evidence": [
+                  {
+                    "statement": "The applied scenarios in the two Level 5 items are appropriate for selecting tools based on requirements, while the arrange and fill-blank items provide Level 3 foundational review.",
+                    "item_keys": [
+                      "protect-personal-information/azure-openai-api-and-responses-api/r5/v1",
+                      "protect-personal-information/pii-detection-and-redaction/r5/v1",
+                      "protect-personal-information/endpoint-api-key/r3/v2",
+                      "protect-personal-information/client-application-api-client-library/r3/v2"
+                    ],
+                    "paths": [
+                      "modules/8:9-get-started-with-text-analysis-in-azure/units/11:protect-personal-information-l3/questions/1",
+                      "modules/8:9-get-started-with-text-analysis-in-azure/units/11:protect-personal-information-l3/questions/2",
+                      "modules/8:9-get-started-with-text-analysis-in-azure/units/11:protect-personal-information-l3/questions/0",
+                      "modules/8:9-get-started-with-text-analysis-in-azure/units/11:protect-personal-information-l3/questions/3"
+                    ]
+                  },
+                  {
+                    "statement": "Ending with a Remembering item after two Analyzing/Evaluating items weakens the session's difficulty progression.",
+                    "item_keys": [
+                      "protect-personal-information/azure-openai-api-and-responses-api/r5/v1",
+                      "protect-personal-information/pii-detection-and-redaction/r5/v1",
+                      "protect-personal-information/client-application-api-client-library/r3/v2"
+                    ],
+                    "paths": [
+                      "modules/8:9-get-started-with-text-analysis-in-azure/units/11:protect-personal-information-l3/questions/1",
+                      "modules/8:9-get-started-with-text-analysis-in-azure/units/11:protect-personal-information-l3/questions/2",
+                      "modules/8:9-get-started-with-text-analysis-in-azure/units/11:protect-personal-information-l3/questions/3"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "terminology_consistency",
+                "score": 0.82,
+                "evidence": [
+                  {
+                    "statement": "The artifact consistently uses source terms such as Azure OpenAI API, Responses API, Azure Language SDK, PII detection, and redaction.",
+                    "item_keys": [
+                      "protect-personal-information/azure-openai-api-and-responses-api/r5/v1",
+                      "protect-personal-information/pii-detection-and-redaction/r5/v1",
+                      "protect-personal-information/client-application-api-client-library/r3/v2"
+                    ],
+                    "paths": [
+                      "modules/8:9-get-started-with-text-analysis-in-azure/units/11:protect-personal-information-l3/questions/1",
+                      "modules/8:9-get-started-with-text-analysis-in-azure/units/11:protect-personal-information-l3/questions/2",
+                      "modules/8:9-get-started-with-text-analysis-in-azure/units/11:protect-personal-information-l3/questions/3"
+                    ]
+                  },
+                  {
+                    "statement": "The endpoint wording implies that authorization is a property of the endpoint, whereas the source attributes authorization to the API key accompanying the request.",
+                    "item_keys": [
+                      "protect-personal-information/endpoint-api-key/r3/v2"
+                    ],
+                    "paths": [
+                      "modules/8:9-get-started-with-text-analysis-in-azure/units/11:protect-personal-information-l3/questions/0"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "overall_learner_experience",
+                "score": 0.74,
+                "evidence": [
+                  {
+                    "statement": "The session is generally coherent, source-aligned, varied, and useful for distinguishing general-purpose conversational analysis from deterministic PII processing.",
+                    "item_keys": [
+                      "protect-personal-information/azure-openai-api-and-responses-api/r5/v1",
+                      "protect-personal-information/pii-detection-and-redaction/r5/v1"
+                    ],
+                    "paths": [
+                      "modules/8:9-get-started-with-text-analysis-in-azure/units/11:protect-personal-information-l3/questions/1",
+                      "modules/8:9-get-started-with-text-analysis-in-azure/units/11:protect-personal-information-l3/questions/2"
+                    ]
+                  },
+                  {
+                    "statement": "Learner experience is materially weakened because the exact sequence omits a positively keyed language-detection decision despite the unit SLO and ends with lower-level recall after applied decisions.",
+                    "item_keys": [
+                      "protect-personal-information/azure-openai-api-and-responses-api/r5/v1",
+                      "protect-personal-information/pii-detection-and-redaction/r5/v1",
+                      "protect-personal-information/client-application-api-client-library/r3/v2"
+                    ],
+                    "paths": [
+                      "modules/8:9-get-started-with-text-analysis-in-azure/units/11:protect-personal-information-l3/questions/1",
+                      "modules/8:9-get-started-with-text-analysis-in-azure/units/11:protect-personal-information-l3/questions/2",
+                      "modules/8:9-get-started-with-text-analysis-in-azure/units/11:protect-personal-information-l3/questions/3"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "critical_defects": [
+              {
+                "defect_id": "slo-language-detection-coverage",
+                "dimension": "overall_learner_experience",
+                "summary": "The session does not directly assess half of the stated unit SLO: recognizing when Azure Language should perform language detection.",
+                "evidence": [
+                  {
+                    "statement": "The SLO requires identifying when Azure Language should detect a language or protect personal information, but language detection is only an incorrect option in the existing items and is never the correct answer.",
+                    "item_keys": [
+                      "protect-personal-information/azure-openai-api-and-responses-api/r5/v1",
+                      "protect-personal-information/pii-detection-and-redaction/r5/v1"
+                    ],
+                    "paths": [
+                      "modules/8:9-get-started-with-text-analysis-in-azure/units/11:protect-personal-information-l3/questions/1",
+                      "modules/8:9-get-started-with-text-analysis-in-azure/units/11:protect-personal-information-l3/questions/2"
+                    ]
+                  }
+                ],
+                "affected_item_keys": [
+                  "protect-personal-information/azure-openai-api-and-responses-api/r5/v1",
+                  "protect-personal-information/pii-detection-and-redaction/r5/v1"
+                ],
+                "affected_paths": [
+                  "modules/8:9-get-started-with-text-analysis-in-azure/units/11:protect-personal-information-l3/questions/1",
+                  "modules/8:9-get-started-with-text-analysis-in-azure/units/11:protect-personal-information-l3/questions/2"
+                ],
+                "recommended_scope": "session"
+              }
+            ],
+            "largest_gap": {
+              "dimension": "cognitive_progression",
+              "summary": "The exact session under-assesses the unit objective and has a weak progression from applied decisions back to basic recall.",
+              "evidence": [
+                {
+                  "statement": "No item makes language detection the correct choice, while the final item drops from Analyzing/ Evaluating to Remembering and returns to an earlier API-definition concept.",
+                  "item_keys": [
+                    "protect-personal-information/azure-openai-api-and-responses-api/r5/v1",
+                    "protect-personal-information/pii-detection-and-redaction/r5/v1",
+                    "protect-personal-information/client-application-api-client-library/r3/v2"
+                  ],
+                  "paths": [
+                    "modules/8:9-get-started-with-text-analysis-in-azure/units/11:protect-personal-information-l3/questions/1",
+                    "modules/8:9-get-started-with-text-analysis-in-azure/units/11:protect-personal-information-l3/questions/2",
+                    "modules/8:9-get-started-with-text-analysis-in-azure/units/11:protect-personal-information-l3/questions/3"
+                  ]
+                }
+              ],
+              "affected_item_keys": [
+                "protect-personal-information/azure-openai-api-and-responses-api/r5/v1",
+                "protect-personal-information/pii-detection-and-redaction/r5/v1",
+                "protect-personal-information/client-application-api-client-library/r3/v2"
+              ],
+              "affected_paths": [
+                "modules/8:9-get-started-with-text-analysis-in-azure/units/11:protect-personal-information-l3/questions/1",
+                "modules/8:9-get-started-with-text-analysis-in-azure/units/11:protect-personal-information-l3/questions/2",
+                "modules/8:9-get-started-with-text-analysis-in-azure/units/11:protect-personal-information-l3/questions/3"
+              ],
+              "recommended_scope": "session",
+              "repair_instruction": "Add or substitute one authentic decision item where language detection is the correct Azure Language capability, and place the foundational API item before the applied model and Azure Language decisions so the session progresses from concepts to application.",
+              "allowed_payload_fields": [
+                "question_text",
+                "options",
+                "explanation",
+                "feedback_for_incorrect"
+              ]
+            },
+            "confidence": 0.82,
+            "human_review_recommended": true,
+            "concise_summary": "The artifact is mostly source-faithful, answerable, varied, and useful, but it omits direct assessment of language detection required by the SLO, has a backward difficulty step at the end, and contains redundant entity-recognition distractors. Confidence is reduced because no approved references were supplied."
+          },
+          "artifact_sha256": "e63fba60c2f95c0e8577f39d6a98246188bf245c1c62c8209b47494f7697f4cd",
+          "evaluation_context_sha256": "2a1271d2cfc3ffc3e9f5f4a4cebbc59dfe00094df2231c1864cf0db8a798796a",
+          "goal_sha256": "c4bae546eef7fec8c92895a1538196a8df81a13754329022bca211a6200752ae",
+          "critic_backend": "codex",
+          "critic_model": "codex:gpt-5.6-luna",
+          "fresh_context": true,
+          "model_independence": "independent",
+          "approved_reference_count": 0,
+          "reference_confidence_reduced": true,
+          "usage": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cost_usd": 0.0,
+            "backend_calls": 1
+          }
+        },
+        "critic_failure": null,
+        "repair_scope": null,
+        "repair_summary": null,
+        "editor_backend": null,
+        "editor_model": null,
+        "editor_fresh_context": null,
+        "edit_usage": null,
+        "validation_retry_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost_usd": 0.0,
+          "backend_calls": 0
+        },
+        "touched_item_keys": [],
+        "challenger_hash": null,
+        "hard_gate": null,
+        "source_fidelity_critic": null,
+        "source_fidelity_gate": null,
+        "comparison": null,
+        "decision": "retained_human",
+        "decision_evidence": "Critic confidence/finding requires human review.",
+        "champion_hash_after": "e63fba60c2f95c0e8577f39d6a98246188bf245c1c62c8209b47494f7697f4cd",
+        "constraint_relaxations": [],
+        "cumulative_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost_usd": 0.0,
+          "backend_calls": 1
+        }
+      }
+    ],
+    "stop_reason": "human_review_required",
+    "stop_evidence": "Critic requested human review or confidence was below threshold.",
+    "human_decision": null,
+    "total_usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "backend_calls": 1
+    },
+    "human_review_recommended": true,
+    "publication_eligible": false
+  }
+}

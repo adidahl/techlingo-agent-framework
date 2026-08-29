@@ -4,6 +4,7 @@ from typing import AsyncIterator, Optional
 
 from agent_framework import WorkflowOutputEvent
 
+from .config import WorkflowConfig
 from .io import new_run_dir
 from .models import PipelineState, WorkflowRunResult
 from .workflow import build_techlingo_workflow
@@ -15,6 +16,7 @@ async def run_pipeline(
     out_dir: str,
     model_id: str,
     difficulty,
+    config: WorkflowConfig | None = None,
 ) -> WorkflowRunResult:
     workflow = build_techlingo_workflow()
     run_id, run_dir = new_run_dir(out_dir)
@@ -24,6 +26,7 @@ async def run_pipeline(
         input_text=input_text,
         model_id=model_id,
         difficulty=difficulty,
+        config=config or WorkflowConfig(),
     )
 
     output: Optional[WorkflowRunResult] = None
@@ -42,6 +45,7 @@ async def run_pipeline_stream(
     out_dir: str,
     model_id: str,
     difficulty,
+    config: WorkflowConfig | None = None,
 ) -> AsyncIterator[object]:
     workflow = build_techlingo_workflow()
     run_id, run_dir = new_run_dir(out_dir)
@@ -51,8 +55,8 @@ async def run_pipeline_stream(
         input_text=input_text,
         model_id=model_id,
         difficulty=difficulty,
+        config=config or WorkflowConfig(),
     )
     async for event in workflow.run_stream(state):
         yield event
-
 

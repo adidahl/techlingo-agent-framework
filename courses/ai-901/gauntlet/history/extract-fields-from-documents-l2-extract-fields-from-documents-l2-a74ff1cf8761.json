@@ -1,0 +1,1389 @@
+{
+  "schema_version": "techlingo-gauntlet-record-v1",
+  "compiled_artifact_sha256": "69c9d18537cc04d4d24f6ffad549e8d9c17ee1b85b2ba8dc167de6c8be33ae73",
+  "unit_key": "extract-fields-from-documents-l2",
+  "champion": {
+    "artifact_id": "ai-901:extract-fields-from-documents-l2",
+    "course_id": "ai-901",
+    "session_id": "extract-fields-from-documents-l2",
+    "items": [
+      {
+        "item_key": "extract-fields-from-documents/invoice-schema-example/r1/v1",
+        "path": "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/0",
+        "payload": {
+          "import_key": "extract-fields-from-documents-l2-q1",
+          "question_type": "multiple_choice",
+          "question_text": "Which field is commonly included in an invoice schema?",
+          "options": {
+            "options": [
+              {
+                "text": "Call transcript",
+                "is_correct": false,
+                "error_type": "Confuses invoice fields with audio output",
+                "rationale": "A transcript is an output that can come from audio analysis. It is not a common invoice schema field.",
+                "better_fit": "Use this when analyzing a recorded call and reviewing its written transcription.",
+                "feedback": {
+                  "intrinsic": "The accounts worker would look for call content instead of the invoice's final amount.",
+                  "instructional": "Invoice schemas contain invoice details such as totals, dates, customers, and items."
+                }
+              },
+              {
+                "text": "Remote attendees",
+                "is_correct": false,
+                "error_type": "Confuses invoice fields with meeting fields",
+                "rationale": "Remote attendees can be part of a meeting-image or video schema. They are not invoice details.",
+                "better_fit": "Use this when analyzing attendance in a conference recording or conference-room image.",
+                "feedback": {
+                  "intrinsic": "Attendance details would not help an accounts worker determine the amount due.",
+                  "instructional": "Choose fields that match the content being processed; invoice schemas focus on invoice information."
+                }
+              },
+              {
+                "text": "Invoice total",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "Invoice total is one of the common fields in an invoice schema. It represents the final invoice amount.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Video location",
+                "is_correct": false,
+                "error_type": "Confuses invoice fields with video fields",
+                "rationale": "Location can be extracted from a meeting image or video. It is not a common invoice field.",
+                "better_fit": "Use this when identifying the location shown in meeting media.",
+                "feedback": {
+                  "intrinsic": "The worker would capture a meeting detail while the invoice total remains unaddressed.",
+                  "instructional": "Invoice schemas include financial and customer details, not meeting-location details."
+                }
+              }
+            ],
+            "blooms_level": "Remembering",
+            "original_question_type": "single_choice",
+            "concept_id": "invoice-schema-example",
+            "item_key": "extract-fields-from-documents/invoice-schema-example/r1/v1",
+            "rung": 1,
+            "variant": 1,
+            "module_key": "12-get-started-with-ai-powered-information-extraction",
+            "lesson_key": "extract-fields-from-documents",
+            "learning_status": "review"
+          },
+          "correct_answer": "2",
+          "explanation": "Correct. Invoice total is a common field in an invoice schema and gives the final amount.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "extract-fields-from-documents/ocr-basic-limits/r1/v2",
+        "path": "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/1",
+        "payload": {
+          "import_key": "extract-fields-from-documents-l2-q2",
+          "question_type": "multiple_choice",
+          "question_text": "Which tasks can basic OCR do? Select all that apply.",
+          "options": {
+            "options": [
+              {
+                "text": "Identify a vendor by meaning",
+                "is_correct": false,
+                "error_type": "Confuses OCR with semantic extraction",
+                "rationale": "OCR can read a vendor name, but basic OCR does not understand what the name means. Identifying it as the vendor uses meaning-based extraction.",
+                "better_fit": "Use this when a value must be mapped to a VendorName field even when labels vary.",
+                "feedback": {
+                  "intrinsic": "A vendor name may appear in the readable text without being identified as the vendor.",
+                  "instructional": "OCR reads words; semantic extraction maps values to fields by meaning."
+                }
+              },
+              {
+                "text": "Read text on a scanned page",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "OCR can read printed text from scanned pages. This is its core purpose.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Link each price to its item",
+                "is_correct": false,
+                "error_type": "Confuses OCR with nested schema fields",
+                "rationale": "Basic OCR does not understand relationships between words or values. Nested item fields preserve the price, quantity, and total for each item.",
+                "better_fit": "Use this when an Items collection must keep each product's details together.",
+                "feedback": {
+                  "intrinsic": "A worker could see all the prices but not know which product each one belongs to.",
+                  "instructional": "Use a collection with nested fields to preserve item-to-price relationships."
+                }
+              },
+              {
+                "text": "Make receipt text searchable",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "OCR converts visible receipt text into digital text. Digital text can be searched.",
+                "better_fit": null,
+                "feedback": null
+              }
+            ],
+            "blooms_level": "Remembering",
+            "original_question_type": "multi_choice",
+            "concept_id": "ocr-basic-limits",
+            "item_key": "extract-fields-from-documents/ocr-basic-limits/r1/v2",
+            "rung": 1,
+            "variant": 2,
+            "module_key": "12-get-started-with-ai-powered-information-extraction",
+            "lesson_key": "extract-fields-from-documents",
+            "learning_status": "review"
+          },
+          "correct_answer": "[1,3]",
+          "explanation": "Correct. Basic OCR can read printed text and make that text searchable, but it does not interpret its meaning.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "extract-fields-from-documents/nested-items-collection/r3/v1",
+        "path": "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/2",
+        "payload": {
+          "import_key": "extract-fields-from-documents-l2-q3",
+          "question_type": "arrange_sentence",
+          "question_text": "Reconstruct the statement from the pieces.",
+          "options": {
+            "word_bank": [
+              "of item records",
+              "Items is",
+              "with nested fields",
+              "a collection"
+            ],
+            "correct_order": [
+              "Items is",
+              "a collection",
+              "of item records",
+              "with nested fields"
+            ],
+            "blooms_level": "Understanding",
+            "original_question_type": "rearrange",
+            "concept_id": "nested-items-collection",
+            "feedback_for_incorrect": {
+              "intrinsic": "The idea that nested details belong to individual item records may become unclear.",
+              "instructional": "Name Items, identify it as a collection, then state that it contains item records with nested fields."
+            },
+            "item_key": "extract-fields-from-documents/nested-items-collection/r3/v1",
+            "rung": 3,
+            "variant": 1,
+            "module_key": "12-get-started-with-ai-powered-information-extraction",
+            "lesson_key": "extract-fields-from-documents",
+            "learning_status": "new"
+          },
+          "correct_answer": "Items is a collection of item records with nested fields",
+          "explanation": "The order identifies Items first, then explains that it contains multiple records and that those records contain nested fields. This structure preserves each item's related values.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "extract-fields-from-documents/semantic-field-extraction/r3/v1",
+        "path": "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/3",
+        "payload": {
+          "import_key": "extract-fields-from-documents-l2-q4",
+          "question_type": "fill_blank",
+          "question_text": "Mapping Invoice # to InvoiceNumber by meaning is called ___.",
+          "options": {
+            "parts": [
+              {
+                "type": "text",
+                "text": "Mapping Invoice # to InvoiceNumber by meaning is called "
+              },
+              {
+                "type": "gap",
+                "accepted_answers": [
+                  "semantic extraction",
+                  "semantic field extraction"
+                ],
+                "rejected_answers": [
+                  "OCR",
+                  "schema-based extraction",
+                  "basic-ocr",
+                  "schema-and-schema-based-extraction"
+                ],
+                "placeholder": "technical term"
+              },
+              {
+                "type": "text",
+                "text": "."
+              }
+            ],
+            "rejected_answers": [
+              "OCR",
+              "schema-based extraction",
+              "basic-ocr",
+              "schema-and-schema-based-extraction"
+            ],
+            "blooms_level": "Remembering",
+            "original_question_type": "fill_gaps",
+            "concept_id": "semantic-field-extraction",
+            "feedback_for_incorrect": {
+              "intrinsic": "The invoice number may be readable but not recognized as belonging in InvoiceNumber when the label changes.",
+              "instructional": "Choose semantic extraction for meaning-based mapping. OCR reads text, and schema-based extraction defines the broader field-and-structure approach."
+            },
+            "item_key": "extract-fields-from-documents/semantic-field-extraction/r3/v1",
+            "rung": 3,
+            "variant": 1,
+            "module_key": "12-get-started-with-ai-powered-information-extraction",
+            "lesson_key": "extract-fields-from-documents",
+            "learning_status": "new"
+          },
+          "correct_answer": "[\"semantic extraction\",\"semantic field extraction\"]",
+          "explanation": "Semantic field extraction maps a value to a schema field by what the value represents. OCR reads visible text, while schema-based extraction is the broader approach for extracting defined fields and structure.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "extract-fields-from-documents/nested-items-collection/r4/v1",
+        "path": "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/4",
+        "payload": {
+          "import_key": "extract-fields-from-documents-l2-q5",
+          "question_type": "multiple_choice",
+          "question_text": "A buyer's invoice lists a bike, a helmet, and a shirt. The accounts worker must keep each product's details connected. What should the Items structure preserve for each product? Select all that apply.",
+          "options": {
+            "options": [
+              {
+                "text": "Its unit price",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "Each item record can include its own unit price. This keeps the price connected to the correct product.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Its quantity ordered",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "Each item record can include its own quantity ordered. The quantity stays associated with that product.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Its line item total",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "Each item record can include its own line item total. This preserves the amount for that individual item.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "One shared product description",
+                "is_correct": false,
+                "error_type": "Confuses separate item records with one flat field",
+                "rationale": "Each item record has its own item description. One shared description would not distinguish the bike, helmet, and shirt.",
+                "better_fit": "Use one shared value only when the same single value truly applies to the whole invoice.",
+                "feedback": {
+                  "intrinsic": "The worker could no longer tell which price, quantity, and total belong to each product.",
+                  "instructional": "Keep a separate record for every product, including that product's own description and nested values."
+                }
+              }
+            ],
+            "blooms_level": "Applying",
+            "original_question_type": "multi_choice",
+            "concept_id": "nested-items-collection",
+            "item_key": "extract-fields-from-documents/nested-items-collection/r4/v1",
+            "rung": 4,
+            "variant": 1,
+            "module_key": "12-get-started-with-ai-powered-information-extraction",
+            "lesson_key": "extract-fields-from-documents",
+            "learning_status": "new"
+          },
+          "correct_answer": "[0,1,2]",
+          "explanation": "Correct. Each item record preserves its own unit price, quantity ordered, and line item total.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "extract-fields-from-documents/semantic-field-extraction/r4/v1",
+        "path": "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/5",
+        "payload": {
+          "import_key": "extract-fields-from-documents-l2-q6",
+          "question_type": "multiple_choice",
+          "question_text": "An invoice processor receives an invoice labeled “Invoice #” and must place its number in the InvoiceNumber field. Which approach should the processor use?",
+          "options": {
+            "options": [
+              {
+                "text": "Semantic field extraction",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "Semantic field extraction recognizes that Invoice # represents the invoice-number concept. It can therefore map the value to InvoiceNumber.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Basic OCR only",
+                "is_correct": false,
+                "error_type": "Chooses text reading without meaning mapping",
+                "rationale": "Basic OCR can read Invoice # and its number. It does not map the number to InvoiceNumber by meaning.",
+                "better_fit": "Use this when the goal is only to turn visible printed text into searchable digital text.",
+                "feedback": {
+                  "intrinsic": "The label and number may be readable, but the number could remain unassigned to the intended field.",
+                  "instructional": "OCR reads the words; semantic field extraction recognizes what the number represents."
+                }
+              },
+              {
+                "text": "A flat text field",
+                "is_correct": false,
+                "error_type": "Chooses unstructured text instead of semantic mapping",
+                "rationale": "A flat text field does not explain how Invoice # maps to the InvoiceNumber concept. The task requires meaning-based field mapping.",
+                "better_fit": "Use this when only one simple text value is needed without a structured mapping decision.",
+                "feedback": {
+                  "intrinsic": "The number could be stored as plain text without being identified as the invoice number.",
+                  "instructional": "Use semantic extraction to map the value to the correct schema field by meaning."
+                }
+              },
+              {
+                "text": "An Items collection",
+                "is_correct": false,
+                "error_type": "Chooses line-item structure instead of field mapping",
+                "rationale": "An Items collection stores multiple product records and their nested details. It does not map an invoice reference number to InvoiceNumber.",
+                "better_fit": "Use this when processing several ordered products with separate prices, quantities, and line totals.",
+                "feedback": {
+                  "intrinsic": "The invoice reference could be treated like a product detail instead of a header field.",
+                  "instructional": "Items organizes line items; semantic extraction maps the invoice number to its proper field."
+                }
+              }
+            ],
+            "blooms_level": "Applying",
+            "original_question_type": "single_choice",
+            "concept_id": "semantic-field-extraction",
+            "item_key": "extract-fields-from-documents/semantic-field-extraction/r4/v1",
+            "rung": 4,
+            "variant": 1,
+            "module_key": "12-get-started-with-ai-powered-information-extraction",
+            "lesson_key": "extract-fields-from-documents",
+            "learning_status": "new"
+          },
+          "correct_answer": "0",
+          "explanation": "Correct. Semantic field extraction recognizes that Invoice # and InvoiceNumber refer to the same invoice-number concept.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "extract-fields-from-documents/schema-and-schema-based-extraction/r3/v1",
+        "path": "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/6",
+        "payload": {
+          "import_key": "extract-fields-from-documents-l2-q7",
+          "question_type": "arrange_sentence",
+          "question_text": "Arrange the parts to form the correct statement.",
+          "options": {
+            "word_bank": [
+              "to extract",
+              "A schema",
+              "and its structure",
+              "describes information"
+            ],
+            "correct_order": [
+              "A schema",
+              "describes information",
+              "to extract",
+              "and its structure"
+            ],
+            "blooms_level": "Understanding",
+            "original_question_type": "rearrange",
+            "concept_id": "schema-and-schema-based-extraction",
+            "feedback_for_incorrect": {
+              "intrinsic": "The definition can blur the difference between required information and its structure.",
+              "instructional": "Begin with the schema, then state the information it describes, its extraction purpose, and its structure."
+            },
+            "item_key": "extract-fields-from-documents/schema-and-schema-based-extraction/r3/v1",
+            "rung": 3,
+            "variant": 1,
+            "module_key": "12-get-started-with-ai-powered-information-extraction",
+            "lesson_key": "extract-fields-from-documents",
+            "learning_status": "new"
+          },
+          "correct_answer": "A schema describes information to extract and its structure",
+          "explanation": "The order moves from the schema to its purpose, then completes that purpose with structure. Both what to extract and how to organize it are required parts of a schema.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "extract-fields-from-documents/invoice-schema-example/r3/v1",
+        "path": "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/7",
+        "payload": {
+          "import_key": "extract-fields-from-documents-l2-q8",
+          "question_type": "fill_blank",
+          "question_text": "The invoice field for the amount charged for delivery is ___.",
+          "options": {
+            "parts": [
+              {
+                "type": "text",
+                "text": "The invoice field for the amount charged for delivery is "
+              },
+              {
+                "type": "gap",
+                "accepted_answers": [
+                  "Shipping Charge",
+                  "shipping charge"
+                ],
+                "rejected_answers": [
+                  "Tax",
+                  "Invoice total",
+                  "Invoice subtotal",
+                  "nested-items-collection",
+                  "semantic-field-extraction"
+                ],
+                "placeholder": "field name"
+              },
+              {
+                "type": "text",
+                "text": "."
+              }
+            ],
+            "rejected_answers": [
+              "Tax",
+              "Invoice total",
+              "Invoice subtotal",
+              "nested-items-collection",
+              "semantic-field-extraction"
+            ],
+            "blooms_level": "Remembering",
+            "original_question_type": "fill_gaps",
+            "concept_id": "invoice-schema-example",
+            "feedback_for_incorrect": {
+              "intrinsic": "The delivery amount could be added to the wrong financial category.",
+              "instructional": "Use Shipping Charge for delivery. Tax is tax, subtotal is the amount before final charges, and Invoice total is the final amount."
+            },
+            "item_key": "extract-fields-from-documents/invoice-schema-example/r3/v1",
+            "rung": 3,
+            "variant": 1,
+            "module_key": "12-get-started-with-ai-powered-information-extraction",
+            "lesson_key": "extract-fields-from-documents",
+            "learning_status": "new"
+          },
+          "correct_answer": "[\"Shipping Charge\",\"shipping charge\"]",
+          "explanation": "Shipping Charge identifies the delivery cost separately from tax, subtotal, and the final invoice total. These are distinct invoice amounts.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "extract-fields-from-documents/schema-and-schema-based-extraction/r4/v1",
+        "path": "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/8",
+        "payload": {
+          "import_key": "extract-fields-from-documents-l2-q9",
+          "question_type": "multiple_choice",
+          "question_text": "An expense-processing team must capture vendor, customer, and total from every scanned invoice. What should the team define or use? Select all that apply.",
+          "options": {
+            "options": [
+              {
+                "text": "Basic OCR only",
+                "is_correct": false,
+                "error_type": "Chooses text recognition without field structure",
+                "rationale": "Basic OCR can read visible invoice text. It does not understand the business fields or relationships needed by the team.",
+                "better_fit": "Use this when the only goal is to make printed invoice text searchable.",
+                "feedback": {
+                  "intrinsic": "The team may receive readable words but still lack separate vendor, customer, and total values.",
+                  "instructional": "OCR is useful for text recognition; defined business fields need a schema and schema-based extraction."
+                }
+              },
+              {
+                "text": "An unlabeled text search",
+                "is_correct": false,
+                "error_type": "Confuses searching text with extracting fields",
+                "rationale": "Searching text can find words but does not define which values belong in required fields. The task needs structured vendor, customer, and total values.",
+                "better_fit": "Use this when someone only needs to locate a word or phrase in readable text.",
+                "feedback": {
+                  "intrinsic": "Different invoice layouts could make it hard to consistently capture the required details.",
+                  "instructional": "A search finds text; a schema-based approach extracts defined fields consistently."
+                }
+              },
+              {
+                "text": "A schema with required fields",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "The team needs to state which details are required, including vendor, customer, and total. A schema defines those fields and their structure.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Schema-based extraction",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "Schema-based extraction captures the defined fields and their values. It goes beyond merely reading the invoice words.",
+                "better_fit": null,
+                "feedback": null
+              }
+            ],
+            "blooms_level": "Applying",
+            "original_question_type": "multi_choice",
+            "concept_id": "schema-and-schema-based-extraction",
+            "item_key": "extract-fields-from-documents/schema-and-schema-based-extraction/r4/v1",
+            "rung": 4,
+            "variant": 1,
+            "module_key": "12-get-started-with-ai-powered-information-extraction",
+            "lesson_key": "extract-fields-from-documents",
+            "learning_status": "new"
+          },
+          "correct_answer": "[2,3]",
+          "explanation": "Correct. The team should define the required fields in a schema and use schema-based extraction to capture their values.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "extract-fields-from-documents/ocr-basic-limits/r3/v1",
+        "path": "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/9",
+        "payload": {
+          "import_key": "extract-fields-from-documents-l2-q10",
+          "question_type": "fill_blank",
+          "question_text": "The technology that reads printed text from a scanned receipt is ___.",
+          "options": {
+            "parts": [
+              {
+                "type": "text",
+                "text": "The technology that reads printed text from a scanned receipt is "
+              },
+              {
+                "type": "gap",
+                "accepted_answers": [
+                  "OCR",
+                  "optical character recognition"
+                ],
+                "rejected_answers": [
+                  "schema-based extraction",
+                  "semantic extraction",
+                  "schema-based-extraction",
+                  "semantic-field-extraction"
+                ],
+                "placeholder": "technical term"
+              },
+              {
+                "type": "text",
+                "text": "."
+              }
+            ],
+            "rejected_answers": [
+              "schema-based extraction",
+              "semantic extraction",
+              "schema-based-extraction",
+              "semantic-field-extraction"
+            ],
+            "blooms_level": "Remembering",
+            "original_question_type": "fill_gaps",
+            "concept_id": "ocr-basic-limits",
+            "feedback_for_incorrect": {
+              "intrinsic": "The receipt text would not be identified as readable digital text by that term.",
+              "instructional": "Choose OCR for reading visible printed text. Schema-based extraction defines fields, while semantic extraction maps values by meaning."
+            },
+            "item_key": "extract-fields-from-documents/ocr-basic-limits/r3/v1",
+            "rung": 3,
+            "variant": 1,
+            "module_key": "12-get-started-with-ai-powered-information-extraction",
+            "lesson_key": "extract-fields-from-documents",
+            "learning_status": "new"
+          },
+          "correct_answer": "[\"OCR\",\"optical character recognition\"]",
+          "explanation": "OCR is the part that turns visible printed words in an image into editable, searchable digital text. Schema-based and semantic extraction add structure or meaning beyond text reading.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "extract-fields-from-documents/invoice-schema-example/r4/v1",
+        "path": "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/10",
+        "payload": {
+          "import_key": "extract-fields-from-documents-l2-q11",
+          "question_type": "multiple_choice",
+          "question_text": "An accounts clerk is processing an invoice and needs the final amount due. Which schema field should the clerk use?",
+          "options": {
+            "options": [
+              {
+                "text": "Invoice subtotal",
+                "is_correct": false,
+                "error_type": "Confuses subtotal with final total",
+                "rationale": "Invoice subtotal is a separate invoice field. The final amount due is identified by Invoice total.",
+                "better_fit": "Use this when the clerk needs the subtotal rather than the final amount.",
+                "feedback": {
+                  "intrinsic": "The clerk could report an amount before all final charges are included.",
+                  "instructional": "Choose Invoice total when the need is the final amount due."
+                }
+              },
+              {
+                "text": "Tax",
+                "is_correct": false,
+                "error_type": "Confuses one charge with final total",
+                "rationale": "Tax is one component of invoice charges. It is not the invoice's final total.",
+                "better_fit": "Use this when the clerk specifically needs the tax amount.",
+                "feedback": {
+                  "intrinsic": "The clerk would report only one charge instead of the complete amount due.",
+                  "instructional": "Tax and Invoice total are separate fields; the total is the final amount."
+                }
+              },
+              {
+                "text": "Shipping Charge",
+                "is_correct": false,
+                "error_type": "Confuses delivery charge with final total",
+                "rationale": "Shipping Charge is the amount charged for delivery. It is not the complete invoice total.",
+                "better_fit": "Use this when the clerk needs the delivery cost.",
+                "feedback": {
+                  "intrinsic": "The clerk would report the delivery fee rather than the full amount due.",
+                  "instructional": "Use Shipping Charge only for delivery; use Invoice total for the final amount."
+                }
+              },
+              {
+                "text": "Invoice total",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "Invoice total is the final amount due on the invoice. It is distinct from individual charges and the subtotal.",
+                "better_fit": null,
+                "feedback": null
+              }
+            ],
+            "blooms_level": "Applying",
+            "original_question_type": "single_choice",
+            "concept_id": "invoice-schema-example",
+            "item_key": "extract-fields-from-documents/invoice-schema-example/r4/v1",
+            "rung": 4,
+            "variant": 1,
+            "module_key": "12-get-started-with-ai-powered-information-extraction",
+            "lesson_key": "extract-fields-from-documents",
+            "learning_status": "new"
+          },
+          "correct_answer": "3",
+          "explanation": "Correct. Invoice total is the field for the final amount due.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "extract-fields-from-documents/ocr-basic-limits/r4/v1",
+        "path": "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/11",
+        "payload": {
+          "import_key": "extract-fields-from-documents-l2-q12",
+          "question_type": "multiple_choice",
+          "question_text": "An expense-claim clerk needs to make text in scanned receipts searchable. Which capability should the clerk use?",
+          "options": {
+            "options": [
+              {
+                "text": "Semantic field extraction",
+                "is_correct": false,
+                "error_type": "Chooses meaning mapping instead of text recognition",
+                "rationale": "Semantic extraction maps values to fields by meaning. The stated need is to read receipt text for searching.",
+                "better_fit": "Use this when a value must be placed in a field despite a changed or missing label.",
+                "feedback": {
+                  "intrinsic": "The clerk may focus on field meanings before the receipt text has simply been made searchable.",
+                  "instructional": "For searchable visible text, start with basic OCR."
+                }
+              },
+              {
+                "text": "Basic OCR",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "Basic OCR reads printed text from scanned receipt images. That text can then be searchable.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "An invoice schema",
+                "is_correct": false,
+                "error_type": "Chooses field design instead of text recognition",
+                "rationale": "An invoice schema defines details such as vendor, tax, and total. It does not itself read printed receipt text.",
+                "better_fit": "Use this when the clerk must extract specific invoice fields in a defined structure.",
+                "feedback": {
+                  "intrinsic": "The clerk would have a list of fields but not the readable receipt text needed for search.",
+                  "instructional": "A schema defines what to capture; OCR reads visible text."
+                }
+              },
+              {
+                "text": "A nested Items field",
+                "is_correct": false,
+                "error_type": "Chooses invoice structure instead of text recognition",
+                "rationale": "Items is a collection that holds several product records. It is not the capability for reading scanned text.",
+                "better_fit": "Use this when each ordered product needs its own description, price, quantity, and line total.",
+                "feedback": {
+                  "intrinsic": "Only product details would be organized, while other receipt text might remain unreadable for search.",
+                  "instructional": "An Items field organizes line items after relevant values are extracted."
+                }
+              }
+            ],
+            "blooms_level": "Applying",
+            "original_question_type": "single_choice",
+            "concept_id": "ocr-basic-limits",
+            "item_key": "extract-fields-from-documents/ocr-basic-limits/r4/v1",
+            "rung": 4,
+            "variant": 1,
+            "module_key": "12-get-started-with-ai-powered-information-extraction",
+            "lesson_key": "extract-fields-from-documents",
+            "learning_status": "new"
+          },
+          "correct_answer": "1",
+          "explanation": "Correct. Basic OCR is suited to reading visible receipt text and making it searchable.",
+          "points": 1
+        }
+      }
+    ],
+    "metadata": {
+      "module_key": "12-get-started-with-ai-powered-information-extraction",
+      "unit_title": "Extract fields from documents · Level 2",
+      "unit_slo": "Distinguish basic OCR from schema-based document extraction.",
+      "constraint_relaxations": []
+    }
+  },
+  "history": {
+    "schema_version": "techlingo-gauntlet-history-v1",
+    "run_id": "extract-fields-from-documents-l2-a74ff1cf8761",
+    "started_at": "2026-08-28T07:44:07.463001Z",
+    "finished_at": "2026-08-28T07:46:43.671219Z",
+    "initial_champion_hash": "21d3037903fc86c5a9d8fa4c04dabd6d04e3915e0fa6d6f6e9014b2dd9b15d6e",
+    "final_champion_hash": "21d3037903fc86c5a9d8fa4c04dabd6d04e3915e0fa6d6f6e9014b2dd9b15d6e",
+    "evaluation_context": {
+      "schema_version": "techlingo-evaluation-context-v1",
+      "goal": "Produce an excellent, source-faithful learner session while preserving all deterministic correctness, identity, and sequence constraints.",
+      "source_fidelity_goal": "Independently verify the hard-gated edited challenger against the supplied source material. Reject unsupported facts, answers, explanations, feedback, or terminology changes; do not edit the artifact.",
+      "gauntlet_policy": {
+        "critic_backend": "codex",
+        "critic_model": "codex:gpt-5.6-luna",
+        "builder_model": "codex:gpt-5.6-terra",
+        "max_rounds": 4,
+        "plateau_rounds": 2,
+        "repeated_loss_rounds": 2,
+        "minimum_improvement_margin": 0.02,
+        "confidence_threshold": 0.65,
+        "human_review_threshold": 0.4,
+        "max_time_seconds": null,
+        "max_tokens": null,
+        "max_cost_usd": null,
+        "qualitative_required_for_publication": true,
+        "quality_thresholds": {
+          "factual_fidelity": 0.8,
+          "answer_unambiguity": 0.8,
+          "distractor_plausibility": 0.8,
+          "misconception_quality": 0.8,
+          "cognitive_progression": 0.8,
+          "mechanic_rhythm_variation": 0.8,
+          "prompt_language_variation": 0.8,
+          "scenario_authenticity": 0.8,
+          "feedback_usefulness": 0.8,
+          "difficulty_appropriateness": 0.8,
+          "terminology_consistency": 0.8,
+          "overall_learner_experience": 0.8
+        },
+        "comparison_seed": 901,
+        "protected_dimensions": [
+          "factual_fidelity",
+          "answer_unambiguity"
+        ],
+        "unstable_comparison_requires_human_review": true,
+        "identifying_metadata_keys": [
+          "artifact_id",
+          "builder_model",
+          "candidate_role",
+          "challenger",
+          "champion",
+          "critic_model",
+          "generated_at",
+          "import_key",
+          "item_key",
+          "model_id",
+          "path",
+          "version_id"
+        ]
+      },
+      "gauntlet_policy_sha256": "035ba75a6dc056e4680b4c7cb97f2859ec5160f72633534a4550ba69e8061ac4",
+      "rubric": {
+        "criteria": {
+          "factual_fidelity": "Every claim and answer is faithful to the supplied source.",
+          "answer_unambiguity": "Each item has one defensible answer under its instructions.",
+          "distractor_plausibility": "Distractors are credible without becoming defensible answers.",
+          "misconception_quality": "Wrong choices diagnose realistic learner misconceptions.",
+          "cognitive_progression": "The ordered session builds understanding at a coherent pace.",
+          "mechanic_rhythm_variation": "Mechanics vary naturally without disruptive repetition.",
+          "prompt_language_variation": "Prompt stems avoid formulaic repetition.",
+          "scenario_authenticity": "Scenarios resemble credible decisions or tasks.",
+          "feedback_usefulness": "Feedback explains the governing concept and next step.",
+          "difficulty_appropriateness": "Difficulty matches the stated audience and session position.",
+          "terminology_consistency": "Terms are used consistently with the source and across items.",
+          "overall_learner_experience": "The exact final sequence is coherent, varied, and instructive."
+        }
+      },
+      "rubric_sha256": "34290a842f2ed7e30b7a98ba70ac97d967c864424010cd31255f97cdce0b57d5",
+      "sources": [
+        {
+          "input_id": "12. Get started with AI-powered information extraction in Azure.md",
+          "sha256": "1e778579ac185d5d6eb4a1b22adfa8cb3b6672f1f586af15fc69e33705113bcd",
+          "location": "sources/12. Get started with AI-powered information extraction in Azure.md"
+        }
+      ],
+      "approved_references": [],
+      "models": {
+        "builder_model": "codex:gpt-5.6-terra",
+        "critic_backend": "codex",
+        "critic_model": "codex:gpt-5.6-luna",
+        "critic_fresh_context": true,
+        "editor_backend": "codex",
+        "editor_model": "codex:gpt-5.6-luna",
+        "editor_fresh_context": true,
+        "comparator_backend": "codex",
+        "comparator_model": "codex:gpt-5.6-luna",
+        "comparator_fresh_context": true
+      },
+      "context_sha256": "5164a64634ebd049a0f094ad803871da79175caa1a1f896d77dadaa278114d51"
+    },
+    "initial_hard_gate": {
+      "artifact_sha256": "21d3037903fc86c5a9d8fa4c04dabd6d04e3915e0fa6d6f6e9014b2dd9b15d6e",
+      "passed": true,
+      "issues": [],
+      "checks": {
+        "schema_and_answers": true,
+        "identity": true,
+        "final_sequence": true
+      },
+      "metrics": {},
+      "constraint_relaxations": []
+    },
+    "rounds": [
+      {
+        "round_number": 1,
+        "champion_hash_before": "21d3037903fc86c5a9d8fa4c04dabd6d04e3915e0fa6d6f6e9014b2dd9b15d6e",
+        "critic": {
+          "result": {
+            "dimensions": [
+              {
+                "dimension": "factual_fidelity",
+                "score": 0.84,
+                "evidence": [
+                  {
+                    "statement": "Most answers and explanations match the source, including OCR reading/searchability, invoice fields, nested Items records, and schema-based extraction.",
+                    "item_keys": [
+                      "extract-fields-from-documents/ocr-basic-limits/r1/v2",
+                      "extract-fields-from-documents/invoice-schema-example/r4/v1",
+                      "extract-fields-from-documents/nested-items-collection/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/1",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/5",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/10"
+                    ]
+                  },
+                  {
+                    "statement": "The source describes schema-based extraction applied semantically, but items 4 and 6 present “semantic field extraction” as a distinct named approach without explicit source support.",
+                    "item_keys": [
+                      "extract-fields-from-documents/semantic-field-extraction/r3/v1",
+                      "extract-fields-from-documents/semantic-field-extraction/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/3",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/5"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "answer_unambiguity",
+                "score": 0.8,
+                "evidence": [
+                  {
+                    "statement": "The multiple-choice and multi-select items have internally consistent correct-answer indices, and the invoice, OCR, schema, and nested-field prompts generally admit one answer.",
+                    "item_keys": [
+                      "extract-fields-from-documents/invoice-schema-example/r1/v1",
+                      "extract-fields-from-documents/ocr-basic-limits/r1/v2",
+                      "extract-fields-from-documents/schema-and-schema-based-extraction/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/0",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/1",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/8"
+                    ]
+                  },
+                  {
+                    "statement": "The semantic-field items are less defensible under the supplied wording because the source does not establish “semantic field extraction” as the formal term and instead names schema-based extraction as the broader approach.",
+                    "item_keys": [
+                      "extract-fields-from-documents/semantic-field-extraction/r3/v1",
+                      "extract-fields-from-documents/semantic-field-extraction/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/3",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/5"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "distractor_plausibility",
+                "score": 0.78,
+                "evidence": [
+                  {
+                    "statement": "Distractors usually represent credible novice confusions, such as OCR versus semantic mapping, flat text versus nested structure, and subtotal or individual charges versus invoice total.",
+                    "item_keys": [
+                      "extract-fields-from-documents/semantic-field-extraction/r4/v1",
+                      "extract-fields-from-documents/invoice-schema-example/r4/v1",
+                      "extract-fields-from-documents/ocr-basic-limits/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/5",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/10",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/11"
+                    ]
+                  },
+                  {
+                    "statement": "Some distractors are conspicuously unrelated to invoices, such as Call transcript, Remote attendees, and Video location, making the first item easier through modality elimination.",
+                    "item_keys": [
+                      "extract-fields-from-documents/invoice-schema-example/r1/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/0"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "misconception_quality",
+                "score": 0.82,
+                "evidence": [
+                  {
+                    "statement": "Error types and instructional feedback target realistic misconceptions: OCR is mistaken for meaning-based extraction, flat text for structured fields, and invoice components for the final total.",
+                    "item_keys": [
+                      "extract-fields-from-documents/ocr-basic-limits/r1/v2",
+                      "extract-fields-from-documents/semantic-field-extraction/r4/v1",
+                      "extract-fields-from-documents/invoice-schema-example/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/1",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/5",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/10"
+                    ]
+                  },
+                  {
+                    "statement": "The first item's modality-based distractors diagnose broad content-type confusion more than the target distinction between invoice schema fields.",
+                    "item_keys": [
+                      "extract-fields-from-documents/invoice-schema-example/r1/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/0"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "cognitive_progression",
+                "score": 0.6,
+                "evidence": [
+                  {
+                    "statement": "The ordered rung pattern is 1, 1, 3, 3, 4, 4, 3, 3, 4, 3, 4, 4, so the session repeatedly drops from applying tasks back to understanding or remembering.",
+                    "item_keys": [
+                      "extract-fields-from-documents/invoice-schema-example/r1/v1",
+                      "extract-fields-from-documents/ocr-basic-limits/r1/v2",
+                      "extract-fields-from-documents/schema-and-schema-based-extraction/r3/v1",
+                      "extract-fields-from-documents/ocr-basic-limits/r3/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/0",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/1",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/6",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/9"
+                    ]
+                  },
+                  {
+                    "statement": "OCR, nested fields, semantic mapping, and invoice-field recall are interleaved rather than grouped into a clear concept-building sequence.",
+                    "item_keys": [
+                      "extract-fields-from-documents/nested-items-collection/r3/v1",
+                      "extract-fields-from-documents/semantic-field-extraction/r3/v1",
+                      "extract-fields-from-documents/nested-items-collection/r4/v1",
+                      "extract-fields-from-documents/schema-and-schema-based-extraction/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/2",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/3",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/4",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/8"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "mechanic_rhythm_variation",
+                "score": 0.88,
+                "evidence": [
+                  {
+                    "statement": "The session uses multiple-choice, multi-select, arrange-sentence, and fill-blank mechanics across the 12 items, preventing a single mechanic from dominating.",
+                    "item_keys": [
+                      "extract-fields-from-documents/invoice-schema-example/r1/v1",
+                      "extract-fields-from-documents/ocr-basic-limits/r1/v2",
+                      "extract-fields-from-documents/nested-items-collection/r3/v1",
+                      "extract-fields-from-documents/semantic-field-extraction/r3/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/0",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/1",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/2",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/3"
+                    ]
+                  },
+                  {
+                    "statement": "The final stretch contains fill-blank followed by two multiple-choice items, creating a modest local repetition but not a session-wide rhythm problem.",
+                    "item_keys": [
+                      "extract-fields-from-documents/ocr-basic-limits/r3/v1",
+                      "extract-fields-from-documents/invoice-schema-example/r4/v1",
+                      "extract-fields-from-documents/ocr-basic-limits/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/9",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/10",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/11"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "prompt_language_variation",
+                "score": 0.79,
+                "evidence": [
+                  {
+                    "statement": "Prompt forms vary among direct questions, reconstruction instructions, fill-in statements, and role-based application scenarios.",
+                    "item_keys": [
+                      "extract-fields-from-documents/nested-items-collection/r3/v1",
+                      "extract-fields-from-documents/semantic-field-extraction/r3/v1",
+                      "extract-fields-from-documents/nested-items-collection/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/2",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/3",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/4"
+                    ]
+                  },
+                  {
+                    "statement": "Several items still reuse highly formulaic “Which...” or definition-style phrasing, especially the invoice and OCR clusters.",
+                    "item_keys": [
+                      "extract-fields-from-documents/invoice-schema-example/r1/v1",
+                      "extract-fields-from-documents/ocr-basic-limits/r4/v1",
+                      "extract-fields-from-documents/invoice-schema-example/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/0",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/10",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/11"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "scenario_authenticity",
+                "score": 0.77,
+                "evidence": [
+                  {
+                    "statement": "Accounts clerks, invoice processors, expense-processing teams, and scanned receipts are credible workplace contexts aligned with the source scenarios.",
+                    "item_keys": [
+                      "extract-fields-from-documents/semantic-field-extraction/r4/v1",
+                      "extract-fields-from-documents/schema-and-schema-based-extraction/r4/v1",
+                      "extract-fields-from-documents/ocr-basic-limits/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/5",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/8",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/11"
+                    ]
+                  },
+                  {
+                    "statement": "Most scenarios reduce to selecting a vocabulary label rather than making a realistic extraction-design decision, and “buyer's invoice” is awkward workplace phrasing.",
+                    "item_keys": [
+                      "extract-fields-from-documents/nested-items-collection/r4/v1",
+                      "extract-fields-from-documents/invoice-schema-example/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/4",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/10"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "feedback_usefulness",
+                "score": 0.84,
+                "evidence": [
+                  {
+                    "statement": "Incorrect options commonly include both an intrinsic consequence and an instructional next step, such as distinguishing readable OCR text from meaning-based field mapping.",
+                    "item_keys": [
+                      "extract-fields-from-documents/ocr-basic-limits/r1/v2",
+                      "extract-fields-from-documents/semantic-field-extraction/r4/v1",
+                      "extract-fields-from-documents/schema-and-schema-based-extraction/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/1",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/5",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/8"
+                    ]
+                  },
+                  {
+                    "statement": "Correct responses generally receive a concise item explanation, although the explanations for the semantic-field items reinforce the unsupported terminology distinction.",
+                    "item_keys": [
+                      "extract-fields-from-documents/semantic-field-extraction/r3/v1",
+                      "extract-fields-from-documents/semantic-field-extraction/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/3",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/5"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "difficulty_appropriateness",
+                "score": 0.73,
+                "evidence": [
+                  {
+                    "statement": "The session includes Level 2 applying items for nested structures, field mapping, schema use, totals, and searchable OCR, which aligns with the stated distinction goal.",
+                    "item_keys": [
+                      "extract-fields-from-documents/nested-items-collection/r4/v1",
+                      "extract-fields-from-documents/schema-and-schema-based-extraction/r4/v1",
+                      "extract-fields-from-documents/ocr-basic-limits/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/4",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/8",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/11"
+                    ]
+                  },
+                  {
+                    "statement": "Five items are direct remembering tasks and the applying prompts are mostly one-step label selections, so challenge is below what a strong Level 2 session could sustain.",
+                    "item_keys": [
+                      "extract-fields-from-documents/invoice-schema-example/r1/v1",
+                      "extract-fields-from-documents/ocr-basic-limits/r1/v2",
+                      "extract-fields-from-documents/semantic-field-extraction/r3/v1",
+                      "extract-fields-from-documents/invoice-schema-example/r3/v1",
+                      "extract-fields-from-documents/ocr-basic-limits/r3/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/0",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/1",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/3",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/7",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/9"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "terminology_consistency",
+                "score": 0.66,
+                "evidence": [
+                  {
+                    "statement": "OCR, schema, schema-based extraction, Items, Invoice total, subtotal, tax, and Shipping Charge are used consistently with the source.",
+                    "item_keys": [
+                      "extract-fields-from-documents/ocr-basic-limits/r3/v1",
+                      "extract-fields-from-documents/schema-and-schema-based-extraction/r3/v1",
+                      "extract-fields-from-documents/invoice-schema-example/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/9",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/6",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/10"
+                    ]
+                  },
+                  {
+                    "statement": "“Semantic field extraction” is treated as a formal term and contrasted with schema-based extraction, although the source only states that schemas are applied semantically and calls the schema-driven approach the differentiator from basic OCR.",
+                    "item_keys": [
+                      "extract-fields-from-documents/semantic-field-extraction/r3/v1",
+                      "extract-fields-from-documents/semantic-field-extraction/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/3",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/5"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "overall_learner_experience",
+                "score": 0.73,
+                "evidence": [
+                  {
+                    "statement": "The exact sequence is deterministic, source-aligned on core OCR/schema/invoice concepts, mechanically varied, and supported by generally useful error feedback.",
+                    "item_keys": [
+                      "extract-fields-from-documents/ocr-basic-limits/r1/v2",
+                      "extract-fields-from-documents/nested-items-collection/r4/v1",
+                      "extract-fields-from-documents/schema-and-schema-based-extraction/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/1",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/4",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/8"
+                    ]
+                  },
+                  {
+                    "statement": "Learner experience is weakened by unsupported semantic-field terminology, repeated recall of the same concepts, and a non-progressive ordering that returns to lower-rung items after application tasks.",
+                    "item_keys": [
+                      "extract-fields-from-documents/semantic-field-extraction/r3/v1",
+                      "extract-fields-from-documents/semantic-field-extraction/r4/v1",
+                      "extract-fields-from-documents/invoice-schema-example/r1/v1",
+                      "extract-fields-from-documents/ocr-basic-limits/r1/v2"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/3",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/5",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/0",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/1"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "critical_defects": [
+              {
+                "defect_id": "TERM-001",
+                "dimension": "terminology_consistency",
+                "summary": "Items 4 and 6 teach “semantic field extraction” as a distinct formal approach that is not named in the supplied source and explicitly reject schema-based extraction as the answer.",
+                "evidence": [
+                  {
+                    "statement": "The source says schemas support schema-based extraction and are applied semantically; it does not define “semantic field extraction” as a separate named technology.",
+                    "item_keys": [
+                      "extract-fields-from-documents/semantic-field-extraction/r3/v1",
+                      "extract-fields-from-documents/semantic-field-extraction/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/3",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/5"
+                    ]
+                  },
+                  {
+                    "statement": "Item 4 lists schema-based extraction among rejected answers, while item 6 makes semantic field extraction the sole correct approach, creating a source-terminology and conceptual-boundary defect.",
+                    "item_keys": [
+                      "extract-fields-from-documents/semantic-field-extraction/r3/v1",
+                      "extract-fields-from-documents/semantic-field-extraction/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/3",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/5"
+                    ]
+                  }
+                ],
+                "affected_item_keys": [
+                  "extract-fields-from-documents/semantic-field-extraction/r3/v1",
+                  "extract-fields-from-documents/semantic-field-extraction/r4/v1"
+                ],
+                "affected_paths": [
+                  "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/3",
+                  "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/5"
+                ],
+                "recommended_scope": "item"
+              }
+            ],
+            "largest_gap": {
+              "dimension": "cognitive_progression",
+              "summary": "The 12-item order does not build from foundational distinctions to structured application in a coherent progression.",
+              "evidence": [
+                {
+                  "statement": "The rung sequence is 1, 1, 3, 3, 4, 4, 3, 3, 4, 3, 4, 4, with lower-level recall and understanding items appearing after applying items.",
+                  "item_keys": [
+                    "extract-fields-from-documents/invoice-schema-example/r1/v1",
+                    "extract-fields-from-documents/ocr-basic-limits/r1/v2",
+                    "extract-fields-from-documents/nested-items-collection/r4/v1",
+                    "extract-fields-from-documents/schema-and-schema-based-extraction/r3/v1"
+                  ],
+                  "paths": [
+                    "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/0",
+                    "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/1",
+                    "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/4",
+                    "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/6"
+                  ]
+                },
+                {
+                  "statement": "The session alternates among OCR, nested Items, semantic mapping, and invoice-field recall instead of grouping prerequisite concepts before their applications.",
+                  "item_keys": [
+                    "extract-fields-from-documents/ocr-basic-limits/r1/v2",
+                    "extract-fields-from-documents/nested-items-collection/r3/v1",
+                    "extract-fields-from-documents/semantic-field-extraction/r3/v1",
+                    "extract-fields-from-documents/ocr-basic-limits/r4/v1"
+                  ],
+                  "paths": [
+                    "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/1",
+                    "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/2",
+                    "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/3",
+                    "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/11"
+                  ]
+                }
+              ],
+              "affected_item_keys": [
+                "extract-fields-from-documents/invoice-schema-example/r1/v1",
+                "extract-fields-from-documents/ocr-basic-limits/r1/v2",
+                "extract-fields-from-documents/nested-items-collection/r3/v1",
+                "extract-fields-from-documents/semantic-field-extraction/r3/v1",
+                "extract-fields-from-documents/nested-items-collection/r4/v1",
+                "extract-fields-from-documents/semantic-field-extraction/r4/v1",
+                "extract-fields-from-documents/schema-and-schema-based-extraction/r3/v1",
+                "extract-fields-from-documents/invoice-schema-example/r3/v1",
+                "extract-fields-from-documents/schema-and-schema-based-extraction/r4/v1",
+                "extract-fields-from-documents/ocr-basic-limits/r3/v1",
+                "extract-fields-from-documents/invoice-schema-example/r4/v1",
+                "extract-fields-from-documents/ocr-basic-limits/r4/v1"
+              ],
+              "affected_paths": [
+                "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/0",
+                "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/1",
+                "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/2",
+                "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/3",
+                "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/4",
+                "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/5",
+                "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/6",
+                "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/7",
+                "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/8",
+                "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/9",
+                "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/10",
+                "modules/11:12-get-started-with-ai-powered-information-extraction/units/4:extract-fields-from-documents-l2/questions/11"
+              ],
+              "recommended_scope": "session",
+              "repair_instruction": "Reorder the existing items so learners establish OCR limits first, then schema purpose and nested structure, then semantic application using source-faithful terminology, followed by invoice and cross-content application; preserve every item key and answer mapping.",
+              "allowed_payload_fields": [
+                "items"
+              ]
+            },
+            "confidence": 0.77,
+            "human_review_recommended": true,
+            "concise_summary": "Core correctness and mechanics are strong, but two items introduce unsupported formal terminology and the exact sequence has a weak progression with repeated low-level recall. Confidence is reduced because no approved references were supplied."
+          },
+          "artifact_sha256": "21d3037903fc86c5a9d8fa4c04dabd6d04e3915e0fa6d6f6e9014b2dd9b15d6e",
+          "evaluation_context_sha256": "5164a64634ebd049a0f094ad803871da79175caa1a1f896d77dadaa278114d51",
+          "goal_sha256": "c4bae546eef7fec8c92895a1538196a8df81a13754329022bca211a6200752ae",
+          "critic_backend": "codex",
+          "critic_model": "codex:gpt-5.6-luna",
+          "fresh_context": true,
+          "model_independence": "independent",
+          "approved_reference_count": 0,
+          "reference_confidence_reduced": true,
+          "usage": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cost_usd": 0.0,
+            "backend_calls": 1
+          }
+        },
+        "critic_failure": null,
+        "repair_scope": null,
+        "repair_summary": null,
+        "editor_backend": null,
+        "editor_model": null,
+        "editor_fresh_context": null,
+        "edit_usage": null,
+        "validation_retry_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost_usd": 0.0,
+          "backend_calls": 0
+        },
+        "touched_item_keys": [],
+        "challenger_hash": null,
+        "hard_gate": null,
+        "source_fidelity_critic": null,
+        "source_fidelity_gate": null,
+        "comparison": null,
+        "decision": "retained_human",
+        "decision_evidence": "Critic confidence/finding requires human review.",
+        "champion_hash_after": "21d3037903fc86c5a9d8fa4c04dabd6d04e3915e0fa6d6f6e9014b2dd9b15d6e",
+        "constraint_relaxations": [],
+        "cumulative_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost_usd": 0.0,
+          "backend_calls": 1
+        }
+      }
+    ],
+    "stop_reason": "human_review_required",
+    "stop_evidence": "Critic requested human review or confidence was below threshold.",
+    "human_decision": null,
+    "total_usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "backend_calls": 1
+    },
+    "human_review_recommended": true,
+    "publication_eligible": false
+  }
+}

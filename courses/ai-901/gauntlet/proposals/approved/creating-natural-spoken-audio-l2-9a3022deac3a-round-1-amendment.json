@@ -1,0 +1,112 @@
+{
+  "amendment_sha256": "d67ae35109a3ec10b41c5e89fa0afbed7b26c9fb30845a03a8b3cf9816cd07f2",
+  "schema_version": "techlingo-gauntlet-authored-amendment-v1",
+  "approved_by": "Codex reviewer for Adi",
+  "approved_at": "2026-08-29T08:11:05.940980+00:00",
+  "approval_sha256": "45ad8f7ba558b91e6776efb64f44a5f2669e2cb1b962ac4d6107d117a8de1863",
+  "proposal_sha256": "d1f54f9252f05ac7b6578ebec2443ccaa2383da4e0258a5f16b85b41f50b82ba",
+  "history_sha256": "882226aab848c2009a38f4c800882ccba4c5a34b7c3497fee09e3771e64cfb3d",
+  "item_key": "creating-natural-spoken-audio/speech-synthesis-waveform-generation/r4/v1",
+  "bank_path": "bank/creating-natural-spoken-audio.json",
+  "reason": "Reviewer accepted the exact source-bound promoted edit without a mechanic change.",
+  "payload_before": {
+    "blooms_level": "Applying",
+    "question_type": "single_choice",
+    "prompt": "A navigation-app developer has phonemes and prosody targets ready for spoken directions. The app now needs audible audio for the driver. What should generate it next?",
+    "concept_id": "speech-synthesis-waveform-generation",
+    "options": [
+      {
+        "text": "A neural vocoder",
+        "is_correct": true,
+        "error_type": null,
+        "rationale": "A neural vocoder converts the resulting mel-spectrogram into raw audio waveforms. That produces audible directions.",
+        "better_fit": null,
+        "feedback": null
+      },
+      {
+        "text": "G2P conversion",
+        "is_correct": false,
+        "error_type": "Confuses letter-to-sound mapping with final audio generation",
+        "rationale": "G2P maps letters to phonemes earlier in linguistic analysis. The phonemes are already ready here.",
+        "better_fit": "Use G2P when written words still need pronunciation sounds.",
+        "feedback": {
+          "intrinsic": "The driver would wait while an already-complete mapping was repeated.",
+          "instructional": "G2P comes before phonemes are ready; vocoding produces audible waveform audio."
+        }
+      },
+      {
+        "text": "Punctuation restoration",
+        "is_correct": false,
+        "error_type": "Confuses recognition cleanup with speech creation",
+        "rationale": "Punctuation restoration cleans recognition output. It does not create audio from synthesis features.",
+        "better_fit": "Use punctuation restoration after recognition decoding.",
+        "feedback": {
+          "intrinsic": "The directions could be formatted as writing but remain silent.",
+          "instructional": "A neural vocoder creates audible speech from synthesis representations."
+        }
+      },
+      {
+        "text": "MFCC extraction",
+        "is_correct": false,
+        "error_type": "Confuses recognition feature extraction with synthesis",
+        "rationale": "MFCC extraction summarizes captured audio for recognition. It does not generate speech waveforms.",
+        "better_fit": "Use MFCC extraction when preparing incoming audio for acoustic modeling.",
+        "feedback": {
+          "intrinsic": "The ready pronunciation information would not become an audio instruction.",
+          "instructional": "MFCCs support recognition of incoming sound; vocoding synthesizes outgoing sound."
+        }
+      }
+    ],
+    "feedback_for_correct": "Correct. A neural vocoder generates waveform audio for the spoken directions."
+  },
+  "payload_after": {
+    "blooms_level": "Applying",
+    "question_type": "single_choice",
+    "prompt": "A navigation-app developer has phonemes and prosody targets ready, and acoustic feature generation has converted them into a mel-spectrogram. What should generate audible audio for the driver next?",
+    "concept_id": "speech-synthesis-waveform-generation",
+    "options": [
+      {
+        "text": "A neural vocoder",
+        "is_correct": true,
+        "error_type": null,
+        "rationale": "A neural vocoder converts the resulting mel-spectrogram into raw audio waveforms. That produces audible directions.",
+        "better_fit": null,
+        "feedback": null
+      },
+      {
+        "text": "G2P conversion",
+        "is_correct": false,
+        "error_type": "Confuses letter-to-sound mapping with final audio generation",
+        "rationale": "G2P maps letters to phonemes earlier in linguistic analysis. The phonemes are already ready here.",
+        "better_fit": "Use G2P when written words still need pronunciation sounds.",
+        "feedback": {
+          "intrinsic": "The driver would wait while an already-complete mapping was repeated.",
+          "instructional": "G2P comes before phonemes are ready; vocoding produces audible waveform audio."
+        }
+      },
+      {
+        "text": "Punctuation restoration",
+        "is_correct": false,
+        "error_type": "Confuses recognition cleanup with speech creation",
+        "rationale": "Punctuation restoration cleans recognition output. It does not create audio from synthesis features.",
+        "better_fit": "Use punctuation restoration after recognition decoding.",
+        "feedback": {
+          "intrinsic": "The directions could be formatted as writing but remain silent.",
+          "instructional": "A neural vocoder creates audible speech from synthesis representations."
+        }
+      },
+      {
+        "text": "MFCC extraction",
+        "is_correct": false,
+        "error_type": "Confuses recognition feature extraction with synthesis",
+        "rationale": "MFCC extraction summarizes captured audio for recognition. It does not generate speech waveforms.",
+        "better_fit": "Use MFCC extraction when preparing incoming audio for acoustic modeling.",
+        "feedback": {
+          "intrinsic": "The ready pronunciation information would not become an audio instruction.",
+          "instructional": "MFCCs support recognition of incoming sound; vocoding synthesizes outgoing sound."
+        }
+      }
+    ],
+    "feedback_for_correct": "Correct. A neural vocoder generates waveform audio for the spoken directions."
+  }
+}

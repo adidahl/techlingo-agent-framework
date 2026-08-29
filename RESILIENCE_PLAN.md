@@ -117,8 +117,8 @@ the count-enforcement (validation+retry) path.
 
 ## 6. Additional hardening applied (2026-07-03, chasing ok:true)
 - **A1 lesson distribution**: A1 prompt now specifies EXACT lessons per module
-  (not a range). The self-correct loop re-runs A2, never A1, so A1 counts must be
-  right first try. This fixed the persistent "wrong module/lesson count" errors.
+  (not a range). A1's own three-attempt structural gate requires those counts
+  before A2 begins. This fixed the persistent "wrong module/lesson count" errors.
 - **Graceful repair**: `repair_course_if_needed` catches repair-call exhaustion
   and returns the last valid course + a warning, instead of crashing A5. (This
   closed a hole in Layer 2: `run_json_model` still *raised* on final exhaustion.)
@@ -144,11 +144,11 @@ the count-enforcement (validation+retry) path.
 
 Durable decisions (the "why"), so we don't relitigate them:
 
-- **The self-correct loop re-runs A2, never A1.** Therefore module/lesson **counts
-  are fixed by A1 and cannot be repaired downstream** — A1 must be exact on the
-  first try. Any count constraint must be enforced in the A1 prompt (explicit
-  per-module counts), not left to the loop. *(This was the single biggest
-  blocker to `ok:true`.)*
+- **Retry the authoritative owner.** Module/lesson counts and concept packs are
+  A1 authority; the A1 three-attempt structural gate must accept them before A2.
+  If A5 later discovers a concept-level fidelity error, it routes back to A1,
+  clears all downstream attempts, and regenerates the whole map-derived course.
+  Exercise/content errors use the cheaper A2 partial-regeneration loop.
 - **Never let an LLM call crash the run.** `run_json_model` retries, but on final
   exhaustion it still *raises*. Every caller with a safe fallback (A5 repair) must
   catch that and degrade gracefully. Callers without a fallback (A2 first-gen) may
@@ -305,7 +305,7 @@ Run 3 (with §10.1 fixes) exposed three more systematic failure modes, each now
 fixed deterministically:
 
 1. **A1 itself violates the module plan** (produced 4 modules/7 lessons despite
-   "EXACTLY 3"). Since the loop re-runs A2 (never A1), a bad map poisons every
+   "EXACTLY 3"). At the time, the loop re-ran only A2, so a bad map poisoned every
    attempt. Fix: `_validate_a1_map()` in executors.py — deterministic structural
    check (module count, lesson total, ≥2 concepts/lesson, unique concept ids)
    with up to 3 A1 retries carrying concrete feedback, while it's still one
@@ -438,14 +438,19 @@ expands deterministically into the exact per-lesson list of
 (concept, rung, variant, question_type, blooms) cells A2 must produce. What
 this changes for the failure-mode machinery in this file:
 
-- **Distributions are derived, not configured.** `exercises_per_lesson` /
-  type/Bloom mixes come from the worksheet per lesson; the config values remain
-  the legacy fallback (lessons without a depth-classified pack) and the A1
-  concepts-per-lesson sizing hint. Precedence documented on `WorkflowConfig`.
+- **Distributions are derived, not configured.** Type/Bloom mixes come from the
+  worksheet per lesson; `exercises_per_lesson` remains the legacy fallback
+  (lessons without a depth-classified pack) and the A1 concepts-per-lesson
+  sizing hint. An optional `worksheet_items_per_lesson` owner policy selects an
+  exact ladder-preserving subset of the full 5/7/9 quota envelope before
+  generation. Infeasible bounds fail A1; rows are never padded or trimmed after
+  generation. Precedence is documented on `WorkflowConfig`.
 - **T/F dictation moved into the worksheet.** `_tf_answer_patterns` (§11) still
   serves legacy lessons; worksheet lessons carry the dictated answer on each
-  true_false cell (course-wide alternation, starts false). Every R2 cell has 2
-  variants, so each pair lands one true + one false statement by construction.
+  true_false cell after any worksheet budget is applied (course-wide
+  alternation, starts false). When both R2 variants are selected, the pair lands
+  one true + one false statement by construction; a lone row remains bound to
+  its exact course-wide dictated value.
 - **"Never re-ask the same fact" got a variant tier.** Same-cell items MAY
   share the fact (that is what variants are for) but must differ in surface —
   prompt-surface Jaccard < 0.7 (statement for true_false, sentence for
@@ -462,14 +467,18 @@ this changes for the failure-mode machinery in this file:
   path all restore per-concept depth by id; `_validate_a1_map` requires it and
   `_stamp_default_depths` defaults survivors to `fact`.
 - **Recycler consumes variants properly**: concepts still holding UNSEEN
-  candidates are recycled first, so a 2b bank yields zero exact-item repeats
-  across a lesson's levels (seen repeats remain the fallback only when every
-  pool is exhausted).
+  candidates are recycled first, so a 2b bank whose selected worksheet retains
+  sufficient optional capacity in both recycled rung bands yields zero exact-item
+  repeats across a lesson's levels. Some concept mixes lack that capacity
+  even at the full envelope, and a tight owner budget can exhaust it after
+  mandatory ladder coverage; seen repeats across different levels are then
+  explicit fallback. Within-unit identity uniqueness is never relaxed.
 - **Cost**: ~1.5–2× per-file build wall time vs Phase-1 (oversampled bank of
   ~5–9 items/concept). `--lessons 1` remains the fast-test lever.
 
-Gotcha for the future: the A5→A2 loop regenerates a lesson against the SAME
-worksheet (deterministic from the map), so retries can never drift the lesson
-shape; but any change to the quota table / type rotation constants re-shapes
-every course on the next full build — bump expectations in
-`tests/test_worksheet.py` deliberately when tuning them.
+Gotcha for the future: the A5→A2 content loop regenerates a lesson against the
+SAME worksheet (deterministic from the map), so retries can never drift the
+lesson shape. Concept-pack errors instead route A5→A1 because downstream echoes
+are forbidden to mutate that authority. Any change to the quota table / type
+rotation constants re-shapes every course on the next full build — bump
+expectations in `tests/test_worksheet.py` deliberately when tuning them.

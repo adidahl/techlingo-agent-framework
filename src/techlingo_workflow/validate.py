@@ -4,6 +4,7 @@ import asyncio
 import json
 import math
 import re
+import unicodedata
 from collections import Counter
 from typing import Any
 
@@ -42,11 +43,141 @@ from .worksheet import (
 )
 
 
+_DEICTIC_ARTIFACT_RE = re.compile(
+    r"\b(?P<determiner>this|that|these|those|the|above|below|previous|preceding|next|following|"
+    r"given|provided|current|earlier|later)\s+"
+    r"(?:(?:worked|running|illustrative|simplified|teaching|sample)\s+){0,2}"
+    r"(?P<artifact>examples?|figures?|diagrams?|illustrations?|demonstrations?)\b",
+    re.IGNORECASE,
+)
+_SOURCE_POSSESSIVE_RE = re.compile(
+    r"\b(?:source|course|module|lesson|unit|training|chapter|section|document|text)[’']s\s+"
+    r"(?:examples?|description|discussion|explanation|illustration|demonstration|wording|presentation)\b",
+    re.IGNORECASE,
+)
+_SOURCE_ATTRIBUTION_RE = re.compile(
+    r"\b(?:the|this|that)\s+"
+    r"(?:source(?:\s+(?:text|material|document))?|text|document)\s+"
+    r"(?:explicitly\s+|also\s+)?"
+    r"(?:say|says|said|saying|state|states|stated|stating|show|shows|shown|showed|showing|"
+    r"describe|describes|described|describing|explain|explains|explained|explaining|"
+    r"present|presents|presented|presenting|cover|covers|covered|covering|"
+    r"discuss|discusses|discussed|discussing|introduce|introduces|introduced|introducing|"
+    r"mention|mentions|mentioned|mentioning|illustrate|illustrates|illustrated|illustrating|"
+    r"demonstrate|demonstrates|demonstrated|demonstrating|list|lists|listed|listing)\b",
+    re.IGNORECASE,
+)
+_CURRICULUM_ATTRIBUTION_RE = re.compile(
+    r"\b(?:this|that|the\s+(?:current|previous|preceding|next|following))\s+"
+    r"(?:course|training|lesson|unit|section|chapter|module)\s+"
+    r"(?:covers?|teaches?|introduces?|discusses?|explains?|presents?)\b",
+    re.IGNORECASE,
+)
+_NAVIGATION_RE = re.compile(
+    r"\b(?:described|shown|explained|presented|discussed|introduced|mentioned|illustrated|"
+    r"demonstrated|listed|defined)\b(?:\W+\w+){0,4}\W+\b(?:here|above|below|earlier|later)\b",
+    re.IGNORECASE,
+)
+_ACCORDING_TO_SOURCE_RE = re.compile(
+    r"\baccording\s+to\s+(?:this|the)\s+"
+    r"(?:source(?:\s+(?:text|material|document))?|text|document|course|module|lesson|section|chapter)\b",
+    re.IGNORECASE,
+)
+_FREE_PEDAGOGICAL_DEICTIC_RE = re.compile(
+    r"(?:^|[.!?]\s+)(?:this|that|these|those)\s+"
+    r"(?:is|are|was|were|has\s+been|have\s+been)\s+"
+    r"(?:(?:deliberately|intentionally)\s+)?"
+    r"(?:simplified|shown|described|presented|introduced|included|provided)\b",
+    re.IGNORECASE,
+)
+_EXPLICIT_EXAMPLE_INTRO_RE = re.compile(
+    r"\b(?:for\s+example|(?:an|one)\s+(?:(?:worked|running|illustrative|teaching|sample)\s+){0,2}example)\b",
+    re.IGNORECASE,
+)
+_SUMMARY_SELF_REFERENCE_RE = re.compile(
+    r"\b(?:this\s+(?:course|module|lesson|training|unit)|"
+    r"(?:course|module|training)\s+overview|training\s+module|high-level\s+overview)\b",
+    re.IGNORECASE,
+)
+_IDENTITY_META_MARKERS = frozenset(
+    {
+        "this course",
+        "this module",
+        "this training",
+        "this unit",
+        "course overview",
+        "module overview",
+        "training module",
+        "high level overview",
+    }
+)
+
+
+def concept_identity_meta_matches(
+    concept_id: str, label: str
+) -> list[tuple[str, str]]:
+    """Return narrow meta/navigation markers from an A1 concept identity."""
+
+    matches: list[tuple[str, str]] = []
+    for field, raw in (("id", concept_id), ("label", label)):
+        text = unicodedata.normalize("NFKC", raw or "").strip()
+        normalized = re.sub(r"[-_\s]+", " ", text).casefold()
+        if normalized in _IDENTITY_META_MARKERS:
+            matches.append((field, text))
+    return matches
+
+
+def concept_meta_reference_matches(summary: str) -> list[tuple[str, str]]:
+    """Return proven source/curriculum exposition frames in a concept summary.
+
+    Bare domain words such as ``source``, ``document``, ``module``, ``example``,
+    ``visualization``, and ``simplified`` are intentionally legal.  A match
+    requires a grammatical discourse frame that stops the summary from standing
+    alone after the source is removed.
+    """
+
+    text = unicodedata.normalize("NFKC", summary or "")
+    matches: list[tuple[str, str]] = []
+
+    for match in _DEICTIC_ARTIFACT_RE.finditer(text):
+        # A self-contained summary may introduce an example and refer back to it
+        # later in the same summary.  Do not mistake that local antecedent for a
+        # pointer into the source exposition.
+        if (
+            match.group("determiner").casefold() == "the"
+            and match.group("artifact").casefold().startswith("example")
+            and _EXPLICIT_EXAMPLE_INTRO_RE.search(text[: match.start()])
+        ):
+            continue
+        matches.append(("deictic instructional artifact", match.group(0)))
+
+    framed_patterns = (
+        ("curriculum self-reference", _SUMMARY_SELF_REFERENCE_RE),
+        ("source possessive", _SOURCE_POSSESSIVE_RE),
+        ("source attribution", _SOURCE_ATTRIBUTION_RE),
+        ("curriculum attribution", _CURRICULUM_ATTRIBUTION_RE),
+        ("navigation/deixis", _NAVIGATION_RE),
+        ("source attribution", _ACCORDING_TO_SOURCE_RE),
+        ("free pedagogical deictic", _FREE_PEDAGOGICAL_DEICTIC_RE),
+    )
+    for kind, pattern in framed_patterns:
+        matches.extend((kind, match.group(0).strip()) for match in pattern.finditer(text))
+
+    deduped: list[tuple[str, str]] = []
+    seen: set[tuple[str, str]] = set()
+    for kind, span in matches:
+        key = (kind, span.casefold())
+        if key not in seen:
+            seen.add(key)
+            deduped.append((kind, span))
+    return deduped
+
+
 def _count_lessons(course: Course) -> int:
     return sum(len(m.lessons) for m in course.modules)
 
 
-def _lesson_worksheet(lesson: Lesson) -> list[WorksheetCell] | None:
+def _lesson_worksheet(lesson: Lesson, config: WorkflowConfig) -> list[WorksheetCell] | None:
     """The lesson's cell worksheet, or None for legacy lessons.
 
     Precedence (see worksheet.py): a lesson whose concept pack is fully
@@ -54,19 +185,37 @@ def _lesson_worksheet(lesson: Lesson) -> list[WorksheetCell] | None:
     the configured distributions only apply to lessons without one."""
     if not worksheet_applies(lesson.concepts):
         return None
-    return build_lesson_worksheet(lesson.concepts)
+    return build_lesson_worksheet(
+        lesson.concepts,
+        item_budget=config.worksheet_items_per_lesson,
+    )
+
+
+def _course_worksheets(
+    course: Course, config: WorkflowConfig
+) -> dict[tuple[int, int], list[WorksheetCell]]:
+    """Rebuild one exact, T/F-assigned worksheet set for the whole course."""
+
+    worksheets: dict[tuple[int, int], list[WorksheetCell]] = {}
+    ordered: list[list[WorksheetCell]] = []
+    for module_index, module in enumerate(course.modules):
+        for lesson_index, lesson in enumerate(module.lessons):
+            candidate = _lesson_worksheet(lesson, config)
+            if candidate is not None:
+                worksheets[(module_index, lesson_index)] = candidate
+                ordered.append(candidate)
+    assign_tf_answers(ordered)
+    return worksheets
 
 
 def _restore_lesson_depths(prev: Lesson, new: Lesson) -> None:
-    """Re-attach concept depths an LLM rewrite stripped (depth is the
-    worksheet-mode switch; losing it silently changes validation shape)."""
-    prev_depths = {c.id: c.depth for c in prev.concepts if c.depth}
-    if not new.concepts:
-        new.concepts = [c.model_copy(deep=True) for c in prev.concepts]
-        return
-    for atom in new.concepts:
-        if atom.depth is None and atom.id in prev_depths:
-            atom.depth = prev_depths[atom.id]
+    """Restore the exact authoritative concept pack after an A5 lesson repair.
+
+    The historical name remains for API compatibility, but id/order/depth and
+    all other concept metadata are pinned because they define worksheet rows.
+    """
+
+    new.concepts = [concept.model_copy(deep=True) for concept in prev.concepts]
 
 
 # ---------------------------------------------------------------------------
@@ -168,15 +317,7 @@ def validate_course(course: Course, config: WorkflowConfig) -> ValidationReport:
     # the dictated alternating T/F answers. Building a lesson worksheet alone
     # leaves ``tf_answer`` unset, which would reduce the row gate back to an
     # aggregate-only check for the very variants it is meant to authorize.
-    worksheets_by_lesson: dict[tuple[int, int], list[WorksheetCell]] = {}
-    ordered_worksheets: list[list[WorksheetCell]] = []
-    for module_index, module in enumerate(course.modules):
-        for lesson_index, candidate_lesson in enumerate(module.lessons):
-            candidate = _lesson_worksheet(candidate_lesson)
-            if candidate is not None:
-                worksheets_by_lesson[(module_index, lesson_index)] = candidate
-                ordered_worksheets.append(candidate)
-    assign_tf_answers(ordered_worksheets)
+    worksheets_by_lesson = _course_worksheets(course, config)
 
     # Module count
     if len(course.modules) != config.modules_count:
@@ -239,6 +380,33 @@ def validate_course(course: Course, config: WorkflowConfig) -> ValidationReport:
             # R4/R5 distractors and rejected_answers from confusable_with — an
             # empty pool means weak scenario questions. Warning, not blocking.
             for ci, concept in enumerate(lesson.concepts):
+                identity_matches = concept_identity_meta_matches(concept.id, concept.label)
+                if identity_matches:
+                    field, span = identity_matches[0]
+                    issues.append(
+                        ValidationIssue(
+                            severity="error",
+                            path=f"{base_path}.concepts[{ci}].{field}",
+                            message=(
+                                f"Concept '{concept.id}' uses meta/navigation identity {span!r}. "
+                                "Concept identities must name learnable domain material."
+                            ),
+                        )
+                    )
+                meta_matches = concept_meta_reference_matches(concept.summary)
+                if meta_matches:
+                    kind, span = meta_matches[0]
+                    issues.append(
+                        ValidationIssue(
+                            severity="error",
+                            path=f"{base_path}.concepts[{ci}].summary",
+                            message=(
+                                f"Concept '{concept.id}' contains {kind} {span!r}. "
+                                "The summary must state a self-contained domain fact rather "
+                                "than refer to the source or curriculum presentation."
+                            ),
+                        )
+                    )
                 if concept.depth == "decision" and not concept.confusable_with:
                     issues.append(
                         ValidationIssue(
@@ -1071,8 +1239,9 @@ def normalize_course(course: Course) -> Course:
       multiset guaranteed, and never shipped pre-arranged);
     - missing error_type labels get a default;
     - generic repeated prompt stems rotate through varied templates;
-    - exercises are ordered easy->hard (Bloom level, then recognition->production
-      mechanics), the Duolingo-style ladder within a lesson.
+    - legacy exercises are ordered easy->hard (Bloom level, then recognition->
+      production mechanics), the Duolingo-style ladder within a lesson. Cell-
+      worksheet lessons retain their authoritative concept/rung/variant order.
     """
     tf_counter = 0
     fill_counter = 0
@@ -1120,10 +1289,17 @@ def normalize_course(course: Course) -> Course:
                         if not opt.is_correct and not (opt.error_type and opt.error_type.strip()):
                             opt.error_type = "misconception"
 
-            # Easy -> hard ladder (stable sort keeps original order within a rung).
-            lesson.exercises.sort(
-                key=lambda e: (_BLOOM_RANK.get(e.blooms_level, 0), _MECHANIC_RANK.get(e.question_type, 0))
-            )
+            # Worksheet encounter order assigns canonical variant identities and
+            # is therefore authoritative. Only legacy, depthless lessons use the
+            # historical easy -> hard normalization (the compiler schedules
+            # worksheet-backed learner order later without mutating bank identity).
+            if not worksheet_applies(lesson.concepts):
+                lesson.exercises.sort(
+                    key=lambda e: (
+                        _BLOOM_RANK.get(e.blooms_level, 0),
+                        _MECHANIC_RANK.get(e.question_type, 0),
+                    )
+                )
     return course
 
 
@@ -1161,6 +1337,39 @@ def issues_by_lesson(
 
 def error_count(report: ValidationReport) -> int:
     return sum(1 for i in report.issues if i.severity == "error")
+
+
+_A1_OWNED_ISSUE_PATH = re.compile(
+    r"^modules\[(\d+)\]\.lessons\[(\d+)\]\.concepts(?:\[(\d+)\])?(?:\.|$)"
+)
+
+
+def a1_owns_validation_issue(issue: ValidationIssue, course: Course | None = None) -> bool:
+    """Whether fixing this issue requires changing the authoritative A1 map.
+
+    A5's source-fidelity checker is model-backed and can hallucinate indices.
+    When a course is available, only an in-bounds concept path is allowed to
+    trigger the comparatively expensive full A1 remap.
+    """
+
+    if issue.severity != "error":
+        return False
+    match = _A1_OWNED_ISSUE_PATH.match(issue.path)
+    if match is None:
+        return False
+    if course is None:
+        return True
+    module_index, lesson_index = int(match.group(1)), int(match.group(2))
+    if module_index >= len(course.modules):
+        return False
+    if lesson_index >= len(course.modules[module_index].lessons):
+        return False
+    concept_index = match.group(3)
+    if concept_index is not None:
+        lesson = course.modules[module_index].lessons[lesson_index]
+        if int(concept_index) >= len(lesson.concepts):
+            return False
+    return True
 
 
 def attempt_badness(report: ValidationReport) -> tuple[int, int, int]:
@@ -1284,6 +1493,13 @@ async def repair_course_if_needed(
     if report.ok:
         return course, report
 
+    # Concept packs are A1 authority and are restored after every downstream
+    # model echo. A5 lesson repair therefore cannot fix a concept-level error;
+    # return immediately so the orchestrator can rerun A1 without spending two
+    # futile lesson-repair rounds first.
+    if any(a1_owns_validation_issue(issue, course) for issue in report.issues):
+        return course, report
+
     # LLM repairs sometimes make things WORSE. Repair is chunked per lesson —
     # only the offending lessons are rewritten (clean ones can't be damaged) and
     # the best version seen is returned, never blindly the last attempt.
@@ -1300,8 +1516,14 @@ async def repair_course_if_needed(
         }
         if not failing:
             # Only course-level errors remain (module/lesson counts, cross-course
-            # balance) — not fixable lesson-locally; the A5->A2 loop handles them.
+            # balance) — not fixable lesson-locally; the outer owner-routed loop
+            # handles them.
             break
+
+        # Repair prompts receive the same course-wide T/F-assigned, budgeted
+        # worksheet that validation enforces. A lesson-local reconstruction
+        # would leave dictated answer values unset and weaken row identity.
+        repair_worksheets = _course_worksheets(repaired, config)
 
         async def _repair_lesson(key: str, issues: list[ValidationIssue]) -> tuple[str, Lesson] | None:
             mi, li = (int(x) for x in key.split(":"))
@@ -1314,7 +1536,7 @@ async def repair_course_if_needed(
                         lesson.model_dump_json(indent=2),
                         issues_json,
                         config,
-                        worksheet=_lesson_worksheet(lesson),
+                        worksheet=repair_worksheets.get((mi, li)),
                     ),
                     LessonGen,
                 )

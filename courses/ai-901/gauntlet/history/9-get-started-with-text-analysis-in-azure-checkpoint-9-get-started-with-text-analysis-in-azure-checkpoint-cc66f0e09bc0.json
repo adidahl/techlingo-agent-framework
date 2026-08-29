@@ -1,0 +1,1980 @@
+{
+  "schema_version": "techlingo-gauntlet-record-v1",
+  "compiled_artifact_sha256": "69c9d18537cc04d4d24f6ffad549e8d9c17ee1b85b2ba8dc167de6c8be33ae73",
+  "unit_key": "9-get-started-with-text-analysis-in-azure-checkpoint",
+  "champion": {
+    "artifact_id": "ai-901:9-get-started-with-text-analysis-in-azure-checkpoint",
+    "course_id": "ai-901",
+    "session_id": "9-get-started-with-text-analysis-in-azure-checkpoint",
+    "items": [
+      {
+        "item_key": "understand-text-analysis/text-analysis-business-uses/r4/v1",
+        "path": "modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure-checkpoint/questions/0",
+        "payload": {
+          "import_key": "9-get-started-with-text-analysis-in-azure-checkpoint-q1",
+          "question_type": "multiple_choice",
+          "question_text": "A bank must review many loan documents for lending decisions. Which outputs should it extract? Select all that apply.",
+          "options": {
+            "options": [
+              {
+                "text": "Interest rates",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "Interest rates are relevant facts in loan documents. They support lending-related review.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Borrower details",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "Borrower details are relevant information in loan documents. They support lending decisions.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Compliance risks",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "Compliance risks are important business insights in financial documents. They directly support review decisions.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Patient symptoms",
+                "is_correct": false,
+                "error_type": "Decision Error",
+                "rationale": "Symptoms are relevant to medical records, not loan documents. They do not address lending decisions.",
+                "better_fit": "This fits healthcare text analysis.",
+                "feedback": {
+                  "intrinsic": "The bank would not receive lending information.",
+                  "instructional": "Choose outputs relevant to financial documents, such as rates, borrower details, and risks."
+                }
+              }
+            ],
+            "blooms_level": "Applying",
+            "original_question_type": "multi_choice",
+            "concept_id": "text-analysis-business-uses",
+            "item_key": "understand-text-analysis/text-analysis-business-uses/r4/v1",
+            "rung": 4,
+            "variant": 1,
+            "module_key": "9-get-started-with-text-analysis-in-azure",
+            "lesson_key": "understand-text-analysis",
+            "learning_status": "review"
+          },
+          "correct_answer": "[0,1,2]",
+          "explanation": "Correct—these outputs are relevant to loan-document review.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "use-general-purpose-models/entity-recognition/r4/v1",
+        "path": "modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure-checkpoint/questions/1",
+        "payload": {
+          "import_key": "9-get-started-with-text-analysis-in-azure-checkpoint-q2",
+          "question_type": "multiple_choice",
+          "question_text": "A conference coordinator must label “May 2nd, 2017” as a date and “10 miles” as a quantity in attendee notes. Which analysis should the coordinator use?",
+          "options": {
+            "options": [
+              {
+                "text": "Entity linking",
+                "is_correct": false,
+                "error_type": "Confuses categories with reference links",
+                "rationale": "Entity linking provides Wikipedia links for known entities. It does not supply the needed date and quantity categories.",
+                "better_fit": "Use this when known entities need Wikipedia references.",
+                "feedback": {
+                  "intrinsic": "The coordinator would lack the required category labels.",
+                  "instructional": "Use entity recognition when values must be categorized."
+                }
+              },
+              {
+                "text": "Key phrase extraction",
+                "is_correct": false,
+                "error_type": "Confuses typed values with concepts",
+                "rationale": "Key phrase extraction finds main concepts for search. It does not classify a date or distance by category.",
+                "better_fit": "Use this when the goal is indexing or search by main concepts.",
+                "feedback": {
+                  "intrinsic": "The notes could be searchable but would lack typed values.",
+                  "instructional": "Entity recognition provides categories for dates and quantities."
+                }
+              },
+              {
+                "text": "PII detection",
+                "is_correct": false,
+                "error_type": "Confuses PII with general entities",
+                "rationale": "PII detection focuses on sensitive personal details. A date and distance are not the requested privacy target.",
+                "better_fit": "Use this when sensitive personal details must be identified or redacted.",
+                "feedback": {
+                  "intrinsic": "The coordinator would focus on privacy rather than labeling event details.",
+                  "instructional": "Use entity recognition for general categories, including dates and quantities."
+                }
+              },
+              {
+                "text": "Entity recognition",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "It identifies values and assigns categories. It can label a date and a distance quantity.",
+                "better_fit": null,
+                "feedback": null
+              }
+            ],
+            "blooms_level": "Applying",
+            "original_question_type": "single_choice",
+            "concept_id": "entity-recognition",
+            "item_key": "use-general-purpose-models/entity-recognition/r4/v1",
+            "rung": 4,
+            "variant": 1,
+            "module_key": "9-get-started-with-text-analysis-in-azure",
+            "lesson_key": "use-general-purpose-models",
+            "learning_status": "review"
+          },
+          "correct_answer": "3",
+          "explanation": "Correct. Entity recognition supplies the required categories.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "use-azure-language-with-agents/azure-key-credential-and-text-client/r3/v1",
+        "path": "modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure-checkpoint/questions/2",
+        "payload": {
+          "import_key": "9-get-started-with-text-analysis-in-azure-checkpoint-q3",
+          "question_type": "arrange_sentence",
+          "question_text": "Order the pieces correctly.",
+          "options": {
+            "word_bank": [
+              "TextAnalyticsClient",
+              "uses an endpoint",
+              "AzureKeyCredential(key)",
+              "and",
+              "for access"
+            ],
+            "correct_order": [
+              "TextAnalyticsClient",
+              "uses an endpoint",
+              "and",
+              "AzureKeyCredential(key)",
+              "for access"
+            ],
+            "blooms_level": "Understanding",
+            "original_question_type": "rearrange",
+            "concept_id": "azure-key-credential-and-text-client",
+            "feedback_for_incorrect": {
+              "intrinsic": "The configuration roles become unclear when the client, endpoint, and credential are out of sequence.",
+              "instructional": "Name the client first, then connect its endpoint and API-key credential to the access purpose."
+            },
+            "item_key": "use-azure-language-with-agents/azure-key-credential-and-text-client/r3/v1",
+            "rung": 3,
+            "variant": 1,
+            "module_key": "9-get-started-with-text-analysis-in-azure",
+            "lesson_key": "use-azure-language-with-agents",
+            "learning_status": "review"
+          },
+          "correct_answer": "TextAnalyticsClient uses an endpoint and AzureKeyCredential(key) for access",
+          "explanation": "The endpoint identifies where the client connects, while AzureKeyCredential(key) provides authenticated access. Both are used when creating TextAnalyticsClient.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "build-with-python-sdks/openai-client-object/r4/v1",
+        "path": "modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure-checkpoint/questions/3",
+        "payload": {
+          "import_key": "9-get-started-with-text-analysis-in-azure-checkpoint-q4",
+          "question_type": "multiple_choice",
+          "question_text": "A legal-document team needs its Python app to send case-file summaries to a deployed OpenAI model. It has an endpoint and API key. What should the developer create next?",
+          "options": {
+            "options": [
+              {
+                "text": "An OpenAI client object",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "Correct. The endpoint and API key are used as base_url and api_key to create the authenticated OpenAI client.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "A TextAnalyticsClient object",
+                "is_correct": false,
+                "error_type": "Confuses the OpenAI client with the Azure Language client",
+                "rationale": "TextAnalyticsClient is for Azure Language features such as language detection and PII detection. The team needs to send prompts to a deployed OpenAI model.",
+                "better_fit": "Choose this when the legal team needs Azure Language functions such as recognize_pii_entities().",
+                "feedback": {
+                  "intrinsic": "The team would create a client for specialized language analysis rather than the requested case-summary prompts.",
+                  "instructional": "For a deployed OpenAI model, create OpenAI(base_url=endpoint, api_key=api_key)."
+                }
+              },
+              {
+                "text": "A model deployment name",
+                "is_correct": false,
+                "error_type": "Confuses model selection with an authenticated client",
+                "rationale": "A deployment name is needed to select the model in a request. It does not itself create the authorized connection.",
+                "better_fit": "Choose this when setting the model value in client.responses.create().",
+                "feedback": {
+                  "intrinsic": "The team could name a model but could not send its case-file prompt without a configured client.",
+                  "instructional": "Create the OpenAI client from endpoint and key, then use the deployment name in the request."
+                }
+              },
+              {
+                "text": "A .env file",
+                "is_correct": false,
+                "error_type": "Confuses stored configuration with a service client",
+                "rationale": "A .env file stores configuration values for code to load. The endpoint and API key must then be used to create a client object.",
+                "better_fit": "Choose this when the team needs to store endpoint, API key, and deployment name values.",
+                "feedback": {
+                  "intrinsic": "The values could be saved, but the app would still have no object to make the authorized call.",
+                  "instructional": "A .env file is storage for configuration. The next connection step is creating the OpenAI client object."
+                }
+              }
+            ],
+            "blooms_level": "Applying",
+            "original_question_type": "single_choice",
+            "concept_id": "openai-client-object",
+            "item_key": "build-with-python-sdks/openai-client-object/r4/v1",
+            "rung": 4,
+            "variant": 1,
+            "module_key": "9-get-started-with-text-analysis-in-azure",
+            "lesson_key": "build-with-python-sdks",
+            "learning_status": "review"
+          },
+          "correct_answer": "0",
+          "explanation": "Correct. Create an OpenAI client object with the endpoint as base_url and the API key for authorization.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "use-azure-language-with-agents/azure-language-sdk/r3/v1",
+        "path": "modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure-checkpoint/questions/4",
+        "payload": {
+          "import_key": "9-get-started-with-text-analysis-in-azure-checkpoint-q5",
+          "question_type": "fill_blank",
+          "question_text": "pip install ___",
+          "options": {
+            "parts": [
+              {
+                "type": "text",
+                "text": "pip install "
+              },
+              {
+                "type": "gap",
+                "accepted_answers": [
+                  "azure-ai-textanalytics"
+                ],
+                "rejected_answers": [
+                  "openai",
+                  "openai-python-library-and-sdk",
+                  "azure-openai-api-and-responses-api",
+                  "azure-language-tools"
+                ],
+                "placeholder": "package name"
+              }
+            ],
+            "rejected_answers": [
+              "openai",
+              "openai-python-library-and-sdk",
+              "azure-openai-api-and-responses-api",
+              "azure-language-tools"
+            ],
+            "blooms_level": "Remembering",
+            "original_question_type": "fill_gaps",
+            "concept_id": "azure-language-sdk",
+            "feedback_for_incorrect": {
+              "intrinsic": "That package would not give the application the Azure Language Python SDK.",
+              "instructional": "Use azure-ai-textanalytics. Do not confuse it with openai, which installs the separate OpenAI Python library."
+            },
+            "item_key": "use-azure-language-with-agents/azure-language-sdk/r3/v1",
+            "rung": 3,
+            "variant": 1,
+            "module_key": "9-get-started-with-text-analysis-in-azure",
+            "lesson_key": "use-azure-language-with-agents",
+            "learning_status": "review"
+          },
+          "correct_answer": "azure-ai-textanalytics",
+          "explanation": "The Azure Language Python SDK is distributed under the azure-ai-textanalytics package name. The openai package is for the separate OpenAI Python library.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "build-with-python-sdks/openai-python-library/r2/v1",
+        "path": "modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure-checkpoint/questions/5",
+        "payload": {
+          "import_key": "9-get-started-with-text-analysis-in-azure-checkpoint-q6",
+          "question_type": "true_false",
+          "question_text": "The OpenAI Python library lets developers use OpenAI models and services through Python code instead of raw HTTP requests.",
+          "options": {
+            "blooms_level": "Understanding",
+            "original_question_type": "true_false",
+            "concept_id": "openai-python-library",
+            "feedback_for_incorrect": {
+              "intrinsic": "Choosing false would overlook the library's main purpose when building a Python application.",
+              "instructional": "The OpenAI Python library is the official SDK for using OpenAI models and services through Python code rather than raw HTTP requests."
+            },
+            "item_key": "build-with-python-sdks/openai-python-library/r2/v1",
+            "rung": 2,
+            "variant": 1,
+            "module_key": "9-get-started-with-text-analysis-in-azure",
+            "lesson_key": "build-with-python-sdks",
+            "learning_status": "review"
+          },
+          "correct_answer": "true",
+          "explanation": "Correct. The SDK provides ready-made Python code for connecting to OpenAI models and services.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "use-general-purpose-models/entity-linking/r4/v1",
+        "path": "modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure-checkpoint/questions/6",
+        "payload": {
+          "import_key": "9-get-started-with-text-analysis-in-azure-checkpoint-q7",
+          "question_type": "multiple_choice",
+          "question_text": "A legal researcher is reviewing a case file and needs known people and organizations connected to Wikipedia pages for reference. Which actions fit? Select all that apply.",
+          "options": {
+            "options": [
+              {
+                "text": "Use key phrases as Wikipedia links",
+                "is_correct": false,
+                "error_type": "Confuses key phrases with entity linking",
+                "rationale": "Key phrases are main concepts, not reference links. They do not connect known entities to Wikipedia pages.",
+                "better_fit": "Use key phrase extraction for indexing or searching by main concepts.",
+                "feedback": {
+                  "intrinsic": "The researcher would collect topics but still lack entity references.",
+                  "instructional": "Use entity linking when known entities need Wikipedia links."
+                }
+              },
+              {
+                "text": "Use entity linking for known people",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "Entity linking identifies known people. It can connect them to Wikipedia pages.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Use entity linking for known organizations",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "Known organizations can be identified through entity linking. The result includes a Wikipedia reference link.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Use its Wikipedia links for reference",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "Wikipedia links are a core entity-linking result. They directly meet the researcher's reference need.",
+                "better_fit": null,
+                "feedback": null
+              }
+            ],
+            "blooms_level": "Applying",
+            "original_question_type": "multi_choice",
+            "concept_id": "entity-linking",
+            "item_key": "use-general-purpose-models/entity-linking/r4/v1",
+            "rung": 4,
+            "variant": 1,
+            "module_key": "9-get-started-with-text-analysis-in-azure",
+            "lesson_key": "use-general-purpose-models",
+            "learning_status": "review"
+          },
+          "correct_answer": "[1,2,3]",
+          "explanation": "Correct. Entity linking supplies Wikipedia references for known people and organizations.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "use-azure-language-with-agents/mcp-client-server-and-azure-language-server/r3/v1",
+        "path": "modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure-checkpoint/questions/7",
+        "payload": {
+          "import_key": "9-get-started-with-text-analysis-in-azure-checkpoint-q8",
+          "question_type": "arrange_sentence",
+          "question_text": "Arrange the following steps in MCP request order.",
+          "options": {
+            "word_bank": [
+              "Server runs capability",
+              "Agent sends request",
+              "Server returns structured result",
+              "MCP server receives it"
+            ],
+            "correct_order": [
+              "Agent sends request",
+              "MCP server receives it",
+              "Server runs capability",
+              "Server returns structured result"
+            ],
+            "blooms_level": "Understanding",
+            "original_question_type": "rearrange",
+            "concept_id": "mcp-client-server-and-azure-language-server",
+            "feedback_for_incorrect": {
+              "intrinsic": "An out-of-order flow would make the response appear before the server has handled the request.",
+              "instructional": "Follow the client-server sequence: request, receipt, capability execution, then structured result."
+            },
+            "item_key": "use-azure-language-with-agents/mcp-client-server-and-azure-language-server/r3/v1",
+            "rung": 3,
+            "variant": 1,
+            "module_key": "9-get-started-with-text-analysis-in-azure",
+            "lesson_key": "use-azure-language-with-agents",
+            "learning_status": "review"
+          },
+          "correct_answer": "Agent sends request MCP server receives it Server runs capability Server returns structured result",
+          "explanation": "The client initiates the exchange by sending a request. The server receives it, runs the relevant capability, and returns a structured result.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "analyze-sentiment-and-choose-predictable-tools/sentiment-opinion-mining/r3/v1",
+        "path": "modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure-checkpoint/questions/8",
+        "payload": {
+          "import_key": "9-get-started-with-text-analysis-in-azure-checkpoint-q9",
+          "question_type": "fill_blank",
+          "question_text": "The process of identifying opinions expressed in text is called ___.",
+          "options": {
+            "parts": [
+              {
+                "type": "text",
+                "text": "The process of identifying opinions expressed in text is called "
+              },
+              {
+                "type": "gap",
+                "accepted_answers": [
+                  "opinion mining"
+                ],
+                "rejected_answers": [
+                  "sentiment analysis",
+                  "key phrase extraction",
+                  "entity recognition",
+                  "language detection",
+                  "key-phrase-extraction",
+                  "entity-recognition",
+                  "azure-language-tools"
+                ],
+                "placeholder": "technical term"
+              },
+              {
+                "type": "text",
+                "text": "."
+              }
+            ],
+            "rejected_answers": [
+              "sentiment analysis",
+              "key phrase extraction",
+              "entity recognition",
+              "language detection",
+              "key-phrase-extraction",
+              "entity-recognition",
+              "azure-language-tools"
+            ],
+            "blooms_level": "Remembering",
+            "original_question_type": "fill_gaps",
+            "concept_id": "sentiment-opinion-mining",
+            "feedback_for_incorrect": {
+              "intrinsic": "The text-analysis task would be mislabeled.",
+              "instructional": "Use opinion mining for identifying expressed opinions."
+            },
+            "item_key": "analyze-sentiment-and-choose-predictable-tools/sentiment-opinion-mining/r3/v1",
+            "rung": 3,
+            "variant": 1,
+            "module_key": "9-get-started-with-text-analysis-in-azure",
+            "lesson_key": "analyze-sentiment-and-choose-predictable-tools",
+            "learning_status": "review"
+          },
+          "correct_answer": "opinion mining",
+          "explanation": "Opinion mining identifies opinions expressed in text. Sentiment analysis instead classifies the feeling or polarity.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "use-azure-language-with-agents/detect-language-method/r4/v1",
+        "path": "modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure-checkpoint/questions/9",
+        "payload": {
+          "import_key": "9-get-started-with-text-analysis-in-azure-checkpoint-q10",
+          "question_type": "multiple_choice",
+          "question_text": "A support-team developer needs each incoming customer message routed by language name, ISO code, and confidence score. Which method should the developer call?",
+          "options": {
+            "options": [
+              {
+                "text": "recognize_pii_entities()",
+                "is_correct": false,
+                "error_type": "Confuses language detection with PII detection",
+                "rationale": "This method identifies personal details and returns redacted text with entity information. It does not supply language-routing fields.",
+                "better_fit": "Choose this when messages need personal details identified or redacted.",
+                "feedback": {
+                  "intrinsic": "Messages could be prepared for privacy sharing but could not be routed from their language details.",
+                  "instructional": "Use detect_language() when routing depends on language name, ISO code, and confidence."
+                }
+              },
+              {
+                "text": "client.responses.create()",
+                "is_correct": false,
+                "error_type": "Confuses Azure Language SDK with OpenAI API",
+                "rationale": "This call sends prompts to a deployed language model. It does not directly return the fixed language-detection fields described here.",
+                "better_fit": "Choose this for flexible prompt-based analysis with a deployed language model.",
+                "feedback": {
+                  "intrinsic": "The developer would need a prompt and could receive variable formatting instead of the required routing fields.",
+                  "instructional": "For consistent language details, call detect_language()."
+                }
+              },
+              {
+                "text": "detect_language()",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "This method returns the detected language name, ISO 639-1 code, and confidence score. Those fields support routing by language.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "AzureKeyCredential(key)",
+                "is_correct": false,
+                "error_type": "Confuses request method with credential",
+                "rationale": "This creates the credential used for authenticated access. It does not send a message for analysis.",
+                "better_fit": "Choose this when creating an authenticated Azure Language client.",
+                "feedback": {
+                  "intrinsic": "The application could have a key but would not produce routing information.",
+                  "instructional": "Use AzureKeyCredential(key) to create the client, then use detect_language() to analyze a message."
+                }
+              }
+            ],
+            "blooms_level": "Applying",
+            "original_question_type": "single_choice",
+            "concept_id": "detect-language-method",
+            "item_key": "use-azure-language-with-agents/detect-language-method/r4/v1",
+            "rung": 4,
+            "variant": 1,
+            "module_key": "9-get-started-with-text-analysis-in-azure",
+            "lesson_key": "use-azure-language-with-agents",
+            "learning_status": "review"
+          },
+          "correct_answer": "2",
+          "explanation": "Correct. detect_language() provides exactly the language name, ISO code, and confidence information needed for routing.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "protect-personal-information/client-application-api-client-library/r3/v2",
+        "path": "modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure-checkpoint/questions/10",
+        "payload": {
+          "import_key": "9-get-started-with-text-analysis-in-azure-checkpoint-q11",
+          "question_type": "fill_blank",
+          "question_text": "Rules that define how software communicates are an ___.",
+          "options": {
+            "parts": [
+              {
+                "type": "text",
+                "text": "Rules that define how software communicates are an "
+              },
+              {
+                "type": "gap",
+                "accepted_answers": [
+                  "API",
+                  "application programming interface"
+                ],
+                "rejected_answers": [
+                  "client library",
+                  "client application",
+                  "MCP server",
+                  "azure-openai-api-and-responses-api",
+                  "azure-language-sdk",
+                  "mcp-client-and-server"
+                ],
+                "placeholder": "technical term"
+              },
+              {
+                "type": "text",
+                "text": "."
+              }
+            ],
+            "rejected_answers": [
+              "client library",
+              "client application",
+              "MCP server",
+              "azure-openai-api-and-responses-api",
+              "azure-language-sdk",
+              "mcp-client-and-server"
+            ],
+            "blooms_level": "Remembering",
+            "original_question_type": "fill_gaps",
+            "concept_id": "client-application-api-client-library",
+            "feedback_for_incorrect": {
+              "intrinsic": "Communication rules could be confused with code or an application.",
+              "instructional": "A client library is ready-made code; an API is the communication interface."
+            },
+            "item_key": "protect-personal-information/client-application-api-client-library/r3/v2",
+            "rung": 3,
+            "variant": 2,
+            "module_key": "9-get-started-with-text-analysis-in-azure",
+            "lesson_key": "protect-personal-information",
+            "learning_status": "review"
+          },
+          "correct_answer": "[\"API\",\"application programming interface\"]",
+          "explanation": "An API defines rules for communication between software.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "build-with-python-sdks/code-editor-and-terminal/r3/v1",
+        "path": "modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure-checkpoint/questions/11",
+        "payload": {
+          "import_key": "9-get-started-with-text-analysis-in-azure-checkpoint-q12",
+          "question_type": "arrange_sentence",
+          "question_text": "Reconstruct the statement from the pieces.",
+          "options": {
+            "word_bank": [
+              "is a command-line window",
+              "A terminal",
+              "for running commands",
+              "inside the editor"
+            ],
+            "correct_order": [
+              "A terminal",
+              "inside the editor",
+              "is a command-line window",
+              "for running commands"
+            ],
+            "blooms_level": "Understanding",
+            "original_question_type": "rearrange",
+            "concept_id": "code-editor-and-terminal",
+            "feedback_for_incorrect": {
+              "intrinsic": "The meaning becomes unclear when the location, definition, and purpose are placed out of sequence.",
+              "instructional": "Begin with the terminal, then say it can be inside the editor, define it as a command-line window, and state that it runs commands."
+            },
+            "item_key": "build-with-python-sdks/code-editor-and-terminal/r3/v1",
+            "rung": 3,
+            "variant": 1,
+            "module_key": "9-get-started-with-text-analysis-in-azure",
+            "lesson_key": "build-with-python-sdks",
+            "learning_status": "review"
+          },
+          "correct_answer": "A terminal inside the editor is a command-line window for running commands",
+          "explanation": "The sentence first identifies the terminal, then explains where it can appear, what it is, and why it is used. This follows the relationship between a code editor and its built-in command-line window.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "understand-text-analysis/foundry-resource-and-project/r4/v1",
+        "path": "modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure-checkpoint/questions/12",
+        "payload": {
+          "import_key": "9-get-started-with-text-analysis-in-azure-checkpoint-q13",
+          "question_type": "multiple_choice",
+          "question_text": "A team is setting up an AI application in Microsoft Foundry. It needs AI services and deployed models, then a place to organize work and use the chat playground. Which setup choices are appropriate? Select all that apply.",
+          "options": {
+            "options": [
+              {
+                "text": "Use a sentiment label as the workspace",
+                "is_correct": false,
+                "error_type": "Decision Error",
+                "rationale": "A sentiment label is an analysis result, not a workspace or service container. It cannot provide Foundry capabilities.",
+                "better_fit": "This fits categorizing text attitude.",
+                "feedback": {
+                  "intrinsic": "The team would have no AI work environment.",
+                  "instructional": "Use a resource for platform access and a project for the workspace."
+                }
+              },
+              {
+                "text": "Create or use a Foundry resource for AI services and deployed models",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "The Foundry resource provides AI services and deployed models. It meets the platform-access requirement.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Treat a review spreadsheet as a deployed model",
+                "is_correct": false,
+                "error_type": "Decision Error",
+                "rationale": "A spreadsheet is data, not a deployed AI model. It cannot provide model capabilities.",
+                "better_fit": "This fits an input data source.",
+                "feedback": {
+                  "intrinsic": "The team would still lack a model deployment.",
+                  "instructional": "A Foundry resource provides access to deployed models; data files are not models."
+                }
+              },
+              {
+                "text": "Create a Foundry project within that resource to organize work",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "A Foundry project is the workspace within the resource. It supports organized work and access to the chat playground.",
+                "better_fit": null,
+                "feedback": null
+              }
+            ],
+            "blooms_level": "Applying",
+            "original_question_type": "multi_choice",
+            "concept_id": "foundry-resource-and-project",
+            "item_key": "understand-text-analysis/foundry-resource-and-project/r4/v1",
+            "rung": 4,
+            "variant": 1,
+            "module_key": "9-get-started-with-text-analysis-in-azure",
+            "lesson_key": "understand-text-analysis",
+            "learning_status": "review"
+          },
+          "correct_answer": "[1,3]",
+          "explanation": "Correct—the resource supplies access and the project supplies the workspace.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "use-general-purpose-models/key-phrase-extraction/r3/v1",
+        "path": "modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure-checkpoint/questions/13",
+        "payload": {
+          "import_key": "9-get-started-with-text-analysis-in-azure-checkpoint-q14",
+          "question_type": "arrange_sentence",
+          "question_text": "Arrange the parts to form the correct statement.",
+          "options": {
+            "word_bank": [
+              "Key phrase extraction",
+              "identifies the main",
+              "in text",
+              "concepts or points",
+              "for indexing and search"
+            ],
+            "correct_order": [
+              "Key phrase extraction",
+              "identifies the main",
+              "concepts or points",
+              "in text",
+              "for indexing and search"
+            ],
+            "blooms_level": "Understanding",
+            "original_question_type": "rearrange",
+            "concept_id": "key-phrase-extraction",
+            "feedback_for_incorrect": {
+              "intrinsic": "The definition would not clearly connect the capability to its purpose.",
+              "instructional": "State the capability, what it finds, where it finds it, and why the result is useful."
+            },
+            "item_key": "use-general-purpose-models/key-phrase-extraction/r3/v1",
+            "rung": 3,
+            "variant": 1,
+            "module_key": "9-get-started-with-text-analysis-in-azure",
+            "lesson_key": "use-general-purpose-models",
+            "learning_status": "review"
+          },
+          "correct_answer": "Key phrase extraction identifies the main concepts or points in text for indexing and search",
+          "explanation": "Key phrase extraction identifies main concepts or points in text for indexing and search.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "build-with-python-sdks/env-file-variables/r3/v1",
+        "path": "modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure-checkpoint/questions/14",
+        "payload": {
+          "import_key": "9-get-started-with-text-analysis-in-azure-checkpoint-q15",
+          "question_type": "fill_blank",
+          "question_text": "endpoint = os.___(\"AZURE_OPENAI_ENDPOINT\")",
+          "options": {
+            "parts": [
+              {
+                "type": "text",
+                "text": "endpoint = os."
+              },
+              {
+                "type": "gap",
+                "accepted_answers": [
+                  "getenv"
+                ],
+                "rejected_answers": [
+                  "load_dotenv",
+                  "responses.create",
+                  "endpoint-and-api-key",
+                  "model-deployment-name",
+                  "openai-client-object"
+                ],
+                "placeholder": "function name"
+              },
+              {
+                "type": "text",
+                "text": "(\"AZURE_OPENAI_ENDPOINT\")"
+              }
+            ],
+            "rejected_answers": [
+              "load_dotenv",
+              "responses.create",
+              "endpoint-and-api-key",
+              "model-deployment-name",
+              "openai-client-object"
+            ],
+            "blooms_level": "Remembering",
+            "original_question_type": "fill_gaps",
+            "concept_id": "env-file-variables",
+            "feedback_for_incorrect": {
+              "intrinsic": "Using a loading call or a response call here would not place the named endpoint value into endpoint.",
+              "instructional": "Use getenv to retrieve AZURE_OPENAI_ENDPOINT. load_dotenv() has the earlier job of loading .env values, and responses.create() sends a model request."
+            },
+            "item_key": "build-with-python-sdks/env-file-variables/r3/v1",
+            "rung": 3,
+            "variant": 1,
+            "module_key": "9-get-started-with-text-analysis-in-azure",
+            "lesson_key": "build-with-python-sdks",
+            "learning_status": "review"
+          },
+          "correct_answer": "getenv",
+          "explanation": "load_dotenv() loads stored .env values into the application environment, while os.getenv() retrieves one value by its name. The endpoint assignment needs the retrieval step.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "understand-text-analysis/nlp-and-text-analysis/r4/v1",
+        "path": "modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure-checkpoint/questions/15",
+        "payload": {
+          "import_key": "9-get-started-with-text-analysis-in-azure-checkpoint-q16",
+          "question_type": "multiple_choice",
+          "question_text": "A retailer receives thousands of written product reviews and needs to identify common complaints automatically. Which approach should it choose?",
+          "options": {
+            "options": [
+              {
+                "text": "Add the review lengths together",
+                "is_correct": false,
+                "error_type": "Decision Error",
+                "rationale": "Review length measures volume, not the complaint content. It cannot identify what customers dislike.",
+                "better_fit": "This fits workload estimation.",
+                "feedback": {
+                  "intrinsic": "The team would learn volume, not complaints.",
+                  "instructional": "Use text analysis when the evidence is in written language."
+                }
+              },
+              {
+                "text": "Use NLP-based text analysis to extract sentiment and recurring terms",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "NLP-based text analysis interprets review language and can reveal negative sentiment and repeated concepts. Those outputs identify common complaints.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Scan product barcode images",
+                "is_correct": false,
+                "error_type": "Decision Error",
+                "rationale": "Barcodes identify products but do not interpret review text. The useful evidence is in customers' written comments.",
+                "better_fit": "This fits product identification.",
+                "feedback": {
+                  "intrinsic": "The review content would remain unanalyzed.",
+                  "instructional": "NLP-based text analysis targets language, while computer vision targets images."
+                }
+              },
+              {
+                "text": "Store reviews without analyzing them",
+                "is_correct": false,
+                "error_type": "Decision Error",
+                "rationale": "Storage preserves reviews but does not extract complaint patterns. The retailer needs language-based analysis.",
+                "better_fit": "This fits record retention.",
+                "feedback": {
+                  "intrinsic": "No automated complaint summary would be produced.",
+                  "instructional": "Choose text analysis to derive meaning from written text."
+                }
+              }
+            ],
+            "blooms_level": "Applying",
+            "original_question_type": "single_choice",
+            "concept_id": "nlp-and-text-analysis",
+            "item_key": "understand-text-analysis/nlp-and-text-analysis/r4/v1",
+            "rung": 4,
+            "variant": 1,
+            "module_key": "9-get-started-with-text-analysis-in-azure",
+            "lesson_key": "understand-text-analysis",
+            "learning_status": "review"
+          },
+          "correct_answer": "1",
+          "explanation": "Correct—NLP can find complaint-related language at scale.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "analyze-sentiment-and-choose-predictable-tools/foundry-portal-and-ai-services-tab/r3/v1",
+        "path": "modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure-checkpoint/questions/16",
+        "payload": {
+          "import_key": "9-get-started-with-text-analysis-in-azure-checkpoint-q17",
+          "question_type": "fill_blank",
+          "question_text": "In the new Foundry portal, go to Build, then Models, then the ___ to find selected services for testing.",
+          "options": {
+            "parts": [
+              {
+                "type": "text",
+                "text": "In the new Foundry portal, go to Build, then Models, then the "
+              },
+              {
+                "type": "gap",
+                "accepted_answers": [
+                  "AI services tab",
+                  "AI services"
+                ],
+                "rejected_answers": [
+                  "chat playground",
+                  "model catalog",
+                  "Foundry project",
+                  "chat-playground",
+                  "foundry-resource-and-project"
+                ],
+                "placeholder": "tab name"
+              },
+              {
+                "type": "text",
+                "text": " to find selected services for testing."
+              }
+            ],
+            "rejected_answers": [
+              "chat playground",
+              "model catalog",
+              "Foundry project",
+              "chat-playground",
+              "foundry-resource-and-project"
+            ],
+            "blooms_level": "Remembering",
+            "original_question_type": "fill_gaps",
+            "concept_id": "foundry-portal-and-ai-services-tab",
+            "feedback_for_incorrect": {
+              "intrinsic": "The developer may not reach the selected services.",
+              "instructional": "After Build and Models, open the AI services tab."
+            },
+            "item_key": "analyze-sentiment-and-choose-predictable-tools/foundry-portal-and-ai-services-tab/r3/v1",
+            "rung": 3,
+            "variant": 1,
+            "module_key": "9-get-started-with-text-analysis-in-azure",
+            "lesson_key": "analyze-sentiment-and-choose-predictable-tools",
+            "learning_status": "review"
+          },
+          "correct_answer": "[\"AI services tab\",\"AI services\"]",
+          "explanation": "The navigation path for testing selected services ends at the AI services tab.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "protect-personal-information/pii-and-phi/r3/v1",
+        "path": "modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure-checkpoint/questions/17",
+        "payload": {
+          "import_key": "9-get-started-with-text-analysis-in-azure-checkpoint-q18",
+          "question_type": "arrange_sentence",
+          "question_text": "Reconstruct the definition of PII.",
+          "options": {
+            "word_bank": [
+              "PII is",
+              "sensitive personal information",
+              "including names and",
+              "in text,",
+              "phone numbers."
+            ],
+            "correct_order": [
+              "PII is",
+              "sensitive personal information",
+              "in text,",
+              "including names and",
+              "phone numbers."
+            ],
+            "blooms_level": "Understanding",
+            "original_question_type": "rearrange",
+            "concept_id": "pii-and-phi",
+            "feedback_for_incorrect": {
+              "intrinsic": "The privacy definition would be unclear.",
+              "instructional": "State the definition first, then the context and examples."
+            },
+            "item_key": "protect-personal-information/pii-and-phi/r3/v1",
+            "rung": 3,
+            "variant": 1,
+            "module_key": "9-get-started-with-text-analysis-in-azure",
+            "lesson_key": "protect-personal-information",
+            "learning_status": "review"
+          },
+          "correct_answer": "PII is sensitive personal information in text, including names and phone numbers.",
+          "explanation": "The sentence defines PII, places it in text, and gives examples.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "use-azure-language-with-agents/recognize-pii-entities-method/r4/v1",
+        "path": "modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure-checkpoint/questions/18",
+        "payload": {
+          "import_key": "9-get-started-with-text-analysis-in-azure-checkpoint-q19",
+          "question_type": "multiple_choice",
+          "question_text": "A healthcare system must share a medical note after hiding personal details, while also logging what was found. Which PII results should its developer use? Select all that apply.",
+          "options": {
+            "options": [
+              {
+                "text": "result.redacted_text",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "This is the version with detected PII redacted. It is appropriate for sharing after personal details are hidden.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "primary_language.iso6391_name",
+                "is_correct": false,
+                "error_type": "Confuses PII result with language result",
+                "rationale": "This property is read from a language-detection result. It does not provide the redacted content or PII entity details required here.",
+                "better_fit": "Choose this after detect_language() when logging a primary language ISO code.",
+                "feedback": {
+                  "intrinsic": "The team could record a language code but would not have the privacy results needed for sharing and logging.",
+                  "instructional": "For PII handling, use redacted_text and each entity's category and confidence score."
+                }
+              },
+              {
+                "text": "entity.category",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "This identifies the category of each detected entity. It supports logging what kind of personal detail was found.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "entity.confidence_score",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "This gives the confidence score for each detected entity. It supports logging the returned entity information.",
+                "better_fit": null,
+                "feedback": null
+              }
+            ],
+            "blooms_level": "Applying",
+            "original_question_type": "multi_choice",
+            "concept_id": "recognize-pii-entities-method",
+            "item_key": "use-azure-language-with-agents/recognize-pii-entities-method/r4/v1",
+            "rung": 4,
+            "variant": 1,
+            "module_key": "9-get-started-with-text-analysis-in-azure",
+            "lesson_key": "use-azure-language-with-agents",
+            "learning_status": "review"
+          },
+          "correct_answer": "[0,2,3]",
+          "explanation": "Correct. These properties support both a shareable redacted note and a record of detected PII.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "protect-personal-information/endpoint-api-key/r4/v1",
+        "path": "modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure-checkpoint/questions/19",
+        "payload": {
+          "import_key": "9-get-started-with-text-analysis-in-azure-checkpoint-q20",
+          "question_type": "multiple_choice",
+          "question_text": "A developer is building an app that sends a prompt to a deployed Foundry model. The app needs a request destination and proof of permission. What pair is needed?",
+          "options": {
+            "options": [
+              {
+                "text": "An endpoint and an API key",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "The endpoint is the URL where the request is sent. The API key proves the app is authorized to use the model.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "A language code and confidence score",
+                "is_correct": false,
+                "error_type": "Concept confusion",
+                "rationale": "A language code and confidence score are language-detection results. They provide neither a request destination nor authorization.",
+                "better_fit": "Use this when identifying a message's language and certainty.",
+                "feedback": {
+                  "intrinsic": "The app would have no destination or authorization for its request.",
+                  "instructional": "Use an endpoint for the URL and an API key for authorization."
+                }
+              },
+              {
+                "text": "A deployment name and summary",
+                "is_correct": false,
+                "error_type": "Concept confusion",
+                "rationale": "A deployment name selects a model, while a summary is output. Neither supplies both needed connection details.",
+                "better_fit": "Use this when selecting a model and describing generated output.",
+                "feedback": {
+                  "intrinsic": "The developer could identify a model but still not make an authorized call.",
+                  "instructional": "Model selection does not replace the endpoint and API key."
+                }
+              },
+              {
+                "text": "A client library and redaction",
+                "is_correct": false,
+                "error_type": "Concept confusion",
+                "rationale": "A library can help write code and redaction hides sensitive content. Neither is the request URL or authorization credential.",
+                "better_fit": "Use this when implementing privacy handling with reusable code.",
+                "feedback": {
+                  "intrinsic": "The app could still lack the information needed to call the model.",
+                  "instructional": "The endpoint identifies where to call; the API key proves permission."
+                }
+              }
+            ],
+            "blooms_level": "Applying",
+            "original_question_type": "single_choice",
+            "concept_id": "endpoint-api-key",
+            "item_key": "protect-personal-information/endpoint-api-key/r4/v1",
+            "rung": 4,
+            "variant": 1,
+            "module_key": "9-get-started-with-text-analysis-in-azure",
+            "lesson_key": "protect-personal-information",
+            "learning_status": "review"
+          },
+          "correct_answer": "0",
+          "explanation": "Correct. The endpoint provides the destination and the key proves permission.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "understand-text-analysis/healthcare-text-analysis/r3/v2",
+        "path": "modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure-checkpoint/questions/20",
+        "payload": {
+          "import_key": "9-get-started-with-text-analysis-in-azure-checkpoint-q21",
+          "question_type": "arrange_sentence",
+          "question_text": "Arrange the tokens to form a correct statement about healthcare text analysis.",
+          "options": {
+            "word_bank": [
+              "faster decisions",
+              "Healthcare text analysis",
+              "in clinical care",
+              "supports"
+            ],
+            "correct_order": [
+              "Healthcare text analysis",
+              "supports",
+              "faster decisions",
+              "in clinical care"
+            ],
+            "blooms_level": "Understanding",
+            "original_question_type": "rearrange",
+            "concept_id": "healthcare-text-analysis",
+            "feedback_for_incorrect": {
+              "intrinsic": "The statement does not describe the healthcare benefit clearly.",
+              "instructional": "Start with healthcare text analysis, then state the decision-making benefit."
+            },
+            "item_key": "understand-text-analysis/healthcare-text-analysis/r3/v2",
+            "rung": 3,
+            "variant": 2,
+            "module_key": "9-get-started-with-text-analysis-in-azure",
+            "lesson_key": "understand-text-analysis",
+            "learning_status": "review"
+          },
+          "correct_answer": "Healthcare text analysis supports faster decisions in clinical care",
+          "explanation": "Healthcare text analysis supports faster decisions in clinical care.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "use-general-purpose-models/chat-playground/r2/v1",
+        "path": "modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure-checkpoint/questions/21",
+        "payload": {
+          "import_key": "9-get-started-with-text-analysis-in-azure-checkpoint-q22",
+          "question_type": "true_false",
+          "question_text": "In the chat playground, you can ask follow-up questions in the same conversation because the model understands context.",
+          "options": {
+            "blooms_level": "Understanding",
+            "original_question_type": "true_false",
+            "concept_id": "chat-playground",
+            "feedback_for_incorrect": {
+              "intrinsic": "This would prevent use of earlier messages to improve the analysis.",
+              "instructional": "A deployed model can understand conversation context in the chat playground."
+            },
+            "item_key": "use-general-purpose-models/chat-playground/r2/v1",
+            "rung": 2,
+            "variant": 1,
+            "module_key": "9-get-started-with-text-analysis-in-azure",
+            "lesson_key": "use-general-purpose-models",
+            "learning_status": "review"
+          },
+          "correct_answer": "true",
+          "explanation": "Correct. Context supports continued conversation and refinement.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "use-general-purpose-models/general-purpose-models/r3/v1",
+        "path": "modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure-checkpoint/questions/22",
+        "payload": {
+          "import_key": "9-get-started-with-text-analysis-in-azure-checkpoint-q23",
+          "question_type": "fill_blank",
+          "question_text": "Training on vast amounts of text gives a general-purpose model ___.",
+          "options": {
+            "parts": [
+              {
+                "type": "text",
+                "text": "Training on vast amounts of text gives a general-purpose model "
+              },
+              {
+                "type": "gap",
+                "accepted_answers": [
+                  "broad language understanding"
+                ],
+                "rejected_answers": [
+                  "Azure Language tools",
+                  "Responses API",
+                  "Azure Language SDK",
+                  "azure-language-tools",
+                  "responses-api",
+                  "azure-language-sdk"
+                ],
+                "placeholder": "technical capability"
+              },
+              {
+                "type": "text",
+                "text": "."
+              }
+            ],
+            "rejected_answers": [
+              "Azure Language tools",
+              "Responses API",
+              "Azure Language SDK",
+              "azure-language-tools",
+              "responses-api",
+              "azure-language-sdk"
+            ],
+            "blooms_level": "Remembering",
+            "original_question_type": "fill_gaps",
+            "concept_id": "general-purpose-models",
+            "feedback_for_incorrect": {
+              "intrinsic": "The sentence would name a product or interface instead of the learned capability.",
+              "instructional": "Broad language understanding comes from training on vast amounts of text and supports flexible task performance."
+            },
+            "item_key": "use-general-purpose-models/general-purpose-models/r3/v1",
+            "rung": 3,
+            "variant": 1,
+            "module_key": "9-get-started-with-text-analysis-in-azure",
+            "lesson_key": "use-general-purpose-models",
+            "learning_status": "review"
+          },
+          "correct_answer": "broad language understanding",
+          "explanation": "Broad language understanding enables a general-purpose model to address many kinds of language task.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "analyze-sentiment-and-choose-predictable-tools/deterministic-output/r3/v1",
+        "path": "modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure-checkpoint/questions/23",
+        "payload": {
+          "import_key": "9-get-started-with-text-analysis-in-azure-checkpoint-q24",
+          "question_type": "arrange_sentence",
+          "question_text": "Arrange the parts to form the correct statement.",
+          "options": {
+            "word_bank": [
+              "for equivalent",
+              "Deterministic output",
+              "analysis requests",
+              "remains consistent"
+            ],
+            "correct_order": [
+              "Deterministic output",
+              "remains consistent",
+              "for equivalent",
+              "analysis requests"
+            ],
+            "blooms_level": "Understanding",
+            "original_question_type": "rearrange",
+            "concept_id": "deterministic-output",
+            "feedback_for_incorrect": {
+              "intrinsic": "The defining relationship is lost.",
+              "instructional": "State that deterministic output remains consistent for equivalent requests."
+            },
+            "item_key": "analyze-sentiment-and-choose-predictable-tools/deterministic-output/r3/v1",
+            "rung": 3,
+            "variant": 1,
+            "module_key": "9-get-started-with-text-analysis-in-azure",
+            "lesson_key": "analyze-sentiment-and-choose-predictable-tools",
+            "learning_status": "review"
+          },
+          "correct_answer": "Deterministic output remains consistent for equivalent analysis requests",
+          "explanation": "Deterministic output remains consistent when analysis requests are equivalent.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "build-with-python-sdks/consistent-output-choice/r5/v1",
+        "path": "modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure-checkpoint/questions/24",
+        "payload": {
+          "import_key": "9-get-started-with-text-analysis-in-azure-checkpoint-q25",
+          "question_type": "multiple_choice",
+          "question_text": "A support-team manager must route every incoming ticket by an exact language code and confidence score. Which reasons support choosing Azure Language instead of a general-purpose model? Select all that apply.",
+          "options": {
+            "options": [
+              {
+                "text": "It returns consistent structured values",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "Correct. Azure Language analyzers return structured, deterministic output for specific tasks.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "It is better for language codes and confidence scores",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "Correct. Language detection returns a primary language, ISO 639-1 code, and confidence score, which are consistent structured values.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "A general-purpose model has no language ability",
+                "is_correct": false,
+                "error_type": "Confuses output predictability with language capability",
+                "rationale": "General-purpose models have broad language understanding and can perform many text-analysis tasks. The reason to choose Azure Language here is predictable structured output, not an absence of language ability.",
+                "better_fit": "Choose this for no stated situation; general-purpose models do have broad language capabilities.",
+                "feedback": {
+                  "intrinsic": "The manager could reject useful general-purpose analysis for the wrong reason instead of choosing based on the routing requirement.",
+                  "instructional": "Both approaches handle language. Azure Language is the better fit here because exact codes and confidence scores need consistent structured results."
+                }
+              },
+              {
+                "text": "Generative output can vary between calls",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "Correct. General-purpose model output is probabilistic, so equivalent prompts can vary in wording or formatting.",
+                "better_fit": null,
+                "feedback": null
+              }
+            ],
+            "blooms_level": "Analyzing/Evaluating",
+            "original_question_type": "multi_choice",
+            "concept_id": "consistent-output-choice",
+            "item_key": "build-with-python-sdks/consistent-output-choice/r5/v1",
+            "rung": 5,
+            "variant": 1,
+            "module_key": "9-get-started-with-text-analysis-in-azure",
+            "lesson_key": "build-with-python-sdks",
+            "learning_status": "review"
+          },
+          "correct_answer": "[0,1,3]",
+          "explanation": "Correct. Azure Language fits ticket routing because it returns consistent structured language results, while generated output can vary.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "understand-text-analysis/sentiment-keywords-entities-and-topics/r2/v1",
+        "path": "modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure-checkpoint/questions/25",
+        "payload": {
+          "import_key": "9-get-started-with-text-analysis-in-azure-checkpoint-q26",
+          "question_type": "true_false",
+          "question_text": "A topic is always the same thing as the sentiment expressed in text.",
+          "options": {
+            "blooms_level": "Understanding",
+            "original_question_type": "true_false",
+            "concept_id": "sentiment-keywords-entities-and-topics",
+            "feedback_for_incorrect": {
+              "intrinsic": "The subject of a message was confused with its attitude.",
+              "instructional": "A review can be about delivery while expressing negative sentiment."
+            },
+            "item_key": "understand-text-analysis/sentiment-keywords-entities-and-topics/r2/v1",
+            "rung": 2,
+            "variant": 1,
+            "module_key": "9-get-started-with-text-analysis-in-azure",
+            "lesson_key": "understand-text-analysis",
+            "learning_status": "review"
+          },
+          "correct_answer": "false",
+          "explanation": "Correct—a topic is a subject, while sentiment is an attitude.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "protect-personal-information/pii-detection-and-redaction/r5/v1",
+        "path": "modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure-checkpoint/questions/26",
+        "payload": {
+          "import_key": "9-get-started-with-text-analysis-in-azure-checkpoint-q27",
+          "question_type": "multiple_choice",
+          "question_text": "A bank analyst must share loan applications with reviewers. Names and addresses must be masked, not merely listed. Which approach best fits?",
+          "options": {
+            "options": [
+              {
+                "text": "Named entity recognition",
+                "is_correct": false,
+                "error_type": "Concept confusion",
+                "rationale": "Named entity recognition can list people and locations. It does not mask their values in the documents.",
+                "better_fit": "Use this when reviewers need an entity list and the source text may remain visible.",
+                "feedback": {
+                  "intrinsic": "Names and addresses could still be visible to reviewers.",
+                  "instructional": "The requirement to mask details calls for PII detection with redaction."
+                }
+              },
+              {
+                "text": "Language detection",
+                "is_correct": false,
+                "error_type": "Concept confusion",
+                "rationale": "Language detection identifies a language and its confidence score. It has no role in masking names or addresses.",
+                "better_fit": "Use this when applications must be routed by language.",
+                "feedback": {
+                  "intrinsic": "Borrowers' identity details would remain unprotected.",
+                  "instructional": "Language identification does not provide privacy masking."
+                }
+              },
+              {
+                "text": "PII detection with redaction",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "PII detection identifies names and addresses as sensitive details. Redaction masks or removes them, meeting the sharing requirement.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Entity recognition",
+                "is_correct": false,
+                "error_type": "Concept confusion",
+                "rationale": "Entity recognition finds items in text but does not itself hide sensitive values. The decision requires making those values unavailable.",
+                "better_fit": "Use this when extracting mentions of people, places, or organizations for analysis.",
+                "feedback": {
+                  "intrinsic": "Personal details could remain visible in shared documents.",
+                  "instructional": "Use detection plus redaction when sensitive entities must be masked."
+                }
+              }
+            ],
+            "blooms_level": "Analyzing/Evaluating",
+            "original_question_type": "single_choice",
+            "concept_id": "pii-detection-and-redaction",
+            "item_key": "protect-personal-information/pii-detection-and-redaction/r5/v1",
+            "rung": 5,
+            "variant": 1,
+            "module_key": "9-get-started-with-text-analysis-in-azure",
+            "lesson_key": "protect-personal-information",
+            "learning_status": "review"
+          },
+          "correct_answer": "2",
+          "explanation": "Correct. It identifies and masks the borrowers' sensitive details.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "analyze-sentiment-and-choose-predictable-tools/prompt-specificity/r2/v1",
+        "path": "modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure-checkpoint/questions/27",
+        "payload": {
+          "import_key": "9-get-started-with-text-analysis-in-azure-checkpoint-q28",
+          "question_type": "true_false",
+          "question_text": "A more specific prompt generally produces a less detailed sentiment response.",
+          "options": {
+            "blooms_level": "Understanding",
+            "original_question_type": "true_false",
+            "concept_id": "prompt-specificity",
+            "feedback_for_incorrect": {
+              "intrinsic": "The response may be too broad for the intended task.",
+              "instructional": "Ask directly for the detail and structure you need."
+            },
+            "item_key": "analyze-sentiment-and-choose-predictable-tools/prompt-specificity/r2/v1",
+            "rung": 2,
+            "variant": 1,
+            "module_key": "9-get-started-with-text-analysis-in-azure",
+            "lesson_key": "analyze-sentiment-and-choose-predictable-tools",
+            "learning_status": "review"
+          },
+          "correct_answer": "false",
+          "explanation": "Correct. Specific prompts generally produce more structured and detailed responses.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "analyze-sentiment-and-choose-predictable-tools/azure-language-tools/r5/v1",
+        "path": "modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure-checkpoint/questions/28",
+        "payload": {
+          "import_key": "9-get-started-with-text-analysis-in-azure-checkpoint-q29",
+          "question_type": "multiple_choice",
+          "question_text": "A support-ticket router needs reliable structured language results and does not need conversation or flexible wording. Which choice best fits?",
+          "options": {
+            "options": [
+              {
+                "text": "A general-purpose AI model",
+                "is_correct": false,
+                "error_type": "Confuses flexible analysis with deterministic analysis",
+                "rationale": "A general-purpose model can analyze text but may vary in output. The scenario prioritizes predictable structured results.",
+                "better_fit": "Choose a general-purpose model for conversational or flexible prompt-based analysis.",
+                "feedback": {
+                  "intrinsic": "Similar tickets may be described differently across requests.",
+                  "instructional": "Use a specialized analyzer when reliable structure is the priority."
+                }
+              },
+              {
+                "text": "Azure Language in Foundry tools",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "Azure Language offers purpose-built language analyzers. Their structured results suit reliable routing.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "The Responses API",
+                "is_correct": false,
+                "error_type": "Confuses API with capability",
+                "rationale": "The API enables model interactions. It does not replace language-analysis capability.",
+                "better_fit": "Use an API when an application needs to prompt a deployed model.",
+                "feedback": {
+                  "intrinsic": "The router may have an interface but not the intended analyzer.",
+                  "instructional": "Separate the request interface from the analysis capability."
+                }
+              },
+              {
+                "text": "The Azure Language SDK",
+                "is_correct": false,
+                "error_type": "Confuses SDK with capability",
+                "rationale": "The SDK is a code library for calling Azure Language. It is not the analyzer choice requested.",
+                "better_fit": "Use the SDK when implementing an application call to Azure Language.",
+                "feedback": {
+                  "intrinsic": "The plan may name a library instead of the service.",
+                  "instructional": "The service provides results; the SDK helps call it."
+                }
+              }
+            ],
+            "blooms_level": "Analyzing/Evaluating",
+            "original_question_type": "single_choice",
+            "concept_id": "azure-language-tools",
+            "item_key": "analyze-sentiment-and-choose-predictable-tools/azure-language-tools/r5/v1",
+            "rung": 5,
+            "variant": 1,
+            "module_key": "9-get-started-with-text-analysis-in-azure",
+            "lesson_key": "analyze-sentiment-and-choose-predictable-tools",
+            "learning_status": "review"
+          },
+          "correct_answer": "1",
+          "explanation": "Correct. Azure Language provides predictable structured analysis for routing.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "protect-personal-information/azure-openai-api-and-responses-api/r5/v1",
+        "path": "modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure-checkpoint/questions/29",
+        "payload": {
+          "import_key": "9-get-started-with-text-analysis-in-azure-checkpoint-q30",
+          "question_type": "multiple_choice",
+          "question_text": "A support lead is building a review chat tool. Users need summaries and follow-up questions, and the tool does not need fixed values. Which choices best fit? Select all that apply.",
+          "options": {
+            "options": [
+              {
+                "text": "Azure OpenAI API",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "Azure OpenAI API lets application code communicate with a deployed Foundry model. It provides the application-to-model connection.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Azure Language SDK",
+                "is_correct": false,
+                "error_type": "Concept confusion",
+                "rationale": "Azure Language SDK supports specialized structured capabilities such as language and PII detection. It is not the best fit for flexible multi-turn conversational analysis.",
+                "better_fit": "Use this when an app needs structured, deterministic language or PII analysis.",
+                "feedback": {
+                  "intrinsic": "Users could receive narrow structured results instead of conversational follow-ups.",
+                  "instructional": "For summaries and follow-up questions without fixed values, use a general-purpose model through Azure OpenAI and Responses API."
+                }
+              },
+              {
+                "text": "Responses API",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "Responses API supports complete language-model interactions. It fits conversational summaries and follow-up questions.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "A general-purpose model",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "A general-purpose model can summarize reviews and answer natural-language follow-ups. It supports contextual conversational analysis.",
+                "better_fit": null,
+                "feedback": null
+              }
+            ],
+            "blooms_level": "Analyzing/Evaluating",
+            "original_question_type": "multi_choice",
+            "concept_id": "azure-openai-api-and-responses-api",
+            "item_key": "protect-personal-information/azure-openai-api-and-responses-api/r5/v1",
+            "rung": 5,
+            "variant": 1,
+            "module_key": "9-get-started-with-text-analysis-in-azure",
+            "lesson_key": "protect-personal-information",
+            "learning_status": "review"
+          },
+          "correct_answer": "[0,2,3]",
+          "explanation": "Correct. These choices support contextual conversation without requiring fixed values.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "use-azure-language-with-agents/ai-agents-and-mcp/r2/v1",
+        "path": "modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure-checkpoint/questions/30",
+        "payload": {
+          "import_key": "9-get-started-with-text-analysis-in-azure-checkpoint-q31",
+          "question_type": "true_false",
+          "question_text": "MCP requires custom integration code for every external service an agent uses.",
+          "options": {
+            "blooms_level": "Understanding",
+            "original_question_type": "true_false",
+            "concept_id": "ai-agents-and-mcp",
+            "feedback_for_incorrect": {
+              "intrinsic": "That approach would recreate the per-service work MCP is intended to avoid.",
+              "instructional": "MCP acts like a universal adapter: an agent can connect to an MCP server that exposes capabilities in a standard way."
+            },
+            "item_key": "use-azure-language-with-agents/ai-agents-and-mcp/r2/v1",
+            "rung": 2,
+            "variant": 1,
+            "module_key": "9-get-started-with-text-analysis-in-azure",
+            "lesson_key": "use-azure-language-with-agents",
+            "learning_status": "review"
+          },
+          "correct_answer": "false",
+          "explanation": "Correct. MCP provides a standard connection approach instead of custom integration for every service.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "analyze-sentiment-and-choose-predictable-tools/language-detection/r5/v1",
+        "path": "modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure-checkpoint/questions/31",
+        "payload": {
+          "import_key": "9-get-started-with-text-analysis-in-azure-checkpoint-q32",
+          "question_type": "multiple_choice",
+          "question_text": "A support-desk agent receives “¡Hola! Me llamo Josefina y vivo en Madrid, España.” and must route it using a reliable language result. Which conclusions fit? Select all that apply.",
+          "options": {
+            "options": [
+              {
+                "text": "The task is PII detection",
+                "is_correct": false,
+                "error_type": "Confuses language routing with PII detection",
+                "rationale": "The scenario asks for routing by language. PII detection identifies personal details rather than primary language.",
+                "better_fit": "Use PII detection when sensitive details must be identified or redacted.",
+                "feedback": {
+                  "intrinsic": "The message may not reach the appropriate language process.",
+                  "instructional": "Choose language detection for reliable language routing."
+                }
+              },
+              {
+                "text": "The language is Spanish",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "Language detection identifies this text as Spanish. That result can be used for routing.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "The ISO 639-1 code is es",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "The language result uses the ISO 639-1 code es. This is a structured language value.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "The confidence score is 1.00",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "The stated language-detection result has confidence 1.00. Confidence accompanies the language result.",
+                "better_fit": null,
+                "feedback": null
+              }
+            ],
+            "blooms_level": "Analyzing/Evaluating",
+            "original_question_type": "multi_choice",
+            "concept_id": "language-detection",
+            "item_key": "analyze-sentiment-and-choose-predictable-tools/language-detection/r5/v1",
+            "rung": 5,
+            "variant": 1,
+            "module_key": "9-get-started-with-text-analysis-in-azure",
+            "lesson_key": "analyze-sentiment-and-choose-predictable-tools",
+            "learning_status": "review"
+          },
+          "correct_answer": "[1,2,3]",
+          "explanation": "Correct. The result is Spanish, code es, with confidence 1.00.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "use-general-purpose-models/natural-language-prompts/r3/v1",
+        "path": "modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure-checkpoint/questions/32",
+        "payload": {
+          "import_key": "9-get-started-with-text-analysis-in-azure-checkpoint-q33",
+          "question_type": "arrange_sentence",
+          "question_text": "Put the pieces in the correct order.",
+          "options": {
+            "word_bank": [
+              "A natural-language prompt",
+              "is an instruction",
+              "for a model",
+              "in ordinary language",
+              "to perform a task"
+            ],
+            "correct_order": [
+              "A natural-language prompt",
+              "is an instruction",
+              "in ordinary language",
+              "for a model",
+              "to perform a task"
+            ],
+            "blooms_level": "Understanding",
+            "original_question_type": "rearrange",
+            "concept_id": "natural-language-prompts",
+            "feedback_for_incorrect": {
+              "intrinsic": "The definition would not clearly state the instruction's purpose.",
+              "instructional": "Begin with the term, then state its form, recipient, and purpose."
+            },
+            "item_key": "use-general-purpose-models/natural-language-prompts/r3/v1",
+            "rung": 3,
+            "variant": 1,
+            "module_key": "9-get-started-with-text-analysis-in-azure",
+            "lesson_key": "use-general-purpose-models",
+            "learning_status": "review"
+          },
+          "correct_answer": "A natural-language prompt is an instruction in ordinary language for a model to perform a task",
+          "explanation": "A prompt is an ordinary-language instruction for a model to perform a task.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "protect-personal-information/iso-code-and-confidence-score/r2/v1",
+        "path": "modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure-checkpoint/questions/33",
+        "payload": {
+          "import_key": "9-get-started-with-text-analysis-in-azure-checkpoint-q34",
+          "question_type": "true_false",
+          "question_text": "Language detection returns a primary language and a confidence score from 0 to 1.",
+          "options": {
+            "blooms_level": "Understanding",
+            "original_question_type": "true_false",
+            "concept_id": "iso-code-and-confidence-score",
+            "feedback_for_incorrect": {
+              "intrinsic": "A routing rule would ignore useful certainty information.",
+              "instructional": "Language detection provides the primary language plus a numeric confidence score between 0 and 1."
+            },
+            "item_key": "protect-personal-information/iso-code-and-confidence-score/r2/v1",
+            "rung": 2,
+            "variant": 1,
+            "module_key": "9-get-started-with-text-analysis-in-azure",
+            "lesson_key": "protect-personal-information",
+            "learning_status": "review"
+          },
+          "correct_answer": "true",
+          "explanation": "Correct. Both the language result and its confidence are returned.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "understand-text-analysis/unstructured-text/r3/v2",
+        "path": "modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure-checkpoint/questions/34",
+        "payload": {
+          "import_key": "9-get-started-with-text-analysis-in-azure-checkpoint-q35",
+          "question_type": "fill_blank",
+          "question_text": "Written content without a fixed machine-readable structure is called ___.",
+          "options": {
+            "parts": [
+              {
+                "type": "text",
+                "text": "Written content without a fixed machine-readable structure is called "
+              },
+              {
+                "type": "gap",
+                "accepted_answers": [
+                  "unstructured text"
+                ],
+                "rejected_answers": [
+                  "structured data",
+                  "natural language processing",
+                  "nlp-and-text-analysis",
+                  "sentiment-keywords-entities-and-topics"
+                ],
+                "placeholder": "technical term"
+              },
+              {
+                "type": "text",
+                "text": "."
+              }
+            ],
+            "rejected_answers": [
+              "structured data",
+              "natural language processing",
+              "nlp-and-text-analysis",
+              "sentiment-keywords-entities-and-topics"
+            ],
+            "blooms_level": "Remembering",
+            "original_question_type": "fill_gaps",
+            "concept_id": "unstructured-text",
+            "feedback_for_incorrect": {
+              "intrinsic": "That answer names a different data type or technology.",
+              "instructional": "The defining term is unstructured text."
+            },
+            "item_key": "understand-text-analysis/unstructured-text/r3/v2",
+            "rung": 3,
+            "variant": 2,
+            "module_key": "9-get-started-with-text-analysis-in-azure",
+            "lesson_key": "understand-text-analysis",
+            "learning_status": "review"
+          },
+          "correct_answer": "unstructured text",
+          "explanation": "Unstructured text is written content without a fixed machine-readable structure.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "build-with-python-sdks/model-deployment-name/r2/v1",
+        "path": "modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure-checkpoint/questions/35",
+        "payload": {
+          "import_key": "9-get-started-with-text-analysis-in-azure-checkpoint-q36",
+          "question_type": "true_false",
+          "question_text": "A model deployment name is always different from the model name.",
+          "options": {
+            "blooms_level": "Understanding",
+            "original_question_type": "true_false",
+            "concept_id": "model-deployment-name",
+            "feedback_for_incorrect": {
+              "intrinsic": "Treating the names as always different could make a developer overlook the deployment name actually in use.",
+              "instructional": "A model may be given a custom deployment name such as gpt-demo-model. If it is not customized, the deployment name can match gpt-4.1-mini."
+            },
+            "item_key": "build-with-python-sdks/model-deployment-name/r2/v1",
+            "rung": 2,
+            "variant": 1,
+            "module_key": "9-get-started-with-text-analysis-in-azure",
+            "lesson_key": "build-with-python-sdks",
+            "learning_status": "review"
+          },
+          "correct_answer": "false",
+          "explanation": "Correct. A customized deployment can differ, but an unchanged name can match the model name.",
+          "points": 1
+        }
+      }
+    ],
+    "metadata": {
+      "module_key": "9-get-started-with-text-analysis-in-azure",
+      "unit_title": "9. Get started with text analysis in Azure · Checkpoint",
+      "unit_slo": "Review the key concepts of 9. Get started with text analysis in Azure.",
+      "constraint_relaxations": []
+    }
+  },
+  "history": {
+    "schema_version": "techlingo-gauntlet-history-v1",
+    "run_id": "9-get-started-with-text-analysis-in-azure-checkpoint-cc66f0e09bc0",
+    "started_at": "2026-08-28T03:01:00.178976Z",
+    "finished_at": "2026-08-28T03:14:15.151248Z",
+    "initial_champion_hash": "ab466a3846a73e71a53b30d13af31285c9ec9717a028d843d4224916e5b8c59d",
+    "final_champion_hash": "ab466a3846a73e71a53b30d13af31285c9ec9717a028d843d4224916e5b8c59d",
+    "evaluation_context": {
+      "schema_version": "techlingo-evaluation-context-v1",
+      "goal": "Produce an excellent, source-faithful learner session while preserving all deterministic correctness, identity, and sequence constraints.",
+      "source_fidelity_goal": "Independently verify the hard-gated edited challenger against the supplied source material. Reject unsupported facts, answers, explanations, feedback, or terminology changes; do not edit the artifact.",
+      "gauntlet_policy": {
+        "critic_backend": "codex",
+        "critic_model": "codex:gpt-5.6-luna",
+        "builder_model": "codex:gpt-5.6-terra",
+        "max_rounds": 4,
+        "plateau_rounds": 2,
+        "repeated_loss_rounds": 2,
+        "minimum_improvement_margin": 0.02,
+        "confidence_threshold": 0.65,
+        "human_review_threshold": 0.4,
+        "max_time_seconds": null,
+        "max_tokens": null,
+        "max_cost_usd": null,
+        "qualitative_required_for_publication": true,
+        "quality_thresholds": {
+          "factual_fidelity": 0.8,
+          "answer_unambiguity": 0.8,
+          "distractor_plausibility": 0.8,
+          "misconception_quality": 0.8,
+          "cognitive_progression": 0.8,
+          "mechanic_rhythm_variation": 0.8,
+          "prompt_language_variation": 0.8,
+          "scenario_authenticity": 0.8,
+          "feedback_usefulness": 0.8,
+          "difficulty_appropriateness": 0.8,
+          "terminology_consistency": 0.8,
+          "overall_learner_experience": 0.8
+        },
+        "comparison_seed": 901,
+        "protected_dimensions": [
+          "factual_fidelity",
+          "answer_unambiguity"
+        ],
+        "unstable_comparison_requires_human_review": true,
+        "identifying_metadata_keys": [
+          "artifact_id",
+          "builder_model",
+          "candidate_role",
+          "challenger",
+          "champion",
+          "critic_model",
+          "generated_at",
+          "import_key",
+          "item_key",
+          "model_id",
+          "path",
+          "version_id"
+        ]
+      },
+      "gauntlet_policy_sha256": "035ba75a6dc056e4680b4c7cb97f2859ec5160f72633534a4550ba69e8061ac4",
+      "rubric": {
+        "criteria": {
+          "factual_fidelity": "Every claim and answer is faithful to the supplied source.",
+          "answer_unambiguity": "Each item has one defensible answer under its instructions.",
+          "distractor_plausibility": "Distractors are credible without becoming defensible answers.",
+          "misconception_quality": "Wrong choices diagnose realistic learner misconceptions.",
+          "cognitive_progression": "The ordered session builds understanding at a coherent pace.",
+          "mechanic_rhythm_variation": "Mechanics vary naturally without disruptive repetition.",
+          "prompt_language_variation": "Prompt stems avoid formulaic repetition.",
+          "scenario_authenticity": "Scenarios resemble credible decisions or tasks.",
+          "feedback_usefulness": "Feedback explains the governing concept and next step.",
+          "difficulty_appropriateness": "Difficulty matches the stated audience and session position.",
+          "terminology_consistency": "Terms are used consistently with the source and across items.",
+          "overall_learner_experience": "The exact final sequence is coherent, varied, and instructive."
+        }
+      },
+      "rubric_sha256": "34290a842f2ed7e30b7a98ba70ac97d967c864424010cd31255f97cdce0b57d5",
+      "sources": [
+        {
+          "input_id": "9. Get started with text analysis in Azure.md",
+          "sha256": "8f78119975e8831c999691da33ad83b6005101bd6189763dca095b0c2c474d85",
+          "location": "sources/9. Get started with text analysis in Azure.md"
+        }
+      ],
+      "approved_references": [],
+      "models": {
+        "builder_model": "codex:gpt-5.6-terra",
+        "critic_backend": "codex",
+        "critic_model": "codex:gpt-5.6-luna",
+        "critic_fresh_context": true,
+        "editor_backend": "codex",
+        "editor_model": "codex:gpt-5.6-luna",
+        "editor_fresh_context": true,
+        "comparator_backend": "codex",
+        "comparator_model": "codex:gpt-5.6-luna",
+        "comparator_fresh_context": true
+      },
+      "context_sha256": "2a1271d2cfc3ffc3e9f5f4a4cebbc59dfe00094df2231c1864cf0db8a798796a"
+    },
+    "initial_hard_gate": {
+      "artifact_sha256": "ab466a3846a73e71a53b30d13af31285c9ec9717a028d843d4224916e5b8c59d",
+      "passed": true,
+      "issues": [],
+      "checks": {
+        "schema_and_answers": true,
+        "identity": true,
+        "final_sequence": true
+      },
+      "metrics": {},
+      "constraint_relaxations": []
+    },
+    "rounds": [
+      {
+        "round_number": 1,
+        "champion_hash_before": "ab466a3846a73e71a53b30d13af31285c9ec9717a028d843d4224916e5b8c59d",
+        "critic": null,
+        "critic_failure": "critic evidence validation failed after 3 attempts: dimension answer_unambiguity evidence[1] cites unknown item_key(s): analyze-sentiment-and-choose-predictable-tools/detect-language-method/r4/v1; dimension distractor_plausibility evidence[0] cites unknown item_key(s): analyze-sentiment-and-choose-predictable-tools/detect-language-method/r4/v1; dimension mechanic_rhythm_variation evidence[0] cites unknown path(s): modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/0, modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/2, modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/4, modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/5; dimension mechanic_rhythm_variation evidence[1] cites unknown path(s): modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/11, modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/13, modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/2, modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/7; dimension scenario_authenticity evidence[0] cites unknown item_key(s): analyze-sentiment-and-choose-predictable-tools/detect-language-method/r4/v1; dimension feedback_usefulness evidence[0] cites unknown item_key(s): analyze-sentiment-and-choose-predictable-tools/detect-language-method/r4/v1, protect-personal-information/recognize-pii-entities-method/r4/v1; dimension feedback_usefulness evidence[0] cites unknown path(s): modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/18, modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/28, modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/9; dimension feedback_usefulness evidence[1] cites unknown path(s): modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/21, modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/8; dimension difficulty_appropriateness evidence[0] cites unknown path(s): modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/1, modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/24, modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/26, modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/5; dimension difficulty_appropriateness evidence[1] cites unknown path(s): modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/14, modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/2, modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/30; dimension terminology_consistency evidence[0] cites unknown path(s): modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/1, modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/19, modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/6, modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/7; dimension overall_learner_experience evidence[0] cites unknown path(s): modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/0, modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/26, modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/3, modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/30; dimension overall_learner_experience evidence[1] cites unknown path(s): modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/2, modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/5, modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/8; largest gap cites unknown item_key(s): analyze-sentiment-and-choose-predictable-tools/detect-language-method/r4/v1",
+        "repair_scope": null,
+        "repair_summary": null,
+        "editor_backend": null,
+        "editor_model": null,
+        "editor_fresh_context": null,
+        "edit_usage": null,
+        "validation_retry_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost_usd": 0.0,
+          "backend_calls": 3
+        },
+        "touched_item_keys": [],
+        "challenger_hash": null,
+        "hard_gate": null,
+        "source_fidelity_critic": null,
+        "source_fidelity_gate": null,
+        "comparison": null,
+        "decision": "retained_human",
+        "decision_evidence": "critic evidence validation failed after 3 attempts: dimension answer_unambiguity evidence[1] cites unknown item_key(s): analyze-sentiment-and-choose-predictable-tools/detect-language-method/r4/v1; dimension distractor_plausibility evidence[0] cites unknown item_key(s): analyze-sentiment-and-choose-predictable-tools/detect-language-method/r4/v1; dimension mechanic_rhythm_variation evidence[0] cites unknown path(s): modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/0, modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/2, modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/4, modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/5; dimension mechanic_rhythm_variation evidence[1] cites unknown path(s): modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/11, modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/13, modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/2, modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/7; dimension scenario_authenticity evidence[0] cites unknown item_key(s): analyze-sentiment-and-choose-predictable-tools/detect-language-method/r4/v1; dimension feedback_usefulness evidence[0] cites unknown item_key(s): analyze-sentiment-and-choose-predictable-tools/detect-language-method/r4/v1, protect-personal-information/recognize-pii-entities-method/r4/v1; dimension feedback_usefulness evidence[0] cites unknown path(s): modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/18, modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/28, modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/9; dimension feedback_usefulness evidence[1] cites unknown path(s): modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/21, modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/8; dimension difficulty_appropriateness evidence[0] cites unknown path(s): modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/1, modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/24, modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/26, modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/5; dimension difficulty_appropriateness evidence[1] cites unknown path(s): modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/14, modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/2, modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/30; dimension terminology_consistency evidence[0] cites unknown path(s): modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/1, modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/19, modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/6, modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/7; dimension overall_learner_experience evidence[0] cites unknown path(s): modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/0, modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/26, modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/3, modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/30; dimension overall_learner_experience evidence[1] cites unknown path(s): modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/2, modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/5, modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/8; largest gap cites unknown item_key(s): analyze-sentiment-and-choose-predictable-tools/detect-language-method/r4/v1",
+        "champion_hash_after": "ab466a3846a73e71a53b30d13af31285c9ec9717a028d843d4224916e5b8c59d",
+        "constraint_relaxations": [],
+        "cumulative_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost_usd": 0.0,
+          "backend_calls": 3
+        }
+      }
+    ],
+    "stop_reason": "human_review_required",
+    "stop_evidence": "critic evidence validation failed after 3 attempts: dimension answer_unambiguity evidence[1] cites unknown item_key(s): analyze-sentiment-and-choose-predictable-tools/detect-language-method/r4/v1; dimension distractor_plausibility evidence[0] cites unknown item_key(s): analyze-sentiment-and-choose-predictable-tools/detect-language-method/r4/v1; dimension mechanic_rhythm_variation evidence[0] cites unknown path(s): modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/0, modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/2, modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/4, modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/5; dimension mechanic_rhythm_variation evidence[1] cites unknown path(s): modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/11, modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/13, modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/2, modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/7; dimension scenario_authenticity evidence[0] cites unknown item_key(s): analyze-sentiment-and-choose-predictable-tools/detect-language-method/r4/v1; dimension feedback_usefulness evidence[0] cites unknown item_key(s): analyze-sentiment-and-choose-predictable-tools/detect-language-method/r4/v1, protect-personal-information/recognize-pii-entities-method/r4/v1; dimension feedback_usefulness evidence[0] cites unknown path(s): modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/18, modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/28, modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/9; dimension feedback_usefulness evidence[1] cites unknown path(s): modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/21, modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/8; dimension difficulty_appropriateness evidence[0] cites unknown path(s): modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/1, modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/24, modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/26, modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/5; dimension difficulty_appropriateness evidence[1] cites unknown path(s): modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/14, modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/2, modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/30; dimension terminology_consistency evidence[0] cites unknown path(s): modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/1, modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/19, modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/6, modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/7; dimension overall_learner_experience evidence[0] cites unknown path(s): modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/0, modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/26, modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/3, modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/30; dimension overall_learner_experience evidence[1] cites unknown path(s): modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/2, modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/5, modules/8:9-get-started-with-text-analysis-in-azure/units/18:9-get-started-with-text-analysis-in-azure/checkpoint/questions/8; largest gap cites unknown item_key(s): analyze-sentiment-and-choose-predictable-tools/detect-language-method/r4/v1",
+    "human_decision": null,
+    "total_usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "backend_calls": 3
+    },
+    "human_review_recommended": true,
+    "publication_eligible": false
+  }
+}

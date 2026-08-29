@@ -8,8 +8,11 @@ Or with pytest:      PYTHONPATH=src pytest tests/test_worksheet.py
 
 from __future__ import annotations
 
+import asyncio
 from collections import Counter
+from unittest.mock import patch
 
+import techlingo_workflow.executors as workflow_executors
 from techlingo_workflow.config import DifficultyLevel, WorkflowConfig
 from techlingo_workflow.course_build import convert_course_result
 from techlingo_workflow.executors import (
@@ -17,6 +20,7 @@ from techlingo_workflow.executors import (
     _seed_concepts_from_map,
     _stamp_default_depths,
     _validate_a1_map,
+    _validation_retry_target,
 )
 from techlingo_workflow.graph_merge import merge_source_concepts
 from techlingo_workflow.models import (
@@ -32,15 +36,28 @@ from techlingo_workflow.models import (
     Lesson,
     Module,
     MultiChoiceExercise,
+    PipelineState,
     RearrangeExercise,
     SingleChoiceExercise,
     TrueFalseExercise,
+    ValidationIssue,
+    ValidationReport,
 )
-from techlingo_workflow.prompts import a2_lesson_prompt, a5_lesson_repair_prompt
-from techlingo_workflow.validate import _content_quality_issues, validate_course
+from techlingo_workflow.prompts import (
+    a1_modularizer_prompt,
+    a2_lesson_prompt,
+    a5_lesson_repair_prompt,
+)
+from techlingo_workflow.validate import (
+    _content_quality_issues,
+    _restore_lesson_depths,
+    normalize_course,
+    validate_course,
+)
 from techlingo_workflow.workspace import ConceptGraph, derive_rung
 from techlingo_workflow.worksheet import (
     CELL_QUOTAS,
+    WorksheetBudgetError,
     assign_tf_answers,
     build_lesson_worksheet,
     concept_cells,
@@ -48,8 +65,10 @@ from techlingo_workflow.worksheet import (
     required_rungs,
     worksheet_applies,
     worksheet_blooms_distribution,
+    worksheet_size_bounds,
     worksheet_type_distribution,
 )
+from techlingo_workflow.workflow import should_loop_to_a1, should_loop_to_a2
 
 # ---------------------------------------------------------------------------
 # Fixture builders
@@ -270,6 +289,92 @@ def test_mixed_lesson_worksheet_math():
     assert order == ["a"] * 5 + ["b"] * 7 + ["c"] * 9
 
 
+def test_exact_budget_preserves_ladders_and_apportions_optional_bands_deterministically():
+    atoms = [
+        ConceptAtom(
+            id=f"mechanism-{index}",
+            label=f"Mechanism {index}",
+            summary=f"Mechanism {index} has a source-grounded process.",
+            depth="mechanism",
+        )
+        for index in range(6)
+    ]
+    assert worksheet_size_bounds(atoms) == (24, 42)
+
+    first = build_lesson_worksheet(atoms, item_budget=30)
+    second = build_lesson_worksheet(atoms, item_budget=30)
+    assert first == second
+    assert len(first) == 30
+
+    by_concept = Counter(cell.concept_id for cell in first)
+    assert set(by_concept.values()) == {5}  # one optional row per concept
+    for atom in atoms:
+        assert {cell.rung for cell in first if cell.concept_id == atom.id} == {1, 2, 3, 4}
+
+    optional = [cell for cell in first if cell.variant == 2]
+    assert sum(cell.rung in {1, 2} for cell in optional) == 3
+    assert sum(cell.rung in {3, 4} for cell in optional) == 3
+    assert sum(cell.rung == 5 for cell in optional) == 0
+
+    # Selection never changes the authoritative emitted order.
+    assert [
+        (cell.concept_id, cell.rung, cell.variant) for cell in first
+    ] == sorted(
+        ((cell.concept_id, cell.rung, cell.variant) for cell in first),
+        key=lambda row: (int(row[0].rsplit("-", 1)[1]), row[1], row[2]),
+    )
+
+    # Tight budgets retain every required v1 row but only some v2 rows.  The
+    # first mechanic therefore alternates by concept instead of making the few
+    # retained v2 rows the sole source of level diversity.
+    rung1_v1 = [
+        cell.question_type
+        for cell in first
+        if cell.rung == 1 and cell.variant == 1
+    ]
+    rung3_v1 = [
+        cell.question_type
+        for cell in first
+        if cell.rung == 3 and cell.variant == 1
+    ]
+    assert rung1_v1 == ["single_choice", "multi_choice"] * 3
+    assert rung3_v1 == ["fill_gaps", "rearrange"] * 3
+
+
+def test_exact_budget_rejects_padding_or_incomplete_ladders():
+    atoms = _atoms()
+    assert worksheet_size_bounds(atoms) == (7, 12)
+    for budget in (6, 13):
+        try:
+            build_lesson_worksheet(atoms, item_budget=budget)
+            assert False, f"infeasible worksheet budget {budget} was accepted"
+        except WorksheetBudgetError as error:
+            assert "infeasible" in str(error)
+
+    # None is the backwards-compatible full-envelope policy.
+    assert build_lesson_worksheet(atoms, item_budget=None) == build_lesson_worksheet(atoms)
+
+
+def test_budget_spreads_practice_variants_across_distinct_eligible_concepts():
+    depths = ("mechanism", "decision", "fact", "fact", "decision", "decision")
+    atoms = [
+        ConceptAtom(
+            id=f"concept-{index}",
+            label=f"Concept {index}",
+            summary=f"Concept {index} is grounded in the source.",
+            depth=depth,
+        )
+        for index, depth in enumerate(depths)
+    ]
+    cells = build_lesson_worksheet(atoms, item_budget=30)
+    practice_optional_concepts = {
+        cell.concept_id
+        for cell in cells
+        if cell.variant == 2 and cell.rung in {3, 4}
+    }
+    assert len(practice_optional_concepts) == 2
+
+
 def test_worksheet_rungs_consistent_with_derive_rung():
     # The persisted rung and the legacy fallback must never disagree for
     # worksheet-generated content (course_build relies on this).
@@ -344,6 +449,19 @@ def test_a2_prompt_worksheet_mode_carries_cell_plan():
     assert "MANDATORY ANSWER PATTERN" not in prompt
 
 
+def test_a1_prompt_explains_exact_worksheet_budget_without_depth_distortion():
+    cfg = WorkflowConfig.model_validate(
+        {**_config().model_dump(mode="json"), "worksheet_items_per_lesson": 10}
+    )
+    prompt = a1_modularizer_prompt(
+        "Source fact.", difficulty=DifficultyLevel.beginner, config=cfg
+    )
+    assert "EXACT WORKSHEET BUDGET" in prompt
+    assert "exactly 10 worksheet rows" in prompt
+    assert "Never omit a source fact" in prompt
+    assert "misclassify a concept's depth" in prompt
+
+
 def test_a2_prompt_legacy_mode_unchanged_machinery():
     cfg = _config()
     prompt = a2_lesson_prompt(
@@ -357,9 +475,12 @@ def test_a2_prompt_legacy_mode_unchanged_machinery():
 
 def test_a5_repair_prompt_uses_worksheet_expectations():
     ws = build_lesson_worksheet(_atoms())
+    assign_tf_answers([ws])
     prompt = a5_lesson_repair_prompt("{}", "[]", _config(), worksheet=ws)
     assert f"The lesson has exactly {len(ws)} exercises." in prompt
     assert "Cell worksheet" in prompt
+    assert "this exact row order" in prompt
+    assert "correct_answer MUST be false" in prompt
     assert 'concept_id="vector-index"' in prompt
     assert "MAY test the same fact but MUST differ clearly in surface" in prompt
     # Legacy repair keeps config-driven counts.
@@ -378,6 +499,55 @@ def test_worksheet_lesson_valid_passes_with_derived_shape():
     assert report.ok
 
 
+def test_budgeted_worksheet_validation_uses_selected_rows_and_reassigned_tf_values():
+    lesson = _worksheet_lesson()
+    full = build_lesson_worksheet(lesson.concepts)
+    selected = build_lesson_worksheet(lesson.concepts, item_budget=10)
+    assign_tf_answers([selected])
+    generated = []
+    available = list(zip(full, lesson.exercises))
+    for cell in selected:
+        match = next(
+            (
+                index
+                for index, (candidate, _exercise) in enumerate(available)
+                if candidate.concept_id == cell.concept_id
+                and candidate.rung == cell.rung
+                and candidate.question_type == cell.question_type
+            ),
+            None,
+        )
+        if match is None:
+            # The mechanism's sole R4 row rotates from single- to multi-choice
+            # in an exact-budget worksheet, so there is no legacy full-row
+            # counterpart to reuse in this fixture.
+            exercise = MultiChoiceExercise(
+                blooms_level=BloomsLevel.applying,
+                prompt=(
+                    "Nightly document ingestion leaves similarity results stale. "
+                    "Select the two actions that restore current search behavior."
+                ),
+                concept_id=cell.concept_id,
+                options=[
+                    _opt("Run an index refresh after ingestion", True, scenario=True),
+                    _opt("Rebuild the affected stale entries", True, scenario=True),
+                    _opt("Rotate the cluster credentials", False, scenario=True),
+                    _opt("Render the analytics dashboard", False, scenario=True),
+                ],
+            )
+        else:
+            _candidate, exercise = available.pop(match)
+        if exercise.question_type == "true_false":
+            exercise.correct_answer = bool(cell.tf_answer)
+        generated.append(exercise)
+    lesson.exercises = generated
+    cfg = WorkflowConfig.model_validate(
+        {**_config().model_dump(mode="json"), "worksheet_items_per_lesson": 10}
+    )
+    report = validate_course(_course(lesson), cfg)
+    assert report.ok, _errors(report.issues)
+
+
 def test_worksheet_rows_are_authoritative_not_only_aggregate_counts():
     lesson = _worksheet_lesson()
     # These two rows occupy the same concept/rung cell. Swapping them preserves
@@ -386,6 +556,35 @@ def test_worksheet_rows_are_authoritative_not_only_aggregate_counts():
     errors = _errors(validate_course(_course(lesson), _config()).issues)
     assert any("Worksheet row 1 / variant v1" in error and "question_type" in error for error in errors)
     assert any("Worksheet row 2 / variant v2" in error and "question_type" in error for error in errors)
+
+
+def test_normalization_preserves_authoritative_worksheet_row_order():
+    lesson = _worksheet_lesson()
+    before = [
+        (
+            exercise.concept_id,
+            exercise.question_type,
+            exercise.blooms_level,
+            getattr(exercise, "correct_answer", None),
+        )
+        for exercise in lesson.exercises
+    ]
+
+    course = normalize_course(_course(lesson))
+    normalized_lesson = course.modules[0].lessons[0]
+    after = [
+        (
+            exercise.concept_id,
+            exercise.question_type,
+            exercise.blooms_level,
+            getattr(exercise, "correct_answer", None),
+        )
+        for exercise in normalized_lesson.exercises
+    ]
+
+    assert after == before
+    report = validate_course(course, _config())
+    assert report.ok, _errors(report.issues)
 
 
 def test_worksheet_true_false_answer_is_bound_to_exact_variant_row():
@@ -583,6 +782,49 @@ def test_seed_concepts_restores_depth_dropped_by_a2_echo():
     assert [c.depth for c in course.modules[0].lessons[0].concepts] == ["fact", "mechanism"]
 
 
+def test_seed_concepts_restores_exact_authoritative_a1_pack_after_a2_drift():
+    authoritative = _atoms()
+    drifted = [concept.model_copy(deep=True) for concept in reversed(authoritative)]
+    drifted[0].id = "renamed-index-refresh"
+    drifted[0].label = "Renamed refresh"
+    drifted[0].summary = "A2 replaced the source-grounded summary."
+    drifted[0].depth = "decision"
+    drifted[0].confusable_with = ["invented-concept"]
+    drifted[1].label = "Renamed vector index"
+    drifted[1].depth = None
+    drifted[1].confusable_with = []
+
+    course = Course(
+        title="T",
+        modules=[
+            Module(
+                title="M",
+                lessons=[Lesson(title="L", slo="S", concepts=drifted, exercises=[], flashcards=[])],
+            )
+        ],
+    )
+    a1_map = {
+        "modules": [
+            {
+                "lessons": [
+                    {
+                        "concepts": [
+                            concept.model_dump(mode="json") for concept in authoritative
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+
+    _seed_concepts_from_map(course, a1_map)
+
+    restored = course.modules[0].lessons[0].concepts
+    assert [concept.model_dump(mode="json") for concept in restored] == [
+        concept.model_dump(mode="json") for concept in authoritative
+    ]
+
+
 def test_restore_concept_metadata_restores_depth_after_rewrite():
     prev = Course(title="T", modules=[Module(title="M", lessons=[
         Lesson(title="L", slo="S", concepts=_atoms(), exercises=[], flashcards=[])
@@ -595,6 +837,54 @@ def test_restore_concept_metadata_restores_depth_after_rewrite():
     ])])
     _restore_concept_metadata(prev, new)
     assert [c.depth for c in new.modules[0].lessons[0].concepts] == ["fact", "mechanism"]
+
+
+def test_restore_concept_metadata_pins_exact_prior_pack_and_exercise_concept_ids():
+    previous_lesson = _worksheet_lesson()
+    rewritten_lesson = previous_lesson.model_copy(deep=True)
+    rewritten_lesson.concepts.reverse()
+    rewritten_lesson.concepts[0].id = "rewritten-id"
+    rewritten_lesson.concepts[0].label = "Rewritten label"
+    rewritten_lesson.concepts[0].summary = "A rewrite stage changed authoritative metadata."
+    rewritten_lesson.concepts[0].depth = "decision"
+    rewritten_lesson.concepts[0].confusable_with = ["invented-concept"]
+    for exercise in rewritten_lesson.exercises:
+        exercise.concept_id = "rewritten-id"
+
+    previous = Course(
+        title="T", modules=[Module(title="M", lessons=[previous_lesson])]
+    )
+    rewritten = Course(
+        title="T", modules=[Module(title="M", lessons=[rewritten_lesson])]
+    )
+
+    _restore_concept_metadata(previous, rewritten)
+
+    restored_lesson = rewritten.modules[0].lessons[0]
+    assert [concept.model_dump(mode="json") for concept in restored_lesson.concepts] == [
+        concept.model_dump(mode="json") for concept in previous_lesson.concepts
+    ]
+    assert [exercise.concept_id for exercise in restored_lesson.exercises] == [
+        exercise.concept_id for exercise in previous_lesson.exercises
+    ]
+
+
+def test_restore_lesson_depths_pins_exact_prior_pack_after_a5_repair():
+    previous = _worksheet_lesson()
+    repaired = previous.model_copy(deep=True)
+    repaired.concepts.reverse()
+    repaired.concepts[0].id = "a5-renamed-id"
+    repaired.concepts[0].label = "A5 renamed label"
+    repaired.concepts[0].summary = "A5 changed the source-grounded summary."
+    repaired.concepts[0].depth = "decision"
+    repaired.concepts[0].confusable_with = ["invented-concept"]
+    repaired.concepts.pop()
+
+    _restore_lesson_depths(previous, repaired)
+
+    assert [concept.model_dump(mode="json") for concept in repaired.concepts] == [
+        concept.model_dump(mode="json") for concept in previous.concepts
+    ]
 
 
 def test_worksheet_bank_compiles_levels_with_zero_item_repeats():
@@ -669,6 +959,459 @@ def test_a1_map_depth_validation_and_default_stamping():
     _stamp_default_depths(a1_map)
     assert concept["depth"] == "fact"
     assert _validate_a1_map(a1_map, cfg) == []
+
+
+def test_exact_budget_a1_map_rejects_missing_or_blank_concept_labels():
+    config = WorkflowConfig.model_validate(
+        {**_config().model_dump(mode="json"), "worksheet_items_per_lesson": 6}
+    )
+    for malformed in (
+        {
+            "id": "missing-label",
+            "summary": "A vector index accelerates nearest-neighbor lookup.",
+            "depth": "fact",
+        },
+        {
+            "id": "blank-label",
+            "label": "   ",
+            "summary": "An index refresh updates stale entries after ingestion.",
+            "depth": "fact",
+        },
+    ):
+        valid = {
+            "id": "valid-sibling",
+            "label": "Valid sibling",
+            "summary": "A valid sibling supplies another source-grounded fact.",
+            "depth": "fact",
+        }
+        a1_map = {
+            "modules": [{"lessons": [{"concepts": [malformed, valid]}]}]
+        }
+
+        problems = _validate_a1_map(a1_map, config)
+
+        assert any("label" in problem.lower() for problem in problems), (
+            malformed["id"],
+            problems,
+        )
+
+
+def _assert_exact_budget_a2_rejects_concepts_before_model(concepts: list[dict]):
+    class LegacyFallbackReached(RuntimeError):
+        pass
+
+    class RecordingContext:
+        async def add_event(self, _event):
+            return None
+
+        async def send_message(self, _state):
+            return None
+
+    config = WorkflowConfig.model_validate(
+        {**_config().model_dump(mode="json"), "worksheet_items_per_lesson": 6}
+    )
+    state = PipelineState(
+        run_id="malformed-exact-budget-map",
+        run_dir="/tmp/malformed-exact-budget-map",
+        input_text="A vector index accelerates similarity lookup.",
+        model_id="test-model",
+        config=config,
+        a1_course_map={
+            "title": "T",
+            "modules": [
+                {
+                    "title": "M",
+                    "lessons": [
+                        {
+                            "title": "L",
+                            "slo": "Explain vector lookup.",
+                            "concepts": concepts,
+                        }
+                    ],
+                }
+            ],
+        },
+    )
+
+    with patch.object(
+        workflow_executors,
+        "LLMClient",
+        side_effect=LegacyFallbackReached("A2 reached legacy generation"),
+    ):
+        try:
+            asyncio.run(
+                workflow_executors.a2_scaffolder._original_func(
+                    state, RecordingContext()
+                )
+            )
+        except LegacyFallbackReached as error:
+            assert False, str(error)
+        except Exception:
+            pass  # authoritative parsing must fail before any legacy LLM call
+        else:
+            assert False, "malformed exact-budget concepts were accepted"
+
+
+def test_exact_budget_a2_does_not_fall_back_when_authoritative_concepts_do_not_parse():
+    _assert_exact_budget_a2_rejects_concepts_before_model(
+        [
+            {
+                "id": "missing-label",
+                "summary": "A vector index accelerates similarity lookup.",
+                "depth": "fact",
+            },
+            {
+                "id": "valid-sibling",
+                "label": "Valid sibling",
+                "summary": "A sibling fact keeps the pack structurally feasible.",
+                "depth": "fact",
+            },
+        ]
+    )
+
+
+def test_exact_budget_a2_rejects_empty_authoritative_concept_pack_before_model():
+    _assert_exact_budget_a2_rejects_concepts_before_model([])
+
+
+def test_exact_budget_a2_rejects_depthless_authoritative_concepts_before_model():
+    _assert_exact_budget_a2_rejects_concepts_before_model(
+        [
+            {
+                "id": "depthless-vector-index",
+                "label": "Depthless vector index",
+                "summary": "A vector index accelerates similarity lookup.",
+                "depth": None,
+            },
+            {
+                "id": "depthless-refresh",
+                "label": "Depthless refresh",
+                "summary": "An index refresh updates stale entries after ingestion.",
+                "depth": None,
+            },
+        ]
+    )
+
+
+def test_a1_map_rejects_source_exposition_summaries_as_meta_content():
+    concepts = [
+        {
+            "id": "small-token-example",
+            "label": "Small token example",
+            "summary": "The example uses only five tokens so it can be visualized.",
+            "depth": "fact",
+        },
+        {
+            "id": "described-relationship",
+            "label": "Token relationship",
+            "summary": "The relationship between tokens is described here before scoring.",
+            "depth": "mechanism",
+        },
+        {
+            "id": "simplified-process",
+            "label": "Simplified process",
+            "summary": "This is intentionally simplified to make the process easier to follow.",
+            "depth": "mechanism",
+        },
+        {
+            "id": "definite-example",
+            "label": "Example nodes",
+            "summary": "The example nodes are connected by weighted edges.",
+            "depth": "mechanism",
+        },
+        {
+            "id": "source-example",
+            "label": "Source example",
+            "summary": "The source's example maps global to globe.",
+            "depth": "fact",
+        },
+        {
+            "id": "source-attribution",
+            "label": "Source attribution",
+            "summary": "The document states that tokenization splits text into tokens.",
+            "depth": "fact",
+        },
+        {
+            "id": "navigation",
+            "label": "Navigation",
+            "summary": "The mechanism was explained several paragraphs above.",
+            "depth": "mechanism",
+        },
+        {
+            "id": "curriculum-reference",
+            "label": "Curriculum reference",
+            "summary": "This module introduces embedding similarity.",
+            "depth": "fact",
+        },
+    ]
+    a1_map = {"modules": [{"lessons": [{"concepts": concepts}]}]}
+
+    problems = _validate_a1_map(a1_map, _config())
+
+    for concept in concepts:
+        matching = [
+            problem
+            for problem in problems
+            if f"Concept '{concept['id']}'" in problem
+        ]
+        assert matching, (concept["id"], problems)
+        assert any("not learnable material" in problem for problem in matching), matching
+
+
+def test_a1_map_allows_standalone_examples_and_domain_visualization_terms():
+    concepts = [
+        {
+            "id": "projection",
+            "label": "Projection",
+            "summary": (
+                "Dimensionality reduction projects embeddings into two dimensions for "
+                "visualization."
+            ),
+            "depth": "mechanism",
+        },
+        {
+            "id": "classifier-example",
+            "label": "Classifier example",
+            "summary": "For example, a classifier can label a message as spam.",
+            "depth": "fact",
+        },
+        {
+            "id": "source-document",
+            "label": "Source document",
+            "summary": "A source document can contain fields that an extractor maps to a schema.",
+            "depth": "mechanism",
+        },
+        {
+            "id": "python-module",
+            "label": "Python module",
+            "summary": "A Python module exposes reusable functions and classes.",
+            "depth": "fact",
+        },
+        {
+            "id": "edge-model",
+            "label": "Edge model",
+            "summary": "A model intentionally simplified for edge deployment uses less compute.",
+            "depth": "mechanism",
+        },
+        {
+            "id": "local-example-antecedent",
+            "label": "Local example antecedent",
+            "summary": (
+                "An example uses five tokens. The example illustrates their position IDs."
+            ),
+            "depth": "fact",
+        },
+    ]
+    a1_map = {"modules": [{"lessons": [{"concepts": concepts}]}]}
+
+    problems = _validate_a1_map(a1_map, _config())
+    assert not any("not learnable material" in problem for problem in problems), problems
+
+
+def test_a1_map_rejects_narrow_meta_identity_markers_with_clean_summaries():
+    concepts = [
+        {
+            "id": "course-overview",
+            "label": "Vector indexing",
+            "summary": "A vector index accelerates nearest-neighbor lookup.",
+            "depth": "fact",
+        },
+        {
+            "id": "grounded-mechanism",
+            "label": "This module",
+            "summary": "An index refresh updates stale entries after ingestion.",
+            "depth": "mechanism",
+        },
+    ]
+    a1_map = {"modules": [{"lessons": [{"concepts": concepts}]}]}
+
+    problems = _validate_a1_map(a1_map, _config())
+
+    for concept in concepts:
+        matching = [
+            problem
+            for problem in problems
+            if f"Concept '{concept['id']}'" in problem
+        ]
+        assert matching, (concept["id"], problems)
+        assert any("not learnable material" in problem for problem in matching), matching
+
+
+def test_course_validation_emits_exact_concept_summary_path_for_meta_reference():
+    course = _course(_worksheet_lesson())
+    course.modules[0].lessons[0].concepts[1].summary = (
+        "The example shows how an index refresh updates stale entries."
+    )
+
+    report = validate_course(course, _config())
+
+    matching = [
+        issue
+        for issue in report.issues
+        if issue.path == "modules[0].lessons[0].concepts[1].summary"
+    ]
+    assert any(issue.severity == "error" and "The example" in issue.message for issue in matching)
+    assert _validation_retry_target(report, course) == "a1"
+
+
+def test_mixed_concept_and_exercise_errors_retry_the_authoritative_a1_stage():
+    course = _course(_worksheet_lesson())
+    concept_report = ValidationReport(
+        ok=False,
+        issues=[
+            ValidationIssue(
+                severity="error",
+                path="modules[0].lessons[0].concepts[1].summary",
+                message="Confirmed source-exposition meta-reference.",
+            ),
+            ValidationIssue(
+                severity="error",
+                path="modules[0].lessons[0].exercises[2]",
+                message="Exercise also needs repair.",
+            ),
+        ],
+    )
+    assert _validation_retry_target(concept_report, course) == "a1"
+
+    lesson_report = ValidationReport(
+        ok=False,
+        issues=[
+            ValidationIssue(
+                severity="warning",
+                path="modules[0].lessons[0].concepts[1].summary",
+                message="A warning does not invalidate the map.",
+            ),
+            ValidationIssue(
+                severity="error",
+                path="modules[0].lessons[0].exercises[2]",
+                message="Exercise needs repair.",
+            ),
+        ],
+    )
+    assert _validation_retry_target(lesson_report, course) == "a2"
+
+
+def test_out_of_range_concept_error_does_not_claim_a1_ownership():
+    course = _course(_worksheet_lesson())
+    report = ValidationReport(
+        ok=False,
+        issues=[
+            ValidationIssue(
+                severity="error",
+                path="modules[0].lessons[7].concepts[0].summary",
+                message="Hallucinated concept path from a source-fidelity check.",
+            )
+        ],
+    )
+
+    assert _validation_retry_target(report, course) == "a2"
+
+
+def test_actual_workflow_retry_predicates_are_mutually_exclusive():
+    report = ValidationReport(
+        ok=False,
+        issues=[
+            ValidationIssue(
+                severity="error",
+                path="modules[0].lessons[0].exercises[0]",
+                message="Exercise needs repair.",
+            )
+        ],
+    )
+    state = PipelineState(
+        run_id="retry-routing",
+        run_dir="/tmp/retry-routing",
+        input_text="Grounded source.",
+        model_id="test-model",
+        validation_report=report,
+    )
+
+    for target, expected in (
+        (None, (False, False)),
+        ("a1", (True, False)),
+        ("a2", (False, True)),
+    ):
+        state.retry_target = target
+        actual = (should_loop_to_a1(state), should_loop_to_a2(state))
+        assert actual == expected
+        assert not all(actual)
+
+    state.validation_report = ValidationReport(ok=True, issues=[])
+    state.retry_target = "a1"
+    assert not should_loop_to_a1(state)
+    assert not should_loop_to_a2(state)
+
+
+def test_reset_after_a1_retry_clears_downstream_attempt_state_only():
+    course = _course(_worksheet_lesson())
+    report = ValidationReport(
+        ok=False,
+        issues=[
+            ValidationIssue(
+                severity="error",
+                path="modules[0].lessons[0].concepts[0].summary",
+                message="A1-owned concept error.",
+            )
+        ],
+    )
+    a1_map = {"modules": [{"lessons": [{"concepts": []}]}]}
+    state = PipelineState(
+        run_id="a1-reset",
+        run_dir="/tmp/a1-reset",
+        input_text="Grounded source.",
+        model_id="test-model",
+        a1_course_map=a1_map,
+        a2_course=course.model_copy(deep=True),
+        a3_course=course.model_copy(deep=True),
+        a4_course=course.model_copy(deep=True),
+        a5_course=course.model_copy(deep=True),
+        validation_report=report,
+        best_course=course.model_copy(deep=True),
+        best_report=report.model_copy(deep=True),
+        dirty_lessons=["0:0"],
+        retry_count=2,
+        retry_target="a1",
+    )
+
+    workflow_executors._reset_after_a1_retry(state)
+
+    assert state.a1_course_map == a1_map
+    assert state.retry_count == 2
+    assert state.a2_course is None
+    assert state.a3_course is None
+    assert state.a4_course is None
+    assert state.a5_course is None
+    assert state.validation_report is None
+    assert state.best_course is None
+    assert state.best_report is None
+    assert state.dirty_lessons is None
+    assert state.retry_target is None
+
+
+def test_a1_map_rejects_infeasible_exact_worksheet_budget():
+    cfg = WorkflowConfig.model_validate(
+        {**_config().model_dump(mode="json"), "worksheet_items_per_lesson": 13}
+    )
+    a1_map = {
+        "modules": [
+            {
+                "lessons": [
+                    {
+                        "concepts": [
+                            concept.model_dump(mode="json") for concept in _atoms()
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+    problems = _validate_a1_map(a1_map, cfg)
+    assert any(
+        "worksheet item budget 13" in problem
+        and "at least 7" in problem
+        and "at most 12" in problem
+        for problem in problems
+    ), problems
 
 
 def _run_all():

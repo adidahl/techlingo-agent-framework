@@ -264,6 +264,30 @@ def test_codex_argv():
     assert "-m" not in argv2 and "--output-schema" not in argv2
 
 
+def test_codex_reasoning_effort_env_and_validation():
+    old = os.environ.pop("TECHLINGO_CODEX_REASONING_EFFORT", None)
+    try:
+        assert CodexBackend("gpt-5.6-luna").reasoning_effort is None
+        os.environ["TECHLINGO_CODEX_REASONING_EFFORT"] = "high"
+        backend = CodexBackend("gpt-5.6-luna")
+        assert backend.reasoning_effort == "high"
+        argv = backend.build_argv(scratch_dir="/scratch", output_file="/out.txt")
+        assert argv[argv.index("-m") + 1] == "gpt-5.6-luna"
+        assert argv[argv.index("-c") + 1] == 'model_reasoning_effort="high"'
+
+        os.environ["TECHLINGO_CODEX_REASONING_EFFORT"] = "not-a-real-effort"
+        try:
+            CodexBackend("gpt-5.6-luna")
+            assert False, "invalid Codex reasoning effort accepted"
+        except ValueError as e:
+            assert "TECHLINGO_CODEX_REASONING_EFFORT" in str(e)
+            assert "high" in str(e)
+    finally:
+        os.environ.pop("TECHLINGO_CODEX_REASONING_EFFORT", None)
+        if old is not None:
+            os.environ["TECHLINGO_CODEX_REASONING_EFFORT"] = old
+
+
 def test_codex_prompt_prepends_guard_and_system():
     text = CodexBackend.build_prompt("TASK", system="SYS")
     assert text.startswith(backends.CODEX_GUARD)
@@ -402,7 +426,11 @@ def test_llmclient_run_json_model_schema_repair():
     data, parsed = _run(client.run_json_model("task", _Answer))
     assert parsed.count == 3 and data == {"ok": True, "count": 3}
     assert fake.calls[0]["response_model"] is _Answer  # schema offered to the backend
+    assert "REQUIRED OUTPUT JSON SCHEMA" in fake.calls[0]["prompt"]
+    assert '"count"' in fake.calls[0]["prompt"]
     assert "did not match the required schema" in fake.calls[1]["prompt"]
+    assert "Original task and required schema" in fake.calls[1]["prompt"]
+    assert client.last_backend_calls == 2
 
 
 def test_llmclient_model_id_defaults_to_backend_label():

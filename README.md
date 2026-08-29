@@ -115,7 +115,43 @@ python main.py course reference promote courses/ai-901 REF --approved-by "Review
 python main.py course gauntlet run courses/ai-901 --unit UNIT          # dry run
 python main.py course gauntlet run courses/ai-901 --unit UNIT --execute
 python main.py course gauntlet history list courses/ai-901
+python main.py course gauntlet proposal list courses/ai-901
+python main.py course gauntlet proposal queue courses/ai-901
 ```
+
+Promoted edited champions remain proposals. A readable HTML page shows the
+current and proposed question side by side. The machine-readable export and
+approval bind the exact proposal, history, compiled-artifact, and proposed-
+champion SHA-256 values. Incorporation is a separate `--execute` step that
+updates only the uniquely mapped authoritative bank item, marks it human-edited
+and pinned, and runs the read-only deterministic audit. It never regenerates a
+source, patches a compiled unit, or publishes a bundle. Fresh Luna review of
+only the affected unit is separately explicit with `--fresh-gauntlet`.
+
+```bash
+python main.py course gauntlet proposal export courses/ai-901 PROPOSAL_ID \
+  --output /tmp/proposal.json
+python main.py course gauntlet proposal review courses/ai-901 PROPOSAL_ID \
+  --output /tmp/proposal-review.html
+python main.py course gauntlet proposal approve courses/ai-901 /tmp/proposal.json \
+  --approved-by "Reviewer" \
+  --proposal-sha256 PROPOSAL_SHA \
+  --history-sha256 HISTORY_SHA \
+  --compiled-artifact-sha256 COMPILED_SHA \
+  --champion-after-sha256 CHALLENGER_SHA
+python main.py course gauntlet proposal incorporate courses/ai-901 APPROVAL.json
+python main.py course gauntlet proposal incorporate courses/ai-901 APPROVAL.json --execute
+python main.py course gauntlet proposal incorporate courses/ai-901 APPROVAL.json \
+  --execute --fresh-gauntlet
+python main.py course gauntlet proposal promote courses/ai-901 APPROVAL.json \
+  --amendment APPROVED_AMENDMENT.json --receipt APPLICATION_RECEIPT.json --execute
+```
+
+`proposal promote` does not regenerate content or create a bundle. It proves
+that the reviewed item is the sole delta from the previous promoted bank,
+rechecks the exact source, approval, amendment, receipt, and deterministic
+artifact hashes, then records that evidence in publication state. Receipt
+tampering or any unrelated bank drift closes the publication gate.
 
 See [QUALITY_GAUNTLET.md](QUALITY_GAUNTLET.md) for configuration, publication,
 reference approval, history review, migration details, and known limitations.
@@ -128,12 +164,18 @@ mechanism → +R3×2 R4×1 (7), decision → R1×1 R2×2 R3×2 R4×2 R5×2 (9). 
 worksheet row dictates one exercise's concept, question type, Bloom level and
 (for true/false) the correct answer; variants of the same concept×rung cell
 may test the same fact but must differ in surface (different scenario, angle,
-distractor subset, gap, or statement). `exercises_per_lesson` and the type/
-Bloom distributions are therefore **derived per lesson** (~4–6 concepts →
-~24–40 items); the configured values only serve lessons without a
-depth-classified pack. The bank's rung is assigned by the worksheet at
-generation time and persisted on each item (`derive_rung()` remains the
-fallback for legacy payloads).
+distractor subset, gap, or statement). For a depth-classified lesson, the
+selected worksheet determines the exact exercise count and its type/Bloom
+distributions. `exercises_per_lesson` remains the legacy fallback for lessons
+without a classified pack and the A1 concepts-per-lesson sizing hint. By
+default every 5/7/9 quota row is generated. A course may set
+`workflow.worksheet_items_per_lesson` to an exact pre-generation budget: every
+required concept/rung row is retained, optional variants are deterministically
+apportioned across learner bands and concepts, and an infeasible pack fails A1
+instead of being padded or trimmed. AI-901 uses this policy to keep exactly 30
+active generated items per lesson. The bank's rung is assigned by the selected
+worksheet at generation time and persisted on each item (`derive_rung()`
+remains the fallback for legacy payloads).
 
 > **Build time:** oversampling variants makes a full per-file build take
 > **~1.5–2× longer** than the Phase-1 numbers (a file that took ~30 min on
@@ -148,7 +190,7 @@ A1 Modularizer        — course map + per-lesson "content packs" (concept atoms
 A2 Scaffolder         — exercises per concept (sees the FULL source text + content packs)
 A3 Scenario Designer  — rewrites higher-order questions into grounded scenarios
 A4 Feedback Architect — rationales, better_fit, paired intrinsic/instructional feedback
-A5 Validator          — deterministic quality gates + LLM fact-check + repair, loops back to A2 on errors
+A5 Validator          — deterministic quality gates + LLM fact-check + repair; routes map errors to A1 and lesson errors to A2
 ```
 
 Question-quality rules enforced deterministically (no LLM) in `validate.py`:

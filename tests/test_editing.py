@@ -25,6 +25,7 @@ from techlingo_workflow.llm import LLMClient
 from techlingo_workflow.models import (
     BloomsLevel,
     ChoiceOption,
+    ConceptAtom,
     Course,
     Lesson,
     Module,
@@ -208,6 +209,20 @@ def test_infer_config_matches_observed_shape():
         "single_choice": 1, "true_false": 1, "rearrange": 1,
     }
     assert config.modules_count == 1
+
+
+def test_infer_config_preserves_uniform_budgeted_worksheet_shape():
+    course = _course()
+    course.modules[0].lessons[0].concepts = [
+        ConceptAtom(
+            id="c1",
+            label="Generative AI",
+            summary="Generative AI creates new content.",
+            depth="fact",
+        )
+    ]
+    config = infer_config_from_course(course)
+    assert config.worksheet_items_per_lesson == 3
 
 
 def test_resolve_course_key_prefers_existing():

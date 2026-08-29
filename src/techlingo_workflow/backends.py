@@ -21,6 +21,7 @@ from __future__ import annotations
 
 import asyncio
 import json
+import logging
 import os
 import shutil
 import subprocess
@@ -50,6 +51,15 @@ _RATE_LIMIT_BACKOFF_S: tuple[float, ...] = (30.0, 90.0)
 # One immediate retry after a killed/timed-out subprocess call: transient CLI
 # slowness is common on subscription seats and the repair loop can't help here.
 _TIMEOUT_RETRIES = 1
+
+# Values accepted by the Codex CLI's model_reasoning_effort config override.
+# Keep this validation local to the subprocess adapter so an invalid setting
+# fails before any paid generation call is attempted.
+CODEX_REASONING_EFFORTS = frozenset(
+    {"minimal", "low", "medium", "high", "xhigh", "max", "ultra"}
+)
+
+logger = logging.getLogger(__name__)
 
 
 def default_timeout_s() -> float:
@@ -350,6 +360,13 @@ class CodexBackend:
     def __init__(self, model: str | None = None, *, binary: str = "codex") -> None:
         self.model = model
         self.binary = binary
+        self.reasoning_effort = os.getenv("TECHLINGO_CODEX_REASONING_EFFORT")
+        if self.reasoning_effort is not None and self.reasoning_effort not in CODEX_REASONING_EFFORTS:
+            allowed = ", ".join(sorted(CODEX_REASONING_EFFORTS))
+            raise ValueError(
+                "TECHLINGO_CODEX_REASONING_EFFORT must be one of "
+                f"{allowed}; got {self.reasoning_effort!r}"
+            )
         self.model_label = f"{self.name}:{model}" if model else self.name
 
     def build_argv(
@@ -372,6 +389,8 @@ class CodexBackend:
         ]
         if self.model:
             argv += ["-m", self.model]
+        if self.reasoning_effort:
+            argv += ["-c", f'model_reasoning_effort="{self.reasoning_effort}"']
         if schema_file:
             argv += ["--output-schema", schema_file]
         return argv
@@ -390,6 +409,11 @@ class CodexBackend:
         timeout_s: float | None = None,
     ) -> str:
         timeout_s = timeout_s if timeout_s is not None else default_timeout_s()
+        logger.info(
+            "Codex generation settings: model=%s reasoning_effort=%s",
+            self.model or "<cli-default>",
+            self.reasoning_effort or "<cli-default>",
+        )
 
         async def _once() -> str:
             with tempfile.TemporaryDirectory(prefix="techlingo-codex-") as tmp:

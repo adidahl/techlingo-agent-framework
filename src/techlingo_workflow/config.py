@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 from typing import Dict
 
-from pydantic import BaseModel, Field, model_validator
+from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 
 from enum import Enum
@@ -20,15 +20,17 @@ class WorkflowConfig(BaseModel):
     """Configuration for the Techlingo workflow constraints.
 
     PRECEDENCE (Phase 2b cell worksheets — see worksheet.py): for any lesson
-    whose concept pack is fully depth-classified, `exercises_per_lesson`,
-    `blooms_distribution`, and `question_type_distribution` are DERIVED from
-    the lesson's cell worksheet (quota table per concept depth) and the values
-    configured here are ignored for that lesson — both at generation and at
-    validation. The configured values still: (a) govern legacy lessons without
-    such a pack, (b) size A1's concepts-per-lesson cap via
-    `exercises_per_lesson`, and (c) must satisfy this model's sum/coupling
-    validator (they are a coherent legacy fallback, not dead weight).
+    whose concept pack is fully depth-classified, the Bloom/type distributions
+    are DERIVED from the lesson's cell worksheet. By default the worksheet uses
+    every row in the quota table. A course may instead set
+    `worksheet_items_per_lesson` to an exact pre-generation budget; the
+    worksheet then retains every required concept/rung row and deterministically
+    selects optional variants to that count. `exercises_per_lesson` and its
+    distributions still govern legacy lessons without a classified pack and
+    size A1's concept cap.
     """
+
+    model_config = ConfigDict(extra="forbid")
     
     # Global Settings
     difficulty: DifficultyLevel = Field(DifficultyLevel.beginner, description="Overall course difficulty.")
@@ -40,6 +42,14 @@ class WorkflowConfig(BaseModel):
     
     # A2: Lesson Content
     exercises_per_lesson: int = Field(15, description="Number of exercises to generate per lesson.")
+    worksheet_items_per_lesson: int | None = Field(
+        default=None,
+        ge=1,
+        description=(
+            "Optional exact item budget for depth-classified worksheet lessons. "
+            "None keeps the full per-concept worksheet quota."
+        ),
+    )
     flashcards_per_lesson: int = Field(8, description="Number of flashcards to generate per lesson.")
     
     # Distributions
@@ -66,6 +76,32 @@ class WorkflowConfig(BaseModel):
 
     @model_validator(mode='after')
     def check_distributions(self) -> WorkflowConfig:
+        allowed_blooms = {
+            "Remembering",
+            "Understanding",
+            "Applying",
+            "Analyzing/Evaluating",
+        }
+        unknown_blooms = set(self.blooms_distribution) - allowed_blooms
+        if unknown_blooms:
+            raise ValueError(
+                f"blooms_distribution contains unsupported keys: {sorted(unknown_blooms)}"
+            )
+
+        allowed_types = {
+            "single_choice",
+            "multi_choice",
+            "true_false",
+            "fill_gaps",
+            "rearrange",
+        }
+        unknown_types = set(self.question_type_distribution) - allowed_types
+        if unknown_types:
+            raise ValueError(
+                "question_type_distribution contains unsupported keys: "
+                f"{sorted(unknown_types)}"
+            )
+
         # Check Bloom's
         blooms_sum = sum(self.blooms_distribution.values())
         if blooms_sum != self.exercises_per_lesson:

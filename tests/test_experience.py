@@ -353,6 +353,53 @@ def test_search_bound_exhaustion_never_authorizes_relaxation():
     assert "increase max_search_states" in message
 
 
+def test_scarce_mechanic_window_propagation_avoids_ai901_search_exhaustion():
+    # Regression for using-ai-responsibly-l2: six fill-gaps, six choices, and
+    # only two true/false questions must cover every six-question window.  The
+    # old item-level search explored more than one million permutations after
+    # placing a scarce true/false question where it could not cover the later
+    # windows.  The exact mechanic continuation check proves those branches
+    # dead without changing any item identity or relaxing a constraint.
+    concepts = [
+        "accountability",
+        "fairness",
+        "reliability",
+        "privacy",
+        "inclusiveness",
+        "transparency",
+    ]
+    items = [
+        _item("tf-reliability", "true_false", concept="reliability", rung=2, answer=True),
+        _item("tf-inclusiveness", "true_false", concept="inclusiveness", rung=2, answer=True),
+        *[
+            _item(f"fill-{concept}", "fill_gaps", concept=concept, rung=3)
+            for concept in concepts
+        ],
+        *[
+            _item(f"choice-{concept}", "single_choice", concept=concept, rung=4)
+            for concept in concepts
+        ],
+    ]
+
+    result = compose_experience(
+        items,
+        policy=ExperiencePolicy(max_search_states=100_000),
+        seed=901,
+        scope="using-ai-responsibly-l2-regression",
+    )
+
+    assert result.diagnostics.relaxations == ()
+    assert result.diagnostics.search_states < 100_000
+    mechanics = [item.mechanic for item in result.ordered]
+    assert all(
+        len(set(mechanics[start : start + 6])) >= 3
+        for start in range(len(mechanics) - 5)
+    )
+    assert Counter(item.item_key for item in result.ordered) == Counter(
+        item.item_key for item in items
+    )
+
+
 def test_invalid_pinned_prefix_fails_instead_of_hiding_a_streak():
     items = [
         _item("a", "single_choice"),

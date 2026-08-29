@@ -1,0 +1,700 @@
+{
+  "schema_version": "techlingo-gauntlet-authored-approval-v1",
+  "approval_sha256": "753ccfc80445c1ed2c3b283ebcc8fc5413544ac1b5e3e8d3eee8f21b3423216c",
+  "proposal": {
+    "schema_version": "techlingo-gauntlet-authored-proposal-v1",
+    "proposal_id": "bag-of-words-classification-l3-8fd73220ace4-round-1",
+    "proposal_sha256": "876b1be242ed78b9833ddafd8284f24faea19306b84eda889df777701ad93683",
+    "unit_key": "bag-of-words-classification-l3",
+    "run_id": "bag-of-words-classification-l3-8fd73220ace4",
+    "round_number": 1,
+    "record_path": "gauntlet/history/bag-of-words-classification-l3-bag-of-words-classification-l3-8fd73220ace4.json",
+    "record_sha256": "60886e9431552e5d94cd723102ea50e7a38f7d045c8b6462337064880ca83902",
+    "history_sha256": "b5d314907679166de4482e3e1f4f4b2da4a389b4de8b1ff5a6f1e871c4885e83",
+    "compiled_artifact_sha256": "2fa356d363b3a7f13d4d399d67361e952b387b4b6502e0aa169d3bb7f3169d2b",
+    "champion_before_sha256": "fa278e3667f1d011c3a1363267c1f81a04025d343967f134dc50be0cca775f12",
+    "champion_after_sha256": "6d7d6ec461c2e56479fbad286745f52207ea11692aa58dc42201e50abf100e0a",
+    "evaluation_context_sha256": "24f646429878790e930d7270a90f9743ea84e9139d8b1c18acf4d01c586ff7a8",
+    "gauntlet_policy_sha256": "3ffb6943742c9fc0b33d6668a9c5695b535ee3121f7b697df8ab4d4392014385",
+    "repair_summary": "Changed only question_text for the fifth item to ask for the text-analysis task, removing ambiguity with the Naive Bayes classifier option.",
+    "repair_instruction": "Change only question_text to ask which text-analysis task or use case fits the scenario, preserving question_type, options, correct_answer, and all metadata; for example, ask “Which text-analysis task best fits this scenario?”",
+    "emitted_changes": [
+      {
+        "item_key": "bag-of-words-classification/bag-of-words-spam-filtering/r5/v1",
+        "artifact_path": "modules/2:3-introduction-to-natural-language-processing-concepts/units/11:bag-of-words-classification-l3/questions/4",
+        "field": "question_text",
+        "before": "A security analyst must choose a method to label emails. Phrases such as “miracle cure” occurred more often in past spam than regular email. Which approach best fits?",
+        "after": "A security analyst must choose a method to label emails. Phrases such as “miracle cure” occurred more often in past spam than regular email. Which text-analysis task best fits this scenario?"
+      }
+    ],
+    "authored_changes": [
+      {
+        "item_key": "bag-of-words-classification/bag-of-words-spam-filtering/r5/v1",
+        "bank_path": "bank/bag-of-words-classification.json",
+        "bank_item_index": 16,
+        "source_file": "3. Introduction to natural language processing concepts.md",
+        "source_sha256": "a2a7646efefed2d7b1d2e8624bf2ba42bf2faaf507959888bb5e54602c3ce0a9",
+        "item_source_sha256": "a2a7646efefed2d7b1d2e8624bf2ba42bf2faaf507959888bb5e54602c3ce0a9",
+        "bank_payload_sha256": "403afe6d77d711afe6601a0f3d28abdf1743726b46b3acd5ec8027629293b251",
+        "provenance_before": "generated",
+        "pinned_before": false,
+        "payload_before": {
+          "blooms_level": "Analyzing/Evaluating",
+          "question_type": "single_choice",
+          "prompt": "A security analyst must choose a method to label emails. Phrases such as “miracle cure” occurred more often in past spam than regular email. Which approach best fits?",
+          "concept_id": "bag-of-words-spam-filtering",
+          "options": [
+            {
+              "text": "Bag-of-words spam classification",
+              "is_correct": true,
+              "error_type": null,
+              "rationale": "Correct. The task labels email from word-frequency patterns associated with spam.",
+              "better_fit": null,
+              "feedback": null
+            },
+            {
+              "text": "Naive Bayes as a classifier",
+              "is_correct": false,
+              "error_type": "Confuses use case with algorithm",
+              "rationale": "Naive Bayes can implement this task but names an algorithm rather than the requested spam-filtering approach. The decision concerns the use case.",
+              "better_fit": "Use Naive Bayes when selecting a probability-based classifier for features.",
+              "feedback": {
+                "intrinsic": "The analyst may name an algorithm without identifying the email-labeling use case.",
+                "instructional": "Spam filtering is the classification task; Naive Bayes is one possible classifier."
+              }
+            },
+            {
+              "text": "Sentiment classification",
+              "is_correct": false,
+              "error_type": "Confuses spam with emotional tone",
+              "rationale": "Sentiment classification labels emotional tone. The required labels are spam and not spam.",
+              "better_fit": "Use sentiment classification for positive or negative feedback.",
+              "feedback": {
+                "intrinsic": "Risky mail could be sorted by mood instead of routed appropriately.",
+                "instructional": "Spam filtering uses spam and not-spam categories."
+              }
+            },
+            {
+              "text": "TF-IDF term scoring",
+              "is_correct": false,
+              "error_type": "Confuses classification with term scoring",
+              "rationale": "TF-IDF scores term relevance but does not itself label email. The task requires a spam decision.",
+              "better_fit": "Use TF-IDF to find distinctive terms in a collection.",
+              "feedback": {
+                "intrinsic": "The analyst could identify phrases but still lack an email classification.",
+                "instructional": "Choose spam classification when the goal is assigning spam labels from learned patterns."
+              }
+            }
+          ],
+          "feedback_for_correct": "Correct—the decision is to classify email as spam from word-frequency patterns."
+        },
+        "payload_after": {
+          "blooms_level": "Analyzing/Evaluating",
+          "question_type": "single_choice",
+          "prompt": "A security analyst must choose a method to label emails. Phrases such as “miracle cure” occurred more often in past spam than regular email. Which text-analysis task best fits this scenario?",
+          "concept_id": "bag-of-words-spam-filtering",
+          "options": [
+            {
+              "text": "Bag-of-words spam classification",
+              "is_correct": true,
+              "error_type": null,
+              "rationale": "Correct. The task labels email from word-frequency patterns associated with spam.",
+              "better_fit": null,
+              "feedback": null
+            },
+            {
+              "text": "Naive Bayes as a classifier",
+              "is_correct": false,
+              "error_type": "Confuses use case with algorithm",
+              "rationale": "Naive Bayes can implement this task but names an algorithm rather than the requested spam-filtering approach. The decision concerns the use case.",
+              "better_fit": "Use Naive Bayes when selecting a probability-based classifier for features.",
+              "feedback": {
+                "intrinsic": "The analyst may name an algorithm without identifying the email-labeling use case.",
+                "instructional": "Spam filtering is the classification task; Naive Bayes is one possible classifier."
+              }
+            },
+            {
+              "text": "Sentiment classification",
+              "is_correct": false,
+              "error_type": "Confuses spam with emotional tone",
+              "rationale": "Sentiment classification labels emotional tone. The required labels are spam and not spam.",
+              "better_fit": "Use sentiment classification for positive or negative feedback.",
+              "feedback": {
+                "intrinsic": "Risky mail could be sorted by mood instead of routed appropriately.",
+                "instructional": "Spam filtering uses spam and not-spam categories."
+              }
+            },
+            {
+              "text": "TF-IDF term scoring",
+              "is_correct": false,
+              "error_type": "Confuses classification with term scoring",
+              "rationale": "TF-IDF scores term relevance but does not itself label email. The task requires a spam decision.",
+              "better_fit": "Use TF-IDF to find distinctive terms in a collection.",
+              "feedback": {
+                "intrinsic": "The analyst could identify phrases but still lack an email classification.",
+                "instructional": "Choose spam classification when the goal is assigning spam labels from learned patterns."
+              }
+            }
+          ],
+          "feedback_for_correct": "Correct—the decision is to classify email as spam from word-frequency patterns."
+        },
+        "changed_payload_fields": [
+          "prompt"
+        ]
+      }
+    ],
+    "evidence": {
+      "hard_gate": {
+        "artifact_sha256": "6d7d6ec461c2e56479fbad286745f52207ea11692aa58dc42201e50abf100e0a",
+        "passed": true,
+        "issues": [],
+        "checks": {
+          "schema_and_answers": true,
+          "identity": true,
+          "final_sequence": true
+        },
+        "metrics": {},
+        "constraint_relaxations": []
+      },
+      "source_fidelity_critic": {
+        "result": {
+          "dimensions": [
+            {
+              "dimension": "factual_fidelity",
+              "score": 0.98,
+              "evidence": [
+                {
+                  "statement": "The contrast in the first item is supported by the source: bag-of-words represents tokens as word frequencies, while semantic models encode tokens as vectors.",
+                  "item_keys": [
+                    "bag-of-words-classification/statistical-vs-semantic-text-representation/r3/v2"
+                  ],
+                  "paths": [
+                    "modules/2:3-introduction-to-natural-language-processing-concepts/units/11:bag-of-words-classification-l3/questions/0"
+                  ]
+                },
+                {
+                  "statement": "The sentiment item correctly applies the source's statement that bag-of-words provides features and a model uses them to estimate probabilities and assign sentiment labels.",
+                  "item_keys": [
+                    "bag-of-words-classification/bag-of-words-sentiment/r5/v1"
+                  ],
+                  "paths": [
+                    "modules/2:3-introduction-to-natural-language-processing-concepts/units/11:bag-of-words-classification-l3/questions/1"
+                  ]
+                }
+              ]
+            },
+            {
+              "dimension": "answer_unambiguity",
+              "score": 0.97,
+              "evidence": [
+                {
+                  "statement": "The select-all item has two source-supported answers—bag-of-words features and a classifier estimating probabilities—while spam labels and TF-IDF do not satisfy the stated sentiment task.",
+                  "item_keys": [
+                    "bag-of-words-classification/bag-of-words-sentiment/r5/v1"
+                  ],
+                  "paths": [
+                    "modules/2:3-introduction-to-natural-language-processing-concepts/units/11:bag-of-words-classification-l3/questions/1"
+                  ]
+                }
+              ]
+            },
+            {
+              "dimension": "distractor_plausibility",
+              "score": 0.93,
+              "evidence": [
+                {
+                  "statement": "The distractors distinguish related but different concepts: TF-IDF term scoring, n-gram extraction, sentiment classification, and Naive Bayes as an algorithm versus spam filtering as a task.",
+                  "item_keys": [
+                    "bag-of-words-classification/statistical-vs-semantic-text-representation/r5/v1",
+                    "bag-of-words-classification/bag-of-words-spam-filtering/r5/v1"
+                  ],
+                  "paths": [
+                    "modules/2:3-introduction-to-natural-language-processing-concepts/units/11:bag-of-words-classification-l3/questions/3",
+                    "modules/2:3-introduction-to-natural-language-processing-concepts/units/11:bag-of-words-classification-l3/questions/4"
+                  ]
+                }
+              ]
+            },
+            {
+              "dimension": "misconception_quality",
+              "score": 0.94,
+              "evidence": [
+                {
+                  "statement": "Wrong choices diagnose realistic confusions between sentiment and spam labels, classification and term scoring, phrase matching and semantic similarity, and an algorithm versus a text-analysis task.",
+                  "item_keys": [
+                    "bag-of-words-classification/bag-of-words-sentiment/r5/v1",
+                    "bag-of-words-classification/statistical-vs-semantic-text-representation/r5/v1",
+                    "bag-of-words-classification/bag-of-words-spam-filtering/r5/v1"
+                  ],
+                  "paths": [
+                    "modules/2:3-introduction-to-natural-language-processing-concepts/units/11:bag-of-words-classification-l3/questions/1",
+                    "modules/2:3-introduction-to-natural-language-processing-concepts/units/11:bag-of-words-classification-l3/questions/3",
+                    "modules/2:3-introduction-to-natural-language-processing-concepts/units/11:bag-of-words-classification-l3/questions/4"
+                  ]
+                }
+              ]
+            },
+            {
+              "dimension": "cognitive_progression",
+              "score": 0.78,
+              "evidence": [
+                {
+                  "statement": "The ordered rungs are 3, 5, 3, 5, and 5: the third item returns to sentence arrangement after an analysis-level item, creating a noticeable progression dip. The unit SLO also explicitly names both bag-of-words and Naive Bayes, but no item requires selecting Naive Bayes as the solution.",
+                  "item_keys": [
+                    "bag-of-words-classification/statistical-vs-semantic-text-representation/r3/v2",
+                    "bag-of-words-classification/bag-of-words-sentiment/r5/v1",
+                    "bag-of-words-classification/bag-of-words-spam-filtering/r3/v2",
+                    "bag-of-words-classification/statistical-vs-semantic-text-representation/r5/v1",
+                    "bag-of-words-classification/bag-of-words-spam-filtering/r5/v1"
+                  ],
+                  "paths": [
+                    "modules/2:3-introduction-to-natural-language-processing-concepts/units/11:bag-of-words-classification-l3/questions/0",
+                    "modules/2:3-introduction-to-natural-language-processing-concepts/units/11:bag-of-words-classification-l3/questions/1",
+                    "modules/2:3-introduction-to-natural-language-processing-concepts/units/11:bag-of-words-classification-l3/questions/2",
+                    "modules/2:3-introduction-to-natural-language-processing-concepts/units/11:bag-of-words-classification-l3/questions/3",
+                    "modules/2:3-introduction-to-natural-language-processing-concepts/units/11:bag-of-words-classification-l3/questions/4"
+                  ]
+                }
+              ]
+            },
+            {
+              "dimension": "mechanic_rhythm_variation",
+              "score": 0.9,
+              "evidence": [
+                {
+                  "statement": "The sequence alternates arrange-sentence, select-all, arrange-sentence, single-choice, and single-choice mechanics, providing meaningful variation with only a final repeated mechanic.",
+                  "item_keys": [
+                    "bag-of-words-classification/statistical-vs-semantic-text-representation/r3/v2",
+                    "bag-of-words-classification/bag-of-words-sentiment/r5/v1",
+                    "bag-of-words-classification/bag-of-words-spam-filtering/r3/v2",
+                    "bag-of-words-classification/statistical-vs-semantic-text-representation/r5/v1",
+                    "bag-of-words-classification/bag-of-words-spam-filtering/r5/v1"
+                  ],
+                  "paths": [
+                    "modules/2:3-introduction-to-natural-language-processing-concepts/units/11:bag-of-words-classification-l3/questions/0",
+                    "modules/2:3-introduction-to-natural-language-processing-concepts/units/11:bag-of-words-classification-l3/questions/1",
+                    "modules/2:3-introduction-to-natural-language-processing-concepts/units/11:bag-of-words-classification-l3/questions/2",
+                    "modules/2:3-introduction-to-natural-language-processing-concepts/units/11:bag-of-words-classification-l3/questions/3",
+                    "modules/2:3-introduction-to-natural-language-processing-concepts/units/11:bag-of-words-classification-l3/questions/4"
+                  ]
+                }
+              ]
+            },
+            {
+              "dimension": "prompt_language_variation",
+              "score": 0.92,
+              "evidence": [
+                {
+                  "statement": "Prompt stems vary across reconstruction, manager decision, arrangement, researcher choice, and analyst decision contexts; the two arrangement prompts are similar but not identical.",
+                  "item_keys": [
+                    "bag-of-words-classification/statistical-vs-semantic-text-representation/r3/v2",
+                    "bag-of-words-classification/bag-of-words-sentiment/r5/v1",
+                    "bag-of-words-classification/bag-of-words-spam-filtering/r3/v2",
+                    "bag-of-words-classification/statistical-vs-semantic-text-representation/r5/v1",
+                    "bag-of-words-classification/bag-of-words-spam-filtering/r5/v1"
+                  ],
+                  "paths": [
+                    "modules/2:3-introduction-to-natural-language-processing-concepts/units/11:bag-of-words-classification-l3/questions/0",
+                    "modules/2:3-introduction-to-natural-language-processing-concepts/units/11:bag-of-words-classification-l3/questions/1",
+                    "modules/2:3-introduction-to-natural-language-processing-concepts/units/11:bag-of-words-classification-l3/questions/2",
+                    "modules/2:3-introduction-to-natural-language-processing-concepts/units/11:bag-of-words-classification-l3/questions/3",
+                    "modules/2:3-introduction-to-natural-language-processing-concepts/units/11:bag-of-words-classification-l3/questions/4"
+                  ]
+                }
+              ]
+            },
+            {
+              "dimension": "scenario_authenticity",
+              "score": 0.88,
+              "evidence": [
+                {
+                  "statement": "The customer-insights manager, product researcher, and security analyst scenarios represent credible text-analysis decisions; the two sentence-reconstruction items are intentionally abstract practice rather than realistic workplace tasks.",
+                  "item_keys": [
+                    "bag-of-words-classification/bag-of-words-sentiment/r5/v1",
+                    "bag-of-words-classification/statistical-vs-semantic-text-representation/r5/v1",
+                    "bag-of-words-classification/bag-of-words-spam-filtering/r5/v1"
+                  ],
+                  "paths": [
+                    "modules/2:3-introduction-to-natural-language-processing-concepts/units/11:bag-of-words-classification-l3/questions/1",
+                    "modules/2:3-introduction-to-natural-language-processing-concepts/units/11:bag-of-words-classification-l3/questions/3",
+                    "modules/2:3-introduction-to-natural-language-processing-concepts/units/11:bag-of-words-classification-l3/questions/4"
+                  ]
+                }
+              ]
+            },
+            {
+              "dimension": "feedback_usefulness",
+              "score": 0.88,
+              "evidence": [
+                {
+                  "statement": "The choice-based items explain why each distractor belongs to a different task or representation and provide a better-fit direction; the arrangement items give concise ordering guidance but less conceptual elaboration.",
+                  "item_keys": [
+                    "bag-of-words-classification/bag-of-words-sentiment/r5/v1",
+                    "bag-of-words-classification/statistical-vs-semantic-text-representation/r5/v1",
+                    "bag-of-words-classification/statistical-vs-semantic-text-representation/r3/v2",
+                    "bag-of-words-classification/bag-of-words-spam-filtering/r3/v2"
+                  ],
+                  "paths": [
+                    "modules/2:3-introduction-to-natural-language-processing-concepts/units/11:bag-of-words-classification-l3/questions/1",
+                    "modules/2:3-introduction-to-natural-language-processing-concepts/units/11:bag-of-words-classification-l3/questions/3",
+                    "modules/2:3-introduction-to-natural-language-processing-concepts/units/11:bag-of-words-classification-l3/questions/0",
+                    "modules/2:3-introduction-to-natural-language-processing-concepts/units/11:bag-of-words-classification-l3/questions/2"
+                  ]
+                }
+              ]
+            },
+            {
+              "dimension": "difficulty_appropriateness",
+              "score": 0.87,
+              "evidence": [
+                {
+                  "statement": "The artifact mixes level-3 reconstruction items with level-5 applied classification and representation decisions, which is broadly suitable for a level-3 session while the repeated level-5 items leave Naive Bayes under-assessed.",
+                  "item_keys": [
+                    "bag-of-words-classification/statistical-vs-semantic-text-representation/r3/v2",
+                    "bag-of-words-classification/bag-of-words-sentiment/r5/v1",
+                    "bag-of-words-classification/bag-of-words-spam-filtering/r3/v2",
+                    "bag-of-words-classification/statistical-vs-semantic-text-representation/r5/v1",
+                    "bag-of-words-classification/bag-of-words-spam-filtering/r5/v1"
+                  ],
+                  "paths": [
+                    "modules/2:3-introduction-to-natural-language-processing-concepts/units/11:bag-of-words-classification-l3/questions/0",
+                    "modules/2:3-introduction-to-natural-language-processing-concepts/units/11:bag-of-words-classification-l3/questions/1",
+                    "modules/2:3-introduction-to-natural-language-processing-concepts/units/11:bag-of-words-classification-l3/questions/2",
+                    "modules/2:3-introduction-to-natural-language-processing-concepts/units/11:bag-of-words-classification-l3/questions/3",
+                    "modules/2:3-introduction-to-natural-language-processing-concepts/units/11:bag-of-words-classification-l3/questions/4"
+                  ]
+                }
+              ]
+            },
+            {
+              "dimension": "terminology_consistency",
+              "score": 0.9,
+              "evidence": [
+                {
+                  "statement": "The artifact consistently distinguishes bag-of-words, TF-IDF, n-grams, semantic vectors, sentiment classification, and spam classification in ways aligned with the source; “semantic models” and “learned vectors” are concise variants of the source's “semantic language models” and vector embeddings.",
+                  "item_keys": [
+                    "bag-of-words-classification/statistical-vs-semantic-text-representation/r3/v2",
+                    "bag-of-words-classification/statistical-vs-semantic-text-representation/r5/v1",
+                    "bag-of-words-classification/bag-of-words-spam-filtering/r5/v1"
+                  ],
+                  "paths": [
+                    "modules/2:3-introduction-to-natural-language-processing-concepts/units/11:bag-of-words-classification-l3/questions/0",
+                    "modules/2:3-introduction-to-natural-language-processing-concepts/units/11:bag-of-words-classification-l3/questions/3",
+                    "modules/2:3-introduction-to-natural-language-processing-concepts/units/11:bag-of-words-classification-l3/questions/4"
+                  ]
+                }
+              ]
+            },
+            {
+              "dimension": "overall_learner_experience",
+              "score": 0.82,
+              "evidence": [
+                {
+                  "statement": "The session is factually sound, varied, and generally instructive, but its exact sequence includes a level regression and never gives the learner a correct-answer opportunity to choose Naive Bayes, despite the stated unit SLO requiring selection of bag-of-words and Naive Bayes for word-frequency classification.",
+                  "item_keys": [
+                    "bag-of-words-classification/bag-of-words-spam-filtering/r5/v1"
+                  ],
+                  "paths": [
+                    "modules/2:3-introduction-to-natural-language-processing-concepts/units/11:bag-of-words-classification-l3/questions/4"
+                  ]
+                }
+              ]
+            }
+          ],
+          "critical_defects": [],
+          "largest_gap": {
+            "dimension": "overall_learner_experience",
+            "summary": "The session does not explicitly assess Naive Bayes as a selected solution, although the unit SLO names it alongside bag-of-words.",
+            "evidence": [
+              {
+                "statement": "The unit SLO says learners should choose bag-of-words and Naive Bayes for simple word-frequency classification tasks, but the security-analyst item marks “Naive Bayes as a classifier” incorrect because it asks for the task rather than the algorithm.",
+                "item_keys": [
+                  "bag-of-words-classification/bag-of-words-spam-filtering/r5/v1"
+                ],
+                "paths": [
+                  "modules/2:3-introduction-to-natural-language-processing-concepts/units/11:bag-of-words-classification-l3/questions/4"
+                ]
+              }
+            ],
+            "affected_item_keys": [
+              "bag-of-words-classification/bag-of-words-spam-filtering/r5/v1"
+            ],
+            "affected_paths": [
+              "modules/2:3-introduction-to-natural-language-processing-concepts/units/11:bag-of-words-classification-l3/questions/4"
+            ],
+            "recommended_scope": "item",
+            "repair_instruction": "Revise only this item's question_text, options, correct_answer, and explanation so the scenario asks for the source-supported method or combination, with bag-of-words supplying word-frequency features and Naive Bayes serving as the classifier; preserve question_type exactly as multiple_choice and keep all terminology source-bounded.",
+            "allowed_payload_fields": [
+              "question_text",
+              "options",
+              "correct_answer",
+              "explanation"
+            ]
+          },
+          "confidence": 0.92,
+          "human_review_recommended": false,
+          "human_review_reason": null,
+          "concise_summary": "The artifact is factually faithful with clear answers, credible distractors, useful feedback, and varied mechanics. The main repairable gap is incomplete coverage of the stated bag-of-words plus Naive Bayes learning objective, compounded by a small difficulty regression in the ordered sequence."
+        },
+        "artifact_sha256": "6d7d6ec461c2e56479fbad286745f52207ea11692aa58dc42201e50abf100e0a",
+        "evaluation_context_sha256": "24f646429878790e930d7270a90f9743ea84e9139d8b1c18acf4d01c586ff7a8",
+        "goal_sha256": "6ce6b245bb30616f24e0fa9f76e0f5d01e608776378d036724270915fb57e725",
+        "critic_backend": "codex",
+        "critic_model": "codex:gpt-5.6-luna",
+        "fresh_context": true,
+        "model_independence": "independent",
+        "approved_reference_count": 0,
+        "reference_confidence_reduced": true,
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost_usd": 0.0,
+          "backend_calls": 1
+        }
+      },
+      "source_fidelity_gate": {
+        "artifact_sha256": "6d7d6ec461c2e56479fbad286745f52207ea11692aa58dc42201e50abf100e0a",
+        "passed": true,
+        "issues": [],
+        "checks": {
+          "factual_fidelity_threshold": true,
+          "critic_confidence_threshold": true,
+          "no_factual_critical_defect": true,
+          "no_human_review_request": true,
+          "fresh_critic_context": true
+        },
+        "metrics": {
+          "factual_fidelity_score": 0.98,
+          "factual_fidelity_threshold": 0.8,
+          "critic_confidence": 0.92
+        },
+        "constraint_relaxations": []
+      },
+      "comparison": {
+        "champion_sha256": "fa278e3667f1d011c3a1363267c1f81a04025d343967f134dc50be0cca775f12",
+        "challenger_sha256": "6d7d6ec461c2e56479fbad286745f52207ea11692aa58dc42201e50abf100e0a",
+        "evaluation_context_sha256": "24f646429878790e930d7270a90f9743ea84e9139d8b1c18acf4d01c586ff7a8",
+        "comparator_backend": "codex",
+        "comparator_model": "codex:gpt-5.6-luna",
+        "comparator_fresh_context": true,
+        "records": [
+          {
+            "order_index": 1,
+            "seed": 901,
+            "a_role": "challenger",
+            "b_role": "champion",
+            "mapped_winner": "challenger",
+            "verdict": {
+              "winner": "A",
+              "confidence": 0.96,
+              "margin": 0.03,
+              "dimensions": [
+                {
+                  "dimension": "factual_fidelity",
+                  "score_a": 0.96,
+                  "score_b": 0.96,
+                  "evidence": "Both sequences accurately reflect the supplied source and use the same source-faithful answers and explanations."
+                },
+                {
+                  "dimension": "answer_unambiguity",
+                  "score_a": 0.93,
+                  "score_b": 0.86,
+                  "evidence": "A asks for the text-analysis task, which distinguishes the correct spam-classification choice from the Naive Bayes algorithm; B's broader “approach” wording makes Naive Bayes more defensible."
+                },
+                {
+                  "dimension": "distractor_plausibility",
+                  "score_a": 0.94,
+                  "score_b": 0.94,
+                  "evidence": "Both use credible distractors involving Naive Bayes, sentiment classification, and TF-IDF without materially changing their plausibility."
+                },
+                {
+                  "dimension": "misconception_quality",
+                  "score_a": 0.94,
+                  "score_b": 0.94,
+                  "evidence": "Both diagnose confusion among classification tasks, algorithms, sentiment, spam filtering, and term scoring."
+                },
+                {
+                  "dimension": "cognitive_progression",
+                  "score_a": 0.88,
+                  "score_b": 0.88,
+                  "evidence": "Both follow the same progression from representation contrast to sentiment, spam filtering, semantic vectors, and applied classification."
+                },
+                {
+                  "dimension": "mechanic_rhythm_variation",
+                  "score_a": 0.72,
+                  "score_b": 0.72,
+                  "evidence": "Both have the identical mechanic sequence: arrange, multi-select, arrange, single-choice, single-choice."
+                },
+                {
+                  "dimension": "prompt_language_variation",
+                  "score_a": 0.76,
+                  "score_b": 0.73,
+                  "evidence": "A's final stem is more specific and task-oriented; B's “Which approach best fits?” is shorter but more generic."
+                },
+                {
+                  "dimension": "scenario_authenticity",
+                  "score_a": 0.9,
+                  "score_b": 0.9,
+                  "evidence": "Both present credible customer-insights, product-research, and security-analysis decisions."
+                },
+                {
+                  "dimension": "feedback_usefulness",
+                  "score_a": 0.91,
+                  "score_b": 0.91,
+                  "evidence": "Both provide concise intrinsic and instructional feedback that identifies the governing distinction and a better-fit use."
+                },
+                {
+                  "dimension": "difficulty_appropriateness",
+                  "score_a": 0.88,
+                  "score_b": 0.88,
+                  "evidence": "Both use appropriately moderate application-level decisions for a review/new-learning sequence."
+                },
+                {
+                  "dimension": "terminology_consistency",
+                  "score_a": 0.94,
+                  "score_b": 0.92,
+                  "evidence": "A more precisely preserves the distinction between a text-analysis task and an algorithm; B's broader “approach” weakens that distinction."
+                },
+                {
+                  "dimension": "overall_learner_experience",
+                  "score_a": 0.9,
+                  "score_b": 0.87,
+                  "evidence": "The sequences are otherwise identical, but A's final wording better constrains the intended answer and reduces learner uncertainty."
+                }
+              ],
+              "evidence": [
+                "Candidates are identical for the first four items and differ only in the final prompt stem.",
+                "A's “Which text-analysis task best fits this scenario?” better excludes the Naive Bayes algorithm as the requested category.",
+                "B's broader “Which approach best fits?” creates a small ambiguity because Naive Bayes is also a source-supported approach to the same spam-filtering task."
+              ],
+              "human_review_recommended": false,
+              "usage": {
+                "input_tokens": 0,
+                "output_tokens": 0,
+                "cost_usd": 0.0,
+                "backend_calls": 1
+              }
+            }
+          },
+          {
+            "order_index": 2,
+            "seed": 901,
+            "a_role": "champion",
+            "b_role": "challenger",
+            "mapped_winner": "challenger",
+            "verdict": {
+              "winner": "B",
+              "confidence": 0.97,
+              "margin": 0.02,
+              "dimensions": [
+                {
+                  "dimension": "factual_fidelity",
+                  "score_a": 0.98,
+                  "score_b": 0.98,
+                  "evidence": "Both candidates use source-supported distinctions among bag-of-words, classifiers, TF-IDF, semantic vectors, sentiment, and spam filtering."
+                },
+                {
+                  "dimension": "answer_unambiguity",
+                  "score_a": 0.84,
+                  "score_b": 0.94,
+                  "evidence": "The final A stem asks for an approach, making Naive Bayes potentially defensible; B explicitly asks for a text-analysis task, clearly favoring spam classification."
+                },
+                {
+                  "dimension": "distractor_plausibility",
+                  "score_a": 0.88,
+                  "score_b": 0.9,
+                  "evidence": "Distractors are credible confusions, especially Naive Bayes versus the classification task; B's wording makes their non-answer status clearer."
+                },
+                {
+                  "dimension": "misconception_quality",
+                  "score_a": 0.91,
+                  "score_b": 0.91,
+                  "evidence": "Both diagnose realistic confusions between sentiment and spam, TF-IDF and classification, phrase extraction and semantic representation, and algorithms versus tasks."
+                },
+                {
+                  "dimension": "cognitive_progression",
+                  "score_a": 0.88,
+                  "score_b": 0.88,
+                  "evidence": "Both progress from representation contrast to sentiment application, spam classification, semantic grouping, and a final applied classification choice."
+                },
+                {
+                  "dimension": "mechanic_rhythm_variation",
+                  "score_a": 0.55,
+                  "score_b": 0.55,
+                  "evidence": "Both use two arrange items and three multiple-choice items, with limited mechanic diversity and a cluster of multiple-choice questions late in the sequence."
+                },
+                {
+                  "dimension": "prompt_language_variation",
+                  "score_a": 0.76,
+                  "score_b": 0.78,
+                  "evidence": "Both vary stems across reconstruction, selection, arrangement, and scenario prompts; B's final stem adds a slightly more precise wording variation."
+                },
+                {
+                  "dimension": "scenario_authenticity",
+                  "score_a": 0.92,
+                  "score_b": 0.92,
+                  "evidence": "Customer-insights, product-research, and security-analyst scenarios represent credible text-analysis decisions."
+                },
+                {
+                  "dimension": "feedback_usefulness",
+                  "score_a": 0.86,
+                  "score_b": 0.86,
+                  "evidence": "Both provide intrinsic and instructional feedback for incorrect choices and concise explanations for correct answers."
+                },
+                {
+                  "dimension": "difficulty_appropriateness",
+                  "score_a": 0.9,
+                  "score_b": 0.9,
+                  "evidence": "The sequence combines accessible reconstruction with applied comparisons appropriate for an introductory NLP session."
+                },
+                {
+                  "dimension": "terminology_consistency",
+                  "score_a": 0.91,
+                  "score_b": 0.94,
+                  "evidence": "Both are generally consistent with the source; B's final 'text-analysis task' matches the source's task taxonomy more precisely than A's broader 'approach.'"
+                },
+                {
+                  "dimension": "overall_learner_experience",
+                  "score_a": 0.86,
+                  "score_b": 0.9,
+                  "evidence": "The candidates are nearly identical, but B resolves the only notable ambiguity in the final item without changing the instructional content."
+                }
+              ],
+              "evidence": [
+                "The candidates are identical except for the final prompt stem.",
+                "B's final wording distinguishes a text-analysis task from an implementation algorithm, making the intended answer uniquely defensible.",
+                "No approved reference standard was supplied; evaluation is based on the provided source and rubric."
+              ],
+              "human_review_recommended": false,
+              "usage": {
+                "input_tokens": 0,
+                "output_tokens": 0,
+                "cost_usd": 0.0,
+                "backend_calls": 1
+              }
+            }
+          }
+        ],
+        "position_sensitive": false,
+        "stable": true,
+        "decision": "promote",
+        "protected_regressions": [],
+        "minimum_confidence": 0.96,
+        "minimum_margin": 0.02,
+        "decision_evidence": "Both position orders select the hard-gated challenger without protected regression.",
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost_usd": 0.0,
+          "backend_calls": 2
+        }
+      }
+    }
+  },
+  "approved_by": "Codex reviewer for Adi",
+  "approved_at": "2026-08-29T08:09:16.178169Z",
+  "exact_proposal_sha256": "876b1be242ed78b9833ddafd8284f24faea19306b84eda889df777701ad93683",
+  "exact_history_sha256": "b5d314907679166de4482e3e1f4f4b2da4a389b4de8b1ff5a6f1e871c4885e83",
+  "exact_compiled_artifact_sha256": "2fa356d363b3a7f13d4d399d67361e952b387b4b6502e0aa169d3bb7f3169d2b",
+  "exact_champion_after_sha256": "6d7d6ec461c2e56479fbad286745f52207ea11692aa58dc42201e50abf100e0a"
+}

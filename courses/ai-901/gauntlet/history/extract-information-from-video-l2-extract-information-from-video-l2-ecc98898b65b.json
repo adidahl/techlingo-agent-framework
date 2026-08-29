@@ -1,0 +1,1715 @@
+{
+  "schema_version": "techlingo-gauntlet-record-v1",
+  "compiled_artifact_sha256": "2fa356d363b3a7f13d4d399d67361e952b387b4b6502e0aa169d3bb7f3169d2b",
+  "unit_key": "extract-information-from-video-l2",
+  "champion": {
+    "artifact_id": "ai-901:extract-information-from-video-l2",
+    "course_id": "ai-901",
+    "session_id": "extract-information-from-video-l2",
+    "items": [
+      {
+        "item_key": "extract-information-from-video/meeting-image-attendance-schema/r1/v2",
+        "path": "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/0",
+        "payload": {
+          "import_key": "extract-information-from-video-l2-q1",
+          "question_type": "multiple_choice",
+          "question_text": "What total attendee count was returned for the conference-room image?",
+          "options": {
+            "options": [
+              {
+                "text": "1",
+                "is_correct": false,
+                "error_type": "Confuses total attendees with in-person attendees",
+                "rationale": "This is incorrect. One is the in-person count and omits the remote attendees.",
+                "better_fit": "Use this when asked specifically for the in-person attendee count.",
+                "feedback": {
+                  "intrinsic": "The meeting would appear much smaller than the returned total.",
+                  "instructional": "Add one in-person attendee and three remote attendees."
+                }
+              },
+              {
+                "text": "3",
+                "is_correct": false,
+                "error_type": "Confuses total attendees with remote attendees",
+                "rationale": "This is incorrect. Three is the remote-attendee count and omits the in-person attendee.",
+                "better_fit": "Use this when asked specifically for the remote attendee count.",
+                "feedback": {
+                  "intrinsic": "One attendee would be left out of the count.",
+                  "instructional": "The total includes both remote and in-person attendees."
+                }
+              },
+              {
+                "text": "5",
+                "is_correct": false,
+                "error_type": "Incorrect attendance calculation",
+                "rationale": "This is incorrect. The reported parts are one in person and three remote, which total four.",
+                "better_fit": "This would fit only if the separate attendee counts added to five.",
+                "feedback": {
+                  "intrinsic": "The attendance record would overcount the meeting.",
+                  "instructional": "Use the reported parts: one plus three equals four."
+                }
+              },
+              {
+                "text": "4",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "This is correct. One in-person attendee plus three remote attendees gives four total attendees.",
+                "better_fit": null,
+                "feedback": null
+              }
+            ],
+            "blooms_level": "Remembering",
+            "original_question_type": "single_choice",
+            "concept_id": "meeting-image-attendance-schema",
+            "item_key": "extract-information-from-video/meeting-image-attendance-schema/r1/v2",
+            "rung": 1,
+            "variant": 2,
+            "module_key": "12-get-started-with-ai-powered-information-extraction",
+            "lesson_key": "extract-information-from-video",
+            "learning_status": "review"
+          },
+          "correct_answer": "3",
+          "explanation": "Correct—one in-person attendee plus three remote attendees equals four.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "extract-information-from-video/prebuilt-video-analyzer/r2/v2",
+        "path": "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/1",
+        "payload": {
+          "import_key": "extract-information-from-video-l2-q2",
+          "question_type": "true_false",
+          "question_text": "prebuilt-videoSearch is selected when the input is video.",
+          "options": {
+            "blooms_level": "Understanding",
+            "original_question_type": "true_false",
+            "concept_id": "prebuilt-video-analyzer",
+            "feedback_for_incorrect": {
+              "intrinsic": "The recorded video would not be matched to its intended analyzer.",
+              "instructional": "Select prebuilt-videoSearch when the input is video."
+            },
+            "item_key": "extract-information-from-video/prebuilt-video-analyzer/r2/v2",
+            "rung": 2,
+            "variant": 2,
+            "module_key": "12-get-started-with-ai-powered-information-extraction",
+            "lesson_key": "extract-information-from-video",
+            "learning_status": "review"
+          },
+          "correct_answer": "true",
+          "explanation": "Correct—the analyzer matches the video input.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "extract-information-from-video/video-meeting-schema/r3/v1",
+        "path": "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/2",
+        "payload": {
+          "import_key": "extract-information-from-video-l2-q3",
+          "question_type": "fill_blank",
+          "question_text": "A video meeting schema can record attendance counts at different ___.",
+          "options": {
+            "parts": [
+              {
+                "type": "text",
+                "text": "A video meeting schema can record attendance counts at different "
+              },
+              {
+                "type": "gap",
+                "accepted_answers": [
+                  "time intervals",
+                  "intervals"
+                ],
+                "rejected_answers": [
+                  "invoice totals",
+                  "callback numbers",
+                  "meeting-image-attendance-schema",
+                  "audio-information-extraction"
+                ],
+                "placeholder": "time-based term"
+              },
+              {
+                "type": "text",
+                "text": "."
+              }
+            ],
+            "rejected_answers": [
+              "invoice totals",
+              "callback numbers",
+              "meeting-image-attendance-schema",
+              "audio-information-extraction"
+            ],
+            "blooms_level": "Remembering",
+            "original_question_type": "fill_gaps",
+            "concept_id": "video-meeting-schema",
+            "feedback_for_incorrect": {
+              "intrinsic": "The results would not show when attendance changed.",
+              "instructional": "Use time intervals for attendance changes over a recording."
+            },
+            "item_key": "extract-information-from-video/video-meeting-schema/r3/v1",
+            "rung": 3,
+            "variant": 1,
+            "module_key": "12-get-started-with-ai-powered-information-extraction",
+            "lesson_key": "extract-information-from-video",
+            "learning_status": "new"
+          },
+          "correct_answer": "[\"time intervals\",\"intervals\"]",
+          "explanation": "Attendance can change as a meeting continues. Time intervals allow the schema to record those changes at different points in the video.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "extract-information-from-video/prebuilt-video-analyzer/r3/v1",
+        "path": "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/3",
+        "payload": {
+          "import_key": "extract-information-from-video-l2-q4",
+          "question_type": "arrange_sentence",
+          "question_text": "Reconstruct the statement from the pieces.",
+          "options": {
+            "word_bank": [
+              "structured information",
+              "prebuilt-videoSearch extracts",
+              "from video input.",
+              "video-related"
+            ],
+            "correct_order": [
+              "prebuilt-videoSearch extracts",
+              "video-related",
+              "structured information",
+              "from video input."
+            ],
+            "blooms_level": "Understanding",
+            "original_question_type": "rearrange",
+            "concept_id": "prebuilt-video-analyzer",
+            "feedback_for_incorrect": {
+              "intrinsic": "The analyzer's role would be described unclearly.",
+              "instructional": "Start with the analyzer, then state the kind of information and input it handles."
+            },
+            "item_key": "extract-information-from-video/prebuilt-video-analyzer/r3/v1",
+            "rung": 3,
+            "variant": 1,
+            "module_key": "12-get-started-with-ai-powered-information-extraction",
+            "lesson_key": "extract-information-from-video",
+            "learning_status": "new"
+          },
+          "correct_answer": "prebuilt-videoSearch extracts video-related structured information from video input.",
+          "explanation": "The analyzer extracts video-related structured information from video input. This focuses on its output purpose, rather than merely its selection rule.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "extract-information-from-video/video-meeting-schema/r4/v1",
+        "path": "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/4",
+        "payload": {
+          "import_key": "extract-information-from-video-l2-q5",
+          "question_type": "multiple_choice",
+          "question_text": "A supervisor reviews a recorded meeting because people joined and left during the call. Which field should the supervisor include to see how attendance changed?",
+          "options": {
+            "options": [
+              {
+                "text": "Attendance counts at time intervals",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "This is correct. Counts at time intervals show attendance at different points in the recording.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "A single total attendee count",
+                "is_correct": false,
+                "error_type": "Confuses video-over-time tracking with a still-image result",
+                "rationale": "This is incorrect. One total gives a single count and cannot show people joining or leaving over time.",
+                "better_fit": "Use this when one overall count is sufficient for a single image.",
+                "feedback": {
+                  "intrinsic": "The supervisor could not see attendance changes.",
+                  "instructional": "Use counts at different time intervals when attendance changes over a recording."
+                }
+              },
+              {
+                "text": "Invoice tax amount",
+                "is_correct": false,
+                "error_type": "Confuses video schema with invoice schema",
+                "rationale": "This is incorrect. Tax amount is an invoice field and provides no meeting-attendance information.",
+                "better_fit": "Use this when extracting billing information from an invoice.",
+                "feedback": {
+                  "intrinsic": "The review would contain a billing amount instead of attendance history.",
+                  "instructional": "Choose the meeting field: attendance counts at time intervals."
+                }
+              },
+              {
+                "text": "Caller email address",
+                "is_correct": false,
+                "error_type": "Confuses video schema with voicemail schema",
+                "rationale": "This is incorrect. A caller email address is a voicemail contact field and does not track meeting attendance.",
+                "better_fit": "Use this for a recorded voice message when extracting contact details.",
+                "feedback": {
+                  "intrinsic": "The supervisor would still not know when people joined or left.",
+                  "instructional": "Attendance changes require time-based counts, not contact details."
+                }
+              }
+            ],
+            "blooms_level": "Applying",
+            "original_question_type": "single_choice",
+            "concept_id": "video-meeting-schema",
+            "item_key": "extract-information-from-video/video-meeting-schema/r4/v1",
+            "rung": 4,
+            "variant": 1,
+            "module_key": "12-get-started-with-ai-powered-information-extraction",
+            "lesson_key": "extract-information-from-video",
+            "learning_status": "new"
+          },
+          "correct_answer": "0",
+          "explanation": "Correct—time-interval counts show how attendance changes.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "extract-information-from-video/prebuilt-video-analyzer/r4/v1",
+        "path": "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/5",
+        "payload": {
+          "import_key": "extract-information-from-video-l2-q6",
+          "question_type": "multiple_choice",
+          "question_text": "A developer is building an app to analyze a recorded meeting video and return structured information. Which choices fit the task? Select all that apply.",
+          "options": {
+            "options": [
+              {
+                "text": "Select an invoice analyzer",
+                "is_correct": false,
+                "error_type": "Confuses video analysis with invoice analysis",
+                "rationale": "This is incorrect. An invoice analyzer is designed for invoice content and does not match a recorded meeting video.",
+                "better_fit": "Use an invoice analyzer when the input is an invoice and billing fields are needed.",
+                "feedback": {
+                  "intrinsic": "The app would be set up for invoice details instead of meeting details.",
+                  "instructional": "For recorded video, select prebuilt-videoSearch and submit video input."
+                }
+              },
+              {
+                "text": "Select prebuilt-videoSearch",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "This is correct. prebuilt-videoSearch is the prebuilt analyzer for video input.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Submit the video as input",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "This is correct. The recorded meeting video is the content the analyzer is designed to process.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Extract video-related structured information",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "This is correct. Video analysis produces structured information related to the video.",
+                "better_fit": null,
+                "feedback": null
+              }
+            ],
+            "blooms_level": "Applying",
+            "original_question_type": "multi_choice",
+            "concept_id": "prebuilt-video-analyzer",
+            "item_key": "extract-information-from-video/prebuilt-video-analyzer/r4/v1",
+            "rung": 4,
+            "variant": 1,
+            "module_key": "12-get-started-with-ai-powered-information-extraction",
+            "lesson_key": "extract-information-from-video",
+            "learning_status": "new"
+          },
+          "correct_answer": "[1,2,3]",
+          "explanation": "Correct—these choices match a video-analysis task.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "extract-information-from-video/meeting-image-attendance-schema/r3/v1",
+        "path": "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/6",
+        "payload": {
+          "import_key": "extract-information-from-video-l2-q7",
+          "question_type": "arrange_sentence",
+          "question_text": "Arrange the parts to form the correct statement.",
+          "options": {
+            "word_bank": [
+              "three remote attendees",
+              "The image returned",
+              "and four total.",
+              "one in-person attendee"
+            ],
+            "correct_order": [
+              "The image returned",
+              "one in-person attendee",
+              "three remote attendees",
+              "and four total."
+            ],
+            "blooms_level": "Understanding",
+            "original_question_type": "rearrange",
+            "concept_id": "meeting-image-attendance-schema",
+            "feedback_for_incorrect": {
+              "intrinsic": "The counts would be difficult to interpret.",
+              "instructional": "Start with the image result, then state the in-person count, remote count, and total."
+            },
+            "item_key": "extract-information-from-video/meeting-image-attendance-schema/r3/v1",
+            "rung": 3,
+            "variant": 1,
+            "module_key": "12-get-started-with-ai-powered-information-extraction",
+            "lesson_key": "extract-information-from-video",
+            "learning_status": "new"
+          },
+          "correct_answer": "The image returned one in-person attendee three remote attendees and four total.",
+          "explanation": "The result identifies the image report, then gives the in-person count, remote count, and total. This order makes the attendance breakdown clear.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "extract-information-from-video/downstream-use-of-media-results/r3/v1",
+        "path": "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/7",
+        "payload": {
+          "import_key": "extract-information-from-video-l2-q8",
+          "question_type": "fill_blank",
+          "question_text": "Predictable ___ results make later business processes easier.",
+          "options": {
+            "parts": [
+              {
+                "type": "text",
+                "text": "Predictable "
+              },
+              {
+                "type": "gap",
+                "accepted_answers": [
+                  "JSON",
+                  "JSON results"
+                ],
+                "rejected_answers": [
+                  "OCR",
+                  "transcript",
+                  "schema",
+                  "structured-machine-readable-data",
+                  "analyzer-and-schema-reuse"
+                ],
+                "placeholder": "data format"
+              },
+              {
+                "type": "text",
+                "text": " results make later business processes easier."
+              }
+            ],
+            "rejected_answers": [
+              "OCR",
+              "transcript",
+              "schema",
+              "structured-machine-readable-data",
+              "analyzer-and-schema-reuse"
+            ],
+            "blooms_level": "Remembering",
+            "original_question_type": "fill_gaps",
+            "concept_id": "downstream-use-of-media-results",
+            "feedback_for_incorrect": {
+              "intrinsic": "The extracted details would be less ready for automation.",
+              "instructional": "Use JSON for the structured result format; OCR, transcripts, and schemas serve different roles."
+            },
+            "item_key": "extract-information-from-video/downstream-use-of-media-results/r3/v1",
+            "rung": 3,
+            "variant": 1,
+            "module_key": "12-get-started-with-ai-powered-information-extraction",
+            "lesson_key": "extract-information-from-video",
+            "learning_status": "new"
+          },
+          "correct_answer": "[\"JSON\",\"JSON results\"]",
+          "explanation": "JSON is a structured text format for storing and exchanging data. Predictable JSON results make extracted fields easier to use in later processes.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "extract-information-from-video/meeting-image-attendance-schema/r4/v1",
+        "path": "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/8",
+        "payload": {
+          "import_key": "extract-information-from-video-l2-q9",
+          "question_type": "multiple_choice",
+          "question_text": "A facilities manager checks a conference-room camera image after a meeting. Which results should the manager use to understand attendance? Select all that apply.",
+          "options": {
+            "options": [
+              {
+                "text": "In-person attendee count",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "This is correct. It shows how many attendees were physically present.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Remote attendee count",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "This is correct. It shows how many attendees joined remotely.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Total attendee count",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "This is correct. It provides the combined attendance count.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Caller email address",
+                "is_correct": false,
+                "error_type": "Confuses meeting-image fields with voicemail fields",
+                "rationale": "This is incorrect. A caller email address is contact information and does not measure meeting attendance.",
+                "better_fit": "Use this for a recorded call when extracting callback contact details.",
+                "feedback": {
+                  "intrinsic": "The manager would have contact information but no attendance measure.",
+                  "instructional": "Attendance comes from the in-person, remote, and total counts."
+                }
+              }
+            ],
+            "blooms_level": "Applying",
+            "original_question_type": "multi_choice",
+            "concept_id": "meeting-image-attendance-schema",
+            "item_key": "extract-information-from-video/meeting-image-attendance-schema/r4/v1",
+            "rung": 4,
+            "variant": 1,
+            "module_key": "12-get-started-with-ai-powered-information-extraction",
+            "lesson_key": "extract-information-from-video",
+            "learning_status": "new"
+          },
+          "correct_answer": "[0,1,2]",
+          "explanation": "Correct—these three fields describe attendance in the image.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "extract-information-from-video/video-information-extraction/r3/v1",
+        "path": "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/9",
+        "payload": {
+          "import_key": "extract-information-from-video-l2-q10",
+          "question_type": "fill_blank",
+          "question_text": "A recorded meeting can be analyzed as ___ content.",
+          "options": {
+            "parts": [
+              {
+                "type": "text",
+                "text": "A recorded meeting can be analyzed as "
+              },
+              {
+                "type": "gap",
+                "accepted_answers": [
+                  "video"
+                ],
+                "rejected_answers": [
+                  "audio",
+                  "document",
+                  "image",
+                  "audio-information-extraction",
+                  "document-and-image-analysis"
+                ],
+                "placeholder": "content type"
+              },
+              {
+                "type": "text",
+                "text": " content."
+              }
+            ],
+            "rejected_answers": [
+              "audio",
+              "document",
+              "image",
+              "audio-information-extraction",
+              "document-and-image-analysis"
+            ],
+            "blooms_level": "Remembering",
+            "original_question_type": "fill_gaps",
+            "concept_id": "video-information-extraction",
+            "feedback_for_incorrect": {
+              "intrinsic": "The recording would be grouped with the wrong content type.",
+              "instructional": "Choose video for a recorded meeting; audio, documents, and images fit other inputs."
+            },
+            "item_key": "extract-information-from-video/video-information-extraction/r3/v1",
+            "rung": 3,
+            "variant": 1,
+            "module_key": "12-get-started-with-ai-powered-information-extraction",
+            "lesson_key": "extract-information-from-video",
+            "learning_status": "new"
+          },
+          "correct_answer": "video",
+          "explanation": "A recorded meeting is video content. Video analysis extracts meeting-related information from that recording.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "extract-information-from-video/downstream-use-of-media-results/r4/v1",
+        "path": "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/10",
+        "payload": {
+          "import_key": "extract-information-from-video-l2-q11",
+          "question_type": "multiple_choice",
+          "question_text": "A meeting coordinator wants summaries and assigned actions from recorded meetings to trigger later workflow steps. What should the coordinator pass to the workflow system?",
+          "options": {
+            "options": [
+              {
+                "text": "Only the raw video file",
+                "is_correct": false,
+                "error_type": "Confuses source media with extracted output",
+                "rationale": "This is incorrect. The raw video is source content and does not organize summaries and actions into structured fields.",
+                "better_fit": "Use this as the input to video analysis.",
+                "feedback": {
+                  "intrinsic": "The workflow would not receive ready-to-use meeting details.",
+                  "instructional": "Pass structured JSON results after analysis, not only the source video."
+                }
+              },
+              {
+                "text": "Only a camera image",
+                "is_correct": false,
+                "error_type": "Confuses a source image with structured media results",
+                "rationale": "This is incorrect. A camera image is source content and does not contain the extracted meeting summary and actions.",
+                "better_fit": "Use this to identify location and attendee counts from a conference-room image.",
+                "feedback": {
+                  "intrinsic": "The workflow would miss the meeting summary and assigned actions.",
+                  "instructional": "Use structured JSON results when later steps need extracted meeting information."
+                }
+              },
+              {
+                "text": "Structured JSON results",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "This is correct. Structured JSON results carry summaries and assigned actions into later automation.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Only an invoice schema",
+                "is_correct": false,
+                "error_type": "Confuses a schema definition with analysis results",
+                "rationale": "This is incorrect. An invoice schema defines potential invoice fields; it is not extracted meeting results.",
+                "better_fit": "Use this when defining fields for invoice analysis.",
+                "feedback": {
+                  "intrinsic": "The workflow would receive field definitions instead of meeting outcomes.",
+                  "instructional": "A schema describes what to extract; structured JSON results contain the extracted information."
+                }
+              }
+            ],
+            "blooms_level": "Applying",
+            "original_question_type": "single_choice",
+            "concept_id": "downstream-use-of-media-results",
+            "item_key": "extract-information-from-video/downstream-use-of-media-results/r4/v1",
+            "rung": 4,
+            "variant": 1,
+            "module_key": "12-get-started-with-ai-powered-information-extraction",
+            "lesson_key": "extract-information-from-video",
+            "learning_status": "new"
+          },
+          "correct_answer": "2",
+          "explanation": "Correct—structured JSON results can be passed to downstream systems for automation.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "extract-information-from-video/video-information-extraction/r4/v1",
+        "path": "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/11",
+        "payload": {
+          "import_key": "extract-information-from-video-l2-q12",
+          "question_type": "multiple_choice",
+          "question_text": "A meeting coordinator has a recorded video conference and needs attendance, speakers, and assigned actions. Which analysis approach should the coordinator choose?",
+          "options": {
+            "options": [
+              {
+                "text": "Extract fields from a scanned invoice",
+                "is_correct": false,
+                "error_type": "Confuses meeting analysis with document extraction",
+                "rationale": "This is incorrect. Invoice extraction provides billing information rather than meeting activity.",
+                "better_fit": "Use this when extracting vendor, tax, totals, and other invoice fields.",
+                "feedback": {
+                  "intrinsic": "Leaders would receive billing details instead of meeting details.",
+                  "instructional": "Use video analysis when the required information comes from a recorded conference."
+                }
+              },
+              {
+                "text": "Analyze the recording as video",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "This is correct. Video analysis is the approach that can extract the requested meeting details from the conference recording.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Analyze an audio-only voicemail",
+                "is_correct": false,
+                "error_type": "Confuses video analysis with audio extraction",
+                "rationale": "This is incorrect. A voicemail can provide call-related details, but it is not the recorded conference with visual meeting context.",
+                "better_fit": "Use this for a call recording when a transcript, summary, or contact details are needed.",
+                "feedback": {
+                  "intrinsic": "Attendance from the conference would remain unknown.",
+                  "instructional": "The relevant input is the recorded video conference, not an audio voicemail."
+                }
+              },
+              {
+                "text": "Extract purchase details from a receipt photo",
+                "is_correct": false,
+                "error_type": "Confuses video analysis with image extraction",
+                "rationale": "This is incorrect. A receipt photo contains purchase information and cannot provide meeting participants or actions.",
+                "better_fit": "Use this for expense descriptions and amounts from a receipt image.",
+                "feedback": {
+                  "intrinsic": "The coordinator would have receipt details but no meeting outcomes.",
+                  "instructional": "Use video analysis for information contained in the meeting."
+                }
+              }
+            ],
+            "blooms_level": "Applying",
+            "original_question_type": "single_choice",
+            "concept_id": "video-information-extraction",
+            "item_key": "extract-information-from-video/video-information-extraction/r4/v1",
+            "rung": 4,
+            "variant": 1,
+            "module_key": "12-get-started-with-ai-powered-information-extraction",
+            "lesson_key": "extract-information-from-video",
+            "learning_status": "new"
+          },
+          "correct_answer": "1",
+          "explanation": "Correct—analyzing the recording as video meets the stated meeting-information need.",
+          "points": 1
+        }
+      }
+    ],
+    "metadata": {
+      "module_key": "12-get-started-with-ai-powered-information-extraction",
+      "unit_title": "Extract information from video · Level 2",
+      "unit_slo": "Describe the information a video analyzer can extract from a meeting.",
+      "constraint_relaxations": []
+    }
+  },
+  "history": {
+    "schema_version": "techlingo-gauntlet-history-v1",
+    "run_id": "extract-information-from-video-l2-ecc98898b65b",
+    "started_at": "2026-08-29T05:31:59.474905Z",
+    "finished_at": "2026-08-29T05:38:53.613885Z",
+    "initial_champion_hash": "3f7954c4925b4f58d563443548d275584e26a9041e3a032502f23a86e5126d67",
+    "final_champion_hash": "3f7954c4925b4f58d563443548d275584e26a9041e3a032502f23a86e5126d67",
+    "evaluation_context": {
+      "schema_version": "techlingo-evaluation-context-v1",
+      "goal": "Produce an excellent, source-faithful learner session while preserving all deterministic correctness, identity, and sequence constraints.",
+      "source_fidelity_goal": "Independently verify the hard-gated edited challenger against the supplied source material. Reject unsupported facts, answers, explanations, feedback, or terminology changes; do not edit the artifact.",
+      "gauntlet_policy": {
+        "critic_backend": "codex",
+        "critic_model": "codex:gpt-5.6-luna",
+        "builder_model": "codex:gpt-5.6-terra",
+        "evaluator_protocol_version": "critic-review-semantics-v6",
+        "max_rounds": 4,
+        "plateau_rounds": 2,
+        "repeated_loss_rounds": 2,
+        "minimum_improvement_margin": 0.02,
+        "confidence_threshold": 0.65,
+        "human_review_threshold": 0.4,
+        "max_time_seconds": null,
+        "max_tokens": null,
+        "max_cost_usd": null,
+        "qualitative_required_for_publication": true,
+        "quality_thresholds": {
+          "factual_fidelity": 0.8,
+          "answer_unambiguity": 0.8,
+          "distractor_plausibility": 0.8,
+          "misconception_quality": 0.8,
+          "cognitive_progression": 0.8,
+          "mechanic_rhythm_variation": 0.8,
+          "prompt_language_variation": 0.8,
+          "scenario_authenticity": 0.8,
+          "feedback_usefulness": 0.8,
+          "difficulty_appropriateness": 0.8,
+          "terminology_consistency": 0.8,
+          "overall_learner_experience": 0.8
+        },
+        "comparison_seed": 901,
+        "protected_dimensions": [
+          "factual_fidelity",
+          "answer_unambiguity"
+        ],
+        "unstable_comparison_requires_human_review": true,
+        "identifying_metadata_keys": [
+          "artifact_id",
+          "builder_model",
+          "candidate_role",
+          "challenger",
+          "champion",
+          "critic_model",
+          "generated_at",
+          "import_key",
+          "item_key",
+          "model_id",
+          "path",
+          "version_id"
+        ]
+      },
+      "gauntlet_policy_sha256": "3ffb6943742c9fc0b33d6668a9c5695b535ee3121f7b697df8ab4d4392014385",
+      "rubric": {
+        "criteria": {
+          "factual_fidelity": "Every claim and answer is faithful to the supplied source.",
+          "answer_unambiguity": "Each item has one defensible answer under its instructions.",
+          "distractor_plausibility": "Distractors are credible without becoming defensible answers.",
+          "misconception_quality": "Wrong choices diagnose realistic learner misconceptions.",
+          "cognitive_progression": "The ordered session builds understanding at a coherent pace.",
+          "mechanic_rhythm_variation": "Mechanics vary naturally without disruptive repetition.",
+          "prompt_language_variation": "Prompt stems avoid formulaic repetition.",
+          "scenario_authenticity": "Scenarios resemble credible decisions or tasks.",
+          "feedback_usefulness": "Feedback explains the governing concept and next step.",
+          "difficulty_appropriateness": "Difficulty matches the stated audience and session position.",
+          "terminology_consistency": "Terms are used consistently with the source and across items.",
+          "overall_learner_experience": "The exact final sequence is coherent, varied, and instructive."
+        }
+      },
+      "rubric_sha256": "34290a842f2ed7e30b7a98ba70ac97d967c864424010cd31255f97cdce0b57d5",
+      "sources": [
+        {
+          "input_id": "12. Get started with AI-powered information extraction in Azure.md",
+          "sha256": "1e778579ac185d5d6eb4a1b22adfa8cb3b6672f1f586af15fc69e33705113bcd",
+          "location": "sources/12. Get started with AI-powered information extraction in Azure.md"
+        }
+      ],
+      "approved_references": [],
+      "models": {
+        "builder_model": "codex:gpt-5.6-terra",
+        "critic_backend": "codex",
+        "critic_model": "codex:gpt-5.6-luna",
+        "critic_fresh_context": true,
+        "editor_backend": "codex",
+        "editor_model": "codex:gpt-5.6-luna",
+        "editor_fresh_context": true,
+        "comparator_backend": "codex",
+        "comparator_model": "codex:gpt-5.6-luna",
+        "comparator_fresh_context": true
+      },
+      "context_sha256": "86c491616e45f9fc65ed8f32a0e4839b3f011ad01518b45d528cd8c059dac948"
+    },
+    "initial_hard_gate": {
+      "artifact_sha256": "3f7954c4925b4f58d563443548d275584e26a9041e3a032502f23a86e5126d67",
+      "passed": true,
+      "issues": [],
+      "checks": {
+        "schema_and_answers": true,
+        "identity": true,
+        "final_sequence": true
+      },
+      "metrics": {},
+      "constraint_relaxations": []
+    },
+    "rounds": [
+      {
+        "round_number": 1,
+        "champion_hash_before": "3f7954c4925b4f58d563443548d275584e26a9041e3a032502f23a86e5126d67",
+        "critic": {
+          "result": {
+            "dimensions": [
+              {
+                "dimension": "factual_fidelity",
+                "score": 0.96,
+                "evidence": [
+                  {
+                    "statement": "The source states that video analysis can extract structured meeting information such as attendance, speakers, discussion summaries, and assigned actions, and lists prebuilt-videoSearch among the prebuilt analyzers.",
+                    "item_keys": [],
+                    "paths": []
+                  },
+                  {
+                    "statement": "Items covering attendance counts, video input, analyzer choice, structured information, and downstream JSON remain consistent with those source claims.",
+                    "item_keys": [
+                      "extract-information-from-video/meeting-image-attendance-schema/r1/v2",
+                      "extract-information-from-video/prebuilt-video-analyzer/r2/v2",
+                      "extract-information-from-video/prebuilt-video-analyzer/r4/v1",
+                      "extract-information-from-video/video-information-extraction/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/0",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/1",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/5",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/11"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "answer_unambiguity",
+                "score": 0.84,
+                "evidence": [
+                  {
+                    "statement": "The fill-blank frame already supplies the word 'results', but the accepted answer 'JSON results' would render as 'Predictable JSON results results'; the source's intended phrase is 'predictable JSON results'.",
+                    "item_keys": [
+                      "extract-information-from-video/downstream-use-of-media-results/r3/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/7"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "distractor_plausibility",
+                "score": 0.94,
+                "evidence": [
+                  {
+                    "statement": "Distractors such as in-person count, remote count, and an overcount in the attendance item are credible alternatives without being defensible answers under the prompt.",
+                    "item_keys": [
+                      "extract-information-from-video/meeting-image-attendance-schema/r1/v2"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/0"
+                    ]
+                  },
+                  {
+                    "statement": "Scenario distractors use real neighboring domains from the source, including invoice fields, voicemail contact details, raw media, and schemas.",
+                    "item_keys": [
+                      "extract-information-from-video/video-meeting-schema/r4/v1",
+                      "extract-information-from-video/downstream-use-of-media-results/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/4",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/10"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "misconception_quality",
+                "score": 0.95,
+                "evidence": [
+                  {
+                    "statement": "Wrong choices explicitly diagnose confusion between total, in-person, and remote attendance, as well as confusion between video, invoice, image, and voicemail analysis.",
+                    "item_keys": [
+                      "extract-information-from-video/meeting-image-attendance-schema/r1/v2",
+                      "extract-information-from-video/video-meeting-schema/r4/v1",
+                      "extract-information-from-video/prebuilt-video-analyzer/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/0",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/4",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/5"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "cognitive_progression",
+                "score": 0.79,
+                "evidence": [
+                  {
+                    "statement": "The session begins with isolated recall of an attendance total, then alternates among analyzer naming, schema timing, and repeated attendance or downstream-use applications; foundational concepts are not introduced in a clearly cumulative order.",
+                    "item_keys": [
+                      "extract-information-from-video/meeting-image-attendance-schema/r1/v2",
+                      "extract-information-from-video/prebuilt-video-analyzer/r2/v2",
+                      "extract-information-from-video/video-meeting-schema/r3/v1",
+                      "extract-information-from-video/video-meeting-schema/r4/v1",
+                      "extract-information-from-video/prebuilt-video-analyzer/r4/v1",
+                      "extract-information-from-video/downstream-use-of-media-results/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/0",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/1",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/2",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/4",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/5",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/10"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "mechanic_rhythm_variation",
+                "score": 0.89,
+                "evidence": [
+                  {
+                    "statement": "The ordered artifact uses multiple-choice, true/false, fill-blank, arrange-sentence, and multi-select mechanics, with no long run of identical mechanics.",
+                    "item_keys": [
+                      "extract-information-from-video/meeting-image-attendance-schema/r1/v2",
+                      "extract-information-from-video/prebuilt-video-analyzer/r2/v2",
+                      "extract-information-from-video/video-meeting-schema/r3/v1",
+                      "extract-information-from-video/prebuilt-video-analyzer/r3/v1",
+                      "extract-information-from-video/prebuilt-video-analyzer/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/0",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/1",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/2",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/3",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/5"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "prompt_language_variation",
+                "score": 0.87,
+                "evidence": [
+                  {
+                    "statement": "Prompt forms vary across direct questions, a true/false statement, blanks, reconstruction tasks, and workplace scenarios, although the two arrange-sentence stems are generic and one reconstructed attendance sentence is awkwardly punctuated.",
+                    "item_keys": [
+                      "extract-information-from-video/prebuilt-video-analyzer/r3/v1",
+                      "extract-information-from-video/meeting-image-attendance-schema/r3/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/3",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/6"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "scenario_authenticity",
+                "score": 0.92,
+                "evidence": [
+                  {
+                    "statement": "The supervisor, developer, facilities manager, and meeting coordinator scenarios represent credible decisions involving attendance tracking, analyzer selection, extracted fields, and workflow handoff.",
+                    "item_keys": [
+                      "extract-information-from-video/video-meeting-schema/r4/v1",
+                      "extract-information-from-video/prebuilt-video-analyzer/r4/v1",
+                      "extract-information-from-video/meeting-image-attendance-schema/r4/v1",
+                      "extract-information-from-video/downstream-use-of-media-results/r4/v1",
+                      "extract-information-from-video/video-information-extraction/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/4",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/5",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/8",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/10",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/11"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "feedback_usefulness",
+                "score": 0.94,
+                "evidence": [
+                  {
+                    "statement": "Incorrect options receive both intrinsic consequences and instructional next steps, while item-level explanations state why time intervals, video analysis, or structured JSON are appropriate.",
+                    "item_keys": [
+                      "extract-information-from-video/video-meeting-schema/r4/v1",
+                      "extract-information-from-video/prebuilt-video-analyzer/r4/v1",
+                      "extract-information-from-video/downstream-use-of-media-results/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/4",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/5",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/10"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "difficulty_appropriateness",
+                "score": 0.85,
+                "evidence": [
+                  {
+                    "statement": "The session includes appropriate Level 2 application items using workplace contexts, but several items remain simple recall or recognition and repeat the same concepts.",
+                    "item_keys": [
+                      "extract-information-from-video/meeting-image-attendance-schema/r1/v2",
+                      "extract-information-from-video/video-meeting-schema/r3/v1",
+                      "extract-information-from-video/video-meeting-schema/r4/v1",
+                      "extract-information-from-video/prebuilt-video-analyzer/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/0",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/2",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/4",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/5"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "terminology_consistency",
+                "score": 0.91,
+                "evidence": [
+                  {
+                    "statement": "The artifact consistently uses the source terms video, attendance counts, structured information, JSON results, analyzer, and downstream systems; 'video-related structured information' is understandable but less directly standardized than the source wording.",
+                    "item_keys": [
+                      "extract-information-from-video/prebuilt-video-analyzer/r3/v1",
+                      "extract-information-from-video/downstream-use-of-media-results/r3/v1",
+                      "extract-information-from-video/downstream-use-of-media-results/r4/v1",
+                      "extract-information-from-video/video-information-extraction/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/3",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/7",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/10",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/11"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "overall_learner_experience",
+                "score": 0.84,
+                "evidence": [
+                  {
+                    "statement": "The session is source-faithful, varied, and instructionally relevant, but its sequence repeats related facts without a strong build and contains an inconsistent accepted answer in the JSON fill-blank.",
+                    "item_keys": [
+                      "extract-information-from-video/downstream-use-of-media-results/r3/v1",
+                      "extract-information-from-video/meeting-image-attendance-schema/r1/v2",
+                      "extract-information-from-video/prebuilt-video-analyzer/r4/v1",
+                      "extract-information-from-video/downstream-use-of-media-results/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/7",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/0",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/5",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/10"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "critical_defects": [],
+            "largest_gap": {
+              "dimension": "answer_unambiguity",
+              "summary": "The JSON fill-blank accepts an answer phrase that duplicates the fixed suffix of the sentence frame.",
+              "evidence": [
+                {
+                  "statement": "The item accepts both 'JSON' and 'JSON results', but the latter produces 'Predictable JSON results results'; the source supports the intended completed phrase 'Predictable JSON results'.",
+                  "item_keys": [
+                    "extract-information-from-video/downstream-use-of-media-results/r3/v1"
+                  ],
+                  "paths": [
+                    "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/7"
+                  ]
+                }
+              ],
+              "affected_item_keys": [
+                "extract-information-from-video/downstream-use-of-media-results/r3/v1"
+              ],
+              "affected_paths": [
+                "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/7"
+              ],
+              "recommended_scope": "item",
+              "repair_instruction": "Keep question_type unchanged. In this item, restrict the gap's accepted answer to 'JSON' and update correct_answer to the corresponding single-answer representation; leave the fixed sentence suffix intact.",
+              "allowed_payload_fields": [
+                "options",
+                "correct_answer"
+              ]
+            },
+            "confidence": 0.9,
+            "human_review_recommended": false,
+            "human_review_reason": null,
+            "concise_summary": "The session is substantially source-faithful and pedagogically varied, with one safe item-level answer-frame repair needed for the JSON fill-blank."
+          },
+          "artifact_sha256": "3f7954c4925b4f58d563443548d275584e26a9041e3a032502f23a86e5126d67",
+          "evaluation_context_sha256": "86c491616e45f9fc65ed8f32a0e4839b3f011ad01518b45d528cd8c059dac948",
+          "goal_sha256": "c4bae546eef7fec8c92895a1538196a8df81a13754329022bca211a6200752ae",
+          "critic_backend": "codex",
+          "critic_model": "codex:gpt-5.6-luna",
+          "fresh_context": true,
+          "model_independence": "independent",
+          "approved_reference_count": 0,
+          "reference_confidence_reduced": true,
+          "usage": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cost_usd": 0.0,
+            "backend_calls": 1
+          }
+        },
+        "critic_failure": null,
+        "repair_scope": "item",
+        "repair_summary": "Restricted the JSON fill-blank gap to the single accepted answer \"JSON\" and updated its correct_answer accordingly.",
+        "editor_backend": "codex",
+        "editor_model": "codex:gpt-5.6-luna",
+        "editor_fresh_context": true,
+        "edit_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost_usd": 0.0,
+          "backend_calls": 1
+        },
+        "validation_retry_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost_usd": 0.0,
+          "backend_calls": 0
+        },
+        "touched_item_keys": [
+          "extract-information-from-video/downstream-use-of-media-results/r3/v1"
+        ],
+        "challenger_hash": "32b1bb4cc191f2f0492086bac8fbf6edf8226de88ff354df0dbbed0c60d66ef9",
+        "promoted_champion_before": null,
+        "promoted_challenger": null,
+        "hard_gate": {
+          "artifact_sha256": "32b1bb4cc191f2f0492086bac8fbf6edf8226de88ff354df0dbbed0c60d66ef9",
+          "passed": true,
+          "issues": [],
+          "checks": {
+            "schema_and_answers": true,
+            "identity": true,
+            "final_sequence": true
+          },
+          "metrics": {},
+          "constraint_relaxations": []
+        },
+        "source_fidelity_critic": {
+          "result": {
+            "dimensions": [
+              {
+                "dimension": "factual_fidelity",
+                "score": 0.99,
+                "evidence": [
+                  {
+                    "statement": "The answers and explanations match the supplied source: the conference-room image has 1 in-person, 3 remote, and 4 total attendees; video schemas can capture attendance at time intervals; and prebuilt-videoSearch is used for video analysis.",
+                    "item_keys": [
+                      "extract-information-from-video/meeting-image-attendance-schema/r1/v2",
+                      "extract-information-from-video/video-meeting-schema/r3/v1",
+                      "extract-information-from-video/prebuilt-video-analyzer/r2/v2"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/0",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/2",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/1"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "answer_unambiguity",
+                "score": 0.99,
+                "evidence": [
+                  {
+                    "statement": "Each item has one defensible answer or an explicitly defined set of correct answers. In the first item, correct_answer 3 corresponds to the fourth option, 4, which matches the source total.",
+                    "item_keys": [
+                      "extract-information-from-video/meeting-image-attendance-schema/r1/v2",
+                      "extract-information-from-video/meeting-image-attendance-schema/r4/v1",
+                      "extract-information-from-video/prebuilt-video-analyzer/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/0",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/8",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/5"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "distractor_plausibility",
+                "score": 0.92,
+                "evidence": [
+                  {
+                    "statement": "Distractors are generally credible and tied to realistic confusions, such as confusing in-person, remote, and total attendance or confusing meeting fields with invoice and voicemail fields.",
+                    "item_keys": [
+                      "extract-information-from-video/meeting-image-attendance-schema/r1/v2",
+                      "extract-information-from-video/video-meeting-schema/r4/v1",
+                      "extract-information-from-video/downstream-use-of-media-results/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/0",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/4",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/10"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "misconception_quality",
+                "score": 0.9,
+                "evidence": [
+                  {
+                    "statement": "Wrong choices diagnose source-grounded misconceptions, including treating a single image total as a time-varying attendance record, selecting an invoice analyzer for video, and passing raw media instead of structured results.",
+                    "item_keys": [
+                      "extract-information-from-video/video-meeting-schema/r4/v1",
+                      "extract-information-from-video/prebuilt-video-analyzer/r4/v1",
+                      "extract-information-from-video/downstream-use-of-media-results/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/4",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/5",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/10"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "cognitive_progression",
+                "score": 0.6,
+                "evidence": [
+                  {
+                    "statement": "The ordered sequence is not monotonically progressive: remembering items appear after applying items, with item 7 at Understanding followed by item 8 at Remembering, and item 10 at Remembering followed by later Applying items.",
+                    "item_keys": [
+                      "extract-information-from-video/video-meeting-schema/r4/v1",
+                      "extract-information-from-video/meeting-image-attendance-schema/r3/v1",
+                      "extract-information-from-video/downstream-use-of-media-results/r3/v1",
+                      "extract-information-from-video/video-information-extraction/r3/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/4",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/6",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/7",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/9"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "mechanic_rhythm_variation",
+                "score": 0.9,
+                "evidence": [
+                  {
+                    "statement": "The session uses multiple-choice, true/false, fill-in-the-blank, arrange-sentence, and multi-select mechanics, with no long uninterrupted run of one mechanic.",
+                    "item_keys": [
+                      "extract-information-from-video/meeting-image-attendance-schema/r1/v2",
+                      "extract-information-from-video/prebuilt-video-analyzer/r2/v2",
+                      "extract-information-from-video/video-meeting-schema/r3/v1",
+                      "extract-information-from-video/prebuilt-video-analyzer/r3/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/0",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/1",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/2",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/3"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "prompt_language_variation",
+                "score": 0.84,
+                "evidence": [
+                  {
+                    "statement": "Prompt stems vary across direct questions, true/false, completion, reconstruction, and workplace scenarios, though the two arrange-sentence prompts use closely related wording.",
+                    "item_keys": [
+                      "extract-information-from-video/prebuilt-video-analyzer/r3/v1",
+                      "extract-information-from-video/meeting-image-attendance-schema/r3/v1",
+                      "extract-information-from-video/video-meeting-schema/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/3",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/6",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/4"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "scenario_authenticity",
+                "score": 0.86,
+                "evidence": [
+                  {
+                    "statement": "The supervisor, developer, facilities manager, workflow coordinator, and meeting coordinator scenarios represent credible tasks involving meeting analysis, attendance, and downstream automation.",
+                    "item_keys": [
+                      "extract-information-from-video/video-meeting-schema/r4/v1",
+                      "extract-information-from-video/prebuilt-video-analyzer/r4/v1",
+                      "extract-information-from-video/meeting-image-attendance-schema/r4/v1",
+                      "extract-information-from-video/downstream-use-of-media-results/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/4",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/5",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/8",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/10"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "feedback_usefulness",
+                "score": 0.9,
+                "evidence": [
+                  {
+                    "statement": "Incorrect-answer feedback usually explains the misconception and gives the governing next step, such as using time-interval counts for changing attendance and structured JSON for downstream automation.",
+                    "item_keys": [
+                      "extract-information-from-video/video-meeting-schema/r4/v1",
+                      "extract-information-from-video/downstream-use-of-media-results/r4/v1",
+                      "extract-information-from-video/prebuilt-video-analyzer/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/4",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/10",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/5"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "difficulty_appropriateness",
+                "score": 0.84,
+                "evidence": [
+                  {
+                    "statement": "The artifact mixes foundational recall with applying-level meeting-analysis and workflow scenarios, which is appropriate for a Level 2 unit, although several later items remain simple recognition or recall.",
+                    "item_keys": [
+                      "extract-information-from-video/meeting-image-attendance-schema/r1/v2",
+                      "extract-information-from-video/video-meeting-schema/r4/v1",
+                      "extract-information-from-video/video-information-extraction/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/0",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/4",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/11"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "terminology_consistency",
+                "score": 0.97,
+                "evidence": [
+                  {
+                    "statement": "The artifact consistently uses the source terms prebuilt-videoSearch, video analysis, attendance counts, structured information, and JSON results.",
+                    "item_keys": [
+                      "extract-information-from-video/prebuilt-video-analyzer/r2/v2",
+                      "extract-information-from-video/prebuilt-video-analyzer/r4/v1",
+                      "extract-information-from-video/downstream-use-of-media-results/r3/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/1",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/5",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/7"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "overall_learner_experience",
+                "score": 0.8,
+                "evidence": [
+                  {
+                    "statement": "The sequence is factually sound, varied, and supported by useful explanations, but repeated concepts and regressions from applying back to remembering weaken the instructional flow.",
+                    "item_keys": [
+                      "extract-information-from-video/video-meeting-schema/r4/v1",
+                      "extract-information-from-video/meeting-image-attendance-schema/r3/v1",
+                      "extract-information-from-video/video-information-extraction/r3/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/4",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/6",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/9"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "critical_defects": [],
+            "largest_gap": {
+              "dimension": "cognitive_progression",
+              "summary": "The ordered session repeatedly drops from applying-level items back to remembering-level items.",
+              "evidence": [
+                {
+                  "statement": "The sequence includes Applying before later Remembering items: item 5 and item 6 are Applying, while item 8 and item 10 are Remembering; this interrupts the expected foundational-to-application progression.",
+                  "item_keys": [
+                    "extract-information-from-video/video-meeting-schema/r4/v1",
+                    "extract-information-from-video/prebuilt-video-analyzer/r4/v1",
+                    "extract-information-from-video/downstream-use-of-media-results/r3/v1",
+                    "extract-information-from-video/video-information-extraction/r3/v1"
+                  ],
+                  "paths": [
+                    "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/4",
+                    "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/5",
+                    "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/7",
+                    "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/9"
+                  ]
+                }
+              ],
+              "affected_item_keys": [
+                "extract-information-from-video/meeting-image-attendance-schema/r1/v2",
+                "extract-information-from-video/prebuilt-video-analyzer/r2/v2",
+                "extract-information-from-video/video-meeting-schema/r3/v1",
+                "extract-information-from-video/prebuilt-video-analyzer/r3/v1",
+                "extract-information-from-video/video-meeting-schema/r4/v1",
+                "extract-information-from-video/prebuilt-video-analyzer/r4/v1",
+                "extract-information-from-video/meeting-image-attendance-schema/r3/v1",
+                "extract-information-from-video/downstream-use-of-media-results/r3/v1",
+                "extract-information-from-video/meeting-image-attendance-schema/r4/v1",
+                "extract-information-from-video/video-information-extraction/r3/v1",
+                "extract-information-from-video/downstream-use-of-media-results/r4/v1",
+                "extract-information-from-video/video-information-extraction/r4/v1"
+              ],
+              "affected_paths": [
+                "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/0",
+                "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/1",
+                "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/2",
+                "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/3",
+                "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/4",
+                "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/5",
+                "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/6",
+                "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/7",
+                "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/8",
+                "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/9",
+                "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/10",
+                "modules/11:12-get-started-with-ai-powered-information-extraction/units/16:extract-information-from-video-l2/questions/11"
+              ],
+              "recommended_scope": "session",
+              "repair_instruction": "Reorder only the existing item objects so foundational Remembering items come first, Understanding items follow, and Applying items conclude the session; preserve every payload and question_type exactly.",
+              "allowed_payload_fields": []
+            },
+            "confidence": 0.88,
+            "human_review_recommended": false,
+            "human_review_reason": null,
+            "concise_summary": "The challenger is source-faithful, unambiguous, varied, and pedagogically usable. The main actionable weakness is the non-progressive ordering of cognitive levels; it can be safely repaired by session-only reordering."
+          },
+          "artifact_sha256": "32b1bb4cc191f2f0492086bac8fbf6edf8226de88ff354df0dbbed0c60d66ef9",
+          "evaluation_context_sha256": "86c491616e45f9fc65ed8f32a0e4839b3f011ad01518b45d528cd8c059dac948",
+          "goal_sha256": "6ce6b245bb30616f24e0fa9f76e0f5d01e608776378d036724270915fb57e725",
+          "critic_backend": "codex",
+          "critic_model": "codex:gpt-5.6-luna",
+          "fresh_context": true,
+          "model_independence": "independent",
+          "approved_reference_count": 0,
+          "reference_confidence_reduced": true,
+          "usage": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cost_usd": 0.0,
+            "backend_calls": 1
+          }
+        },
+        "source_fidelity_gate": {
+          "artifact_sha256": "32b1bb4cc191f2f0492086bac8fbf6edf8226de88ff354df0dbbed0c60d66ef9",
+          "passed": true,
+          "issues": [],
+          "checks": {
+            "factual_fidelity_threshold": true,
+            "critic_confidence_threshold": true,
+            "no_factual_critical_defect": true,
+            "no_human_review_request": true,
+            "fresh_critic_context": true
+          },
+          "metrics": {
+            "factual_fidelity_score": 0.99,
+            "factual_fidelity_threshold": 0.8,
+            "critic_confidence": 0.88
+          },
+          "constraint_relaxations": []
+        },
+        "comparison": {
+          "champion_sha256": "3f7954c4925b4f58d563443548d275584e26a9041e3a032502f23a86e5126d67",
+          "challenger_sha256": "32b1bb4cc191f2f0492086bac8fbf6edf8226de88ff354df0dbbed0c60d66ef9",
+          "evaluation_context_sha256": "86c491616e45f9fc65ed8f32a0e4839b3f011ad01518b45d528cd8c059dac948",
+          "comparator_backend": "codex",
+          "comparator_model": "codex:gpt-5.6-luna",
+          "comparator_fresh_context": true,
+          "records": [
+            {
+              "order_index": 1,
+              "seed": 901,
+              "a_role": "challenger",
+              "b_role": "champion",
+              "mapped_winner": "challenger",
+              "verdict": {
+                "winner": "A",
+                "confidence": 0.99,
+                "margin": 0.02,
+                "dimensions": [
+                  {
+                    "dimension": "factual_fidelity",
+                    "score_a": 0.99,
+                    "score_b": 0.98,
+                    "evidence": "Both sequences match the source and answer keys; B additionally accepts “JSON results” for a blank already followed by “results,” producing a duplicated phrase."
+                  },
+                  {
+                    "dimension": "answer_unambiguity",
+                    "score_a": 0.99,
+                    "score_b": 0.96,
+                    "evidence": "A’s fill-blank acceptance fits the sentence; B’s extra accepted answer creates the malformed “JSON results results.”"
+                  },
+                  {
+                    "dimension": "distractor_plausibility",
+                    "score_a": 0.99,
+                    "score_b": 0.99,
+                    "evidence": "Both use credible, source-grounded distractors tied to attendance, invoice, voicemail, and media-type confusions."
+                  },
+                  {
+                    "dimension": "misconception_quality",
+                    "score_a": 0.99,
+                    "score_b": 0.99,
+                    "evidence": "Both diagnose realistic confusions such as total versus remote attendance and source media versus structured output."
+                  },
+                  {
+                    "dimension": "cognitive_progression",
+                    "score_a": 0.98,
+                    "score_b": 0.98,
+                    "evidence": "Both follow the same progression from recall through interpretation and application."
+                  },
+                  {
+                    "dimension": "mechanic_rhythm_variation",
+                    "score_a": 0.98,
+                    "score_b": 0.98,
+                    "evidence": "Both use multiple-choice, true/false, fill-blank, arrange, and multi-select mechanics in the same varied sequence."
+                  },
+                  {
+                    "dimension": "prompt_language_variation",
+                    "score_a": 0.97,
+                    "score_b": 0.97,
+                    "evidence": "Both contain varied question stems and scenario framing, with no meaningful difference."
+                  },
+                  {
+                    "dimension": "scenario_authenticity",
+                    "score_a": 0.99,
+                    "score_b": 0.99,
+                    "evidence": "Both include credible developer, supervisor, facilities-manager, and meeting-coordinator tasks."
+                  },
+                  {
+                    "dimension": "feedback_usefulness",
+                    "score_a": 0.98,
+                    "score_b": 0.98,
+                    "evidence": "Both provide concept-linked rationales and instructional next steps for incorrect choices."
+                  },
+                  {
+                    "dimension": "difficulty_appropriateness",
+                    "score_a": 0.99,
+                    "score_b": 0.99,
+                    "evidence": "Both match an introductory-to-application session on video schemas, analyzers, and structured results."
+                  },
+                  {
+                    "dimension": "terminology_consistency",
+                    "score_a": 0.99,
+                    "score_b": 0.97,
+                    "evidence": "A consistently uses JSON as the blank answer; B introduces an inconsistent accepted phrase that duplicates the surrounding word “results.”"
+                  },
+                  {
+                    "dimension": "overall_learner_experience",
+                    "score_a": 0.99,
+                    "score_b": 0.97,
+                    "evidence": "The sequences are otherwise identical, but A avoids B’s acceptance-rule defect and therefore gives a cleaner learner interaction."
+                  }
+                ],
+                "evidence": [
+                  "Candidates are identical in ordering, prompts, options, explanations, and feedback except for the predictable-results fill-blank acceptance list.",
+                  "A accepts “JSON,” yielding “Predictable JSON results”; B also accepts “JSON results,” yielding “Predictable JSON results results.”"
+                ],
+                "human_review_recommended": false,
+                "usage": {
+                  "input_tokens": 0,
+                  "output_tokens": 0,
+                  "cost_usd": 0.0,
+                  "backend_calls": 1
+                }
+              }
+            },
+            {
+              "order_index": 2,
+              "seed": 901,
+              "a_role": "champion",
+              "b_role": "challenger",
+              "mapped_winner": "challenger",
+              "verdict": {
+                "winner": "B",
+                "confidence": 0.99,
+                "margin": 0.02,
+                "dimensions": [
+                  {
+                    "dimension": "factual_fidelity",
+                    "score_a": 0.94,
+                    "score_b": 0.95,
+                    "evidence": "Both are source-faithful overall, but both contain a deterministic key error: the first item marks correct_answer as \"3\" although option \"4\" is correct. B correctly keys the JSON fill-in to \"JSON\"."
+                  },
+                  {
+                    "dimension": "answer_unambiguity",
+                    "score_a": 0.78,
+                    "score_b": 0.92,
+                    "evidence": "A accepts \"JSON results\" even though the fixed sentence already supplies \"results,\" producing duplicated wording. B accepts only \"JSON,\" yielding one defensible completion."
+                  },
+                  {
+                    "dimension": "distractor_plausibility",
+                    "score_a": 0.86,
+                    "score_b": 0.86,
+                    "evidence": "Distractors are generally credible alternatives tied to invoice, audio, image, or partial-attendance confusions."
+                  },
+                  {
+                    "dimension": "misconception_quality",
+                    "score_a": 0.84,
+                    "score_b": 0.84,
+                    "evidence": "Wrong choices diagnose realistic confusions such as total versus remote attendance and source media versus structured output."
+                  },
+                  {
+                    "dimension": "cognitive_progression",
+                    "score_a": 0.58,
+                    "score_b": 0.58,
+                    "evidence": "The sequence moves from recall toward application, but repeatedly revisits the same video-attendance and analyzer concepts."
+                  },
+                  {
+                    "dimension": "mechanic_rhythm_variation",
+                    "score_a": 0.42,
+                    "score_b": 0.42,
+                    "evidence": "Mechanics include multiple choice, true/false, fill-in, and arranging, but the ten-item sequence remains highly repetitive in content and structure."
+                  },
+                  {
+                    "dimension": "prompt_language_variation",
+                    "score_a": 0.68,
+                    "score_b": 0.68,
+                    "evidence": "Prompt stems vary between direct questions, completion, reconstruction, and workplace scenarios, though several scenarios use similar meeting framing."
+                  },
+                  {
+                    "dimension": "scenario_authenticity",
+                    "score_a": 0.75,
+                    "score_b": 0.75,
+                    "evidence": "Supervisor, developer, facilities-manager, and workflow scenarios represent plausible uses of extracted meeting data."
+                  },
+                  {
+                    "dimension": "feedback_usefulness",
+                    "score_a": 0.78,
+                    "score_b": 0.78,
+                    "evidence": "Most feedback identifies the relevant misconception and next step, but the first item's explanation conflicts with its keyed answer in both candidates."
+                  },
+                  {
+                    "dimension": "difficulty_appropriateness",
+                    "score_a": 0.66,
+                    "score_b": 0.66,
+                    "evidence": "Difficulty is suitable for introductory review and application, but the session is dominated by straightforward recall and repeated transfer tasks."
+                  },
+                  {
+                    "dimension": "terminology_consistency",
+                    "score_a": 0.88,
+                    "score_b": 0.9,
+                    "evidence": "Both consistently use source terminology; B is cleaner because its JSON fill-in answer does not introduce the redundant phrase \"JSON results results.\""
+                  },
+                  {
+                    "dimension": "overall_learner_experience",
+                    "score_a": 0.55,
+                    "score_b": 0.57,
+                    "evidence": "The sessions are functionally identical and repetitive, with B providing the cleaner fill-in validation and answer representation."
+                  }
+                ],
+                "evidence": [
+                  "B is superior on the only meaningful candidate difference: its JSON fill-in accepts exactly the term required by the sentence.",
+                  "Both candidates share the same first-item answer-key mismatch, so human verification of deterministic scoring is recommended.",
+                  "The remaining ordered items, prompts, options, feedback, and sequence are identical."
+                ],
+                "human_review_recommended": true,
+                "usage": {
+                  "input_tokens": 0,
+                  "output_tokens": 0,
+                  "cost_usd": 0.0,
+                  "backend_calls": 1
+                }
+              }
+            }
+          ],
+          "position_sensitive": false,
+          "stable": false,
+          "decision": "human_review",
+          "protected_regressions": [],
+          "minimum_confidence": 0.99,
+          "minimum_margin": 0.02,
+          "decision_evidence": "Comparison confidence is insufficient for automatic promotion.",
+          "usage": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cost_usd": 0.0,
+            "backend_calls": 2
+          }
+        },
+        "decision": "retained_human",
+        "decision_evidence": "Comparison confidence is insufficient for automatic promotion.",
+        "champion_hash_after": "3f7954c4925b4f58d563443548d275584e26a9041e3a032502f23a86e5126d67",
+        "constraint_relaxations": [],
+        "cumulative_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost_usd": 0.0,
+          "backend_calls": 5
+        }
+      }
+    ],
+    "stop_reason": "human_review_required",
+    "stop_evidence": "Comparison confidence is insufficient for automatic promotion.",
+    "human_decision": null,
+    "total_usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "backend_calls": 5
+    },
+    "human_review_recommended": true,
+    "publication_eligible": false
+  }
+}

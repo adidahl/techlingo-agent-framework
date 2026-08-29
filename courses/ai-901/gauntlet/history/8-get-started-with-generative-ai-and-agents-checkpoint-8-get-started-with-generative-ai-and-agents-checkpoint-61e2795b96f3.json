@@ -1,0 +1,2455 @@
+{
+  "schema_version": "techlingo-gauntlet-record-v1",
+  "compiled_artifact_sha256": "69c9d18537cc04d4d24f6ffad549e8d9c17ee1b85b2ba8dc167de6c8be33ae73",
+  "unit_key": "8-get-started-with-generative-ai-and-agents-checkpoint",
+  "champion": {
+    "artifact_id": "ai-901:8-get-started-with-generative-ai-and-agents-checkpoint",
+    "course_id": "ai-901",
+    "session_id": "8-get-started-with-generative-ai-and-agents-checkpoint",
+    "items": [
+      {
+        "item_key": "call-models-and-build-agents/foundry-sdk/r4/v1",
+        "path": "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/0",
+        "payload": {
+          "import_key": "8-get-started-with-generative-ai-and-agents-checkpoint-q1",
+          "question_type": "multiple_choice",
+          "question_text": "A developer tested customer-support prompts in the playground and is moving the chat into an app. Which items should the developer reuse? Select all that apply.",
+          "options": {
+            "options": [
+              {
+                "text": "System prompts",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "A tested system prompt defines a working behavior configuration. Reusing it helps preserve that behavior in the application.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "User prompts",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "Tested user prompts capture effective request patterns. They can be reused in application code.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Model benchmark scores only",
+                "is_correct": false,
+                "error_type": "Confuses evaluation results with runtime settings",
+                "rationale": "Benchmark scores compare models but do not reproduce the working prompt configuration. The tested prompts and parameter values do.",
+                "better_fit": "Use benchmark scores when selecting among candidate models.",
+                "feedback": {
+                  "intrinsic": "The app could lose the configuration that made its responses work.",
+                  "instructional": "Reuse tested prompts and parameters to preserve the working setup."
+                }
+              },
+              {
+                "text": "Parameter values",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "Parameter values affect generation behavior. Tested values can be carried from the playground into code.",
+                "better_fit": null,
+                "feedback": null
+              }
+            ],
+            "blooms_level": "Applying",
+            "original_question_type": "multi_choice",
+            "concept_id": "foundry-sdk",
+            "item_key": "call-models-and-build-agents/foundry-sdk/r4/v1",
+            "rung": 4,
+            "variant": 1,
+            "module_key": "8-get-started-with-generative-ai-and-agents",
+            "lesson_key": "call-models-and-build-agents",
+            "learning_status": "review"
+          },
+          "correct_answer": "[0,1,3]",
+          "explanation": "Correct. Carry the tested prompts and parameter values into the app.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "call-models-and-build-agents/responses-api-and-lightweight-client/r4/v1",
+        "path": "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/1",
+        "payload": {
+          "import_key": "8-get-started-with-generative-ai-and-agents-checkpoint-q2",
+          "question_type": "multiple_choice",
+          "question_text": "A developer is building a simple command-line tool for a marketing team. It sends a product-description request to a deployed model and prints the reply. What should the developer build?",
+          "options": {
+            "options": [
+              {
+                "text": "An agent called through Project API",
+                "is_correct": false,
+                "error_type": "Confuses direct model calls with agent calls",
+                "rationale": "The scenario only requires direct model inference. An existing packaged agent is not required.",
+                "better_fit": "Choose this when the application must call a saved agent with reusable behavior.",
+                "feedback": {
+                  "intrinsic": "The developer would add unnecessary saved-agent setup.",
+                  "instructional": "For a direct model request in a small CLI, use a lightweight client and the Responses API."
+                }
+              },
+              {
+                "text": "A model benchmark comparison",
+                "is_correct": false,
+                "error_type": "Confuses evaluation with implementation",
+                "rationale": "Benchmarking compares candidate models. It does not build the command-line application that sends requests.",
+                "better_fit": "Use a benchmark comparison while selecting a suitable model.",
+                "feedback": {
+                  "intrinsic": "The team would have comparison data but no working client.",
+                  "instructional": "The required application is a lightweight client that calls the deployment."
+                }
+              },
+              {
+                "text": "A lightweight chat client using Responses API",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "A small command-line application can collect a request, call a deployed model, and print the reply. That is the role of a lightweight chat client using the Responses API.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "A Foundry Tool Catalog entry",
+                "is_correct": false,
+                "error_type": "Confuses an app with tool management",
+                "rationale": "A Tool Catalog entry manages a callable capability. It is not the client application described.",
+                "better_fit": "Use the Tool Catalog to discover and manage tools for an agent.",
+                "feedback": {
+                  "intrinsic": "The request would still lack an application that sends it to the model.",
+                  "instructional": "Build the lightweight client and call the deployment through the Responses API."
+                }
+              }
+            ],
+            "blooms_level": "Applying",
+            "original_question_type": "single_choice",
+            "concept_id": "responses-api-and-lightweight-client",
+            "item_key": "call-models-and-build-agents/responses-api-and-lightweight-client/r4/v1",
+            "rung": 4,
+            "variant": 1,
+            "module_key": "8-get-started-with-generative-ai-and-agents",
+            "lesson_key": "call-models-and-build-agents",
+            "learning_status": "review"
+          },
+          "correct_answer": "2",
+          "explanation": "Correct. This is a direct model call in a small client application.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "what-generative-ai-can-do/generative-ai-new-content/r3/v1",
+        "path": "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/2",
+        "payload": {
+          "import_key": "8-get-started-with-generative-ai-and-agents-checkpoint-q3",
+          "question_type": "fill_blank",
+          "question_text": "Generative AI is a subset of ___.",
+          "options": {
+            "parts": [
+              {
+                "type": "text",
+                "text": "Generative AI is a subset of "
+              },
+              {
+                "type": "gap",
+                "accepted_answers": [
+                  "artificial intelligence",
+                  "AI"
+                ],
+                "rejected_answers": [
+                  "language model",
+                  "agentic AI",
+                  "language-model",
+                  "agentic-ai"
+                ],
+                "placeholder": "technical term"
+              },
+              {
+                "type": "text",
+                "text": "."
+              }
+            ],
+            "rejected_answers": [
+              "language model",
+              "agentic AI",
+              "language-model",
+              "agentic-ai"
+            ],
+            "blooms_level": "Remembering",
+            "original_question_type": "fill_gaps",
+            "concept_id": "generative-ai-new-content",
+            "feedback_for_incorrect": {
+              "intrinsic": "The relationship between generative AI and the broader field would be incorrect.",
+              "instructional": "Generative AI belongs within artificial intelligence and specializes in creating new content."
+            },
+            "item_key": "what-generative-ai-can-do/generative-ai-new-content/r3/v1",
+            "rung": 3,
+            "variant": 1,
+            "module_key": "8-get-started-with-generative-ai-and-agents",
+            "lesson_key": "what-generative-ai-can-do",
+            "learning_status": "review"
+          },
+          "correct_answer": "[\"artificial intelligence\",\"AI\"]",
+          "explanation": "Generative AI is a subset of artificial intelligence; its distinguishing feature is creating new content.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "choose-and-evaluate-models/foundation-models-and-model-families/r4/v1",
+        "path": "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/3",
+        "payload": {
+          "import_key": "8-get-started-with-generative-ai-and-agents-checkpoint-q4",
+          "question_type": "multiple_choice",
+          "question_text": "A product-description team wants a general base model for its marketing content. It may deploy the model now and customize it later. Which approach should the team choose?",
+          "options": {
+            "options": [
+              {
+                "text": "Choose a model family only",
+                "is_correct": false,
+                "error_type": "Confuses a model group with a deployable base model",
+                "rationale": "A family helps identify related options. It does not itself provide the general base model to deploy and customize.",
+                "better_fit": "Use a model family when comparing related models by size, capability, or version.",
+                "feedback": {
+                  "intrinsic": "The team would still need to select an actual model before creating product descriptions.",
+                  "instructional": "A family is useful for comparison. Choose a foundation model when you need a deployable general base model."
+                }
+              },
+              {
+                "text": "Use a foundation model",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "Foundation models provide general capabilities out of the box. They can be deployed immediately and later customized through fine-tuning.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Use GPT-5.x only",
+                "is_correct": false,
+                "error_type": "Confuses one family with all foundation models",
+                "rationale": "GPT-5.x is one model family with reasoning and planning strengths. The need described is for the broader foundation-model approach.",
+                "better_fit": "Choose GPT-5.x for multi-step reasoning, structured logic, planning, or agentic workflows.",
+                "feedback": {
+                  "intrinsic": "The team could narrow its options before checking whether reasoning-heavy work is needed.",
+                  "instructional": "GPT-5.x may be a candidate, but a foundation model is the category that meets the deploy-now, customize-later need."
+                }
+              },
+              {
+                "text": "Choose an Azure sales source",
+                "is_correct": false,
+                "error_type": "Confuses model source with model approach",
+                "rationale": "Azure-sold models are a catalog source with integration and compliance benefits. Source does not define whether the model is a general pretrained base model.",
+                "better_fit": "Use source when comparing Azure-sold models with partner or community models.",
+                "feedback": {
+                  "intrinsic": "The team would know where a model comes from but not whether it fits the base-model approach.",
+                  "instructional": "First identify the needed model approach. Then compare sources and other catalog details."
+                }
+              }
+            ],
+            "blooms_level": "Applying",
+            "original_question_type": "single_choice",
+            "concept_id": "foundation-models-and-model-families",
+            "item_key": "choose-and-evaluate-models/foundation-models-and-model-families/r4/v1",
+            "rung": 4,
+            "variant": 1,
+            "module_key": "8-get-started-with-generative-ai-and-agents",
+            "lesson_key": "choose-and-evaluate-models",
+            "learning_status": "review"
+          },
+          "correct_answer": "1",
+          "explanation": "Correct. Foundation models are general pretrained models that can be deployed now or customized later.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "what-generative-ai-can-do/personalized-learning/r3/v1",
+        "path": "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/4",
+        "payload": {
+          "import_key": "8-get-started-with-generative-ai-and-agents-checkpoint-q5",
+          "question_type": "arrange_sentence",
+          "question_text": "Arrange the parts into a correct sentence.",
+          "options": {
+            "word_bank": [
+              "for students",
+              "Generative AI creates",
+              "based on progress",
+              "custom quizzes"
+            ],
+            "correct_order": [
+              "Generative AI creates",
+              "custom quizzes",
+              "for students",
+              "based on progress"
+            ],
+            "blooms_level": "Understanding",
+            "original_question_type": "rearrange",
+            "concept_id": "personalized-learning",
+            "feedback_for_incorrect": {
+              "intrinsic": "The personalization statement would be unclear.",
+              "instructional": "Start with the creator, then the material, learners, and progress."
+            },
+            "item_key": "what-generative-ai-can-do/personalized-learning/r3/v1",
+            "rung": 3,
+            "variant": 1,
+            "module_key": "8-get-started-with-generative-ai-and-agents",
+            "lesson_key": "what-generative-ai-can-do",
+            "learning_status": "review"
+          },
+          "correct_answer": "Generative AI creates custom quizzes for students based on progress",
+          "explanation": "The sentence identifies the generated material, its audience, and the tailoring factor.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "models-and-the-foundry-catalog/language-model/r2/v1",
+        "path": "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/5",
+        "payload": {
+          "import_key": "8-get-started-with-generative-ai-and-agents-checkpoint-q6",
+          "question_type": "true_false",
+          "question_text": "Language models are built on top of agents.",
+          "options": {
+            "blooms_level": "Understanding",
+            "original_question_type": "true_false",
+            "concept_id": "language-model",
+            "feedback_for_incorrect": {
+              "intrinsic": "This reverses the relationship between the two.",
+              "instructional": "Language models provide the basis, while agents package a model with instructions and optional actions."
+            },
+            "item_key": "models-and-the-foundry-catalog/language-model/r2/v1",
+            "rung": 2,
+            "variant": 1,
+            "module_key": "8-get-started-with-generative-ai-and-agents",
+            "lesson_key": "models-and-the-foundry-catalog",
+            "learning_status": "review"
+          },
+          "correct_answer": "false",
+          "explanation": "Correct! The relationship goes in the other direction: agents are built with models.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "deploy-and-test-a-model/temperature/r4/v1",
+        "path": "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/6",
+        "payload": {
+          "import_key": "8-get-started-with-generative-ai-and-agents-checkpoint-q7",
+          "question_type": "multiple_choice",
+          "question_text": "A support agent must give consistent answers to common questions. Which settings are relevant to review? Select all that apply.",
+          "options": {
+            "options": [
+              {
+                "text": "Temperature",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "Temperature affects response repeatability. It is relevant when answers need to be consistent.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "TPM allocation",
+                "is_correct": false,
+                "error_type": "Capacity confusion",
+                "rationale": "TPM controls token traffic per minute. It does not set consistency or behavioral guidance.",
+                "better_fit": "Use this when the deployment needs more token-traffic capacity.",
+                "feedback": {
+                  "intrinsic": "The service may handle more traffic while answers remain inconsistent.",
+                  "instructional": "Review temperature and instructions for consistency; use TPM for capacity."
+                }
+              },
+              {
+                "text": "System instructions",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "Instructions provide behavior guidance for the assistant. They help ensure the agent follows the intended response policy.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Deployment type",
+                "is_correct": false,
+                "error_type": "Processing confusion",
+                "rationale": "Deployment type determines where and how inference is processed. It does not directly set answer consistency.",
+                "better_fit": "Use this when throughput and data-processing requirements drive the choice.",
+                "feedback": {
+                  "intrinsic": "Processing could change while common answers remain inconsistent.",
+                  "instructional": "Deployment type handles processing; temperature affects repeatability."
+                }
+              }
+            ],
+            "blooms_level": "Applying",
+            "original_question_type": "multi_choice",
+            "concept_id": "temperature",
+            "item_key": "deploy-and-test-a-model/temperature/r4/v1",
+            "rung": 4,
+            "variant": 1,
+            "module_key": "8-get-started-with-generative-ai-and-agents",
+            "lesson_key": "deploy-and-test-a-model",
+            "learning_status": "review"
+          },
+          "correct_answer": "[0,2]",
+          "explanation": "Correct. Temperature and instructions both matter for consistent answers.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "models-and-the-foundry-catalog/model-entry-information/r3/v1",
+        "path": "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/7",
+        "payload": {
+          "import_key": "8-get-started-with-generative-ai-and-agents-checkpoint-q8",
+          "question_type": "arrange_sentence",
+          "question_text": "Reconstruct the statement from the pieces.",
+          "options": {
+            "word_bank": [
+              "to a",
+              "Fine-tuning",
+              "particular need",
+              "adapts a pretrained model"
+            ],
+            "correct_order": [
+              "Fine-tuning",
+              "adapts a pretrained model",
+              "to a",
+              "particular need"
+            ],
+            "blooms_level": "Understanding",
+            "original_question_type": "rearrange",
+            "concept_id": "model-entry-information",
+            "feedback_for_incorrect": {
+              "intrinsic": "The meaning could shift away from adapting an existing model for a need.",
+              "instructional": "Start with fine-tuning, then state that it adapts a pretrained model and explain the purpose."
+            },
+            "item_key": "models-and-the-foundry-catalog/model-entry-information/r3/v1",
+            "rung": 3,
+            "variant": 1,
+            "module_key": "8-get-started-with-generative-ai-and-agents",
+            "lesson_key": "models-and-the-foundry-catalog",
+            "learning_status": "review"
+          },
+          "correct_answer": "Fine-tuning adapts a pretrained model to a particular need",
+          "explanation": "The order states the action, what it changes, and the purpose of that change. Fine-tuning adapts an already pretrained model for a particular need.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "choose-and-evaluate-models/claude-opus-45/r3/v1",
+        "path": "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/8",
+        "payload": {
+          "import_key": "8-get-started-with-generative-ai-and-agents-checkpoint-q9",
+          "question_type": "fill_blank",
+          "question_text": "For long specifications and multi-file diffs, use ___ when its large context window is useful.",
+          "options": {
+            "parts": [
+              {
+                "type": "text",
+                "text": "For long specifications and multi-file diffs, use "
+              },
+              {
+                "type": "gap",
+                "accepted_answers": [
+                  "Claude Opus 4.5",
+                  "Claude Opus"
+                ],
+                "rejected_answers": [
+                  "GPT-5.x",
+                  "Mistral Large 3",
+                  "GPT-4.1",
+                  "gpt-5x",
+                  "mistral-large-3",
+                  "coding-model-selection"
+                ],
+                "placeholder": "model name"
+              },
+              {
+                "type": "text",
+                "text": " when its large context window is useful."
+              }
+            ],
+            "rejected_answers": [
+              "GPT-5.x",
+              "Mistral Large 3",
+              "GPT-4.1",
+              "gpt-5x",
+              "mistral-large-3",
+              "coding-model-selection"
+            ],
+            "blooms_level": "Remembering",
+            "original_question_type": "fill_gaps",
+            "concept_id": "claude-opus-45",
+            "feedback_for_incorrect": {
+              "intrinsic": "A long specification could be matched to a model whose stated focus is speed, balance, or different reasoning needs.",
+              "instructional": "Use Claude Opus 4.5 for the large-context clue. GPT-5.x emphasizes reasoning and planning, Mistral balances trade-offs, and GPT-4.1 emphasizes low latency."
+            },
+            "item_key": "choose-and-evaluate-models/claude-opus-45/r3/v1",
+            "rung": 3,
+            "variant": 1,
+            "module_key": "8-get-started-with-generative-ai-and-agents",
+            "lesson_key": "choose-and-evaluate-models",
+            "learning_status": "review"
+          },
+          "correct_answer": "[\"Claude Opus 4.5\",\"Claude Opus\"]",
+          "explanation": "Claude Opus 4.5 has large context and output windows. That makes it useful when a task includes long specifications or changes across several files.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "call-models-and-build-agents/tools-and-knowledge/r4/v1",
+        "path": "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/9",
+        "payload": {
+          "import_key": "8-get-started-with-generative-ai-and-agents-checkpoint-q10",
+          "question_type": "multiple_choice",
+          "question_text": "A human-resources employee asks an assistant about an internal policy PDF. The assistant must retrieve the relevant policy text and cite its source. What should the team add?",
+          "options": {
+            "options": [
+              {
+                "text": "A tool that updates systems",
+                "is_correct": false,
+                "error_type": "Confuses retrieval with action",
+                "rationale": "Updating a system is an external action. The request instead needs policy context and a citation.",
+                "better_fit": "Use an update tool when the assistant must change an external system.",
+                "feedback": {
+                  "intrinsic": "The employee could trigger a change without receiving the policy information.",
+                  "instructional": "Use knowledge with RAG to retrieve and cite relevant PDF content."
+                }
+              },
+              {
+                "text": "A safety evaluator",
+                "is_correct": false,
+                "error_type": "Confuses retrieval with output scoring",
+                "rationale": "A safety evaluator assesses output for issues. It does not retrieve policy text as context.",
+                "better_fit": "Use a safety evaluator to measure responsible output concerns.",
+                "feedback": {
+                  "intrinsic": "The answer could be scored but still lack the requested policy passage.",
+                  "instructional": "Use knowledge retrieval when a document must ground the answer."
+                }
+              },
+              {
+                "text": "A direct model deployment",
+                "is_correct": false,
+                "error_type": "Confuses model serving with retrieval",
+                "rationale": "A deployment exposes a model through an endpoint. It does not by itself retrieve or cite internal documents.",
+                "better_fit": "Use a deployment when making a selected model available to applications.",
+                "feedback": {
+                  "intrinsic": "The assistant could generate an answer without the required policy context.",
+                  "instructional": "Add knowledge and RAG for grounded, citable document answers."
+                }
+              },
+              {
+                "text": "Knowledge with RAG retrieval",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "Knowledge can include internal PDFs and RAG retrieves relevant content. This grounds the answer and supports citations.",
+                "better_fit": null,
+                "feedback": null
+              }
+            ],
+            "blooms_level": "Applying",
+            "original_question_type": "single_choice",
+            "concept_id": "tools-and-knowledge",
+            "item_key": "call-models-and-build-agents/tools-and-knowledge/r4/v1",
+            "rung": 4,
+            "variant": 1,
+            "module_key": "8-get-started-with-generative-ai-and-agents",
+            "lesson_key": "call-models-and-build-agents",
+            "learning_status": "review"
+          },
+          "correct_answer": "3",
+          "explanation": "Correct. Knowledge with RAG retrieves the PDF content and grounds the response.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "models-and-the-foundry-catalog/azure-vs-partner-community-models/r3/v1",
+        "path": "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/10",
+        "payload": {
+          "import_key": "8-get-started-with-generative-ai-and-agents-checkpoint-q11",
+          "question_type": "fill_blank",
+          "question_text": "Models sold directly by Azure provide enterprise service level agreements, also called ___.",
+          "options": {
+            "parts": [
+              {
+                "type": "text",
+                "text": "Models sold directly by Azure provide enterprise service level agreements, also called "
+              },
+              {
+                "type": "gap",
+                "accepted_answers": [
+                  "SLAs",
+                  "SLA",
+                  "service level agreements"
+                ],
+                "rejected_answers": [
+                  "LLMs",
+                  "SLMs",
+                  "model cards",
+                  "fine-tuning",
+                  "foundation-model",
+                  "model-catalog",
+                  "domain-specific-model-selection"
+                ],
+                "placeholder": "abbreviation"
+              },
+              {
+                "type": "text",
+                "text": "."
+              }
+            ],
+            "rejected_answers": [
+              "LLMs",
+              "SLMs",
+              "model cards",
+              "fine-tuning",
+              "foundation-model",
+              "model-catalog",
+              "domain-specific-model-selection"
+            ],
+            "blooms_level": "Remembering",
+            "original_question_type": "fill_gaps",
+            "concept_id": "azure-vs-partner-community-models",
+            "feedback_for_incorrect": {
+              "intrinsic": "The chosen term would refer to model size, documentation, or customization instead of a service agreement.",
+              "instructional": "Use SLA for service level agreement. LLM and SLM name model types, model cards are documentation, and fine-tuning adapts a pretrained model."
+            },
+            "item_key": "models-and-the-foundry-catalog/azure-vs-partner-community-models/r3/v1",
+            "rung": 3,
+            "variant": 1,
+            "module_key": "8-get-started-with-generative-ai-and-agents",
+            "lesson_key": "models-and-the-foundry-catalog",
+            "learning_status": "review"
+          },
+          "correct_answer": "[\"SLAs\",\"SLA\",\"service level agreements\"]",
+          "explanation": "SLA means service level agreement. Enterprise-grade SLAs are one benefit of models sold directly by Azure.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "compare-score-and-deploy-models/model-leaderboard-and-comparison/r3/v2",
+        "path": "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/11",
+        "payload": {
+          "import_key": "8-get-started-with-generative-ai-and-agents-checkpoint-q12",
+          "question_type": "arrange_sentence",
+          "question_text": "Arrange the filtering statement.",
+          "options": {
+            "word_bank": [
+              "by industry",
+              "Apply filters",
+              "and licensing",
+              "to narrow models"
+            ],
+            "correct_order": [
+              "Apply filters",
+              "to narrow models",
+              "by industry",
+              "and licensing"
+            ],
+            "blooms_level": "Understanding",
+            "original_question_type": "rearrange",
+            "concept_id": "model-leaderboard-and-comparison",
+            "feedback_for_incorrect": {
+              "intrinsic": "The selection relationship would be unclear.",
+              "instructional": "State the filtering action, then the candidates, then the criteria."
+            },
+            "item_key": "compare-score-and-deploy-models/model-leaderboard-and-comparison/r3/v2",
+            "rung": 3,
+            "variant": 2,
+            "module_key": "8-get-started-with-generative-ai-and-agents",
+            "lesson_key": "compare-score-and-deploy-models",
+            "learning_status": "review"
+          },
+          "correct_answer": "Apply filters to narrow models by industry and licensing",
+          "explanation": "Filters narrow candidate models using criteria such as industry and licensing.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "models-and-the-foundry-catalog/microsoft-foundry-and-project/r4/v1",
+        "path": "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/12",
+        "payload": {
+          "import_key": "8-get-started-with-generative-ai-and-agents-checkpoint-q13",
+          "question_type": "multiple_choice",
+          "question_text": "Mia has an Azure subscription and needs to deploy a customer-support model in Foundry. What should she create first?",
+          "options": {
+            "options": [
+              {
+                "text": "A Foundry project",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "This is correct. Using Foundry capabilities begins by creating a Foundry project.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "A model leaderboard",
+                "is_correct": false,
+                "error_type": "Confuses comparison information with a workspace",
+                "rationale": "A leaderboard ranks models by attributes such as quality, safety, and throughput. It is not the workspace that begins Foundry work.",
+                "better_fit": "Use a leaderboard when comparing candidate models.",
+                "feedback": {
+                  "intrinsic": "Mia could compare models but would not have the project needed to proceed.",
+                  "instructional": "A leaderboard supports selection; a Foundry project is the required starting workspace."
+                }
+              },
+              {
+                "text": "A system instruction",
+                "is_correct": false,
+                "error_type": "Confuses model behavior settings with project setup",
+                "rationale": "Instructions define a model's role, behavior, style, and constraints. They are configured after the workspace is available.",
+                "better_fit": "Write instructions when defining desired model or agent behavior.",
+                "feedback": {
+                  "intrinsic": "Mia would define behavior before creating the workspace for the deployment.",
+                  "instructional": "Start with a Foundry project. Instructions shape behavior but do not establish the project."
+                }
+              },
+              {
+                "text": "A benchmark dataset",
+                "is_correct": false,
+                "error_type": "Confuses evaluation data with project setup",
+                "rationale": "Benchmarks show performance on standard datasets. They do not replace the project needed to use Foundry capabilities.",
+                "better_fit": "Use benchmark information to compare candidate models.",
+                "feedback": {
+                  "intrinsic": "Evaluation information alone would not create a place to deploy the model.",
+                  "instructional": "A Foundry project is the workspace needed first; benchmarks help with model evaluation."
+                }
+              }
+            ],
+            "blooms_level": "Applying",
+            "original_question_type": "single_choice",
+            "concept_id": "microsoft-foundry-and-project",
+            "item_key": "models-and-the-foundry-catalog/microsoft-foundry-and-project/r4/v1",
+            "rung": 4,
+            "variant": 1,
+            "module_key": "8-get-started-with-generative-ai-and-agents",
+            "lesson_key": "models-and-the-foundry-catalog",
+            "learning_status": "review"
+          },
+          "correct_answer": "0",
+          "explanation": "Correct! Her Azure subscription lets her begin by creating a Foundry project.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "deploy-and-test-a-model/tpm-rpm-and-throttling/r3/v1",
+        "path": "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/13",
+        "payload": {
+          "import_key": "8-get-started-with-generative-ai-and-agents-checkpoint-q14",
+          "question_type": "arrange_sentence",
+          "question_text": "Put the pieces in the correct order.",
+          "options": {
+            "word_bank": [
+              "requests handled",
+              "RPM limits",
+              "each minute.",
+              "the number of"
+            ],
+            "correct_order": [
+              "RPM limits",
+              "the number of",
+              "requests handled",
+              "each minute."
+            ],
+            "blooms_level": "Understanding",
+            "original_question_type": "rearrange",
+            "concept_id": "tpm-rpm-and-throttling",
+            "feedback_for_incorrect": {
+              "intrinsic": "The request-rate limit would be stated unclearly.",
+              "instructional": "Start with RPM, then state that it limits requests each minute."
+            },
+            "item_key": "deploy-and-test-a-model/tpm-rpm-and-throttling/r3/v1",
+            "rung": 3,
+            "variant": 1,
+            "module_key": "8-get-started-with-generative-ai-and-agents",
+            "lesson_key": "deploy-and-test-a-model",
+            "learning_status": "review"
+          },
+          "correct_answer": "RPM limits the number of requests handled each minute.",
+          "explanation": "RPM refers to the number of requests handled per minute, not token traffic.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "call-models-and-build-agents/model-versus-agent/r3/v1",
+        "path": "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/14",
+        "payload": {
+          "import_key": "8-get-started-with-generative-ai-and-agents-checkpoint-q15",
+          "question_type": "fill_blank",
+          "question_text": "A packaged, task-oriented worker built on a model is an ___.",
+          "options": {
+            "parts": [
+              {
+                "type": "text",
+                "text": "A packaged, task-oriented worker built on a model is an "
+              },
+              {
+                "type": "gap",
+                "accepted_answers": [
+                  "agent"
+                ],
+                "rejected_answers": [
+                  "model",
+                  "tool",
+                  "Responses API",
+                  "agent-components-and-capabilities",
+                  "responses-api-and-lightweight-client",
+                  "foundry-tool"
+                ],
+                "placeholder": "term"
+              },
+              {
+                "type": "text",
+                "text": "."
+              }
+            ],
+            "rejected_answers": [
+              "model",
+              "tool",
+              "Responses API",
+              "agent-components-and-capabilities",
+              "responses-api-and-lightweight-client",
+              "foundry-tool"
+            ],
+            "blooms_level": "Remembering",
+            "original_question_type": "fill_gaps",
+            "concept_id": "model-versus-agent",
+            "feedback_for_incorrect": {
+              "intrinsic": "The selected term would identify only a component rather than the reusable worker.",
+              "instructional": "Use “agent” for the packaged worker built on a model."
+            },
+            "item_key": "call-models-and-build-agents/model-versus-agent/r3/v1",
+            "rung": 3,
+            "variant": 1,
+            "module_key": "8-get-started-with-generative-ai-and-agents",
+            "lesson_key": "call-models-and-build-agents",
+            "learning_status": "review"
+          },
+          "correct_answer": "agent",
+          "explanation": "An agent packages a model into reusable, task-oriented behavior.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "choose-and-evaluate-models/gpt-5x/r5/v1",
+        "path": "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/15",
+        "payload": {
+          "import_key": "8-get-started-with-generative-ai-and-agents-checkpoint-q16",
+          "question_type": "multiple_choice",
+          "question_text": "A software team is designing an agent that must coordinate a code-analysis tool and a document-search tool. Accuracy matters more than the fastest reply. Which reasons support choosing GPT-5.x? Select all that apply.",
+          "options": {
+            "options": [
+              {
+                "text": "It is best for low-latency volume",
+                "is_correct": false,
+                "error_type": "Confuses GPT-5.x with GPT-4.1",
+                "rationale": "GPT-4.1 is optimized for low-latency, high-volume production. That is not the priority in this scenario.",
+                "better_fit": "Use GPT-4.1 when a large number of fast chat replies is the main requirement.",
+                "feedback": {
+                  "intrinsic": "The team could optimize the wrong priority and weaken the case for careful multi-step work.",
+                  "instructional": "When accuracy and coordinated reasoning matter most, GPT-5.x has the stated strengths."
+                }
+              },
+              {
+                "text": "It supports agentic workflows",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "GPT-5.x is optimized for agentic workflows. Coordinating several capabilities is an agentic-workflow need.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "It supports adjustable thinking",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "GPT-5.x supports adjustable thinking levels. They allow a speed-for-accuracy trade-off.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "It is optimized for multi-step reasoning",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "GPT-5.x is optimized for multi-step reasoning. The agent must reason across more than one action.",
+                "better_fit": null,
+                "feedback": null
+              }
+            ],
+            "blooms_level": "Analyzing/Evaluating",
+            "original_question_type": "multi_choice",
+            "concept_id": "gpt-5x",
+            "item_key": "choose-and-evaluate-models/gpt-5x/r5/v1",
+            "rung": 5,
+            "variant": 1,
+            "module_key": "8-get-started-with-generative-ai-and-agents",
+            "lesson_key": "choose-and-evaluate-models",
+            "learning_status": "review"
+          },
+          "correct_answer": "[1,2,3]",
+          "explanation": "Correct. The selected reasons all connect GPT-5.x to careful, multi-step agent work.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "choose-and-evaluate-models/gpt-41-realtime-model/r5/v1",
+        "path": "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/16",
+        "payload": {
+          "import_key": "8-get-started-with-generative-ai-and-agents-checkpoint-q17",
+          "question_type": "multiple_choice",
+          "question_text": "An education platform is launching a tutoring chat for many students at once. It needs fast, efficient replies, and deep multi-step reasoning is not the main need. Which model should the team choose?",
+          "options": {
+            "options": [
+              {
+                "text": "GPT-5.x",
+                "is_correct": false,
+                "error_type": "Confuses reasoning-heavy work with high-volume speed",
+                "rationale": "GPT-5.x is designed for multi-step reasoning, structured logic, and planning. Deep reasoning is not the main need in this tutoring chat.",
+                "better_fit": "Choose GPT-5.x when technical reports, planning, or accuracy-focused multi-step reasoning are central.",
+                "feedback": {
+                  "intrinsic": "The platform could favor reasoning depth while many students mainly need quick replies.",
+                  "instructional": "Let the volume and response-time need drive the choice. GPT-4.1 is optimized for that workload."
+                }
+              },
+              {
+                "text": "Claude Opus 4.5",
+                "is_correct": false,
+                "error_type": "Confuses frontier agent work with low-latency production",
+                "rationale": "Claude Opus 4.5 fits sophisticated agents, complex code reasoning, and multi-step computer use. The tutoring chat instead needs efficient high-volume replies.",
+                "better_fit": "Choose Claude Opus 4.5 for complex code, long specifications, or computer-use tasks.",
+                "feedback": {
+                  "intrinsic": "The choice could optimize for complex tasks the tutoring chat does not primarily perform.",
+                  "instructional": "The scenario prioritizes speed at scale. GPT-4.1 is the model described for that priority."
+                }
+              },
+              {
+                "text": "GPT-4.1",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "GPT-4.1 is optimized for speed, efficiency, and low-latency inference. It is better suited than reasoning-heavy models for high-volume production workloads.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Mistral Large 3",
+                "is_correct": false,
+                "error_type": "Confuses balanced trade-offs with GPT-4.1 optimization",
+                "rationale": "Mistral Large 3 balances quality, throughput, cost, and latency. GPT-4.1 is explicitly optimized for fast, efficient, low-latency production workloads.",
+                "better_fit": "Choose Mistral Large 3 when a general-purpose workload needs balanced quality, cost, and latency.",
+                "feedback": {
+                  "intrinsic": "The platform could settle for broad balance instead of the stated fast-chat optimization.",
+                  "instructional": "Both can consider response time, but GPT-4.1 is the direct fit for many fast tutoring-chat replies."
+                }
+              }
+            ],
+            "blooms_level": "Analyzing/Evaluating",
+            "original_question_type": "single_choice",
+            "concept_id": "gpt-41-realtime-model",
+            "item_key": "choose-and-evaluate-models/gpt-41-realtime-model/r5/v1",
+            "rung": 5,
+            "variant": 1,
+            "module_key": "8-get-started-with-generative-ai-and-agents",
+            "lesson_key": "choose-and-evaluate-models",
+            "learning_status": "review"
+          },
+          "correct_answer": "2",
+          "explanation": "Correct. GPT-4.1 fits a high-volume tutoring chat where fast, efficient replies matter most.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "what-generative-ai-can-do/code-generation/r3/v1",
+        "path": "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/17",
+        "payload": {
+          "import_key": "8-get-started-with-generative-ai-and-agents-checkpoint-q18",
+          "question_type": "arrange_sentence",
+          "question_text": "Arrange the parts into a correct sentence.",
+          "options": {
+            "word_bank": [
+              "software development",
+              "Code suggestions",
+              "for developers",
+              "can speed"
+            ],
+            "correct_order": [
+              "Code suggestions",
+              "can speed",
+              "software development",
+              "for developers"
+            ],
+            "blooms_level": "Understanding",
+            "original_question_type": "rearrange",
+            "concept_id": "code-generation",
+            "feedback_for_incorrect": {
+              "intrinsic": "The benefit statement would be unclear.",
+              "instructional": "Put the subject first, followed by its effect, result, and audience."
+            },
+            "item_key": "what-generative-ai-can-do/code-generation/r3/v1",
+            "rung": 3,
+            "variant": 1,
+            "module_key": "8-get-started-with-generative-ai-and-agents",
+            "lesson_key": "what-generative-ai-can-do",
+            "learning_status": "review"
+          },
+          "correct_answer": "Code suggestions can speed software development for developers",
+          "explanation": "The sentence expresses the development benefit of generated code suggestions.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "compare-score-and-deploy-models/foundry-tool/r3/v1",
+        "path": "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/18",
+        "payload": {
+          "import_key": "8-get-started-with-generative-ai-and-agents-checkpoint-q19",
+          "question_type": "fill_blank",
+          "question_text": "Foundry tools use ___ to provide fast time-to-value without custom modeling.",
+          "options": {
+            "parts": [
+              {
+                "type": "text",
+                "text": "Foundry tools use "
+              },
+              {
+                "type": "gap",
+                "accepted_answers": [
+                  "prebuilt models"
+                ],
+                "rejected_answers": [
+                  "model catalog",
+                  "agent tool",
+                  "custom model",
+                  "model-capability-task-selection",
+                  "agent-tool",
+                  "model-catalog"
+                ],
+                "placeholder": "technical term"
+              },
+              {
+                "type": "text",
+                "text": " to provide fast time-to-value without custom modeling."
+              }
+            ],
+            "rejected_answers": [
+              "model catalog",
+              "agent tool",
+              "custom model",
+              "model-capability-task-selection",
+              "agent-tool",
+              "model-catalog"
+            ],
+            "blooms_level": "Remembering",
+            "original_question_type": "fill_gaps",
+            "concept_id": "foundry-tool",
+            "feedback_for_incorrect": {
+              "intrinsic": "That term would describe a different capability.",
+              "instructional": "The key term is prebuilt models."
+            },
+            "item_key": "compare-score-and-deploy-models/foundry-tool/r3/v1",
+            "rung": 3,
+            "variant": 1,
+            "module_key": "8-get-started-with-generative-ai-and-agents",
+            "lesson_key": "compare-score-and-deploy-models",
+            "learning_status": "review"
+          },
+          "correct_answer": "prebuilt models",
+          "explanation": "Foundry tools rely on prebuilt models rather than requiring custom model development.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "deploy-and-test-a-model/system-and-user-prompts/r3/v1",
+        "path": "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/19",
+        "payload": {
+          "import_key": "8-get-started-with-generative-ai-and-agents-checkpoint-q20",
+          "question_type": "arrange_sentence",
+          "question_text": "Order the pieces into a correct statement.",
+          "options": {
+            "word_bank": [
+              "role and behavior",
+              "A system prompt",
+              "before user requests.",
+              "guides the assistant's"
+            ],
+            "correct_order": [
+              "A system prompt",
+              "guides the assistant's",
+              "role and behavior",
+              "before user requests."
+            ],
+            "blooms_level": "Understanding",
+            "original_question_type": "rearrange",
+            "concept_id": "system-and-user-prompts",
+            "feedback_for_incorrect": {
+              "intrinsic": "The distinction between system guidance and user requests would be obscured.",
+              "instructional": "Put the system prompt first, then state that it guides role and behavior."
+            },
+            "item_key": "deploy-and-test-a-model/system-and-user-prompts/r3/v1",
+            "rung": 3,
+            "variant": 1,
+            "module_key": "8-get-started-with-generative-ai-and-agents",
+            "lesson_key": "deploy-and-test-a-model",
+            "learning_status": "review"
+          },
+          "correct_answer": "A system prompt guides the assistant's role and behavior before user requests.",
+          "explanation": "System prompts establish the assistant's role and behavior, whereas user prompts express individual requests.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "call-models-and-build-agents/project-api-and-agent-client/r3/v2",
+        "path": "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/20",
+        "payload": {
+          "import_key": "8-get-started-with-generative-ai-and-agents-checkpoint-q21",
+          "question_type": "fill_blank",
+          "question_text": "In a Responses API request, use ___ in extra_body to direct the call to an existing agent.",
+          "options": {
+            "parts": [
+              {
+                "type": "text",
+                "text": "In a Responses API request, use "
+              },
+              {
+                "type": "gap",
+                "accepted_answers": [
+                  "agent_reference"
+                ],
+                "rejected_answers": [
+                  "response.output_text",
+                  "DefaultAzureCredential",
+                  "deployment name",
+                  "responses-api-and-lightweight-client",
+                  "foundry-sdk",
+                  "model-versus-agent"
+                ],
+                "placeholder": "request field"
+              },
+              {
+                "type": "text",
+                "text": " in extra_body to direct the call to an existing agent."
+              }
+            ],
+            "rejected_answers": [
+              "response.output_text",
+              "DefaultAzureCredential",
+              "deployment name",
+              "responses-api-and-lightweight-client",
+              "foundry-sdk",
+              "model-versus-agent"
+            ],
+            "blooms_level": "Remembering",
+            "original_question_type": "fill_gaps",
+            "concept_id": "project-api-and-agent-client",
+            "feedback_for_incorrect": {
+              "intrinsic": "The request would not clearly target the saved agent.",
+              "instructional": "Use agent_reference in extra_body; credentials and output fields serve different roles."
+            },
+            "item_key": "call-models-and-build-agents/project-api-and-agent-client/r3/v2",
+            "rung": 3,
+            "variant": 2,
+            "module_key": "8-get-started-with-generative-ai-and-agents",
+            "lesson_key": "call-models-and-build-agents",
+            "learning_status": "review"
+          },
+          "correct_answer": "agent_reference",
+          "explanation": "agent_reference is the request value that targets an existing agent.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "deploy-and-test-a-model/foundry-playground/r3/v1",
+        "path": "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/21",
+        "payload": {
+          "import_key": "8-get-started-with-generative-ai-and-agents-checkpoint-q22",
+          "question_type": "fill_blank",
+          "question_text": "To test prompts and capture working settings before coding, use the Foundry ___.",
+          "options": {
+            "parts": [
+              {
+                "type": "text",
+                "text": "To test prompts and capture working settings before coding, use the Foundry "
+              },
+              {
+                "type": "gap",
+                "accepted_answers": [
+                  "playground",
+                  "Foundry playground"
+                ],
+                "rejected_answers": [
+                  "model catalog",
+                  "Responses API",
+                  "lightweight chat client",
+                  "model-catalog",
+                  "openai-compatible-responses-api",
+                  "lightweight-chat-client"
+                ],
+                "placeholder": "technical term"
+              },
+              {
+                "type": "text",
+                "text": "."
+              }
+            ],
+            "rejected_answers": [
+              "model catalog",
+              "Responses API",
+              "lightweight chat client",
+              "model-catalog",
+              "openai-compatible-responses-api",
+              "lightweight-chat-client"
+            ],
+            "blooms_level": "Remembering",
+            "original_question_type": "fill_gaps",
+            "concept_id": "foundry-playground",
+            "feedback_for_incorrect": {
+              "intrinsic": "The selected tool would not provide the intended interactive testing workspace.",
+              "instructional": "Use the playground for prompt testing; use the catalog for discovery and APIs for code calls."
+            },
+            "item_key": "deploy-and-test-a-model/foundry-playground/r3/v1",
+            "rung": 3,
+            "variant": 1,
+            "module_key": "8-get-started-with-generative-ai-and-agents",
+            "lesson_key": "deploy-and-test-a-model",
+            "learning_status": "review"
+          },
+          "correct_answer": "[\"playground\",\"Foundry playground\"]",
+          "explanation": "The Foundry playground is the portal interface for testing prompts and settings.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "what-generative-ai-can-do/customer-support-agents/r5/v1",
+        "path": "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/22",
+        "payload": {
+          "import_key": "8-get-started-with-generative-ai-and-agents-checkpoint-q23",
+          "question_type": "multiple_choice",
+          "question_text": "A support director wants routine natural-language questions resolved before they reach human agents. Which approach best meets that goal?",
+          "options": {
+            "options": [
+              {
+                "text": "AI-powered virtual agents",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "Virtual agents answer customer inquiries in natural language. They can reduce work for human agents.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Personalized learning",
+                "is_correct": false,
+                "error_type": "Support versus learning",
+                "rationale": "Personalized learning tailors educational materials rather than resolving customer questions. It would not reduce the support queue.",
+                "better_fit": "This fits student quizzes, explanations, and study guides.",
+                "feedback": {
+                  "intrinsic": "Routine inquiries would still reach the support team.",
+                  "instructional": "Use virtual agents to handle customer inquiries first."
+                }
+              },
+              {
+                "text": "GitHub Copilot",
+                "is_correct": false,
+                "error_type": "Support versus coding",
+                "rationale": "GitHub Copilot supports developers with code rather than customer support. It would not answer routine customer inquiries.",
+                "better_fit": "This fits natural-language software-development tasks.",
+                "feedback": {
+                  "intrinsic": "The support workload would not decrease.",
+                  "instructional": "Match customer questions to virtual agents, not code generation."
+                }
+              },
+              {
+                "text": "Image and video generation",
+                "is_correct": false,
+                "error_type": "Support versus visuals",
+                "rationale": "Image and video generation creates visual assets instead of conversational support. It would not resolve natural-language customer questions.",
+                "better_fit": "This fits campaign visuals, storyboards, and concept art.",
+                "feedback": {
+                  "intrinsic": "The director would gain visuals but no relief for the support queue.",
+                  "instructional": "Choose virtual agents for customer questions that should be resolved before escalation."
+                }
+              }
+            ],
+            "blooms_level": "Analyzing/Evaluating",
+            "original_question_type": "single_choice",
+            "concept_id": "customer-support-agents",
+            "item_key": "what-generative-ai-can-do/customer-support-agents/r5/v1",
+            "rung": 5,
+            "variant": 1,
+            "module_key": "8-get-started-with-generative-ai-and-agents",
+            "lesson_key": "what-generative-ai-can-do",
+            "learning_status": "review"
+          },
+          "correct_answer": "0",
+          "explanation": "Correct—virtual agents reduce routine support work.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "deploy-and-test-a-model/max-output-tokens/r2/v1",
+        "path": "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/23",
+        "payload": {
+          "import_key": "8-get-started-with-generative-ai-and-agents-checkpoint-q24",
+          "question_type": "true_false",
+          "question_text": "Max output tokens sets the assistant's behavior, tone, tools, and guardrails.",
+          "options": {
+            "blooms_level": "Understanding",
+            "original_question_type": "true_false",
+            "concept_id": "max-output-tokens",
+            "feedback_for_incorrect": {
+              "intrinsic": "A team could adjust length when it intended to define behavior.",
+              "instructional": "Use system instructions for behavior, tone, tools, and guardrails; use max output tokens for response length."
+            },
+            "item_key": "deploy-and-test-a-model/max-output-tokens/r2/v1",
+            "rung": 2,
+            "variant": 1,
+            "module_key": "8-get-started-with-generative-ai-and-agents",
+            "lesson_key": "deploy-and-test-a-model",
+            "learning_status": "review"
+          },
+          "correct_answer": "false",
+          "explanation": "Correct. Instructions set those elements; max output tokens caps length.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "what-generative-ai-can-do/marketing-content-generation/r5/v1",
+        "path": "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/24",
+        "payload": {
+          "import_key": "8-get-started-with-generative-ai-and-agents-checkpoint-q25",
+          "question_type": "multiple_choice",
+          "question_text": "A lead must separate a campaign's writing work from its visual and support work. Which tasks should be assigned to Microsoft Copilot marketing content? Select all that apply.",
+          "options": {
+            "options": [
+              {
+                "text": "Write product descriptions",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "Product descriptions are written marketing assets. They fit Copilot marketing work.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Answer customer support questions",
+                "is_correct": false,
+                "error_type": "Marketing versus support",
+                "rationale": "Customer questions require support responses rather than campaign writing. This task is separate from marketing-content creation.",
+                "better_fit": "This fits AI-powered virtual agents handling customer inquiries.",
+                "feedback": {
+                  "intrinsic": "Support work would be mixed into the content-writing assignment.",
+                  "instructional": "Assign written campaign content to Copilot and inquiries to virtual agents."
+                }
+              },
+              {
+                "text": "Draft blog posts",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "Blog posts are campaign writing. They fit the marketing-content assignment.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Create social captions",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "Social captions are written marketing content. They belong with campaign writing work.",
+                "better_fit": null,
+                "feedback": null
+              }
+            ],
+            "blooms_level": "Analyzing/Evaluating",
+            "original_question_type": "multi_choice",
+            "concept_id": "marketing-content-generation",
+            "item_key": "what-generative-ai-can-do/marketing-content-generation/r5/v1",
+            "rung": 5,
+            "variant": 1,
+            "module_key": "8-get-started-with-generative-ai-and-agents",
+            "lesson_key": "what-generative-ai-can-do",
+            "learning_status": "review"
+          },
+          "correct_answer": "[0,2,3]",
+          "explanation": "Correct—the selected tasks are written marketing work.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "call-models-and-build-agents/agent/r2/v1",
+        "path": "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/25",
+        "payload": {
+          "import_key": "8-get-started-with-generative-ai-and-agents-checkpoint-q26",
+          "question_type": "true_false",
+          "question_text": "An agent can maintain working memory during a conversation and create structured outputs.",
+          "options": {
+            "blooms_level": "Understanding",
+            "original_question_type": "true_false",
+            "concept_id": "agent",
+            "feedback_for_incorrect": {
+              "intrinsic": "The agent's multi-step conversational capabilities would be underestimated.",
+              "instructional": "Agents can maintain working memory, decide actions, and create structured outputs."
+            },
+            "item_key": "call-models-and-build-agents/agent/r2/v1",
+            "rung": 2,
+            "variant": 1,
+            "module_key": "8-get-started-with-generative-ai-and-agents",
+            "lesson_key": "call-models-and-build-agents",
+            "learning_status": "review"
+          },
+          "correct_answer": "true",
+          "explanation": "Correct. Agents can maintain working memory and create structured outputs.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "models-and-the-foundry-catalog/small-language-model/r5/v1",
+        "path": "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/26",
+        "payload": {
+          "import_key": "8-get-started-with-generative-ai-and-agents-checkpoint-q27",
+          "question_type": "multiple_choice",
+          "question_text": "A government service lead is selecting AI for a specialized public-service workload. Which considerations best support the choice? Select all that apply.",
+          "options": {
+            "options": [
+              {
+                "text": "Choose an SLM because it suits phone apps.",
+                "is_correct": false,
+                "error_type": "Confuses the lightweight phone-app use case with a specialized government workload",
+                "rationale": "An SLM may suit a lightweight phone app. That does not make it the stated choice for specialized government work.",
+                "better_fit": "Consider an SLM when a lightweight phone application is the workload.",
+                "feedback": {
+                  "intrinsic": "The service could select based on an unrelated mobile-app situation.",
+                  "instructional": "Choose based on the actual workload. Specialized government work may need a domain-specialized model."
+                }
+              },
+              {
+                "text": "Consider a domain-specialized model.",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "This is correct. A government application may require a domain-specialized model.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Use a foundation-model label as the selection rule.",
+                "is_correct": false,
+                "error_type": "Confuses a model category with a workload-based decision",
+                "rationale": "A foundation model is a broad pretrained model category. The selection should still consider workload and task needs.",
+                "better_fit": "Use the foundation-model category when describing general pretrained models.",
+                "feedback": {
+                  "intrinsic": "A broad label alone would not show whether the model fits the public-service workload.",
+                  "instructional": "Model categories are useful descriptions, but fit comes from matching the model to the workload."
+                }
+              },
+              {
+                "text": "Match the model to the workload.",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "This is correct. Different workloads can require different model types.",
+                "better_fit": null,
+                "feedback": null
+              }
+            ],
+            "blooms_level": "Analyzing/Evaluating",
+            "original_question_type": "multi_choice",
+            "concept_id": "small-language-model",
+            "item_key": "models-and-the-foundry-catalog/small-language-model/r5/v1",
+            "rung": 5,
+            "variant": 1,
+            "module_key": "8-get-started-with-generative-ai-and-agents",
+            "lesson_key": "models-and-the-foundry-catalog",
+            "learning_status": "review"
+          },
+          "correct_answer": "[1,3]",
+          "explanation": "Correct! A specialized government workload may call for a domain-specialized model, selected to fit the work.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "compare-score-and-deploy-models/model-deployment/r2/v1",
+        "path": "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/27",
+        "payload": {
+          "import_key": "8-get-started-with-generative-ai-and-agents-checkpoint-q28",
+          "question_type": "true_false",
+          "question_text": "Deploying a model activates monitoring and logging for usage, latency, errors, and costs.",
+          "options": {
+            "blooms_level": "Understanding",
+            "original_question_type": "true_false",
+            "concept_id": "model-deployment",
+            "feedback_for_incorrect": {
+              "intrinsic": "Important production signals could be omitted from planning.",
+              "instructional": "Deployment activates monitoring and logging for usage, performance, latency, errors, and costs."
+            },
+            "item_key": "compare-score-and-deploy-models/model-deployment/r2/v1",
+            "rung": 2,
+            "variant": 1,
+            "module_key": "8-get-started-with-generative-ai-and-agents",
+            "lesson_key": "compare-score-and-deploy-models",
+            "learning_status": "review"
+          },
+          "correct_answer": "true",
+          "explanation": "Correct. Deployment activates operational monitoring and logging.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "deploy-and-test-a-model/deployment-type/r5/v1",
+        "path": "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/28",
+        "payload": {
+          "import_key": "8-get-started-with-generative-ai-and-agents-checkpoint-q29",
+          "question_type": "multiple_choice",
+          "question_text": "A company has throughput and data-processing requirements for an AI service. Which decision best addresses those requirements?",
+          "options": {
+            "options": [
+              {
+                "text": "Choose a model version",
+                "is_correct": false,
+                "error_type": "Release confusion",
+                "rationale": "A model version identifies a release. It does not address the deployment processing arrangement.",
+                "better_fit": "Use this when compatibility requires a particular model release.",
+                "feedback": {
+                  "intrinsic": "The service could have a release selected but no solution for processing requirements.",
+                  "instructional": "Match throughput and data-processing needs to deployment type."
+                }
+              },
+              {
+                "text": "Choose an appropriate deployment type",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "Deployment type is connected to throughput and data-processing requirements. It therefore best addresses the stated constraints.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Increase temperature",
+                "is_correct": false,
+                "error_type": "Variation confusion",
+                "rationale": "Temperature changes response variation. It does not determine the processing configuration.",
+                "better_fit": "Use this when creative variation versus repeatability is the issue.",
+                "feedback": {
+                  "intrinsic": "Output style could change without addressing capacity requirements.",
+                  "instructional": "Temperature affects response behavior; deployment type addresses processing needs."
+                }
+              },
+              {
+                "text": "Write stricter system instructions",
+                "is_correct": false,
+                "error_type": "Instruction confusion",
+                "rationale": "Instructions guide assistant behavior and guardrails. They do not choose a deployment arrangement.",
+                "better_fit": "Use this when role, tone, or safety guidance must change.",
+                "feedback": {
+                  "intrinsic": "The assistant may behave differently while deployment requirements remain unmet.",
+                  "instructional": "Deployment type, not instructions, addresses processing requirements."
+                }
+              }
+            ],
+            "blooms_level": "Analyzing/Evaluating",
+            "original_question_type": "single_choice",
+            "concept_id": "deployment-type",
+            "item_key": "deploy-and-test-a-model/deployment-type/r5/v1",
+            "rung": 5,
+            "variant": 1,
+            "module_key": "8-get-started-with-generative-ai-and-agents",
+            "lesson_key": "deploy-and-test-a-model",
+            "learning_status": "review"
+          },
+          "correct_answer": "1",
+          "explanation": "Correct. Deployment type is the decision linked to throughput and data processing.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "compare-score-and-deploy-models/evaluators-and-metrics/r5/v1",
+        "path": "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/29",
+        "payload": {
+          "import_key": "8-get-started-with-generative-ai-and-agents-checkpoint-q30",
+          "question_type": "multiple_choice",
+          "question_text": "A marketing team is choosing metrics for AI-written product descriptions. It needs qualitative evidence of factual support, writing clarity, and similarity to an approved reference style. Which choices best fit? Select all that apply.",
+          "options": {
+            "options": [
+              {
+                "text": "Groundedness",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "Groundedness provides qualitative evidence about factual support. It addresses whether claims are supported.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Coherence and fluency",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "Coherence and fluency assess clarity and flow of writing. They address the writing-quality criterion.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "GPT similarity",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "GPT similarity is an AI-assisted quality metric. It fits comparison with an approved reference style.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "F1 alone",
+                "is_correct": false,
+                "error_type": "Traditional-metric-only choice",
+                "rationale": "F1 is a classic NLP metric. By itself it does not provide the requested qualitative evidence.",
+                "better_fit": "Use F1 when a traditional quantitative metric is specifically needed.",
+                "feedback": {
+                  "intrinsic": "The team would miss the required qualitative review.",
+                  "instructional": "Use AI-assisted metrics for qualitative qualities beyond F1."
+                }
+              }
+            ],
+            "blooms_level": "Analyzing/Evaluating",
+            "original_question_type": "multi_choice",
+            "concept_id": "evaluators-and-metrics",
+            "item_key": "compare-score-and-deploy-models/evaluators-and-metrics/r5/v1",
+            "rung": 5,
+            "variant": 1,
+            "module_key": "8-get-started-with-generative-ai-and-agents",
+            "lesson_key": "compare-score-and-deploy-models",
+            "learning_status": "review"
+          },
+          "correct_answer": "[0,1,2]",
+          "explanation": "Correct. These metrics address the stated quality dimensions.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "models-and-the-foundry-catalog/foundry-model-catalog/r2/v1",
+        "path": "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/30",
+        "payload": {
+          "import_key": "8-get-started-with-generative-ai-and-agents-checkpoint-q31",
+          "question_type": "true_false",
+          "question_text": "The Foundry model catalog is a central hub for models from many providers.",
+          "options": {
+            "blooms_level": "Understanding",
+            "original_question_type": "true_false",
+            "concept_id": "foundry-model-catalog",
+            "feedback_for_incorrect": {
+              "intrinsic": "This would overlook why the catalog is useful for comparing choices.",
+              "instructional": "The catalog is a central hub for discovering and using models from an extensive range of providers."
+            },
+            "item_key": "models-and-the-foundry-catalog/foundry-model-catalog/r2/v1",
+            "rung": 2,
+            "variant": 1,
+            "module_key": "8-get-started-with-generative-ai-and-agents",
+            "lesson_key": "models-and-the-foundry-catalog",
+            "learning_status": "review"
+          },
+          "correct_answer": "true",
+          "explanation": "Correct! The catalog brings together a wide selection of models from many providers.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "choose-and-evaluate-models/task-based-model-selection/r5/v1",
+        "path": "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/31",
+        "payload": {
+          "import_key": "8-get-started-with-generative-ai-and-agents-checkpoint-q32",
+          "question_type": "multiple_choice",
+          "question_text": "A legal-services team needs an industry-specific assistant. A second team needs search that finds content by meaning. Which choices fit these two needs? Select all that apply.",
+          "options": {
+            "options": [
+              {
+                "text": "Use GPT-4.1 for embeddings",
+                "is_correct": false,
+                "error_type": "Confuses chat model with embedding task",
+                "rationale": "GPT-4.1 is optimized for real-time chat and customer support. It is not the listed embedding-model choice.",
+                "better_fit": "Choose GPT-4.1 for fast, efficient interactive chat at scale.",
+                "feedback": {
+                  "intrinsic": "The search team could choose a chat-focused model instead of the model type designed to represent meaning.",
+                  "instructional": "Separate the tasks: legal specialization points to a domain-tuned model, while semantic search points to an embedding model."
+                }
+              },
+              {
+                "text": "Use a domain-tuned legal model",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "Domain-tuned catalog models can fit legal applications. This directly meets the industry-specific requirement.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Use an embedding model for search",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "Embedding models create semantic vector representations. That supports search based on meaning.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Use text-embedding-3-small",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "text-embedding-3-small is listed as an embedding model. It is a fitting choice for semantic vector representations.",
+                "better_fit": null,
+                "feedback": null
+              }
+            ],
+            "blooms_level": "Analyzing/Evaluating",
+            "original_question_type": "multi_choice",
+            "concept_id": "task-based-model-selection",
+            "item_key": "choose-and-evaluate-models/task-based-model-selection/r5/v1",
+            "rung": 5,
+            "variant": 1,
+            "module_key": "8-get-started-with-generative-ai-and-agents",
+            "lesson_key": "choose-and-evaluate-models",
+            "learning_status": "review"
+          },
+          "correct_answer": "[1,2,3]",
+          "explanation": "Correct. Domain-tuned models fit industry-specific work, while embedding models support search by meaning.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "choose-and-evaluate-models/mistral-large-3/r3/v1",
+        "path": "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/32",
+        "payload": {
+          "import_key": "8-get-started-with-generative-ai-and-agents-checkpoint-q33",
+          "question_type": "arrange_sentence",
+          "question_text": "Arrange the parts to form the correct statement.",
+          "options": {
+            "word_bank": [
+              "with efficient throughput",
+              "Mistral Large 3",
+              "cost, and latency",
+              "balances high quality"
+            ],
+            "correct_order": [
+              "Mistral Large 3",
+              "balances high quality",
+              "with efficient throughput",
+              "cost, and latency"
+            ],
+            "blooms_level": "Understanding",
+            "original_question_type": "rearrange",
+            "concept_id": "mistral-large-3",
+            "feedback_for_incorrect": {
+              "intrinsic": "A reader could miss what the quality is being balanced against.",
+              "instructional": "Start with the model, then its quality, then the throughput, cost, and latency trade-offs."
+            },
+            "item_key": "choose-and-evaluate-models/mistral-large-3/r3/v1",
+            "rung": 3,
+            "variant": 1,
+            "module_key": "8-get-started-with-generative-ai-and-agents",
+            "lesson_key": "choose-and-evaluate-models",
+            "learning_status": "review"
+          },
+          "correct_answer": "Mistral Large 3 balances high quality with efficient throughput cost, and latency",
+          "explanation": "The order first names the model, then states its quality goal, and finally names the efficiency trade-offs. This captures why it is a balanced general-purpose option.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "compare-score-and-deploy-models/benchmark-results/r2/v1",
+        "path": "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/33",
+        "payload": {
+          "import_key": "8-get-started-with-generative-ai-and-agents-checkpoint-q34",
+          "question_type": "true_false",
+          "question_text": "Benchmark scores help compare models by using consistent evaluation criteria.",
+          "options": {
+            "blooms_level": "Understanding",
+            "original_question_type": "true_false",
+            "concept_id": "benchmark-results",
+            "feedback_for_incorrect": {
+              "intrinsic": "Comparable scores could be misunderstood as unrelated evidence.",
+              "instructional": "Benchmark results use standard datasets to make comparison more consistent."
+            },
+            "item_key": "compare-score-and-deploy-models/benchmark-results/r2/v1",
+            "rung": 2,
+            "variant": 1,
+            "module_key": "8-get-started-with-generative-ai-and-agents",
+            "lesson_key": "compare-score-and-deploy-models",
+            "learning_status": "review"
+          },
+          "correct_answer": "true",
+          "explanation": "Correct. Consistent criteria make scores comparable.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "what-generative-ai-can-do/image-generation-from-prompts/r3/v1",
+        "path": "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/34",
+        "payload": {
+          "import_key": "8-get-started-with-generative-ai-and-agents-checkpoint-q35",
+          "question_type": "fill_blank",
+          "question_text": "A designer can create concept art from a text description using ___.",
+          "options": {
+            "parts": [
+              {
+                "type": "text",
+                "text": "A designer can create concept art from a text description using "
+              },
+              {
+                "type": "gap",
+                "accepted_answers": [
+                  "image and video generation"
+                ],
+                "rejected_answers": [
+                  "marketing content with Microsoft Copilot",
+                  "personalized learning",
+                  "AI-powered virtual agents",
+                  "multimodal-model-selection",
+                  "marketing-content-with-copilot",
+                  "personalized-learning"
+                ],
+                "placeholder": "technical term"
+              },
+              {
+                "type": "text",
+                "text": "."
+              }
+            ],
+            "rejected_answers": [
+              "marketing content with Microsoft Copilot",
+              "personalized learning",
+              "AI-powered virtual agents",
+              "multimodal-model-selection",
+              "marketing-content-with-copilot",
+              "personalized-learning"
+            ],
+            "blooms_level": "Remembering",
+            "original_question_type": "fill_gaps",
+            "concept_id": "image-generation-from-prompts",
+            "feedback_for_incorrect": {
+              "intrinsic": "The required visual asset would not be produced.",
+              "instructional": "Use image and video generation for concept art and other visuals."
+            },
+            "item_key": "what-generative-ai-can-do/image-generation-from-prompts/r3/v1",
+            "rung": 3,
+            "variant": 1,
+            "module_key": "8-get-started-with-generative-ai-and-agents",
+            "lesson_key": "what-generative-ai-can-do",
+            "learning_status": "review"
+          },
+          "correct_answer": "image and video generation",
+          "explanation": "Image and video generation produces visual assets from text descriptions.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "compare-score-and-deploy-models/safety-evaluators/r2/v1",
+        "path": "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/35",
+        "payload": {
+          "import_key": "8-get-started-with-generative-ai-and-agents-checkpoint-q36",
+          "question_type": "true_false",
+          "question_text": "A safety evaluator automatically resolves harmful content after detecting it.",
+          "options": {
+            "blooms_level": "Understanding",
+            "original_question_type": "true_false",
+            "concept_id": "safety-evaluators",
+            "feedback_for_incorrect": {
+              "intrinsic": "Detected harmful content could remain unaddressed.",
+              "instructional": "A safety evaluator identifies harms; remediation requires a separate response."
+            },
+            "item_key": "compare-score-and-deploy-models/safety-evaluators/r2/v1",
+            "rung": 2,
+            "variant": 1,
+            "module_key": "8-get-started-with-generative-ai-and-agents",
+            "lesson_key": "compare-score-and-deploy-models",
+            "learning_status": "review"
+          },
+          "correct_answer": "false",
+          "explanation": "Correct. Safety evaluators detect, scan, and score issues rather than resolving them.",
+          "points": 1
+        }
+      }
+    ],
+    "metadata": {
+      "module_key": "8-get-started-with-generative-ai-and-agents",
+      "unit_title": "8. Get started with generative AI and agents in Azure · Checkpoint",
+      "unit_slo": "Review the key concepts of 8. Get started with generative AI and agents in Azure.",
+      "constraint_relaxations": []
+    }
+  },
+  "history": {
+    "schema_version": "techlingo-gauntlet-history-v1",
+    "run_id": "8-get-started-with-generative-ai-and-agents-checkpoint-61e2795b96f3",
+    "started_at": "2026-08-28T01:25:58.748118Z",
+    "finished_at": "2026-08-28T01:29:07.862383Z",
+    "initial_champion_hash": "28484ed7d40ab0dd87e168470741af2b44298fe5043885072d77e0b7465d3b82",
+    "final_champion_hash": "28484ed7d40ab0dd87e168470741af2b44298fe5043885072d77e0b7465d3b82",
+    "evaluation_context": {
+      "schema_version": "techlingo-evaluation-context-v1",
+      "goal": "Produce an excellent, source-faithful learner session while preserving all deterministic correctness, identity, and sequence constraints.",
+      "source_fidelity_goal": "Independently verify the hard-gated edited challenger against the supplied source material. Reject unsupported facts, answers, explanations, feedback, or terminology changes; do not edit the artifact.",
+      "gauntlet_policy": {
+        "critic_backend": "codex",
+        "critic_model": "codex:gpt-5.6-luna",
+        "builder_model": "codex:gpt-5.6-terra",
+        "max_rounds": 4,
+        "plateau_rounds": 2,
+        "repeated_loss_rounds": 2,
+        "minimum_improvement_margin": 0.02,
+        "confidence_threshold": 0.65,
+        "human_review_threshold": 0.4,
+        "max_time_seconds": null,
+        "max_tokens": null,
+        "max_cost_usd": null,
+        "qualitative_required_for_publication": true,
+        "quality_thresholds": {
+          "factual_fidelity": 0.8,
+          "answer_unambiguity": 0.8,
+          "distractor_plausibility": 0.8,
+          "misconception_quality": 0.8,
+          "cognitive_progression": 0.8,
+          "mechanic_rhythm_variation": 0.8,
+          "prompt_language_variation": 0.8,
+          "scenario_authenticity": 0.8,
+          "feedback_usefulness": 0.8,
+          "difficulty_appropriateness": 0.8,
+          "terminology_consistency": 0.8,
+          "overall_learner_experience": 0.8
+        },
+        "comparison_seed": 901,
+        "protected_dimensions": [
+          "factual_fidelity",
+          "answer_unambiguity"
+        ],
+        "unstable_comparison_requires_human_review": true,
+        "identifying_metadata_keys": [
+          "artifact_id",
+          "builder_model",
+          "candidate_role",
+          "challenger",
+          "champion",
+          "critic_model",
+          "generated_at",
+          "import_key",
+          "item_key",
+          "model_id",
+          "path",
+          "version_id"
+        ]
+      },
+      "gauntlet_policy_sha256": "035ba75a6dc056e4680b4c7cb97f2859ec5160f72633534a4550ba69e8061ac4",
+      "rubric": {
+        "criteria": {
+          "factual_fidelity": "Every claim and answer is faithful to the supplied source.",
+          "answer_unambiguity": "Each item has one defensible answer under its instructions.",
+          "distractor_plausibility": "Distractors are credible without becoming defensible answers.",
+          "misconception_quality": "Wrong choices diagnose realistic learner misconceptions.",
+          "cognitive_progression": "The ordered session builds understanding at a coherent pace.",
+          "mechanic_rhythm_variation": "Mechanics vary naturally without disruptive repetition.",
+          "prompt_language_variation": "Prompt stems avoid formulaic repetition.",
+          "scenario_authenticity": "Scenarios resemble credible decisions or tasks.",
+          "feedback_usefulness": "Feedback explains the governing concept and next step.",
+          "difficulty_appropriateness": "Difficulty matches the stated audience and session position.",
+          "terminology_consistency": "Terms are used consistently with the source and across items.",
+          "overall_learner_experience": "The exact final sequence is coherent, varied, and instructive."
+        }
+      },
+      "rubric_sha256": "34290a842f2ed7e30b7a98ba70ac97d967c864424010cd31255f97cdce0b57d5",
+      "sources": [
+        {
+          "input_id": "8. Get started with generative AI and agents in Azure.md",
+          "sha256": "804615778632569292419f970abfbc2e893ede0d1775e36655732588ea35541c",
+          "location": "sources/8. Get started with generative AI and agents in Azure.md"
+        }
+      ],
+      "approved_references": [],
+      "models": {
+        "builder_model": "codex:gpt-5.6-terra",
+        "critic_backend": "codex",
+        "critic_model": "codex:gpt-5.6-luna",
+        "critic_fresh_context": true,
+        "editor_backend": "codex",
+        "editor_model": "codex:gpt-5.6-luna",
+        "editor_fresh_context": true,
+        "comparator_backend": "codex",
+        "comparator_model": "codex:gpt-5.6-luna",
+        "comparator_fresh_context": true
+      },
+      "context_sha256": "437eace6e00e59121298f4984aba674b2ab181da2af4caed2bc27c43618f8062"
+    },
+    "initial_hard_gate": {
+      "artifact_sha256": "28484ed7d40ab0dd87e168470741af2b44298fe5043885072d77e0b7465d3b82",
+      "passed": true,
+      "issues": [],
+      "checks": {
+        "schema_and_answers": true,
+        "identity": true,
+        "final_sequence": true
+      },
+      "metrics": {},
+      "constraint_relaxations": []
+    },
+    "rounds": [
+      {
+        "round_number": 1,
+        "champion_hash_before": "28484ed7d40ab0dd87e168470741af2b44298fe5043885072d77e0b7465d3b82",
+        "critic": {
+          "result": {
+            "dimensions": [
+              {
+                "dimension": "factual_fidelity",
+                "score": 0.9,
+                "evidence": [
+                  {
+                    "statement": "Most answers and rationales directly reflect the supplied source, including the Foundry playground, Responses API, agents, knowledge retrieval, deployment, and model-selection concepts.",
+                    "item_keys": [
+                      "call-models-and-build-agents/foundry-sdk/r4/v1",
+                      "call-models-and-build-agents/responses-api-and-lightweight-client/r4/v1",
+                      "call-models-and-build-agents/tools-and-knowledge/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/0",
+                      "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/1",
+                      "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/9"
+                    ]
+                  },
+                  {
+                    "statement": "The Mistral arrangement produces a malformed statement: “Mistral Large 3 balances high quality with efficient throughput cost, and latency,” which does not cleanly express the source's stated trade-offs.",
+                    "item_keys": [
+                      "choose-and-evaluate-models/mistral-large-3/r3/v1"
+                    ],
+                    "paths": [
+                      "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/32"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "answer_unambiguity",
+                "score": 0.91,
+                "evidence": [
+                  {
+                    "statement": "Single-choice and multi-choice items specify clear correct selections, and fill-blank items provide explicit accepted answers and rejected alternatives.",
+                    "item_keys": [
+                      "call-models-and-build-agents/responses-api-and-lightweight-client/r4/v1",
+                      "deploy-and-test-a-model/temperature/r4/v1",
+                      "what-generative-ai-can-do/generative-ai-new-content/r3/v1"
+                    ],
+                    "paths": [
+                      "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/1",
+                      "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/6",
+                      "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/2"
+                    ]
+                  },
+                  {
+                    "statement": "The malformed Mistral sentence weakens confidence that the requested arranged result is a correct sentence, even though its stored order is deterministic.",
+                    "item_keys": [
+                      "choose-and-evaluate-models/mistral-large-3/r3/v1"
+                    ],
+                    "paths": [
+                      "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/32"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "distractor_plausibility",
+                "score": 0.87,
+                "evidence": [
+                  {
+                    "statement": "Several distractors represent credible category confusions without being defensible answers, such as benchmarking versus implementation, direct model calls versus agents, and retrieval versus action.",
+                    "item_keys": [
+                      "call-models-and-build-agents/responses-api-and-lightweight-client/r4/v1",
+                      "call-models-and-build-agents/tools-and-knowledge/r4/v1",
+                      "deploy-and-test-a-model/deployment-type/r5/v1"
+                    ],
+                    "paths": [
+                      "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/1",
+                      "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/9",
+                      "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/28"
+                    ]
+                  },
+                  {
+                    "statement": "Some use-case distractors are comparatively obvious because they belong to clearly different domains, as in the customer-support and marketing-content items.",
+                    "item_keys": [
+                      "what-generative-ai-can-do/customer-support-agents/r5/v1",
+                      "what-generative-ai-can-do/marketing-content-generation/r5/v1"
+                    ],
+                    "paths": [
+                      "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/22",
+                      "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/24"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "misconception_quality",
+                "score": 0.92,
+                "evidence": [
+                  {
+                    "statement": "Wrong options are labeled with realistic misconception types and paired with better-fit guidance, including capacity versus behavior, retrieval versus action, and model family versus foundation model.",
+                    "item_keys": [
+                      "deploy-and-test-a-model/temperature/r4/v1",
+                      "call-models-and-build-agents/tools-and-knowledge/r4/v1",
+                      "choose-and-evaluate-models/foundation-models-and-model-families/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/6",
+                      "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/9",
+                      "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/3"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "cognitive_progression",
+                "score": 0.62,
+                "evidence": [
+                  {
+                    "statement": "The session opens with applied implementation decisions about reusing playground settings and building a client before establishing the basic definition of generative AI.",
+                    "item_keys": [
+                      "call-models-and-build-agents/foundry-sdk/r4/v1",
+                      "call-models-and-build-agents/responses-api-and-lightweight-client/r4/v1",
+                      "what-generative-ai-can-do/generative-ai-new-content/r3/v1"
+                    ],
+                    "paths": [
+                      "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/0",
+                      "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/1",
+                      "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/2"
+                    ]
+                  },
+                  {
+                    "statement": "Foundational recall, model evaluation, deployment configuration, and agent implementation are repeatedly interleaved rather than progressing from concepts to selection, deployment, and application.",
+                    "item_keys": [
+                      "models-and-the-foundry-catalog/language-model/r2/v1",
+                      "choose-and-evaluate-models/gpt-5x/r5/v1",
+                      "deploy-and-test-a-model/deployment-type/r5/v1",
+                      "call-models-and-build-agents/project-api-and-agent-client/r3/v2"
+                    ],
+                    "paths": [
+                      "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/5",
+                      "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/15",
+                      "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/28",
+                      "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/20"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "mechanic_rhythm_variation",
+                "score": 0.89,
+                "evidence": [
+                  {
+                    "statement": "The artifact alternates multiple choice, fill-blank, arrange-sentence, and true-false mechanics across the sequence, avoiding a single dominant interaction type.",
+                    "item_keys": [
+                      "call-models-and-build-agents/foundry-sdk/r4/v1",
+                      "what-generative-ai-can-do/generative-ai-new-content/r3/v1",
+                      "what-generative-ai-can-do/personalized-learning/r3/v1",
+                      "models-and-the-foundry-catalog/language-model/r2/v1"
+                    ],
+                    "paths": [
+                      "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/0",
+                      "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/2",
+                      "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/4",
+                      "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/5"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "prompt_language_variation",
+                "score": 0.84,
+                "evidence": [
+                  {
+                    "statement": "Prompt stems vary across scenario questions, definitions, reconstruction tasks, selection tasks, and statements such as “Arrange,” “Reconstruct,” “Put the pieces,” and “Order the pieces.”",
+                    "item_keys": [
+                      "what-generative-ai-can-do/personalized-learning/r3/v1",
+                      "models-and-the-foundry-catalog/model-entry-information/r3/v1",
+                      "compare-score-and-deploy-models/model-leaderboard-and-comparison/r3/v2",
+                      "deploy-and-test-a-model/system-and-user-prompts/r3/v1"
+                    ],
+                    "paths": [
+                      "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/4",
+                      "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/7",
+                      "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/11",
+                      "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/19"
+                    ]
+                  },
+                  {
+                    "statement": "Despite variation, arrange-sentence prompts recur frequently and remain structurally similar.",
+                    "item_keys": [
+                      "what-generative-ai-can-do/personalized-learning/r3/v1",
+                      "models-and-the-foundry-catalog/model-entry-information/r3/v1",
+                      "choose-and-evaluate-models/mistral-large-3/r3/v1"
+                    ],
+                    "paths": [
+                      "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/4",
+                      "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/7",
+                      "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/32"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "scenario_authenticity",
+                "score": 0.88,
+                "evidence": [
+                  {
+                    "statement": "Scenarios represent credible workplace decisions, including choosing a client type, selecting models for tutoring or agent workflows, grounding HR policy answers, and configuring deployment capacity.",
+                    "item_keys": [
+                      "call-models-and-build-agents/responses-api-and-lightweight-client/r4/v1",
+                      "choose-and-evaluate-models/gpt-41-realtime-model/r5/v1",
+                      "call-models-and-build-agents/tools-and-knowledge/r4/v1",
+                      "deploy-and-test-a-model/deployment-type/r5/v1"
+                    ],
+                    "paths": [
+                      "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/1",
+                      "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/16",
+                      "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/9",
+                      "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/28"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "feedback_usefulness",
+                "score": 0.91,
+                "evidence": [
+                  {
+                    "statement": "Incorrect-option feedback usually explains the consequence of the misconception, identifies the governing concept, and states when the rejected option would fit instead.",
+                    "item_keys": [
+                      "call-models-and-build-agents/responses-api-and-lightweight-client/r4/v1",
+                      "call-models-and-build-agents/tools-and-knowledge/r4/v1",
+                      "deploy-and-test-a-model/temperature/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/1",
+                      "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/9",
+                      "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/6"
+                    ]
+                  },
+                  {
+                    "statement": "The Mistral feedback explains the intended trade-offs but does not catch or repair the malformed assembled sentence.",
+                    "item_keys": [
+                      "choose-and-evaluate-models/mistral-large-3/r3/v1"
+                    ],
+                    "paths": [
+                      "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/32"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "difficulty_appropriateness",
+                "score": 0.78,
+                "evidence": [
+                  {
+                    "statement": "The artifact mixes low-level recall items at rungs 2–3 with applied and evaluative scenarios at rungs 4–5, providing coverage from definitions through model and deployment decisions.",
+                    "item_keys": [
+                      "models-and-the-foundry-catalog/foundry-model-catalog/r2/v1",
+                      "what-generative-ai-can-do/generative-ai-new-content/r3/v1",
+                      "choose-and-evaluate-models/gpt-5x/r5/v1",
+                      "compare-score-and-deploy-models/evaluators-and-metrics/r5/v1"
+                    ],
+                    "paths": [
+                      "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/30",
+                      "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/2",
+                      "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/15",
+                      "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/29"
+                    ]
+                  },
+                  {
+                    "statement": "The shuffled ordering can make advanced application items appear before the foundational knowledge needed to solve them comfortably.",
+                    "item_keys": [
+                      "call-models-and-build-agents/foundry-sdk/r4/v1",
+                      "call-models-and-build-agents/responses-api-and-lightweight-client/r4/v1",
+                      "what-generative-ai-can-do/generative-ai-new-content/r3/v1"
+                    ],
+                    "paths": [
+                      "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/0",
+                      "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/1",
+                      "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/2"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "terminology_consistency",
+                "score": 0.91,
+                "evidence": [
+                  {
+                    "statement": "Core terms such as model, agent, system instructions, playground, Responses API, knowledge, RAG, TPM, RPM, and evaluators are used consistently with the source and across the artifact.",
+                    "item_keys": [
+                      "call-models-and-build-agents/model-versus-agent/r3/v1",
+                      "deploy-and-test-a-model/foundry-playground/r3/v1",
+                      "call-models-and-build-agents/project-api-and-agent-client/r3/v2",
+                      "compare-score-and-deploy-models/safety-evaluators/r2/v1"
+                    ],
+                    "paths": [
+                      "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/14",
+                      "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/21",
+                      "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/20",
+                      "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/35"
+                    ]
+                  },
+                  {
+                    "statement": "The Mistral item has a wording and punctuation defect, but it is primarily a sentence-construction problem rather than a broad terminology inconsistency.",
+                    "item_keys": [
+                      "choose-and-evaluate-models/mistral-large-3/r3/v1"
+                    ],
+                    "paths": [
+                      "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/32"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "overall_learner_experience",
+                "score": 0.79,
+                "evidence": [
+                  {
+                    "statement": "The exact q0–q36 sequence preserves item identity and indexed paths, provides broad source coverage, and offers varied mechanics with generally useful feedback.",
+                    "item_keys": [
+                      "call-models-and-build-agents/foundry-sdk/r4/v1",
+                      "compare-score-and-deploy-models/safety-evaluators/r2/v1"
+                    ],
+                    "paths": [
+                      "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/0",
+                      "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/35"
+                    ]
+                  },
+                  {
+                    "statement": "Learner experience is reduced by the non-progressive ordering and by the malformed Mistral reconstruction, which presents an incorrect-looking target sentence.",
+                    "item_keys": [
+                      "call-models-and-build-agents/foundry-sdk/r4/v1",
+                      "what-generative-ai-can-do/generative-ai-new-content/r3/v1",
+                      "choose-and-evaluate-models/mistral-large-3/r3/v1"
+                    ],
+                    "paths": [
+                      "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/0",
+                      "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/2",
+                      "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/32"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "critical_defects": [
+              {
+                "defect_id": "CD-001",
+                "dimension": "factual_fidelity",
+                "summary": "The Mistral arrangement's prescribed answer is grammatically malformed and fails to clearly state the source-supported quality, throughput, cost, and latency relationship.",
+                "evidence": [
+                  {
+                    "statement": "The stored order yields “Mistral Large 3 balances high quality with efficient throughput cost, and latency,” missing the punctuation and connective structure needed for a faithful, intelligible statement.",
+                    "item_keys": [
+                      "choose-and-evaluate-models/mistral-large-3/r3/v1"
+                    ],
+                    "paths": [
+                      "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/32"
+                    ]
+                  }
+                ],
+                "affected_item_keys": [
+                  "choose-and-evaluate-models/mistral-large-3/r3/v1"
+                ],
+                "affected_paths": [
+                  "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/32"
+                ],
+                "recommended_scope": "item"
+              }
+            ],
+            "largest_gap": {
+              "dimension": "cognitive_progression",
+              "summary": "The exact session sequence is broad and varied but does not build concepts in a coherent instructional progression.",
+              "evidence": [
+                {
+                  "statement": "The first two items test applied client and playground reuse decisions before the third item establishes what generative AI is.",
+                  "item_keys": [
+                    "call-models-and-build-agents/foundry-sdk/r4/v1",
+                    "call-models-and-build-agents/responses-api-and-lightweight-client/r4/v1",
+                    "what-generative-ai-can-do/generative-ai-new-content/r3/v1"
+                  ],
+                  "paths": [
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/0",
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/1",
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/2"
+                  ]
+                },
+                {
+                  "statement": "Basic definitions, model-family selection, deployment settings, and agent API details recur in a shuffled order rather than moving from foundations to evaluation, deployment, and implementation.",
+                  "item_keys": [
+                    "models-and-the-foundry-catalog/language-model/r2/v1",
+                    "choose-and-evaluate-models/gpt-5x/r5/v1",
+                    "deploy-and-test-a-model/deployment-type/r5/v1",
+                    "call-models-and-build-agents/project-api-and-agent-client/r3/v2"
+                  ],
+                  "paths": [
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/5",
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/15",
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/28",
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/20"
+                  ]
+                }
+              ],
+              "affected_item_keys": [
+                "call-models-and-build-agents/foundry-sdk/r4/v1",
+                "call-models-and-build-agents/responses-api-and-lightweight-client/r4/v1",
+                "what-generative-ai-can-do/generative-ai-new-content/r3/v1",
+                "choose-and-evaluate-models/foundation-models-and-model-families/r4/v1",
+                "models-and-the-foundry-catalog/language-model/r2/v1",
+                "choose-and-evaluate-models/gpt-5x/r5/v1",
+                "deploy-and-test-a-model/deployment-type/r5/v1",
+                "call-models-and-build-agents/project-api-and-agent-client/r3/v2"
+              ],
+              "affected_paths": [
+                "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/0",
+                "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/1",
+                "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/2",
+                "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/3",
+                "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/5",
+                "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/15",
+                "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/28",
+                "modules/7:8-get-started-with-generative-ai-and-agents/units/18:8-get-started-with-generative-ai-and-agents-checkpoint/questions/20"
+              ],
+              "recommended_scope": "session",
+              "repair_instruction": "Reorder the existing items only: place foundational definitions and relationships first, then catalog/model evaluation, then deployment and playground configuration, and finally client, agent, tool, and knowledge scenarios. Preserve every item payload and identity.",
+              "allowed_payload_fields": [
+                "items"
+              ]
+            },
+            "confidence": 0.78,
+            "human_review_recommended": true,
+            "concise_summary": "The artifact is largely source-faithful, deterministic, varied, and well-supported by misconception-oriented feedback. The main remaining issues are a malformed Mistral arrangement and a shuffled cognitive sequence. Confidence is reduced because no approved references were supplied."
+          },
+          "artifact_sha256": "28484ed7d40ab0dd87e168470741af2b44298fe5043885072d77e0b7465d3b82",
+          "evaluation_context_sha256": "437eace6e00e59121298f4984aba674b2ab181da2af4caed2bc27c43618f8062",
+          "goal_sha256": "c4bae546eef7fec8c92895a1538196a8df81a13754329022bca211a6200752ae",
+          "critic_backend": "codex",
+          "critic_model": "codex:gpt-5.6-luna",
+          "fresh_context": true,
+          "model_independence": "independent",
+          "approved_reference_count": 0,
+          "reference_confidence_reduced": true,
+          "usage": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cost_usd": 0.0,
+            "backend_calls": 1
+          }
+        },
+        "critic_failure": null,
+        "repair_scope": null,
+        "repair_summary": null,
+        "editor_backend": null,
+        "editor_model": null,
+        "editor_fresh_context": null,
+        "edit_usage": null,
+        "validation_retry_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost_usd": 0.0,
+          "backend_calls": 0
+        },
+        "touched_item_keys": [],
+        "challenger_hash": null,
+        "hard_gate": null,
+        "source_fidelity_critic": null,
+        "source_fidelity_gate": null,
+        "comparison": null,
+        "decision": "retained_human",
+        "decision_evidence": "Critic confidence/finding requires human review.",
+        "champion_hash_after": "28484ed7d40ab0dd87e168470741af2b44298fe5043885072d77e0b7465d3b82",
+        "constraint_relaxations": [],
+        "cumulative_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost_usd": 0.0,
+          "backend_calls": 1
+        }
+      }
+    ],
+    "stop_reason": "human_review_required",
+    "stop_evidence": "Critic requested human review or confidence was below threshold.",
+    "human_decision": null,
+    "total_usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "backend_calls": 1
+    },
+    "human_review_recommended": true,
+    "publication_eligible": false
+  }
+}

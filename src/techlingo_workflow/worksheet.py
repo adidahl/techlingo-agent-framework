@@ -14,13 +14,15 @@ own concept pack (no config round-trip).
 
 Precedence (documented for WorkflowConfig coherence): when a lesson carries a
 concept pack in which EVERY atom has an explicit `depth`, the worksheet derives
-`exercises_per_lesson` / `blooms_distribution` / `question_type_distribution`
-for that lesson and the configured values are ignored. Lessons without such a
-pack (legacy runs, degenerate A1 maps) keep the configured distributions.
+its Bloom/type distributions from the concept quota table. Courses may opt into
+an exact `worksheet_items_per_lesson` budget; that budget is applied here before
+generation, never by trimming a generated lesson. Lessons without such a pack
+(legacy runs, degenerate A1 maps) keep the configured distributions.
 """
 
 from __future__ import annotations
 
+import hashlib
 from collections import Counter
 from dataclasses import dataclass
 from typing import Optional, Sequence
@@ -92,6 +94,10 @@ class WorksheetCell:
     tf_answer: Optional[bool] = None
 
 
+class WorksheetBudgetError(ValueError):
+    """The requested exact worksheet size cannot preserve the quota contract."""
+
+
 def normalized_depth(depth: Optional[str]) -> str:
     return depth if depth in CELL_QUOTAS else DEFAULT_DEPTH
 
@@ -101,13 +107,26 @@ def required_rungs(depth: Optional[str]) -> tuple[int, ...]:
     return tuple(sorted(CELL_QUOTAS[normalized_depth(depth)]))
 
 
-def concept_cells(concept_id: str, depth: Optional[str]) -> list[WorksheetCell]:
+def concept_cells(
+    concept_id: str,
+    depth: Optional[str],
+    *,
+    type_offset: int = 0,
+) -> list[WorksheetCell]:
+    """Expand one concept's quota, optionally rotating variant mechanics.
+
+    ``type_offset`` is used by exact-budget lessons to distribute the first
+    available mechanic across neighboring concepts.  A two-variant cell still
+    contains exactly the same two mechanics; only which one is ``v1`` changes.
+    This matters when a tight budget retains the required first variant but
+    cannot retain every optional second variant.
+    """
     quota = CELL_QUOTAS[normalized_depth(depth)]
     cells: list[WorksheetCell] = []
     for rung in sorted(quota):
         seq = RUNG_TYPE_SEQUENCES[rung]
         for variant in range(1, quota[rung] + 1):
-            qtype = seq[(variant - 1) % len(seq)]
+            qtype = seq[(variant - 1 + type_offset) % len(seq)]
             cells.append(
                 WorksheetCell(
                     concept_id=concept_id,
@@ -128,16 +147,175 @@ def worksheet_applies(concepts: Sequence[ConceptAtom]) -> bool:
     return bool(concepts) and all(c.depth in CELL_QUOTAS for c in concepts)
 
 
-def build_lesson_worksheet(concepts: Sequence[ConceptAtom]) -> list[WorksheetCell]:
-    """Concept-major expansion (map order), rungs ascending, variants ascending.
+def worksheet_size_bounds(concepts: Sequence[ConceptAtom]) -> tuple[int, int]:
+    """Return the inclusive exact-budget range for a classified concept pack.
+
+    The lower bound keeps one row at every depth-required rung for every
+    concept. The upper bound is the complete 5/7/9-row quota expansion.
+    """
+
+    minimum = sum(len(required_rungs(concept.depth)) for concept in concepts)
+    maximum = sum(len(concept_cells(concept.id, concept.depth)) for concept in concepts)
+    return minimum, maximum
+
+
+# Optional variants are apportioned across the three learner bands, then fairly
+# across concepts. Within a band, mechanic-diversifying rows precede another
+# T/F or scenario-choice variant. The selected rows are finally filtered back
+# into authoritative concept-major order.
+_OPTIONAL_BANDS: tuple[tuple[str, tuple[int, ...]], ...] = (
+    ("foundation", (1, 2)),
+    ("practice", (3, 4)),
+    ("mastery", (5,)),
+)
+
+
+def _stable_optional_rank(band: str, concept_id: str) -> str:
+    return hashlib.sha256(f"{band}\0{concept_id}".encode("utf-8")).hexdigest()
+
+
+def _allocate_optional_bands(seats: int, capacities: Sequence[int]) -> list[int]:
+    """Allocate recyclable-band seats first, alternating foundation/practice.
+
+    Foundation receives an odd remainder because the default next-level recycle
+    share is larger there. Mastery variants are useful but cannot serve a later
+    lesson level, so they receive seats only after both recyclable bands fill.
+    """
+
+    total = sum(capacities)
+    if seats < 0 or seats > total:
+        raise WorksheetBudgetError(
+            f"cannot allocate {seats} optional worksheet rows across capacity {total}"
+        )
+    allocations = [0 for _ in capacities]
+
+    while seats and any(allocations[index] < capacities[index] for index in (0, 1)):
+        for index in (0, 1):
+            if seats == 0:
+                break
+            if allocations[index] < capacities[index]:
+                allocations[index] += 1
+                seats -= 1
+
+    for index in range(2, len(capacities)):
+        take = min(seats, capacities[index])
+        allocations[index] += take
+        seats -= take
+    if seats:  # defensive: the total-capacity check makes this unreachable
+        raise WorksheetBudgetError(f"could not allocate {seats} optional worksheet rows")
+    return allocations
+
+
+def build_lesson_worksheet(
+    concepts: Sequence[ConceptAtom], *, item_budget: int | None = None
+) -> list[WorksheetCell]:
+    """Build the authoritative concept-major worksheet.
+
+    With no budget, expand every quota row (map order, rungs ascending,
+    variants ascending). With an exact budget, retain variant 1 at every
+    required concept/rung and select optional variants round-robin across
+    concepts. Selection happens before generation; no emitted exercise is
+    discarded or relabeled later.
 
     Grouping a cell's variants adjacently is deliberate: the generator sees
     them side by side, which is what makes "these two must differ in surface"
-    followable."""
-    cells: list[WorksheetCell] = []
-    for concept in concepts:
-        cells.extend(concept_cells(concept.id, concept.depth))
-    return cells
+    followable.
+    """
+
+    full: list[WorksheetCell] = []
+    by_concept: list[tuple[int, str, list[WorksheetCell]]] = []
+    for concept_index, concept in enumerate(concepts):
+        # Exact budgets necessarily keep every v1 row while some v2 rows are
+        # omitted.  Alternating the per-concept starting mechanic prevents a
+        # level from exposing a single scarce mechanic that no rolling-window
+        # ordering can distribute.  Unbudgeted worksheets retain their legacy
+        # identity mapping.
+        type_offset = concept_index if item_budget is not None else 0
+        concept_plan = concept_cells(
+            concept.id,
+            concept.depth,
+            type_offset=type_offset,
+        )
+        by_concept.append((concept_index, concept.id, concept_plan))
+        full.extend(concept_plan)
+
+    if item_budget is None or item_budget == len(full):
+        return full
+
+    minimum, maximum = worksheet_size_bounds(concepts)
+    if not (minimum <= item_budget <= maximum):
+        raise WorksheetBudgetError(
+            f"worksheet item budget {item_budget} is infeasible for this concept pack; "
+            f"complete rung coverage requires at least {minimum} rows and the full "
+            f"quota provides at most {maximum}"
+        )
+
+    selected: set[tuple[str, int, int]] = {
+        (cell.concept_id, cell.rung, cell.variant)
+        for cell in full
+        if cell.variant == 1
+    }
+    remaining = item_budget - len(selected)
+    band_candidates: list[list[tuple[int, str, list[WorksheetCell]]]] = []
+    for _band, rungs in _OPTIONAL_BANDS:
+        candidates: list[tuple[int, str, list[WorksheetCell]]] = []
+        rung_order = {rung: index for index, rung in enumerate(rungs)}
+        for concept_index, concept_id, concept_plan in by_concept:
+            optional = sorted(
+                (
+                    cell
+                    for cell in concept_plan
+                    if cell.variant > 1 and cell.rung in rungs
+                ),
+                key=lambda cell: (cell.variant, rung_order[cell.rung]),
+            )
+            if optional:
+                candidates.append((concept_index, concept_id, optional))
+        band_candidates.append(candidates)
+
+    capacities = [
+        sum(len(candidates) for _index, _concept_id, candidates in band)
+        for band in band_candidates
+    ]
+    band_allocations = _allocate_optional_bands(remaining, capacities)
+    selected_per_concept = {concept_index: 0 for concept_index, _concept_id, _plan in by_concept}
+
+    for (band_name, _rungs), candidates, allocation in zip(
+        _OPTIONAL_BANDS, band_candidates, band_allocations
+    ):
+        queues = {
+            concept_index: list(concept_candidates)
+            for concept_index, _concept_id, concept_candidates in candidates
+        }
+        concept_ids = {
+            concept_index: concept_id for concept_index, concept_id, _candidates in candidates
+        }
+        selected_in_band = {concept_index: 0 for concept_index in queues}
+        for _ in range(allocation):
+            eligible = [concept_index for concept_index, queue in queues.items() if queue]
+            if not eligible:  # defensive: Hamilton never allocates beyond band capacity
+                raise WorksheetBudgetError(
+                    f"worksheet band {band_name!r} exhausted before its allocation was filled"
+                )
+            concept_index = min(
+                eligible,
+                key=lambda index: (
+                    selected_in_band[index],
+                    selected_per_concept[index],
+                    _stable_optional_rank(band_name, concept_ids[index]),
+                    index,
+                ),
+            )
+            cell = queues[concept_index].pop(0)
+            selected.add((cell.concept_id, cell.rung, cell.variant))
+            selected_in_band[concept_index] += 1
+            selected_per_concept[concept_index] += 1
+
+    return [
+        cell
+        for cell in full
+        if (cell.concept_id, cell.rung, cell.variant) in selected
+    ]
 
 
 def assign_tf_answers(worksheets: Sequence[list[WorksheetCell]], *, start: bool = False) -> None:

@@ -1,0 +1,738 @@
+{
+  "schema_version": "techlingo-gauntlet-authored-approval-v1",
+  "approval_sha256": "45ad8f7ba558b91e6776efb64f44a5f2669e2cb1b962ac4d6107d117a8de1863",
+  "proposal": {
+    "schema_version": "techlingo-gauntlet-authored-proposal-v1",
+    "proposal_id": "creating-natural-spoken-audio-l2-9a3022deac3a-round-1",
+    "proposal_sha256": "d1f54f9252f05ac7b6578ebec2443ccaa2383da4e0258a5f16b85b41f50b82ba",
+    "unit_key": "creating-natural-spoken-audio-l2",
+    "run_id": "creating-natural-spoken-audio-l2-9a3022deac3a",
+    "round_number": 1,
+    "record_path": "gauntlet/history/creating-natural-spoken-audio-l2-creating-natural-spoken-audio-l2-9a3022deac3a.json",
+    "record_sha256": "dfb0b25da9aa250f9de00f2f5ee9305e82d1b56bf923574e9473733efbad740c",
+    "history_sha256": "882226aab848c2009a38f4c800882ccba4c5a34b7c3497fee09e3771e64cfb3d",
+    "compiled_artifact_sha256": "2fa356d363b3a7f13d4d399d67361e952b387b4b6502e0aa169d3bb7f3169d2b",
+    "champion_before_sha256": "989d6f00304a6512fb9437094f0701d5132498660bd1dacedf48e699fa042f74",
+    "champion_after_sha256": "ba1f7ee81acfd206e1c09c9f01c4e2ea1c61c9426e3487d43d0715b7fa171e82",
+    "evaluation_context_sha256": "40cc4a71e201050dcff86a8add07bd19ab5404871ac8b37fbd9171c41b1886ca",
+    "gauntlet_policy_sha256": "3ffb6943742c9fc0b33d6668a9c5695b535ee3121f7b697df8ab4d4392014385",
+    "repair_summary": "Changed only question_text for the navigation synthesis item to state that acoustic feature generation has already produced the mel-spectrogram.",
+    "repair_instruction": "Change only question_text to state that acoustic feature generation has already converted the phonemes and prosody targets into a mel-spectrogram, so the neural vocoder is the next step; preserve question_type and all other payload fields.",
+    "emitted_changes": [
+      {
+        "item_key": "creating-natural-spoken-audio/speech-synthesis-waveform-generation/r4/v1",
+        "artifact_path": "modules/3:4-introduction-to-ai-speech-concepts/units/16:creating-natural-spoken-audio-l2/questions/4",
+        "field": "question_text",
+        "before": "A navigation-app developer has phonemes and prosody targets ready for spoken directions. The app now needs audible audio for the driver. What should generate it next?",
+        "after": "A navigation-app developer has phonemes and prosody targets ready, and acoustic feature generation has converted them into a mel-spectrogram. What should generate audible audio for the driver next?"
+      }
+    ],
+    "authored_changes": [
+      {
+        "item_key": "creating-natural-spoken-audio/speech-synthesis-waveform-generation/r4/v1",
+        "bank_path": "bank/creating-natural-spoken-audio.json",
+        "bank_item_index": 29,
+        "source_file": "4. Introduction to AI speech concepts.md",
+        "source_sha256": "3e473e1597e55d94be084b7ef2a67c31d8d44a550976b2272833afa921d83500",
+        "item_source_sha256": "3e473e1597e55d94be084b7ef2a67c31d8d44a550976b2272833afa921d83500",
+        "bank_payload_sha256": "cea5abed98bb8c7a4b2f1eb4e08dda84843e2282e339cbf33326314a6b949d7f",
+        "provenance_before": "generated",
+        "pinned_before": false,
+        "payload_before": {
+          "blooms_level": "Applying",
+          "question_type": "single_choice",
+          "prompt": "A navigation-app developer has phonemes and prosody targets ready for spoken directions. The app now needs audible audio for the driver. What should generate it next?",
+          "concept_id": "speech-synthesis-waveform-generation",
+          "options": [
+            {
+              "text": "A neural vocoder",
+              "is_correct": true,
+              "error_type": null,
+              "rationale": "A neural vocoder converts the resulting mel-spectrogram into raw audio waveforms. That produces audible directions.",
+              "better_fit": null,
+              "feedback": null
+            },
+            {
+              "text": "G2P conversion",
+              "is_correct": false,
+              "error_type": "Confuses letter-to-sound mapping with final audio generation",
+              "rationale": "G2P maps letters to phonemes earlier in linguistic analysis. The phonemes are already ready here.",
+              "better_fit": "Use G2P when written words still need pronunciation sounds.",
+              "feedback": {
+                "intrinsic": "The driver would wait while an already-complete mapping was repeated.",
+                "instructional": "G2P comes before phonemes are ready; vocoding produces audible waveform audio."
+              }
+            },
+            {
+              "text": "Punctuation restoration",
+              "is_correct": false,
+              "error_type": "Confuses recognition cleanup with speech creation",
+              "rationale": "Punctuation restoration cleans recognition output. It does not create audio from synthesis features.",
+              "better_fit": "Use punctuation restoration after recognition decoding.",
+              "feedback": {
+                "intrinsic": "The directions could be formatted as writing but remain silent.",
+                "instructional": "A neural vocoder creates audible speech from synthesis representations."
+              }
+            },
+            {
+              "text": "MFCC extraction",
+              "is_correct": false,
+              "error_type": "Confuses recognition feature extraction with synthesis",
+              "rationale": "MFCC extraction summarizes captured audio for recognition. It does not generate speech waveforms.",
+              "better_fit": "Use MFCC extraction when preparing incoming audio for acoustic modeling.",
+              "feedback": {
+                "intrinsic": "The ready pronunciation information would not become an audio instruction.",
+                "instructional": "MFCCs support recognition of incoming sound; vocoding synthesizes outgoing sound."
+              }
+            }
+          ],
+          "feedback_for_correct": "Correct. A neural vocoder generates waveform audio for the spoken directions."
+        },
+        "payload_after": {
+          "blooms_level": "Applying",
+          "question_type": "single_choice",
+          "prompt": "A navigation-app developer has phonemes and prosody targets ready, and acoustic feature generation has converted them into a mel-spectrogram. What should generate audible audio for the driver next?",
+          "concept_id": "speech-synthesis-waveform-generation",
+          "options": [
+            {
+              "text": "A neural vocoder",
+              "is_correct": true,
+              "error_type": null,
+              "rationale": "A neural vocoder converts the resulting mel-spectrogram into raw audio waveforms. That produces audible directions.",
+              "better_fit": null,
+              "feedback": null
+            },
+            {
+              "text": "G2P conversion",
+              "is_correct": false,
+              "error_type": "Confuses letter-to-sound mapping with final audio generation",
+              "rationale": "G2P maps letters to phonemes earlier in linguistic analysis. The phonemes are already ready here.",
+              "better_fit": "Use G2P when written words still need pronunciation sounds.",
+              "feedback": {
+                "intrinsic": "The driver would wait while an already-complete mapping was repeated.",
+                "instructional": "G2P comes before phonemes are ready; vocoding produces audible waveform audio."
+              }
+            },
+            {
+              "text": "Punctuation restoration",
+              "is_correct": false,
+              "error_type": "Confuses recognition cleanup with speech creation",
+              "rationale": "Punctuation restoration cleans recognition output. It does not create audio from synthesis features.",
+              "better_fit": "Use punctuation restoration after recognition decoding.",
+              "feedback": {
+                "intrinsic": "The directions could be formatted as writing but remain silent.",
+                "instructional": "A neural vocoder creates audible speech from synthesis representations."
+              }
+            },
+            {
+              "text": "MFCC extraction",
+              "is_correct": false,
+              "error_type": "Confuses recognition feature extraction with synthesis",
+              "rationale": "MFCC extraction summarizes captured audio for recognition. It does not generate speech waveforms.",
+              "better_fit": "Use MFCC extraction when preparing incoming audio for acoustic modeling.",
+              "feedback": {
+                "intrinsic": "The ready pronunciation information would not become an audio instruction.",
+                "instructional": "MFCCs support recognition of incoming sound; vocoding synthesizes outgoing sound."
+              }
+            }
+          ],
+          "feedback_for_correct": "Correct. A neural vocoder generates waveform audio for the spoken directions."
+        },
+        "changed_payload_fields": [
+          "prompt"
+        ]
+      }
+    ],
+    "evidence": {
+      "hard_gate": {
+        "artifact_sha256": "ba1f7ee81acfd206e1c09c9f01c4e2ea1c61c9426e3487d43d0715b7fa171e82",
+        "passed": true,
+        "issues": [],
+        "checks": {
+          "schema_and_answers": true,
+          "identity": true,
+          "final_sequence": true
+        },
+        "metrics": {},
+        "constraint_relaxations": []
+      },
+      "source_fidelity_critic": {
+        "result": {
+          "dimensions": [
+            {
+              "dimension": "factual_fidelity",
+              "score": 0.97,
+              "evidence": [
+                {
+                  "statement": "The answers and explanations align with the supplied source: linguistic analysis includes lexicon lookup, stress marking, and text-to-phoneme mapping; post-processing includes punctuation, number formatting, capitalization, and confidence scoring; synthesis uses prosody and a neural vocoder. Source: 4. Introduction to AI speech concepts.md.",
+                  "item_keys": [
+                    "creating-natural-spoken-audio/linguistic-analysis-g2p/r1/v2",
+                    "creating-natural-spoken-audio/post-processing-and-confidence/r1/v2",
+                    "creating-natural-spoken-audio/speech-synthesis-waveform-generation/r3/v1",
+                    "creating-natural-spoken-audio/prosody-generation/r3/v1",
+                    "creating-natural-spoken-audio/post-processing-and-confidence/r4/v1"
+                  ],
+                  "paths": [
+                    "modules/3:4-introduction-to-ai-speech-concepts/units/16:creating-natural-spoken-audio-l2/questions/0",
+                    "modules/3:4-introduction-to-ai-speech-concepts/units/16:creating-natural-spoken-audio-l2/questions/1",
+                    "modules/3:4-introduction-to-ai-speech-concepts/units/16:creating-natural-spoken-audio-l2/questions/2",
+                    "modules/3:4-introduction-to-ai-speech-concepts/units/16:creating-natural-spoken-audio-l2/questions/3",
+                    "modules/3:4-introduction-to-ai-speech-concepts/units/16:creating-natural-spoken-audio-l2/questions/8"
+                  ]
+                }
+              ]
+            },
+            {
+              "dimension": "answer_unambiguity",
+              "score": 0.96,
+              "evidence": [
+                {
+                  "statement": "Each item supplies one defensible answer under its instructions. The select-all items have source-supported sets, and the fill-blank items accept the source terms neural vocoder, inverse text normalization, and neural G2P. Source: 4. Introduction to AI speech concepts.md.",
+                  "item_keys": [
+                    "creating-natural-spoken-audio/speech-synthesis-waveform-generation/r3/v1",
+                    "creating-natural-spoken-audio/post-processing-and-confidence/r3/v1",
+                    "creating-natural-spoken-audio/linguistic-analysis-g2p/r3/v1"
+                  ],
+                  "paths": [
+                    "modules/3:4-introduction-to-ai-speech-concepts/units/16:creating-natural-spoken-audio-l2/questions/2",
+                    "modules/3:4-introduction-to-ai-speech-concepts/units/16:creating-natural-spoken-audio-l2/questions/6",
+                    "modules/3:4-introduction-to-ai-speech-concepts/units/16:creating-natural-spoken-audio-l2/questions/9"
+                  ]
+                }
+              ]
+            },
+            {
+              "dimension": "distractor_plausibility",
+              "score": 0.92,
+              "evidence": [
+                {
+                  "statement": "Distractors are credible neighboring stages or concepts, such as G2P versus vocoding, MFCC extraction versus synthesis, and beam search versus confidence scoring, while the stems provide enough context to rule them out.",
+                  "item_keys": [
+                    "creating-natural-spoken-audio/speech-synthesis-waveform-generation/r4/v1",
+                    "creating-natural-spoken-audio/post-processing-and-confidence/r4/v1",
+                    "creating-natural-spoken-audio/linguistic-analysis-g2p/r4/v1"
+                  ],
+                  "paths": [
+                    "modules/3:4-introduction-to-ai-speech-concepts/units/16:creating-natural-spoken-audio-l2/questions/4",
+                    "modules/3:4-introduction-to-ai-speech-concepts/units/16:creating-natural-spoken-audio-l2/questions/8",
+                    "modules/3:4-introduction-to-ai-speech-concepts/units/16:creating-natural-spoken-audio-l2/questions/11"
+                  ]
+                }
+              ]
+            },
+            {
+              "dimension": "misconception_quality",
+              "score": 0.93,
+              "evidence": [
+                {
+                  "statement": "Wrong choices diagnose realistic confusions between recognition and synthesis, text normalization and prosody, pronunciation mapping and audio generation, and decoding versus uncertainty review.",
+                  "item_keys": [
+                    "creating-natural-spoken-audio/prosody-generation/r4/v1",
+                    "creating-natural-spoken-audio/text-normalization/r4/v1",
+                    "creating-natural-spoken-audio/linguistic-analysis-g2p/r4/v1"
+                  ],
+                  "paths": [
+                    "modules/3:4-introduction-to-ai-speech-concepts/units/16:creating-natural-spoken-audio-l2/questions/5",
+                    "modules/3:4-introduction-to-ai-speech-concepts/units/16:creating-natural-spoken-audio-l2/questions/10",
+                    "modules/3:4-introduction-to-ai-speech-concepts/units/16:creating-natural-spoken-audio-l2/questions/11"
+                  ]
+                }
+              ]
+            },
+            {
+              "dimension": "cognitive_progression",
+              "score": 0.62,
+              "evidence": [
+                {
+                  "statement": "The exact order jumps among linguistic analysis, recognition post-processing, vocoding, and prosody, then revisits earlier stages. This weakens the source's natural synthesis progression of text normalization, linguistic analysis, prosody, acoustic feature generation, and waveform generation.",
+                  "item_keys": [
+                    "creating-natural-spoken-audio/linguistic-analysis-g2p/r1/v2",
+                    "creating-natural-spoken-audio/post-processing-and-confidence/r1/v2",
+                    "creating-natural-spoken-audio/speech-synthesis-waveform-generation/r3/v1",
+                    "creating-natural-spoken-audio/prosody-generation/r3/v1",
+                    "creating-natural-spoken-audio/post-processing-and-confidence/r3/v1",
+                    "creating-natural-spoken-audio/text-normalization/r3/v1"
+                  ],
+                  "paths": [
+                    "modules/3:4-introduction-to-ai-speech-concepts/units/16:creating-natural-spoken-audio-l2/questions/0",
+                    "modules/3:4-introduction-to-ai-speech-concepts/units/16:creating-natural-spoken-audio-l2/questions/1",
+                    "modules/3:4-introduction-to-ai-speech-concepts/units/16:creating-natural-spoken-audio-l2/questions/2",
+                    "modules/3:4-introduction-to-ai-speech-concepts/units/16:creating-natural-spoken-audio-l2/questions/3",
+                    "modules/3:4-introduction-to-ai-speech-concepts/units/16:creating-natural-spoken-audio-l2/questions/6",
+                    "modules/3:4-introduction-to-ai-speech-concepts/units/16:creating-natural-spoken-audio-l2/questions/7"
+                  ]
+                }
+              ]
+            },
+            {
+              "dimension": "mechanic_rhythm_variation",
+              "score": 0.82,
+              "evidence": [
+                {
+                  "statement": "The session uses multiple-choice, fill-blank, and arrange-sentence mechanics, with no long uninterrupted run of one mechanic; however, several adjacent pairs are multiple-choice items.",
+                  "item_keys": [
+                    "creating-natural-spoken-audio/linguistic-analysis-g2p/r1/v2",
+                    "creating-natural-spoken-audio/post-processing-and-confidence/r1/v2",
+                    "creating-natural-spoken-audio/speech-synthesis-waveform-generation/r3/v1",
+                    "creating-natural-spoken-audio/prosody-generation/r3/v1"
+                  ],
+                  "paths": [
+                    "modules/3:4-introduction-to-ai-speech-concepts/units/16:creating-natural-spoken-audio-l2/questions/0",
+                    "modules/3:4-introduction-to-ai-speech-concepts/units/16:creating-natural-spoken-audio-l2/questions/1",
+                    "modules/3:4-introduction-to-ai-speech-concepts/units/16:creating-natural-spoken-audio-l2/questions/2",
+                    "modules/3:4-introduction-to-ai-speech-concepts/units/16:creating-natural-spoken-audio-l2/questions/3"
+                  ]
+                }
+              ]
+            },
+            {
+              "dimension": "prompt_language_variation",
+              "score": 0.84,
+              "evidence": [
+                {
+                  "statement": "Prompt forms vary across selection, completion, ordering, and applied scenarios. The two arrange-sentence stems are somewhat formulaic but do not dominate the session.",
+                  "item_keys": [
+                    "creating-natural-spoken-audio/prosody-generation/r3/v1",
+                    "creating-natural-spoken-audio/text-normalization/r3/v1",
+                    "creating-natural-spoken-audio/speech-synthesis-waveform-generation/r4/v1"
+                  ],
+                  "paths": [
+                    "modules/3:4-introduction-to-ai-speech-concepts/units/16:creating-natural-spoken-audio-l2/questions/3",
+                    "modules/3:4-introduction-to-ai-speech-concepts/units/16:creating-natural-spoken-audio-l2/questions/7",
+                    "modules/3:4-introduction-to-ai-speech-concepts/units/16:creating-natural-spoken-audio-l2/questions/4"
+                  ]
+                }
+              ]
+            },
+            {
+              "dimension": "scenario_authenticity",
+              "score": 0.94,
+              "evidence": [
+                {
+                  "statement": "Applied items use credible contexts from the source, including navigation directions, e-learning narration, clinical dictation, financial notifications, and language-learning names.",
+                  "item_keys": [
+                    "creating-natural-spoken-audio/speech-synthesis-waveform-generation/r4/v1",
+                    "creating-natural-spoken-audio/prosody-generation/r4/v1",
+                    "creating-natural-spoken-audio/post-processing-and-confidence/r4/v1",
+                    "creating-natural-spoken-audio/text-normalization/r4/v1",
+                    "creating-natural-spoken-audio/linguistic-analysis-g2p/r4/v1"
+                  ],
+                  "paths": [
+                    "modules/3:4-introduction-to-ai-speech-concepts/units/16:creating-natural-spoken-audio-l2/questions/4",
+                    "modules/3:4-introduction-to-ai-speech-concepts/units/16:creating-natural-spoken-audio-l2/questions/5",
+                    "modules/3:4-introduction-to-ai-speech-concepts/units/16:creating-natural-spoken-audio-l2/questions/8",
+                    "modules/3:4-introduction-to-ai-speech-concepts/units/16:creating-natural-spoken-audio-l2/questions/10",
+                    "modules/3:4-introduction-to-ai-speech-concepts/units/16:creating-natural-spoken-audio-l2/questions/11"
+                  ]
+                }
+              ]
+            },
+            {
+              "dimension": "feedback_usefulness",
+              "score": 0.91,
+              "evidence": [
+                {
+                  "statement": "Incorrect-answer feedback generally names the confused stage, explains why it does not fit, and points to the correct next operation, such as using confidence scores for review or a vocoder for final waveform generation.",
+                  "item_keys": [
+                    "creating-natural-spoken-audio/speech-synthesis-waveform-generation/r4/v1",
+                    "creating-natural-spoken-audio/post-processing-and-confidence/r4/v1",
+                    "creating-natural-spoken-audio/linguistic-analysis-g2p/r4/v1"
+                  ],
+                  "paths": [
+                    "modules/3:4-introduction-to-ai-speech-concepts/units/16:creating-natural-spoken-audio-l2/questions/4",
+                    "modules/3:4-introduction-to-ai-speech-concepts/units/16:creating-natural-spoken-audio-l2/questions/8",
+                    "modules/3:4-introduction-to-ai-speech-concepts/units/16:creating-natural-spoken-audio-l2/questions/11"
+                  ]
+                }
+              ]
+            },
+            {
+              "dimension": "difficulty_appropriateness",
+              "score": 0.86,
+              "evidence": [
+                {
+                  "statement": "The session combines foundational recall with progressively contextualized application items, matching a Level 2 session; the main issue is ordering rather than excessive difficulty.",
+                  "item_keys": [
+                    "creating-natural-spoken-audio/linguistic-analysis-g2p/r1/v2",
+                    "creating-natural-spoken-audio/speech-synthesis-waveform-generation/r4/v1",
+                    "creating-natural-spoken-audio/post-processing-and-confidence/r4/v1"
+                  ],
+                  "paths": [
+                    "modules/3:4-introduction-to-ai-speech-concepts/units/16:creating-natural-spoken-audio-l2/questions/0",
+                    "modules/3:4-introduction-to-ai-speech-concepts/units/16:creating-natural-spoken-audio-l2/questions/4",
+                    "modules/3:4-introduction-to-ai-speech-concepts/units/16:creating-natural-spoken-audio-l2/questions/8"
+                  ]
+                }
+              ]
+            },
+            {
+              "dimension": "terminology_consistency",
+              "score": 0.95,
+              "evidence": [
+                {
+                  "statement": "The artifact consistently distinguishes text normalization, linguistic analysis, G2P, prosody, MFCCs, post-processing, confidence scoring, mel-spectrograms, and neural vocoding in ways consistent with the source.",
+                  "item_keys": [
+                    "creating-natural-spoken-audio/text-normalization/r3/v1",
+                    "creating-natural-spoken-audio/linguistic-analysis-g2p/r3/v1",
+                    "creating-natural-spoken-audio/prosody-generation/r3/v1",
+                    "creating-natural-spoken-audio/speech-synthesis-waveform-generation/r3/v1"
+                  ],
+                  "paths": [
+                    "modules/3:4-introduction-to-ai-speech-concepts/units/16:creating-natural-spoken-audio-l2/questions/7",
+                    "modules/3:4-introduction-to-ai-speech-concepts/units/16:creating-natural-spoken-audio-l2/questions/9",
+                    "modules/3:4-introduction-to-ai-speech-concepts/units/16:creating-natural-spoken-audio-l2/questions/3",
+                    "modules/3:4-introduction-to-ai-speech-concepts/units/16:creating-natural-spoken-audio-l2/questions/2"
+                  ]
+                }
+              ]
+            },
+            {
+              "dimension": "overall_learner_experience",
+              "score": 0.78,
+              "evidence": [
+                {
+                  "statement": "The artifact is accurate, varied, and well-supported at the item level, but the exact sequence repeatedly moves backward and forward across pipeline stages, reducing coherence against the stated SLO.",
+                  "item_keys": [
+                    "creating-natural-spoken-audio/linguistic-analysis-g2p/r1/v2",
+                    "creating-natural-spoken-audio/post-processing-and-confidence/r1/v2",
+                    "creating-natural-spoken-audio/speech-synthesis-waveform-generation/r3/v1",
+                    "creating-natural-spoken-audio/prosody-generation/r3/v1",
+                    "creating-natural-spoken-audio/text-normalization/r3/v1",
+                    "creating-natural-spoken-audio/linguistic-analysis-g2p/r4/v1"
+                  ],
+                  "paths": [
+                    "modules/3:4-introduction-to-ai-speech-concepts/units/16:creating-natural-spoken-audio-l2/questions/0",
+                    "modules/3:4-introduction-to-ai-speech-concepts/units/16:creating-natural-spoken-audio-l2/questions/1",
+                    "modules/3:4-introduction-to-ai-speech-concepts/units/16:creating-natural-spoken-audio-l2/questions/2",
+                    "modules/3:4-introduction-to-ai-speech-concepts/units/16:creating-natural-spoken-audio-l2/questions/3",
+                    "modules/3:4-introduction-to-ai-speech-concepts/units/16:creating-natural-spoken-audio-l2/questions/7",
+                    "modules/3:4-introduction-to-ai-speech-concepts/units/16:creating-natural-spoken-audio-l2/questions/11"
+                  ]
+                }
+              ]
+            }
+          ],
+          "critical_defects": [],
+          "largest_gap": {
+            "dimension": "cognitive_progression",
+            "summary": "The exact session order interleaves recognition post-processing with synthesis stages and revisits earlier stages, weakening the intended pipeline progression.",
+            "evidence": [
+              {
+                "statement": "The source presents synthesis as text normalization, linguistic analysis, prosody generation, acoustic feature generation, and waveform generation. The artifact instead begins with linguistic analysis, moves to recognition post-processing, then vocoding and prosody, and later returns to text normalization and G2P.",
+                "item_keys": [
+                  "creating-natural-spoken-audio/linguistic-analysis-g2p/r1/v2",
+                  "creating-natural-spoken-audio/post-processing-and-confidence/r1/v2",
+                  "creating-natural-spoken-audio/speech-synthesis-waveform-generation/r3/v1",
+                  "creating-natural-spoken-audio/prosody-generation/r3/v1",
+                  "creating-natural-spoken-audio/text-normalization/r3/v1",
+                  "creating-natural-spoken-audio/linguistic-analysis-g2p/r3/v1"
+                ],
+                "paths": [
+                  "modules/3:4-introduction-to-ai-speech-concepts/units/16:creating-natural-spoken-audio-l2/questions/0",
+                  "modules/3:4-introduction-to-ai-speech-concepts/units/16:creating-natural-spoken-audio-l2/questions/1",
+                  "modules/3:4-introduction-to-ai-speech-concepts/units/16:creating-natural-spoken-audio-l2/questions/2",
+                  "modules/3:4-introduction-to-ai-speech-concepts/units/16:creating-natural-spoken-audio-l2/questions/3",
+                  "modules/3:4-introduction-to-ai-speech-concepts/units/16:creating-natural-spoken-audio-l2/questions/7",
+                  "modules/3:4-introduction-to-ai-speech-concepts/units/16:creating-natural-spoken-audio-l2/questions/9"
+                ]
+              }
+            ],
+            "affected_item_keys": [
+              "creating-natural-spoken-audio/linguistic-analysis-g2p/r1/v2",
+              "creating-natural-spoken-audio/post-processing-and-confidence/r1/v2",
+              "creating-natural-spoken-audio/speech-synthesis-waveform-generation/r3/v1",
+              "creating-natural-spoken-audio/prosody-generation/r3/v1",
+              "creating-natural-spoken-audio/speech-synthesis-waveform-generation/r4/v1",
+              "creating-natural-spoken-audio/prosody-generation/r4/v1",
+              "creating-natural-spoken-audio/post-processing-and-confidence/r3/v1",
+              "creating-natural-spoken-audio/text-normalization/r3/v1",
+              "creating-natural-spoken-audio/post-processing-and-confidence/r4/v1",
+              "creating-natural-spoken-audio/linguistic-analysis-g2p/r3/v1",
+              "creating-natural-spoken-audio/text-normalization/r4/v1",
+              "creating-natural-spoken-audio/linguistic-analysis-g2p/r4/v1"
+            ],
+            "affected_paths": [
+              "modules/3:4-introduction-to-ai-speech-concepts/units/16:creating-natural-spoken-audio-l2/questions/0",
+              "modules/3:4-introduction-to-ai-speech-concepts/units/16:creating-natural-spoken-audio-l2/questions/1",
+              "modules/3:4-introduction-to-ai-speech-concepts/units/16:creating-natural-spoken-audio-l2/questions/2",
+              "modules/3:4-introduction-to-ai-speech-concepts/units/16:creating-natural-spoken-audio-l2/questions/3",
+              "modules/3:4-introduction-to-ai-speech-concepts/units/16:creating-natural-spoken-audio-l2/questions/4",
+              "modules/3:4-introduction-to-ai-speech-concepts/units/16:creating-natural-spoken-audio-l2/questions/5",
+              "modules/3:4-introduction-to-ai-speech-concepts/units/16:creating-natural-spoken-audio-l2/questions/6",
+              "modules/3:4-introduction-to-ai-speech-concepts/units/16:creating-natural-spoken-audio-l2/questions/7",
+              "modules/3:4-introduction-to-ai-speech-concepts/units/16:creating-natural-spoken-audio-l2/questions/8",
+              "modules/3:4-introduction-to-ai-speech-concepts/units/16:creating-natural-spoken-audio-l2/questions/9",
+              "modules/3:4-introduction-to-ai-speech-concepts/units/16:creating-natural-spoken-audio-l2/questions/10",
+              "modules/3:4-introduction-to-ai-speech-concepts/units/16:creating-natural-spoken-audio-l2/questions/11"
+            ],
+            "recommended_scope": "session",
+            "repair_instruction": "Reorder only the existing item objects so the synthesis items progress through text normalization, linguistic analysis/G2P, prosody, and waveform generation; place the recognition post-processing recap items together as a later contrast or review. Preserve every payload and question_type unchanged.",
+            "allowed_payload_fields": []
+          },
+          "confidence": 0.91,
+          "human_review_recommended": false,
+          "human_review_reason": null,
+          "concise_summary": "The challenger is factually faithful, unambiguous, varied, and well-supported. The main repairable weakness is session-level ordering: synthesis stages and recognition post-processing are interleaved rather than presented in a coherent pipeline."
+        },
+        "artifact_sha256": "ba1f7ee81acfd206e1c09c9f01c4e2ea1c61c9426e3487d43d0715b7fa171e82",
+        "evaluation_context_sha256": "40cc4a71e201050dcff86a8add07bd19ab5404871ac8b37fbd9171c41b1886ca",
+        "goal_sha256": "6ce6b245bb30616f24e0fa9f76e0f5d01e608776378d036724270915fb57e725",
+        "critic_backend": "codex",
+        "critic_model": "codex:gpt-5.6-luna",
+        "fresh_context": true,
+        "model_independence": "independent",
+        "approved_reference_count": 0,
+        "reference_confidence_reduced": true,
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost_usd": 0.0,
+          "backend_calls": 1
+        }
+      },
+      "source_fidelity_gate": {
+        "artifact_sha256": "ba1f7ee81acfd206e1c09c9f01c4e2ea1c61c9426e3487d43d0715b7fa171e82",
+        "passed": true,
+        "issues": [],
+        "checks": {
+          "factual_fidelity_threshold": true,
+          "critic_confidence_threshold": true,
+          "no_factual_critical_defect": true,
+          "no_human_review_request": true,
+          "fresh_critic_context": true
+        },
+        "metrics": {
+          "factual_fidelity_score": 0.97,
+          "factual_fidelity_threshold": 0.8,
+          "critic_confidence": 0.91
+        },
+        "constraint_relaxations": []
+      },
+      "comparison": {
+        "champion_sha256": "989d6f00304a6512fb9437094f0701d5132498660bd1dacedf48e699fa042f74",
+        "challenger_sha256": "ba1f7ee81acfd206e1c09c9f01c4e2ea1c61c9426e3487d43d0715b7fa171e82",
+        "evaluation_context_sha256": "40cc4a71e201050dcff86a8add07bd19ab5404871ac8b37fbd9171c41b1886ca",
+        "comparator_backend": "codex",
+        "comparator_model": "codex:gpt-5.6-luna",
+        "comparator_fresh_context": true,
+        "records": [
+          {
+            "order_index": 1,
+            "seed": 901,
+            "a_role": "challenger",
+            "b_role": "champion",
+            "mapped_winner": "challenger",
+            "verdict": {
+              "winner": "A",
+              "confidence": 0.99,
+              "margin": 0.05,
+              "dimensions": [
+                {
+                  "dimension": "factual_fidelity",
+                  "score_a": 1.0,
+                  "score_b": 0.96,
+                  "evidence": "A explicitly states that acoustic feature generation produced a mel-spectrogram before vocoding; B omits this prerequisite and implies vocoding follows only phonemes and prosody targets."
+                },
+                {
+                  "dimension": "answer_unambiguity",
+                  "score_a": 1.0,
+                  "score_b": 0.65,
+                  "evidence": "A makes the neural vocoder the uniquely correct next step. In B, acoustic feature generation could reasonably be considered the missing next step."
+                },
+                {
+                  "dimension": "distractor_plausibility",
+                  "score_a": 1.0,
+                  "score_b": 1.0,
+                  "evidence": "Both use credible distractors drawn from neighboring recognition and synthesis stages."
+                },
+                {
+                  "dimension": "misconception_quality",
+                  "score_a": 1.0,
+                  "score_b": 1.0,
+                  "evidence": "Both diagnose confusion among G2P, recognition post-processing, MFCC extraction, and waveform generation."
+                },
+                {
+                  "dimension": "cognitive_progression",
+                  "score_a": 1.0,
+                  "score_b": 0.96,
+                  "evidence": "A preserves the explicit synthesis pipeline state; B is slightly less scaffolded at the waveform-generation checkpoint."
+                },
+                {
+                  "dimension": "mechanic_rhythm_variation",
+                  "score_a": 1.0,
+                  "score_b": 1.0,
+                  "evidence": "Both have the same varied sequence of multiple choice, fill-blank, and arrange-sentence mechanics."
+                },
+                {
+                  "dimension": "prompt_language_variation",
+                  "score_a": 1.0,
+                  "score_b": 1.0,
+                  "evidence": "Both avoid excessive repetition across the ordered prompts and use varied scenario and task stems."
+                },
+                {
+                  "dimension": "scenario_authenticity",
+                  "score_a": 1.0,
+                  "score_b": 1.0,
+                  "evidence": "Both include credible navigation, e-learning, healthcare, finance, and language-learning contexts."
+                },
+                {
+                  "dimension": "feedback_usefulness",
+                  "score_a": 1.0,
+                  "score_b": 1.0,
+                  "evidence": "Feedback and rationales are identical and explain stage distinctions and corrective next steps."
+                },
+                {
+                  "dimension": "difficulty_appropriateness",
+                  "score_a": 1.0,
+                  "score_b": 0.94,
+                  "evidence": "A supplies the prerequisite mel-spectrogram state, making the applied item appropriately solvable; B requires an unstated pipeline assumption."
+                },
+                {
+                  "dimension": "terminology_consistency",
+                  "score_a": 1.0,
+                  "score_b": 0.98,
+                  "evidence": "A consistently connects neural vocoding to mel-spectrograms and raw waveforms; B's abbreviated wording weakens that linkage."
+                },
+                {
+                  "dimension": "overall_learner_experience",
+                  "score_a": 1.0,
+                  "score_b": 0.94,
+                  "evidence": "The candidates are otherwise identical, but A gives learners a clearer and more deterministic synthesis-stage transition."
+                }
+              ],
+              "evidence": [
+                "The candidates match in all items except the navigation-app question.",
+                "A explicitly includes conversion to a mel-spectrogram before asking for the next component.",
+                "B omits that intermediate stage, making the claimed next step less uniquely defensible."
+              ],
+              "human_review_recommended": false,
+              "usage": {
+                "input_tokens": 0,
+                "output_tokens": 0,
+                "cost_usd": 0.0,
+                "backend_calls": 1
+              }
+            }
+          },
+          {
+            "order_index": 2,
+            "seed": 901,
+            "a_role": "champion",
+            "b_role": "challenger",
+            "mapped_winner": "challenger",
+            "verdict": {
+              "winner": "B",
+              "confidence": 0.99,
+              "margin": 0.09,
+              "dimensions": [
+                {
+                  "dimension": "factual_fidelity",
+                  "score_a": 0.84,
+                  "score_b": 0.99,
+                  "evidence": "B states that acoustic feature generation has already produced a mel-spectrogram before asking for waveform generation; A omits this necessary intermediate stage."
+                },
+                {
+                  "dimension": "answer_unambiguity",
+                  "score_a": 0.8,
+                  "score_b": 0.99,
+                  "evidence": "In A, a neural vocoder is selected despite the prompt not establishing that its mel-spectrogram input exists; B makes the vocoder the uniquely appropriate next step."
+                },
+                {
+                  "dimension": "distractor_plausibility",
+                  "score_a": 0.94,
+                  "score_b": 0.94,
+                  "evidence": "Both candidates use credible distractors representing G2P, recognition post-processing, and MFCC-based confusion."
+                },
+                {
+                  "dimension": "misconception_quality",
+                  "score_a": 0.93,
+                  "score_b": 0.93,
+                  "evidence": "Both diagnose realistic confusions between pronunciation mapping, recognition processing, feature extraction, and waveform generation."
+                },
+                {
+                  "dimension": "cognitive_progression",
+                  "score_a": 0.88,
+                  "score_b": 0.95,
+                  "evidence": "B preserves the synthesis pipeline sequence through acoustic feature generation and vocoding; A jumps over an important stage."
+                },
+                {
+                  "dimension": "mechanic_rhythm_variation",
+                  "score_a": 1.0,
+                  "score_b": 1.0,
+                  "evidence": "The ordered mechanics are identical, with varied multiple-choice, fill-blank, and arrangement tasks."
+                },
+                {
+                  "dimension": "prompt_language_variation",
+                  "score_a": 0.96,
+                  "score_b": 0.96,
+                  "evidence": "The prompts use varied question stems and task wording identically across candidates."
+                },
+                {
+                  "dimension": "scenario_authenticity",
+                  "score_a": 0.91,
+                  "score_b": 0.96,
+                  "evidence": "Both use a credible navigation-app scenario, but B models a more authentic implementation state by naming the generated mel-spectrogram."
+                },
+                {
+                  "dimension": "feedback_usefulness",
+                  "score_a": 0.95,
+                  "score_b": 0.98,
+                  "evidence": "Feedback is otherwise identical; B's rationale aligns more precisely with the stated pipeline state and next action."
+                },
+                {
+                  "dimension": "difficulty_appropriateness",
+                  "score_a": 0.95,
+                  "score_b": 0.96,
+                  "evidence": "Both fit an introductory technical session; B adds a useful but still source-supported sequencing cue."
+                },
+                {
+                  "dimension": "terminology_consistency",
+                  "score_a": 0.98,
+                  "score_b": 1.0,
+                  "evidence": "Terminology is consistent in both, while B more explicitly connects acoustic feature generation, mel-spectrograms, and vocoding."
+                },
+                {
+                  "dimension": "overall_learner_experience",
+                  "score_a": 0.89,
+                  "score_b": 0.98,
+                  "evidence": "B delivers a coherent, source-faithful synthesis pipeline; A contains a sequencing gap that can teach an incorrect next-step rule."
+                }
+              ],
+              "evidence": [
+                "Candidates are identical except for the navigation-app item.",
+                "B explicitly establishes that acoustic feature generation produced a mel-spectrogram before selecting a neural vocoder.",
+                "A's rationale refers to a resulting mel-spectrogram that its prompt never establishes."
+              ],
+              "human_review_recommended": false,
+              "usage": {
+                "input_tokens": 0,
+                "output_tokens": 0,
+                "cost_usd": 0.0,
+                "backend_calls": 1
+              }
+            }
+          }
+        ],
+        "position_sensitive": false,
+        "stable": true,
+        "decision": "promote",
+        "protected_regressions": [],
+        "minimum_confidence": 0.99,
+        "minimum_margin": 0.05,
+        "decision_evidence": "Both position orders select the hard-gated challenger without protected regression.",
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost_usd": 0.0,
+          "backend_calls": 2
+        }
+      }
+    }
+  },
+  "approved_by": "Codex reviewer for Adi",
+  "approved_at": "2026-08-29T08:09:16.186464Z",
+  "exact_proposal_sha256": "d1f54f9252f05ac7b6578ebec2443ccaa2383da4e0258a5f16b85b41f50b82ba",
+  "exact_history_sha256": "882226aab848c2009a38f4c800882ccba4c5a34b7c3497fee09e3771e64cfb3d",
+  "exact_compiled_artifact_sha256": "2fa356d363b3a7f13d4d399d67361e952b387b4b6502e0aa169d3bb7f3169d2b",
+  "exact_champion_after_sha256": "ba1f7ee81acfd206e1c09c9f01c4e2ea1c61c9426e3487d43d0715b7fa171e82"
+}

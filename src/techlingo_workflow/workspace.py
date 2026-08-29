@@ -430,6 +430,24 @@ class CompilationPublication(BaseModel):
     published_at: str
 
 
+class AuthoredRepairPublication(BaseModel):
+    """Exact evidence for one reviewed repair promoted without regeneration."""
+
+    receipt_path: str
+    receipt_sha256: str
+    source_file: str
+    item_key: str
+    proposal_sha256: str
+    approval_sha256: str
+    amendment_sha256: str
+    previous_bank_sha256: str
+    bank_sha256: str
+    previous_source_bank_sha256: str
+    source_bank_sha256: str
+    artifact_sha256: str
+    promoted_at: str
+
+
 class BuildState(BaseModel):
     # Accept v1 files in place; newly-created workspaces and subsequently
     # saved build state use v2.  No migration command is required.
@@ -437,6 +455,7 @@ class BuildState(BaseModel):
     workflow_config_hash: Optional[str] = None
     bank_sha256: Optional[str] = None
     sources: dict[str, SourceState] = Field(default_factory=dict)
+    authored_repairs: list[AuthoredRepairPublication] = Field(default_factory=list)
     last_compilation: Optional[CompilationPublication] = None
 
 

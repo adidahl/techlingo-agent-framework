@@ -55,16 +55,17 @@ from .worksheet import build_lesson_worksheet, cell_rung_index, worksheet_applie
 # for a typical Learn-style module. course.yaml `workflow:` overrides these.
 #
 # PRECEDENCE (Phase 2b): lessons generated from a depth-classified concept pack
-# derive exercises_per_lesson and both distributions from their CELL WORKSHEET
-# (worksheet.py quota table: fact 5 / mechanism 7 / decision 9 items per
-# concept) — the values below then only size A1's concepts-per-lesson cap and
-# serve lessons without a pack (legacy runs). They still must satisfy the
-# WorkflowConfig sum/coupling validator.
+# derive both distributions from their CELL WORKSHEET (worksheet.py quota
+# table: fact 5 / mechanism 7 / decision 9 rows per concept). By default every
+# quota row is generated. A per-course `worksheet_items_per_lesson` override
+# applies an exact, ladder-preserving worksheet budget before generation. The
+# legacy values below still size A1's concept cap and serve depthless lessons.
 BUILD_CONFIG_DEFAULTS: dict = {
     "modules_count": 1,
     "min_lessons_total": 5,
     "max_lessons_total": 6,
     "exercises_per_lesson": 30,
+    "worksheet_items_per_lesson": None,
     "flashcards_per_lesson": 4,
     # Legacy-path Blooms (worksheet lessons derive theirs): R/U feed rungs R1-R3
     # (levels 1-2), Applying/Analyzing feed R4/R5 (levels 2-3).
@@ -135,6 +136,7 @@ def convert_course_result(
     source_sha: str,
     taken_lesson_keys: set[str],
     taken_module_keys: set[str],
+    worksheet_items_per_lesson: int | None = None,
 ) -> ConvertedSource:
     """Deterministically project a per-file pipeline result into curriculum
     modules + lesson banks. Concept ids here are still the RAW atom ids from
@@ -165,11 +167,18 @@ def convert_course_result(
             # time by the cell worksheet — persist that assignment on the bank
             # item. derive_rung() stays as the fallback for legacy payloads
             # (lessons without a depth-classified concept pack).
-            cell_rungs: dict[tuple[str, str, str], int] = (
-                cell_rung_index(build_lesson_worksheet(lesson.concepts))
-                if worksheet_applies(lesson.concepts)
-                else {}
-            )
+            if worksheet_applies(lesson.concepts):
+                worksheet = build_lesson_worksheet(
+                    lesson.concepts, item_budget=worksheet_items_per_lesson
+                )
+                if len(lesson.exercises) != len(worksheet):
+                    raise WorkspaceError(
+                        f"lesson {lesson.title!r} has {len(lesson.exercises)} exercises but its "
+                        f"authoritative worksheet has {len(worksheet)} rows"
+                    )
+                cell_rungs = cell_rung_index(worksheet)
+            else:
+                cell_rungs = {}
 
             variant_counter: dict[tuple[str, int], int] = {}
             items: list[BankItem] = []
@@ -248,15 +257,58 @@ def apply_id_remap(converted: ConvertedSource, id_remap: dict[str, str]) -> None
 
 def carry_over_protected_items(new_bank: LessonBank, old_bank: LessonBank | None) -> None:
     """Regeneration contract (ARCHITECTURE.md §3.5): pinned or human-touched
-    items survive a rebuild. On key collision the protected item wins."""
+    items survive a rebuild.
+
+    A same-key protected item may replace wording and feedback, but it may not
+    replace the A5-validated worksheet row contract. Collisions are replaced in
+    place so protected content cannot reorder canonical worksheet identities.
+    """
     if old_bank is None:
         return
     protected = [it for it in old_bank.items if it.pinned or it.provenance != "generated"]
     if not protected:
         return
-    protected_keys = {it.item_key for it in protected}
-    new_bank.items = [it for it in new_bank.items if it.item_key not in protected_keys]
-    new_bank.items.extend(protected)
+
+    def row_contract(item: BankItem) -> dict[str, object]:
+        contract: dict[str, object] = {
+            "concept_id": item.concept_id,
+            "rung": item.rung,
+            "variant": item.variant,
+            "payload.concept_id": item.payload.get("concept_id"),
+            "payload.question_type": item.payload.get("question_type"),
+            "payload.blooms_level": item.payload.get("blooms_level"),
+        }
+        if item.payload.get("question_type") == "true_false":
+            contract["payload.correct_answer"] = item.payload.get("correct_answer")
+        return contract
+
+    regenerated_by_key = {item.item_key: item for item in new_bank.items}
+    protected_by_key = {item.item_key: item for item in protected}
+    for item_key, protected_item in protected_by_key.items():
+        regenerated_item = regenerated_by_key.get(item_key)
+        if regenerated_item is None:
+            continue
+        expected = row_contract(regenerated_item)
+        actual = row_contract(protected_item)
+        changed = sorted(
+            field
+            for field in set(expected) | set(actual)
+            if canonical_json(expected.get(field)) != canonical_json(actual.get(field))
+        )
+        if changed:
+            raise WorkspaceError(
+                f"protected item {item_key!r} conflicts with its validated worksheet row; "
+                f"changed immutable field(s): {', '.join(changed)}"
+            )
+
+    regenerated_keys = set(regenerated_by_key)
+    new_bank.items = [
+        protected_by_key.get(item.item_key, item)
+        for item in new_bank.items
+    ]
+    new_bank.items.extend(
+        item for item in protected if item.item_key not in regenerated_keys
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -295,8 +347,6 @@ def plan_build(ws: Workspace, state: BuildState, cfg_hash: str, *, force: bool =
             plan.dirty.append((src, "previous validation missing or failed"))
         elif prev.config_sha256 is not None and prev.config_sha256 != cfg_hash:
             plan.dirty.append((src, "workflow config changed"))
-        elif state.workflow_config_hash is not None and not global_config_evidence_ok:
-            plan.dirty.append((src, "workflow config changed"))
         elif state.schema_version != BUILD_STATE_SCHEMA:
             plan.dirty.append((src, "legacy publication evidence requires rebuild"))
         elif prev.config_sha256 is None or prev.validation_report_sha256 is None:
@@ -315,10 +365,14 @@ def plan_build(ws: Workspace, state: BuildState, cfg_hash: str, *, force: bool =
                 and lkg.module_keys == prev.module_keys
                 and lkg.bank_sha256 == banks_sha256(source_banks)
             )
-            if (
-                not source_evidence_ok
-                or not global_bank_evidence_ok
-                or not global_config_evidence_ok
+            # During an interrupted configuration migration the workspace-wide
+            # hashes deliberately remain on the last fully built snapshot. A
+            # source already promoted under the new config is nevertheless
+            # clean when its own LKG binds the exact source, report, config, and
+            # canonical banks. Once the global config hash advances, a global
+            # bank-hash mismatch again indicates post-build tampering.
+            if not source_evidence_ok or (
+                global_config_evidence_ok and not global_bank_evidence_ok
             ):
                 plan.dirty.append((src, "publication evidence no longer matches canonical content"))
             else:
@@ -555,6 +609,7 @@ def build_source(
         source_sha=source_sha,
         taken_lesson_keys=taken_lesson_keys,
         taken_module_keys=taken_module_keys,
+        worksheet_items_per_lesson=config.worksheet_items_per_lesson,
     )
 
     atoms_by_lesson = {}
@@ -572,6 +627,18 @@ def build_source(
     new_lesson_keys = {b.lesson for b in converted.banks}
     for bank in converted.banks:
         carry_over_protected_items(bank, old_banks.get(bank.lesson))
+        if (
+            config.worksheet_items_per_lesson is not None
+            and worksheet_applies(atoms_by_lesson.get(bank.lesson, []))
+        ):
+            active_count = sum(item.status != "retired" for item in bank.items)
+            if active_count != config.worksheet_items_per_lesson:
+                raise WorkspaceError(
+                    f"bank {bank.lesson!r} would contain {active_count} active items after "
+                    "preserving pinned/human content, but the exact worksheet policy requires "
+                    f"{config.worksheet_items_per_lesson}; resolve the protected-item budget "
+                    "conflict before promotion"
+                )
 
     _insert_modules(curriculum, converted.modules, source_file=src.name)
     source_bank_hash = banks_sha256(converted.banks)

@@ -1,0 +1,983 @@
+{
+  "schema_version": "techlingo-gauntlet-record-v1",
+  "compiled_artifact_sha256": "69c9d18537cc04d4d24f6ffad549e8d9c17ee1b85b2ba8dc167de6c8be33ae73",
+  "unit_key": "recognizing-words-from-speech-l1",
+  "champion": {
+    "artifact_id": "ai-901:recognizing-words-from-speech-l1",
+    "course_id": "ai-901",
+    "session_id": "recognizing-words-from-speech-l1",
+    "items": [
+      {
+        "item_key": "recognizing-words-from-speech/phoneme-probability-output/r1/v1",
+        "path": "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/0",
+        "payload": {
+          "import_key": "recognizing-words-from-speech-l1-q1",
+          "question_type": "multiple_choice",
+          "question_text": "What does acoustic modeling output for each audio frame?",
+          "options": {
+            "options": [
+              {
+                "text": "One certain phoneme",
+                "is_correct": false,
+                "error_type": "Mistakes probabilities for certainty",
+                "rationale": "A frame can have several possible phonemes with different likelihoods. The top likelihood is not a guarantee.",
+                "better_fit": "A single selected sequence fits later decoding after probabilities are considered.",
+                "feedback": {
+                  "intrinsic": "A doubtful sound could be treated as certain too early.",
+                  "instructional": "Acoustic modeling keeps uncertainty by assigning probabilities to possible phonemes."
+                }
+              },
+              {
+                "text": "One finished sentence",
+                "is_correct": false,
+                "error_type": "Confuses acoustic output with decoding",
+                "rationale": "A finished sentence is selected during decoding. Acoustic modeling works frame by frame and outputs phoneme likelihoods.",
+                "better_fit": "A finished sentence fits decoding after acoustic and language predictions are weighed.",
+                "feedback": {
+                  "intrinsic": "A full caption could be expected from just one short audio frame.",
+                  "instructional": "First get phoneme probabilities for frames; decoding later chooses the best word sequence."
+                }
+              },
+              {
+                "text": "A word timestamp",
+                "is_correct": false,
+                "error_type": "Confuses phoneme probabilities with transcription metadata",
+                "rationale": "Word timestamps are metadata returned with a final transcription. They are not the acoustic model's phoneme distribution.",
+                "better_fit": "A word timestamp fits final transcription metadata.",
+                "feedback": {
+                  "intrinsic": "Timing information could be confused with evidence about which sound was heard.",
+                  "instructional": "At this stage, the output is likelihoods for phonemes, not word-level metadata."
+                }
+              },
+              {
+                "text": "Phoneme probabilities",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "Acoustic modeling produces a probability distribution over phonemes for every frame. It gives likelihoods rather than one guaranteed result.",
+                "better_fit": null,
+                "feedback": null
+              }
+            ],
+            "blooms_level": "Remembering",
+            "original_question_type": "single_choice",
+            "concept_id": "phoneme-probability-output",
+            "item_key": "recognizing-words-from-speech/phoneme-probability-output/r1/v1",
+            "rung": 1,
+            "variant": 1,
+            "module_key": "4-introduction-to-ai-speech-concepts",
+            "lesson_key": "recognizing-words-from-speech",
+            "learning_status": "new"
+          },
+          "correct_answer": "3",
+          "explanation": "Correct. Each audio frame receives a probability distribution over possible phonemes.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "recognizing-words-from-speech/language-model-and-domain-adaptation/r1/v1",
+        "path": "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/1",
+        "payload": {
+          "import_key": "recognizing-words-from-speech-l1-q2",
+          "question_type": "multiple_choice",
+          "question_text": "What can a language model use to choose likely word sequences? Select all that apply.",
+          "options": {
+            "options": [
+              {
+                "text": "Vocabulary",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "Vocabulary helps identify words that can fit a sequence. It supports choosing likely transcription words.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Grammar",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "Grammar helps distinguish readable, likely word sequences. It can help resolve alternatives that sound alike.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Word context",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "Context makes some word choices more likely than others. It can distinguish “weather” from “whether.”",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Microphone distance",
+                "is_correct": false,
+                "error_type": "Confuses language modeling with audio quality",
+                "rationale": "Microphone distance affects the captured audio and recognition accuracy. It is not vocabulary, grammar, or word context.",
+                "better_fit": "Microphone distance fits audio-capture quality considerations.",
+                "feedback": {
+                  "intrinsic": "A poor recording could be mistaken for a problem with word-sequence knowledge.",
+                  "instructional": "Language modeling uses words and their relationships; microphone distance affects audio quality earlier."
+                }
+              }
+            ],
+            "blooms_level": "Remembering",
+            "original_question_type": "multi_choice",
+            "concept_id": "language-model-and-domain-adaptation",
+            "item_key": "recognizing-words-from-speech/language-model-and-domain-adaptation/r1/v1",
+            "rung": 1,
+            "variant": 1,
+            "module_key": "4-introduction-to-ai-speech-concepts",
+            "lesson_key": "recognizing-words-from-speech",
+            "learning_status": "new"
+          },
+          "correct_answer": "[0,1,2]",
+          "explanation": "Correct. Language models use vocabulary, grammar, and context to select likely word sequences.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "recognizing-words-from-speech/phoneme-probability-output/r2/v1",
+        "path": "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/2",
+        "payload": {
+          "import_key": "recognizing-words-from-speech-l1-q3",
+          "question_type": "true_false",
+          "question_text": "For every audio frame, acoustic modeling outputs one guaranteed phoneme.",
+          "options": {
+            "blooms_level": "Understanding",
+            "original_question_type": "true_false",
+            "concept_id": "phoneme-probability-output",
+            "feedback_for_incorrect": {
+              "intrinsic": "An uncertain sound would be treated as fully certain.",
+              "instructional": "For each frame, acoustic modeling assigns likelihoods to possible phonemes rather than guaranteeing one."
+            },
+            "item_key": "recognizing-words-from-speech/phoneme-probability-output/r2/v1",
+            "rung": 2,
+            "variant": 1,
+            "module_key": "4-introduction-to-ai-speech-concepts",
+            "lesson_key": "recognizing-words-from-speech",
+            "learning_status": "new"
+          },
+          "correct_answer": "false",
+          "explanation": "Correct. Acoustic modeling gives a probability distribution, so several phonemes can remain possible.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "recognizing-words-from-speech/language-model-and-domain-adaptation/r2/v1",
+        "path": "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/3",
+        "payload": {
+          "import_key": "recognizing-words-from-speech-l1-q4",
+          "question_type": "true_false",
+          "question_text": "A language model can use context to choose “weather” instead of “whether” in a sentence.",
+          "options": {
+            "blooms_level": "Understanding",
+            "original_question_type": "true_false",
+            "concept_id": "language-model-and-domain-adaptation",
+            "feedback_for_incorrect": {
+              "intrinsic": "A sentence could keep a word that sounds right but does not fit its meaning.",
+              "instructional": "Language models use context, vocabulary, and grammar to resolve words such as “weather” and “whether.”"
+            },
+            "item_key": "recognizing-words-from-speech/language-model-and-domain-adaptation/r2/v1",
+            "rung": 2,
+            "variant": 1,
+            "module_key": "4-introduction-to-ai-speech-concepts",
+            "lesson_key": "recognizing-words-from-speech",
+            "learning_status": "new"
+          },
+          "correct_answer": "true",
+          "explanation": "Correct. Context helps select the word sequence that best fits the sentence.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "recognizing-words-from-speech/acoustic-model-and-phonemes/r1/v1",
+        "path": "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/4",
+        "payload": {
+          "import_key": "recognizing-words-from-speech-l1-q5",
+          "question_type": "multiple_choice",
+          "question_text": "What does an acoustic model connect to phonemes?",
+          "options": {
+            "options": [
+              {
+                "text": "Word grammar",
+                "is_correct": false,
+                "error_type": "Confuses acoustic modeling with language modeling",
+                "rationale": "Grammar helps choose sensible word sequences, not identify speech sounds. Audio features are the input used for phoneme prediction.",
+                "better_fit": "Grammar belongs in language modeling, where it helps resolve possible word sequences.",
+                "feedback": {
+                  "intrinsic": "A spoken sound could be matched using sentence rules instead of its sound pattern.",
+                  "instructional": "Keep the stages separate: acoustic modeling links audio features to phonemes; language modeling uses grammar."
+                }
+              },
+              {
+                "text": "Audio features",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "Audio features describe important characteristics of speech sounds. An acoustic model learns how those features relate to likely phonemes.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Written letters",
+                "is_correct": false,
+                "error_type": "Confuses phoneme recognition with grapheme-to-phoneme conversion",
+                "rationale": "Written letters are not the audio features used in recognition. Letters are mapped to phonemes during grapheme-to-phoneme conversion for speech synthesis.",
+                "better_fit": "Written letters fit G2P conversion, which prepares text for speech synthesis.",
+                "feedback": {
+                  "intrinsic": "The spoken input would be treated as if it were already written down.",
+                  "instructional": "An acoustic model starts with audio features and predicts phonemes from them."
+                }
+              },
+              {
+                "text": "Final punctuation",
+                "is_correct": false,
+                "error_type": "Confuses acoustic modeling with post-processing",
+                "rationale": "Punctuation is added after words have been selected and decoded. Acoustic modeling happens earlier and predicts phoneme likelihoods.",
+                "better_fit": "Final punctuation fits post-processing, which improves transcript readability.",
+                "feedback": {
+                  "intrinsic": "The transcription could be cleaned up before its sounds have been recognized.",
+                  "instructional": "First predict phonemes from audio features; punctuation can be restored later."
+                }
+              }
+            ],
+            "blooms_level": "Remembering",
+            "original_question_type": "single_choice",
+            "concept_id": "acoustic-model-and-phonemes",
+            "item_key": "recognizing-words-from-speech/acoustic-model-and-phonemes/r1/v1",
+            "rung": 1,
+            "variant": 1,
+            "module_key": "4-introduction-to-ai-speech-concepts",
+            "lesson_key": "recognizing-words-from-speech",
+            "learning_status": "new"
+          },
+          "correct_answer": "1",
+          "explanation": "Correct. Audio features are the compact sound information an acoustic model uses to predict phonemes.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "recognizing-words-from-speech/transformer-acoustic-prediction/r1/v1",
+        "path": "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/5",
+        "payload": {
+          "import_key": "recognizing-words-from-speech-l1-q6",
+          "question_type": "multiple_choice",
+          "question_text": "What can an acoustic transformer do? Select all that apply.",
+          "options": {
+            "options": [
+              {
+                "text": "Process MFCC vectors",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "MFCC vectors are the audio features sent to an acoustic transformer. The transformer processes them across time.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Generate final audio",
+                "is_correct": false,
+                "error_type": "Confuses acoustic prediction with speech synthesis",
+                "rationale": "Generating audio is part of speech synthesis, not speech recognition. Neural vocoders create waveforms from mel-spectrograms.",
+                "better_fit": "Final audio generation fits a neural vocoder during speech synthesis.",
+                "feedback": {
+                  "intrinsic": "A recognition step would be expected to produce speech instead of identify its sounds.",
+                  "instructional": "An acoustic transformer predicts phonemes from MFCC vectors; a neural vocoder generates audio."
+                }
+              },
+              {
+                "text": "Predict likely phonemes",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "The transformer predicts the phoneme most likely at each moment. Its output is a distribution of phoneme likelihoods.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Examine nearby frames",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "Attention examines surrounding frames for context. This helps resolve an unclear sound.",
+                "better_fit": null,
+                "feedback": null
+              }
+            ],
+            "blooms_level": "Remembering",
+            "original_question_type": "multi_choice",
+            "concept_id": "transformer-acoustic-prediction",
+            "item_key": "recognizing-words-from-speech/transformer-acoustic-prediction/r1/v1",
+            "rung": 1,
+            "variant": 1,
+            "module_key": "4-introduction-to-ai-speech-concepts",
+            "lesson_key": "recognizing-words-from-speech",
+            "learning_status": "new"
+          },
+          "correct_answer": "[0,2,3]",
+          "explanation": "Correct. An acoustic transformer processes MFCC vectors, uses context, and predicts likely phonemes.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "recognizing-words-from-speech/acoustic-model-and-phonemes/r2/v1",
+        "path": "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/6",
+        "payload": {
+          "import_key": "recognizing-words-from-speech-l1-q7",
+          "question_type": "true_false",
+          "question_text": "An English phoneme model can recognize Mandarin tones without retraining.",
+          "options": {
+            "blooms_level": "Understanding",
+            "original_question_type": "true_false",
+            "concept_id": "acoustic-model-and-phonemes",
+            "feedback_for_incorrect": {
+              "intrinsic": "Recognition of the tones would be unreliable.",
+              "instructional": "An English phoneme model cannot recognize Mandarin tones without retraining because the sound units differ by language."
+            },
+            "item_key": "recognizing-words-from-speech/acoustic-model-and-phonemes/r2/v1",
+            "rung": 2,
+            "variant": 1,
+            "module_key": "4-introduction-to-ai-speech-concepts",
+            "lesson_key": "recognizing-words-from-speech",
+            "learning_status": "new"
+          },
+          "correct_answer": "false",
+          "explanation": "Correct. Phonemes are language-specific, so the model needs retraining for Mandarin tones.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "recognizing-words-from-speech/beam-search-decoding/r1/v1",
+        "path": "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/7",
+        "payload": {
+          "import_key": "recognizing-words-from-speech-l1-q8",
+          "question_type": "multiple_choice",
+          "question_text": "What does beam search keep while decoding?",
+          "options": {
+            "options": [
+              {
+                "text": "Top partial transcriptions",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "Beam search maintains a shortlist of the strongest partial transcriptions. It extends those candidates as more audio is processed.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "All possible transcriptions",
+                "is_correct": false,
+                "error_type": "Mistakes beam search for exhaustive search",
+                "rationale": "Beam search prunes low-scoring paths instead of keeping every possibility. Its shortlist makes decoding manageable.",
+                "better_fit": "Keeping all possibilities would describe exhaustive search, not beam search.",
+                "feedback": {
+                  "intrinsic": "Decoding could become needlessly slow by carrying weak candidates forward.",
+                  "instructional": "Beam search keeps only top-scoring partial transcriptions and removes weaker paths."
+                }
+              },
+              {
+                "text": "Only phoneme labels",
+                "is_correct": false,
+                "error_type": "Confuses decoding with acoustic modeling",
+                "rationale": "Phoneme probabilities come from acoustic modeling. Beam search uses acoustic and language predictions to choose text candidates.",
+                "better_fit": "Phoneme labels fit acoustic modeling at the frame level.",
+                "feedback": {
+                  "intrinsic": "The process could stop at sounds rather than comparing possible words.",
+                  "instructional": "Decoding works with partial transcriptions, not only phoneme labels."
+                }
+              },
+              {
+                "text": "Only formatted sentences",
+                "is_correct": false,
+                "error_type": "Confuses decoding with post-processing",
+                "rationale": "Formatting is applied after decoding produces raw text. Beam search handles partial hypotheses while selecting words.",
+                "better_fit": "Formatted sentences fit post-processing.",
+                "feedback": {
+                  "intrinsic": "Readability edits could be attempted before the strongest word sequence is chosen.",
+                  "instructional": "Beam search selects strong partial transcriptions; formatting follows later."
+                }
+              }
+            ],
+            "blooms_level": "Remembering",
+            "original_question_type": "single_choice",
+            "concept_id": "beam-search-decoding",
+            "item_key": "recognizing-words-from-speech/beam-search-decoding/r1/v1",
+            "rung": 1,
+            "variant": 1,
+            "module_key": "4-introduction-to-ai-speech-concepts",
+            "lesson_key": "recognizing-words-from-speech",
+            "learning_status": "new"
+          },
+          "correct_answer": "0",
+          "explanation": "Correct. Beam search keeps a shortlist of top partial transcriptions during decoding.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "recognizing-words-from-speech/transformer-acoustic-prediction/r2/v1",
+        "path": "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/8",
+        "payload": {
+          "import_key": "recognizing-words-from-speech-l1-q9",
+          "question_type": "true_false",
+          "question_text": "An acoustic transformer can use surrounding frames to help resolve an unclear phoneme.",
+          "options": {
+            "blooms_level": "Understanding",
+            "original_question_type": "true_false",
+            "concept_id": "transformer-acoustic-prediction",
+            "feedback_for_incorrect": {
+              "intrinsic": "An unclear sound would be judged without helpful nearby audio context.",
+              "instructional": "Attention allows an acoustic transformer to examine surrounding frames and resolve ambiguity."
+            },
+            "item_key": "recognizing-words-from-speech/transformer-acoustic-prediction/r2/v1",
+            "rung": 2,
+            "variant": 1,
+            "module_key": "4-introduction-to-ai-speech-concepts",
+            "lesson_key": "recognizing-words-from-speech",
+            "learning_status": "new"
+          },
+          "correct_answer": "true",
+          "explanation": "Correct. Attention uses surrounding frames as context when a phoneme is unclear.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "recognizing-words-from-speech/beam-search-decoding/r2/v1",
+        "path": "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/9",
+        "payload": {
+          "import_key": "recognizing-words-from-speech-l1-q10",
+          "question_type": "true_false",
+          "question_text": "Beam search keeps every possible partial transcription until decoding ends.",
+          "options": {
+            "blooms_level": "Understanding",
+            "original_question_type": "true_false",
+            "concept_id": "beam-search-decoding",
+            "feedback_for_incorrect": {
+              "intrinsic": "Too many weak candidates would remain active, slowing the search.",
+              "instructional": "Beam search removes low-scoring paths at each step rather than keeping every partial transcription."
+            },
+            "item_key": "recognizing-words-from-speech/beam-search-decoding/r2/v1",
+            "rung": 2,
+            "variant": 1,
+            "module_key": "4-introduction-to-ai-speech-concepts",
+            "lesson_key": "recognizing-words-from-speech",
+            "learning_status": "new"
+          },
+          "correct_answer": "false",
+          "explanation": "Correct. Beam search keeps a shortlist and prunes weaker paths as it proceeds.",
+          "points": 1
+        }
+      }
+    ],
+    "metadata": {
+      "module_key": "4-introduction-to-ai-speech-concepts",
+      "unit_title": "Recognizing words from speech · Level 1",
+      "unit_slo": "Explain how speech recognition selects readable text from audio.",
+      "constraint_relaxations": []
+    }
+  },
+  "history": {
+    "schema_version": "techlingo-gauntlet-history-v1",
+    "run_id": "recognizing-words-from-speech-l1-4d98b4b6de33",
+    "started_at": "2026-08-27T18:02:46.031726Z",
+    "finished_at": "2026-08-27T18:04:51.387569Z",
+    "initial_champion_hash": "84084e5f51d6473dd2136df1aa7d9ba32cdcca06b8c5d00e615e5dfbe347aff8",
+    "final_champion_hash": "84084e5f51d6473dd2136df1aa7d9ba32cdcca06b8c5d00e615e5dfbe347aff8",
+    "evaluation_context": {
+      "schema_version": "techlingo-evaluation-context-v1",
+      "goal": "Produce an excellent, source-faithful learner session while preserving all deterministic correctness, identity, and sequence constraints.",
+      "source_fidelity_goal": "Independently verify the hard-gated edited challenger against the supplied source material. Reject unsupported facts, answers, explanations, feedback, or terminology changes; do not edit the artifact.",
+      "gauntlet_policy": {
+        "critic_backend": "codex",
+        "critic_model": "codex:gpt-5.6-luna",
+        "builder_model": "codex:gpt-5.6-terra",
+        "max_rounds": 4,
+        "plateau_rounds": 2,
+        "repeated_loss_rounds": 2,
+        "minimum_improvement_margin": 0.02,
+        "confidence_threshold": 0.65,
+        "human_review_threshold": 0.4,
+        "max_time_seconds": null,
+        "max_tokens": null,
+        "max_cost_usd": null,
+        "qualitative_required_for_publication": true,
+        "quality_thresholds": {
+          "factual_fidelity": 0.8,
+          "answer_unambiguity": 0.8,
+          "distractor_plausibility": 0.8,
+          "misconception_quality": 0.8,
+          "cognitive_progression": 0.8,
+          "mechanic_rhythm_variation": 0.8,
+          "prompt_language_variation": 0.8,
+          "scenario_authenticity": 0.8,
+          "feedback_usefulness": 0.8,
+          "difficulty_appropriateness": 0.8,
+          "terminology_consistency": 0.8,
+          "overall_learner_experience": 0.8
+        },
+        "comparison_seed": 901,
+        "protected_dimensions": [
+          "factual_fidelity",
+          "answer_unambiguity"
+        ],
+        "unstable_comparison_requires_human_review": true,
+        "identifying_metadata_keys": [
+          "artifact_id",
+          "builder_model",
+          "candidate_role",
+          "challenger",
+          "champion",
+          "critic_model",
+          "generated_at",
+          "import_key",
+          "item_key",
+          "model_id",
+          "path",
+          "version_id"
+        ]
+      },
+      "gauntlet_policy_sha256": "035ba75a6dc056e4680b4c7cb97f2859ec5160f72633534a4550ba69e8061ac4",
+      "rubric": {
+        "criteria": {
+          "factual_fidelity": "Every claim and answer is faithful to the supplied source.",
+          "answer_unambiguity": "Each item has one defensible answer under its instructions.",
+          "distractor_plausibility": "Distractors are credible without becoming defensible answers.",
+          "misconception_quality": "Wrong choices diagnose realistic learner misconceptions.",
+          "cognitive_progression": "The ordered session builds understanding at a coherent pace.",
+          "mechanic_rhythm_variation": "Mechanics vary naturally without disruptive repetition.",
+          "prompt_language_variation": "Prompt stems avoid formulaic repetition.",
+          "scenario_authenticity": "Scenarios resemble credible decisions or tasks.",
+          "feedback_usefulness": "Feedback explains the governing concept and next step.",
+          "difficulty_appropriateness": "Difficulty matches the stated audience and session position.",
+          "terminology_consistency": "Terms are used consistently with the source and across items.",
+          "overall_learner_experience": "The exact final sequence is coherent, varied, and instructive."
+        }
+      },
+      "rubric_sha256": "34290a842f2ed7e30b7a98ba70ac97d967c864424010cd31255f97cdce0b57d5",
+      "sources": [
+        {
+          "input_id": "4. Introduction to AI speech concepts.md",
+          "sha256": "3e473e1597e55d94be084b7ef2a67c31d8d44a550976b2272833afa921d83500",
+          "location": "sources/4. Introduction to AI speech concepts.md"
+        }
+      ],
+      "approved_references": [],
+      "models": {
+        "builder_model": "codex:gpt-5.6-terra",
+        "critic_backend": "codex",
+        "critic_model": "codex:gpt-5.6-luna",
+        "critic_fresh_context": true,
+        "editor_backend": "codex",
+        "editor_model": "codex:gpt-5.6-luna",
+        "editor_fresh_context": true,
+        "comparator_backend": "codex",
+        "comparator_model": "codex:gpt-5.6-luna",
+        "comparator_fresh_context": true
+      },
+      "context_sha256": "22064dfe46ba07d1d0ac2a5e3c3b220a582a5d11af7899e25b3fb8c3c8e34448"
+    },
+    "initial_hard_gate": {
+      "artifact_sha256": "84084e5f51d6473dd2136df1aa7d9ba32cdcca06b8c5d00e615e5dfbe347aff8",
+      "passed": true,
+      "issues": [],
+      "checks": {
+        "schema_and_answers": true,
+        "identity": true,
+        "final_sequence": true
+      },
+      "metrics": {},
+      "constraint_relaxations": []
+    },
+    "rounds": [
+      {
+        "round_number": 1,
+        "champion_hash_before": "84084e5f51d6473dd2136df1aa7d9ba32cdcca06b8c5d00e615e5dfbe347aff8",
+        "critic": {
+          "result": {
+            "dimensions": [
+              {
+                "dimension": "factual_fidelity",
+                "score": 0.98,
+                "evidence": [
+                  {
+                    "statement": "All tested claims match the supplied source: acoustic modeling outputs phoneme probabilities, language modeling uses vocabulary/grammar/context, transformers use surrounding frames, and beam search retains top partial transcriptions.",
+                    "item_keys": [
+                      "recognizing-words-from-speech/phoneme-probability-output/r1/v1",
+                      "recognizing-words-from-speech/language-model-and-domain-adaptation/r1/v1",
+                      "recognizing-words-from-speech/transformer-acoustic-prediction/r1/v1",
+                      "recognizing-words-from-speech/beam-search-decoding/r1/v1"
+                    ],
+                    "paths": [
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/0",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/1",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/5",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/7"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "answer_unambiguity",
+                "score": 0.98,
+                "evidence": [
+                  {
+                    "statement": "Each multiple-choice and true/false item has a single defensible answer set under its instructions; the multi-select items clearly identify all source-supported choices.",
+                    "item_keys": [
+                      "recognizing-words-from-speech/language-model-and-domain-adaptation/r1/v1",
+                      "recognizing-words-from-speech/transformer-acoustic-prediction/r1/v1",
+                      "recognizing-words-from-speech/beam-search-decoding/r1/v1"
+                    ],
+                    "paths": [
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/1",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/5",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/7"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "distractor_plausibility",
+                "score": 0.91,
+                "evidence": [
+                  {
+                    "statement": "Distractors represent nearby pipeline confusions, such as treating acoustic output as a sentence, confusing audio quality with language modeling, and confusing decoding with post-processing.",
+                    "item_keys": [
+                      "recognizing-words-from-speech/phoneme-probability-output/r1/v1",
+                      "recognizing-words-from-speech/language-model-and-domain-adaptation/r1/v1",
+                      "recognizing-words-from-speech/beam-search-decoding/r1/v1"
+                    ],
+                    "paths": [
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/0",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/1",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/7"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "misconception_quality",
+                "score": 0.94,
+                "evidence": [
+                  {
+                    "statement": "Wrong-choice labels and feedback diagnose realistic misconceptions: certainty versus probability, acoustic modeling versus language modeling, phonemes versus written letters, and exhaustive search versus beam pruning.",
+                    "item_keys": [
+                      "recognizing-words-from-speech/phoneme-probability-output/r1/v1",
+                      "recognizing-words-from-speech/acoustic-model-and-phonemes/r1/v1",
+                      "recognizing-words-from-speech/beam-search-decoding/r1/v1"
+                    ],
+                    "paths": [
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/0",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/4",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/7"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "cognitive_progression",
+                "score": 0.59,
+                "evidence": [
+                  {
+                    "statement": "The session introduces core facts but repeats the same concepts in paired items and remains almost entirely at Remembering or Understanding; it provides no integration or application task for explaining the full selection pipeline.",
+                    "item_keys": [
+                      "recognizing-words-from-speech/phoneme-probability-output/r1/v1",
+                      "recognizing-words-from-speech/phoneme-probability-output/r2/v1",
+                      "recognizing-words-from-speech/language-model-and-domain-adaptation/r1/v1",
+                      "recognizing-words-from-speech/language-model-and-domain-adaptation/r2/v1",
+                      "recognizing-words-from-speech/transformer-acoustic-prediction/r1/v1",
+                      "recognizing-words-from-speech/transformer-acoustic-prediction/r2/v1",
+                      "recognizing-words-from-speech/beam-search-decoding/r1/v1",
+                      "recognizing-words-from-speech/beam-search-decoding/r2/v1"
+                    ],
+                    "paths": [
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/0",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/1",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/2",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/3",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/5",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/8",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/7",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/9"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "mechanic_rhythm_variation",
+                "score": 0.62,
+                "evidence": [
+                  {
+                    "statement": "Mechanics alternate between multiple choice and true/false, but the sequence still contains repeated same-concept pairs and only two mechanics across all ten items.",
+                    "item_keys": [
+                      "recognizing-words-from-speech/phoneme-probability-output/r1/v1",
+                      "recognizing-words-from-speech/phoneme-probability-output/r2/v1",
+                      "recognizing-words-from-speech/beam-search-decoding/r1/v1",
+                      "recognizing-words-from-speech/beam-search-decoding/r2/v1"
+                    ],
+                    "paths": [
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/0",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/2",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/7",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/9"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "prompt_language_variation",
+                "score": 0.67,
+                "evidence": [
+                  {
+                    "statement": "The multiple-choice stems vary somewhat, but five true/false items use declarative verification prompts and several items paraphrase earlier questions about the same concept.",
+                    "item_keys": [
+                      "recognizing-words-from-speech/phoneme-probability-output/r1/v1",
+                      "recognizing-words-from-speech/phoneme-probability-output/r2/v1",
+                      "recognizing-words-from-speech/transformer-acoustic-prediction/r1/v1",
+                      "recognizing-words-from-speech/transformer-acoustic-prediction/r2/v1"
+                    ],
+                    "paths": [
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/0",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/2",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/5",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/8"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "scenario_authenticity",
+                "score": 0.12,
+                "evidence": [
+                  {
+                    "statement": "No item presents a credible speech-recognition decision, troubleshooting task, or workplace scenario; every item asks for abstract recall or truth evaluation.",
+                    "item_keys": [
+                      "recognizing-words-from-speech/phoneme-probability-output/r1/v1",
+                      "recognizing-words-from-speech/language-model-and-domain-adaptation/r1/v1",
+                      "recognizing-words-from-speech/phoneme-probability-output/r2/v1",
+                      "recognizing-words-from-speech/language-model-and-domain-adaptation/r2/v1",
+                      "recognizing-words-from-speech/acoustic-model-and-phonemes/r1/v1",
+                      "recognizing-words-from-speech/transformer-acoustic-prediction/r1/v1",
+                      "recognizing-words-from-speech/acoustic-model-and-phonemes/r2/v1",
+                      "recognizing-words-from-speech/beam-search-decoding/r1/v1",
+                      "recognizing-words-from-speech/transformer-acoustic-prediction/r2/v1",
+                      "recognizing-words-from-speech/beam-search-decoding/r2/v1"
+                    ],
+                    "paths": [
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/0",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/1",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/2",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/3",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/4",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/5",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/6",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/7",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/8",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/9"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "feedback_usefulness",
+                "score": 0.83,
+                "evidence": [
+                  {
+                    "statement": "Incorrect-answer feedback generally names the misconception and contrasts the relevant pipeline stages; item-level explanations reinforce the governing concept, though the session lacks feedback tied to applied decisions or next-step practice.",
+                    "item_keys": [
+                      "recognizing-words-from-speech/phoneme-probability-output/r1/v1",
+                      "recognizing-words-from-speech/acoustic-model-and-phonemes/r1/v1",
+                      "recognizing-words-from-speech/beam-search-decoding/r1/v1"
+                    ],
+                    "paths": [
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/0",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/4",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/7"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "difficulty_appropriateness",
+                "score": 0.9,
+                "evidence": [
+                  {
+                    "statement": "The Level 1 unit appropriately uses basic recognition and understanding checks, but the uniform low cognitive demand limits preparation for the stated outcome of explaining how readable text is selected.",
+                    "item_keys": [
+                      "recognizing-words-from-speech/phoneme-probability-output/r1/v1",
+                      "recognizing-words-from-speech/language-model-and-domain-adaptation/r1/v1",
+                      "recognizing-words-from-speech/beam-search-decoding/r2/v1"
+                    ],
+                    "paths": [
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/0",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/1",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/9"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "terminology_consistency",
+                "score": 0.98,
+                "evidence": [
+                  {
+                    "statement": "Terms such as acoustic modeling, phoneme probabilities, language modeling, surrounding frames, and beam search are used consistently with the supplied source and across repeated items.",
+                    "item_keys": [
+                      "recognizing-words-from-speech/phoneme-probability-output/r1/v1",
+                      "recognizing-words-from-speech/acoustic-model-and-phonemes/r1/v1",
+                      "recognizing-words-from-speech/transformer-acoustic-prediction/r1/v1",
+                      "recognizing-words-from-speech/beam-search-decoding/r1/v1"
+                    ],
+                    "paths": [
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/0",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/4",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/5",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/7"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "overall_learner_experience",
+                "score": 0.64,
+                "evidence": [
+                  {
+                    "statement": "The sequence is factually reliable and feedback-rich, but it feels repetitive, lacks authentic tasks, and does not culminate in an integrated explanation of how audio becomes readable text.",
+                    "item_keys": [
+                      "recognizing-words-from-speech/phoneme-probability-output/r2/v1",
+                      "recognizing-words-from-speech/language-model-and-domain-adaptation/r2/v1",
+                      "recognizing-words-from-speech/transformer-acoustic-prediction/r2/v1",
+                      "recognizing-words-from-speech/beam-search-decoding/r2/v1"
+                    ],
+                    "paths": [
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/2",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/3",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/8",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/9"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "critical_defects": [],
+            "largest_gap": {
+              "dimension": "scenario_authenticity",
+              "summary": "The entire session tests isolated terminology rather than credible speech-recognition decisions or tasks.",
+              "evidence": [
+                {
+                  "statement": "All ten ordered items are abstract multiple-choice or true/false checks; none asks the learner to diagnose a pipeline stage, choose a model behavior, or explain a transcription decision in context.",
+                  "item_keys": [
+                    "recognizing-words-from-speech/phoneme-probability-output/r1/v1",
+                    "recognizing-words-from-speech/language-model-and-domain-adaptation/r1/v1",
+                    "recognizing-words-from-speech/phoneme-probability-output/r2/v1",
+                    "recognizing-words-from-speech/language-model-and-domain-adaptation/r2/v1",
+                    "recognizing-words-from-speech/acoustic-model-and-phonemes/r1/v1",
+                    "recognizing-words-from-speech/transformer-acoustic-prediction/r1/v1",
+                    "recognizing-words-from-speech/acoustic-model-and-phonemes/r2/v1",
+                    "recognizing-words-from-speech/beam-search-decoding/r1/v1",
+                    "recognizing-words-from-speech/transformer-acoustic-prediction/r2/v1",
+                    "recognizing-words-from-speech/beam-search-decoding/r2/v1"
+                  ],
+                  "paths": [
+                    "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/0",
+                    "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/1",
+                    "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/2",
+                    "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/3",
+                    "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/4",
+                    "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/5",
+                    "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/6",
+                    "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/7",
+                    "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/8",
+                    "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/9"
+                  ]
+                }
+              ],
+              "affected_item_keys": [
+                "recognizing-words-from-speech/phoneme-probability-output/r1/v1",
+                "recognizing-words-from-speech/language-model-and-domain-adaptation/r1/v1",
+                "recognizing-words-from-speech/phoneme-probability-output/r2/v1",
+                "recognizing-words-from-speech/language-model-and-domain-adaptation/r2/v1",
+                "recognizing-words-from-speech/acoustic-model-and-phonemes/r1/v1",
+                "recognizing-words-from-speech/transformer-acoustic-prediction/r1/v1",
+                "recognizing-words-from-speech/acoustic-model-and-phonemes/r2/v1",
+                "recognizing-words-from-speech/beam-search-decoding/r1/v1",
+                "recognizing-words-from-speech/transformer-acoustic-prediction/r2/v1",
+                "recognizing-words-from-speech/beam-search-decoding/r2/v1"
+              ],
+              "affected_paths": [
+                "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/0",
+                "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/1",
+                "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/2",
+                "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/3",
+                "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/4",
+                "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/5",
+                "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/6",
+                "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/7",
+                "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/8",
+                "modules/3:4-introduction-to-ai-speech-concepts/units/12:recognizing-words-from-speech-l1/questions/9"
+              ],
+              "recommended_scope": "session",
+              "repair_instruction": "Preserve all item identities, paths, sequence constraints, and source-correct answers, but replace a small subset of redundant checks with 2–3 credible applied prompts in which the learner diagnoses an acoustic, language-model, or decoding choice and explains why it produces the final readable text.",
+              "allowed_payload_fields": [
+                "question_text",
+                "options",
+                "correct_answer",
+                "explanation",
+                "feedback"
+              ]
+            },
+            "confidence": 0.78,
+            "human_review_recommended": true,
+            "concise_summary": "The artifact is source-faithful, unambiguous, and terminologically consistent, with useful misconception feedback and no deterministic correctness defect. Its main weakness is that the exact sequence is repetitive abstract recall with no authentic application or integrated pipeline reasoning. Confidence is reduced because no approved references were supplied."
+          },
+          "artifact_sha256": "84084e5f51d6473dd2136df1aa7d9ba32cdcca06b8c5d00e615e5dfbe347aff8",
+          "evaluation_context_sha256": "22064dfe46ba07d1d0ac2a5e3c3b220a582a5d11af7899e25b3fb8c3c8e34448",
+          "goal_sha256": "c4bae546eef7fec8c92895a1538196a8df81a13754329022bca211a6200752ae",
+          "critic_backend": "codex",
+          "critic_model": "codex:gpt-5.6-luna",
+          "fresh_context": true,
+          "model_independence": "independent",
+          "approved_reference_count": 0,
+          "reference_confidence_reduced": true,
+          "usage": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cost_usd": 0.0,
+            "backend_calls": 1
+          }
+        },
+        "critic_failure": null,
+        "repair_scope": null,
+        "repair_summary": null,
+        "editor_backend": null,
+        "editor_model": null,
+        "editor_fresh_context": null,
+        "edit_usage": null,
+        "validation_retry_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost_usd": 0.0,
+          "backend_calls": 0
+        },
+        "touched_item_keys": [],
+        "challenger_hash": null,
+        "hard_gate": null,
+        "source_fidelity_critic": null,
+        "source_fidelity_gate": null,
+        "comparison": null,
+        "decision": "retained_human",
+        "decision_evidence": "Critic confidence/finding requires human review.",
+        "champion_hash_after": "84084e5f51d6473dd2136df1aa7d9ba32cdcca06b8c5d00e615e5dfbe347aff8",
+        "constraint_relaxations": [],
+        "cumulative_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost_usd": 0.0,
+          "backend_calls": 1
+        }
+      }
+    ],
+    "stop_reason": "human_review_required",
+    "stop_evidence": "Critic requested human review or confidence was below threshold.",
+    "human_decision": null,
+    "total_usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "backend_calls": 1
+    },
+    "human_review_recommended": true,
+    "publication_eligible": false
+  }
+}

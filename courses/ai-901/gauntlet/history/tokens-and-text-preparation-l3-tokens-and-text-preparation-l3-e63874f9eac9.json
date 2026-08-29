@@ -1,0 +1,700 @@
+{
+  "schema_version": "techlingo-gauntlet-record-v1",
+  "compiled_artifact_sha256": "69c9d18537cc04d4d24f6ffad549e8d9c17ee1b85b2ba8dc167de6c8be33ae73",
+  "unit_key": "tokens-and-text-preparation-l3",
+  "champion": {
+    "artifact_id": "ai-901:tokens-and-text-preparation-l3",
+    "course_id": "ai-901",
+    "session_id": "tokens-and-text-preparation-l3",
+    "items": [
+      {
+        "item_key": "tokens-and-text-preparation/corpus-token-tokenization/r3/v2",
+        "path": "modules/2:3-introduction-to-natural-language-processing-concepts/units/5:tokens-and-text-preparation-l3/questions/0",
+        "payload": {
+          "import_key": "tokens-and-text-preparation-l3-q1",
+          "question_type": "arrange_sentence",
+          "question_text": "Put the pieces in the correct order.",
+          "options": {
+            "word_bank": [
+              "into",
+              "Tokenization",
+              "tokens for analysis",
+              "breaks a corpus"
+            ],
+            "correct_order": [
+              "Tokenization",
+              "breaks a corpus",
+              "into",
+              "tokens for analysis"
+            ],
+            "blooms_level": "Understanding",
+            "original_question_type": "rearrange",
+            "concept_id": "corpus-token-tokenization",
+            "feedback_for_incorrect": {
+              "intrinsic": "The relationship between the process, its input, and its result becomes unclear.",
+              "instructional": "Place tokenization first, then the corpus it breaks, and finally the resulting tokens."
+            },
+            "item_key": "tokens-and-text-preparation/corpus-token-tokenization/r3/v2",
+            "rung": 3,
+            "variant": 2,
+            "module_key": "3-introduction-to-natural-language-processing-concepts",
+            "lesson_key": "tokens-and-text-preparation",
+            "learning_status": "review"
+          },
+          "correct_answer": "Tokenization breaks a corpus into tokens for analysis",
+          "explanation": "The process must come first, followed by the body it acts on and the units it produces.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "tokens-and-text-preparation/normalization-tradeoff/r5/v1",
+        "path": "modules/2:3-introduction-to-natural-language-processing-concepts/units/5:tokens-and-text-preparation-l3/questions/1",
+        "payload": {
+          "import_key": "tokens-and-text-preparation-l3-q2",
+          "question_type": "multiple_choice",
+          "question_text": "A contract analyst must distinguish the person “Mr Banks” from common-noun “banks.” Which choices should the analyst make? Select all that apply.",
+          "options": {
+            "options": [
+              {
+                "text": "Remove stop words first",
+                "is_correct": false,
+                "error_type": "Confuses meaning-preservation with stop word removal",
+                "rationale": "Stop word removal focuses on common low-meaning words. It does not preserve capitalization or punctuation distinctions.",
+                "better_fit": "This fits when important content words need to stand out.",
+                "feedback": {
+                  "intrinsic": "The key name-versus-noun distinction could still be lost.",
+                  "instructional": "This task needs useful surface details preserved, not merely common words removed."
+                }
+              },
+              {
+                "text": "Avoid lowercasing all words",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "Lowercasing can remove the capitalization distinction between a name and a common noun. That distinction matters for this task.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Preserve useful punctuation",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "Punctuation can carry meaning, including whether a word ends a sentence. It should be preserved when that meaning is needed.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Strip word endings",
+                "is_correct": false,
+                "error_type": "Confuses normalization tradeoff with stemming",
+                "rationale": "Stripping endings is stemming for grouping related forms. It does not protect capitalization and punctuation meaning.",
+                "better_fit": "This fits when related word forms should be consolidated before counting.",
+                "feedback": {
+                  "intrinsic": "You would alter word forms while leaving the needed distinction unresolved.",
+                  "instructional": "Stemming groups related forms; avoid normalization choices that erase meaningful case or punctuation here."
+                }
+              }
+            ],
+            "blooms_level": "Analyzing/Evaluating",
+            "original_question_type": "multi_choice",
+            "concept_id": "normalization-tradeoff",
+            "item_key": "tokens-and-text-preparation/normalization-tradeoff/r5/v1",
+            "rung": 5,
+            "variant": 1,
+            "module_key": "3-introduction-to-natural-language-processing-concepts",
+            "lesson_key": "tokens-and-text-preparation",
+            "learning_status": "new"
+          },
+          "correct_answer": "[1,2]",
+          "explanation": "Correct. These choices retain distinctions that normalization could remove.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "tokens-and-text-preparation/stop-word-removal/r5/v1",
+        "path": "modules/2:3-introduction-to-natural-language-processing-concepts/units/5:tokens-and-text-preparation-l3/questions/2",
+        "payload": {
+          "import_key": "tokens-and-text-preparation-l3-q3",
+          "question_type": "multiple_choice",
+          "question_text": "A social-media analyst sees important terms hidden among short customer posts. Which approach should the analyst choose to make key words stand out?",
+          "options": {
+            "options": [
+              {
+                "text": "Remove all punctuation",
+                "is_correct": false,
+                "error_type": "Confuses stop word removal with normalization",
+                "rationale": "Removing punctuation is normalization. It does not specifically remove common low-meaning words.",
+                "better_fit": "This fits when punctuation details are not needed for frequency-based analysis.",
+                "feedback": {
+                  "intrinsic": "Important terms may remain buried under frequent common words.",
+                  "instructional": "Use stop word removal when common words, rather than punctuation, are hiding key terms."
+                }
+              },
+              {
+                "text": "Join “natural language” as a phrase",
+                "is_correct": false,
+                "error_type": "Confuses stop word removal with n-grams",
+                "rationale": "Joining a phrase is n-gram extraction. It can preserve phrase meaning but does not remove stop words.",
+                "better_fit": "This fits when the meaning of a multi-term phrase should remain grouped.",
+                "feedback": {
+                  "intrinsic": "Common readability words would still compete with key terms.",
+                  "instructional": "N-grams group terms; stop word removal excludes words like “the” and “it.”"
+                }
+              },
+              {
+                "text": "Rank terms by document frequency",
+                "is_correct": false,
+                "error_type": "Confuses preprocessing with frequency analysis",
+                "rationale": "Frequency analysis counts how often terms appear. It does not exclude common readability words before comparison.",
+                "better_fit": "This fits when identifying the most commonly used normalized terms.",
+                "feedback": {
+                  "intrinsic": "The ranking may still give attention to common low-meaning words.",
+                  "instructional": "First exclude stop words when the aim is to make key content words stand out."
+                }
+              },
+              {
+                "text": "Exclude words like “the” and “it”",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "Words like “the” and “it” are common stop words. Excluding them can make key content words more visible.",
+                "better_fit": null,
+                "feedback": null
+              }
+            ],
+            "blooms_level": "Analyzing/Evaluating",
+            "original_question_type": "single_choice",
+            "concept_id": "stop-word-removal",
+            "item_key": "tokens-and-text-preparation/stop-word-removal/r5/v1",
+            "rung": 5,
+            "variant": 1,
+            "module_key": "3-introduction-to-natural-language-processing-concepts",
+            "lesson_key": "tokens-and-text-preparation",
+            "learning_status": "new"
+          },
+          "correct_answer": "3",
+          "explanation": "Correct. Excluding these common words can reveal the terms carrying the main topics.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "tokens-and-text-preparation/stemming-lemmatization-pos/r3/v2",
+        "path": "modules/2:3-introduction-to-natural-language-processing-concepts/units/5:tokens-and-text-preparation-l3/questions/3",
+        "payload": {
+          "import_key": "tokens-and-text-preparation-l3-q4",
+          "question_type": "arrange_sentence",
+          "question_text": "Reconstruct the statement from the pieces.",
+          "options": {
+            "word_bank": [
+              "with",
+              "POS tagging",
+              "a grammatical category",
+              "labels each token"
+            ],
+            "correct_order": [
+              "POS tagging",
+              "labels each token",
+              "with",
+              "a grammatical category"
+            ],
+            "blooms_level": "Understanding",
+            "original_question_type": "rearrange",
+            "concept_id": "stemming-lemmatization-pos",
+            "feedback_for_incorrect": {
+              "intrinsic": "The process and the kind of information it assigns are no longer connected clearly.",
+              "instructional": "Begin with POS tagging, then show that it labels each token with a grammatical category."
+            },
+            "item_key": "tokens-and-text-preparation/stemming-lemmatization-pos/r3/v2",
+            "rung": 3,
+            "variant": 2,
+            "module_key": "3-introduction-to-natural-language-processing-concepts",
+            "lesson_key": "tokens-and-text-preparation",
+            "learning_status": "review"
+          },
+          "correct_answer": "POS tagging labels each token with a grammatical category",
+          "explanation": "POS tagging acts on each token and assigns a grammatical category such as noun, verb, adjective, or adverb.",
+          "points": 1
+        }
+      }
+    ],
+    "metadata": {
+      "module_key": "3-introduction-to-natural-language-processing-concepts",
+      "unit_title": "Tokens and Text Preparation · Level 3",
+      "unit_slo": "Prepare text for analysis by using tokenization and common preprocessing methods.",
+      "constraint_relaxations": []
+    }
+  },
+  "history": {
+    "schema_version": "techlingo-gauntlet-history-v1",
+    "run_id": "tokens-and-text-preparation-l3-e63874f9eac9",
+    "started_at": "2026-08-27T15:39:09.045685Z",
+    "finished_at": "2026-08-27T16:02:17.823901Z",
+    "initial_champion_hash": "d0333b0dead6cdaa27d993463fe53eea21f61d7f0f4d8053bdfe2dc2eb140c08",
+    "final_champion_hash": "d0333b0dead6cdaa27d993463fe53eea21f61d7f0f4d8053bdfe2dc2eb140c08",
+    "evaluation_context": {
+      "schema_version": "techlingo-evaluation-context-v1",
+      "goal": "Produce an excellent, source-faithful learner session while preserving all deterministic correctness, identity, and sequence constraints.",
+      "source_fidelity_goal": "Independently verify the hard-gated edited challenger against the supplied source material. Reject unsupported facts, answers, explanations, feedback, or terminology changes; do not edit the artifact.",
+      "gauntlet_policy": {
+        "critic_backend": "codex",
+        "critic_model": "codex:gpt-5.6-luna",
+        "builder_model": "codex:gpt-5.6-terra",
+        "max_rounds": 4,
+        "plateau_rounds": 2,
+        "repeated_loss_rounds": 2,
+        "minimum_improvement_margin": 0.02,
+        "confidence_threshold": 0.65,
+        "human_review_threshold": 0.4,
+        "max_time_seconds": null,
+        "max_tokens": null,
+        "max_cost_usd": null,
+        "qualitative_required_for_publication": true,
+        "quality_thresholds": {
+          "factual_fidelity": 0.8,
+          "answer_unambiguity": 0.8,
+          "distractor_plausibility": 0.8,
+          "misconception_quality": 0.8,
+          "cognitive_progression": 0.8,
+          "mechanic_rhythm_variation": 0.8,
+          "prompt_language_variation": 0.8,
+          "scenario_authenticity": 0.8,
+          "feedback_usefulness": 0.8,
+          "difficulty_appropriateness": 0.8,
+          "terminology_consistency": 0.8,
+          "overall_learner_experience": 0.8
+        },
+        "comparison_seed": 901,
+        "protected_dimensions": [
+          "factual_fidelity",
+          "answer_unambiguity"
+        ],
+        "unstable_comparison_requires_human_review": true,
+        "identifying_metadata_keys": [
+          "artifact_id",
+          "builder_model",
+          "candidate_role",
+          "challenger",
+          "champion",
+          "critic_model",
+          "generated_at",
+          "import_key",
+          "item_key",
+          "model_id",
+          "path",
+          "version_id"
+        ]
+      },
+      "gauntlet_policy_sha256": "035ba75a6dc056e4680b4c7cb97f2859ec5160f72633534a4550ba69e8061ac4",
+      "rubric": {
+        "criteria": {
+          "factual_fidelity": "Every claim and answer is faithful to the supplied source.",
+          "answer_unambiguity": "Each item has one defensible answer under its instructions.",
+          "distractor_plausibility": "Distractors are credible without becoming defensible answers.",
+          "misconception_quality": "Wrong choices diagnose realistic learner misconceptions.",
+          "cognitive_progression": "The ordered session builds understanding at a coherent pace.",
+          "mechanic_rhythm_variation": "Mechanics vary naturally without disruptive repetition.",
+          "prompt_language_variation": "Prompt stems avoid formulaic repetition.",
+          "scenario_authenticity": "Scenarios resemble credible decisions or tasks.",
+          "feedback_usefulness": "Feedback explains the governing concept and next step.",
+          "difficulty_appropriateness": "Difficulty matches the stated audience and session position.",
+          "terminology_consistency": "Terms are used consistently with the source and across items.",
+          "overall_learner_experience": "The exact final sequence is coherent, varied, and instructive."
+        }
+      },
+      "rubric_sha256": "34290a842f2ed7e30b7a98ba70ac97d967c864424010cd31255f97cdce0b57d5",
+      "sources": [
+        {
+          "input_id": "3. Introduction to natural language processing concepts.md",
+          "sha256": "a2a7646efefed2d7b1d2e8624bf2ba42bf2faaf507959888bb5e54602c3ce0a9",
+          "location": "sources/3. Introduction to natural language processing concepts.md"
+        }
+      ],
+      "approved_references": [],
+      "models": {
+        "builder_model": "codex:gpt-5.6-terra",
+        "critic_backend": "codex",
+        "critic_model": "codex:gpt-5.6-luna",
+        "critic_fresh_context": true,
+        "editor_backend": "codex",
+        "editor_model": "codex:gpt-5.6-luna",
+        "editor_fresh_context": true,
+        "comparator_backend": "codex",
+        "comparator_model": "codex:gpt-5.6-luna",
+        "comparator_fresh_context": true
+      },
+      "context_sha256": "8337622f7e74c84d721857d5822e69be73ce7995faa1eddb0ccbc6e222abd550"
+    },
+    "initial_hard_gate": {
+      "artifact_sha256": "d0333b0dead6cdaa27d993463fe53eea21f61d7f0f4d8053bdfe2dc2eb140c08",
+      "passed": true,
+      "issues": [],
+      "checks": {
+        "schema_and_answers": true,
+        "identity": true,
+        "final_sequence": true
+      },
+      "metrics": {},
+      "constraint_relaxations": []
+    },
+    "rounds": [
+      {
+        "round_number": 1,
+        "champion_hash_before": "d0333b0dead6cdaa27d993463fe53eea21f61d7f0f4d8053bdfe2dc2eb140c08",
+        "critic": {
+          "result": {
+            "dimensions": [
+              {
+                "dimension": "factual_fidelity",
+                "score": 0.9,
+                "evidence": [
+                  {
+                    "statement": "Q1 and Q4 correctly state tokenization and POS tagging concepts represented in the source.",
+                    "item_keys": [
+                      "tokens-and-text-preparation/corpus-token-tokenization/r3/v2",
+                      "tokens-and-text-preparation/stemming-lemmatization-pos/r3/v2"
+                    ],
+                    "paths": [
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/5:tokens-and-text-preparation-l3/questions/0",
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/5:tokens-and-text-preparation-l3/questions/3"
+                    ]
+                  },
+                  {
+                    "statement": "Q2 correctly preserves capitalization and useful punctuation for the Mr Banks/banks distinction, and Q3 correctly identifies stop-word exclusion.",
+                    "item_keys": [
+                      "tokens-and-text-preparation/normalization-tradeoff/r5/v1",
+                      "tokens-and-text-preparation/stop-word-removal/r5/v1"
+                    ],
+                    "paths": [
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/5:tokens-and-text-preparation-l3/questions/1",
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/5:tokens-and-text-preparation-l3/questions/2"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "answer_unambiguity",
+                "score": 0.62,
+                "evidence": [
+                  {
+                    "statement": "Q1, Q2, and Q4 have one clear answer under their instructions, but Q3 is broad enough that ranking terms by document frequency could also plausibly make important terms stand out through frequency analysis.",
+                    "item_keys": [
+                      "tokens-and-text-preparation/stop-word-removal/r5/v1"
+                    ],
+                    "paths": [
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/5:tokens-and-text-preparation-l3/questions/2"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "distractor_plausibility",
+                "score": 0.74,
+                "evidence": [
+                  {
+                    "statement": "Q2 and Q3 use credible confusions among normalization, stop-word removal, n-grams, stemming, and frequency analysis; however, Q3's document-frequency distractor is potentially defensible rather than merely incorrect.",
+                    "item_keys": [
+                      "tokens-and-text-preparation/normalization-tradeoff/r5/v1",
+                      "tokens-and-text-preparation/stop-word-removal/r5/v1"
+                    ],
+                    "paths": [
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/5:tokens-and-text-preparation-l3/questions/1",
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/5:tokens-and-text-preparation-l3/questions/2"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "misconception_quality",
+                "score": 0.87,
+                "evidence": [
+                  {
+                    "statement": "The wrong choices diagnose realistic confusions between preserving semantic surface details, removing stop words, grouping n-grams, stemming, and counting terms.",
+                    "item_keys": [
+                      "tokens-and-text-preparation/normalization-tradeoff/r5/v1",
+                      "tokens-and-text-preparation/stop-word-removal/r5/v1"
+                    ],
+                    "paths": [
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/5:tokens-and-text-preparation-l3/questions/1",
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/5:tokens-and-text-preparation-l3/questions/2"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "cognitive_progression",
+                "score": 0.75,
+                "evidence": [
+                  {
+                    "statement": "The sequence moves from basic tokenization to applied preprocessing decisions, but returns to a basic POS-tagging reconstruction in Q4 and does not build an explicit bridge among stemming, lemmatization, and POS tagging.",
+                    "item_keys": [
+                      "tokens-and-text-preparation/corpus-token-tokenization/r3/v2",
+                      "tokens-and-text-preparation/normalization-tradeoff/r5/v1",
+                      "tokens-and-text-preparation/stop-word-removal/r5/v1",
+                      "tokens-and-text-preparation/stemming-lemmatization-pos/r3/v2"
+                    ],
+                    "paths": [
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/5:tokens-and-text-preparation-l3/questions/0",
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/5:tokens-and-text-preparation-l3/questions/1",
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/5:tokens-and-text-preparation-l3/questions/2",
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/5:tokens-and-text-preparation-l3/questions/3"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "mechanic_rhythm_variation",
+                "score": 0.7,
+                "evidence": [
+                  {
+                    "statement": "The session uses two arrange-sentence items and two multiple-choice items, with the multiple-choice mechanic repeated consecutively in the middle.",
+                    "item_keys": [
+                      "tokens-and-text-preparation/corpus-token-tokenization/r3/v2",
+                      "tokens-and-text-preparation/normalization-tradeoff/r5/v1",
+                      "tokens-and-text-preparation/stop-word-removal/r5/v1",
+                      "tokens-and-text-preparation/stemming-lemmatization-pos/r3/v2"
+                    ],
+                    "paths": [
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/5:tokens-and-text-preparation-l3/questions/0",
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/5:tokens-and-text-preparation-l3/questions/1",
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/5:tokens-and-text-preparation-l3/questions/2",
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/5:tokens-and-text-preparation-l3/questions/3"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "prompt_language_variation",
+                "score": 0.84,
+                "evidence": [
+                  {
+                    "statement": "Prompt stems vary across direct ordering instructions, applied analyst scenarios, and reconstruction language, although Q1 and Q4 are closely related.",
+                    "item_keys": [
+                      "tokens-and-text-preparation/corpus-token-tokenization/r3/v2",
+                      "tokens-and-text-preparation/normalization-tradeoff/r5/v1",
+                      "tokens-and-text-preparation/stop-word-removal/r5/v1",
+                      "tokens-and-text-preparation/stemming-lemmatization-pos/r3/v2"
+                    ],
+                    "paths": [
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/5:tokens-and-text-preparation-l3/questions/0",
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/5:tokens-and-text-preparation-l3/questions/1",
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/5:tokens-and-text-preparation-l3/questions/2",
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/5:tokens-and-text-preparation-l3/questions/3"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "scenario_authenticity",
+                "score": 0.72,
+                "evidence": [
+                  {
+                    "statement": "The contract-analysis and social-media-analysis scenarios are credible applications, while the two sentence-reconstruction items are decontextualized and assess recognition rather than an authentic task.",
+                    "item_keys": [
+                      "tokens-and-text-preparation/normalization-tradeoff/r5/v1",
+                      "tokens-and-text-preparation/stop-word-removal/r5/v1",
+                      "tokens-and-text-preparation/corpus-token-tokenization/r3/v2",
+                      "tokens-and-text-preparation/stemming-lemmatization-pos/r3/v2"
+                    ],
+                    "paths": [
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/5:tokens-and-text-preparation-l3/questions/1",
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/5:tokens-and-text-preparation-l3/questions/2",
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/5:tokens-and-text-preparation-l3/questions/0",
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/5:tokens-and-text-preparation-l3/questions/3"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "feedback_usefulness",
+                "score": 0.83,
+                "evidence": [
+                  {
+                    "statement": "Incorrect-answer feedback generally identifies the conceptual confusion and gives a corrective principle; Q2 and Q3 also provide per-option rationales. Some correct-answer explanations mainly confirm correctness rather than prescribe a next step.",
+                    "item_keys": [
+                      "tokens-and-text-preparation/normalization-tradeoff/r5/v1",
+                      "tokens-and-text-preparation/stop-word-removal/r5/v1",
+                      "tokens-and-text-preparation/corpus-token-tokenization/r3/v2",
+                      "tokens-and-text-preparation/stemming-lemmatization-pos/r3/v2"
+                    ],
+                    "paths": [
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/5:tokens-and-text-preparation-l3/questions/1",
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/5:tokens-and-text-preparation-l3/questions/2",
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/5:tokens-and-text-preparation-l3/questions/0",
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/5:tokens-and-text-preparation-l3/questions/3"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "difficulty_appropriateness",
+                "score": 0.8,
+                "evidence": [
+                  {
+                    "statement": "The session includes suitable Level 3 recall and understanding items plus moderately demanding applied preprocessing decisions, but the difficulty alternates between analyzing/evaluating and simple reconstruction without a clear ramp.",
+                    "item_keys": [
+                      "tokens-and-text-preparation/corpus-token-tokenization/r3/v2",
+                      "tokens-and-text-preparation/normalization-tradeoff/r5/v1",
+                      "tokens-and-text-preparation/stop-word-removal/r5/v1",
+                      "tokens-and-text-preparation/stemming-lemmatization-pos/r3/v2"
+                    ],
+                    "paths": [
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/5:tokens-and-text-preparation-l3/questions/0",
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/5:tokens-and-text-preparation-l3/questions/1",
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/5:tokens-and-text-preparation-l3/questions/2",
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/5:tokens-and-text-preparation-l3/questions/3"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "terminology_consistency",
+                "score": 0.78,
+                "evidence": [
+                  {
+                    "statement": "Core terms such as tokenization, stop words, n-grams, stemming, and POS tagging are used consistently, but Q3 introduces document frequency while the item rationale discusses frequency analysis, creating avoidable terminology ambiguity; 'key words' also varies from the source's 'key terms.'",
+                    "item_keys": [
+                      "tokens-and-text-preparation/stop-word-removal/r5/v1",
+                      "tokens-and-text-preparation/normalization-tradeoff/r5/v1"
+                    ],
+                    "paths": [
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/5:tokens-and-text-preparation-l3/questions/2",
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/5:tokens-and-text-preparation-l3/questions/1"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "overall_learner_experience",
+                "score": 0.75,
+                "evidence": [
+                  {
+                    "statement": "The four-item session is concise, source-aligned, and mostly varied, but the ambiguous Q3 distractor, repeated mechanics, and basic Q4 after applied Q2-Q3 weaken coherence and confidence in the final sequence.",
+                    "item_keys": [
+                      "tokens-and-text-preparation/corpus-token-tokenization/r3/v2",
+                      "tokens-and-text-preparation/normalization-tradeoff/r5/v1",
+                      "tokens-and-text-preparation/stop-word-removal/r5/v1",
+                      "tokens-and-text-preparation/stemming-lemmatization-pos/r3/v2"
+                    ],
+                    "paths": [
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/5:tokens-and-text-preparation-l3/questions/0",
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/5:tokens-and-text-preparation-l3/questions/1",
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/5:tokens-and-text-preparation-l3/questions/2",
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/5:tokens-and-text-preparation-l3/questions/3"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "critical_defects": [
+              {
+                "defect_id": "D1",
+                "dimension": "answer_unambiguity",
+                "summary": "Q3 has a potentially defensible distractor.",
+                "evidence": [
+                  {
+                    "statement": "The stem asks which approach makes key words stand out. The source supports frequency analysis as a way to identify important terms, so 'Rank terms by document frequency' can plausibly satisfy the stem even though the keyed answer is stop-word exclusion.",
+                    "item_keys": [
+                      "tokens-and-text-preparation/stop-word-removal/r5/v1"
+                    ],
+                    "paths": [
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/5:tokens-and-text-preparation-l3/questions/2"
+                    ]
+                  }
+                ],
+                "affected_item_keys": [
+                  "tokens-and-text-preparation/stop-word-removal/r5/v1"
+                ],
+                "affected_paths": [
+                  "modules/2:3-introduction-to-natural-language-processing-concepts/units/5:tokens-and-text-preparation-l3/questions/2"
+                ],
+                "recommended_scope": "item"
+              }
+            ],
+            "largest_gap": {
+              "dimension": "answer_unambiguity",
+              "summary": "Q3 does not uniquely force stop-word removal because its broad goal also fits frequency-based ranking.",
+              "evidence": [
+                {
+                  "statement": "The keyed answer is 'Exclude words like “the” and “it,”' but the stem does not explicitly require excluding common low-meaning words, leaving document-frequency ranking as a plausible alternative.",
+                  "item_keys": [
+                    "tokens-and-text-preparation/stop-word-removal/r5/v1"
+                  ],
+                  "paths": [
+                    "modules/2:3-introduction-to-natural-language-processing-concepts/units/5:tokens-and-text-preparation-l3/questions/2"
+                  ]
+                }
+              ],
+              "affected_item_keys": [
+                "tokens-and-text-preparation/stop-word-removal/r5/v1"
+              ],
+              "affected_paths": [
+                "modules/2:3-introduction-to-natural-language-processing-concepts/units/5:tokens-and-text-preparation-l3/questions/2"
+              ],
+              "recommended_scope": "item",
+              "repair_instruction": "Revise only Q3's question_text to explicitly ask for the preprocessing approach that excludes common low-meaning words, preserving the current keyed answer and options unless a narrower distractor change is preferred.",
+              "allowed_payload_fields": [
+                "question_text"
+              ]
+            },
+            "confidence": 0.78,
+            "human_review_recommended": true,
+            "concise_summary": "The session is mostly source-faithful and instructive, but Q3 has a deterministic answer-ambiguity defect: its broad stem makes document-frequency ranking defensible alongside stop-word removal. Confidence is reduced because no approved references were supplied."
+          },
+          "artifact_sha256": "d0333b0dead6cdaa27d993463fe53eea21f61d7f0f4d8053bdfe2dc2eb140c08",
+          "evaluation_context_sha256": "8337622f7e74c84d721857d5822e69be73ce7995faa1eddb0ccbc6e222abd550",
+          "goal_sha256": "c4bae546eef7fec8c92895a1538196a8df81a13754329022bca211a6200752ae",
+          "critic_backend": "codex",
+          "critic_model": "codex:gpt-5.6-luna",
+          "fresh_context": true,
+          "model_independence": "independent",
+          "approved_reference_count": 0,
+          "reference_confidence_reduced": true,
+          "usage": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cost_usd": 0.0,
+            "backend_calls": 2
+          }
+        },
+        "critic_failure": null,
+        "repair_scope": null,
+        "repair_summary": null,
+        "editor_backend": null,
+        "editor_model": null,
+        "editor_fresh_context": null,
+        "edit_usage": null,
+        "validation_retry_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost_usd": 0.0,
+          "backend_calls": 0
+        },
+        "touched_item_keys": [],
+        "challenger_hash": null,
+        "hard_gate": null,
+        "source_fidelity_critic": null,
+        "source_fidelity_gate": null,
+        "comparison": null,
+        "decision": "retained_human",
+        "decision_evidence": "Critic confidence/finding requires human review.",
+        "champion_hash_after": "d0333b0dead6cdaa27d993463fe53eea21f61d7f0f4d8053bdfe2dc2eb140c08",
+        "constraint_relaxations": [],
+        "cumulative_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost_usd": 0.0,
+          "backend_calls": 2
+        }
+      }
+    ],
+    "stop_reason": "human_review_required",
+    "stop_evidence": "Critic requested human review or confidence was below threshold.",
+    "human_decision": null,
+    "total_usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "backend_calls": 2
+    },
+    "human_review_recommended": true,
+    "publication_eligible": false
+  }
+}

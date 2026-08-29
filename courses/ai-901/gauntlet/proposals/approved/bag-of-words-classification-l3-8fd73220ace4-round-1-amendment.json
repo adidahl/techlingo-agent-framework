@@ -1,0 +1,112 @@
+{
+  "amendment_sha256": "055691d2cc80a0ecb5d794c8e44a91d4718e293b5207da31148f261439b2eace",
+  "schema_version": "techlingo-gauntlet-authored-amendment-v1",
+  "approved_by": "Codex reviewer for Adi",
+  "approved_at": "2026-08-29T08:09:51.907388+00:00",
+  "approval_sha256": "753ccfc80445c1ed2c3b283ebcc8fc5413544ac1b5e3e8d3eee8f21b3423216c",
+  "proposal_sha256": "876b1be242ed78b9833ddafd8284f24faea19306b84eda889df777701ad93683",
+  "history_sha256": "b5d314907679166de4482e3e1f4f4b2da4a389b4de8b1ff5a6f1e871c4885e83",
+  "item_key": "bag-of-words-classification/bag-of-words-spam-filtering/r5/v1",
+  "bank_path": "bank/bag-of-words-classification.json",
+  "reason": "Reviewer accepted the exact source-bound promoted edit without a mechanic change.",
+  "payload_before": {
+    "blooms_level": "Analyzing/Evaluating",
+    "question_type": "single_choice",
+    "prompt": "A security analyst must choose a method to label emails. Phrases such as “miracle cure” occurred more often in past spam than regular email. Which approach best fits?",
+    "concept_id": "bag-of-words-spam-filtering",
+    "options": [
+      {
+        "text": "Bag-of-words spam classification",
+        "is_correct": true,
+        "error_type": null,
+        "rationale": "Correct. The task labels email from word-frequency patterns associated with spam.",
+        "better_fit": null,
+        "feedback": null
+      },
+      {
+        "text": "Naive Bayes as a classifier",
+        "is_correct": false,
+        "error_type": "Confuses use case with algorithm",
+        "rationale": "Naive Bayes can implement this task but names an algorithm rather than the requested spam-filtering approach. The decision concerns the use case.",
+        "better_fit": "Use Naive Bayes when selecting a probability-based classifier for features.",
+        "feedback": {
+          "intrinsic": "The analyst may name an algorithm without identifying the email-labeling use case.",
+          "instructional": "Spam filtering is the classification task; Naive Bayes is one possible classifier."
+        }
+      },
+      {
+        "text": "Sentiment classification",
+        "is_correct": false,
+        "error_type": "Confuses spam with emotional tone",
+        "rationale": "Sentiment classification labels emotional tone. The required labels are spam and not spam.",
+        "better_fit": "Use sentiment classification for positive or negative feedback.",
+        "feedback": {
+          "intrinsic": "Risky mail could be sorted by mood instead of routed appropriately.",
+          "instructional": "Spam filtering uses spam and not-spam categories."
+        }
+      },
+      {
+        "text": "TF-IDF term scoring",
+        "is_correct": false,
+        "error_type": "Confuses classification with term scoring",
+        "rationale": "TF-IDF scores term relevance but does not itself label email. The task requires a spam decision.",
+        "better_fit": "Use TF-IDF to find distinctive terms in a collection.",
+        "feedback": {
+          "intrinsic": "The analyst could identify phrases but still lack an email classification.",
+          "instructional": "Choose spam classification when the goal is assigning spam labels from learned patterns."
+        }
+      }
+    ],
+    "feedback_for_correct": "Correct—the decision is to classify email as spam from word-frequency patterns."
+  },
+  "payload_after": {
+    "blooms_level": "Analyzing/Evaluating",
+    "question_type": "single_choice",
+    "prompt": "A security analyst must choose a method to label emails. Phrases such as “miracle cure” occurred more often in past spam than regular email. Which text-analysis task best fits this scenario?",
+    "concept_id": "bag-of-words-spam-filtering",
+    "options": [
+      {
+        "text": "Bag-of-words spam classification",
+        "is_correct": true,
+        "error_type": null,
+        "rationale": "Correct. The task labels email from word-frequency patterns associated with spam.",
+        "better_fit": null,
+        "feedback": null
+      },
+      {
+        "text": "Naive Bayes as a classifier",
+        "is_correct": false,
+        "error_type": "Confuses use case with algorithm",
+        "rationale": "Naive Bayes can implement this task but names an algorithm rather than the requested spam-filtering approach. The decision concerns the use case.",
+        "better_fit": "Use Naive Bayes when selecting a probability-based classifier for features.",
+        "feedback": {
+          "intrinsic": "The analyst may name an algorithm without identifying the email-labeling use case.",
+          "instructional": "Spam filtering is the classification task; Naive Bayes is one possible classifier."
+        }
+      },
+      {
+        "text": "Sentiment classification",
+        "is_correct": false,
+        "error_type": "Confuses spam with emotional tone",
+        "rationale": "Sentiment classification labels emotional tone. The required labels are spam and not spam.",
+        "better_fit": "Use sentiment classification for positive or negative feedback.",
+        "feedback": {
+          "intrinsic": "Risky mail could be sorted by mood instead of routed appropriately.",
+          "instructional": "Spam filtering uses spam and not-spam categories."
+        }
+      },
+      {
+        "text": "TF-IDF term scoring",
+        "is_correct": false,
+        "error_type": "Confuses classification with term scoring",
+        "rationale": "TF-IDF scores term relevance but does not itself label email. The task requires a spam decision.",
+        "better_fit": "Use TF-IDF to find distinctive terms in a collection.",
+        "feedback": {
+          "intrinsic": "The analyst could identify phrases but still lack an email classification.",
+          "instructional": "Choose spam classification when the goal is assigning spam labels from learned patterns."
+        }
+      }
+    ],
+    "feedback_for_correct": "Correct—the decision is to classify email as spam from word-frequency patterns."
+  }
+}

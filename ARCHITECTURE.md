@@ -168,11 +168,19 @@ Variants let higher levels and reviews repeat a *concept* without repeating the
 | mechanism | 2 | 2 | 2 | 1 | – | 7 |
 | decision | 1 | 2 | 2 | 2 | 2 | 9 |
 
-With 6–8 concepts per lesson this yields a bank of ~40–60 items/lesson —
-roughly 3–4× oversampled vs. any single session (12–15 items). Cost is wall
-time only on subscription backends; expect ~2–3× today's per-document build
-time. Overnight batch territory, and incremental builds (§4.3) keep iteration
-cheap.
+With 6–8 concepts per lesson the full envelope yields a bank of ~40–60
+items/lesson — roughly 3–4× oversampled vs. any single session (12–15 items).
+A course may instead declare `workflow.worksheet_items_per_lesson`. The
+budgeted worksheet keeps one mandatory variant for every depth-required rung,
+alternates the remaining rows across recyclable R1/R2 and R3/R4 capacity,
+uses R5 optional rows only after those bands fill, then balances each band
+across concepts with stable tie ranks. The budget must lie between complete
+ladder coverage and the full envelope; infeasible A1 maps are rejected before
+generation. Nothing generated is post-hoc discarded. A tight feasible budget
+can still make an exact cross-level repeat unavoidable when it leaves too few
+optional rows; within-unit identity uniqueness remains absolute. AI-901 fixes
+this budget at 30 active items per lesson. Cost is wall time only on
+subscription backends; incremental builds (§4.3) keep iteration practical.
 
 ### 3.4 Course workspace layout
 
@@ -266,8 +274,9 @@ deterministic gates from RESILIENCE_PLAN.md carry over. What changes is
 - A2 receives, per lesson: full source text (unchanged), the lesson's concept
   pack (unchanged), and a **cell worksheet** — the exact list of
   `(concept, rung, variant)` items to produce, derived deterministically from
-  the quota table (§3.3). This replaces the per-lesson Bloom/type plan;
-  `_bloom_type_plan` logic becomes the worksheet builder.
+  the quota table and any explicit per-course worksheet budget (§3.3). This
+  replaces the per-lesson Bloom/type plan; `_bloom_type_plan` logic becomes the
+  worksheet builder. A1 validates budget feasibility before A2 is called.
 - Variant instructions: same concept+rung, different surface (different
   scenario/context, different distractor subset from confusables, different
   gap). Variants may test the same fact — the near-duplicate gate gets a
@@ -301,8 +310,10 @@ tautology, rearrange mechanics, coverage floor/over-drill, fact-check with the
 calibrated judge). New:
 
 - **Ladder completeness**: every active concept has its required rungs (per
-  `depth`) covered by ≥1 active item; every R1/R2 cell of recycled concepts has
-  ≥2 variants. Error, blocks publish.
+  `depth`) covered by ≥1 active item. Full-envelope worksheets enforce every
+  configured optional variant; budgeted worksheets enforce their exact selected
+  rows. Missing a required rung or a selected variant is an error that blocks
+  publish.
 - **Variant-aware duplicates**: items in the SAME cell may share the fact but
   must differ in surface (Jaccard on prompt text < 0.7); items in DIFFERENT
   cells/concepts keep today's stricter thresholds.
@@ -383,9 +394,13 @@ Each lesson compiles into `levels` units. Unit `import_key` =
   variants; plus `recycle.l3` share recycled via remaining unseen variants.
 
 No item appears twice inside one learner unit. Recycling spends unseen variants
-first; a legacy bank with too few candidates may reuse an exact item across
-different levels, which is explicit fallback behavior rather than silent loss.
-Depth-classified variant banks avoid that fallback.
+first; any bank whose selected worksheet has too few optional candidates may
+reuse an exact item across different levels, which is explicit fallback behavior
+rather than silent loss. A depth-classified bank avoids that fallback only when
+its selected worksheet retains sufficient optional capacity in both recycled
+rung bands. Even a full envelope can lack that capacity for some concept mixes;
+a tight owner budget can make the same cross-level repeat mathematically
+unavoidable after mandatory rung coverage.
 
 ### 5.2 Checkpoints & final review
 
@@ -647,7 +662,7 @@ replacement ships.
 | Phase | Scope | Acceptance criteria |
 |---|---|---|
 | **1. Course Workspace** (~3–5 days agent work) | workspace format, multi-doc build (A0×N + merge + planner), incremental builds, bundle + `--flat` export, CMS course list + coverage view, eval harness v1 | `main.py course build courses/ai-901` from the 6 real files → valid workspace + bundle + flat course.json importable today; editing 1 source file rebuilds only affected lessons; eval green on golden corpus; graph merge produces stable ids across two consecutive builds |
-| **2. Ladders & Levels** (~2–3 days) — **2a shipped 2026-07-16**: level compiler (levels=unit + recycling + checkpoints + final review, deterministic/seeded, `compile.yaml` defaults on). **2b generation shipped 2026-07-17**: concept `depth` (A1-classified), cell worksheets expand the §3.3 quotas into dictated per-lesson plans (`worksheet.py`; distributions become derived), variant-aware gates (ladder completeness, same-cell surface dedup tier, confusable reciprocity), worksheet-assigned rung persisted on bank items, recycler spends unseen-capable concepts first. **Still pending**: CMS path preview | cell quotas + variant generation, compiler levels (level=unit) + recycling + checkpoints, CMS path preview | each lesson emits L1/L2/L3 units playable in the CURRENT app ✅; recycle ratios honored ✅; zero exact-item repeats across a lesson's levels ✅ (tested, given a 2b variant bank); module checkpoints present ✅; same seed → byte-identical bundle ✅ (tested); ai-901 course with levels imported end-to-end ⬜ (awaiting full 2b bank build) |
+| **2. Ladders & Levels** (~2–3 days) — **2a shipped 2026-07-16**: level compiler (levels=unit + recycling + checkpoints + final review, deterministic/seeded, `compile.yaml` defaults on). **2b generation shipped 2026-07-17**: concept `depth` (A1-classified), cell worksheets expand the §3.3 quotas into dictated per-lesson plans (`worksheet.py`; distributions become derived), variant-aware gates (ladder completeness, same-cell surface dedup tier, confusable reciprocity), worksheet-assigned rung persisted on bank items, recycler spends unseen-capable concepts first. **Still pending**: CMS path preview | cell quotas + variant generation, compiler levels (level=unit) + recycling + checkpoints, CMS path preview | each lesson emits L1/L2/L3 units playable in the CURRENT app ✅; recycle ratios honored ✅; zero exact-item repeats across a lesson's levels when the selected worksheet retains sufficient optional capacity ✅; tight owner budgets use explicit seen-item fallback across levels while preserving within-unit uniqueness ✅; module checkpoints present ✅; same seed → byte-identical bundle ✅ (tested); ai-901 course with levels imported end-to-end ⬜ (awaiting full 2b bank build) |
 | **3. Learning Engine** (spec ~2 days here + app implementation) | MASTERY_SPEC + SESSION_SPEC + reference impls + vectors; app: mastery tables, composer, practice & mistakes replay, bundle importer with ledger | app passes 100% of both vector sets; practice session served from bank; mastery survives a v2 republish of ai-901; mistakes replay works on both clients |
 | **4. Flywheel** (~1 week, spread) | answer_events ingestion, nightly aggregation → bank telemetry, CMS flag queue, threshold-driven regenerate | events flow e2e; ≥1 item auto-flagged and regenerated through the queue; difficulty ordering inside levels re-ranked by real p_correct |
 

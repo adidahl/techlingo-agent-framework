@@ -1,0 +1,639 @@
+{
+  "schema_version": "techlingo-gauntlet-authored-approval-v1",
+  "approval_sha256": "2420c17de0b1d5f01a356bee06485084b2b30d66f374c75de1dae2daacb76556",
+  "proposal": {
+    "schema_version": "techlingo-gauntlet-authored-proposal-v1",
+    "proposal_id": "extract-information-from-audio-l3-5bb278d03355-round-1",
+    "proposal_sha256": "c06ea5a2452982c7ec64a7cb603dd432ecef4affa3d3a4d254e6bb3d2e2ef439",
+    "unit_key": "extract-information-from-audio-l3",
+    "run_id": "extract-information-from-audio-l3-5bb278d03355",
+    "round_number": 1,
+    "record_path": "gauntlet/history/extract-information-from-audio-l3-extract-information-from-audio-l3-5bb278d03355.json",
+    "record_sha256": "1a6d0342bbf32c997ad77dfcb19488e515f9adb6016f8d1e9ed99a23a6173320",
+    "history_sha256": "303c2a5442c1324e0d0109109062eb8df00cdb57c669901dd007e89e4ea3483d",
+    "compiled_artifact_sha256": "2fa356d363b3a7f13d4d399d67361e952b387b4b6502e0aa169d3bb7f3169d2b",
+    "champion_before_sha256": "5af585de5c1eb8b6eb71e1cf7b84ee3475704c518cc4f14075d8f7abfe85ad4e",
+    "champion_after_sha256": "0845a286be6aaebf678d277d6255f95db5004c8547a0042fb715ef6d2c05f6ec",
+    "evaluation_context_sha256": "86c491616e45f9fc65ed8f32a0e4839b3f011ad01518b45d528cd8c059dac948",
+    "gauntlet_policy_sha256": "3ffb6943742c9fc0b33d6668a9c5695b535ee3121f7b697df8ab4d4392014385",
+    "repair_summary": "Improved the final item's explanation to teach the required audio analyzer, accessible URL, and asynchronous completion steps.",
+    "repair_instruction": "Improve only the explanation field to state: use prebuilt-audioSearch for audio, provide an accessible voicemail URL, and wait or poll for the asynchronous operation to complete before reading the transcript and structured results.",
+    "emitted_changes": [
+      {
+        "item_key": "extract-information-from-audio/prebuilt-audio-sdk-flow/r5/v1",
+        "artifact_path": "modules/11:12-get-started-with-ai-powered-information-extraction/units/14:extract-information-from-audio-l3/questions/2",
+        "field": "explanation",
+        "before": "Correct. This choice set matches the audio input and asynchronous result flow.",
+        "after": "Use prebuilt-audioSearch for audio, provide an accessible voicemail URL, and wait or poll for the asynchronous operation to complete before reading the transcript and structured results."
+      }
+    ],
+    "authored_changes": [
+      {
+        "item_key": "extract-information-from-audio/prebuilt-audio-sdk-flow/r5/v1",
+        "bank_path": "bank/extract-information-from-audio.json",
+        "bank_item_index": 23,
+        "source_file": "12. Get started with AI-powered information extraction in Azure.md",
+        "source_sha256": "1e778579ac185d5d6eb4a1b22adfa8cb3b6672f1f586af15fc69e33705113bcd",
+        "item_source_sha256": "1e778579ac185d5d6eb4a1b22adfa8cb3b6672f1f586af15fc69e33705113bcd",
+        "bank_payload_sha256": "601ffe76576555d07cba9a4776ad2f9a1e21966eb655cb5833772979660f0584",
+        "provenance_before": "generated",
+        "pinned_before": false,
+        "payload_before": {
+          "blooms_level": "Analyzing/Evaluating",
+          "question_type": "multi_choice",
+          "prompt": "A developer must choose a reliable flow for a voicemail WAV file whose transcript and structured fields will be read after processing. Which choices should the developer select? Select all that apply.",
+          "concept_id": "prebuilt-audio-sdk-flow",
+          "options": [
+            {
+              "text": "Use prebuilt-audioSearch",
+              "is_correct": true,
+              "error_type": null,
+              "rationale": "prebuilt-audioSearch is the appropriate prebuilt analyzer for audio. It fits a voicemail WAV input.",
+              "better_fit": null,
+              "feedback": null
+            },
+            {
+              "text": "Provide an accessible voicemail URL",
+              "is_correct": true,
+              "error_type": null,
+              "rationale": "The analysis flow requires an accessible URL to the voicemail file. This makes the audio available to the analyzer.",
+              "better_fit": null,
+              "feedback": null
+            },
+            {
+              "text": "Wait before reading returned content",
+              "is_correct": true,
+              "error_type": null,
+              "rationale": "The operation is asynchronous, so results arrive after processing. Waiting prevents a premature attempt to read output.",
+              "better_fit": null,
+              "feedback": null
+            },
+            {
+              "text": "Use prebuilt-invoice",
+              "is_correct": false,
+              "error_type": "Incorrect analyzer decision",
+              "rationale": "prebuilt-invoice is designed for invoice content rather than audio. It is not a reliable choice for a voicemail WAV file.",
+              "better_fit": "Use prebuilt-invoice when the input is an invoice requiring invoice-field extraction.",
+              "feedback": {
+                "intrinsic": "The selected analyzer would not fit the voicemail input.",
+                "instructional": "Evaluate the media type first: a WAV voicemail requires prebuilt-audioSearch."
+              }
+            }
+          ],
+          "feedback_for_correct": "Correct. This choice set matches the audio input and asynchronous result flow."
+        },
+        "payload_after": {
+          "blooms_level": "Analyzing/Evaluating",
+          "question_type": "multi_choice",
+          "prompt": "A developer must choose a reliable flow for a voicemail WAV file whose transcript and structured fields will be read after processing. Which choices should the developer select? Select all that apply.",
+          "concept_id": "prebuilt-audio-sdk-flow",
+          "options": [
+            {
+              "text": "Use prebuilt-audioSearch",
+              "is_correct": true,
+              "error_type": null,
+              "rationale": "prebuilt-audioSearch is the appropriate prebuilt analyzer for audio. It fits a voicemail WAV input.",
+              "better_fit": null,
+              "feedback": null
+            },
+            {
+              "text": "Provide an accessible voicemail URL",
+              "is_correct": true,
+              "error_type": null,
+              "rationale": "The analysis flow requires an accessible URL to the voicemail file. This makes the audio available to the analyzer.",
+              "better_fit": null,
+              "feedback": null
+            },
+            {
+              "text": "Wait before reading returned content",
+              "is_correct": true,
+              "error_type": null,
+              "rationale": "The operation is asynchronous, so results arrive after processing. Waiting prevents a premature attempt to read output.",
+              "better_fit": null,
+              "feedback": null
+            },
+            {
+              "text": "Use prebuilt-invoice",
+              "is_correct": false,
+              "error_type": "Incorrect analyzer decision",
+              "rationale": "prebuilt-invoice is designed for invoice content rather than audio. It is not a reliable choice for a voicemail WAV file.",
+              "better_fit": "Use prebuilt-invoice when the input is an invoice requiring invoice-field extraction.",
+              "feedback": {
+                "intrinsic": "The selected analyzer would not fit the voicemail input.",
+                "instructional": "Evaluate the media type first: a WAV voicemail requires prebuilt-audioSearch."
+              }
+            }
+          ],
+          "feedback_for_correct": "Use prebuilt-audioSearch for audio, provide an accessible voicemail URL, and wait or poll for the asynchronous operation to complete before reading the transcript and structured results."
+        },
+        "changed_payload_fields": [
+          "feedback_for_correct"
+        ]
+      }
+    ],
+    "evidence": {
+      "hard_gate": {
+        "artifact_sha256": "0845a286be6aaebf678d277d6255f95db5004c8547a0042fb715ef6d2c05f6ec",
+        "passed": true,
+        "issues": [],
+        "checks": {
+          "schema_and_answers": true,
+          "identity": true,
+          "final_sequence": true
+        },
+        "metrics": {},
+        "constraint_relaxations": []
+      },
+      "source_fidelity_critic": {
+        "result": {
+          "dimensions": [
+            {
+              "dimension": "factual_fidelity",
+              "score": 0.98,
+              "evidence": [
+                {
+                  "statement": "All answers, explanations, and feedback align with the source: prebuilt-audioSearch is the prebuilt audio analyzer, analysis is asynchronous, and results include transcript/structured fields. Source: “prebuilt-audioSearch” and “analysis is asynchronous.”",
+                  "item_keys": [
+                    "extract-information-from-audio/prebuilt-audio-sdk-flow/r3/v2",
+                    "extract-information-from-audio/markdown-and-transcript-output/r3/v2",
+                    "extract-information-from-audio/prebuilt-audio-sdk-flow/r5/v1"
+                  ],
+                  "paths": [
+                    "modules/11:12-get-started-with-ai-powered-information-extraction/units/14:extract-information-from-audio-l3/questions/0",
+                    "modules/11:12-get-started-with-ai-powered-information-extraction/units/14:extract-information-from-audio-l3/questions/1",
+                    "modules/11:12-get-started-with-ai-powered-information-extraction/units/14:extract-information-from-audio-l3/questions/2"
+                  ]
+                }
+              ]
+            },
+            {
+              "dimension": "answer_unambiguity",
+              "score": 0.97,
+              "evidence": [
+                {
+                  "statement": "Each item has one defensible answer: the exact analyzer ID, the ordered transcript definition, and the three applicable SDK-flow choices. The multi-select item explicitly marks only the invoice analyzer as incorrect.",
+                  "item_keys": [
+                    "extract-information-from-audio/prebuilt-audio-sdk-flow/r3/v2",
+                    "extract-information-from-audio/markdown-and-transcript-output/r3/v2",
+                    "extract-information-from-audio/prebuilt-audio-sdk-flow/r5/v1"
+                  ],
+                  "paths": [
+                    "modules/11:12-get-started-with-ai-powered-information-extraction/units/14:extract-information-from-audio-l3/questions/0",
+                    "modules/11:12-get-started-with-ai-powered-information-extraction/units/14:extract-information-from-audio-l3/questions/1",
+                    "modules/11:12-get-started-with-ai-powered-information-extraction/units/14:extract-information-from-audio-l3/questions/2"
+                  ]
+                }
+              ]
+            },
+            {
+              "dimension": "distractor_plausibility",
+              "score": 0.88,
+              "evidence": [
+                {
+                  "statement": "Distractors use analyzer-like identifiers and a wrong media-specific analyzer, making the choices credible while remaining unsupported for the stated audio task. The least realistic distractors are the invented-looking prebuilt-invoice-sdk-flow and prebuilt-and-custom-analyzers labels.",
+                  "item_keys": [
+                    "extract-information-from-audio/prebuilt-audio-sdk-flow/r3/v2",
+                    "extract-information-from-audio/prebuilt-audio-sdk-flow/r5/v1"
+                  ],
+                  "paths": [
+                    "modules/11:12-get-started-with-ai-powered-information-extraction/units/14:extract-information-from-audio-l3/questions/0",
+                    "modules/11:12-get-started-with-ai-powered-information-extraction/units/14:extract-information-from-audio-l3/questions/2"
+                  ]
+                }
+              ]
+            },
+            {
+              "dimension": "misconception_quality",
+              "score": 0.9,
+              "evidence": [
+                {
+                  "statement": "Wrong choices target realistic errors: confusing invoice and audio analyzers, choosing a video analyzer for audio, or reading results before an asynchronous operation completes. Source: prebuilt-invoice is for invoice content, prebuilt-videoSearch is for video, and analysis requires polling until success.",
+                  "item_keys": [
+                    "extract-information-from-audio/prebuilt-audio-sdk-flow/r3/v2",
+                    "extract-information-from-audio/prebuilt-audio-sdk-flow/r5/v1"
+                  ],
+                  "paths": [
+                    "modules/11:12-get-started-with-ai-powered-information-extraction/units/14:extract-information-from-audio-l3/questions/0",
+                    "modules/11:12-get-started-with-ai-powered-information-extraction/units/14:extract-information-from-audio-l3/questions/2"
+                  ]
+                }
+              ]
+            },
+            {
+              "dimension": "cognitive_progression",
+              "score": 0.96,
+              "evidence": [
+                {
+                  "statement": "The ordered sequence progresses from remembering the analyzer ID, to understanding the meaning of a transcript, to applying multiple SDK-flow decisions to a voicemail scenario.",
+                  "item_keys": [
+                    "extract-information-from-audio/prebuilt-audio-sdk-flow/r3/v2",
+                    "extract-information-from-audio/markdown-and-transcript-output/r3/v2",
+                    "extract-information-from-audio/prebuilt-audio-sdk-flow/r5/v1"
+                  ],
+                  "paths": [
+                    "modules/11:12-get-started-with-ai-powered-information-extraction/units/14:extract-information-from-audio-l3/questions/0",
+                    "modules/11:12-get-started-with-ai-powered-information-extraction/units/14:extract-information-from-audio-l3/questions/1",
+                    "modules/11:12-get-started-with-ai-powered-information-extraction/units/14:extract-information-from-audio-l3/questions/2"
+                  ]
+                }
+              ]
+            },
+            {
+              "dimension": "mechanic_rhythm_variation",
+              "score": 0.98,
+              "evidence": [
+                {
+                  "statement": "The three consecutive items use distinct mechanics—fill-in-the-blank, sentence arrangement, and select-all-that-apply—without disruptive repetition.",
+                  "item_keys": [
+                    "extract-information-from-audio/prebuilt-audio-sdk-flow/r3/v2",
+                    "extract-information-from-audio/markdown-and-transcript-output/r3/v2",
+                    "extract-information-from-audio/prebuilt-audio-sdk-flow/r5/v1"
+                  ],
+                  "paths": [
+                    "modules/11:12-get-started-with-ai-powered-information-extraction/units/14:extract-information-from-audio-l3/questions/0",
+                    "modules/11:12-get-started-with-ai-powered-information-extraction/units/14:extract-information-from-audio-l3/questions/1",
+                    "modules/11:12-get-started-with-ai-powered-information-extraction/units/14:extract-information-from-audio-l3/questions/2"
+                  ]
+                }
+              ]
+            },
+            {
+              "dimension": "prompt_language_variation",
+              "score": 0.95,
+              "evidence": [
+                {
+                  "statement": "Prompt forms vary across the sequence: a completion stem, a direct ordering instruction, and a contextual developer decision scenario.",
+                  "item_keys": [
+                    "extract-information-from-audio/prebuilt-audio-sdk-flow/r3/v2",
+                    "extract-information-from-audio/markdown-and-transcript-output/r3/v2",
+                    "extract-information-from-audio/prebuilt-audio-sdk-flow/r5/v1"
+                  ],
+                  "paths": [
+                    "modules/11:12-get-started-with-ai-powered-information-extraction/units/14:extract-information-from-audio-l3/questions/0",
+                    "modules/11:12-get-started-with-ai-powered-information-extraction/units/14:extract-information-from-audio-l3/questions/1",
+                    "modules/11:12-get-started-with-ai-powered-information-extraction/units/14:extract-information-from-audio-l3/questions/2"
+                  ]
+                }
+              ]
+            },
+            {
+              "dimension": "scenario_authenticity",
+              "score": 0.96,
+              "evidence": [
+                {
+                  "statement": "The voicemail WAV and developer SDK-flow scenario is credible and directly reflects the source's Python example using an audio URL, prebuilt-audioSearch, asynchronous processing, and structured output.",
+                  "item_keys": [
+                    "extract-information-from-audio/prebuilt-audio-sdk-flow/r5/v1"
+                  ],
+                  "paths": [
+                    "modules/11:12-get-started-with-ai-powered-information-extraction/units/14:extract-information-from-audio-l3/questions/2"
+                  ]
+                }
+              ]
+            },
+            {
+              "dimension": "feedback_usefulness",
+              "score": 0.94,
+              "evidence": [
+                {
+                  "statement": "Feedback identifies the governing concepts and next steps: select the audio analyzer, distinguish it from invoice/video IDs, provide the input URL, and wait or poll for asynchronous completion.",
+                  "item_keys": [
+                    "extract-information-from-audio/prebuilt-audio-sdk-flow/r3/v2",
+                    "extract-information-from-audio/markdown-and-transcript-output/r3/v2",
+                    "extract-information-from-audio/prebuilt-audio-sdk-flow/r5/v1"
+                  ],
+                  "paths": [
+                    "modules/11:12-get-started-with-ai-powered-information-extraction/units/14:extract-information-from-audio-l3/questions/0",
+                    "modules/11:12-get-started-with-ai-powered-information-extraction/units/14:extract-information-from-audio-l3/questions/1",
+                    "modules/11:12-get-started-with-ai-powered-information-extraction/units/14:extract-information-from-audio-l3/questions/2"
+                  ]
+                }
+              ]
+            },
+            {
+              "dimension": "difficulty_appropriateness",
+              "score": 0.96,
+              "evidence": [
+                {
+                  "statement": "The difficulty is appropriate for a Level 3 audio-extraction session: recognition and definition precede a bounded application task involving a familiar voicemail and SDK workflow.",
+                  "item_keys": [
+                    "extract-information-from-audio/prebuilt-audio-sdk-flow/r3/v2",
+                    "extract-information-from-audio/markdown-and-transcript-output/r3/v2",
+                    "extract-information-from-audio/prebuilt-audio-sdk-flow/r5/v1"
+                  ],
+                  "paths": [
+                    "modules/11:12-get-started-with-ai-powered-information-extraction/units/14:extract-information-from-audio-l3/questions/0",
+                    "modules/11:12-get-started-with-ai-powered-information-extraction/units/14:extract-information-from-audio-l3/questions/1",
+                    "modules/11:12-get-started-with-ai-powered-information-extraction/units/14:extract-information-from-audio-l3/questions/2"
+                  ]
+                }
+              ]
+            },
+            {
+              "dimension": "terminology_consistency",
+              "score": 0.97,
+              "evidence": [
+                {
+                  "statement": "The artifact consistently uses prebuilt-audioSearch, transcript, structured fields, URL input, and asynchronous processing in ways that match the source terminology.",
+                  "item_keys": [
+                    "extract-information-from-audio/prebuilt-audio-sdk-flow/r3/v2",
+                    "extract-information-from-audio/markdown-and-transcript-output/r3/v2",
+                    "extract-information-from-audio/prebuilt-audio-sdk-flow/r5/v1"
+                  ],
+                  "paths": [
+                    "modules/11:12-get-started-with-ai-powered-information-extraction/units/14:extract-information-from-audio-l3/questions/0",
+                    "modules/11:12-get-started-with-ai-powered-information-extraction/units/14:extract-information-from-audio-l3/questions/1",
+                    "modules/11:12-get-started-with-ai-powered-information-extraction/units/14:extract-information-from-audio-l3/questions/2"
+                  ]
+                }
+              ]
+            },
+            {
+              "dimension": "overall_learner_experience",
+              "score": 0.95,
+              "evidence": [
+                {
+                  "statement": "The exact sequence is coherent, progressively more applied, mechanically varied, and supported by source-bounded explanations. Minor weakness: two analyzer distractors are less realistic than the media-confusion distractors.",
+                  "item_keys": [
+                    "extract-information-from-audio/prebuilt-audio-sdk-flow/r3/v2",
+                    "extract-information-from-audio/markdown-and-transcript-output/r3/v2",
+                    "extract-information-from-audio/prebuilt-audio-sdk-flow/r5/v1"
+                  ],
+                  "paths": [
+                    "modules/11:12-get-started-with-ai-powered-information-extraction/units/14:extract-information-from-audio-l3/questions/0",
+                    "modules/11:12-get-started-with-ai-powered-information-extraction/units/14:extract-information-from-audio-l3/questions/1",
+                    "modules/11:12-get-started-with-ai-powered-information-extraction/units/14:extract-information-from-audio-l3/questions/2"
+                  ]
+                }
+              ]
+            }
+          ],
+          "critical_defects": [],
+          "largest_gap": null,
+          "confidence": 0.94,
+          "human_review_recommended": false,
+          "human_review_reason": null,
+          "concise_summary": "The challenger is source-faithful, unambiguous, appropriately progressive, and mechanically varied. No critical defect or repairable below-threshold gap is evident; only minor distractor-realism weakness remains."
+        },
+        "artifact_sha256": "0845a286be6aaebf678d277d6255f95db5004c8547a0042fb715ef6d2c05f6ec",
+        "evaluation_context_sha256": "86c491616e45f9fc65ed8f32a0e4839b3f011ad01518b45d528cd8c059dac948",
+        "goal_sha256": "6ce6b245bb30616f24e0fa9f76e0f5d01e608776378d036724270915fb57e725",
+        "critic_backend": "codex",
+        "critic_model": "codex:gpt-5.6-luna",
+        "fresh_context": true,
+        "model_independence": "independent",
+        "approved_reference_count": 0,
+        "reference_confidence_reduced": true,
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost_usd": 0.0,
+          "backend_calls": 1
+        }
+      },
+      "source_fidelity_gate": {
+        "artifact_sha256": "0845a286be6aaebf678d277d6255f95db5004c8547a0042fb715ef6d2c05f6ec",
+        "passed": true,
+        "issues": [],
+        "checks": {
+          "factual_fidelity_threshold": true,
+          "critic_confidence_threshold": true,
+          "no_factual_critical_defect": true,
+          "no_human_review_request": true,
+          "fresh_critic_context": true
+        },
+        "metrics": {
+          "factual_fidelity_score": 0.98,
+          "factual_fidelity_threshold": 0.8,
+          "critic_confidence": 0.94
+        },
+        "constraint_relaxations": []
+      },
+      "comparison": {
+        "champion_sha256": "5af585de5c1eb8b6eb71e1cf7b84ee3475704c518cc4f14075d8f7abfe85ad4e",
+        "challenger_sha256": "0845a286be6aaebf678d277d6255f95db5004c8547a0042fb715ef6d2c05f6ec",
+        "evaluation_context_sha256": "86c491616e45f9fc65ed8f32a0e4839b3f011ad01518b45d528cd8c059dac948",
+        "comparator_backend": "codex",
+        "comparator_model": "codex:gpt-5.6-luna",
+        "comparator_fresh_context": true,
+        "records": [
+          {
+            "order_index": 1,
+            "seed": 901,
+            "a_role": "challenger",
+            "b_role": "champion",
+            "mapped_winner": "challenger",
+            "verdict": {
+              "winner": "A",
+              "confidence": 0.99,
+              "margin": 0.03,
+              "dimensions": [
+                {
+                  "dimension": "factual_fidelity",
+                  "score_a": 0.97,
+                  "score_b": 0.97,
+                  "evidence": "Both candidates use the same source-faithful analyzer ID, transcript definition, and asynchronous audio workflow."
+                },
+                {
+                  "dimension": "answer_unambiguity",
+                  "score_a": 0.99,
+                  "score_b": 0.99,
+                  "evidence": "Each item has a clearly specified answer, including explicit accepted answers and correct option flags."
+                },
+                {
+                  "dimension": "distractor_plausibility",
+                  "score_a": 0.9,
+                  "score_b": 0.9,
+                  "evidence": "The invoice and video analyzer IDs are credible media-type confusions without being defensible for voicemail audio."
+                },
+                {
+                  "dimension": "misconception_quality",
+                  "score_a": 0.88,
+                  "score_b": 0.88,
+                  "evidence": "Distractors diagnose confusing audio with invoice/video analysis and overlooking asynchronous processing."
+                },
+                {
+                  "dimension": "cognitive_progression",
+                  "score_a": 0.84,
+                  "score_b": 0.84,
+                  "evidence": "The sequence moves from recall, to understanding a transcript, to applying an audio SDK flow."
+                },
+                {
+                  "dimension": "mechanic_rhythm_variation",
+                  "score_a": 0.7,
+                  "score_b": 0.7,
+                  "evidence": "The three-item sequence uses fill-blank, sentence arrangement, and multi-select mechanics."
+                },
+                {
+                  "dimension": "prompt_language_variation",
+                  "score_a": 0.55,
+                  "score_b": 0.55,
+                  "evidence": "The mechanics differ, but the short sequence provides limited variation in prompt-stem language."
+                },
+                {
+                  "dimension": "scenario_authenticity",
+                  "score_a": 0.9,
+                  "score_b": 0.9,
+                  "evidence": "The voicemail WAV and developer workflow represent a credible content-analysis task."
+                },
+                {
+                  "dimension": "feedback_usefulness",
+                  "score_a": 0.91,
+                  "score_b": 0.63,
+                  "evidence": "A explains the correct analyzer, accessible input, and need to wait or poll; B's final explanation only says the choice set matches the flow."
+                },
+                {
+                  "dimension": "difficulty_appropriateness",
+                  "score_a": 0.9,
+                  "score_b": 0.9,
+                  "evidence": "The progression and difficulty are appropriate for reviewing foundational audio-analysis concepts before an applied workflow item."
+                },
+                {
+                  "dimension": "terminology_consistency",
+                  "score_a": 0.98,
+                  "score_b": 0.98,
+                  "evidence": "Both consistently use prebuilt-audioSearch, transcript, structured fields, accessible URL, and asynchronous operation terminology."
+                },
+                {
+                  "dimension": "overall_learner_experience",
+                  "score_a": 0.89,
+                  "score_b": 0.82,
+                  "evidence": "The sequences are identical and coherent; A provides materially more actionable final feedback."
+                }
+              ],
+              "evidence": [
+                "Candidates are identical in item order, mechanics, answers, scenarios, distractors, and metadata.",
+                "Candidate A has more useful final-item feedback, explicitly reinforcing the analyzer choice and asynchronous polling behavior.",
+                "Candidate B's final explanation is generic and does not explain the governing concept or next step."
+              ],
+              "human_review_recommended": false,
+              "usage": {
+                "input_tokens": 0,
+                "output_tokens": 0,
+                "cost_usd": 0.0,
+                "backend_calls": 1
+              }
+            }
+          },
+          {
+            "order_index": 2,
+            "seed": 901,
+            "a_role": "champion",
+            "b_role": "challenger",
+            "mapped_winner": "challenger",
+            "verdict": {
+              "winner": "B",
+              "confidence": 0.99,
+              "margin": 0.03,
+              "dimensions": [
+                {
+                  "dimension": "factual_fidelity",
+                  "score_a": 0.98,
+                  "score_b": 0.98,
+                  "evidence": "Both candidates match the source: prebuilt-audioSearch, accessible media URL, and asynchronous completion before reading results."
+                },
+                {
+                  "dimension": "answer_unambiguity",
+                  "score_a": 0.98,
+                  "score_b": 0.98,
+                  "evidence": "Both have one clear accepted fill-in answer, one valid sentence order, and one defensible multi-select set."
+                },
+                {
+                  "dimension": "distractor_plausibility",
+                  "score_a": 0.84,
+                  "score_b": 0.84,
+                  "evidence": "Both include credible media-type and workflow distractors, though some analyzer-ID distractors are artificial."
+                },
+                {
+                  "dimension": "misconception_quality",
+                  "score_a": 0.86,
+                  "score_b": 0.86,
+                  "evidence": "Both diagnose confusion between invoice and audio analyzers and misunderstanding asynchronous processing."
+                },
+                {
+                  "dimension": "cognitive_progression",
+                  "score_a": 0.9,
+                  "score_b": 0.9,
+                  "evidence": "Both progress from recall to definition to applied SDK-flow selection."
+                },
+                {
+                  "dimension": "mechanic_rhythm_variation",
+                  "score_a": 0.95,
+                  "score_b": 0.95,
+                  "evidence": "Both vary mechanics across fill-blank, sentence arrangement, and multi-select."
+                },
+                {
+                  "dimension": "prompt_language_variation",
+                  "score_a": 0.9,
+                  "score_b": 0.9,
+                  "evidence": "Both use distinct prompt stems for the three mechanics."
+                },
+                {
+                  "dimension": "scenario_authenticity",
+                  "score_a": 0.94,
+                  "score_b": 0.94,
+                  "evidence": "The voicemail WAV developer scenario reflects the source's audio analyzer and Python SDK workflow."
+                },
+                {
+                  "dimension": "feedback_usefulness",
+                  "score_a": 0.68,
+                  "score_b": 0.92,
+                  "evidence": "B explicitly connects the analyzer, accessible URL, and waiting or polling to the asynchronous result flow; A gives only a broad correctness statement."
+                },
+                {
+                  "dimension": "difficulty_appropriateness",
+                  "score_a": 0.92,
+                  "score_b": 0.92,
+                  "evidence": "Both fit an introductory review sequence, moving from remembering and understanding to a bounded application task."
+                },
+                {
+                  "dimension": "terminology_consistency",
+                  "score_a": 0.97,
+                  "score_b": 0.97,
+                  "evidence": "Both consistently use analyzer IDs, audio, transcript, structured fields, URL, and asynchronous operation terminology."
+                },
+                {
+                  "dimension": "overall_learner_experience",
+                  "score_a": 0.8,
+                  "score_b": 0.88,
+                  "evidence": "The sequences are otherwise identical, but B provides materially more actionable final-item feedback."
+                }
+              ],
+              "evidence": [
+                "Candidates are identical except for the final item's explanation.",
+                "B's explanation states the specific analyzer, URL requirement, and waiting or polling step, making the next action clearer.",
+                "A's final explanation is accurate but generic and does not explain the operational next step."
+              ],
+              "human_review_recommended": false,
+              "usage": {
+                "input_tokens": 0,
+                "output_tokens": 0,
+                "cost_usd": 0.0,
+                "backend_calls": 1
+              }
+            }
+          }
+        ],
+        "position_sensitive": false,
+        "stable": true,
+        "decision": "promote",
+        "protected_regressions": [],
+        "minimum_confidence": 0.99,
+        "minimum_margin": 0.03,
+        "decision_evidence": "Both position orders select the hard-gated challenger without protected regression.",
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost_usd": 0.0,
+          "backend_calls": 2
+        }
+      }
+    }
+  },
+  "approved_by": "Codex reviewer for Adi",
+  "approved_at": "2026-08-29T08:09:16.187585Z",
+  "exact_proposal_sha256": "c06ea5a2452982c7ec64a7cb603dd432ecef4affa3d3a4d254e6bb3d2e2ef439",
+  "exact_history_sha256": "303c2a5442c1324e0d0109109062eb8df00cdb57c669901dd007e89e4ea3483d",
+  "exact_compiled_artifact_sha256": "2fa356d363b3a7f13d4d399d67361e952b387b4b6502e0aa169d3bb7f3169d2b",
+  "exact_champion_after_sha256": "0845a286be6aaebf678d277d6255f95db5004c8547a0042fb715ef6d2c05f6ec"
+}

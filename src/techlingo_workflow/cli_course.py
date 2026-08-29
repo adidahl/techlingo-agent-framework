@@ -41,9 +41,14 @@ gauntlet_history_app = typer.Typer(
     no_args_is_help=True,
     help="Inspect immutable qualitative Gauntlet history.",
 )
+gauntlet_proposal_app = typer.Typer(
+    no_args_is_help=True,
+    help="Review, approve, and incorporate hash-bound Gauntlet proposals.",
+)
 course_app.add_typer(reference_app, name="reference")
 course_app.add_typer(gauntlet_app, name="gauntlet")
 gauntlet_app.add_typer(gauntlet_history_app, name="history")
+gauntlet_app.add_typer(gauntlet_proposal_app, name="proposal")
 
 
 def _load_env(dotenv_path: Optional[Path]) -> None:
@@ -683,15 +688,24 @@ def gauntlet_run(
                 candidate, sequence_policy=policy
             ),
         )
-        outcome = asyncio.run(
-            runner.run(
-                run_id=run_id,
-                champion=artifact,
-                goal=DEFAULT_GAUNTLET_GOAL,
-                source_material=sources,
-                references=approved,
+        try:
+            outcome = asyncio.run(
+                runner.run(
+                    run_id=run_id,
+                    champion=artifact,
+                    goal=DEFAULT_GAUNTLET_GOAL,
+                    source_material=sources,
+                    references=approved,
+                )
             )
-        )
+        except Exception as exc:  # noqa: BLE001 - one live model failure must not abort a batch
+            detail = str(exc).strip().splitlines()[-1] if str(exc).strip() else repr(exc)
+            typer.echo(
+                f"ERROR {unit_key}: qualitative run failed without publication evidence: "
+                f"{type(exc).__name__}: {detail[:500]}"
+            )
+            any_blocked = True
+            continue
         try:
             path = write_gauntlet_record(
                 course_dir,
@@ -805,3 +819,343 @@ def gauntlet_history_show(
         f"tokens={history.total_usage.total_tokens}, cost_usd={history.total_usage.cost_usd:.6f}"
     )
     typer.echo(f"Rounds: {len(history.rounds)}")
+
+
+# ---------------------------------------------------------------------------
+# Reviewed Gauntlet proposal -> authoritative rebuild workflow
+# ---------------------------------------------------------------------------
+
+
+@gauntlet_proposal_app.command("list")
+def gauntlet_proposal_list(
+    course_dir: Path = typer.Argument(..., help="Course workspace directory."),
+    as_json: bool = typer.Option(False, "--json", help="Print complete exact proposal JSON."),
+) -> None:
+    """List only reconstructable promoted content edits for the current artifact."""
+
+    from .gauntlet_proposals import GauntletProposalError, list_authored_proposals
+
+    try:
+        proposals = list_authored_proposals(course_dir)
+    except (WorkspaceError, GauntletProposalError) as exc:
+        raise typer.BadParameter(str(exc)) from exc
+    if as_json:
+        typer.echo(json.dumps([item.model_dump(mode="json") for item in proposals], indent=2))
+        return
+    if not proposals:
+        typer.echo("No current promoted authored proposals found.")
+        return
+    for proposal in proposals:
+        evidence = proposal.evidence
+        typer.echo(
+            f"{proposal.proposal_id}  unit={proposal.unit_key}  "
+            f"proposal={proposal.proposal_sha256}"
+        )
+        typer.echo(
+            f"  history={proposal.history_sha256}  "
+            f"compiled={proposal.compiled_artifact_sha256}  "
+            f"challenger={proposal.champion_after_sha256}"
+        )
+        typer.echo(
+            "  evidence: "
+            f"hard_gate={evidence.hard_gate.passed}  "
+            f"source_fidelity={evidence.source_fidelity_gate.passed}  "
+            f"comparison={evidence.comparison.decision.value}/"
+            f"stable={evidence.comparison.stable}  "
+            f"positions={len(evidence.comparison.records)}"
+        )
+        for change in proposal.emitted_changes:
+            typer.echo(
+                f"  {change.item_key} [{change.field}]\n"
+                f"    before={json.dumps(change.before, ensure_ascii=False, sort_keys=True)}\n"
+                f"    after ={json.dumps(change.after, ensure_ascii=False, sort_keys=True)}"
+            )
+
+
+@gauntlet_proposal_app.command("queue")
+def gauntlet_proposal_queue(
+    course_dir: Path = typer.Argument(..., help="Course workspace directory."),
+    as_json: bool = typer.Option(False, "--json", help="Print complete queue JSON."),
+) -> None:
+    """List unsafe/unbounded authored-rebuild findings separately from proposals."""
+
+    from .gauntlet_proposals import GauntletProposalError, list_authored_rebuild_queue
+
+    try:
+        entries = list_authored_rebuild_queue(course_dir)
+    except (WorkspaceError, GauntletProposalError) as exc:
+        raise typer.BadParameter(str(exc)) from exc
+    if as_json:
+        typer.echo(json.dumps([item.model_dump(mode="json") for item in entries], indent=2))
+        return
+    if not entries:
+        typer.echo("No unsafe/unbounded authored-rebuild findings found.")
+        return
+    for entry in entries:
+        typer.echo(
+            f"{entry.queue_id}  unit={entry.unit_key}  reason={entry.reason.value}\n"
+            f"  {entry.summary}\n"
+            f"  history={entry.history_sha256}  compiled={entry.compiled_artifact_sha256}"
+        )
+
+
+@gauntlet_proposal_app.command("export")
+def gauntlet_proposal_export(
+    course_dir: Path = typer.Argument(..., help="Course workspace directory."),
+    identifier: str = typer.Argument(..., help="Exact proposal id or unambiguous run id."),
+    output: Path = typer.Option(..., "--output", help="New human-review JSON artifact path."),
+) -> None:
+    """Export an exact review artifact without changing canonical banks."""
+
+    from .gauntlet_proposals import (
+        GauntletProposalError,
+        find_authored_proposal,
+        write_authored_proposal,
+    )
+
+    try:
+        proposal = find_authored_proposal(course_dir, identifier)
+        path = write_authored_proposal(proposal, output)
+    except (WorkspaceError, GauntletProposalError) as exc:
+        raise typer.BadParameter(str(exc)) from exc
+    typer.echo(f"Review artifact: {path}")
+    typer.echo(f"Proposal SHA-256: {proposal.proposal_sha256}")
+    typer.echo(f"History SHA-256: {proposal.history_sha256}")
+    typer.echo(f"Compiled artifact SHA-256: {proposal.compiled_artifact_sha256}")
+    typer.echo(f"Proposed champion SHA-256: {proposal.champion_after_sha256}")
+    typer.echo("Canonical banks were not changed.")
+
+
+@gauntlet_proposal_app.command("review")
+def gauntlet_proposal_review(
+    course_dir: Path = typer.Argument(..., help="Course workspace directory."),
+    identifier: str = typer.Argument(..., help="Exact proposal id or unambiguous run id."),
+    output: Path = typer.Option(..., "--output", help="New human-readable HTML review page."),
+) -> None:
+    """Create a side-by-side question review page without changing banks."""
+
+    from .gauntlet_proposals import (
+        GauntletProposalError,
+        find_authored_proposal,
+        write_authored_proposal_review,
+    )
+
+    try:
+        proposal = find_authored_proposal(course_dir, identifier)
+        path = write_authored_proposal_review(proposal, output)
+    except (WorkspaceError, GauntletProposalError) as exc:
+        raise typer.BadParameter(str(exc)) from exc
+    typer.echo(f"Human review page: {path}")
+    typer.echo("Open it in a browser. Nothing was applied and no model was called.")
+
+
+@gauntlet_proposal_app.command("approve")
+def gauntlet_proposal_approve(
+    course_dir: Path = typer.Argument(..., help="Course workspace directory."),
+    proposal_path: Path = typer.Argument(..., exists=True, dir_okay=False),
+    approved_by: str = typer.Option(..., "--approved-by", help="Named human reviewer."),
+    proposal_sha256: str = typer.Option(..., "--proposal-sha256"),
+    history_sha256: str = typer.Option(..., "--history-sha256"),
+    compiled_artifact_sha256: str = typer.Option(..., "--compiled-artifact-sha256"),
+    champion_after_sha256: str = typer.Option(..., "--champion-after-sha256"),
+    output: Optional[Path] = typer.Option(
+        None,
+        "--output",
+        help="New approval path; defaults to gauntlet/proposals/approved/.",
+    ),
+) -> None:
+    """Approve only the explicitly repeated exact proposal/history/artifact hashes."""
+
+    from .gauntlet_proposals import (
+        GauntletProposalError,
+        approve_authored_proposal,
+        load_authored_proposal,
+        verify_approval_against_workspace,
+        write_proposal_approval,
+    )
+
+    try:
+        proposal = load_authored_proposal(proposal_path)
+        approval = approve_authored_proposal(
+            proposal,
+            approved_by=approved_by,
+            exact_proposal_sha256=proposal_sha256,
+            exact_history_sha256=history_sha256,
+            exact_compiled_artifact_sha256=compiled_artifact_sha256,
+            exact_champion_after_sha256=champion_after_sha256,
+        )
+        verify_approval_against_workspace(course_dir, approval)
+        path = write_proposal_approval(course_dir, approval, output)
+    except (WorkspaceError, GauntletProposalError) as exc:
+        raise typer.BadParameter(str(exc)) from exc
+    typer.echo(f"Approval artifact: {path}")
+    typer.echo(f"Approval SHA-256: {approval.approval_sha256}")
+    typer.echo("Canonical banks were not changed; incorporation remains a separate explicit step.")
+
+
+def _run_ai901_deterministic_audit(course_dir: Path) -> dict:
+    """Run the repository's read-only AI-901 audit without writing a bundle."""
+
+    import importlib.util
+
+    script = Path(__file__).resolve().parents[2] / "scripts" / "ai901_sequence_audit.py"
+    spec = importlib.util.spec_from_file_location("techlingo_ai901_sequence_audit", script)
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"cannot load deterministic audit: {script}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    report = module.audit_course(course_dir)
+    if not report["compiled"]["ok"]:
+        raise RuntimeError("deterministic AI-901 audit failed")
+    return report
+
+
+@gauntlet_proposal_app.command("incorporate")
+def gauntlet_proposal_incorporate(
+    course_dir: Path = typer.Argument(..., help="Course workspace directory."),
+    approval_path: Path = typer.Argument(..., exists=True, dir_okay=False),
+    execute: bool = typer.Option(
+        False,
+        "--execute",
+        help="Required opt-in for the one approved bank edit and deterministic validation.",
+    ),
+    fresh_gauntlet: bool = typer.Option(
+        False,
+        "--fresh-gauntlet",
+        help="After deterministic validation, explicitly run Luna on only the affected unit.",
+    ),
+    dotenv_path: Optional[Path] = typer.Option(
+        None, help="Optional .env path (defaults to .env in repo root)."
+    ),
+) -> None:
+    """Apply one approved bank edit; never regenerate the course or source."""
+
+    from .gauntlet_proposals import (
+        GauntletProposalError,
+        apply_approved_proposal_to_banks,
+        load_proposal_approval,
+        restore_approved_proposal_banks,
+        verify_approval_against_workspace,
+    )
+
+    try:
+        approval = load_proposal_approval(approval_path)
+        proposal = verify_approval_against_workspace(course_dir, approval)
+    except (WorkspaceError, GauntletProposalError) as exc:
+        raise typer.BadParameter(str(exc)) from exc
+    sources = list(dict.fromkeys(change.source_file for change in proposal.authored_changes))
+    typer.echo(
+        f"Verified approval {approval.approval_sha256} for {proposal.proposal_id}; "
+        f"source(s): {', '.join(sources)}"
+    )
+    if not execute:
+        typer.echo("Dry run only: no bank, build, audit-history, or bundle files were changed.")
+        typer.echo("Re-run with --execute to apply only the approved authoritative bank edit.")
+        return
+
+    if fresh_gauntlet:
+        _load_env(dotenv_path)
+        # Fail before the bank edit if the explicitly requested reviewer is unavailable.
+        _ws, compiled_before, _artifacts = _compiled_artifacts_or_die(course_dir)
+        _gauntlet_model_or_die(
+            compiled_before.cfg.gauntlet,
+            Workspace(course_dir).require().load_meta(),
+            None,
+            None,
+        )
+
+    try:
+        apply_approved_proposal_to_banks(course_dir, approval)
+    except (WorkspaceError, GauntletProposalError) as exc:
+        raise typer.BadParameter(str(exc)) from exc
+    typer.echo(
+        "Applied the approved payload only to the authoritative bank item(s), marked "
+        "human-edited and pinned. No source, generated unit, or bundle was rebuilt."
+    )
+
+    try:
+        audit = _run_ai901_deterministic_audit(course_dir)
+    except Exception as exc:  # noqa: BLE001 - CLI must fail closed on the audit boundary
+        try:
+            restore_approved_proposal_banks(course_dir, approval)
+        except (WorkspaceError, GauntletProposalError) as restore_exc:
+            typer.echo(
+                f"ERROR: {exc}; automatic restoration also failed: {restore_exc}. "
+                "Publication remains blocked."
+            )
+            raise typer.Exit(code=1)
+        typer.echo(
+            f"ERROR: {exc}. The exact previous bank item was restored; "
+            "the approved change was not retained."
+        )
+        raise typer.Exit(code=1)
+    compiled_report = audit["compiled"]
+    typer.echo(
+        "Deterministic audit PASS: "
+        f"artifact={compiled_report['artifact_sha256']}  "
+        f"units={sum(compiled_report['unit_counts'].values())}  "
+        f"placements={compiled_report['preservation']['placements']}"
+    )
+
+    if fresh_gauntlet:
+        # This persists one new immutable history for the affected unit only.
+        gauntlet_run(
+            course_dir=course_dir,
+            unit=[proposal.unit_key],
+            all_units=False,
+            execute=True,
+            backend=None,
+            model_id=None,
+            dotenv_path=dotenv_path,
+        )
+    else:
+        typer.echo(
+            "Fresh Luna review was not run. Use --fresh-gauntlet only when you explicitly "
+            "want qualitative review of this one affected unit."
+        )
+
+
+@gauntlet_proposal_app.command("promote")
+def gauntlet_proposal_promote(
+    course_dir: Path = typer.Argument(..., help="Course workspace directory."),
+    approval_path: Path = typer.Argument(..., exists=True, dir_okay=False),
+    amendment_path: Path = typer.Option(..., "--amendment", exists=True, dir_okay=False),
+    receipt_path: Path = typer.Option(..., "--receipt", exists=True, dir_okay=False),
+    execute: bool = typer.Option(
+        False,
+        "--execute",
+        help="Required opt-in to promote the already-applied, validated repair evidence.",
+    ),
+) -> None:
+    """Promote one validated authored repair without rebuilding or compiling a bundle."""
+
+    from .gauntlet_proposals import (
+        GauntletProposalError,
+        load_proposal_approval,
+        promote_validated_authored_repair,
+    )
+
+    try:
+        approval = load_proposal_approval(approval_path)
+    except (WorkspaceError, GauntletProposalError) as exc:
+        raise typer.BadParameter(str(exc)) from exc
+    if not execute:
+        typer.echo(
+            "Dry run only: no publication state was changed. Re-run with --execute to "
+            "verify and promote the exact approval, amendment, receipt, and bank delta."
+        )
+        return
+    try:
+        record = promote_validated_authored_repair(
+            course_dir,
+            approval,
+            amendment_path=amendment_path,
+            receipt_path=receipt_path,
+        )
+    except (WorkspaceError, GauntletProposalError) as exc:
+        raise typer.BadParameter(str(exc)) from exc
+    typer.echo(
+        "Authored repair promotion PASS: "
+        f"item={record.item_key} artifact={record.artifact_sha256}"
+    )
+    typer.echo("No source, bank, generated unit, Gauntlet history, or bundle was changed.")

@@ -1,0 +1,97 @@
+{
+  "amendment_sha256": "bd07e1a174e9ee1dcaf286e1a364980fa4bf5f215e05fd45b083160ac1c6ef8b",
+  "schema_version": "techlingo-gauntlet-authored-amendment-v1",
+  "approved_by": "Codex reviewer for Adi",
+  "approved_at": "2026-08-29T08:09:16.201611+00:00",
+  "approval_sha256": "f1b9423ca89ed97f71d0621515d22e5422fa5a28b0af5a734f16841b8a394943",
+  "proposal_sha256": "a8e6093552663cd6b940a6179644ea31dcd346b4245474d62b2cd0d164339a03",
+  "history_sha256": "fd2e465c9189d05b74f6142d8a6461fe76c752103130b4827ea71a50a9e5c5a1",
+  "item_key": "ai-agents-and-their-tools/agent-model-component/r4/v1",
+  "bank_path": "bank/ai-agents-and-their-tools.json",
+  "reason": "Reviewer accepted the source-bound promoted edit and corrected its one-answer mechanic from multi-select to single-choice.",
+  "payload_before": {
+    "blooms_level": "Applying",
+    "question_type": "multi_choice",
+    "prompt": "A help-desk assistant must interpret visitors' questions and reason about useful replies before taking action. Which components support that need? Select all that apply.",
+    "concept_id": "agent-model-component",
+    "options": [
+      {
+        "text": "A large language model",
+        "is_correct": true,
+        "error_type": null,
+        "rationale": "This is correct. A large language model provides language understanding and reasoning.",
+        "better_fit": null,
+        "feedback": null
+      },
+      {
+        "text": "Language understanding",
+        "is_correct": true,
+        "error_type": null,
+        "rationale": "This is correct. The assistant must understand the wording and meaning of each question.",
+        "better_fit": null,
+        "feedback": null
+      },
+      {
+        "text": "Generative reasoning",
+        "is_correct": true,
+        "error_type": null,
+        "rationale": "This is correct. Generative reasoning supports constructing useful replies.",
+        "better_fit": null,
+        "feedback": null
+      },
+      {
+        "text": "An action tool alone",
+        "is_correct": false,
+        "error_type": "Confuses execution with reasoning",
+        "rationale": "An action tool performs a task but does not interpret language by itself. The scenario first requires understanding and reasoning.",
+        "better_fit": "This fits carrying out a task such as updating a calendar.",
+        "feedback": {
+          "intrinsic": "An action may be available while the visitor's question remains misunderstood.",
+          "instructional": "Language reasoning comes from the language model; action tools execute tasks after reasoning."
+        }
+      }
+    ],
+    "feedback_for_correct": "Correct. Understanding and reasoning depend on the language model's generative abilities."
+  },
+  "payload_after": {
+    "blooms_level": "Applying",
+    "question_type": "single_choice",
+    "prompt": "Which single agent component provides language understanding and reasoning?",
+    "concept_id": "agent-model-component",
+    "options": [
+      {
+        "text": "A knowledge tool",
+        "is_correct": false,
+        "error_type": "Confuses information access with reasoning",
+        "rationale": "A knowledge tool provides access to information, such as through a search engine or database. It does not provide the agent's language understanding and reasoning.",
+        "better_fit": "This fits providing access to information.",
+        "feedback": null
+      },
+      {
+        "text": "An action tool",
+        "is_correct": false,
+        "error_type": "Confuses task execution with reasoning",
+        "rationale": "An action tool enables the agent to perform tasks, such as sending emails or updating calendars. It does not provide language understanding and reasoning.",
+        "better_fit": "This fits enabling the agent to perform tasks.",
+        "feedback": null
+      },
+      {
+        "text": "A large language model",
+        "is_correct": true,
+        "error_type": null,
+        "rationale": "This is correct. The large language model is the agent's brain, using generative AI for language understanding and reasoning.",
+        "better_fit": null,
+        "feedback": null
+      },
+      {
+        "text": "Instructions",
+        "is_correct": false,
+        "error_type": "Confuses role guidance with the language model",
+        "rationale": "Instructions define the agent's role and behavior; they do not provide language understanding and reasoning.",
+        "better_fit": "This fits defining the agent's role and behavior.",
+        "feedback": null
+      }
+    ],
+    "feedback_for_correct": "Correct. The large language model is the agent's brain and provides language understanding and reasoning."
+  }
+}

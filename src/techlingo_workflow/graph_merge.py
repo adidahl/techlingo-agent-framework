@@ -167,6 +167,13 @@ def merge_source_concepts(
                 existing.status = "active"
                 if lesson_key not in existing.lessons:
                     existing.lessons.append(lesson_key)
+                # A cross-source match keeps the first owner's wording, but a
+                # legacy depthless node must not erase the incoming lesson's
+                # authoritative worksheet classification.  Filling a gap is
+                # safe across owners; conflicting known depths still retain
+                # the first owner's stable graph value.
+                if existing.depth is None and atom.depth is not None:
+                    existing.depth = atom.depth
                 # Refresh content only when this source OWNS the concept and a
                 # human hasn't taken it over — cross-file matches keep the
                 # first-seen wording (ARCHITECTURE.md §3.5).

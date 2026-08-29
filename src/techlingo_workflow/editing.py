@@ -21,6 +21,7 @@ from .llm import LLMClient
 from .models import Course, Exercise, ValidationReport
 from .validate import normalize_course, validate_course
 from .validate_techlingo import validate_techlingo_course
+from .worksheet import worksheet_applies, worksheet_size_bounds
 
 _EXERCISE_ADAPTER: TypeAdapter = TypeAdapter(Exercise)
 
@@ -73,6 +74,17 @@ def infer_config_from_course(course: Course) -> WorkflowConfig:
         blooms[ex.blooms_level.value] += 1
         types[ex.question_type] += 1
     flashcards = Counter(len(l.flashcards) for l in lessons).most_common(1)[0][0]
+    uniform_worksheet_lessons = all(
+        worksheet_applies(lesson.concepts) and len(lesson.exercises) == per_lesson
+        for lesson in lessons
+    )
+    budget_is_feasible = uniform_worksheet_lessons and all(
+        minimum <= per_lesson <= maximum
+        for minimum, maximum in (
+            worksheet_size_bounds(lesson.concepts) for lesson in lessons
+        )
+    )
+    worksheet_budget = per_lesson if budget_is_feasible else None
     try:
         return WorkflowConfig(
             difficulty=course.difficulty,
@@ -80,6 +92,7 @@ def infer_config_from_course(course: Course) -> WorkflowConfig:
             min_lessons_total=len(lessons),
             max_lessons_total=len(lessons),
             exercises_per_lesson=per_lesson,
+            worksheet_items_per_lesson=worksheet_budget,
             flashcards_per_lesson=flashcards,
             blooms_distribution=dict(blooms),
             question_type_distribution=dict(types),

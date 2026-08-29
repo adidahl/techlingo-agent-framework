@@ -52,6 +52,7 @@ from techlingo_workflow.workspace import (
     SourcePublication,
     SourceState,
     Workspace,
+    WorkspaceError,
     init_workspace,
     sha256_text,
 )
@@ -230,18 +231,114 @@ def test_carry_over_protected_items():
         course, source_file="f.md", source_sha="s", taken_lesson_keys=set(), taken_module_keys=set()
     )
     new_bank = converted.banks[0]
+    generated_order = [item.item_key for item in new_bank.items]
     pinned = new_bank.items[0].model_copy(deep=True)
     pinned.pinned = True
     pinned.payload["prompt"] = "HUMAN-TUNED PROMPT"
     edited = new_bank.items[2].model_copy(deep=True)
     edited.provenance = "human-edited"
+    edited.payload["statement"] = "A human rewrote this true statement."
     old_bank = LessonBank(lesson=new_bank.lesson, module=new_bank.module, items=[pinned, edited])
 
     carry_over_protected_items(new_bank, old_bank)
     by_key = {it.item_key: it for it in new_bank.items}
     assert by_key[pinned.item_key].payload["prompt"] == "HUMAN-TUNED PROMPT"  # protected wins collision
     assert by_key[edited.item_key].provenance == "human-edited"
+    assert by_key[edited.item_key].payload["statement"] == "A human rewrote this true statement."
+    assert [item.item_key for item in new_bank.items] == generated_order
     assert len(new_bank.items) == 6  # no duplicates
+
+
+def test_carry_over_protected_items_rejects_row_contract_drift():
+    mutations = {
+        "concept_id": lambda item: setattr(item, "concept_id", "different-concept"),
+        "rung": lambda item: setattr(item, "rung", 2),
+        "variant": lambda item: setattr(item, "variant", 9),
+        "payload.concept_id": lambda item: item.payload.__setitem__(
+            "concept_id", "different-concept"
+        ),
+        "payload.question_type": lambda item: item.payload.__setitem__(
+            "question_type", "multi_choice"
+        ),
+        "payload.blooms_level": lambda item: item.payload.__setitem__(
+            "blooms_level", BloomsLevel.applying.value
+        ),
+    }
+    for field, mutate in mutations.items():
+        converted = convert_course_result(
+            _internal_course(),
+            source_file="f.md",
+            source_sha="s",
+            taken_lesson_keys=set(),
+            taken_module_keys=set(),
+        )
+        new_bank = converted.banks[0]
+        protected = new_bank.items[0].model_copy(deep=True)
+        protected.pinned = True
+        mutate(protected)
+        old_bank = LessonBank(
+            lesson=new_bank.lesson,
+            module=new_bank.module,
+            items=[protected],
+        )
+        try:
+            carry_over_protected_items(new_bank, old_bank)
+            assert False, f"expected protected {field} drift to be rejected"
+        except WorkspaceError as error:
+            assert protected.item_key in str(error)
+            assert field in str(error)
+
+
+def test_carry_over_protected_items_rejects_true_false_answer_flip():
+    converted = convert_course_result(
+        _internal_course(),
+        source_file="f.md",
+        source_sha="s",
+        taken_lesson_keys=set(),
+        taken_module_keys=set(),
+    )
+    new_bank = converted.banks[0]
+    protected = new_bank.items[2].model_copy(deep=True)
+    protected.provenance = "human-edited"
+    protected.payload["correct_answer"] = not protected.payload["correct_answer"]
+    old_bank = LessonBank(
+        lesson=new_bank.lesson,
+        module=new_bank.module,
+        items=[protected],
+    )
+
+    try:
+        carry_over_protected_items(new_bank, old_bank)
+        assert False, "expected protected true/false answer drift to be rejected"
+    except WorkspaceError as error:
+        assert protected.item_key in str(error)
+        assert "payload.correct_answer" in str(error)
+
+
+def test_carry_over_protected_items_keeps_noncolliding_protected_content():
+    converted = convert_course_result(
+        _internal_course(),
+        source_file="f.md",
+        source_sha="s",
+        taken_lesson_keys=set(),
+        taken_module_keys=set(),
+    )
+    new_bank = converted.banks[0]
+    protected = new_bank.items[0].model_copy(deep=True)
+    protected.item_key = f"{new_bank.lesson}/human-authored/r1/v1"
+    protected.concept_id = "human-authored"
+    protected.payload["concept_id"] = "human-authored"
+    protected.provenance = "human-authored"
+    old_bank = LessonBank(
+        lesson=new_bank.lesson,
+        module=new_bank.module,
+        items=[protected],
+    )
+
+    carry_over_protected_items(new_bank, old_bank)
+
+    assert new_bank.items[-1] is protected
+    assert len(new_bank.items) == 7
 
 
 # ---------------------------------------------------------------------------
@@ -316,21 +413,104 @@ def test_plan_build_incremental_logic():
 
         state.sources["1. First.md"] = valid_state("alpha EDITED")
         plan = plan_build(ws, state, "different-config-hash-stored")
-        # stored hash differs from current -> everything dirty
+        assert [r for _, r in plan.dirty] == ["workflow config changed", "workflow config changed"]
+
+        # An interrupted migration may leave the workspace-wide config hash on
+        # the old snapshot after every source has already been rebound. Exact
+        # per-source LKG evidence is sufficient to resume without rebuilding.
         state.workflow_config_hash = "old-hash"
         plan = plan_build(ws, state, h)
-        assert [r for _, r in plan.dirty] == ["workflow config changed", "workflow config changed"]
+        assert plan.dirty == [] and len(plan.clean) == 2
 
         plan = plan_build(ws, state, h, force=True)
         assert [r for _, r in plan.dirty] == ["forced", "forced"]
+
+
+def test_plan_build_resumes_partial_config_migration_from_per_source_evidence():
+    with tempfile.TemporaryDirectory() as td:
+        ws = _tmp_ws(Path(td))
+        first_bank = LessonBank(lesson="lesson-first", module="module-first", items=[])
+        second_bank = LessonBank(lesson="lesson-second", module="module-second", items=[])
+        ws.save_bank(first_bank)
+        ws.save_bank(second_bank)
+
+        old_hash = config_hash(resolve_build_config({}, "beginner"))
+        new_hash = config_hash(
+            resolve_build_config({"worksheet_items_per_lesson": 30}, "beginner")
+        )
+        report_hash = sha256_text("validated")
+
+        def bound_state(
+            source_name: str,
+            cfg_hash: str,
+            module_key: str,
+            bank: LessonBank,
+        ) -> SourceState:
+            source_hash = ws.source_hash(ws.sources_dir / source_name)
+            source_bank_hash = banks_sha256([bank])
+            return SourceState(
+                sha256=source_hash,
+                status="ok",
+                module_keys=[module_key],
+                validation_ok=True,
+                config_sha256=cfg_hash,
+                validation_report_sha256=report_hash,
+                last_known_good=SourcePublication(
+                    source_sha256=source_hash,
+                    config_sha256=cfg_hash,
+                    bank_sha256=source_bank_hash,
+                    validation_report_sha256=report_hash,
+                    promoted_at="2026-08-20T00:00:00Z",
+                    module_keys=[module_key],
+                ),
+            )
+
+        state = BuildState(
+            # Global evidence stays on the last fully completed build until all
+            # sources have been promoted under the new configuration.
+            workflow_config_hash=old_hash,
+            bank_sha256=sha256_text("pre-migration-bank-set"),
+            sources={
+                "1. First.md": bound_state(
+                    "1. First.md", new_hash, "module-first", first_bank
+                ),
+                "2. Second.md": bound_state(
+                    "2. Second.md", old_hash, "module-second", second_bank
+                ),
+            },
+        )
+
+        plan = plan_build(ws, state, new_hash)
+        assert [source.name for source in plan.clean] == ["1. First.md"]
+        assert [(source.name, reason) for source, reason in plan.dirty] == [
+            ("2. Second.md", "workflow config changed")
+        ]
+
+        # Once the global config hash advances, a stale global bank hash is no
+        # longer migration state: it is canonical-content tampering and must
+        # dirty every otherwise-current source.
+        state.sources["2. Second.md"] = bound_state(
+            "2. Second.md", new_hash, "module-second", second_bank
+        )
+        state.workflow_config_hash = new_hash
+        plan = plan_build(ws, state, new_hash)
+        assert plan.clean == []
+        assert [(source.name, reason) for source, reason in plan.dirty] == [
+            ("1. First.md", "publication evidence no longer matches canonical content"),
+            ("2. Second.md", "publication evidence no longer matches canonical content"),
+        ]
 
 
 def test_resolve_build_config_lessons_override():
     config = resolve_build_config({}, "beginner")
     assert (config.min_lessons_total, config.max_lessons_total) == (5, 6)
     assert config.exercises_per_lesson == 30  # owner default (2026-07-16)
+    assert config.worksheet_items_per_lesson is None
     assert sum(config.blooms_distribution.values()) == 30
     assert sum(config.question_type_distribution.values()) == 30
+    budgeted = resolve_build_config({"worksheet_items_per_lesson": 30}, "beginner")
+    assert budgeted.worksheet_items_per_lesson == 30
+    assert config_hash(budgeted) != config_hash(config)
 
     fast = resolve_build_config({}, "beginner", lessons_override=1)
     assert (fast.min_lessons_total, fast.max_lessons_total) == (1, 1)
@@ -341,6 +521,7 @@ def test_resolve_build_config_lessons_override():
     custom = resolve_build_config(
         {
             "exercises_per_lesson": 15,
+            "worksheet_items_per_lesson": 12,
             "blooms_distribution": {"Remembering": 3, "Understanding": 4, "Applying": 4, "Analyzing/Evaluating": 4},
             "question_type_distribution": {"single_choice": 4, "multi_choice": 4, "true_false": 3, "fill_gaps": 2, "rearrange": 2},
         },
@@ -349,7 +530,29 @@ def test_resolve_build_config_lessons_override():
     )
     assert (custom.min_lessons_total, custom.max_lessons_total) == (2, 2)
     assert custom.exercises_per_lesson == 15
+    assert custom.worksheet_items_per_lesson == 12
     assert custom.difficulty.value == "advanced"
+
+
+def test_resolve_build_config_rejects_unknown_policy_and_distribution_keys():
+    for override in (
+        {"worksheet_item_per_lesson": 30},
+        {
+            "question_type_distribution": {
+                "single_choice": 8,
+                "multi_choice": 8,
+                "true_false": 5,
+                "fill_gaps": 4,
+                "rearrange": 4,
+                "short_answer": 1,
+            }
+        },
+    ):
+        try:
+            resolve_build_config(override, "beginner")
+            assert False, f"unsupported workflow override was accepted: {override}"
+        except ValueError:
+            pass
 
 
 def test_insert_modules_replaces_in_place_and_inserts_naturally():

@@ -15,7 +15,7 @@ from dataclasses import asdict, dataclass, field
 from datetime import datetime, timezone
 from typing import Any, Awaitable, Callable, Mapping, Protocol, Sequence, runtime_checkable
 
-from .backends import split_backend_label
+from .backends import BackendTimeoutError, split_backend_label
 from .gauntlet_models import (
     ALL_QUALITY_DIMENSIONS,
     ArtifactSnapshot,
@@ -83,6 +83,8 @@ SOURCE_FIDELITY_GOAL = (
     "source material. Reject unsupported facts, answers, explanations, feedback, "
     "or terminology changes; do not edit the artifact."
 )
+EVALUATOR_PROTOCOL_VERSION = "critic-review-semantics-v6"
+EDITOR_PROTECTED_PAYLOAD_FIELDS = frozenset({"question_type"})
 
 
 MANDATORY_IDENTIFYING_METADATA_KEYS = frozenset(
@@ -114,9 +116,17 @@ class GauntletConfigurationError(ValueError):
 class EditorScopeError(ValueError):
     """An editor changed content outside its authorized narrow scope."""
 
+    def __init__(self, message: str, *, usage: UsageRecord | None = None) -> None:
+        super().__init__(message)
+        self.usage = usage or UsageRecord()
+
 
 class CriticEvidenceError(ValueError):
     """A critic cited an item identity/path absent from the evaluated artifact."""
+
+    def __init__(self, message: str, *, usage: UsageRecord | None = None) -> None:
+        super().__init__(message)
+        self.usage = usage or UsageRecord()
 
 
 @dataclass(frozen=True)
@@ -132,6 +142,7 @@ class GauntletConfig:
     critic_backend: str | None = None
     critic_model: str | None = None
     builder_model: str | None = None
+    evaluator_protocol_version: str = EVALUATOR_PROTOCOL_VERSION
     max_rounds: int = 4
     plateau_rounds: int = 2
     repeated_loss_rounds: int = 2
@@ -154,6 +165,8 @@ class GauntletConfig:
     identifying_metadata_keys: frozenset[str] = DEFAULT_IDENTIFYING_METADATA_KEYS
 
     def __post_init__(self) -> None:
+        if not self.evaluator_protocol_version.strip():
+            raise GauntletConfigurationError("evaluator_protocol_version cannot be blank")
         if self.critic_backend is not None and not self.critic_backend.strip():
             raise GauntletConfigurationError("critic_backend cannot be blank")
         if self.critic_model is not None and not self.critic_model.strip():
@@ -354,6 +367,33 @@ def _validate_critic_locations(
             result.largest_gap.affected_paths,
         )
         check_evidence("largest gap", result.largest_gap.evidence)
+        if (
+            result.largest_gap.recommended_scope is RepairScope.session
+            and result.largest_gap.allowed_payload_fields
+        ):
+            errors.append(
+                "session repair may only reorder existing items and therefore requires "
+                "allowed_payload_fields=[]; use item or course scope for payload edits"
+            )
+        protected_fields = (
+            set(result.largest_gap.allowed_payload_fields)
+            & EDITOR_PROTECTED_PAYLOAD_FIELDS
+        )
+        if protected_fields:
+            errors.append(
+                "automatic Gauntlet repair cannot authorize protected payload field(s): "
+                + ", ".join(sorted(protected_fields))
+                + "; request human review when the defect requires an authored mechanic change"
+            )
+    if result.human_review_recommended != (result.human_review_reason is not None):
+        errors.append(
+            "human_review_recommended must be true exactly when a blocking "
+            "human_review_reason is supplied"
+        )
+    if result.human_review_reason is not None and result.largest_gap is not None:
+        errors.append(
+            "a blocking human-review result cannot also authorize an automatic largest_gap repair"
+        )
     if errors:
         raise CriticEvidenceError("; ".join(errors))
 
@@ -361,9 +401,18 @@ def _validate_critic_locations(
 class IndependentCritic:
     """Build a fresh critic request from allow-listed context only."""
 
-    def __init__(self, backend: CriticBackend, *, builder_model: str | None = None) -> None:
+    def __init__(
+        self,
+        backend: CriticBackend,
+        *,
+        builder_model: str | None = None,
+        max_attempts: int = 3,
+    ) -> None:
+        if max_attempts < 1:
+            raise ValueError("max_attempts must be at least 1")
         self.backend = backend
         self.builder_model = builder_model
+        self.max_attempts = max_attempts
 
     @property
     def backend_name(self) -> str:
@@ -387,28 +436,45 @@ class IndependentCritic:
         artifact: ArtifactSnapshot,
     ) -> CriticEvaluation:
         approved = approved_references(references)
-        request = CriticRequest(
-            goal=goal,
-            rubric=rubric,
-            source_material=source_material,
-            approved_references=approved,
-            actual_final_artifact=artifact,
-            reference_confidence_reduced=not approved,
-        )
-        raw = await self.backend.evaluate(request)
-        if isinstance(raw, CriticBackendResponse):
-            response = raw
-        elif isinstance(raw, CriticResult):
-            response = CriticBackendResponse(result=raw)
-        else:
-            # Accept either the full envelope or a bare CriticResult mapping.
+        feedback: list[str] = []
+        total_usage = UsageRecord()
+        response: CriticBackendResponse | None = None
+        for attempt in range(1, self.max_attempts + 1):
+            request = CriticRequest(
+                goal=goal,
+                rubric=rubric,
+                source_material=source_material,
+                approved_references=approved,
+                actual_final_artifact=artifact,
+                reference_confidence_reduced=not approved,
+                validation_feedback=feedback,
+            )
+            raw = await self.backend.evaluate(request)
+            if isinstance(raw, CriticBackendResponse):
+                response = raw
+            elif isinstance(raw, CriticResult):
+                response = CriticBackendResponse(result=raw)
+            else:
+                # Accept either the full envelope or a bare CriticResult mapping.
+                try:
+                    response = CriticBackendResponse.model_validate(raw)
+                except ValueError:
+                    response = CriticBackendResponse(
+                        result=CriticResult.model_validate(raw)
+                    )
+            total_usage = add_usage(total_usage, response.usage)
             try:
-                response = CriticBackendResponse.model_validate(raw)
-            except ValueError:
-                response = CriticBackendResponse(
-                    result=CriticResult.model_validate(raw)
-                )
-        _validate_critic_locations(response.result, artifact)
+                _validate_critic_locations(response.result, artifact)
+            except CriticEvidenceError as exc:
+                feedback.append(str(exc))
+                if attempt == self.max_attempts:
+                    raise CriticEvidenceError(
+                        f"critic evidence validation failed after {attempt} attempts: {exc}",
+                        usage=total_usage,
+                    ) from exc
+                continue
+            break
+        assert response is not None
         builder_identity = _qualified_model_identity(self.builder_model)
         critic_identity = _qualified_model_identity(self.model_label)
         independence = (
@@ -428,7 +494,7 @@ class IndependentCritic:
             model_independence=independence,
             approved_reference_count=len(approved),
             reference_confidence_reduced=not approved,
-            usage=response.usage,
+            usage=total_usage,
         )
 
 
@@ -443,8 +509,11 @@ def _payload_changed_fields(before: Mapping[str, Any], after: Mapping[str, Any])
 class TargetedEditor:
     """Invoke an editor and enforce item/session/course scope structurally."""
 
-    def __init__(self, backend: EditorBackend) -> None:
+    def __init__(self, backend: EditorBackend, *, max_attempts: int = 3) -> None:
+        if max_attempts < 1:
+            raise ValueError("max_attempts must be at least 1")
         self.backend = backend
+        self.max_attempts = max_attempts
 
     @property
     def backend_name(self) -> str:
@@ -465,15 +534,34 @@ class TargetedEditor:
         directive: QualityGap,
         source_material: list[SourceExcerpt],
     ) -> TargetedEditResult:
-        request = TargetedEditRequest(
-            champion=champion,
-            directive=directive,
-            source_material=source_material,
-        )
-        raw = await self.backend.repair(request)
-        result = raw if isinstance(raw, TargetedEditResult) else TargetedEditResult.model_validate(raw)
-        self._enforce_scope(champion, directive, result)
-        return result
+        feedback: list[str] = []
+        total_usage = UsageRecord()
+        for attempt in range(1, self.max_attempts + 1):
+            request = TargetedEditRequest(
+                champion=champion,
+                directive=directive,
+                source_material=source_material,
+                validation_feedback=feedback,
+            )
+            raw = await self.backend.repair(request)
+            result = (
+                raw
+                if isinstance(raw, TargetedEditResult)
+                else TargetedEditResult.model_validate(raw)
+            )
+            total_usage = add_usage(total_usage, result.usage)
+            try:
+                self._enforce_scope(champion, directive, result)
+            except EditorScopeError as exc:
+                feedback.append(str(exc))
+                if attempt == self.max_attempts:
+                    raise EditorScopeError(
+                        f"editor scope validation failed after {attempt} attempts: {exc}",
+                        usage=total_usage,
+                    ) from exc
+                continue
+            return result.model_copy(update={"usage": total_usage})
+        raise AssertionError("unreachable")
 
     @staticmethod
     def _enforce_scope(
@@ -502,6 +590,12 @@ class TargetedEditor:
             if before.path != after.path:
                 raise EditorScopeError("targeted edits cannot change stable item paths")
             fields = _payload_changed_fields(before.payload, after.payload)
+            protected_fields = fields & EDITOR_PROTECTED_PAYLOAD_FIELDS
+            if protected_fields:
+                raise EditorScopeError(
+                    "targeted edits cannot change protected payload field(s): "
+                    + ", ".join(sorted(protected_fields))
+                )
             if fields:
                 changed[item_key] = fields
 
@@ -517,7 +611,9 @@ class TargetedEditor:
         reported_fields = {key: set(value) for key, value in result.touched_payload_fields.items()}
         if reported_fields != changed:
             raise EditorScopeError(
-                "editor touched_payload_fields report does not match actual changes"
+                "editor touched_payload_fields report does not match actual changes: "
+                f"reported={dict(sorted((key, sorted(value)) for key, value in reported_fields.items()))}; "
+                f"actual={dict(sorted((key, sorted(value)) for key, value in changed.items()))}"
             )
 
         targets = set(directive.affected_item_keys)
@@ -977,14 +1073,42 @@ class QualitativeGauntlet:
         stop_evidence = f"Maximum of {self.config.max_rounds} rounds reached."
 
         for round_number in range(1, self.config.max_rounds + 1):
+            champion_snapshot_before = champion.model_copy(deep=True)
             champion_hash_before = champion.content_hash()
-            critic_eval = await self.critic.evaluate(
-                goal=goal,
-                rubric=rubric,
-                source_material=source_material,
-                references=references,
-                artifact=champion,
-            )
+            try:
+                critic_eval = await self.critic.evaluate(
+                    goal=goal,
+                    rubric=rubric,
+                    source_material=source_material,
+                    references=references,
+                    artifact=champion,
+                )
+            except (CriticEvidenceError, BackendTimeoutError) as exc:
+                failure_usage = (
+                    exc.usage if isinstance(exc, CriticEvidenceError) else UsageRecord()
+                )
+                total_usage = add_usage(total_usage, failure_usage)
+                human_review_recommended = True
+                evidence = (
+                    str(exc)
+                    if isinstance(exc, CriticEvidenceError)
+                    else f"critic backend timed out after configured retries: {exc}"
+                )
+                rounds.append(
+                    RoundHistory(
+                        round_number=round_number,
+                        champion_hash_before=champion_hash_before,
+                        critic_failure=evidence,
+                        validation_retry_usage=failure_usage,
+                        decision=RoundDecision.retained_human,
+                        decision_evidence=evidence,
+                        champion_hash_after=champion_hash_before,
+                        cumulative_usage=total_usage,
+                    )
+                )
+                stop_reason = StopReason.human_review_required
+                stop_evidence = evidence
+                break
             critic_eval = critic_eval.model_copy(
                 update={
                     "evaluation_context_sha256": evaluation_context.context_sha256
@@ -1030,23 +1154,32 @@ class QualitativeGauntlet:
                 stop_reason, stop_evidence = StopReason.success, "All hard and qualitative gates pass."
                 break
 
-            if critic_eval.result.human_review_recommended or (
+            if critic_eval.result.human_review_reason is not None or (
                 critic_eval.result.confidence < self.config.human_review_threshold
             ):
                 human_review_recommended = True
+                if critic_eval.result.human_review_reason is not None:
+                    review_evidence = (
+                        "Critic supplied blocking human-review reason: "
+                        f"{critic_eval.result.human_review_reason.value}."
+                    )
+                else:
+                    review_evidence = (
+                        "Critic confidence was below the configured hard human-review threshold."
+                    )
                 rounds.append(
                     RoundHistory(
                         round_number=round_number,
                         champion_hash_before=champion_hash_before,
                         critic=critic_eval,
                         decision=RoundDecision.retained_human,
-                        decision_evidence="Critic confidence/finding requires human review.",
+                        decision_evidence=review_evidence,
                         champion_hash_after=champion_hash_before,
                         cumulative_usage=total_usage,
                     )
                 )
                 stop_reason = StopReason.human_review_required
-                stop_evidence = "Critic requested human review or confidence was below threshold."
+                stop_evidence = review_evidence
                 break
 
             if plateau_count >= self.config.plateau_rounds:
@@ -1095,11 +1228,38 @@ class QualitativeGauntlet:
                 stop_reason, stop_evidence = reason, evidence
                 break
 
-            edit = await self.editor.repair(
-                champion=champion,
-                directive=directive,
-                source_material=source_material,
-            )
+            try:
+                edit = await self.editor.repair(
+                    champion=champion,
+                    directive=directive,
+                    source_material=source_material,
+                )
+            except (EditorScopeError, BackendTimeoutError) as exc:
+                failure_usage = (
+                    exc.usage if isinstance(exc, EditorScopeError) else UsageRecord()
+                )
+                total_usage = add_usage(total_usage, failure_usage)
+                human_review_recommended = True
+                evidence = (
+                    str(exc)
+                    if isinstance(exc, EditorScopeError)
+                    else f"editor backend timed out after configured retries: {exc}"
+                )
+                rounds.append(
+                    RoundHistory(
+                        round_number=round_number,
+                        champion_hash_before=champion_hash_before,
+                        critic=critic_eval,
+                        validation_retry_usage=failure_usage,
+                        decision=RoundDecision.retained_human,
+                        decision_evidence=evidence,
+                        champion_hash_after=champion_hash_before,
+                        cumulative_usage=total_usage,
+                    )
+                )
+                stop_reason = StopReason.human_review_required
+                stop_evidence = evidence
+                break
             total_usage = add_usage(total_usage, edit.usage)
             challenger = edit.challenger
             challenger_hash = challenger.content_hash()
@@ -1181,13 +1341,52 @@ class QualitativeGauntlet:
             source_fidelity_critic: CriticEvaluation | None = None
             source_fidelity_gate: HardGateResult | None = None
             if edit.touched_item_keys:
-                source_fidelity_critic = await self.critic.evaluate(
-                    goal=SOURCE_FIDELITY_GOAL,
-                    rubric=rubric,
-                    source_material=source_material,
-                    references=references,
-                    artifact=challenger,
-                )
+                try:
+                    source_fidelity_critic = await self.critic.evaluate(
+                        goal=SOURCE_FIDELITY_GOAL,
+                        rubric=rubric,
+                        source_material=source_material,
+                        references=references,
+                        artifact=challenger,
+                    )
+                except (CriticEvidenceError, BackendTimeoutError) as exc:
+                    failure_usage = (
+                        exc.usage
+                        if isinstance(exc, CriticEvidenceError)
+                        else UsageRecord()
+                    )
+                    total_usage = add_usage(total_usage, failure_usage)
+                    human_review_recommended = True
+                    evidence = (
+                        str(exc)
+                        if isinstance(exc, CriticEvidenceError)
+                        else f"source-fidelity critic timed out after configured retries: {exc}"
+                    )
+                    rounds.append(
+                        RoundHistory(
+                            round_number=round_number,
+                            champion_hash_before=champion_hash_before,
+                            critic=critic_eval,
+                            repair_scope=directive.recommended_scope,
+                            repair_summary=edit.change_summary,
+                            editor_backend=self.editor.backend_name,
+                            editor_model=self.editor.model_label,
+                            editor_fresh_context=self.editor.fresh_context,
+                            edit_usage=edit.usage,
+                            validation_retry_usage=failure_usage,
+                            touched_item_keys=edit.touched_item_keys,
+                            challenger_hash=challenger_hash,
+                            hard_gate=challenger_gate,
+                            decision=RoundDecision.retained_human,
+                            decision_evidence=evidence,
+                            champion_hash_after=champion_hash_before,
+                            constraint_relaxations=relaxations,
+                            cumulative_usage=total_usage,
+                        )
+                    )
+                    stop_reason = StopReason.human_review_required
+                    stop_evidence = evidence
+                    break
                 source_fidelity_critic = source_fidelity_critic.model_copy(
                     update={
                         "evaluation_context_sha256": evaluation_context.context_sha256
@@ -1260,15 +1459,45 @@ class QualitativeGauntlet:
                     stop_reason, stop_evidence = budget_reason, "Configured budget reached."
                     break
 
-            comparison = await self.comparator.compare(
-                champion=champion,
-                challenger=challenger,
-                goal=goal,
-                rubric=rubric,
-                source_material=source_material,
-                references=references,
-                seed=self.config.comparison_seed + round_number - 1,
-            )
+            try:
+                comparison = await self.comparator.compare(
+                    champion=champion,
+                    challenger=challenger,
+                    goal=goal,
+                    rubric=rubric,
+                    source_material=source_material,
+                    references=references,
+                    seed=self.config.comparison_seed + round_number - 1,
+                )
+            except BackendTimeoutError as exc:
+                human_review_recommended = True
+                evidence = f"comparison backend timed out after configured retries: {exc}"
+                rounds.append(
+                    RoundHistory(
+                        round_number=round_number,
+                        champion_hash_before=champion_hash_before,
+                        critic=critic_eval,
+                        repair_scope=directive.recommended_scope,
+                        repair_summary=edit.change_summary,
+                        editor_backend=self.editor.backend_name,
+                        editor_model=self.editor.model_label,
+                        editor_fresh_context=self.editor.fresh_context,
+                        edit_usage=edit.usage,
+                        touched_item_keys=edit.touched_item_keys,
+                        challenger_hash=challenger_hash,
+                        hard_gate=challenger_gate,
+                        source_fidelity_critic=source_fidelity_critic,
+                        source_fidelity_gate=source_fidelity_gate,
+                        decision=RoundDecision.retained_human,
+                        decision_evidence=evidence,
+                        champion_hash_after=champion_hash_before,
+                        constraint_relaxations=relaxations,
+                        cumulative_usage=total_usage,
+                    )
+                )
+                stop_reason = StopReason.human_review_required
+                stop_evidence = evidence
+                break
             comparison = comparison.model_copy(
                 update={
                     "evaluation_context_sha256": evaluation_context.context_sha256
@@ -1301,6 +1530,16 @@ class QualitativeGauntlet:
                     edit_usage=edit.usage,
                     touched_item_keys=edit.touched_item_keys,
                     challenger_hash=challenger_hash,
+                    promoted_champion_before=(
+                        champion_snapshot_before
+                        if round_decision is RoundDecision.promoted
+                        else None
+                    ),
+                    promoted_challenger=(
+                        challenger.model_copy(deep=True)
+                        if round_decision is RoundDecision.promoted
+                        else None
+                    ),
                     hard_gate=challenger_gate,
                     source_fidelity_critic=source_fidelity_critic,
                     source_fidelity_gate=source_fidelity_gate,

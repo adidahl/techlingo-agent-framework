@@ -69,6 +69,21 @@ class RepairScope(str, Enum):
     course = "course"
 
 
+class HumanReviewReason(str, Enum):
+    """Evidence-backed reasons that make automatic repair unsafe.
+
+    This is optional for backward compatibility with immutable v1 histories.
+    New live critic responses are required to pair it coherently with
+    ``human_review_recommended`` before they can influence orchestration.
+    """
+
+    insufficient_authoritative_evidence = "insufficient_authoritative_evidence"
+    conflicting_authoritative_evidence = "conflicting_authoritative_evidence"
+    unresolvable_answer_ambiguity = "unresolvable_answer_ambiguity"
+    unsafe_or_unbounded_repair = "unsafe_or_unbounded_repair"
+    external_expertise_required = "external_expertise_required"
+
+
 class ReferenceStatus(str, Enum):
     draft = "draft"
     approved = "approved"
@@ -151,8 +166,17 @@ def add_usage(*records: UsageRecord) -> UsageRecord:
 class ArtifactItem(StrictModel):
     """One ordered learner-facing item and its stable audit location."""
 
-    item_key: str = Field(min_length=1)
-    path: str = Field(min_length=1)
+    item_key: str = Field(
+        min_length=1,
+        description="Stable item identity; critics must copy this literal value when citing it.",
+    )
+    path: str = Field(
+        min_length=1,
+        description=(
+            "Stable learner-artifact path; critics must copy this literal value when citing it, "
+            "never a JSON navigation expression or source location."
+        ),
+    )
     payload: dict[str, Any]
 
 
@@ -414,8 +438,20 @@ class EvaluationContext(StrictModel):
 
 class CriticEvidence(StrictModel):
     statement: str = Field(min_length=1)
-    item_keys: list[str] = Field(default_factory=list)
-    paths: list[str] = Field(default_factory=list)
+    item_keys: list[str] = Field(
+        default_factory=list,
+        description=(
+            "Only literal item_key values copied from actual_final_artifact.items; empty for "
+            "artifact-wide or source-only evidence."
+        ),
+    )
+    paths: list[str] = Field(
+        default_factory=list,
+        description=(
+            "Only literal path values copied from actual_final_artifact.items; never JSON paths, "
+            "array indexes, payload field paths, or source filenames."
+        ),
+    )
 
 
 class DimensionAssessment(StrictModel):
@@ -429,8 +465,14 @@ class CriticalDefect(StrictModel):
     dimension: QualityDimension
     summary: str = Field(min_length=1)
     evidence: list[CriticEvidence] = Field(min_length=1)
-    affected_item_keys: list[str] = Field(default_factory=list)
-    affected_paths: list[str] = Field(default_factory=list)
+    affected_item_keys: list[str] = Field(
+        default_factory=list,
+        description="Literal item_key values copied from actual_final_artifact.items.",
+    )
+    affected_paths: list[str] = Field(
+        default_factory=list,
+        description="Literal path values copied from actual_final_artifact.items.",
+    )
     recommended_scope: RepairScope
 
     @model_validator(mode="after")
@@ -444,8 +486,14 @@ class QualityGap(StrictModel):
     dimension: QualityDimension
     summary: str = Field(min_length=1)
     evidence: list[CriticEvidence] = Field(min_length=1)
-    affected_item_keys: list[str] = Field(default_factory=list)
-    affected_paths: list[str] = Field(default_factory=list)
+    affected_item_keys: list[str] = Field(
+        default_factory=list,
+        description="Literal item_key values copied from actual_final_artifact.items.",
+    )
+    affected_paths: list[str] = Field(
+        default_factory=list,
+        description="Literal path values copied from actual_final_artifact.items.",
+    )
     recommended_scope: RepairScope
     repair_instruction: str = Field(min_length=1)
     allowed_payload_fields: list[str] = Field(default_factory=list)
@@ -470,6 +518,7 @@ class CriticResult(StrictModel):
     largest_gap: QualityGap | None = None
     confidence: float = Field(ge=0.0, le=1.0)
     human_review_recommended: bool = False
+    human_review_reason: HumanReviewReason | None = None
     concise_summary: str = Field(min_length=1)
 
     @model_validator(mode="after")
@@ -500,6 +549,7 @@ class CriticRequest(StrictModel):
     approved_references: list[ReferenceSession]
     actual_final_artifact: ArtifactSnapshot
     reference_confidence_reduced: bool
+    validation_feedback: list[str] = Field(default_factory=list)
 
     @model_validator(mode="after")
     def references_are_really_approved(self) -> "CriticRequest":
@@ -537,6 +587,7 @@ class TargetedEditRequest(StrictModel):
     champion: ArtifactSnapshot
     directive: QualityGap
     source_material: list[SourceExcerpt]
+    validation_feedback: list[str] = Field(default_factory=list)
 
 
 class TargetedEditResult(StrictModel):
@@ -711,14 +762,21 @@ class RoundHistory(StrictModel):
     round_number: int = Field(ge=1)
     champion_hash_before: str = Field(pattern=r"^[0-9a-f]{64}$")
     critic: CriticEvaluation | None = None
+    critic_failure: str | None = Field(default=None, min_length=1)
     repair_scope: RepairScope | None = None
     repair_summary: str | None = None
     editor_backend: str | None = None
     editor_model: str | None = None
     editor_fresh_context: bool | None = None
     edit_usage: UsageRecord | None = None
+    validation_retry_usage: UsageRecord = Field(default_factory=UsageRecord)
     touched_item_keys: list[str] = Field(default_factory=list)
     challenger_hash: str | None = Field(default=None, pattern=r"^[0-9a-f]{64}$")
+    # Optional so immutable v1-v6 histories remain readable. New promoted
+    # rounds persist both exact snapshots; hashes alone cannot reconstruct a
+    # proposal after more than one promotion in the same run.
+    promoted_champion_before: ArtifactSnapshot | None = None
+    promoted_challenger: ArtifactSnapshot | None = None
     hard_gate: HardGateResult | None = None
     source_fidelity_critic: CriticEvaluation | None = None
     source_fidelity_gate: HardGateResult | None = None
@@ -899,7 +957,14 @@ class GauntletHistory(StrictModel):
             if round_.champion_hash_before != expected_before:
                 errors.append(f"{prefix}: champion hash chain is broken")
             if round_.critic is None:
-                errors.append(f"{prefix}: critic evaluation is missing")
+                if round_.critic_failure is None:
+                    errors.append(f"{prefix}: critic evaluation is missing")
+                elif round_.decision is not RoundDecision.retained_human:
+                    errors.append(
+                        f"{prefix}: critic failure requires a retained_human decision"
+                    )
+            elif round_.critic_failure is not None:
+                errors.append(f"{prefix}: critic evaluation and failure are both present")
             elif self.evaluation_context is not None:
                 if round_.critic.artifact_sha256 != round_.champion_hash_before:
                     errors.append(f"{prefix}: critic evaluation is not bound to the champion")
@@ -958,6 +1023,30 @@ class GauntletHistory(StrictModel):
                         f"{prefix}: source-fidelity reference confidence flag does not match context"
                     )
             has_challenger = round_.challenger_hash is not None
+            promoted_snapshots = (
+                round_.promoted_champion_before,
+                round_.promoted_challenger,
+            )
+            if any(snapshot is not None for snapshot in promoted_snapshots):
+                if any(snapshot is None for snapshot in promoted_snapshots):
+                    errors.append(f"{prefix}: promoted snapshot evidence is incomplete")
+                elif round_.decision is not RoundDecision.promoted:
+                    errors.append(f"{prefix}: non-promoted round contains promoted snapshots")
+                else:
+                    if (
+                        round_.promoted_champion_before.content_hash()
+                        != round_.champion_hash_before
+                    ):
+                        errors.append(
+                            f"{prefix}: promoted before snapshot does not match champion hash"
+                        )
+                    if (
+                        round_.promoted_challenger.content_hash()
+                        != round_.challenger_hash
+                    ):
+                        errors.append(
+                            f"{prefix}: promoted challenger snapshot does not match challenger hash"
+                        )
             repair_values = (
                 round_.repair_scope,
                 round_.repair_summary,
@@ -1047,6 +1136,7 @@ class GauntletHistory(StrictModel):
                     previous_usage,
                     round_.critic.usage,
                     round_.edit_usage or UsageRecord(),
+                    round_.validation_retry_usage,
                     (
                         round_.source_fidelity_critic.usage
                         if round_.source_fidelity_critic is not None
@@ -1060,6 +1150,15 @@ class GauntletHistory(StrictModel):
                 )
                 if round_.cumulative_usage != expected_usage:
                     errors.append(f"{prefix}: cumulative usage does not match recorded calls")
+            elif round_.critic_failure is not None:
+                expected_usage = add_usage(
+                    previous_usage,
+                    round_.validation_retry_usage,
+                )
+                if round_.cumulative_usage != expected_usage:
+                    errors.append(
+                        f"{prefix}: failed-critic usage does not match recorded calls"
+                    )
             elif not self._usage_not_less(round_.cumulative_usage, previous_usage):
                 errors.append(f"{prefix}: cumulative usage decreased")
 

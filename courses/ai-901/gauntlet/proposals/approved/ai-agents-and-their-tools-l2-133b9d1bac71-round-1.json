@@ -1,0 +1,877 @@
+{
+  "schema_version": "techlingo-gauntlet-authored-approval-v1",
+  "approval_sha256": "f1b9423ca89ed97f71d0621515d22e5422fa5a28b0af5a734f16841b8a394943",
+  "proposal": {
+    "schema_version": "techlingo-gauntlet-authored-proposal-v1",
+    "proposal_id": "ai-agents-and-their-tools-l2-133b9d1bac71-round-1",
+    "proposal_sha256": "a8e6093552663cd6b940a6179644ea31dcd346b4245474d62b2cd0d164339a03",
+    "unit_key": "ai-agents-and-their-tools-l2",
+    "run_id": "ai-agents-and-their-tools-l2-133b9d1bac71",
+    "round_number": 1,
+    "record_path": "gauntlet/history/ai-agents-and-their-tools-l2-ai-agents-and-their-tools-l2-133b9d1bac71.json",
+    "record_sha256": "298247dfd566374e35dde21dd6b913e2c5e8618e86254f6004c3653522e693f5",
+    "history_sha256": "fd2e465c9189d05b74f6142d8a6461fe76c752103130b4827ea71a50a9e5c5a1",
+    "compiled_artifact_sha256": "2fa356d363b3a7f13d4d399d67361e952b387b4b6502e0aa169d3bb7f3169d2b",
+    "champion_before_sha256": "a1a4780ea9a783fdbac71f7d5f2cda000af1a10945ebb18bf26737723a7a9d72",
+    "champion_after_sha256": "a5f4312c2a5c28e9a88af4e8b17ae0d9db7bf13e26333efce5fe5ca9a8e8e1f9",
+    "evaluation_context_sha256": "a117d4b3ec60a6a2e3210be3c861c07489782215977c50cba182c9affb6df38c",
+    "gauntlet_policy_sha256": "3ffb6943742c9fc0b33d6668a9c5695b535ee3121f7b697df8ab4d4392014385",
+    "repair_summary": "Revised the affected multiple-choice item so the large language model is the sole correct agent component for language understanding and reasoning, with instructions, a knowledge tool, and an action tool as distinct distractors.",
+    "repair_instruction": "Preserve question_type exactly as multiple_choice. Revise only the question_text, options, correct_answer, and explanation so the item asks which single agent component provides language understanding and reasoning, with the large language model as the sole correct answer and instructions, a knowledge tool, and an action tool as clearly distinct source-grounded distractors.",
+    "emitted_changes": [
+      {
+        "item_key": "ai-agents-and-their-tools/agent-model-component/r4/v1",
+        "artifact_path": "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/5",
+        "field": "correct_answer",
+        "before": "[1,2,3]",
+        "after": "3"
+      },
+      {
+        "item_key": "ai-agents-and-their-tools/agent-model-component/r4/v1",
+        "artifact_path": "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/5",
+        "field": "explanation",
+        "before": "Correct. Understanding and reasoning depend on the language model's generative abilities.",
+        "after": "Correct. The large language model is the agent's brain and provides language understanding and reasoning."
+      },
+      {
+        "item_key": "ai-agents-and-their-tools/agent-model-component/r4/v1",
+        "artifact_path": "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/5",
+        "field": "options",
+        "before": {
+          "options": [
+            {
+              "text": "An action tool alone",
+              "is_correct": false,
+              "error_type": "Confuses execution with reasoning",
+              "rationale": "An action tool performs a task but does not interpret language by itself. The scenario first requires understanding and reasoning.",
+              "better_fit": "This fits carrying out a task such as updating a calendar.",
+              "feedback": {
+                "intrinsic": "An action may be available while the visitor's question remains misunderstood.",
+                "instructional": "Language reasoning comes from the language model; action tools execute tasks after reasoning."
+              }
+            },
+            {
+              "text": "A large language model",
+              "is_correct": true,
+              "error_type": null,
+              "rationale": "This is correct. A large language model provides language understanding and reasoning.",
+              "better_fit": null,
+              "feedback": null
+            },
+            {
+              "text": "Language understanding",
+              "is_correct": true,
+              "error_type": null,
+              "rationale": "This is correct. The assistant must understand the wording and meaning of each question.",
+              "better_fit": null,
+              "feedback": null
+            },
+            {
+              "text": "Generative reasoning",
+              "is_correct": true,
+              "error_type": null,
+              "rationale": "This is correct. Generative reasoning supports constructing useful replies.",
+              "better_fit": null,
+              "feedback": null
+            }
+          ],
+          "blooms_level": "Applying",
+          "original_question_type": "multi_choice",
+          "concept_id": "agent-model-component",
+          "item_key": "ai-agents-and-their-tools/agent-model-component/r4/v1",
+          "rung": 4,
+          "variant": 1,
+          "module_key": "1-introduction-to-ai-concepts",
+          "lesson_key": "ai-agents-and-their-tools",
+          "learning_status": "new"
+        },
+        "after": {
+          "options": [
+            {
+              "text": "Instructions",
+              "is_correct": false,
+              "error_type": "Confuses role guidance with the language model",
+              "rationale": "Instructions define the agent's role and behavior; they do not provide language understanding and reasoning.",
+              "better_fit": "This fits defining the agent's role and behavior.",
+              "feedback": null
+            },
+            {
+              "text": "A knowledge tool",
+              "is_correct": false,
+              "error_type": "Confuses information access with reasoning",
+              "rationale": "A knowledge tool provides access to information, such as through a search engine or database. It does not provide the agent's language understanding and reasoning.",
+              "better_fit": "This fits providing access to information.",
+              "feedback": null
+            },
+            {
+              "text": "An action tool",
+              "is_correct": false,
+              "error_type": "Confuses task execution with reasoning",
+              "rationale": "An action tool enables the agent to perform tasks, such as sending emails or updating calendars. It does not provide language understanding and reasoning.",
+              "better_fit": "This fits enabling the agent to perform tasks.",
+              "feedback": null
+            },
+            {
+              "text": "A large language model",
+              "is_correct": true,
+              "error_type": null,
+              "rationale": "This is correct. The large language model is the agent's brain, using generative AI for language understanding and reasoning.",
+              "better_fit": null,
+              "feedback": null
+            }
+          ],
+          "blooms_level": "Applying",
+          "original_question_type": "multi_choice",
+          "concept_id": "agent-model-component",
+          "item_key": "ai-agents-and-their-tools/agent-model-component/r4/v1",
+          "rung": 4,
+          "variant": 1,
+          "module_key": "1-introduction-to-ai-concepts",
+          "lesson_key": "ai-agents-and-their-tools",
+          "learning_status": "new"
+        }
+      },
+      {
+        "item_key": "ai-agents-and-their-tools/agent-model-component/r4/v1",
+        "artifact_path": "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/5",
+        "field": "question_text",
+        "before": "A help-desk assistant must interpret visitors' questions and reason about useful replies before taking action. Which components support that need? Select all that apply.",
+        "after": "Which single agent component provides language understanding and reasoning?"
+      }
+    ],
+    "authored_changes": [
+      {
+        "item_key": "ai-agents-and-their-tools/agent-model-component/r4/v1",
+        "bank_path": "bank/ai-agents-and-their-tools.json",
+        "bank_item_index": 9,
+        "source_file": "1. Introduction to AI concepts.md",
+        "source_sha256": "325e80cb837bf41aefbedddc7c75ba9c7b2669997feee5f817ec521d96049abf",
+        "item_source_sha256": "325e80cb837bf41aefbedddc7c75ba9c7b2669997feee5f817ec521d96049abf",
+        "bank_payload_sha256": "1cd12c6247cddfc4e13b12b35d65180c21f8e9c4ddf278fca1d2792ccf144c84",
+        "provenance_before": "generated",
+        "pinned_before": false,
+        "payload_before": {
+          "blooms_level": "Applying",
+          "question_type": "multi_choice",
+          "prompt": "A help-desk assistant must interpret visitors' questions and reason about useful replies before taking action. Which components support that need? Select all that apply.",
+          "concept_id": "agent-model-component",
+          "options": [
+            {
+              "text": "A large language model",
+              "is_correct": true,
+              "error_type": null,
+              "rationale": "This is correct. A large language model provides language understanding and reasoning.",
+              "better_fit": null,
+              "feedback": null
+            },
+            {
+              "text": "Language understanding",
+              "is_correct": true,
+              "error_type": null,
+              "rationale": "This is correct. The assistant must understand the wording and meaning of each question.",
+              "better_fit": null,
+              "feedback": null
+            },
+            {
+              "text": "Generative reasoning",
+              "is_correct": true,
+              "error_type": null,
+              "rationale": "This is correct. Generative reasoning supports constructing useful replies.",
+              "better_fit": null,
+              "feedback": null
+            },
+            {
+              "text": "An action tool alone",
+              "is_correct": false,
+              "error_type": "Confuses execution with reasoning",
+              "rationale": "An action tool performs a task but does not interpret language by itself. The scenario first requires understanding and reasoning.",
+              "better_fit": "This fits carrying out a task such as updating a calendar.",
+              "feedback": {
+                "intrinsic": "An action may be available while the visitor's question remains misunderstood.",
+                "instructional": "Language reasoning comes from the language model; action tools execute tasks after reasoning."
+              }
+            }
+          ],
+          "feedback_for_correct": "Correct. Understanding and reasoning depend on the language model's generative abilities."
+        },
+        "payload_after": {
+          "blooms_level": "Applying",
+          "question_type": "multi_choice",
+          "prompt": "Which single agent component provides language understanding and reasoning?",
+          "concept_id": "agent-model-component",
+          "options": [
+            {
+              "text": "A knowledge tool",
+              "is_correct": false,
+              "error_type": "Confuses information access with reasoning",
+              "rationale": "A knowledge tool provides access to information, such as through a search engine or database. It does not provide the agent's language understanding and reasoning.",
+              "better_fit": "This fits providing access to information.",
+              "feedback": null
+            },
+            {
+              "text": "An action tool",
+              "is_correct": false,
+              "error_type": "Confuses task execution with reasoning",
+              "rationale": "An action tool enables the agent to perform tasks, such as sending emails or updating calendars. It does not provide language understanding and reasoning.",
+              "better_fit": "This fits enabling the agent to perform tasks.",
+              "feedback": null
+            },
+            {
+              "text": "A large language model",
+              "is_correct": true,
+              "error_type": null,
+              "rationale": "This is correct. The large language model is the agent's brain, using generative AI for language understanding and reasoning.",
+              "better_fit": null,
+              "feedback": null
+            },
+            {
+              "text": "Instructions",
+              "is_correct": false,
+              "error_type": "Confuses role guidance with the language model",
+              "rationale": "Instructions define the agent's role and behavior; they do not provide language understanding and reasoning.",
+              "better_fit": "This fits defining the agent's role and behavior.",
+              "feedback": null
+            }
+          ],
+          "feedback_for_correct": "Correct. The large language model is the agent's brain and provides language understanding and reasoning."
+        },
+        "changed_payload_fields": [
+          "feedback_for_correct",
+          "options",
+          "prompt"
+        ]
+      }
+    ],
+    "evidence": {
+      "hard_gate": {
+        "artifact_sha256": "a5f4312c2a5c28e9a88af4e8b17ae0d9db7bf13e26333efce5fe5ca9a8e8e1f9",
+        "passed": true,
+        "issues": [],
+        "checks": {
+          "schema_and_answers": true,
+          "identity": true,
+          "final_sequence": true
+        },
+        "metrics": {},
+        "constraint_relaxations": []
+      },
+      "source_fidelity_critic": {
+        "result": {
+          "dimensions": [
+            {
+              "dimension": "factual_fidelity",
+              "score": 0.96,
+              "evidence": [
+                {
+                  "statement": "The agent definitions, components, instruction role, knowledge/action tools, and generative-AI document use match the supplied source's sections on Generative AI, What are agents?, and Generative and agentic AI scenarios.",
+                  "item_keys": [
+                    "ai-agents-and-their-tools/agent-instructions/r1/v2",
+                    "ai-agents-and-their-tools/generative-ai-workplace-uses/r1/v2",
+                    "ai-agents-and-their-tools/ai-agent-definition/r3/v1",
+                    "ai-agents-and-their-tools/agent-instructions/r3/v1",
+                    "ai-agents-and-their-tools/agent-model-component/r4/v1",
+                    "ai-agents-and-their-tools/agent-tools/r3/v1",
+                    "ai-agents-and-their-tools/ai-agent-definition/r4/v1",
+                    "ai-agents-and-their-tools/agent-tools/r4/v1"
+                  ],
+                  "paths": [
+                    "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/0",
+                    "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/1",
+                    "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/3",
+                    "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/4",
+                    "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/5",
+                    "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/6",
+                    "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/7",
+                    "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/10"
+                  ]
+                }
+              ]
+            },
+            {
+              "dimension": "answer_unambiguity",
+              "score": 0.92,
+              "evidence": [
+                {
+                  "statement": "The stems generally specify the response operation clearly, including select-all instructions, a single-component question, sentence arrangement, and accepted fill-in answers; the source supports the keyed answers.",
+                  "item_keys": [
+                    "ai-agents-and-their-tools/agent-instructions/r1/v2",
+                    "ai-agents-and-their-tools/agent-model-component/r4/v1",
+                    "ai-agents-and-their-tools/agent-tools/r4/v1",
+                    "ai-agents-and-their-tools/ai-agent-definition/r3/v1"
+                  ],
+                  "paths": [
+                    "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/0",
+                    "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/5",
+                    "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/10",
+                    "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/3"
+                  ]
+                }
+              ]
+            },
+            {
+              "dimension": "distractor_plausibility",
+              "score": 0.9,
+              "evidence": [
+                {
+                  "statement": "Distractors represent nearby concepts from the source, such as instructions versus knowledge tools, reasoning versus tools, and generative AI versus fixed-dialog NLP chatbots, while the scenarios retain a defensible keyed answer.",
+                  "item_keys": [
+                    "ai-agents-and-their-tools/agent-instructions/r1/v2",
+                    "ai-agents-and-their-tools/agent-model-component/r4/v1",
+                    "ai-agents-and-their-tools/ai-agent-definition/r4/v1",
+                    "ai-agents-and-their-tools/agent-instructions/r4/v1"
+                  ],
+                  "paths": [
+                    "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/0",
+                    "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/5",
+                    "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/7",
+                    "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/9"
+                  ]
+                }
+              ]
+            },
+            {
+              "dimension": "misconception_quality",
+              "score": 0.92,
+              "evidence": [
+                {
+                  "statement": "Wrong-choice rationales diagnose realistic confusions between standing instructions, knowledge access, action execution, language detection, generation, and predictable rule-based dialogs, consistent with the source's distinctions among agent elements and NLP capabilities.",
+                  "item_keys": [
+                    "ai-agents-and-their-tools/agent-instructions/r1/v2",
+                    "ai-agents-and-their-tools/agent-model-component/r4/v1",
+                    "ai-agents-and-their-tools/ai-agent-definition/r4/v1",
+                    "ai-agents-and-their-tools/agent-tools/r4/v1"
+                  ],
+                  "paths": [
+                    "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/0",
+                    "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/5",
+                    "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/7",
+                    "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/10"
+                  ]
+                }
+              ]
+            },
+            {
+              "dimension": "cognitive_progression",
+              "score": 0.58,
+              "evidence": [
+                {
+                  "statement": "The ordered metadata sequence is Remembering, Remembering, Understanding, Remembering, Remembering, Applying, Understanding, Applying, Understanding, Applying, Applying, Remembering. It repeatedly returns from application to lower rungs and ends with a remembering item, so progression is not consistently cumulative.",
+                  "item_keys": [
+                    "ai-agents-and-their-tools/agent-instructions/r1/v2",
+                    "ai-agents-and-their-tools/generative-ai-workplace-uses/r1/v2",
+                    "ai-agents-and-their-tools/agent-model-component/r3/v1",
+                    "ai-agents-and-their-tools/ai-agent-definition/r3/v1",
+                    "ai-agents-and-their-tools/agent-instructions/r3/v1",
+                    "ai-agents-and-their-tools/agent-model-component/r4/v1",
+                    "ai-agents-and-their-tools/agent-tools/r3/v1",
+                    "ai-agents-and-their-tools/ai-agent-definition/r4/v1",
+                    "ai-agents-and-their-tools/generative-ai-workplace-uses/r3/v1",
+                    "ai-agents-and-their-tools/agent-instructions/r4/v1",
+                    "ai-agents-and-their-tools/agent-tools/r4/v1",
+                    "ai-agents-and-their-tools/agent-chatbots-and-assistants/r3/v1"
+                  ],
+                  "paths": [
+                    "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/0",
+                    "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/1",
+                    "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/2",
+                    "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/3",
+                    "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/4",
+                    "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/5",
+                    "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/6",
+                    "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/7",
+                    "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/8",
+                    "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/9",
+                    "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/10",
+                    "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/11"
+                  ]
+                }
+              ]
+            },
+            {
+              "dimension": "mechanic_rhythm_variation",
+              "score": 0.72,
+              "evidence": [
+                {
+                  "statement": "The session uses multiple-choice, arrangement, and fill-in mechanics, but has adjacent fill-in items and adjacent multiple-choice items, creating localized repetition.",
+                  "item_keys": [
+                    "ai-agents-and-their-tools/ai-agent-definition/r3/v1",
+                    "ai-agents-and-their-tools/agent-instructions/r3/v1",
+                    "ai-agents-and-their-tools/agent-instructions/r4/v1",
+                    "ai-agents-and-their-tools/agent-tools/r4/v1"
+                  ],
+                  "paths": [
+                    "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/3",
+                    "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/4",
+                    "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/9",
+                    "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/10"
+                  ]
+                }
+              ]
+            },
+            {
+              "dimension": "prompt_language_variation",
+              "score": 0.83,
+              "evidence": [
+                {
+                  "statement": "Prompt stems vary across selection, application questions, fill-ins, and several arrangement phrasings such as 'Arrange the parts,' 'Reconstruct the statement,' and 'Put the pieces in the correct order,' though the arrangement family remains formulaic.",
+                  "item_keys": [
+                    "ai-agents-and-their-tools/agent-model-component/r3/v1",
+                    "ai-agents-and-their-tools/agent-tools/r3/v1",
+                    "ai-agents-and-their-tools/generative-ai-workplace-uses/r3/v1"
+                  ],
+                  "paths": [
+                    "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/2",
+                    "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/6",
+                    "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/8"
+                  ]
+                }
+              ]
+            },
+            {
+              "dimension": "scenario_authenticity",
+              "score": 0.9,
+              "evidence": [
+                {
+                  "statement": "The museum assistant, expense-claim assistant, and museum records plus scheduling tasks resemble credible applications of knowledge and action tools described in the source.",
+                  "item_keys": [
+                    "ai-agents-and-their-tools/ai-agent-definition/r4/v1",
+                    "ai-agents-and-their-tools/agent-instructions/r4/v1",
+                    "ai-agents-and-their-tools/agent-tools/r4/v1"
+                  ],
+                  "paths": [
+                    "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/7",
+                    "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/9",
+                    "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/10"
+                  ]
+                }
+              ]
+            },
+            {
+              "dimension": "feedback_usefulness",
+              "score": 0.9,
+              "evidence": [
+                {
+                  "statement": "Explanations and incorrect-answer feedback generally identify the governing distinction and a next step, such as using knowledge tools for information and action tools for scheduling, or instructions for role and behavior.",
+                  "item_keys": [
+                    "ai-agents-and-their-tools/ai-agent-definition/r4/v1",
+                    "ai-agents-and-their-tools/agent-instructions/r4/v1",
+                    "ai-agents-and-their-tools/agent-tools/r4/v1",
+                    "ai-agents-and-their-tools/ai-agent-definition/r3/v1"
+                  ],
+                  "paths": [
+                    "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/7",
+                    "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/9",
+                    "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/10",
+                    "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/3"
+                  ]
+                }
+              ]
+            },
+            {
+              "dimension": "difficulty_appropriateness",
+              "score": 0.84,
+              "evidence": [
+                {
+                  "statement": "The session is labeled Level 2 and appropriately mixes source-grounded recall and understanding with later applying scenarios involving agent components and tools; the final recall item weakens the fit to a progressive session position.",
+                  "item_keys": [
+                    "ai-agents-and-their-tools/agent-instructions/r1/v2",
+                    "ai-agents-and-their-tools/agent-model-component/r3/v1",
+                    "ai-agents-and-their-tools/ai-agent-definition/r4/v1",
+                    "ai-agents-and-their-tools/agent-tools/r4/v1",
+                    "ai-agents-and-their-tools/agent-chatbots-and-assistants/r3/v1"
+                  ],
+                  "paths": [
+                    "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/0",
+                    "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/2",
+                    "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/7",
+                    "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/10",
+                    "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/11"
+                  ]
+                }
+              ]
+            },
+            {
+              "dimension": "terminology_consistency",
+              "score": 0.95,
+              "evidence": [
+                {
+                  "statement": "The artifact consistently distinguishes AI agents, instructions, system prompts, large language models, knowledge tools, action tools, generative AI, and chatbots in line with the source terminology.",
+                  "item_keys": [
+                    "ai-agents-and-their-tools/agent-instructions/r1/v2",
+                    "ai-agents-and-their-tools/ai-agent-definition/r3/v1",
+                    "ai-agents-and-their-tools/agent-instructions/r3/v1",
+                    "ai-agents-and-their-tools/agent-model-component/r4/v1",
+                    "ai-agents-and-their-tools/agent-tools/r3/v1",
+                    "ai-agents-and-their-tools/agent-chatbots-and-assistants/r3/v1"
+                  ],
+                  "paths": [
+                    "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/0",
+                    "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/3",
+                    "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/4",
+                    "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/5",
+                    "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/6",
+                    "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/11"
+                  ]
+                }
+              ]
+            },
+            {
+              "dimension": "overall_learner_experience",
+              "score": 0.79,
+              "evidence": [
+                {
+                  "statement": "The sequence is factually sound, varied in task type, and supported by useful feedback, but its repeated cognitive regression and remembering-only endpoint reduce coherence and instructional momentum.",
+                  "item_keys": [
+                    "ai-agents-and-their-tools/agent-instructions/r1/v2",
+                    "ai-agents-and-their-tools/agent-model-component/r3/v1",
+                    "ai-agents-and-their-tools/ai-agent-definition/r4/v1",
+                    "ai-agents-and-their-tools/agent-tools/r4/v1",
+                    "ai-agents-and-their-tools/agent-chatbots-and-assistants/r3/v1"
+                  ],
+                  "paths": [
+                    "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/0",
+                    "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/2",
+                    "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/7",
+                    "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/10",
+                    "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/11"
+                  ]
+                }
+              ]
+            }
+          ],
+          "critical_defects": [],
+          "largest_gap": {
+            "dimension": "cognitive_progression",
+            "summary": "The ordered session does not build steadily from foundational knowledge to application.",
+            "evidence": [
+              {
+                "statement": "The exact ordered Bloom sequence is Remembering, Remembering, Understanding, Remembering, Remembering, Applying, Understanding, Applying, Understanding, Applying, Applying, Remembering; the final item returns to remembering after application practice.",
+                "item_keys": [
+                  "ai-agents-and-their-tools/agent-instructions/r1/v2",
+                  "ai-agents-and-their-tools/generative-ai-workplace-uses/r1/v2",
+                  "ai-agents-and-their-tools/agent-model-component/r3/v1",
+                  "ai-agents-and-their-tools/ai-agent-definition/r3/v1",
+                  "ai-agents-and-their-tools/agent-instructions/r3/v1",
+                  "ai-agents-and-their-tools/agent-model-component/r4/v1",
+                  "ai-agents-and-their-tools/agent-tools/r3/v1",
+                  "ai-agents-and-their-tools/ai-agent-definition/r4/v1",
+                  "ai-agents-and-their-tools/generative-ai-workplace-uses/r3/v1",
+                  "ai-agents-and-their-tools/agent-instructions/r4/v1",
+                  "ai-agents-and-their-tools/agent-tools/r4/v1",
+                  "ai-agents-and-their-tools/agent-chatbots-and-assistants/r3/v1"
+                ],
+                "paths": [
+                  "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/0",
+                  "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/1",
+                  "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/2",
+                  "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/3",
+                  "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/4",
+                  "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/5",
+                  "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/6",
+                  "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/7",
+                  "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/8",
+                  "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/9",
+                  "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/10",
+                  "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/11"
+                ]
+              }
+            ],
+            "affected_item_keys": [
+              "ai-agents-and-their-tools/agent-instructions/r1/v2",
+              "ai-agents-and-their-tools/generative-ai-workplace-uses/r1/v2",
+              "ai-agents-and-their-tools/agent-model-component/r3/v1",
+              "ai-agents-and-their-tools/ai-agent-definition/r3/v1",
+              "ai-agents-and-their-tools/agent-instructions/r3/v1",
+              "ai-agents-and-their-tools/agent-model-component/r4/v1",
+              "ai-agents-and-their-tools/agent-tools/r3/v1",
+              "ai-agents-and-their-tools/ai-agent-definition/r4/v1",
+              "ai-agents-and-their-tools/generative-ai-workplace-uses/r3/v1",
+              "ai-agents-and-their-tools/agent-instructions/r4/v1",
+              "ai-agents-and-their-tools/agent-tools/r4/v1",
+              "ai-agents-and-their-tools/agent-chatbots-and-assistants/r3/v1"
+            ],
+            "affected_paths": [
+              "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/0",
+              "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/1",
+              "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/2",
+              "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/3",
+              "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/4",
+              "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/5",
+              "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/6",
+              "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/7",
+              "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/8",
+              "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/9",
+              "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/10",
+              "modules/0:1-introduction-to-ai-concepts/units/4:ai-agents-and-their-tools-l2/questions/11"
+            ],
+            "recommended_scope": "session",
+            "repair_instruction": "Reorder only the existing item objects so foundational remembering and understanding items lead into application items and the session does not end with a remembering item; preserve every payload and question_type unchanged.",
+            "allowed_payload_fields": []
+          },
+          "confidence": 0.93,
+          "human_review_recommended": false,
+          "human_review_reason": null,
+          "concise_summary": "The challenger is factually faithful, unambiguous, and pedagogically sound overall. The largest remaining issue is a non-monotonic cognitive sequence that ends with recall; it is safely repairable by session-only reordering."
+        },
+        "artifact_sha256": "a5f4312c2a5c28e9a88af4e8b17ae0d9db7bf13e26333efce5fe5ca9a8e8e1f9",
+        "evaluation_context_sha256": "a117d4b3ec60a6a2e3210be3c861c07489782215977c50cba182c9affb6df38c",
+        "goal_sha256": "6ce6b245bb30616f24e0fa9f76e0f5d01e608776378d036724270915fb57e725",
+        "critic_backend": "codex",
+        "critic_model": "codex:gpt-5.6-luna",
+        "fresh_context": true,
+        "model_independence": "independent",
+        "approved_reference_count": 0,
+        "reference_confidence_reduced": true,
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost_usd": 0.0,
+          "backend_calls": 1
+        }
+      },
+      "source_fidelity_gate": {
+        "artifact_sha256": "a5f4312c2a5c28e9a88af4e8b17ae0d9db7bf13e26333efce5fe5ca9a8e8e1f9",
+        "passed": true,
+        "issues": [],
+        "checks": {
+          "factual_fidelity_threshold": true,
+          "critic_confidence_threshold": true,
+          "no_factual_critical_defect": true,
+          "no_human_review_request": true,
+          "fresh_critic_context": true
+        },
+        "metrics": {
+          "factual_fidelity_score": 0.96,
+          "factual_fidelity_threshold": 0.8,
+          "critic_confidence": 0.93
+        },
+        "constraint_relaxations": []
+      },
+      "comparison": {
+        "champion_sha256": "a1a4780ea9a783fdbac71f7d5f2cda000af1a10945ebb18bf26737723a7a9d72",
+        "challenger_sha256": "a5f4312c2a5c28e9a88af4e8b17ae0d9db7bf13e26333efce5fe5ca9a8e8e1f9",
+        "evaluation_context_sha256": "a117d4b3ec60a6a2e3210be3c861c07489782215977c50cba182c9affb6df38c",
+        "comparator_backend": "codex",
+        "comparator_model": "codex:gpt-5.6-luna",
+        "comparator_fresh_context": true,
+        "records": [
+          {
+            "order_index": 1,
+            "seed": 901,
+            "a_role": "challenger",
+            "b_role": "champion",
+            "mapped_winner": "challenger",
+            "verdict": {
+              "winner": "A",
+              "confidence": 0.98,
+              "margin": 0.14,
+              "dimensions": [
+                {
+                  "dimension": "factual_fidelity",
+                  "score_a": 0.96,
+                  "score_b": 0.79,
+                  "evidence": "A's sixth item aligns with the source's three agent elements and identifies the large language model as providing language understanding and reasoning. B incorrectly presents capabilities such as 'Language understanding' and 'Generative reasoning' as agent components and marks them correct."
+                },
+                {
+                  "dimension": "answer_unambiguity",
+                  "score_a": 0.96,
+                  "score_b": 0.7,
+                  "evidence": "A has one clearly defensible answer in the differing item. B's multi-select item has an unstable answer set because capabilities are mixed with components."
+                },
+                {
+                  "dimension": "distractor_plausibility",
+                  "score_a": 0.92,
+                  "score_b": 0.72,
+                  "evidence": "A's distractors are source-grounded agent elements with clear role distinctions. B's 'Language understanding' and 'Generative reasoning' are not credible component distractors because they are keyed as correct."
+                },
+                {
+                  "dimension": "misconception_quality",
+                  "score_a": 0.94,
+                  "score_b": 0.75,
+                  "evidence": "A diagnoses confusion among instructions, knowledge tools, action tools, and the language model. B mainly tests recognition of loosely related capabilities rather than the component distinctions taught by the source."
+                },
+                {
+                  "dimension": "cognitive_progression",
+                  "score_a": 0.91,
+                  "score_b": 0.84,
+                  "evidence": "Both sequences move from recall to understanding and application, but B's differing item weakens the progression by introducing a poorly framed component-versus-capability distinction."
+                },
+                {
+                  "dimension": "mechanic_rhythm_variation",
+                  "score_a": 0.86,
+                  "score_b": 0.86,
+                  "evidence": "The sequences are identical in mechanic order and provide a reasonable mix of multiple choice, fill-in, and arrange-sentence items."
+                },
+                {
+                  "dimension": "prompt_language_variation",
+                  "score_a": 0.84,
+                  "score_b": 0.84,
+                  "evidence": "The sequences are identical overall and use varied stems across selection, reconstruction, completion, and scenario prompts."
+                },
+                {
+                  "dimension": "scenario_authenticity",
+                  "score_a": 0.9,
+                  "score_b": 0.89,
+                  "evidence": "Both include credible museum and expense-assistant scenarios. B's help-desk scenario is plausible, but its requested 'components' do not match all of its keyed answers."
+                },
+                {
+                  "dimension": "feedback_usefulness",
+                  "score_a": 0.9,
+                  "score_b": 0.78,
+                  "evidence": "A's differing item provides useful corrective rationales for each agent component. B's explanation does not clearly correct the component/capability mismatch and reinforces the inaccurate answer set."
+                },
+                {
+                  "dimension": "difficulty_appropriateness",
+                  "score_a": 0.92,
+                  "score_b": 0.82,
+                  "evidence": "A's item is appropriately focused for an introductory lesson. B adds conceptual ambiguity and non-source terminology, making the item harder for reasons unrelated to the intended learning objective."
+                },
+                {
+                  "dimension": "terminology_consistency",
+                  "score_a": 0.95,
+                  "score_b": 0.76,
+                  "evidence": "A consistently uses source terminology such as large language model, instructions, knowledge tool, and action tool. B introduces 'Generative reasoning' and treats 'Language understanding' as a component."
+                },
+                {
+                  "dimension": "overall_learner_experience",
+                  "score_a": 0.93,
+                  "score_b": 0.79,
+                  "evidence": "The sequences are otherwise identical, but A preserves a clear, source-faithful component check while B contains a materially misleading multi-select item."
+                }
+              ],
+              "evidence": [
+                "Candidates are identical except for the sixth substantive question.",
+                "A's differing question has one source-supported answer: a large language model.",
+                "B's differing question marks a language capability and an undefined term, 'Generative reasoning,' as agent components."
+              ],
+              "human_review_recommended": false,
+              "usage": {
+                "input_tokens": 0,
+                "output_tokens": 0,
+                "cost_usd": 0.0,
+                "backend_calls": 1
+              }
+            }
+          },
+          {
+            "order_index": 2,
+            "seed": 901,
+            "a_role": "champion",
+            "b_role": "challenger",
+            "mapped_winner": "challenger",
+            "verdict": {
+              "winner": "B",
+              "confidence": 0.98,
+              "margin": 0.06,
+              "dimensions": [
+                {
+                  "dimension": "factual_fidelity",
+                  "score_a": 0.87,
+                  "score_b": 0.99,
+                  "evidence": "A treats language understanding and generative reasoning as agent components, although the source identifies the language model as the component providing them. B matches the source."
+                },
+                {
+                  "dimension": "answer_unambiguity",
+                  "score_a": 0.82,
+                  "score_b": 0.99,
+                  "evidence": "A's item 6 makes multiple capability phrases defensible despite asking for components. B asks for one component and has one clear answer."
+                },
+                {
+                  "dimension": "distractor_plausibility",
+                  "score_a": 0.9,
+                  "score_b": 0.96,
+                  "evidence": "Both use credible distractors; B's distractors map more cleanly to distinct agent elements."
+                },
+                {
+                  "dimension": "misconception_quality",
+                  "score_a": 0.88,
+                  "score_b": 0.94,
+                  "evidence": "Both diagnose role, tool, and reasoning confusions, but A's extra purported correct options blur the misconception target."
+                },
+                {
+                  "dimension": "cognitive_progression",
+                  "score_a": 0.91,
+                  "score_b": 0.96,
+                  "evidence": "Both progress from recall to application, while B's component check reinforces the model cleanly before later scenarios."
+                },
+                {
+                  "dimension": "mechanic_rhythm_variation",
+                  "score_a": 0.94,
+                  "score_b": 0.9,
+                  "evidence": "A's scenario-based multi-select adds slightly more mechanic variation; otherwise the sequences are nearly identical."
+                },
+                {
+                  "dimension": "prompt_language_variation",
+                  "score_a": 0.91,
+                  "score_b": 0.91,
+                  "evidence": "Both sequences use varied stems across multiple choice, arrangement, and fill-in formats."
+                },
+                {
+                  "dimension": "scenario_authenticity",
+                  "score_a": 0.92,
+                  "score_b": 0.9,
+                  "evidence": "A's help-desk reasoning scenario is credible; B's item is more abstract but still instructionally realistic."
+                },
+                {
+                  "dimension": "feedback_usefulness",
+                  "score_a": 0.92,
+                  "score_b": 0.96,
+                  "evidence": "Both provide useful rationales, but B gives cleaner feedback because its single correct component supports a precise explanation."
+                },
+                {
+                  "dimension": "difficulty_appropriateness",
+                  "score_a": 0.93,
+                  "score_b": 0.88,
+                  "evidence": "A's applied scenario is appropriate for the stated progression. B labels a straightforward recall item as applying, making that step slightly less well calibrated."
+                },
+                {
+                  "dimension": "terminology_consistency",
+                  "score_a": 0.86,
+                  "score_b": 0.98,
+                  "evidence": "A introduces non-source terms such as “generative reasoning” as answer choices. B consistently uses source terminology."
+                },
+                {
+                  "dimension": "overall_learner_experience",
+                  "score_a": 0.9,
+                  "score_b": 0.96,
+                  "evidence": "The sequences are almost identical, but B avoids the ambiguous component item and delivers a cleaner learning signal."
+                }
+              ],
+              "evidence": [
+                "Candidates are identical except for item 6.",
+                "A's item 6 has multiple answers that are capabilities rather than the source-defined agent component.",
+                "B's item 6 preserves one defensible answer: the large language model."
+              ],
+              "human_review_recommended": false,
+              "usage": {
+                "input_tokens": 0,
+                "output_tokens": 0,
+                "cost_usd": 0.0,
+                "backend_calls": 1
+              }
+            }
+          }
+        ],
+        "position_sensitive": false,
+        "stable": true,
+        "decision": "promote",
+        "protected_regressions": [],
+        "minimum_confidence": 0.98,
+        "minimum_margin": 0.06,
+        "decision_evidence": "Both position orders select the hard-gated challenger without protected regression.",
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost_usd": 0.0,
+          "backend_calls": 2
+        }
+      }
+    }
+  },
+  "approved_by": "Codex reviewer for Adi",
+  "approved_at": "2026-08-29T08:09:16.172178Z",
+  "exact_proposal_sha256": "a8e6093552663cd6b940a6179644ea31dcd346b4245474d62b2cd0d164339a03",
+  "exact_history_sha256": "fd2e465c9189d05b74f6142d8a6461fe76c752103130b4827ea71a50a9e5c5a1",
+  "exact_compiled_artifact_sha256": "2fa356d363b3a7f13d4d399d67361e952b387b4b6502e0aa169d3bb7f3169d2b",
+  "exact_champion_after_sha256": "a5f4312c2a5c28e9a88af4e8b17ae0d9db7bf13e26333efce5fe5ca9a8e8e1f9"
+}

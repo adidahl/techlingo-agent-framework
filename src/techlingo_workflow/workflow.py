@@ -21,9 +21,20 @@ warnings.filterwarnings(
     message=r".*Adding an edge with Executor or AgentProtocol instances.*",
 )
 
-def should_loop(state: PipelineState) -> bool:
-    # Loop back if validation report exists and has errors
-    return state.validation_report is not None and not state.validation_report.ok
+def should_loop_to_a1(state: PipelineState) -> bool:
+    return (
+        state.validation_report is not None
+        and not state.validation_report.ok
+        and state.retry_target == "a1"
+    )
+
+
+def should_loop_to_a2(state: PipelineState) -> bool:
+    return (
+        state.validation_report is not None
+        and not state.validation_report.ok
+        and state.retry_target == "a2"
+    )
 
 # Pre-build workflows using function references
 # We ignore the warning because we purposely build these once at module level
@@ -38,7 +49,8 @@ _techlingo_workflow = (
     .add_edge(a2_scaffolder, a3_scenario_designer)
     .add_edge(a3_scenario_designer, a4_feedback_architect)
     .add_edge(a4_feedback_architect, a5_validator)
-    .add_edge(a5_validator, a2_scaffolder, condition=should_loop)
+    .add_edge(a5_validator, a1_modularizer, condition=should_loop_to_a1)
+    .add_edge(a5_validator, a2_scaffolder, condition=should_loop_to_a2)
     .build()
 )
 
@@ -56,5 +68,4 @@ def build_techlingo_workflow():
 def build_analysis_workflow():
     """Returns the pre-built Analysis workflow."""
     return _analysis_workflow
-
 

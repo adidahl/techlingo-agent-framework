@@ -1,0 +1,910 @@
+{
+  "schema_version": "techlingo-gauntlet-authored-approval-v1",
+  "approval_sha256": "8c16c7d598fb4051cf8a104408c7df13fad4b8c9a64c97096b22d4abd46a3454",
+  "proposal": {
+    "schema_version": "techlingo-gauntlet-authored-proposal-v1",
+    "proposal_id": "call-models-and-build-agents-l1-4ee4144e851b-round-1",
+    "proposal_sha256": "82c7da761e5287ff7f3be591931e1f7703fbf65f6b8d9370df79424780a26c3c",
+    "unit_key": "call-models-and-build-agents-l1",
+    "run_id": "call-models-and-build-agents-l1-4ee4144e851b",
+    "round_number": 1,
+    "record_path": "gauntlet/history/call-models-and-build-agents-l1-call-models-and-build-agents-l1-4ee4144e851b.json",
+    "record_sha256": "1d3072cecc421691d025fdc2472ee824d1b30a633d4c3d6f524b196ade55ac56",
+    "history_sha256": "bc2076ebff622027dd89d6707f5ab2a448bf133f012b7e412fe8fe3e6cec6e38",
+    "compiled_artifact_sha256": "2fa356d363b3a7f13d4d399d67361e952b387b4b6502e0aa169d3bb7f3169d2b",
+    "champion_before_sha256": "7d50e5e9ff0aea98bb0f4827c840695e6bb27fdc1eec4dd4dd1fb6a251bfeedd",
+    "champion_after_sha256": "dad80d7e6a5cca55285fa6bfa9597a45ca13b966c945c1bd244259d77525d0d4",
+    "evaluation_context_sha256": "d617eecd28efa1eae62f2b9b5428d663a6cb70d1035e83a592f34ca03cfd035e",
+    "gauntlet_policy_sha256": "3ffb6943742c9fc0b33d6668a9c5695b535ee3121f7b697df8ab4d4392014385",
+    "repair_summary": "Repaired the overinclusive Foundry SDK answer by replacing the unsupported keyed option with a source-supported false distractor, updating its feedback, narrowing correct_answer to [0,1], and clarifying the explanation.",
+    "repair_instruction": "Preserve question_type and identity fields; replace the third option with a source-supported false distractor such as 'Automatic model evaluation scores', set correct_answer to '[0,1]', and update the affected option rationale/error_type/better_fit plus the explanation to distinguish SDK clients from playground evaluation or configuration features.",
+    "emitted_changes": [
+      {
+        "item_key": "call-models-and-build-agents/foundry-sdk/r1/v1",
+        "artifact_path": "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/9",
+        "field": "correct_answer",
+        "before": "[0,1,3]",
+        "after": "[0,1]"
+      },
+      {
+        "item_key": "call-models-and-build-agents/foundry-sdk/r1/v1",
+        "artifact_path": "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/9",
+        "field": "explanation",
+        "before": "Correct. The SDK supplies client roles and supports reuse of tested settings.",
+        "after": "Correct. The Foundry SDK provides a Project client for Foundry operations and an OpenAI-compatible client for model calls. Model evaluation scores come from Foundry evaluation features, not the SDK."
+      },
+      {
+        "item_key": "call-models-and-build-agents/foundry-sdk/r1/v1",
+        "artifact_path": "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/9",
+        "field": "options",
+        "before": {
+          "options": [
+            {
+              "text": "A Project client for Foundry operations",
+              "is_correct": true,
+              "error_type": null,
+              "rationale": "The SDK provides a Project client for Foundry-native operations. This client connects application work to a Foundry project.",
+              "better_fit": null,
+              "feedback": null
+            },
+            {
+              "text": "An OpenAI-compatible client for model calls",
+              "is_correct": true,
+              "error_type": null,
+              "rationale": "The SDK also provides an OpenAI-compatible client. That client supports Responses API model calls.",
+              "better_fit": null,
+              "feedback": null
+            },
+            {
+              "text": "A replacement for a model deployment",
+              "is_correct": false,
+              "error_type": "Confuses SDK with deployment",
+              "rationale": "An SDK supplies clients and connection patterns. A deployment is the model service being called.",
+              "better_fit": "A model deployment is needed to expose a selected model through an endpoint.",
+              "feedback": null
+            },
+            {
+              "text": "Reusable playground settings for code",
+              "is_correct": true,
+              "error_type": null,
+              "rationale": "Tested system prompts, user prompts, and parameter values can move into application code. This preserves a working configuration.",
+              "better_fit": null,
+              "feedback": null
+            }
+          ],
+          "blooms_level": "Remembering",
+          "original_question_type": "multi_choice",
+          "concept_id": "foundry-sdk",
+          "item_key": "call-models-and-build-agents/foundry-sdk/r1/v1",
+          "rung": 1,
+          "variant": 1,
+          "module_key": "8-get-started-with-generative-ai-and-agents",
+          "lesson_key": "call-models-and-build-agents",
+          "learning_status": "new"
+        },
+        "after": {
+          "options": [
+            {
+              "text": "A Project client for Foundry operations",
+              "is_correct": true,
+              "error_type": null,
+              "rationale": "The SDK provides a Project client for Foundry-native operations. This client connects application work to a Foundry project.",
+              "better_fit": null,
+              "feedback": null
+            },
+            {
+              "text": "An OpenAI-compatible client for model calls",
+              "is_correct": true,
+              "error_type": null,
+              "rationale": "The SDK also provides an OpenAI-compatible client. That client supports Responses API model calls.",
+              "better_fit": null,
+              "feedback": null
+            },
+            {
+              "text": "A replacement for a model deployment",
+              "is_correct": false,
+              "error_type": "Confuses SDK with deployment",
+              "rationale": "An SDK supplies clients and connection patterns. A deployment is the model service being called.",
+              "better_fit": "A model deployment is needed to expose a selected model through an endpoint.",
+              "feedback": null
+            },
+            {
+              "text": "Automatic model evaluation scores",
+              "is_correct": false,
+              "error_type": "Confuses SDK clients with evaluation",
+              "rationale": "Model evaluation scores come from Foundry's benchmarking and evaluator capabilities, not from the SDK clients. The SDK provides clients for Foundry operations and model calls.",
+              "better_fit": "Use evaluation scores when comparing model quality, safety, or performance.",
+              "feedback": null
+            }
+          ],
+          "blooms_level": "Remembering",
+          "original_question_type": "multi_choice",
+          "concept_id": "foundry-sdk",
+          "item_key": "call-models-and-build-agents/foundry-sdk/r1/v1",
+          "rung": 1,
+          "variant": 1,
+          "module_key": "8-get-started-with-generative-ai-and-agents",
+          "lesson_key": "call-models-and-build-agents",
+          "learning_status": "new"
+        }
+      }
+    ],
+    "authored_changes": [
+      {
+        "item_key": "call-models-and-build-agents/foundry-sdk/r1/v1",
+        "bank_path": "bank/call-models-and-build-agents.json",
+        "bank_item_index": 5,
+        "source_file": "8. Get started with generative AI and agents in Azure.md",
+        "source_sha256": "804615778632569292419f970abfbc2e893ede0d1775e36655732588ea35541c",
+        "item_source_sha256": "804615778632569292419f970abfbc2e893ede0d1775e36655732588ea35541c",
+        "bank_payload_sha256": "1ba1fba0cb1f5f7342125d57be2124f97d6e02354ec3198265da89d490c0a372",
+        "provenance_before": "generated",
+        "pinned_before": false,
+        "payload_before": {
+          "blooms_level": "Remembering",
+          "question_type": "multi_choice",
+          "prompt": "What does the Foundry SDK provide? Select all that apply.",
+          "concept_id": "foundry-sdk",
+          "options": [
+            {
+              "text": "A Project client for Foundry operations",
+              "is_correct": true,
+              "error_type": null,
+              "rationale": "The SDK provides a Project client for Foundry-native operations. This client connects application work to a Foundry project.",
+              "better_fit": null,
+              "feedback": null
+            },
+            {
+              "text": "An OpenAI-compatible client for model calls",
+              "is_correct": true,
+              "error_type": null,
+              "rationale": "The SDK also provides an OpenAI-compatible client. That client supports Responses API model calls.",
+              "better_fit": null,
+              "feedback": null
+            },
+            {
+              "text": "Reusable playground settings for code",
+              "is_correct": true,
+              "error_type": null,
+              "rationale": "Tested system prompts, user prompts, and parameter values can move into application code. This preserves a working configuration.",
+              "better_fit": null,
+              "feedback": null
+            },
+            {
+              "text": "A replacement for a model deployment",
+              "is_correct": false,
+              "error_type": "Confuses SDK with deployment",
+              "rationale": "An SDK supplies clients and connection patterns. A deployment is the model service being called.",
+              "better_fit": "A model deployment is needed to expose a selected model through an endpoint.",
+              "feedback": null
+            }
+          ],
+          "feedback_for_correct": "Correct. The SDK supplies client roles and supports reuse of tested settings."
+        },
+        "payload_after": {
+          "blooms_level": "Remembering",
+          "question_type": "multi_choice",
+          "prompt": "What does the Foundry SDK provide? Select all that apply.",
+          "concept_id": "foundry-sdk",
+          "options": [
+            {
+              "text": "A Project client for Foundry operations",
+              "is_correct": true,
+              "error_type": null,
+              "rationale": "The SDK provides a Project client for Foundry-native operations. This client connects application work to a Foundry project.",
+              "better_fit": null,
+              "feedback": null
+            },
+            {
+              "text": "An OpenAI-compatible client for model calls",
+              "is_correct": true,
+              "error_type": null,
+              "rationale": "The SDK also provides an OpenAI-compatible client. That client supports Responses API model calls.",
+              "better_fit": null,
+              "feedback": null
+            },
+            {
+              "text": "Automatic model evaluation scores",
+              "is_correct": false,
+              "error_type": "Confuses SDK clients with evaluation",
+              "rationale": "Model evaluation scores come from Foundry's benchmarking and evaluator capabilities, not from the SDK clients. The SDK provides clients for Foundry operations and model calls.",
+              "better_fit": "Use evaluation scores when comparing model quality, safety, or performance.",
+              "feedback": null
+            },
+            {
+              "text": "A replacement for a model deployment",
+              "is_correct": false,
+              "error_type": "Confuses SDK with deployment",
+              "rationale": "An SDK supplies clients and connection patterns. A deployment is the model service being called.",
+              "better_fit": "A model deployment is needed to expose a selected model through an endpoint.",
+              "feedback": null
+            }
+          ],
+          "feedback_for_correct": "Correct. The Foundry SDK provides a Project client for Foundry operations and an OpenAI-compatible client for model calls. Model evaluation scores come from Foundry evaluation features, not the SDK."
+        },
+        "changed_payload_fields": [
+          "feedback_for_correct",
+          "options"
+        ]
+      }
+    ],
+    "evidence": {
+      "hard_gate": {
+        "artifact_sha256": "dad80d7e6a5cca55285fa6bfa9597a45ca13b966c945c1bd244259d77525d0d4",
+        "passed": true,
+        "issues": [],
+        "checks": {
+          "schema_and_answers": true,
+          "identity": true,
+          "final_sequence": true
+        },
+        "metrics": {},
+        "constraint_relaxations": []
+      },
+      "source_fidelity_critic": {
+        "result": {
+          "dimensions": [
+            {
+              "dimension": "factual_fidelity",
+              "score": 0.99,
+              "evidence": [
+                {
+                  "statement": "All marked answers and explanations align with the authoritative source: models are raw intelligence, agents package models with instructions and tools, the Project API supports agent integration and workflows, and the Responses API calls deployed models.",
+                  "item_keys": [
+                    "call-models-and-build-agents/model-versus-agent/r1/v1",
+                    "call-models-and-build-agents/project-api-and-agent-client/r1/v1",
+                    "call-models-and-build-agents/agent/r1/v1",
+                    "call-models-and-build-agents/responses-api-and-lightweight-client/r1/v1"
+                  ],
+                  "paths": [
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/0",
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/1",
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/4",
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/5"
+                  ]
+                },
+                {
+                  "statement": "The remaining claims about agent memory, lightweight clients, knowledge, SDK clients, tools, and playground-to-code reuse are directly supported by source 8. Get started with generative AI and agents in Azure.",
+                  "item_keys": [
+                    "call-models-and-build-agents/agent/r2/v1",
+                    "call-models-and-build-agents/responses-api-and-lightweight-client/r2/v1",
+                    "call-models-and-build-agents/tools-and-knowledge/r1/v1",
+                    "call-models-and-build-agents/foundry-sdk/r1/v1",
+                    "call-models-and-build-agents/tools-and-knowledge/r2/v1",
+                    "call-models-and-build-agents/foundry-sdk/r2/v1"
+                  ],
+                  "paths": [
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/6",
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/7",
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/8",
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/9",
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/10",
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/11"
+                  ]
+                }
+              ]
+            },
+            {
+              "dimension": "answer_unambiguity",
+              "score": 0.99,
+              "evidence": [
+                {
+                  "statement": "Each item has one defensible answer set under its instructions; the multiple-choice and true/false answers correspond directly to explicit source distinctions.",
+                  "item_keys": [
+                    "call-models-and-build-agents/model-versus-agent/r1/v1",
+                    "call-models-and-build-agents/project-api-and-agent-client/r1/v1",
+                    "call-models-and-build-agents/model-versus-agent/r2/v1",
+                    "call-models-and-build-agents/project-api-and-agent-client/r2/v1",
+                    "call-models-and-build-agents/agent/r1/v1",
+                    "call-models-and-build-agents/responses-api-and-lightweight-client/r1/v1",
+                    "call-models-and-build-agents/agent/r2/v1",
+                    "call-models-and-build-agents/responses-api-and-lightweight-client/r2/v1",
+                    "call-models-and-build-agents/tools-and-knowledge/r1/v1",
+                    "call-models-and-build-agents/foundry-sdk/r1/v1",
+                    "call-models-and-build-agents/tools-and-knowledge/r2/v1",
+                    "call-models-and-build-agents/foundry-sdk/r2/v1"
+                  ],
+                  "paths": [
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/0",
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/1",
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/2",
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/3",
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/4",
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/5",
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/6",
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/7",
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/8",
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/9",
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/10",
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/11"
+                  ]
+                }
+              ]
+            },
+            {
+              "dimension": "distractor_plausibility",
+              "score": 0.91,
+              "evidence": [
+                {
+                  "statement": "Distractors represent credible category confusions, such as model versus agent, tool, knowledge, evaluator, deployment, playground, or API; they remain distinguishable from the source-defined answer.",
+                  "item_keys": [
+                    "call-models-and-build-agents/model-versus-agent/r1/v1",
+                    "call-models-and-build-agents/responses-api-and-lightweight-client/r1/v1",
+                    "call-models-and-build-agents/tools-and-knowledge/r1/v1",
+                    "call-models-and-build-agents/foundry-sdk/r1/v1"
+                  ],
+                  "paths": [
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/0",
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/5",
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/8",
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/9"
+                  ]
+                }
+              ]
+            },
+            {
+              "dimension": "misconception_quality",
+              "score": 0.92,
+              "evidence": [
+                {
+                  "statement": "Wrong choices and error labels diagnose realistic misconceptions, including confusing an agent with its model, confusing tools with knowledge, and confusing SDK or evaluation capabilities with deployment or model calling.",
+                  "item_keys": [
+                    "call-models-and-build-agents/project-api-and-agent-client/r1/v1",
+                    "call-models-and-build-agents/agent/r1/v1",
+                    "call-models-and-build-agents/tools-and-knowledge/r1/v1",
+                    "call-models-and-build-agents/foundry-sdk/r1/v1"
+                  ],
+                  "paths": [
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/1",
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/4",
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/8",
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/9"
+                  ]
+                }
+              ]
+            },
+            {
+              "dimension": "cognitive_progression",
+              "score": 0.72,
+              "evidence": [
+                {
+                  "statement": "The sequence begins with model-versus-agent recognition and then covers APIs, agent capabilities, tools, knowledge, SDKs, and configuration reuse, but it introduces Project API details before establishing the agent's three-part structure and repeatedly returns to recognition-level checks.",
+                  "item_keys": [
+                    "call-models-and-build-agents/model-versus-agent/r1/v1",
+                    "call-models-and-build-agents/project-api-and-agent-client/r1/v1",
+                    "call-models-and-build-agents/agent/r1/v1",
+                    "call-models-and-build-agents/foundry-sdk/r2/v1"
+                  ],
+                  "paths": [
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/0",
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/1",
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/4",
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/11"
+                  ]
+                }
+              ]
+            },
+            {
+              "dimension": "mechanic_rhythm_variation",
+              "score": 0.68,
+              "evidence": [
+                {
+                  "statement": "Mechanics alternate among multiple choice, multi-select, and true/false, but the exact ordered sequence contains repeated true/false pairs at positions 3–4, 7–8, and 11–12.",
+                  "item_keys": [
+                    "call-models-and-build-agents/model-versus-agent/r2/v1",
+                    "call-models-and-build-agents/project-api-and-agent-client/r2/v1",
+                    "call-models-and-build-agents/agent/r2/v1",
+                    "call-models-and-build-agents/responses-api-and-lightweight-client/r2/v1",
+                    "call-models-and-build-agents/tools-and-knowledge/r2/v1",
+                    "call-models-and-build-agents/foundry-sdk/r2/v1"
+                  ],
+                  "paths": [
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/2",
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/3",
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/6",
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/7",
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/10",
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/11"
+                  ]
+                }
+              ]
+            },
+            {
+              "dimension": "prompt_language_variation",
+              "score": 0.61,
+              "evidence": [
+                {
+                  "statement": "Prompt stems are formulaic: several begin with “What,” several with “Which,” and six are binary assertions; the paired true/false items especially repeat the same sentence pattern.",
+                  "item_keys": [
+                    "call-models-and-build-agents/model-versus-agent/r1/v1",
+                    "call-models-and-build-agents/project-api-and-agent-client/r1/v1",
+                    "call-models-and-build-agents/model-versus-agent/r2/v1",
+                    "call-models-and-build-agents/project-api-and-agent-client/r2/v1",
+                    "call-models-and-build-agents/agent/r1/v1",
+                    "call-models-and-build-agents/responses-api-and-lightweight-client/r1/v1",
+                    "call-models-and-build-agents/agent/r2/v1",
+                    "call-models-and-build-agents/responses-api-and-lightweight-client/r2/v1",
+                    "call-models-and-build-agents/tools-and-knowledge/r1/v1",
+                    "call-models-and-build-agents/foundry-sdk/r1/v1",
+                    "call-models-and-build-agents/tools-and-knowledge/r2/v1",
+                    "call-models-and-build-agents/foundry-sdk/r2/v1"
+                  ],
+                  "paths": [
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/0",
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/1",
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/2",
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/3",
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/4",
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/5",
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/6",
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/7",
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/8",
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/9",
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/10",
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/11"
+                  ]
+                }
+              ]
+            },
+            {
+              "dimension": "scenario_authenticity",
+              "score": 0.42,
+              "evidence": [
+                {
+                  "statement": "All twelve items are abstract definitions, capability checks, or uncontextualized true/false assertions; none asks the learner to make a credible Foundry implementation or integration decision, despite the source describing playground, SDK, API, agent, and deployment workflows.",
+                  "item_keys": [
+                    "call-models-and-build-agents/model-versus-agent/r1/v1",
+                    "call-models-and-build-agents/project-api-and-agent-client/r1/v1",
+                    "call-models-and-build-agents/model-versus-agent/r2/v1",
+                    "call-models-and-build-agents/project-api-and-agent-client/r2/v1",
+                    "call-models-and-build-agents/agent/r1/v1",
+                    "call-models-and-build-agents/responses-api-and-lightweight-client/r1/v1",
+                    "call-models-and-build-agents/agent/r2/v1",
+                    "call-models-and-build-agents/responses-api-and-lightweight-client/r2/v1",
+                    "call-models-and-build-agents/tools-and-knowledge/r1/v1",
+                    "call-models-and-build-agents/foundry-sdk/r1/v1",
+                    "call-models-and-build-agents/tools-and-knowledge/r2/v1",
+                    "call-models-and-build-agents/foundry-sdk/r2/v1"
+                  ],
+                  "paths": [
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/0",
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/1",
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/2",
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/3",
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/4",
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/5",
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/6",
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/7",
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/8",
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/9",
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/10",
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/11"
+                  ]
+                }
+              ]
+            },
+            {
+              "dimension": "feedback_usefulness",
+              "score": 0.84,
+              "evidence": [
+                {
+                  "statement": "Feedback generally identifies the governing distinction and gives a corrective explanation, such as direct model calls versus agent calls and tools versus knowledge; some explanations are brief and do not consistently provide a concrete next step.",
+                  "item_keys": [
+                    "call-models-and-build-agents/responses-api-and-lightweight-client/r1/v1",
+                    "call-models-and-build-agents/tools-and-knowledge/r2/v1",
+                    "call-models-and-build-agents/project-api-and-agent-client/r2/v1",
+                    "call-models-and-build-agents/foundry-sdk/r2/v1"
+                  ],
+                  "paths": [
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/5",
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/10",
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/1",
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/11"
+                  ]
+                }
+              ]
+            },
+            {
+              "dimension": "difficulty_appropriateness",
+              "score": 0.93,
+              "evidence": [
+                {
+                  "statement": "The items are labeled Remembering or Understanding and match a Level 1 unit whose stated objective is to distinguish models from agents and identify how applications call them.",
+                  "item_keys": [
+                    "call-models-and-build-agents/model-versus-agent/r1/v1",
+                    "call-models-and-build-agents/project-api-and-agent-client/r1/v1",
+                    "call-models-and-build-agents/model-versus-agent/r2/v1",
+                    "call-models-and-build-agents/project-api-and-agent-client/r2/v1"
+                  ],
+                  "paths": [
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/0",
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/1",
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/2",
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/3"
+                  ]
+                }
+              ]
+            },
+            {
+              "dimension": "terminology_consistency",
+              "score": 0.96,
+              "evidence": [
+                {
+                  "statement": "The artifact consistently distinguishes model, agent, instructions, tools, knowledge, Project API, Responses API, SDK, and playground in the same roles defined by source 8. The wording “agent ID” is a harmless spacing variation of the source’s “agent-id.”",
+                  "item_keys": [
+                    "call-models-and-build-agents/agent/r1/v1",
+                    "call-models-and-build-agents/tools-and-knowledge/r1/v1",
+                    "call-models-and-build-agents/tools-and-knowledge/r2/v1",
+                    "call-models-and-build-agents/project-api-and-agent-client/r2/v1"
+                  ],
+                  "paths": [
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/4",
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/8",
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/10",
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/3"
+                  ]
+                }
+              ]
+            },
+            {
+              "dimension": "overall_learner_experience",
+              "score": 0.7,
+              "evidence": [
+                {
+                  "statement": "The sequence is factually sound and internally coherent, with useful misconception-based feedback, but the exact experience is weakened by repeated binary checks, formulaic stems, limited application context, and only modest progression beyond recall.",
+                  "item_keys": [
+                    "call-models-and-build-agents/model-versus-agent/r1/v1",
+                    "call-models-and-build-agents/project-api-and-agent-client/r1/v1",
+                    "call-models-and-build-agents/agent/r1/v1",
+                    "call-models-and-build-agents/tools-and-knowledge/r1/v1",
+                    "call-models-and-build-agents/foundry-sdk/r2/v1"
+                  ],
+                  "paths": [
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/0",
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/1",
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/4",
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/8",
+                    "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/11"
+                  ]
+                }
+              ]
+            }
+          ],
+          "critical_defects": [],
+          "largest_gap": {
+            "dimension": "scenario_authenticity",
+            "summary": "The session lacks credible Foundry decisions or tasks and relies almost entirely on decontextualized definitions and assertions.",
+            "evidence": [
+              {
+                "statement": "The exact ordered artifact uses definition, capability, and true/false prompts throughout, while source 8 describes concrete workflows such as selecting a model, calling a deployment, configuring an agent, using knowledge, and integrating agents into applications.",
+                "item_keys": [
+                  "call-models-and-build-agents/model-versus-agent/r1/v1",
+                  "call-models-and-build-agents/project-api-and-agent-client/r1/v1",
+                  "call-models-and-build-agents/model-versus-agent/r2/v1",
+                  "call-models-and-build-agents/project-api-and-agent-client/r2/v1",
+                  "call-models-and-build-agents/agent/r1/v1",
+                  "call-models-and-build-agents/responses-api-and-lightweight-client/r1/v1",
+                  "call-models-and-build-agents/agent/r2/v1",
+                  "call-models-and-build-agents/responses-api-and-lightweight-client/r2/v1",
+                  "call-models-and-build-agents/tools-and-knowledge/r1/v1",
+                  "call-models-and-build-agents/foundry-sdk/r1/v1",
+                  "call-models-and-build-agents/tools-and-knowledge/r2/v1",
+                  "call-models-and-build-agents/foundry-sdk/r2/v1"
+                ],
+                "paths": [
+                  "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/0",
+                  "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/1",
+                  "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/2",
+                  "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/3",
+                  "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/4",
+                  "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/5",
+                  "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/6",
+                  "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/7",
+                  "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/8",
+                  "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/9",
+                  "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/10",
+                  "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/11"
+                ]
+              }
+            ],
+            "affected_item_keys": [
+              "call-models-and-build-agents/model-versus-agent/r1/v1",
+              "call-models-and-build-agents/project-api-and-agent-client/r1/v1",
+              "call-models-and-build-agents/model-versus-agent/r2/v1",
+              "call-models-and-build-agents/project-api-and-agent-client/r2/v1",
+              "call-models-and-build-agents/agent/r1/v1",
+              "call-models-and-build-agents/responses-api-and-lightweight-client/r1/v1",
+              "call-models-and-build-agents/agent/r2/v1",
+              "call-models-and-build-agents/responses-api-and-lightweight-client/r2/v1",
+              "call-models-and-build-agents/tools-and-knowledge/r1/v1",
+              "call-models-and-build-agents/foundry-sdk/r1/v1",
+              "call-models-and-build-agents/tools-and-knowledge/r2/v1",
+              "call-models-and-build-agents/foundry-sdk/r2/v1"
+            ],
+            "affected_paths": [
+              "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/0",
+              "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/1",
+              "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/2",
+              "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/3",
+              "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/4",
+              "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/5",
+              "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/6",
+              "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/7",
+              "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/8",
+              "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/9",
+              "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/10",
+              "modules/7:8-get-started-with-generative-ai-and-agents/units/15:call-models-and-build-agents-l1/questions/11"
+            ],
+            "recommended_scope": "item",
+            "repair_instruction": "Reframe the existing question_text for these items as short, source-bounded Foundry decisions or tasks—for example choosing a direct model call versus an agent call, identifying the needed agent component, or selecting the appropriate API—while preserving every existing question_type, option set, correct_answer, and source-supported concept. Change only question_text.",
+            "allowed_payload_fields": [
+              "question_text"
+            ]
+          },
+          "confidence": 0.94,
+          "human_review_recommended": false,
+          "human_review_reason": null,
+          "concise_summary": "The challenger passes factual and answer-validity gates with no critical defects. Its main remaining weakness is low scenario authenticity, compounded by formulaic stems and repeated true/false pairs; this is safely repairable through bounded question-text reframing."
+        },
+        "artifact_sha256": "dad80d7e6a5cca55285fa6bfa9597a45ca13b966c945c1bd244259d77525d0d4",
+        "evaluation_context_sha256": "d617eecd28efa1eae62f2b9b5428d663a6cb70d1035e83a592f34ca03cfd035e",
+        "goal_sha256": "6ce6b245bb30616f24e0fa9f76e0f5d01e608776378d036724270915fb57e725",
+        "critic_backend": "codex",
+        "critic_model": "codex:gpt-5.6-luna",
+        "fresh_context": true,
+        "model_independence": "independent",
+        "approved_reference_count": 0,
+        "reference_confidence_reduced": true,
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost_usd": 0.0,
+          "backend_calls": 1
+        }
+      },
+      "source_fidelity_gate": {
+        "artifact_sha256": "dad80d7e6a5cca55285fa6bfa9597a45ca13b966c945c1bd244259d77525d0d4",
+        "passed": true,
+        "issues": [],
+        "checks": {
+          "factual_fidelity_threshold": true,
+          "critic_confidence_threshold": true,
+          "no_factual_critical_defect": true,
+          "no_human_review_request": true,
+          "fresh_critic_context": true
+        },
+        "metrics": {
+          "factual_fidelity_score": 0.99,
+          "factual_fidelity_threshold": 0.8,
+          "critic_confidence": 0.94
+        },
+        "constraint_relaxations": []
+      },
+      "comparison": {
+        "champion_sha256": "7d50e5e9ff0aea98bb0f4827c840695e6bb27fdc1eec4dd4dd1fb6a251bfeedd",
+        "challenger_sha256": "dad80d7e6a5cca55285fa6bfa9597a45ca13b966c945c1bd244259d77525d0d4",
+        "evaluation_context_sha256": "d617eecd28efa1eae62f2b9b5428d663a6cb70d1035e83a592f34ca03cfd035e",
+        "comparator_backend": "codex",
+        "comparator_model": "codex:gpt-5.6-luna",
+        "comparator_fresh_context": true,
+        "records": [
+          {
+            "order_index": 1,
+            "seed": 901,
+            "a_role": "challenger",
+            "b_role": "champion",
+            "mapped_winner": "challenger",
+            "verdict": {
+              "winner": "A",
+              "confidence": 0.99,
+              "margin": 0.04,
+              "dimensions": [
+                {
+                  "dimension": "factual_fidelity",
+                  "score_a": 0.98,
+                  "score_b": 0.93,
+                  "evidence": "A's SDK distractor is clearly unsupported; B treats reusable playground settings as an SDK provision, conflating two source statements."
+                },
+                {
+                  "dimension": "answer_unambiguity",
+                  "score_a": 0.98,
+                  "score_b": 0.89,
+                  "evidence": "A has two clearly correct SDK clients; B's reusable-settings option can appear defensible from the source."
+                },
+                {
+                  "dimension": "distractor_plausibility",
+                  "score_a": 0.94,
+                  "score_b": 0.84,
+                  "evidence": "A's evaluation-score distractor is credible but clearly distinct from SDK functionality; B's distractor is too close to a source-supported capability."
+                },
+                {
+                  "dimension": "misconception_quality",
+                  "score_a": 0.91,
+                  "score_b": 0.86,
+                  "evidence": "A diagnoses confusion between SDK clients and evaluation features; B diagnoses a less clean SDK-versus-playground conflation."
+                },
+                {
+                  "dimension": "cognitive_progression",
+                  "score_a": 0.88,
+                  "score_b": 0.88,
+                  "evidence": "The ordered sequence is identical and moves from model and agent basics to APIs, tools, knowledge, SDKs, and reuse."
+                },
+                {
+                  "dimension": "mechanic_rhythm_variation",
+                  "score_a": 0.9,
+                  "score_b": 0.9,
+                  "evidence": "Both use the same alternating multiple-choice and true/false pattern."
+                },
+                {
+                  "dimension": "prompt_language_variation",
+                  "score_a": 0.84,
+                  "score_b": 0.84,
+                  "evidence": "Both have the same prompt stems and therefore the same moderate variation."
+                },
+                {
+                  "dimension": "scenario_authenticity",
+                  "score_a": 0.35,
+                  "score_b": 0.35,
+                  "evidence": "Both are mostly abstract recall checks rather than credible workplace decisions or tasks."
+                },
+                {
+                  "dimension": "feedback_usefulness",
+                  "score_a": 0.9,
+                  "score_b": 0.86,
+                  "evidence": "A's explanation correctly separates SDK clients from evaluation; B's explanation reinforces an imprecise SDK capability claim."
+                },
+                {
+                  "dimension": "difficulty_appropriateness",
+                  "score_a": 0.9,
+                  "score_b": 0.9,
+                  "evidence": "Both match an introductory session position and use mostly remembering or understanding tasks."
+                },
+                {
+                  "dimension": "terminology_consistency",
+                  "score_a": 0.96,
+                  "score_b": 0.89,
+                  "evidence": "A preserves the source distinction between the Foundry SDK and playground settings; B blurs that distinction."
+                },
+                {
+                  "dimension": "overall_learner_experience",
+                  "score_a": 0.92,
+                  "score_b": 0.87,
+                  "evidence": "The sequences are identical except for B's ambiguous final SDK item, giving A a cleaner and more source-faithful finish."
+                }
+              ],
+              "evidence": [
+                "Candidates are identical except for the final distractor in the Foundry SDK item.",
+                "Source attributes reusable prompts and parameter values to the playground-to-code workflow, not explicitly to what the SDK provides.",
+                "A therefore preserves a single defensible answer more reliably."
+              ],
+              "human_review_recommended": false,
+              "usage": {
+                "input_tokens": 0,
+                "output_tokens": 0,
+                "cost_usd": 0.0,
+                "backend_calls": 1
+              }
+            }
+          },
+          {
+            "order_index": 2,
+            "seed": 901,
+            "a_role": "champion",
+            "b_role": "challenger",
+            "mapped_winner": "challenger",
+            "verdict": {
+              "winner": "B",
+              "confidence": 0.99,
+              "margin": 0.05,
+              "dimensions": [
+                {
+                  "dimension": "factual_fidelity",
+                  "score_a": 0.86,
+                  "score_b": 0.99,
+                  "evidence": "A marks reusable playground settings as something the SDK provides; the source says the playground settings can be reused in code, while B correctly identifies the SDK's two clients."
+                },
+                {
+                  "dimension": "answer_unambiguity",
+                  "score_a": 0.84,
+                  "score_b": 0.98,
+                  "evidence": "A makes a non-SDK capability a correct answer, creating ambiguity; B has two clearly supported SDK capabilities."
+                },
+                {
+                  "dimension": "distractor_plausibility",
+                  "score_a": 0.96,
+                  "score_b": 0.96,
+                  "evidence": "Both use credible distractors tied to agents, tools, deployment, and evaluation."
+                },
+                {
+                  "dimension": "misconception_quality",
+                  "score_a": 0.94,
+                  "score_b": 0.96,
+                  "evidence": "Both diagnose realistic confusions; B more cleanly separates SDK clients from evaluation features."
+                },
+                {
+                  "dimension": "cognitive_progression",
+                  "score_a": 0.82,
+                  "score_b": 0.82,
+                  "evidence": "The ordered sequences are identical and remain mostly recall and understanding items."
+                },
+                {
+                  "dimension": "mechanic_rhythm_variation",
+                  "score_a": 0.8,
+                  "score_b": 0.8,
+                  "evidence": "The sequences are identical, with a mix of multiple-choice and true/false items."
+                },
+                {
+                  "dimension": "prompt_language_variation",
+                  "score_a": 0.78,
+                  "score_b": 0.78,
+                  "evidence": "The sequences are identical and use varied enough stems, though several are formulaic."
+                },
+                {
+                  "dimension": "scenario_authenticity",
+                  "score_a": 0.28,
+                  "score_b": 0.28,
+                  "evidence": "The items are mostly decontextualized concept checks rather than realistic workplace decisions."
+                },
+                {
+                  "dimension": "feedback_usefulness",
+                  "score_a": 0.88,
+                  "score_b": 0.97,
+                  "evidence": "B's SDK explanation directly clarifies what the SDK does and distinguishes evaluation from client functionality; A reinforces the questionable SDK attribution."
+                },
+                {
+                  "dimension": "difficulty_appropriateness",
+                  "score_a": 0.91,
+                  "score_b": 0.91,
+                  "evidence": "Both are appropriate introductory checks for the supplied lesson content."
+                },
+                {
+                  "dimension": "terminology_consistency",
+                  "score_a": 0.91,
+                  "score_b": 0.98,
+                  "evidence": "B consistently distinguishes SDK clients, playground capabilities, and evaluation features; A blurs the SDK/playground boundary."
+                },
+                {
+                  "dimension": "overall_learner_experience",
+                  "score_a": 0.84,
+                  "score_b": 0.96,
+                  "evidence": "The sessions are otherwise identical, but B avoids teaching that reusable playground settings are an SDK-provided feature."
+                }
+              ],
+              "evidence": [
+                "Candidates are identical except for the final distractor/correct-answer set in the Foundry SDK item.",
+                "The source explicitly names the Project client and OpenAI-compatible client as SDK offerings, while describing prompt and parameter reuse as a playground-to-code workflow.",
+                "B therefore preserves a cleaner answer key and more accurate conceptual boundary."
+              ],
+              "human_review_recommended": false,
+              "usage": {
+                "input_tokens": 0,
+                "output_tokens": 0,
+                "cost_usd": 0.0,
+                "backend_calls": 1
+              }
+            }
+          }
+        ],
+        "position_sensitive": false,
+        "stable": true,
+        "decision": "promote",
+        "protected_regressions": [],
+        "minimum_confidence": 0.99,
+        "minimum_margin": 0.04,
+        "decision_evidence": "Both position orders select the hard-gated challenger without protected regression.",
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost_usd": 0.0,
+          "backend_calls": 2
+        }
+      }
+    }
+  },
+  "approved_by": "Codex reviewer for Adi",
+  "approved_at": "2026-08-29T08:09:16.183884Z",
+  "exact_proposal_sha256": "82c7da761e5287ff7f3be591931e1f7703fbf65f6b8d9370df79424780a26c3c",
+  "exact_history_sha256": "bc2076ebff622027dd89d6707f5ab2a448bf133f012b7e412fe8fe3e6cec6e38",
+  "exact_compiled_artifact_sha256": "2fa356d363b3a7f13d4d399d67361e952b387b4b6502e0aa169d3bb7f3169d2b",
+  "exact_champion_after_sha256": "dad80d7e6a5cca55285fa6bfa9597a45ca13b966c945c1bd244259d77525d0d4"
+}

@@ -1045,6 +1045,91 @@ class _Search:
     states: int = 0
     exhausted: bool = False
     dead: set[tuple] = field(default_factory=set)
+    mechanics_dead: set[tuple] = field(default_factory=set)
+
+    def _mechanics_continuation_feasible(
+        self,
+        path: Sequence[ExperienceItem],
+        remaining: Sequence[ExperienceItem],
+    ) -> bool:
+        """Prove that the remaining mechanic multiset can complete ``path``.
+
+        The main search operates on item identities because concept adjacency
+        and deterministic scoring distinguish otherwise similar questions.
+        Rolling-window feasibility does not: it depends only on the recent
+        mechanic suffix and the counts still available.  Solving that smaller
+        exact problem here prevents the item-level search from enumerating
+        permutations which all have the same impossible mechanic future.
+
+        Returning ``False`` is therefore a sound prune.  Returning ``True`` is
+        only a necessary-condition result; the main search still enforces all
+        other constraints and preserves every item identity and payload.
+        """
+
+        window_active = (
+            self.rolling_applicable
+            and CONSTRAINT_MECHANICS_WINDOW not in self.relaxed
+        )
+        streak_active = CONSTRAINT_MECHANIC_STREAK not in self.relaxed
+        if not window_active and not streak_active:
+            return True
+
+        window_size = self.policy.mechanics_window_size
+        suffix_size = max(
+            max(0, window_size - 1) if window_active else 0,
+            self.policy.max_same_mechanic_streak if streak_active else 0,
+        )
+        history = tuple(_mechanic(item) for item in path[-suffix_size:])
+        counts = Counter(_mechanic(item) for item in remaining)
+        mechanics = tuple(sorted(counts))
+
+        def visit(
+            recent: tuple[str, ...],
+            remaining_counts: tuple[int, ...],
+        ) -> bool:
+            state = (
+                window_active,
+                streak_active,
+                recent,
+                mechanics,
+                remaining_counts,
+            )
+            if state in self.mechanics_dead:
+                return False
+            if not any(remaining_counts):
+                return True
+
+            for index, mechanic in enumerate(mechanics):
+                if remaining_counts[index] == 0:
+                    continue
+                if streak_active and mechanic != "unknown":
+                    run = 0
+                    for previous in reversed(recent):
+                        if previous != mechanic:
+                            break
+                        run += 1
+                    if run >= self.policy.max_same_mechanic_streak:
+                        continue
+
+                candidate_window = (*recent, mechanic)
+                if (
+                    window_active
+                    and len(candidate_window) >= window_size
+                    and len(set(candidate_window[-window_size:]))
+                    < self.policy.min_mechanics_per_window
+                ):
+                    continue
+
+                next_counts = list(remaining_counts)
+                next_counts[index] -= 1
+                next_recent = candidate_window[-suffix_size:]
+                if visit(next_recent, tuple(next_counts)):
+                    return True
+
+            self.mechanics_dead.add(state)
+            return False
+
+        return visit(history, tuple(counts[mechanic] for mechanic in mechanics))
 
     def run(self) -> Optional[list[ExperienceItem]]:
         remaining_mask = (1 << len(self.items)) - 1
@@ -1073,11 +1158,13 @@ class _Search:
             ):
                 continue
             future = [self.items[j] for j in indexes if j != i]
+            proposed = [*path, self.items[i]]
+            if not self._mechanics_continuation_feasible(proposed, future):
+                continue
             slack = _future_slack(
-                [*path, self.items[i]], future, policy=self.policy, relaxed=self.relaxed
+                proposed, future, policy=self.policy, relaxed=self.relaxed
             )
             if slack >= 0:
-                proposed = [*path, self.items[i]]
                 # A relaxed constraint remains an optimization target.  These
                 # exact lower bounds are needed only in fallback profiles, so
                 # the common strict search stays inexpensive.

@@ -1,0 +1,1828 @@
+{
+  "schema_version": "techlingo-gauntlet-record-v1",
+  "compiled_artifact_sha256": "2fa356d363b3a7f13d4d399d67361e952b387b4b6502e0aa169d3bb7f3169d2b",
+  "unit_key": "prompts-and-conversation-context-l1",
+  "champion": {
+    "artifact_id": "ai-901:prompts-and-conversation-context-l1",
+    "course_id": "ai-901",
+    "session_id": "prompts-and-conversation-context-l1",
+    "items": [
+      {
+        "item_key": "prompts-and-conversation-context/next-token-prediction/r1/v1",
+        "path": "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/0",
+        "payload": {
+          "import_key": "prompts-and-conversation-context-l1-q1",
+          "question_type": "multiple_choice",
+          "question_text": "What does next-token prediction do?",
+          "options": {
+            "options": [
+              {
+                "text": "Ignores later tokens during training",
+                "is_correct": false,
+                "error_type": "Confuses prediction with masked attention",
+                "rationale": "Ignoring later tokens is a training technique rather than the prediction task. Prediction selects a likely continuation.",
+                "better_fit": "This describes masked attention during decoder training.",
+                "feedback": null
+              },
+              {
+                "text": "Selects the most probable next token",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "This is the decoder's repeated prediction task. It selects a likely continuation from the sequence so far.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Sets tone and constraints",
+                "is_correct": false,
+                "error_type": "Confuses prediction with a system prompt",
+                "rationale": "Tone and constraints guide behavior. They do not select a completion token.",
+                "better_fit": "This describes a system prompt.",
+                "feedback": null
+              },
+              {
+                "text": "Retrieves supporting documents",
+                "is_correct": false,
+                "error_type": "Confuses prediction with RAG",
+                "rationale": "Retrieval supplies context to a prompt. It is separate from selecting the next token.",
+                "better_fit": "This describes retrieval augmented generation.",
+                "feedback": null
+              }
+            ],
+            "blooms_level": "Remembering",
+            "original_question_type": "single_choice",
+            "concept_id": "next-token-prediction",
+            "item_key": "prompts-and-conversation-context/next-token-prediction/r1/v1",
+            "rung": 1,
+            "variant": 1,
+            "module_key": "2-introduction-to-generative-ai-and-agents",
+            "lesson_key": "prompts-and-conversation-context",
+            "learning_status": "new"
+          },
+          "correct_answer": "1",
+          "explanation": "Correct. The decoder repeatedly chooses a likely next token.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "prompts-and-conversation-context/masked-attention/r1/v1",
+        "path": "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/1",
+        "payload": {
+          "import_key": "prompts-and-conversation-context-l1-q2",
+          "question_type": "multiple_choice",
+          "question_text": "Which statements describe masked attention? Select all that apply.",
+          "options": {
+            "options": [
+              {
+                "text": "It sets response tone and constraints",
+                "is_correct": false,
+                "error_type": "Confuses attention with prompting",
+                "rationale": "Tone and constraints are response guidance. Masked attention is a decoder-training technique.",
+                "better_fit": "This describes a system prompt.",
+                "feedback": null
+              },
+              {
+                "text": "It retrieves company documents",
+                "is_correct": false,
+                "error_type": "Confuses attention with RAG",
+                "rationale": "Retrieval adds information to a prompt. Masked attention hides future tokens during training.",
+                "better_fit": "This describes retrieval augmented generation.",
+                "feedback": null
+              },
+              {
+                "text": "It ignores tokens after the current token",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "Masked attention hides tokens after the current position. This keeps predictions based on earlier tokens.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "It is used while training the decoder",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "Masked attention is used during decoder training on complete sequences. The known next token can then be used for comparison.",
+                "better_fit": null,
+                "feedback": null
+              }
+            ],
+            "blooms_level": "Remembering",
+            "original_question_type": "multi_choice",
+            "concept_id": "masked-attention",
+            "item_key": "prompts-and-conversation-context/masked-attention/r1/v1",
+            "rung": 1,
+            "variant": 1,
+            "module_key": "2-introduction-to-generative-ai-and-agents",
+            "lesson_key": "prompts-and-conversation-context",
+            "learning_status": "new"
+          },
+          "correct_answer": "[2,3]",
+          "explanation": "Correct. Masked attention hides later tokens during decoder training.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "prompts-and-conversation-context/next-token-prediction/r2/v1",
+        "path": "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/2",
+        "payload": {
+          "import_key": "prompts-and-conversation-context-l1-q3",
+          "question_type": "true_false",
+          "question_text": "Next-token prediction selects one final token and then stops without adding it to the sequence.",
+          "options": {
+            "blooms_level": "Understanding",
+            "original_question_type": "true_false",
+            "concept_id": "next-token-prediction",
+            "feedback_for_incorrect": {
+              "intrinsic": "The completion would end after one word.",
+              "instructional": "The decoder adds each predicted token and repeats until the sequence ends."
+            },
+            "item_key": "prompts-and-conversation-context/next-token-prediction/r2/v1",
+            "rung": 2,
+            "variant": 1,
+            "module_key": "2-introduction-to-generative-ai-and-agents",
+            "lesson_key": "prompts-and-conversation-context",
+            "learning_status": "new"
+          },
+          "correct_answer": "false",
+          "explanation": "Correct. Each predicted token is added before another prediction is made.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "prompts-and-conversation-context/masked-attention/r2/v1",
+        "path": "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/3",
+        "payload": {
+          "import_key": "prompts-and-conversation-context-l1-q4",
+          "question_type": "true_false",
+          "question_text": "During masked-attention training, tokens after the current token are ignored when predicting the next token.",
+          "options": {
+            "blooms_level": "Understanding",
+            "original_question_type": "true_false",
+            "concept_id": "masked-attention",
+            "feedback_for_incorrect": {
+              "intrinsic": "The prediction would use information that should be unavailable.",
+              "instructional": "Masked attention hides tokens after the current position."
+            },
+            "item_key": "prompts-and-conversation-context/masked-attention/r2/v1",
+            "rung": 2,
+            "variant": 1,
+            "module_key": "2-introduction-to-generative-ai-and-agents",
+            "lesson_key": "prompts-and-conversation-context",
+            "learning_status": "new"
+          },
+          "correct_answer": "true",
+          "explanation": "Correct. The prediction uses only the earlier part of the sequence.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "prompts-and-conversation-context/prompt-engineering/r1/v1",
+        "path": "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/4",
+        "payload": {
+          "import_key": "prompts-and-conversation-context-l1-q5",
+          "question_type": "multiple_choice",
+          "question_text": "Which practices are part of prompt engineering? Select all that apply.",
+          "options": {
+            "options": [
+              {
+                "text": "Hide later tokens during training",
+                "is_correct": false,
+                "error_type": "Confuses design with training",
+                "rationale": "Hiding later tokens is masked attention during decoder training. It is not a prompt-writing practice.",
+                "better_fit": "It fits masked attention.",
+                "feedback": null
+              },
+              {
+                "text": "Give clear, specific instructions",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "Clear instructions reduce ambiguity about what is wanted. They can improve response quality.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Set every app behavior rule",
+                "is_correct": false,
+                "error_type": "Confuses design with system guidance",
+                "rationale": "Broad behavior rules belong in a system prompt. Prompt engineering focuses on improving prompts for better responses.",
+                "better_fit": "It fits a system prompt.",
+                "feedback": null
+              },
+              {
+                "text": "Add topic, audience, or format context",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "Useful context helps shape a relevant response. Topic, audience, and format can clarify a prompt.",
+                "better_fit": null,
+                "feedback": null
+              }
+            ],
+            "blooms_level": "Remembering",
+            "original_question_type": "multi_choice",
+            "concept_id": "prompt-engineering",
+            "item_key": "prompts-and-conversation-context/prompt-engineering/r1/v1",
+            "rung": 1,
+            "variant": 1,
+            "module_key": "2-introduction-to-generative-ai-and-agents",
+            "lesson_key": "prompts-and-conversation-context",
+            "learning_status": "new"
+          },
+          "correct_answer": "[1,3]",
+          "explanation": "Correct. Clarity and useful context are prompt-engineering practices.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "prompts-and-conversation-context/conversation-history/r1/v1",
+        "path": "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/5",
+        "payload": {
+          "import_key": "prompts-and-conversation-context-l1-q6",
+          "question_type": "multiple_choice",
+          "question_text": "What gives a follow-up question context from an earlier chat?",
+          "options": {
+            "options": [
+              {
+                "text": "Conversation history",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "Conversation history includes earlier prompts and responses with later prompts. It gives follow-up questions ongoing context.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "A system prompt",
+                "is_correct": false,
+                "error_type": "Confuses context with guidance",
+                "rationale": "A system prompt sets behavior, tone, and constraints. It does not carry prior-chat details.",
+                "better_fit": "It fits overall behavior guidance.",
+                "feedback": null
+              },
+              {
+                "text": "A user prompt",
+                "is_correct": false,
+                "error_type": "Confuses request with context",
+                "rationale": "A user prompt is the new question or instruction. It does not itself preserve prior discussion.",
+                "better_fit": "It fits asking the follow-up question.",
+                "feedback": null
+              },
+              {
+                "text": "Masked attention",
+                "is_correct": false,
+                "error_type": "Confuses context with training",
+                "rationale": "Masked attention is a decoder-training technique. It does not preserve chat messages.",
+                "better_fit": "It fits decoder training.",
+                "feedback": null
+              }
+            ],
+            "blooms_level": "Remembering",
+            "original_question_type": "single_choice",
+            "concept_id": "conversation-history",
+            "item_key": "prompts-and-conversation-context/conversation-history/r1/v1",
+            "rung": 1,
+            "variant": 1,
+            "module_key": "2-introduction-to-generative-ai-and-agents",
+            "lesson_key": "prompts-and-conversation-context",
+            "learning_status": "new"
+          },
+          "correct_answer": "0",
+          "explanation": "Correct. Conversation history provides prior context.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "prompts-and-conversation-context/prompt-engineering/r2/v1",
+        "path": "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/6",
+        "payload": {
+          "import_key": "prompts-and-conversation-context-l1-q7",
+          "question_type": "true_false",
+          "question_text": "Response quality depends on both the language model and the prompts submitted to it.",
+          "options": {
+            "blooms_level": "Understanding",
+            "original_question_type": "true_false",
+            "concept_id": "prompt-engineering",
+            "feedback_for_incorrect": {
+              "intrinsic": "A vague prompt may still yield an unhelpful result.",
+              "instructional": "Response quality depends on both the model and the submitted prompt."
+            },
+            "item_key": "prompts-and-conversation-context/prompt-engineering/r2/v1",
+            "rung": 2,
+            "variant": 1,
+            "module_key": "2-introduction-to-generative-ai-and-agents",
+            "lesson_key": "prompts-and-conversation-context",
+            "learning_status": "new"
+          },
+          "correct_answer": "true",
+          "explanation": "Correct. Better prompt design can improve a capable model's results.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "prompts-and-conversation-context/conversation-history/r2/v1",
+        "path": "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/7",
+        "payload": {
+          "import_key": "prompts-and-conversation-context-l1-q8",
+          "question_type": "true_false",
+          "question_text": "Conversation history replaces a later prompt by removing the user's follow-up question.",
+          "options": {
+            "blooms_level": "Understanding",
+            "original_question_type": "true_false",
+            "concept_id": "conversation-history",
+            "feedback_for_incorrect": {
+              "intrinsic": "The assistant would have history but no new request.",
+              "instructional": "Conversation history adds context; it does not replace the user's follow-up."
+            },
+            "item_key": "prompts-and-conversation-context/conversation-history/r2/v1",
+            "rung": 2,
+            "variant": 1,
+            "module_key": "2-introduction-to-generative-ai-and-agents",
+            "lesson_key": "prompts-and-conversation-context",
+            "learning_status": "new"
+          },
+          "correct_answer": "false",
+          "explanation": "Correct. The follow-up remains alongside earlier context.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "prompts-and-conversation-context/user-prompt/r1/v1",
+        "path": "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/8",
+        "payload": {
+          "import_key": "prompts-and-conversation-context-l1-q9",
+          "question_type": "multiple_choice",
+          "question_text": "Which are user prompts? Select all that apply.",
+          "options": {
+            "options": [
+              {
+                "text": "Summarize this report in six bullets",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "This asks for a specific task and format. It is a user prompt.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Always use a professional tone",
+                "is_correct": false,
+                "error_type": "Confuses guidance with request",
+                "rationale": "This is broad guidance about how responses should be written. It does not request one specific response.",
+                "better_fit": "It fits a system prompt.",
+                "feedback": null
+              },
+              {
+                "text": "What are common privacy risks?",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "This is a specific question seeking a response. It is a user prompt.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Earlier messages from this chat",
+                "is_correct": false,
+                "error_type": "Confuses prompt with history",
+                "rationale": "Earlier messages are context, not a new request. They form conversation history.",
+                "better_fit": "It fits conversation history.",
+                "feedback": null
+              }
+            ],
+            "blooms_level": "Remembering",
+            "original_question_type": "multi_choice",
+            "concept_id": "user-prompt",
+            "item_key": "prompts-and-conversation-context/user-prompt/r1/v1",
+            "rung": 1,
+            "variant": 1,
+            "module_key": "2-introduction-to-generative-ai-and-agents",
+            "lesson_key": "prompts-and-conversation-context",
+            "learning_status": "new"
+          },
+          "correct_answer": "[0,2]",
+          "explanation": "Correct. User prompts ask for a particular answer or action.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "prompts-and-conversation-context/system-prompt/r1/v1",
+        "path": "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/9",
+        "payload": {
+          "import_key": "prompts-and-conversation-context-l1-q10",
+          "question_type": "multiple_choice",
+          "question_text": "Which prompt sets a model's tone and constraints?",
+          "options": {
+            "options": [
+              {
+                "text": "User prompt",
+                "is_correct": false,
+                "error_type": "Confuses broad guidance with a request",
+                "rationale": "A user prompt requests a particular response. It does not normally set overall behavior.",
+                "better_fit": "It fits a specific question or instruction.",
+                "feedback": null
+              },
+              {
+                "text": "Conversation history",
+                "is_correct": false,
+                "error_type": "Confuses guidance with context",
+                "rationale": "History contains earlier messages that provide context. It does not set behavior rules.",
+                "better_fit": "It fits carrying earlier discussion into a follow-up.",
+                "feedback": null
+              },
+              {
+                "text": "System prompt",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "A system prompt sets broad behavior, tone, and constraints. An application usually provides it.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Masked attention",
+                "is_correct": false,
+                "error_type": "Confuses prompting with training",
+                "rationale": "Masked attention is a training technique. It is not a prompt type.",
+                "better_fit": "It fits training a decoder on earlier tokens.",
+                "feedback": null
+              }
+            ],
+            "blooms_level": "Remembering",
+            "original_question_type": "single_choice",
+            "concept_id": "system-prompt",
+            "item_key": "prompts-and-conversation-context/system-prompt/r1/v1",
+            "rung": 1,
+            "variant": 1,
+            "module_key": "2-introduction-to-generative-ai-and-agents",
+            "lesson_key": "prompts-and-conversation-context",
+            "learning_status": "new"
+          },
+          "correct_answer": "2",
+          "explanation": "Correct. A system prompt provides overall guidance.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "prompts-and-conversation-context/user-prompt/r2/v1",
+        "path": "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/10",
+        "payload": {
+          "import_key": "prompts-and-conversation-context-l1-q11",
+          "question_type": "true_false",
+          "question_text": "A person or an application can create a user prompt.",
+          "options": {
+            "blooms_level": "Understanding",
+            "original_question_type": "true_false",
+            "concept_id": "user-prompt",
+            "feedback_for_incorrect": {
+              "intrinsic": "Valid application-created requests would be overlooked.",
+              "instructional": "User prompts may be created by a person or by an application."
+            },
+            "item_key": "prompts-and-conversation-context/user-prompt/r2/v1",
+            "rung": 2,
+            "variant": 1,
+            "module_key": "2-introduction-to-generative-ai-and-agents",
+            "lesson_key": "prompts-and-conversation-context",
+            "learning_status": "new"
+          },
+          "correct_answer": "true",
+          "explanation": "Correct. An application can generate a user prompt on a person's behalf.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "prompts-and-conversation-context/system-prompt/r2/v1",
+        "path": "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/11",
+        "payload": {
+          "import_key": "prompts-and-conversation-context-l1-q12",
+          "question_type": "true_false",
+          "question_text": "A system prompt is normally the human user's specific question for the model.",
+          "options": {
+            "blooms_level": "Understanding",
+            "original_question_type": "true_false",
+            "concept_id": "system-prompt",
+            "feedback_for_incorrect": {
+              "intrinsic": "Broad rules and one-time requests would be confused.",
+              "instructional": "System prompts set behavior; user prompts ask for specific responses."
+            },
+            "item_key": "prompts-and-conversation-context/system-prompt/r2/v1",
+            "rung": 2,
+            "variant": 1,
+            "module_key": "2-introduction-to-generative-ai-and-agents",
+            "lesson_key": "prompts-and-conversation-context",
+            "learning_status": "new"
+          },
+          "correct_answer": "false",
+          "explanation": "Correct. A specific human question is a user prompt.",
+          "points": 1
+        }
+      }
+    ],
+    "metadata": {
+      "module_key": "2-introduction-to-generative-ai-and-agents",
+      "unit_title": "Prompts and Conversation Context · Level 1",
+      "unit_slo": "Distinguish prompt types and explain how a model continues a conversation.",
+      "constraint_relaxations": []
+    }
+  },
+  "history": {
+    "schema_version": "techlingo-gauntlet-history-v1",
+    "run_id": "prompts-and-conversation-context-l1-a025ac05173a",
+    "started_at": "2026-08-28T19:37:38.879872Z",
+    "finished_at": "2026-08-28T19:46:45.738302Z",
+    "initial_champion_hash": "01f4c9d699439adceccc2e4624132ed1a9c27f11452908d8e45e0b5719c0f89e",
+    "final_champion_hash": "01f4c9d699439adceccc2e4624132ed1a9c27f11452908d8e45e0b5719c0f89e",
+    "evaluation_context": {
+      "schema_version": "techlingo-evaluation-context-v1",
+      "goal": "Produce an excellent, source-faithful learner session while preserving all deterministic correctness, identity, and sequence constraints.",
+      "source_fidelity_goal": "Independently verify the hard-gated edited challenger against the supplied source material. Reject unsupported facts, answers, explanations, feedback, or terminology changes; do not edit the artifact.",
+      "gauntlet_policy": {
+        "critic_backend": "codex",
+        "critic_model": "codex:gpt-5.6-luna",
+        "builder_model": "codex:gpt-5.6-terra",
+        "evaluator_protocol_version": "critic-review-semantics-v6",
+        "max_rounds": 4,
+        "plateau_rounds": 2,
+        "repeated_loss_rounds": 2,
+        "minimum_improvement_margin": 0.02,
+        "confidence_threshold": 0.65,
+        "human_review_threshold": 0.4,
+        "max_time_seconds": null,
+        "max_tokens": null,
+        "max_cost_usd": null,
+        "qualitative_required_for_publication": true,
+        "quality_thresholds": {
+          "factual_fidelity": 0.8,
+          "answer_unambiguity": 0.8,
+          "distractor_plausibility": 0.8,
+          "misconception_quality": 0.8,
+          "cognitive_progression": 0.8,
+          "mechanic_rhythm_variation": 0.8,
+          "prompt_language_variation": 0.8,
+          "scenario_authenticity": 0.8,
+          "feedback_usefulness": 0.8,
+          "difficulty_appropriateness": 0.8,
+          "terminology_consistency": 0.8,
+          "overall_learner_experience": 0.8
+        },
+        "comparison_seed": 901,
+        "protected_dimensions": [
+          "factual_fidelity",
+          "answer_unambiguity"
+        ],
+        "unstable_comparison_requires_human_review": true,
+        "identifying_metadata_keys": [
+          "artifact_id",
+          "builder_model",
+          "candidate_role",
+          "challenger",
+          "champion",
+          "critic_model",
+          "generated_at",
+          "import_key",
+          "item_key",
+          "model_id",
+          "path",
+          "version_id"
+        ]
+      },
+      "gauntlet_policy_sha256": "3ffb6943742c9fc0b33d6668a9c5695b535ee3121f7b697df8ab4d4392014385",
+      "rubric": {
+        "criteria": {
+          "factual_fidelity": "Every claim and answer is faithful to the supplied source.",
+          "answer_unambiguity": "Each item has one defensible answer under its instructions.",
+          "distractor_plausibility": "Distractors are credible without becoming defensible answers.",
+          "misconception_quality": "Wrong choices diagnose realistic learner misconceptions.",
+          "cognitive_progression": "The ordered session builds understanding at a coherent pace.",
+          "mechanic_rhythm_variation": "Mechanics vary naturally without disruptive repetition.",
+          "prompt_language_variation": "Prompt stems avoid formulaic repetition.",
+          "scenario_authenticity": "Scenarios resemble credible decisions or tasks.",
+          "feedback_usefulness": "Feedback explains the governing concept and next step.",
+          "difficulty_appropriateness": "Difficulty matches the stated audience and session position.",
+          "terminology_consistency": "Terms are used consistently with the source and across items.",
+          "overall_learner_experience": "The exact final sequence is coherent, varied, and instructive."
+        }
+      },
+      "rubric_sha256": "34290a842f2ed7e30b7a98ba70ac97d967c864424010cd31255f97cdce0b57d5",
+      "sources": [
+        {
+          "input_id": "2. Introduction to generative AI and agents.md",
+          "sha256": "77d4fc62057eff8e40060c80208cfa6658a1b5b8838d81089d5b2eeb3297629b",
+          "location": "sources/2. Introduction to generative AI and agents.md"
+        }
+      ],
+      "approved_references": [],
+      "models": {
+        "builder_model": "codex:gpt-5.6-terra",
+        "critic_backend": "codex",
+        "critic_model": "codex:gpt-5.6-luna",
+        "critic_fresh_context": true,
+        "editor_backend": "codex",
+        "editor_model": "codex:gpt-5.6-luna",
+        "editor_fresh_context": true,
+        "comparator_backend": "codex",
+        "comparator_model": "codex:gpt-5.6-luna",
+        "comparator_fresh_context": true
+      },
+      "context_sha256": "97a9f09d903ed360e26b1a2cf9a942604277a50699ee5d906d95b4abe1b5516a"
+    },
+    "initial_hard_gate": {
+      "artifact_sha256": "01f4c9d699439adceccc2e4624132ed1a9c27f11452908d8e45e0b5719c0f89e",
+      "passed": true,
+      "issues": [],
+      "checks": {
+        "schema_and_answers": true,
+        "identity": true,
+        "final_sequence": true
+      },
+      "metrics": {},
+      "constraint_relaxations": []
+    },
+    "rounds": [
+      {
+        "round_number": 1,
+        "champion_hash_before": "01f4c9d699439adceccc2e4624132ed1a9c27f11452908d8e45e0b5719c0f89e",
+        "critic": {
+          "result": {
+            "dimensions": [
+              {
+                "dimension": "factual_fidelity",
+                "score": 0.95,
+                "evidence": [
+                  {
+                    "statement": "Claims about next-token prediction, masked attention, prompt types, conversation history, and prompt-quality practices align with the supplied source, including its sections on predicting completions, types of prompt, conversation history, and better prompts.",
+                    "item_keys": [
+                      "prompts-and-conversation-context/next-token-prediction/r1/v1",
+                      "prompts-and-conversation-context/masked-attention/r1/v1",
+                      "prompts-and-conversation-context/prompt-engineering/r1/v1"
+                    ],
+                    "paths": []
+                  }
+                ]
+              },
+              {
+                "dimension": "answer_unambiguity",
+                "score": 0.98,
+                "evidence": [
+                  {
+                    "statement": "Each item has a deterministically identifiable answer; the multi-select items mark exactly the source-supported choices, and the true/false items state unambiguous claims.",
+                    "item_keys": [
+                      "prompts-and-conversation-context/masked-attention/r1/v1",
+                      "prompts-and-conversation-context/prompt-engineering/r1/v1",
+                      "prompts-and-conversation-context/conversation-history/r2/v1"
+                    ],
+                    "paths": []
+                  }
+                ]
+              },
+              {
+                "dimension": "distractor_plausibility",
+                "score": 0.92,
+                "evidence": [
+                  {
+                    "statement": "Distractors are drawn from nearby concepts such as system prompts, RAG, conversation history, and masked attention, making them credible while remaining distinguishable under the source definitions.",
+                    "item_keys": [
+                      "prompts-and-conversation-context/next-token-prediction/r1/v1",
+                      "prompts-and-conversation-context/conversation-history/r1/v1",
+                      "prompts-and-conversation-context/system-prompt/r1/v1"
+                    ],
+                    "paths": []
+                  }
+                ]
+              },
+              {
+                "dimension": "misconception_quality",
+                "score": 0.92,
+                "evidence": [
+                  {
+                    "statement": "Wrong-answer rationales diagnose realistic confusions, including prediction versus masked attention, prompting versus RAG, guidance versus context, and user prompts versus conversation history.",
+                    "item_keys": [
+                      "prompts-and-conversation-context/next-token-prediction/r1/v1",
+                      "prompts-and-conversation-context/masked-attention/r1/v1",
+                      "prompts-and-conversation-context/user-prompt/r1/v1"
+                    ],
+                    "paths": []
+                  }
+                ]
+              },
+              {
+                "dimension": "cognitive_progression",
+                "score": 0.76,
+                "evidence": [
+                  {
+                    "statement": "The session generally moves from remembering definitions to understanding processes through paired rung-1 and rung-2 items, but the ordered blocks create repetitive concept cycles and place prompt-type distinctions after prompt-engineering and conversation-history checks.",
+                    "item_keys": [
+                      "prompts-and-conversation-context/next-token-prediction/r1/v1",
+                      "prompts-and-conversation-context/masked-attention/r2/v1",
+                      "prompts-and-conversation-context/prompt-engineering/r1/v1",
+                      "prompts-and-conversation-context/system-prompt/r1/v1"
+                    ],
+                    "paths": []
+                  }
+                ]
+              },
+              {
+                "dimension": "mechanic_rhythm_variation",
+                "score": 0.3,
+                "evidence": [
+                  {
+                    "statement": "The exact sequence repeats the same mechanic pattern three times: multiple choice, multiple choice, true/false, true/false, producing predictable rhythm across all twelve items.",
+                    "item_keys": [
+                      "prompts-and-conversation-context/next-token-prediction/r1/v1",
+                      "prompts-and-conversation-context/masked-attention/r1/v1",
+                      "prompts-and-conversation-context/next-token-prediction/r2/v1",
+                      "prompts-and-conversation-context/masked-attention/r2/v1",
+                      "prompts-and-conversation-context/prompt-engineering/r1/v1",
+                      "prompts-and-conversation-context/conversation-history/r1/v1",
+                      "prompts-and-conversation-context/prompt-engineering/r2/v1",
+                      "prompts-and-conversation-context/conversation-history/r2/v1",
+                      "prompts-and-conversation-context/user-prompt/r1/v1",
+                      "prompts-and-conversation-context/system-prompt/r1/v1",
+                      "prompts-and-conversation-context/user-prompt/r2/v1",
+                      "prompts-and-conversation-context/system-prompt/r2/v1"
+                    ],
+                    "paths": []
+                  }
+                ]
+              },
+              {
+                "dimension": "prompt_language_variation",
+                "score": 0.68,
+                "evidence": [
+                  {
+                    "statement": "The artifact uses some variation through declarative true/false statements and selection prompts, but many multiple-choice stems repeat formulaic forms such as “What...” and “Which...”.",
+                    "item_keys": [
+                      "prompts-and-conversation-context/next-token-prediction/r1/v1",
+                      "prompts-and-conversation-context/conversation-history/r1/v1",
+                      "prompts-and-conversation-context/user-prompt/r1/v1",
+                      "prompts-and-conversation-context/system-prompt/r1/v1"
+                    ],
+                    "paths": []
+                  }
+                ]
+              },
+              {
+                "dimension": "scenario_authenticity",
+                "score": 0.35,
+                "evidence": [
+                  {
+                    "statement": "All items are decontextualized definition or claim checks; none asks the learner to classify or act in a credible workplace, assistant, or conversation situation.",
+                    "item_keys": [],
+                    "paths": []
+                  }
+                ]
+              },
+              {
+                "dimension": "feedback_usefulness",
+                "score": 0.9,
+                "evidence": [
+                  {
+                    "statement": "Feedback generally explains the governing distinction and, for distractors, identifies the better-fitting concept; true/false items provide intrinsic and instructional feedback about the relevant process.",
+                    "item_keys": [
+                      "prompts-and-conversation-context/next-token-prediction/r1/v1",
+                      "prompts-and-conversation-context/masked-attention/r1/v1",
+                      "prompts-and-conversation-context/conversation-history/r2/v1"
+                    ],
+                    "paths": []
+                  }
+                ]
+              },
+              {
+                "dimension": "difficulty_appropriateness",
+                "score": 0.93,
+                "evidence": [
+                  {
+                    "statement": "The items use Remembering and Understanding levels with rungs 1 and 2, matching the stated Level 1 unit and its introductory learning objective.",
+                    "item_keys": [],
+                    "paths": []
+                  }
+                ]
+              },
+              {
+                "dimension": "terminology_consistency",
+                "score": 0.88,
+                "evidence": [
+                  {
+                    "statement": "Core terms such as system prompt, user prompt, masked attention, next-token prediction, and conversation history are used consistently; “prompt engineering” is a reasonable label for the source’s better-prompt practices but is not named explicitly in the supplied source.",
+                    "item_keys": [
+                      "prompts-and-conversation-context/prompt-engineering/r1/v1",
+                      "prompts-and-conversation-context/prompt-engineering/r2/v1"
+                    ],
+                    "paths": []
+                  }
+                ]
+              },
+              {
+                "dimension": "overall_learner_experience",
+                "score": 0.72,
+                "evidence": [
+                  {
+                    "statement": "The session is accurate, answerable, and instructive, but its rigid repeated mechanic pattern and lack of authentic contexts reduce engagement and make the sequence feel mechanically generated.",
+                    "item_keys": [
+                      "prompts-and-conversation-context/next-token-prediction/r1/v1",
+                      "prompts-and-conversation-context/system-prompt/r2/v1"
+                    ],
+                    "paths": []
+                  }
+                ]
+              }
+            ],
+            "critical_defects": [],
+            "largest_gap": {
+              "dimension": "mechanic_rhythm_variation",
+              "summary": "The ordered session repeats a predictable multiple-choice, multiple-choice, true/false, true/false pattern three times.",
+              "evidence": [
+                {
+                  "statement": "The exact item order creates three repeated mechanic blocks, despite the underlying concepts offering opportunities for natural interleaving.",
+                  "item_keys": [
+                    "prompts-and-conversation-context/next-token-prediction/r1/v1",
+                    "prompts-and-conversation-context/masked-attention/r1/v1",
+                    "prompts-and-conversation-context/next-token-prediction/r2/v1",
+                    "prompts-and-conversation-context/masked-attention/r2/v1",
+                    "prompts-and-conversation-context/prompt-engineering/r1/v1",
+                    "prompts-and-conversation-context/conversation-history/r1/v1",
+                    "prompts-and-conversation-context/prompt-engineering/r2/v1",
+                    "prompts-and-conversation-context/conversation-history/r2/v1",
+                    "prompts-and-conversation-context/user-prompt/r1/v1",
+                    "prompts-and-conversation-context/system-prompt/r1/v1",
+                    "prompts-and-conversation-context/user-prompt/r2/v1",
+                    "prompts-and-conversation-context/system-prompt/r2/v1"
+                  ],
+                  "paths": []
+                }
+              ],
+              "affected_item_keys": [
+                "prompts-and-conversation-context/next-token-prediction/r1/v1",
+                "prompts-and-conversation-context/masked-attention/r1/v1",
+                "prompts-and-conversation-context/next-token-prediction/r2/v1",
+                "prompts-and-conversation-context/masked-attention/r2/v1",
+                "prompts-and-conversation-context/prompt-engineering/r1/v1",
+                "prompts-and-conversation-context/conversation-history/r1/v1",
+                "prompts-and-conversation-context/prompt-engineering/r2/v1",
+                "prompts-and-conversation-context/conversation-history/r2/v1",
+                "prompts-and-conversation-context/user-prompt/r1/v1",
+                "prompts-and-conversation-context/system-prompt/r1/v1",
+                "prompts-and-conversation-context/user-prompt/r2/v1",
+                "prompts-and-conversation-context/system-prompt/r2/v1"
+              ],
+              "affected_paths": [
+                "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/0",
+                "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/1",
+                "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/2",
+                "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/3",
+                "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/4",
+                "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/5",
+                "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/6",
+                "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/7",
+                "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/8",
+                "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/9",
+                "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/10",
+                "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/11"
+              ],
+              "recommended_scope": "session",
+              "repair_instruction": "Reorder only the existing item objects, preserving every payload and question_type. Use this order to interleave each concept’s remembering and understanding mechanics: next-token-prediction/r1/v1, next-token-prediction/r2/v1, masked-attention/r1/v1, masked-attention/r2/v1, system-prompt/r1/v1, system-prompt/r2/v1, user-prompt/r1/v1, user-prompt/r2/v1, conversation-history/r1/v1, conversation-history/r2/v1, prompt-engineering/r1/v1, prompt-engineering/r2/v1. Set no payload fields.",
+              "allowed_payload_fields": []
+            },
+            "confidence": 0.9,
+            "human_review_recommended": false,
+            "human_review_reason": null,
+            "concise_summary": "The artifact is source-faithful, unambiguous, and well-supported by misconception-focused feedback. Its main remaining weakness is the rigid repeated mechanic rhythm; a safe session-only reorder can address it without changing payloads or question types."
+          },
+          "artifact_sha256": "01f4c9d699439adceccc2e4624132ed1a9c27f11452908d8e45e0b5719c0f89e",
+          "evaluation_context_sha256": "97a9f09d903ed360e26b1a2cf9a942604277a50699ee5d906d95b4abe1b5516a",
+          "goal_sha256": "c4bae546eef7fec8c92895a1538196a8df81a13754329022bca211a6200752ae",
+          "critic_backend": "codex",
+          "critic_model": "codex:gpt-5.6-luna",
+          "fresh_context": true,
+          "model_independence": "independent",
+          "approved_reference_count": 0,
+          "reference_confidence_reduced": true,
+          "usage": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cost_usd": 0.0,
+            "backend_calls": 1
+          }
+        },
+        "critic_failure": null,
+        "repair_scope": "session",
+        "repair_summary": "Reordered the existing 12 items to interleave each concept's remembering and understanding mechanics; no payload fields changed.",
+        "editor_backend": "codex",
+        "editor_model": "codex:gpt-5.6-luna",
+        "editor_fresh_context": true,
+        "edit_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost_usd": 0.0,
+          "backend_calls": 1
+        },
+        "validation_retry_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost_usd": 0.0,
+          "backend_calls": 0
+        },
+        "touched_item_keys": [],
+        "challenger_hash": "d04e783f05283c0a111a2c3df09638d0f7f998e722e9da304f611870c00787cb",
+        "promoted_champion_before": null,
+        "promoted_challenger": null,
+        "hard_gate": {
+          "artifact_sha256": "d04e783f05283c0a111a2c3df09638d0f7f998e722e9da304f611870c00787cb",
+          "passed": false,
+          "issues": [
+            {
+              "code": "sequence:concept_adjacency",
+              "path": "modules/0:2-introduction-to-generative-ai-and-agents/units/0:prompts-and-conversation-context-l1/questions/0:prompts-and-conversation-context/next-token-prediction/r1/v1",
+              "message": "adjacent questions test the same concept"
+            },
+            {
+              "code": "sequence:concept_adjacency",
+              "path": "modules/0:2-introduction-to-generative-ai-and-agents/units/0:prompts-and-conversation-context-l1/questions/2:prompts-and-conversation-context/masked-attention/r1/v1",
+              "message": "adjacent questions test the same concept"
+            },
+            {
+              "code": "sequence:concept_adjacency",
+              "path": "modules/0:2-introduction-to-generative-ai-and-agents/units/0:prompts-and-conversation-context-l1/questions/4:prompts-and-conversation-context/system-prompt/r1/v1",
+              "message": "adjacent questions test the same concept"
+            },
+            {
+              "code": "sequence:concept_adjacency",
+              "path": "modules/0:2-introduction-to-generative-ai-and-agents/units/0:prompts-and-conversation-context-l1/questions/6:prompts-and-conversation-context/user-prompt/r1/v1",
+              "message": "adjacent questions test the same concept"
+            },
+            {
+              "code": "sequence:concept_adjacency",
+              "path": "modules/0:2-introduction-to-generative-ai-and-agents/units/0:prompts-and-conversation-context-l1/questions/8:prompts-and-conversation-context/conversation-history/r1/v1",
+              "message": "adjacent questions test the same concept"
+            },
+            {
+              "code": "sequence:concept_adjacency",
+              "path": "modules/0:2-introduction-to-generative-ai-and-agents/units/0:prompts-and-conversation-context-l1/questions/10:prompts-and-conversation-context/prompt-engineering/r1/v1",
+              "message": "adjacent questions test the same concept"
+            }
+          ],
+          "checks": {
+            "schema_and_answers": true,
+            "identity": true,
+            "final_sequence": false
+          },
+          "metrics": {},
+          "constraint_relaxations": []
+        },
+        "source_fidelity_critic": null,
+        "source_fidelity_gate": null,
+        "comparison": null,
+        "decision": "rejected_hard_gate",
+        "decision_evidence": "Challenger failed the authoritative hard gate; comparison was skipped.",
+        "champion_hash_after": "01f4c9d699439adceccc2e4624132ed1a9c27f11452908d8e45e0b5719c0f89e",
+        "constraint_relaxations": [],
+        "cumulative_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost_usd": 0.0,
+          "backend_calls": 2
+        }
+      },
+      {
+        "round_number": 2,
+        "champion_hash_before": "01f4c9d699439adceccc2e4624132ed1a9c27f11452908d8e45e0b5719c0f89e",
+        "critic": {
+          "result": {
+            "dimensions": [
+              {
+                "dimension": "factual_fidelity",
+                "score": 0.98,
+                "evidence": [
+                  {
+                    "statement": "Answers and explanations consistently match the source: next-token prediction selects probable continuations, masked attention hides later tokens during decoder training, and prompt types/history are distinguished correctly.",
+                    "item_keys": [
+                      "prompts-and-conversation-context/next-token-prediction/r1/v1",
+                      "prompts-and-conversation-context/masked-attention/r1/v1",
+                      "prompts-and-conversation-context/system-prompt/r1/v1"
+                    ],
+                    "paths": [
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/0",
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/1",
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/9"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "answer_unambiguity",
+                "score": 0.98,
+                "evidence": [
+                  {
+                    "statement": "Each item has a clearly designated answer set, and the wording aligns with the source distinctions; for example, the system-prompt item asks directly about tone and constraints.",
+                    "item_keys": [
+                      "prompts-and-conversation-context/system-prompt/r1/v1",
+                      "prompts-and-conversation-context/masked-attention/r2/v1"
+                    ],
+                    "paths": [
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/9",
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/3"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "distractor_plausibility",
+                "score": 0.9,
+                "evidence": [
+                  {
+                    "statement": "Distractors are credible neighboring concepts from the source, such as system prompts, RAG, conversation history, and masked attention, while rationales explain why they do not fit the requested concept.",
+                    "item_keys": [
+                      "prompts-and-conversation-context/next-token-prediction/r1/v1",
+                      "prompts-and-conversation-context/conversation-history/r1/v1",
+                      "prompts-and-conversation-context/user-prompt/r1/v1"
+                    ],
+                    "paths": [
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/0",
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/5",
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/8"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "misconception_quality",
+                "score": 0.9,
+                "evidence": [
+                  {
+                    "statement": "Wrong choices target realistic confusions between prediction and masked attention, prompting and RAG, guidance and requests, and context and training.",
+                    "item_keys": [
+                      "prompts-and-conversation-context/next-token-prediction/r1/v1",
+                      "prompts-and-conversation-context/prompt-engineering/r1/v1",
+                      "prompts-and-conversation-context/conversation-history/r1/v1"
+                    ],
+                    "paths": [
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/0",
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/4",
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/5"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "cognitive_progression",
+                "score": 0.68,
+                "evidence": [
+                  {
+                    "statement": "The sequence moves from next-token prediction and masked attention to prompt engineering, conversation history, and prompt types, with r1 recall items generally preceding r2 understanding items; however, nearly all tasks remain recognition or true/false rather than application.",
+                    "item_keys": [
+                      "prompts-and-conversation-context/next-token-prediction/r1/v1",
+                      "prompts-and-conversation-context/masked-attention/r2/v1",
+                      "prompts-and-conversation-context/system-prompt/r2/v1"
+                    ],
+                    "paths": [
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/0",
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/3",
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/11"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "mechanic_rhythm_variation",
+                "score": 0.45,
+                "evidence": [
+                  {
+                    "statement": "The exact sequence repeats a rigid two-multiple-choice/multi-choice followed by two-true/false pattern three times, creating predictable mechanic blocks across all twelve items.",
+                    "item_keys": [
+                      "prompts-and-conversation-context/next-token-prediction/r1/v1",
+                      "prompts-and-conversation-context/masked-attention/r2/v1",
+                      "prompts-and-conversation-context/prompt-engineering/r2/v1",
+                      "prompts-and-conversation-context/system-prompt/r2/v1"
+                    ],
+                    "paths": [
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/0",
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/3",
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/6",
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/11"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "prompt_language_variation",
+                "score": 0.72,
+                "evidence": [
+                  {
+                    "statement": "Stems vary between What, Which, and declarative true/false forms, but multiple-choice items repeatedly use formulaic 'Which ...?' wording and true/false items use similarly structured claims.",
+                    "item_keys": [
+                      "prompts-and-conversation-context/next-token-prediction/r1/v1",
+                      "prompts-and-conversation-context/prompt-engineering/r1/v1",
+                      "prompts-and-conversation-context/user-prompt/r1/v1"
+                    ],
+                    "paths": [
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/0",
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/4",
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/8"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "scenario_authenticity",
+                "score": 0.3,
+                "evidence": [
+                  {
+                    "statement": "All items ask for abstract definitions or classifications; none presents a credible workplace, chat, or application decision involving prompts, history, or model behavior, despite the source providing concrete examples such as an expenses assistant and follow-up privacy question.",
+                    "item_keys": [],
+                    "paths": []
+                  }
+                ]
+              },
+              {
+                "dimension": "feedback_usefulness",
+                "score": 0.8,
+                "evidence": [
+                  {
+                    "statement": "Feedback usually names the governing concept and, for true/false items, explains the corrective next step; multiple-choice rationales also identify the better-fitting concept, though several correct explanations mainly restate the answer.",
+                    "item_keys": [
+                      "prompts-and-conversation-context/masked-attention/r2/v1",
+                      "prompts-and-conversation-context/conversation-history/r2/v1",
+                      "prompts-and-conversation-context/prompt-engineering/r1/v1"
+                    ],
+                    "paths": [
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/3",
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/7",
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/4"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "difficulty_appropriateness",
+                "score": 0.86,
+                "evidence": [
+                  {
+                    "statement": "The Level 1 session uses foundational remembering and understanding targets, appropriate for introducing distinctions among prompt types, conversation history, and decoder behavior; its low challenge is suitable for entry-level learning but limits transfer practice.",
+                    "item_keys": [
+                      "prompts-and-conversation-context/next-token-prediction/r1/v1",
+                      "prompts-and-conversation-context/prompt-engineering/r2/v1",
+                      "prompts-and-conversation-context/system-prompt/r2/v1"
+                    ],
+                    "paths": [
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/0",
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/6",
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/11"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "terminology_consistency",
+                "score": 0.98,
+                "evidence": [
+                  {
+                    "statement": "The artifact consistently uses source-aligned terms including system prompt, user prompt, conversation history, masked attention, RAG, decoder, and next-token prediction.",
+                    "item_keys": [
+                      "prompts-and-conversation-context/masked-attention/r1/v1",
+                      "prompts-and-conversation-context/conversation-history/r1/v1",
+                      "prompts-and-conversation-context/user-prompt/r1/v1"
+                    ],
+                    "paths": [
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/1",
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/5",
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/8"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "overall_learner_experience",
+                "score": 0.67,
+                "evidence": [
+                  {
+                    "statement": "The session is source-faithful, deterministic, and internally coherent, but the exact ordered experience is weakened by rigid mechanic repetition, predominantly recall-level assessment, and the absence of authentic application contexts.",
+                    "item_keys": [],
+                    "paths": []
+                  }
+                ]
+              }
+            ],
+            "critical_defects": [],
+            "largest_gap": {
+              "dimension": "scenario_authenticity",
+              "summary": "The session lacks credible application scenarios, so learners practice labeling concepts rather than using them in realistic decisions.",
+              "evidence": [
+                {
+                  "statement": "All twelve items are decontextualized definitions, classifications, or binary claims; the source itself supplies realistic contexts such as an expenses assistant retrieving policy information and a follow-up privacy question using conversation history.",
+                  "item_keys": [],
+                  "paths": []
+                }
+              ],
+              "affected_item_keys": [
+                "prompts-and-conversation-context/prompt-engineering/r1/v1",
+                "prompts-and-conversation-context/conversation-history/r1/v1",
+                "prompts-and-conversation-context/user-prompt/r1/v1",
+                "prompts-and-conversation-context/system-prompt/r1/v1"
+              ],
+              "affected_paths": [
+                "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/4",
+                "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/5",
+                "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/8",
+                "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/9"
+              ],
+              "recommended_scope": "course",
+              "repair_instruction": "Reframe a coordinated subset of the existing prompt, conversation-history, user-prompt, and system-prompt items as short source-bounded workplace or chat scenarios, preserving each item's question_type and correct-answer mapping; update only question_text, options where needed, and explanations so the scenarios require choosing the appropriate concept without introducing facts beyond the source.",
+              "allowed_payload_fields": [
+                "question_text",
+                "options",
+                "explanation"
+              ]
+            },
+            "confidence": 0.94,
+            "human_review_recommended": false,
+            "human_review_reason": null,
+            "concise_summary": "The artifact is highly source-faithful and unambiguous, with strong distractors and terminology, but its exact sequence is mechanically repetitive and lacks authentic application scenarios; the largest safe repair is a coordinated scenario reframing across selected prompt-related items."
+          },
+          "artifact_sha256": "01f4c9d699439adceccc2e4624132ed1a9c27f11452908d8e45e0b5719c0f89e",
+          "evaluation_context_sha256": "97a9f09d903ed360e26b1a2cf9a942604277a50699ee5d906d95b4abe1b5516a",
+          "goal_sha256": "c4bae546eef7fec8c92895a1538196a8df81a13754329022bca211a6200752ae",
+          "critic_backend": "codex",
+          "critic_model": "codex:gpt-5.6-luna",
+          "fresh_context": true,
+          "model_independence": "independent",
+          "approved_reference_count": 0,
+          "reference_confidence_reduced": true,
+          "usage": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cost_usd": 0.0,
+            "backend_calls": 1
+          }
+        },
+        "critic_failure": null,
+        "repair_scope": "course",
+        "repair_summary": "Reframed the four affected prompt-engineering, conversation-history, user-prompt, and system-prompt items as source-bounded workplace or chat scenarios while preserving question types, answer mappings, item keys, paths, and order.",
+        "editor_backend": "codex",
+        "editor_model": "codex:gpt-5.6-luna",
+        "editor_fresh_context": true,
+        "edit_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost_usd": 0.0,
+          "backend_calls": 1
+        },
+        "validation_retry_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost_usd": 0.0,
+          "backend_calls": 0
+        },
+        "touched_item_keys": [
+          "prompts-and-conversation-context/prompt-engineering/r1/v1",
+          "prompts-and-conversation-context/conversation-history/r1/v1",
+          "prompts-and-conversation-context/user-prompt/r1/v1",
+          "prompts-and-conversation-context/system-prompt/r1/v1"
+        ],
+        "challenger_hash": "997d1f4e6d9df36939ead08848c23d82618a76555d9ac75ba074ffb4d9eee20e",
+        "promoted_champion_before": null,
+        "promoted_challenger": null,
+        "hard_gate": {
+          "artifact_sha256": "997d1f4e6d9df36939ead08848c23d82618a76555d9ac75ba074ffb4d9eee20e",
+          "passed": true,
+          "issues": [],
+          "checks": {
+            "schema_and_answers": true,
+            "identity": true,
+            "final_sequence": true
+          },
+          "metrics": {},
+          "constraint_relaxations": []
+        },
+        "source_fidelity_critic": {
+          "result": {
+            "dimensions": [
+              {
+                "dimension": "factual_fidelity",
+                "score": 0.99,
+                "evidence": [
+                  {
+                    "statement": "The item answers and explanations match the supplied source: next-token prediction selects likely continuations, masked attention ignores later tokens during decoder training, prompts provide guidance or requests, conversation history supplies context, and prompt quality depends on both model and prompt design. Source: \"2. Introduction to generative AI and agents.md\".",
+                    "item_keys": [
+                      "prompts-and-conversation-context/next-token-prediction/r1/v1",
+                      "prompts-and-conversation-context/masked-attention/r1/v1",
+                      "prompts-and-conversation-context/prompt-engineering/r1/v1",
+                      "prompts-and-conversation-context/conversation-history/r1/v1"
+                    ],
+                    "paths": [
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/0",
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/1",
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/4",
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/5"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "answer_unambiguity",
+                "score": 0.97,
+                "evidence": [
+                  {
+                    "statement": "Each item presents one defensible answer set under its instructions; the multi-select items explicitly say \"Select all that apply,\" and the true/false items state propositions with unambiguous truth values.",
+                    "item_keys": [
+                      "prompts-and-conversation-context/masked-attention/r1/v1",
+                      "prompts-and-conversation-context/prompt-engineering/r1/v1",
+                      "prompts-and-conversation-context/user-prompt/r1/v1",
+                      "prompts-and-conversation-context/system-prompt/r2/v1"
+                    ],
+                    "paths": [
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/1",
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/4",
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/8",
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/11"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "distractor_plausibility",
+                "score": 0.91,
+                "evidence": [
+                  {
+                    "statement": "Distractors are credible category confusions grounded in nearby concepts, such as confusing masked attention with system prompts or RAG, and confusing conversation history with a user prompt.",
+                    "item_keys": [
+                      "prompts-and-conversation-context/next-token-prediction/r1/v1",
+                      "prompts-and-conversation-context/masked-attention/r1/v1",
+                      "prompts-and-conversation-context/conversation-history/r1/v1"
+                    ],
+                    "paths": [
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/0",
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/1",
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/5"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "misconception_quality",
+                "score": 0.94,
+                "evidence": [
+                  {
+                    "statement": "Wrong options include explicit error types, rationales, and better-fit concepts, while true/false items provide intrinsic and instructional feedback targeting realistic misconceptions.",
+                    "item_keys": [
+                      "prompts-and-conversation-context/next-token-prediction/r1/v1",
+                      "prompts-and-conversation-context/prompt-engineering/r1/v1",
+                      "prompts-and-conversation-context/conversation-history/r2/v1"
+                    ],
+                    "paths": [
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/0",
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/4",
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/7"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "cognitive_progression",
+                "score": 0.91,
+                "evidence": [
+                  {
+                    "statement": "The ordered sequence begins with foundational next-token and masked-attention recognition, then moves through prompt engineering and conversation history, pairing Level 1 remembering items with Level 2 understanding checks.",
+                    "item_keys": [
+                      "prompts-and-conversation-context/next-token-prediction/r1/v1",
+                      "prompts-and-conversation-context/masked-attention/r2/v1",
+                      "prompts-and-conversation-context/prompt-engineering/r2/v1",
+                      "prompts-and-conversation-context/conversation-history/r2/v1"
+                    ],
+                    "paths": [
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/0",
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/3",
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/6",
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/7"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "mechanic_rhythm_variation",
+                "score": 0.84,
+                "evidence": [
+                  {
+                    "statement": "The session alternates multiple-choice, multi-select, and true/false mechanics, with repeated true/false checks used for Level 2 reinforcement; the rhythm is patterned but not disruptive.",
+                    "item_keys": [
+                      "prompts-and-conversation-context/next-token-prediction/r1/v1",
+                      "prompts-and-conversation-context/masked-attention/r1/v1",
+                      "prompts-and-conversation-context/next-token-prediction/r2/v1",
+                      "prompts-and-conversation-context/prompt-engineering/r1/v1",
+                      "prompts-and-conversation-context/conversation-history/r1/v1"
+                    ],
+                    "paths": [
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/0",
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/1",
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/2",
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/4",
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/5"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "prompt_language_variation",
+                "score": 0.9,
+                "evidence": [
+                  {
+                    "statement": "Prompt stems vary across direct questions, select-all prompts, true/false propositions, workplace scenarios, and chat examples rather than repeating one formula.",
+                    "item_keys": [
+                      "prompts-and-conversation-context/next-token-prediction/r1/v1",
+                      "prompts-and-conversation-context/masked-attention/r1/v1",
+                      "prompts-and-conversation-context/prompt-engineering/r1/v1",
+                      "prompts-and-conversation-context/conversation-history/r1/v1",
+                      "prompts-and-conversation-context/user-prompt/r1/v1"
+                    ],
+                    "paths": [
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/0",
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/1",
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/4",
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/5",
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/8"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "scenario_authenticity",
+                "score": 0.86,
+                "evidence": [
+                  {
+                    "statement": "The workplace assistant, corporate executive update, expenses assistant, and follow-up chat examples represent credible tasks grounded in the source's examples of prompts, organizational policies, and conversation context.",
+                    "item_keys": [
+                      "prompts-and-conversation-context/prompt-engineering/r1/v1",
+                      "prompts-and-conversation-context/conversation-history/r1/v1",
+                      "prompts-and-conversation-context/system-prompt/r1/v1"
+                    ],
+                    "paths": [
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/4",
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/5",
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/9"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "feedback_usefulness",
+                "score": 0.96,
+                "evidence": [
+                  {
+                    "statement": "Feedback explains the governing distinction and next step: option rationales identify the relevant concept, true/false instructional feedback states the corrective principle, and explanations restate why the selected answer is correct.",
+                    "item_keys": [
+                      "prompts-and-conversation-context/masked-attention/r1/v1",
+                      "prompts-and-conversation-context/prompt-engineering/r1/v1",
+                      "prompts-and-conversation-context/next-token-prediction/r2/v1"
+                    ],
+                    "paths": [
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/1",
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/4",
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/2"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "difficulty_appropriateness",
+                "score": 0.96,
+                "evidence": [
+                  {
+                    "statement": "The items are labeled Remembering or Understanding and use foundational distinctions appropriate for a Level 1 unit whose objective is to distinguish prompt types and explain conversational continuation.",
+                    "item_keys": [
+                      "prompts-and-conversation-context/next-token-prediction/r1/v1",
+                      "prompts-and-conversation-context/prompt-engineering/r2/v1",
+                      "prompts-and-conversation-context/system-prompt/r2/v1"
+                    ],
+                    "paths": [
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/0",
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/6",
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/11"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "terminology_consistency",
+                "score": 0.98,
+                "evidence": [
+                  {
+                    "statement": "The artifact consistently uses the source terminology for next-token prediction, masked attention, system prompts, user prompts, conversation history, and retrieval augmented generation.",
+                    "item_keys": [
+                      "prompts-and-conversation-context/next-token-prediction/r1/v1",
+                      "prompts-and-conversation-context/masked-attention/r2/v1",
+                      "prompts-and-conversation-context/user-prompt/r1/v1",
+                      "prompts-and-conversation-context/system-prompt/r1/v1"
+                    ],
+                    "paths": [
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/0",
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/3",
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/8",
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/9"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "overall_learner_experience",
+                "score": 0.92,
+                "evidence": [
+                  {
+                    "statement": "The exact sequence is coherent, source-grounded, varied in stem and mechanic, and reinforces each concept with paired recognition and understanding checks plus explanatory feedback.",
+                    "item_keys": [
+                      "prompts-and-conversation-context/next-token-prediction/r1/v1",
+                      "prompts-and-conversation-context/masked-attention/r2/v1",
+                      "prompts-and-conversation-context/prompt-engineering/r1/v1",
+                      "prompts-and-conversation-context/conversation-history/r2/v1",
+                      "prompts-and-conversation-context/system-prompt/r2/v1"
+                    ],
+                    "paths": [
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/0",
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/3",
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/4",
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/7",
+                      "modules/1:2-introduction-to-generative-ai-and-agents/units/9:prompts-and-conversation-context-l1/questions/11"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "critical_defects": [],
+            "largest_gap": null,
+            "confidence": 0.95,
+            "human_review_recommended": false,
+            "human_review_reason": null,
+            "concise_summary": "The ordered challenger is source-faithful, unambiguous, pedagogically coherent, and suitable for Level 1 delivery. No critical defects or repairable below-threshold gaps are evident."
+          },
+          "artifact_sha256": "997d1f4e6d9df36939ead08848c23d82618a76555d9ac75ba074ffb4d9eee20e",
+          "evaluation_context_sha256": "97a9f09d903ed360e26b1a2cf9a942604277a50699ee5d906d95b4abe1b5516a",
+          "goal_sha256": "6ce6b245bb30616f24e0fa9f76e0f5d01e608776378d036724270915fb57e725",
+          "critic_backend": "codex",
+          "critic_model": "codex:gpt-5.6-luna",
+          "fresh_context": true,
+          "model_independence": "independent",
+          "approved_reference_count": 0,
+          "reference_confidence_reduced": true,
+          "usage": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cost_usd": 0.0,
+            "backend_calls": 1
+          }
+        },
+        "source_fidelity_gate": {
+          "artifact_sha256": "997d1f4e6d9df36939ead08848c23d82618a76555d9ac75ba074ffb4d9eee20e",
+          "passed": true,
+          "issues": [],
+          "checks": {
+            "factual_fidelity_threshold": true,
+            "critic_confidence_threshold": true,
+            "no_factual_critical_defect": true,
+            "no_human_review_request": true,
+            "fresh_critic_context": true
+          },
+          "metrics": {
+            "factual_fidelity_score": 0.99,
+            "factual_fidelity_threshold": 0.8,
+            "critic_confidence": 0.95
+          },
+          "constraint_relaxations": []
+        },
+        "comparison": {
+          "champion_sha256": "01f4c9d699439adceccc2e4624132ed1a9c27f11452908d8e45e0b5719c0f89e",
+          "challenger_sha256": "997d1f4e6d9df36939ead08848c23d82618a76555d9ac75ba074ffb4d9eee20e",
+          "evaluation_context_sha256": "97a9f09d903ed360e26b1a2cf9a942604277a50699ee5d906d95b4abe1b5516a",
+          "comparator_backend": "codex",
+          "comparator_model": "codex:gpt-5.6-luna",
+          "comparator_fresh_context": true,
+          "records": [
+            {
+              "order_index": 1,
+              "seed": 902,
+              "a_role": "challenger",
+              "b_role": "champion",
+              "mapped_winner": "challenger",
+              "verdict": {
+                "winner": "A",
+                "confidence": 0.94,
+                "margin": 0.03,
+                "dimensions": [
+                  {
+                    "dimension": "factual_fidelity",
+                    "score_a": 0.99,
+                    "score_b": 0.99,
+                    "evidence": "Both candidates accurately distinguish next-token prediction, masked attention, prompt types, conversation history, and prompt-engineering practices from the source."
+                  },
+                  {
+                    "dimension": "answer_unambiguity",
+                    "score_a": 0.99,
+                    "score_b": 0.99,
+                    "evidence": "Each item has a clearly keyed answer; multi-select items identify exactly the source-supported choices."
+                  },
+                  {
+                    "dimension": "distractor_plausibility",
+                    "score_a": 0.95,
+                    "score_b": 0.95,
+                    "evidence": "Both use credible distractors drawn from neighboring concepts such as system prompts, RAG, conversation history, and masked attention."
+                  },
+                  {
+                    "dimension": "misconception_quality",
+                    "score_a": 0.95,
+                    "score_b": 0.95,
+                    "evidence": "Both diagnose realistic confusions between prediction, training, prompting, retrieval, and conversation context."
+                  },
+                  {
+                    "dimension": "cognitive_progression",
+                    "score_a": 0.93,
+                    "score_b": 0.93,
+                    "evidence": "Both progress from next-token prediction and masked attention to prompt practices, context, prompt roles, and system versus user prompts."
+                  },
+                  {
+                    "dimension": "mechanic_rhythm_variation",
+                    "score_a": 0.84,
+                    "score_b": 0.84,
+                    "evidence": "Both alternate multiple-choice, multi-select, and true/false mechanics, though the overall sequence still contains several repeated adjacent patterns."
+                  },
+                  {
+                    "dimension": "prompt_language_variation",
+                    "score_a": 0.91,
+                    "score_b": 0.87,
+                    "evidence": "A uses varied contextual stems, including workplace, employee follow-up, chat, and expenses-assistant situations; B has several more generic 'Which...' or 'What...' stems."
+                  },
+                  {
+                    "dimension": "scenario_authenticity",
+                    "score_a": 0.93,
+                    "score_b": 0.78,
+                    "evidence": "A includes credible workplace decisions involving executive updates, privacy follow-ups, and an expenses assistant. B largely removes those concrete contexts in favor of abstract prompts."
+                  },
+                  {
+                    "dimension": "feedback_usefulness",
+                    "score_a": 0.93,
+                    "score_b": 0.9,
+                    "evidence": "Both provide explanations and misconception rationales; A more often ties feedback to the concrete scenario and requested task."
+                  },
+                  {
+                    "dimension": "difficulty_appropriateness",
+                    "score_a": 0.94,
+                    "score_b": 0.94,
+                    "evidence": "Both use introductory recall and understanding items appropriate for an early lesson while adding modest application contexts."
+                  },
+                  {
+                    "dimension": "terminology_consistency",
+                    "score_a": 0.98,
+                    "score_b": 0.98,
+                    "evidence": "Both consistently use source terminology including masked attention, system prompt, user prompt, conversation history, and prompt engineering."
+                  },
+                  {
+                    "dimension": "overall_learner_experience",
+                    "score_a": 0.94,
+                    "score_b": 0.88,
+                    "evidence": "A preserves the same correct sequence while making several items more concrete and authentic, improving transfer without changing deterministic answer keys."
+                  }
+                ],
+                "evidence": [
+                  "The candidates have identical item counts, answer keys, concept sequencing, and core rationales, so correctness is effectively equal.",
+                  "A retains source-grounded workplace contexts in the prompt-engineering, conversation-history, and system-prompt items; B generalizes those items and loses scenario specificity.",
+                  "A therefore has a modest overall advantage in language variation, scenario authenticity, and learner experience."
+                ],
+                "human_review_recommended": false,
+                "usage": {
+                  "input_tokens": 0,
+                  "output_tokens": 0,
+                  "cost_usd": 0.0,
+                  "backend_calls": 1
+                }
+              }
+            },
+            {
+              "order_index": 2,
+              "seed": 902,
+              "a_role": "champion",
+              "b_role": "challenger",
+              "mapped_winner": "challenger",
+              "verdict": {
+                "winner": "B",
+                "confidence": 0.96,
+                "margin": 0.09,
+                "dimensions": [
+                  {
+                    "dimension": "factual_fidelity",
+                    "score_a": 0.99,
+                    "score_b": 0.99,
+                    "evidence": "Both candidates accurately reflect the supplied distinctions among next-token prediction, masked attention, prompts, conversation history, and prompt-quality guidance."
+                  },
+                  {
+                    "dimension": "answer_unambiguity",
+                    "score_a": 0.98,
+                    "score_b": 0.96,
+                    "evidence": "A uses direct definitions; B's contextual rewrites remain answerable, though phrases such as application instructions require slightly more interpretation."
+                  },
+                  {
+                    "dimension": "distractor_plausibility",
+                    "score_a": 0.9,
+                    "score_b": 0.91,
+                    "evidence": "Both use credible cross-concept distractors; B's workplace contexts make the alternatives feel more naturally competing."
+                  },
+                  {
+                    "dimension": "misconception_quality",
+                    "score_a": 0.91,
+                    "score_b": 0.92,
+                    "evidence": "Both diagnose confusion among prediction, masked attention, system prompts, user prompts, RAG, and history; B ties those misconceptions to recognizable situations."
+                  },
+                  {
+                    "dimension": "cognitive_progression",
+                    "score_a": 0.82,
+                    "score_b": 0.87,
+                    "evidence": "Both move from prediction and masked attention to prompt design, history, and prompt roles; B adds modest application context, although repeated concept checks limit advancement."
+                  },
+                  {
+                    "dimension": "mechanic_rhythm_variation",
+                    "score_a": 0.35,
+                    "score_b": 0.35,
+                    "evidence": "The exact mechanic pattern is identical in both: repeated pairs of multiple-choice and true/false items with little structural variation."
+                  },
+                  {
+                    "dimension": "prompt_language_variation",
+                    "score_a": 0.62,
+                    "score_b": 0.88,
+                    "evidence": "A relies heavily on generic definition stems; B varies the language with workplace, employee, chat, and application scenarios."
+                  },
+                  {
+                    "dimension": "scenario_authenticity",
+                    "score_a": 0.55,
+                    "score_b": 0.91,
+                    "evidence": "A is mostly decontextualized recall; B uses credible workplace-assistant, employee-chat, and expenses-assistant decisions grounded in the source examples."
+                  },
+                  {
+                    "dimension": "feedback_usefulness",
+                    "score_a": 0.85,
+                    "score_b": 0.9,
+                    "evidence": "Both provide accurate corrective rationales and better-fit labels; B's explanations connect the concept to the concrete scenario and requested action."
+                  },
+                  {
+                    "dimension": "difficulty_appropriateness",
+                    "score_a": 0.86,
+                    "score_b": 0.89,
+                    "evidence": "Both suit an introductory, early-session audience; B adds light application without requiring knowledge beyond the source."
+                  },
+                  {
+                    "dimension": "terminology_consistency",
+                    "score_a": 0.99,
+                    "score_b": 0.98,
+                    "evidence": "Both consistently use source-aligned terms; B introduces no material terminology drift, though its contextual paraphrases add minor wording variation."
+                  },
+                  {
+                    "dimension": "overall_learner_experience",
+                    "score_a": 0.76,
+                    "score_b": 0.88,
+                    "evidence": "B preserves deterministic correctness while making four later items more contextual and engaging; both retain the same repetitive mechanic rhythm and omit broader source topics such as agents."
+                  }
+                ],
+                "evidence": [
+                  "B is stronger on contextualization, prompt-language variety, scenario authenticity, and learner engagement while preserving the same answer keys and source-faithful concepts.",
+                  "A and B are effectively tied on deterministic correctness and mechanic variation; neither meaningfully varies the repeated question-format rhythm.",
+                  "B has a small ambiguity risk in contextualized prompt-role wording, but its overall learner experience is clearly stronger."
+                ],
+                "human_review_recommended": false,
+                "usage": {
+                  "input_tokens": 0,
+                  "output_tokens": 0,
+                  "cost_usd": 0.0,
+                  "backend_calls": 1
+                }
+              }
+            }
+          ],
+          "position_sensitive": false,
+          "stable": true,
+          "decision": "retain",
+          "protected_regressions": [
+            "answer_unambiguity"
+          ],
+          "minimum_confidence": 0.94,
+          "minimum_margin": 0.03,
+          "decision_evidence": "A protected quality dimension regressed.",
+          "usage": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cost_usd": 0.0,
+            "backend_calls": 2
+          }
+        },
+        "decision": "rejected_comparison",
+        "decision_evidence": "A protected quality dimension regressed.",
+        "champion_hash_after": "01f4c9d699439adceccc2e4624132ed1a9c27f11452908d8e45e0b5719c0f89e",
+        "constraint_relaxations": [],
+        "cumulative_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost_usd": 0.0,
+          "backend_calls": 7
+        }
+      }
+    ],
+    "stop_reason": "repeated_loss",
+    "stop_evidence": "2 consecutive challengers failed to beat the champion.",
+    "human_decision": null,
+    "total_usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "backend_calls": 7
+    },
+    "human_review_recommended": false,
+    "publication_eligible": false
+  }
+}

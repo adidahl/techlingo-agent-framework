@@ -15,16 +15,19 @@ from pathlib import Path
 import pytest
 from pydantic import ValidationError
 
+from techlingo_workflow.backends import BackendTimeoutError
 from techlingo_workflow.gauntlet import (
     BlindComparator,
     CriticEvidenceError,
     EditorScopeError,
+    EVALUATOR_PROTOCOL_VERSION,
     GauntletConfig,
     IndependentCritic,
     QualitativeGauntlet,
     TargetedEditor,
     default_critic_rubric,
 )
+from techlingo_workflow.gauntlet_backends import FreshCLICriticBackend
 from techlingo_workflow.gauntlet_models import (
     ALL_QUALITY_DIMENSIONS,
     ArtifactItem,
@@ -34,6 +37,7 @@ from techlingo_workflow.gauntlet_models import (
     ComparisonDecision,
     CriticBackendResponse,
     CriticEvidence,
+    CriticRequest,
     CriticResult,
     DimensionAssessment,
     DimensionExpectation,
@@ -41,6 +45,7 @@ from techlingo_workflow.gauntlet_models import (
     HardGateResult,
     HumanAction,
     HumanDecision,
+    HumanReviewReason,
     ModelIndependence,
     PairDimensionScore,
     QualityDimension,
@@ -118,7 +123,11 @@ def _gap(
         affected_paths=["units[0].items[q1]"],
         recommended_scope=scope,
         repair_instruction="Make the smallest safe correction.",
-        allowed_payload_fields=(fields if fields is not None else ["prompt", "quality", "fidelity"]),
+        allowed_payload_fields=(
+            fields
+            if fields is not None
+            else ([] if scope is RepairScope.session else ["prompt", "quality", "fidelity"])
+        ),
     )
 
 
@@ -128,7 +137,12 @@ def _critic_result(
     confidence: float = 0.9,
     gap: QualityGap | None | bool = True,
     human_review: bool = False,
+    human_review_reason: HumanReviewReason | None = None,
 ) -> CriticResult:
+    if human_review and human_review_reason is None:
+        human_review_reason = HumanReviewReason.unsafe_or_unbounded_repair
+    if human_review:
+        gap = None
     if gap is True:
         gap = _gap()
     return CriticResult(
@@ -143,6 +157,7 @@ def _critic_result(
         largest_gap=gap,
         confidence=confidence,
         human_review_recommended=human_review,
+        human_review_reason=human_review_reason,
         concise_summary="Concise observable findings only.",
     )
 
@@ -190,6 +205,24 @@ class FakeCritic:
         return CriticBackendResponse(result=result, usage=usage)
 
 
+class TimeoutCritic(FakeCritic):
+    def __init__(self):
+        super().__init__([])
+
+    async def evaluate(self, request):
+        self.requests.append(request)
+        raise BackendTimeoutError("codex timed out after 1200s (process killed)")
+
+
+class TimeoutOnSecondCriticCall(FakeCritic):
+    async def evaluate(self, request):
+        self.requests.append(request)
+        if len(self.requests) == 2:
+            raise BackendTimeoutError("codex timed out after 1200s (process killed)")
+        result = self.results.pop(0)
+        return CriticBackendResponse(result=result, usage=UsageRecord(backend_calls=1))
+
+
 class FakeEditor:
     name = "fake-editor"
     model_label = "editor:model"
@@ -204,6 +237,15 @@ class FakeEditor:
         return self.results.pop(0)
 
 
+class TimeoutEditor(FakeEditor):
+    def __init__(self):
+        super().__init__([])
+
+    async def repair(self, request):
+        self.requests.append(request)
+        raise BackendTimeoutError("codex timed out after 1200s (process killed)")
+
+
 class QualityComparator:
     name = "fake-comparator"
     model_label = "comparator:model"
@@ -216,6 +258,12 @@ class QualityComparator:
     async def compare(self, request):
         self.requests.append(request)
         return _verdict(request, force_winner=BlindWinner.a if self.always_a else None)
+
+
+class TimeoutComparator(QualityComparator):
+    async def compare(self, request):
+        self.requests.append(request)
+        raise BackendTimeoutError("codex timed out after 1200s (process killed)")
 
 
 def _edit(
@@ -393,11 +441,32 @@ def test_critic_is_fresh_structured_and_reports_missing_reference_confidence():
         "approved_references",
         "actual_final_artifact",
         "reference_confidence_reduced",
+        "validation_feedback",
     }
     assert request.approved_references == []
     assert evaluation.reference_confidence_reduced is True
     assert evaluation.model_independence is ModelIndependence.unavailable
     assert "history" not in json.dumps(request.model_dump(mode="json"))
+
+
+def test_evaluation_context_binds_the_evaluator_protocol_version():
+    config = _config()
+    assert config.to_mapping()["evaluator_protocol_version"] == EVALUATOR_PROTOCOL_VERSION
+    context = _runner(
+        config,
+        FakeCritic([_critic_result()]),
+        FakeEditor([]),
+        QualityComparator(),
+    )._evaluation_context(
+        goal="Evaluate the exact artifact.",
+        rubric=default_critic_rubric(),
+        source_material=_source(),
+        references=[],
+    )
+    assert (
+        context.gauntlet_policy["evaluator_protocol_version"]
+        == "critic-review-semantics-v6"
+    )
 
 
 def test_critic_output_requires_every_separate_dimension_and_forbids_cot_fields():
@@ -411,15 +480,20 @@ def test_critic_output_requires_every_separate_dimension_and_forbids_cot_fields(
         CriticResult.model_validate(payload)
 
 
-def test_critic_rejects_item_keys_and_paths_absent_from_exact_artifact():
-    hallucinated = _gap().model_copy(
-        update={
-            "affected_item_keys": ["not-in-artifact"],
-            "affected_paths": ["units[9].items[missing]"],
-        }
+def test_legacy_critic_result_without_structured_review_reason_remains_readable():
+    payload = _critic_result(score=0.95, gap=None).model_dump(mode="json")
+    payload.pop("human_review_reason")
+    restored = CriticResult.model_validate(payload)
+    assert restored.human_review_reason is None
+
+
+def test_live_critic_retries_incoherent_human_review_boolean_and_reason():
+    incoherent = _critic_result().model_copy(
+        update={"human_review_recommended": True, "human_review_reason": None}
     )
-    critic = IndependentCritic(FakeCritic([_critic_result(gap=hallucinated)]))
-    with pytest.raises(CriticEvidenceError, match="unknown item_key"):
+    backend = FakeCritic([incoherent] * 3)
+    critic = IndependentCritic(backend)
+    with pytest.raises(CriticEvidenceError, match="blocking human_review_reason"):
         _run(
             critic.evaluate(
                 goal="Evaluate exact evidence.",
@@ -429,6 +503,103 @@ def test_critic_rejects_item_keys_and_paths_absent_from_exact_artifact():
                 artifact=_artifact(),
             )
         )
+    assert len(backend.requests) == 3
+    assert "blocking human_review_reason" in backend.requests[1].validation_feedback[0]
+
+
+def test_live_critic_retries_session_directive_that_attempts_payload_edits():
+    invalid_gap = _gap(
+        scope=RepairScope.session,
+        fields=["question_text"],
+    )
+    backend = FakeCritic([_critic_result(gap=invalid_gap)] * 3)
+    critic = IndependentCritic(backend)
+    with pytest.raises(CriticEvidenceError, match="session repair may only reorder"):
+        _run(
+            critic.evaluate(
+                goal="Evaluate exact evidence.",
+                rubric=default_critic_rubric(),
+                source_material=_source(),
+                references=[],
+                artifact=_artifact(),
+            )
+        )
+    assert len(backend.requests) == 3
+    assert "allowed_payload_fields=[]" in backend.requests[1].validation_feedback[0]
+
+
+def test_live_critic_retries_directive_that_authorizes_question_type_change():
+    invalid_gap = _gap(fields=["question_type", "question_text"])
+    backend = FakeCritic([_critic_result(gap=invalid_gap)] * 3)
+    critic = IndependentCritic(backend)
+    with pytest.raises(CriticEvidenceError, match="protected payload field"):
+        _run(
+            critic.evaluate(
+                goal="Evaluate exact evidence.",
+                rubric=default_critic_rubric(),
+                source_material=_source(),
+                references=[],
+                artifact=_artifact(),
+            )
+        )
+    assert len(backend.requests) == 3
+    assert "question_type" in backend.requests[1].validation_feedback[0]
+
+
+def test_critic_prompt_treats_missing_exemplar_as_non_blocking():
+    captured: dict[str, str] = {}
+
+    class CaptureClient:
+        async def run_json_model(self, prompt, model):
+            captured["prompt"] = prompt
+            result = _critic_result()
+            return result.model_dump(mode="json"), result
+
+    backend = FreshCLICriticBackend(
+        "codex:gpt-5.6-luna",
+        client_factory=lambda _model, _name: CaptureClient(),
+    )
+    request = CriticRequest(
+        goal="Improve the source-faithful learner session.",
+        rubric=default_critic_rubric(),
+        source_material=_source(),
+        approved_references=[],
+        actual_final_artifact=_artifact(),
+        reference_confidence_reduced=True,
+    )
+    _run(backend.evaluate(request))
+    assert "source material is authoritative" in captured["prompt"]
+    assert "MUST NOT by itself trigger human review" in captured["prompt"]
+    assert "human_review_reason=null" in captured["prompt"]
+    assert "must be copied literally" in captured["prompt"]
+    assert "Never put JSON navigation expressions" in captured["prompt"]
+    assert "session scope may ONLY reorder" in captured["prompt"]
+    assert "MUST preserve question_type exactly" in captured["prompt"]
+
+
+def test_critic_rejects_item_keys_and_paths_absent_from_exact_artifact():
+    hallucinated = _gap().model_copy(
+        update={
+            "affected_item_keys": ["not-in-artifact"],
+            "affected_paths": ["units[9].items[missing]"],
+        }
+    )
+    backend = FakeCritic([_critic_result(gap=hallucinated)] * 3)
+    critic = IndependentCritic(backend)
+    with pytest.raises(CriticEvidenceError, match="failed after 3 attempts"):
+        _run(
+            critic.evaluate(
+                goal="Evaluate exact evidence.",
+                rubric=default_critic_rubric(),
+                source_material=_source(),
+                references=[],
+                artifact=_artifact(),
+            )
+        )
+    assert len(backend.requests) == 3
+    assert "unknown item_key" in backend.requests[1].validation_feedback[0]
+
+
 def test_item_editor_enforces_target_keys_and_payload_field_allow_list():
     champion = _artifact()
     good = _edit(champion, updates={"prompt": "Narrowed prompt"})
@@ -436,10 +607,29 @@ def test_item_editor_enforces_target_keys_and_payload_field_allow_list():
     result = _run(editor.repair(champion=champion, directive=_gap(fields=["prompt"]), source_material=_source()))
     assert result.challenger.items[0].payload["prompt"] == "Narrowed prompt"
 
+
+def test_editor_defense_rejects_question_type_change_even_if_directive_allows_it():
+    champion = _artifact()
+    changed = _edit(champion, updates={"question_type": "multiple_choice"})
+    editor = TargetedEditor(FakeEditor([changed, changed, changed]))
+    with pytest.raises(EditorScopeError, match="protected payload field.*question_type"):
+        _run(
+            editor.repair(
+                champion=champion,
+                directive=_gap(fields=["question_type"]),
+                source_material=_source(),
+            )
+        )
+
     bad = _edit(champion, updates={"quality": 0.9})
-    editor = TargetedEditor(FakeEditor([bad]))
-    with pytest.raises(EditorScopeError, match="allow-list"):
+    backend = FakeEditor([bad, bad, bad])
+    editor = TargetedEditor(backend)
+    with pytest.raises(EditorScopeError, match="failed after 3 attempts"):
         _run(editor.repair(champion=champion, directive=_gap(fields=["prompt"]), source_material=_source()))
+    assert len(backend.requests) == 3
+    assert backend.requests[1].validation_feedback == [
+        "editor changed a payload field outside the allow-list"
+    ]
 
 
 def test_session_editor_can_only_reorder_exact_existing_items():
@@ -456,7 +646,7 @@ def test_session_editor_can_only_reorder_exact_existing_items():
     assert [item.item_key for item in result.challenger.items] == ["q2", "q1", "q3"]
 
     rewritten = _edit(champion, updates={"prompt": "Rewritten"})
-    editor = TargetedEditor(FakeEditor([rewritten]))
+    editor = TargetedEditor(FakeEditor([rewritten, rewritten, rewritten]))
     with pytest.raises(EditorScopeError, match="cannot rewrite"):
         _run(
             editor.repair(
@@ -594,6 +784,182 @@ def test_optional_gauntlet_does_not_label_low_score_no_gap_as_eligible():
     assert outcome.history.human_review_recommended is True
 
 
+def test_critic_requested_human_review_persists_without_retry_usage():
+    editor = FakeEditor([])
+    outcome = _run(
+        _runner(
+            _config(),
+            FakeCritic([_critic_result(human_review=True)]),
+            editor,
+            QualityComparator(),
+        ).run(
+            run_id="critic-human-review",
+            champion=_artifact(),
+            goal="Evaluate honestly.",
+            source_material=_source(),
+        )
+    )
+    round_ = outcome.history.rounds[0]
+    assert outcome.history.stop_reason is StopReason.human_review_required
+    assert "unsafe_or_unbounded_repair" in round_.decision_evidence
+    assert round_.validation_retry_usage == UsageRecord()
+    assert editor.requests == []
+    assert outcome.history.coherence_errors() == []
+
+
+def test_confidence_below_hard_review_threshold_stops_before_editor():
+    editor = FakeEditor([])
+    outcome = _run(
+        _runner(
+            _config(human_review_threshold=0.4),
+            FakeCritic([_critic_result(confidence=0.39)]),
+            editor,
+            QualityComparator(),
+        ).run(
+            run_id="critic-hard-low-confidence",
+            champion=_artifact(),
+            goal="Evaluate honestly.",
+            source_material=_source(),
+        )
+    )
+    assert outcome.history.stop_reason is StopReason.human_review_required
+    assert "hard human-review threshold" in outcome.history.stop_evidence
+    assert editor.requests == []
+
+
+def test_exhausted_critic_evidence_retries_persist_a_coherent_human_review_round():
+    hallucinated = _gap().model_copy(
+        update={
+            "affected_item_keys": ["not-in-artifact"],
+            "affected_paths": ["units[9].items[missing]"],
+        }
+    )
+    critic = FakeCritic([_critic_result(gap=hallucinated)] * 3)
+    outcome = _run(
+        _runner(
+            _config(),
+            critic,
+            FakeEditor([]),
+            QualityComparator(),
+        ).run(
+            run_id="critic-evidence-exhausted",
+            champion=_artifact(),
+            goal="Evaluate exact evidence.",
+            source_material=_source(),
+        )
+    )
+
+    round_ = outcome.history.rounds[0]
+    assert outcome.history.stop_reason is StopReason.human_review_required
+    assert outcome.history.publication_eligible is False
+    assert round_.critic is None
+    assert "failed after 3 attempts" in round_.critic_failure
+    assert round_.validation_retry_usage.backend_calls == 3
+    assert outcome.history.total_usage.backend_calls == 3
+    assert outcome.history.coherence_errors() == []
+
+
+def test_exhausted_critic_backend_timeout_persists_a_coherent_human_review_round():
+    outcome = _run(
+        _runner(
+            _config(),
+            TimeoutCritic(),
+            FakeEditor([]),
+            QualityComparator(),
+        ).run(
+            run_id="critic-timeout-exhausted",
+            champion=_artifact(),
+            goal="Evaluate exact evidence.",
+            source_material=_source(),
+        )
+    )
+
+    round_ = outcome.history.rounds[0]
+    assert outcome.history.stop_reason is StopReason.human_review_required
+    assert outcome.history.publication_eligible is False
+    assert round_.critic is None
+    assert "critic backend timed out after configured retries" in round_.critic_failure
+    assert round_.validation_retry_usage == UsageRecord()
+    assert outcome.history.total_usage == UsageRecord()
+    assert outcome.history.coherence_errors() == []
+
+
+def test_editor_backend_timeout_persists_a_coherent_human_review_round():
+    outcome = _run(
+        _runner(
+            _config(),
+            FakeCritic([_critic_result()]),
+            TimeoutEditor(),
+            QualityComparator(),
+        ).run(
+            run_id="editor-timeout-exhausted",
+            champion=_artifact(),
+            goal="Repair safely.",
+            source_material=_source(),
+        )
+    )
+
+    round_ = outcome.history.rounds[0]
+    assert outcome.history.stop_reason is StopReason.human_review_required
+    assert "editor backend timed out after configured retries" in round_.decision_evidence
+    assert round_.challenger_hash is None
+    assert outcome.history.coherence_errors() == []
+
+
+def test_source_fidelity_timeout_persists_a_coherent_human_review_round():
+    champion = _artifact()
+    outcome = _run(
+        _runner(
+            _config(),
+            TimeoutOnSecondCriticCall([_critic_result()]),
+            FakeEditor([_edit(champion, updates={"prompt": "Narrower prompt"})]),
+            QualityComparator(),
+        ).run(
+            run_id="source-fidelity-timeout-exhausted",
+            champion=champion,
+            goal="Repair safely.",
+            source_material=_source(),
+        )
+    )
+
+    round_ = outcome.history.rounds[0]
+    assert outcome.history.stop_reason is StopReason.human_review_required
+    assert "source-fidelity critic timed out after configured retries" in round_.decision_evidence
+    assert round_.challenger_hash is not None
+    assert round_.source_fidelity_critic is None
+    assert round_.comparison is None
+    assert outcome.history.coherence_errors() == []
+
+
+def test_comparison_timeout_persists_a_coherent_human_review_round():
+    champion = _artifact()
+    outcome = _run(
+        _runner(
+            _config(),
+            FakeCritic(
+                [
+                    _critic_result(),
+                    _critic_result(score=0.95, gap=None),
+                ]
+            ),
+            FakeEditor([_edit(champion, updates={"prompt": "Narrower prompt"})]),
+            TimeoutComparator(),
+        ).run(
+            run_id="comparison-timeout-exhausted",
+            champion=champion,
+            goal="Repair safely.",
+            source_material=_source(),
+        )
+    )
+
+    round_ = outcome.history.rounds[0]
+    assert outcome.history.stop_reason is StopReason.human_review_required
+    assert "comparison backend timed out after configured retries" in round_.decision_evidence
+    assert round_.source_fidelity_gate.passed is True
+    assert round_.comparison is None
+    assert outcome.history.coherence_errors() == []
+
+
 def test_failed_hard_gate_is_authoritative_and_comparison_is_never_called():
     champion = _artifact()
     critic = FakeCritic([_critic_result()])
@@ -678,6 +1044,8 @@ def test_valid_stable_challenger_is_promoted_but_round_cap_still_bounds_loop():
     assert round_.source_fidelity_critic.artifact_sha256 == round_.challenger_hash
     assert round_.comparison.champion_sha256 == round_.champion_hash_before
     assert round_.comparison.challenger_sha256 == round_.challenger_hash
+    assert round_.promoted_champion_before == champion
+    assert round_.promoted_challenger == edit.challenger
     assert (
         round_.comparison.comparator_backend,
         round_.comparison.comparator_model,

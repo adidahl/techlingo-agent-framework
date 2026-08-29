@@ -1,0 +1,1761 @@
+{
+  "schema_version": "techlingo-gauntlet-record-v1",
+  "compiled_artifact_sha256": "2fa356d363b3a7f13d4d399d67361e952b387b4b6502e0aa169d3bb7f3169d2b",
+  "unit_key": "extract-information-from-video-l3",
+  "champion": {
+    "artifact_id": "ai-901:extract-information-from-video-l3",
+    "course_id": "ai-901",
+    "session_id": "extract-information-from-video-l3",
+    "items": [
+      {
+        "item_key": "extract-information-from-video/prebuilt-video-analyzer/r3/v2",
+        "path": "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/0",
+        "payload": {
+          "import_key": "extract-information-from-video-l3-q1",
+          "question_type": "fill_blank",
+          "question_text": "The prebuilt analyzer for video analysis is ___.",
+          "options": {
+            "parts": [
+              {
+                "type": "text",
+                "text": "The prebuilt analyzer for video analysis is "
+              },
+              {
+                "type": "gap",
+                "accepted_answers": [
+                  "prebuilt-videoSearch"
+                ],
+                "rejected_answers": [
+                  "prebuilt-audioSearch",
+                  "prebuilt-invoice",
+                  "prebuilt-imageSearch",
+                  "prebuilt-audio-sdk-flow",
+                  "prebuilt-invoice-sdk-flow",
+                  "prebuilt-and-custom-analyzers"
+                ],
+                "placeholder": "analyzer ID"
+              },
+              {
+                "type": "text",
+                "text": "."
+              }
+            ],
+            "rejected_answers": [
+              "prebuilt-audioSearch",
+              "prebuilt-invoice",
+              "prebuilt-imageSearch",
+              "prebuilt-audio-sdk-flow",
+              "prebuilt-invoice-sdk-flow",
+              "prebuilt-and-custom-analyzers"
+            ],
+            "blooms_level": "Remembering",
+            "original_question_type": "fill_gaps",
+            "concept_id": "prebuilt-video-analyzer",
+            "feedback_for_incorrect": {
+              "intrinsic": "The video could be sent to an analyzer for a different content type.",
+              "instructional": "Use prebuilt-videoSearch for video input."
+            },
+            "item_key": "extract-information-from-video/prebuilt-video-analyzer/r3/v2",
+            "rung": 3,
+            "variant": 2,
+            "module_key": "12-get-started-with-ai-powered-information-extraction",
+            "lesson_key": "extract-information-from-video",
+            "learning_status": "review"
+          },
+          "correct_answer": "prebuilt-videoSearch",
+          "explanation": "prebuilt-videoSearch is the prebuilt analyzer identifier for video. Its name distinguishes it from audio, image, and invoice analyzers.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "extract-information-from-video/video-meeting-schema/r3/v2",
+        "path": "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/1",
+        "payload": {
+          "import_key": "extract-information-from-video-l3-q2",
+          "question_type": "arrange_sentence",
+          "question_text": "Order the pieces to form the correct statement.",
+          "options": {
+            "word_bank": [
+              "who spoke",
+              "A video schema",
+              "during the meeting.",
+              "can record"
+            ],
+            "correct_order": [
+              "A video schema",
+              "can record",
+              "who spoke",
+              "during the meeting."
+            ],
+            "blooms_level": "Understanding",
+            "original_question_type": "rearrange",
+            "concept_id": "video-meeting-schema",
+            "feedback_for_incorrect": {
+              "intrinsic": "The speaker field would be described unclearly.",
+              "instructional": "Begin with the schema, then state that it can record who spoke during the meeting."
+            },
+            "item_key": "extract-information-from-video/video-meeting-schema/r3/v2",
+            "rung": 3,
+            "variant": 2,
+            "module_key": "12-get-started-with-ai-powered-information-extraction",
+            "lesson_key": "extract-information-from-video",
+            "learning_status": "review"
+          },
+          "correct_answer": "A video schema can record who spoke during the meeting.",
+          "explanation": "A video schema can record who spoke during the meeting, illustrating that video analysis can capture speaker information.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "extract-information-from-video/prebuilt-video-analyzer/r5/v1",
+        "path": "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/2",
+        "payload": {
+          "import_key": "extract-information-from-video-l3-q3",
+          "question_type": "multiple_choice",
+          "question_text": "A meeting-services lead must select an analyzer for recorded video conferences and deliver structured meeting details to a reporting system. Which decisions best fit? Select all that apply.",
+          "options": {
+            "options": [
+              {
+                "text": "Use an audio analyzer",
+                "is_correct": false,
+                "error_type": "Confuses video input with audio input",
+                "rationale": "This is incorrect. An audio analyzer is intended for audio input, while the input here is recorded video.",
+                "better_fit": "Use an audio analyzer for a call recording or another audio file.",
+                "feedback": {
+                  "intrinsic": "The lead would choose an analyzer that does not match the conference video.",
+                  "instructional": "Match the analyzer to the input type: recorded video uses prebuilt-videoSearch."
+                }
+              },
+              {
+                "text": "Use an invoice analyzer",
+                "is_correct": false,
+                "error_type": "Confuses meeting video with invoice documents",
+                "rationale": "This is incorrect. An invoice analyzer extracts invoice-oriented fields, not meeting details from a video conference.",
+                "better_fit": "Use an invoice analyzer for invoices containing billing fields such as tax and total.",
+                "feedback": {
+                  "intrinsic": "The requested meeting details would be replaced by invoice-oriented fields.",
+                  "instructional": "Choose prebuilt-videoSearch for recorded video conferences."
+                }
+              },
+              {
+                "text": "Use prebuilt-videoSearch",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "This is correct. It is the prebuilt analyzer selected for video input.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Extract video-related structured information",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "This is correct. The stated reporting need requires structured information from the conference video.",
+                "better_fit": null,
+                "feedback": null
+              }
+            ],
+            "blooms_level": "Analyzing/Evaluating",
+            "original_question_type": "multi_choice",
+            "concept_id": "prebuilt-video-analyzer",
+            "item_key": "extract-information-from-video/prebuilt-video-analyzer/r5/v1",
+            "rung": 5,
+            "variant": 1,
+            "module_key": "12-get-started-with-ai-powered-information-extraction",
+            "lesson_key": "extract-information-from-video",
+            "learning_status": "new"
+          },
+          "correct_answer": "[2,3]",
+          "explanation": "Correct—the video analyzer is the appropriate decision for video input and structured meeting details.",
+          "points": 1
+        }
+      }
+    ],
+    "metadata": {
+      "module_key": "12-get-started-with-ai-powered-information-extraction",
+      "unit_title": "Extract information from video · Level 3",
+      "unit_slo": "Describe the information a video analyzer can extract from a meeting.",
+      "constraint_relaxations": []
+    }
+  },
+  "history": {
+    "schema_version": "techlingo-gauntlet-history-v1",
+    "run_id": "extract-information-from-video-l3-afd9d732b631",
+    "started_at": "2026-08-29T05:29:31.067250Z",
+    "finished_at": "2026-08-29T05:35:05.363807Z",
+    "initial_champion_hash": "bff200820b8a0b6af21eeeb0fa1cf0a49987de098a99aaac623e628290001440",
+    "final_champion_hash": "c85d389525ce998e02e60b32830982dcf4d9e847057cc7f5ed15fc210014eadf",
+    "evaluation_context": {
+      "schema_version": "techlingo-evaluation-context-v1",
+      "goal": "Produce an excellent, source-faithful learner session while preserving all deterministic correctness, identity, and sequence constraints.",
+      "source_fidelity_goal": "Independently verify the hard-gated edited challenger against the supplied source material. Reject unsupported facts, answers, explanations, feedback, or terminology changes; do not edit the artifact.",
+      "gauntlet_policy": {
+        "critic_backend": "codex",
+        "critic_model": "codex:gpt-5.6-luna",
+        "builder_model": "codex:gpt-5.6-terra",
+        "evaluator_protocol_version": "critic-review-semantics-v6",
+        "max_rounds": 4,
+        "plateau_rounds": 2,
+        "repeated_loss_rounds": 2,
+        "minimum_improvement_margin": 0.02,
+        "confidence_threshold": 0.65,
+        "human_review_threshold": 0.4,
+        "max_time_seconds": null,
+        "max_tokens": null,
+        "max_cost_usd": null,
+        "qualitative_required_for_publication": true,
+        "quality_thresholds": {
+          "factual_fidelity": 0.8,
+          "answer_unambiguity": 0.8,
+          "distractor_plausibility": 0.8,
+          "misconception_quality": 0.8,
+          "cognitive_progression": 0.8,
+          "mechanic_rhythm_variation": 0.8,
+          "prompt_language_variation": 0.8,
+          "scenario_authenticity": 0.8,
+          "feedback_usefulness": 0.8,
+          "difficulty_appropriateness": 0.8,
+          "terminology_consistency": 0.8,
+          "overall_learner_experience": 0.8
+        },
+        "comparison_seed": 901,
+        "protected_dimensions": [
+          "factual_fidelity",
+          "answer_unambiguity"
+        ],
+        "unstable_comparison_requires_human_review": true,
+        "identifying_metadata_keys": [
+          "artifact_id",
+          "builder_model",
+          "candidate_role",
+          "challenger",
+          "champion",
+          "critic_model",
+          "generated_at",
+          "import_key",
+          "item_key",
+          "model_id",
+          "path",
+          "version_id"
+        ]
+      },
+      "gauntlet_policy_sha256": "3ffb6943742c9fc0b33d6668a9c5695b535ee3121f7b697df8ab4d4392014385",
+      "rubric": {
+        "criteria": {
+          "factual_fidelity": "Every claim and answer is faithful to the supplied source.",
+          "answer_unambiguity": "Each item has one defensible answer under its instructions.",
+          "distractor_plausibility": "Distractors are credible without becoming defensible answers.",
+          "misconception_quality": "Wrong choices diagnose realistic learner misconceptions.",
+          "cognitive_progression": "The ordered session builds understanding at a coherent pace.",
+          "mechanic_rhythm_variation": "Mechanics vary naturally without disruptive repetition.",
+          "prompt_language_variation": "Prompt stems avoid formulaic repetition.",
+          "scenario_authenticity": "Scenarios resemble credible decisions or tasks.",
+          "feedback_usefulness": "Feedback explains the governing concept and next step.",
+          "difficulty_appropriateness": "Difficulty matches the stated audience and session position.",
+          "terminology_consistency": "Terms are used consistently with the source and across items.",
+          "overall_learner_experience": "The exact final sequence is coherent, varied, and instructive."
+        }
+      },
+      "rubric_sha256": "34290a842f2ed7e30b7a98ba70ac97d967c864424010cd31255f97cdce0b57d5",
+      "sources": [
+        {
+          "input_id": "12. Get started with AI-powered information extraction in Azure.md",
+          "sha256": "1e778579ac185d5d6eb4a1b22adfa8cb3b6672f1f586af15fc69e33705113bcd",
+          "location": "sources/12. Get started with AI-powered information extraction in Azure.md"
+        }
+      ],
+      "approved_references": [],
+      "models": {
+        "builder_model": "codex:gpt-5.6-terra",
+        "critic_backend": "codex",
+        "critic_model": "codex:gpt-5.6-luna",
+        "critic_fresh_context": true,
+        "editor_backend": "codex",
+        "editor_model": "codex:gpt-5.6-luna",
+        "editor_fresh_context": true,
+        "comparator_backend": "codex",
+        "comparator_model": "codex:gpt-5.6-luna",
+        "comparator_fresh_context": true
+      },
+      "context_sha256": "86c491616e45f9fc65ed8f32a0e4839b3f011ad01518b45d528cd8c059dac948"
+    },
+    "initial_hard_gate": {
+      "artifact_sha256": "bff200820b8a0b6af21eeeb0fa1cf0a49987de098a99aaac623e628290001440",
+      "passed": true,
+      "issues": [],
+      "checks": {
+        "schema_and_answers": true,
+        "identity": true,
+        "final_sequence": true
+      },
+      "metrics": {},
+      "constraint_relaxations": []
+    },
+    "rounds": [
+      {
+        "round_number": 1,
+        "champion_hash_before": "bff200820b8a0b6af21eeeb0fa1cf0a49987de098a99aaac623e628290001440",
+        "critic": {
+          "result": {
+            "dimensions": [
+              {
+                "dimension": "factual_fidelity",
+                "score": 0.98,
+                "evidence": [
+                  {
+                    "statement": "The authoritative source names prebuilt-videoSearch as the prebuilt analyzer for video and describes video analysis as producing structured information; items 1 and 3 match those claims.",
+                    "item_keys": [
+                      "extract-information-from-video/prebuilt-video-analyzer/r3/v2",
+                      "extract-information-from-video/prebuilt-video-analyzer/r5/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/0",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/2"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "answer_unambiguity",
+                "score": 0.72,
+                "evidence": [
+                  {
+                    "statement": "Item 2's keyed answer reads “A video schema can record who spoke. during the meeting,” placing a period before the final phrase. The intended concept is source-supported, but the keyed statement is not a well-formed single answer.",
+                    "item_keys": [
+                      "extract-information-from-video/video-meeting-schema/r3/v2"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/1"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "distractor_plausibility",
+                "score": 0.9,
+                "evidence": [
+                  {
+                    "statement": "Item 3 uses credible analyzer-mismatch distractors: audio for video and invoice for a meeting recording. The rejected analyzer-like strings in item 1 are less realistic than the content-type distractors.",
+                    "item_keys": [
+                      "extract-information-from-video/prebuilt-video-analyzer/r3/v2",
+                      "extract-information-from-video/prebuilt-video-analyzer/r5/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/0",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/2"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "misconception_quality",
+                "score": 0.87,
+                "evidence": [
+                  {
+                    "statement": "Item 3 explicitly diagnoses confusing audio, invoice, and video analyzers, which are realistic content-type misconceptions. Item 1 also tests confusion among audio, invoice, image, and video analyzer IDs.",
+                    "item_keys": [
+                      "extract-information-from-video/prebuilt-video-analyzer/r3/v2",
+                      "extract-information-from-video/prebuilt-video-analyzer/r5/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/0",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/2"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "cognitive_progression",
+                "score": 0.93,
+                "evidence": [
+                  {
+                    "statement": "The ordered sequence progresses from recalling the video analyzer ID, to understanding a video-schema capability, to analyzing a realistic meeting-services decision.",
+                    "item_keys": [],
+                    "paths": []
+                  }
+                ]
+              },
+              {
+                "dimension": "mechanic_rhythm_variation",
+                "score": 0.98,
+                "evidence": [
+                  {
+                    "statement": "The three-item sequence varies mechanics naturally: fill_blank, arrange_sentence, then multiple_choice.",
+                    "item_keys": [],
+                    "paths": []
+                  }
+                ]
+              },
+              {
+                "dimension": "prompt_language_variation",
+                "score": 0.94,
+                "evidence": [
+                  {
+                    "statement": "The prompts vary across a direct completion, an ordering instruction, and a contextual decision scenario rather than repeating one stem pattern.",
+                    "item_keys": [],
+                    "paths": []
+                  }
+                ]
+              },
+              {
+                "dimension": "scenario_authenticity",
+                "score": 0.95,
+                "evidence": [
+                  {
+                    "statement": "The meeting-services lead selecting an analyzer for recorded video conferences and reporting structured meeting details is a credible application of the source's video-analysis scenario.",
+                    "item_keys": [
+                      "extract-information-from-video/prebuilt-video-analyzer/r5/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/2"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "feedback_usefulness",
+                "score": 0.82,
+                "evidence": [
+                  {
+                    "statement": "Items 1 and 3 provide actionable analyzer-selection guidance, and item 3 labels the relevant misconception. Item 2's feedback explains the intended schema concept but does not address the malformed punctuation in the keyed sentence.",
+                    "item_keys": [
+                      "extract-information-from-video/prebuilt-video-analyzer/r3/v2",
+                      "extract-information-from-video/video-meeting-schema/r3/v2",
+                      "extract-information-from-video/prebuilt-video-analyzer/r5/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/0",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/1",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/2"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "difficulty_appropriateness",
+                "score": 0.91,
+                "evidence": [
+                  {
+                    "statement": "For a Level 3 unit, the sequence appropriately combines recall, comprehension, and a moderate application decision without requiring knowledge beyond the supplied lesson.",
+                    "item_keys": [],
+                    "paths": []
+                  }
+                ]
+              },
+              {
+                "dimension": "terminology_consistency",
+                "score": 0.97,
+                "evidence": [
+                  {
+                    "statement": "The artifact consistently uses prebuilt-videoSearch, video analyzer, schema, and structured information in ways aligned with the authoritative source.",
+                    "item_keys": [
+                      "extract-information-from-video/prebuilt-video-analyzer/r3/v2",
+                      "extract-information-from-video/video-meeting-schema/r3/v2",
+                      "extract-information-from-video/prebuilt-video-analyzer/r5/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/0",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/1",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/2"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "overall_learner_experience",
+                "score": 0.84,
+                "evidence": [
+                  {
+                    "statement": "The exact sequence is concise, source-faithful, varied, and increasingly applied, but the malformed keyed sentence in item 2 interrupts polish and could confuse learners during an otherwise coherent progression.",
+                    "item_keys": [
+                      "extract-information-from-video/video-meeting-schema/r3/v2"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/1"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "critical_defects": [
+              {
+                "defect_id": "arrange-sentence-punctuation",
+                "dimension": "answer_unambiguity",
+                "summary": "The arrange-sentence item keys a malformed statement because the period remains attached to “who spoke.” before “during the meeting.”",
+                "evidence": [
+                  {
+                    "statement": "The keyed answer is “A video schema can record who spoke. during the meeting,” which is not a well-formed statement even though the underlying capability is supported by the authoritative source.",
+                    "item_keys": [
+                      "extract-information-from-video/video-meeting-schema/r3/v2"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/1"
+                    ]
+                  }
+                ],
+                "affected_item_keys": [
+                  "extract-information-from-video/video-meeting-schema/r3/v2"
+                ],
+                "affected_paths": [
+                  "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/1"
+                ],
+                "recommended_scope": "item"
+              }
+            ],
+            "largest_gap": {
+              "dimension": "answer_unambiguity",
+              "summary": "Item 2 does not produce a grammatically complete keyed statement.",
+              "evidence": [
+                {
+                  "statement": "Revise the word-bank punctuation and keyed answer so the only intended order forms “A video schema can record who spoke during the meeting.”, consistent with the source's statement that video schemas can capture who spoke during a meeting.",
+                  "item_keys": [
+                    "extract-information-from-video/video-meeting-schema/r3/v2"
+                  ],
+                  "paths": [
+                    "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/1"
+                  ]
+                }
+              ],
+              "affected_item_keys": [
+                "extract-information-from-video/video-meeting-schema/r3/v2"
+              ],
+              "affected_paths": [
+                "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/1"
+              ],
+              "recommended_scope": "item",
+              "repair_instruction": "Adjust only the arrange-sentence options, correct_answer, and explanation so the keyed order yields “A video schema can record who spoke during the meeting.” Preserve question_type exactly as arrange_sentence.",
+              "allowed_payload_fields": [
+                "options",
+                "correct_answer",
+                "explanation"
+              ]
+            },
+            "confidence": 0.93,
+            "human_review_recommended": false,
+            "human_review_reason": null,
+            "concise_summary": "The session is strongly source-faithful, varied, and appropriately progressive. Repair the malformed punctuation and keyed answer in item 2; no human review is needed."
+          },
+          "artifact_sha256": "bff200820b8a0b6af21eeeb0fa1cf0a49987de098a99aaac623e628290001440",
+          "evaluation_context_sha256": "86c491616e45f9fc65ed8f32a0e4839b3f011ad01518b45d528cd8c059dac948",
+          "goal_sha256": "c4bae546eef7fec8c92895a1538196a8df81a13754329022bca211a6200752ae",
+          "critic_backend": "codex",
+          "critic_model": "codex:gpt-5.6-luna",
+          "fresh_context": true,
+          "model_independence": "independent",
+          "approved_reference_count": 0,
+          "reference_confidence_reduced": true,
+          "usage": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cost_usd": 0.0,
+            "backend_calls": 1
+          }
+        },
+        "critic_failure": null,
+        "repair_scope": "item",
+        "repair_summary": "Revised the arrange-sentence word bank and keyed order punctuation, correct_answer, and explanation for extract-information-from-video/video-meeting-schema/r3/v2 so the keyed statement is grammatically complete.",
+        "editor_backend": "codex",
+        "editor_model": "codex:gpt-5.6-luna",
+        "editor_fresh_context": true,
+        "edit_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost_usd": 0.0,
+          "backend_calls": 1
+        },
+        "validation_retry_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost_usd": 0.0,
+          "backend_calls": 0
+        },
+        "touched_item_keys": [
+          "extract-information-from-video/video-meeting-schema/r3/v2"
+        ],
+        "challenger_hash": "c85d389525ce998e02e60b32830982dcf4d9e847057cc7f5ed15fc210014eadf",
+        "promoted_champion_before": {
+          "artifact_id": "ai-901:extract-information-from-video-l3",
+          "course_id": "ai-901",
+          "session_id": "extract-information-from-video-l3",
+          "items": [
+            {
+              "item_key": "extract-information-from-video/prebuilt-video-analyzer/r3/v2",
+              "path": "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/0",
+              "payload": {
+                "import_key": "extract-information-from-video-l3-q1",
+                "question_type": "fill_blank",
+                "question_text": "The prebuilt analyzer for video analysis is ___.",
+                "options": {
+                  "parts": [
+                    {
+                      "type": "text",
+                      "text": "The prebuilt analyzer for video analysis is "
+                    },
+                    {
+                      "type": "gap",
+                      "accepted_answers": [
+                        "prebuilt-videoSearch"
+                      ],
+                      "rejected_answers": [
+                        "prebuilt-audioSearch",
+                        "prebuilt-invoice",
+                        "prebuilt-imageSearch",
+                        "prebuilt-audio-sdk-flow",
+                        "prebuilt-invoice-sdk-flow",
+                        "prebuilt-and-custom-analyzers"
+                      ],
+                      "placeholder": "analyzer ID"
+                    },
+                    {
+                      "type": "text",
+                      "text": "."
+                    }
+                  ],
+                  "rejected_answers": [
+                    "prebuilt-audioSearch",
+                    "prebuilt-invoice",
+                    "prebuilt-imageSearch",
+                    "prebuilt-audio-sdk-flow",
+                    "prebuilt-invoice-sdk-flow",
+                    "prebuilt-and-custom-analyzers"
+                  ],
+                  "blooms_level": "Remembering",
+                  "original_question_type": "fill_gaps",
+                  "concept_id": "prebuilt-video-analyzer",
+                  "feedback_for_incorrect": {
+                    "intrinsic": "The video could be sent to an analyzer for a different content type.",
+                    "instructional": "Use prebuilt-videoSearch for video input."
+                  },
+                  "item_key": "extract-information-from-video/prebuilt-video-analyzer/r3/v2",
+                  "rung": 3,
+                  "variant": 2,
+                  "module_key": "12-get-started-with-ai-powered-information-extraction",
+                  "lesson_key": "extract-information-from-video",
+                  "learning_status": "review"
+                },
+                "correct_answer": "prebuilt-videoSearch",
+                "explanation": "prebuilt-videoSearch is the prebuilt analyzer identifier for video. Its name distinguishes it from audio, image, and invoice analyzers.",
+                "points": 1
+              }
+            },
+            {
+              "item_key": "extract-information-from-video/video-meeting-schema/r3/v2",
+              "path": "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/1",
+              "payload": {
+                "import_key": "extract-information-from-video-l3-q2",
+                "question_type": "arrange_sentence",
+                "question_text": "Order the pieces to form the correct statement.",
+                "options": {
+                  "word_bank": [
+                    "who spoke.",
+                    "A video schema",
+                    "during the meeting",
+                    "can record"
+                  ],
+                  "correct_order": [
+                    "A video schema",
+                    "can record",
+                    "who spoke.",
+                    "during the meeting"
+                  ],
+                  "blooms_level": "Understanding",
+                  "original_question_type": "rearrange",
+                  "concept_id": "video-meeting-schema",
+                  "feedback_for_incorrect": {
+                    "intrinsic": "The speaker field would be described unclearly.",
+                    "instructional": "Begin with the schema, then state that it can record who spoke during the meeting."
+                  },
+                  "item_key": "extract-information-from-video/video-meeting-schema/r3/v2",
+                  "rung": 3,
+                  "variant": 2,
+                  "module_key": "12-get-started-with-ai-powered-information-extraction",
+                  "lesson_key": "extract-information-from-video",
+                  "learning_status": "review"
+                },
+                "correct_answer": "A video schema can record who spoke. during the meeting",
+                "explanation": "A video meeting schema can record speaker identity. The ordered pieces form a statement about that distinct schema field.",
+                "points": 1
+              }
+            },
+            {
+              "item_key": "extract-information-from-video/prebuilt-video-analyzer/r5/v1",
+              "path": "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/2",
+              "payload": {
+                "import_key": "extract-information-from-video-l3-q3",
+                "question_type": "multiple_choice",
+                "question_text": "A meeting-services lead must select an analyzer for recorded video conferences and deliver structured meeting details to a reporting system. Which decisions best fit? Select all that apply.",
+                "options": {
+                  "options": [
+                    {
+                      "text": "Use an audio analyzer",
+                      "is_correct": false,
+                      "error_type": "Confuses video input with audio input",
+                      "rationale": "This is incorrect. An audio analyzer is intended for audio input, while the input here is recorded video.",
+                      "better_fit": "Use an audio analyzer for a call recording or another audio file.",
+                      "feedback": {
+                        "intrinsic": "The lead would choose an analyzer that does not match the conference video.",
+                        "instructional": "Match the analyzer to the input type: recorded video uses prebuilt-videoSearch."
+                      }
+                    },
+                    {
+                      "text": "Use an invoice analyzer",
+                      "is_correct": false,
+                      "error_type": "Confuses meeting video with invoice documents",
+                      "rationale": "This is incorrect. An invoice analyzer extracts invoice-oriented fields, not meeting details from a video conference.",
+                      "better_fit": "Use an invoice analyzer for invoices containing billing fields such as tax and total.",
+                      "feedback": {
+                        "intrinsic": "The requested meeting details would be replaced by invoice-oriented fields.",
+                        "instructional": "Choose prebuilt-videoSearch for recorded video conferences."
+                      }
+                    },
+                    {
+                      "text": "Use prebuilt-videoSearch",
+                      "is_correct": true,
+                      "error_type": null,
+                      "rationale": "This is correct. It is the prebuilt analyzer selected for video input.",
+                      "better_fit": null,
+                      "feedback": null
+                    },
+                    {
+                      "text": "Extract video-related structured information",
+                      "is_correct": true,
+                      "error_type": null,
+                      "rationale": "This is correct. The stated reporting need requires structured information from the conference video.",
+                      "better_fit": null,
+                      "feedback": null
+                    }
+                  ],
+                  "blooms_level": "Analyzing/Evaluating",
+                  "original_question_type": "multi_choice",
+                  "concept_id": "prebuilt-video-analyzer",
+                  "item_key": "extract-information-from-video/prebuilt-video-analyzer/r5/v1",
+                  "rung": 5,
+                  "variant": 1,
+                  "module_key": "12-get-started-with-ai-powered-information-extraction",
+                  "lesson_key": "extract-information-from-video",
+                  "learning_status": "new"
+                },
+                "correct_answer": "[2,3]",
+                "explanation": "Correct—the video analyzer is the appropriate decision for video input and structured meeting details.",
+                "points": 1
+              }
+            }
+          ],
+          "metadata": {
+            "module_key": "12-get-started-with-ai-powered-information-extraction",
+            "unit_title": "Extract information from video · Level 3",
+            "unit_slo": "Describe the information a video analyzer can extract from a meeting.",
+            "constraint_relaxations": []
+          }
+        },
+        "promoted_challenger": {
+          "artifact_id": "ai-901:extract-information-from-video-l3",
+          "course_id": "ai-901",
+          "session_id": "extract-information-from-video-l3",
+          "items": [
+            {
+              "item_key": "extract-information-from-video/prebuilt-video-analyzer/r3/v2",
+              "path": "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/0",
+              "payload": {
+                "import_key": "extract-information-from-video-l3-q1",
+                "question_type": "fill_blank",
+                "question_text": "The prebuilt analyzer for video analysis is ___.",
+                "options": {
+                  "parts": [
+                    {
+                      "type": "text",
+                      "text": "The prebuilt analyzer for video analysis is "
+                    },
+                    {
+                      "type": "gap",
+                      "accepted_answers": [
+                        "prebuilt-videoSearch"
+                      ],
+                      "rejected_answers": [
+                        "prebuilt-audioSearch",
+                        "prebuilt-invoice",
+                        "prebuilt-imageSearch",
+                        "prebuilt-audio-sdk-flow",
+                        "prebuilt-invoice-sdk-flow",
+                        "prebuilt-and-custom-analyzers"
+                      ],
+                      "placeholder": "analyzer ID"
+                    },
+                    {
+                      "type": "text",
+                      "text": "."
+                    }
+                  ],
+                  "rejected_answers": [
+                    "prebuilt-audioSearch",
+                    "prebuilt-invoice",
+                    "prebuilt-imageSearch",
+                    "prebuilt-audio-sdk-flow",
+                    "prebuilt-invoice-sdk-flow",
+                    "prebuilt-and-custom-analyzers"
+                  ],
+                  "blooms_level": "Remembering",
+                  "original_question_type": "fill_gaps",
+                  "concept_id": "prebuilt-video-analyzer",
+                  "feedback_for_incorrect": {
+                    "intrinsic": "The video could be sent to an analyzer for a different content type.",
+                    "instructional": "Use prebuilt-videoSearch for video input."
+                  },
+                  "item_key": "extract-information-from-video/prebuilt-video-analyzer/r3/v2",
+                  "rung": 3,
+                  "variant": 2,
+                  "module_key": "12-get-started-with-ai-powered-information-extraction",
+                  "lesson_key": "extract-information-from-video",
+                  "learning_status": "review"
+                },
+                "correct_answer": "prebuilt-videoSearch",
+                "explanation": "prebuilt-videoSearch is the prebuilt analyzer identifier for video. Its name distinguishes it from audio, image, and invoice analyzers.",
+                "points": 1
+              }
+            },
+            {
+              "item_key": "extract-information-from-video/video-meeting-schema/r3/v2",
+              "path": "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/1",
+              "payload": {
+                "import_key": "extract-information-from-video-l3-q2",
+                "question_type": "arrange_sentence",
+                "question_text": "Order the pieces to form the correct statement.",
+                "options": {
+                  "word_bank": [
+                    "who spoke",
+                    "A video schema",
+                    "during the meeting.",
+                    "can record"
+                  ],
+                  "correct_order": [
+                    "A video schema",
+                    "can record",
+                    "who spoke",
+                    "during the meeting."
+                  ],
+                  "blooms_level": "Understanding",
+                  "original_question_type": "rearrange",
+                  "concept_id": "video-meeting-schema",
+                  "feedback_for_incorrect": {
+                    "intrinsic": "The speaker field would be described unclearly.",
+                    "instructional": "Begin with the schema, then state that it can record who spoke during the meeting."
+                  },
+                  "item_key": "extract-information-from-video/video-meeting-schema/r3/v2",
+                  "rung": 3,
+                  "variant": 2,
+                  "module_key": "12-get-started-with-ai-powered-information-extraction",
+                  "lesson_key": "extract-information-from-video",
+                  "learning_status": "review"
+                },
+                "correct_answer": "A video schema can record who spoke during the meeting.",
+                "explanation": "A video schema can record who spoke during the meeting, illustrating that video analysis can capture speaker information.",
+                "points": 1
+              }
+            },
+            {
+              "item_key": "extract-information-from-video/prebuilt-video-analyzer/r5/v1",
+              "path": "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/2",
+              "payload": {
+                "import_key": "extract-information-from-video-l3-q3",
+                "question_type": "multiple_choice",
+                "question_text": "A meeting-services lead must select an analyzer for recorded video conferences and deliver structured meeting details to a reporting system. Which decisions best fit? Select all that apply.",
+                "options": {
+                  "options": [
+                    {
+                      "text": "Use an audio analyzer",
+                      "is_correct": false,
+                      "error_type": "Confuses video input with audio input",
+                      "rationale": "This is incorrect. An audio analyzer is intended for audio input, while the input here is recorded video.",
+                      "better_fit": "Use an audio analyzer for a call recording or another audio file.",
+                      "feedback": {
+                        "intrinsic": "The lead would choose an analyzer that does not match the conference video.",
+                        "instructional": "Match the analyzer to the input type: recorded video uses prebuilt-videoSearch."
+                      }
+                    },
+                    {
+                      "text": "Use an invoice analyzer",
+                      "is_correct": false,
+                      "error_type": "Confuses meeting video with invoice documents",
+                      "rationale": "This is incorrect. An invoice analyzer extracts invoice-oriented fields, not meeting details from a video conference.",
+                      "better_fit": "Use an invoice analyzer for invoices containing billing fields such as tax and total.",
+                      "feedback": {
+                        "intrinsic": "The requested meeting details would be replaced by invoice-oriented fields.",
+                        "instructional": "Choose prebuilt-videoSearch for recorded video conferences."
+                      }
+                    },
+                    {
+                      "text": "Use prebuilt-videoSearch",
+                      "is_correct": true,
+                      "error_type": null,
+                      "rationale": "This is correct. It is the prebuilt analyzer selected for video input.",
+                      "better_fit": null,
+                      "feedback": null
+                    },
+                    {
+                      "text": "Extract video-related structured information",
+                      "is_correct": true,
+                      "error_type": null,
+                      "rationale": "This is correct. The stated reporting need requires structured information from the conference video.",
+                      "better_fit": null,
+                      "feedback": null
+                    }
+                  ],
+                  "blooms_level": "Analyzing/Evaluating",
+                  "original_question_type": "multi_choice",
+                  "concept_id": "prebuilt-video-analyzer",
+                  "item_key": "extract-information-from-video/prebuilt-video-analyzer/r5/v1",
+                  "rung": 5,
+                  "variant": 1,
+                  "module_key": "12-get-started-with-ai-powered-information-extraction",
+                  "lesson_key": "extract-information-from-video",
+                  "learning_status": "new"
+                },
+                "correct_answer": "[2,3]",
+                "explanation": "Correct—the video analyzer is the appropriate decision for video input and structured meeting details.",
+                "points": 1
+              }
+            }
+          ],
+          "metadata": {
+            "module_key": "12-get-started-with-ai-powered-information-extraction",
+            "unit_title": "Extract information from video · Level 3",
+            "unit_slo": "Describe the information a video analyzer can extract from a meeting.",
+            "constraint_relaxations": []
+          }
+        },
+        "hard_gate": {
+          "artifact_sha256": "c85d389525ce998e02e60b32830982dcf4d9e847057cc7f5ed15fc210014eadf",
+          "passed": true,
+          "issues": [],
+          "checks": {
+            "schema_and_answers": true,
+            "identity": true,
+            "final_sequence": true
+          },
+          "metrics": {},
+          "constraint_relaxations": []
+        },
+        "source_fidelity_critic": {
+          "result": {
+            "dimensions": [
+              {
+                "dimension": "factual_fidelity",
+                "score": 0.98,
+                "evidence": [
+                  {
+                    "statement": "The accepted answer prebuilt-videoSearch is supported by the source's prebuilt analyzer list and video-analysis example; the video-schema statement and meeting-detail decisions also match the source's video extraction capabilities.",
+                    "item_keys": [
+                      "extract-information-from-video/prebuilt-video-analyzer/r3/v2",
+                      "extract-information-from-video/video-meeting-schema/r3/v2",
+                      "extract-information-from-video/prebuilt-video-analyzer/r5/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/0",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/1",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/2"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "answer_unambiguity",
+                "score": 0.99,
+                "evidence": [
+                  {
+                    "statement": "Each item has one defensible response: the analyzer identifier is explicit, the sentence order is grammatically constrained, and the multi-select item has two clearly source-supported decisions.",
+                    "item_keys": [
+                      "extract-information-from-video/prebuilt-video-analyzer/r3/v2",
+                      "extract-information-from-video/video-meeting-schema/r3/v2",
+                      "extract-information-from-video/prebuilt-video-analyzer/r5/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/0",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/1",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/2"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "distractor_plausibility",
+                "score": 0.95,
+                "evidence": [
+                  {
+                    "statement": "The audio and invoice analyzer options are credible analyzer choices but are not defensible for recorded meeting video; the source distinguishes audio, invoice, image, and video analyzers by content type.",
+                    "item_keys": [
+                      "extract-information-from-video/prebuilt-video-analyzer/r5/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/2"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "misconception_quality",
+                "score": 0.92,
+                "evidence": [
+                  {
+                    "statement": "The distractors diagnose realistic confusions between audio and video inputs and between meeting content and invoice-oriented extraction, while the correct options test analyzer matching and structured output.",
+                    "item_keys": [
+                      "extract-information-from-video/prebuilt-video-analyzer/r5/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/2"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "cognitive_progression",
+                "score": 0.93,
+                "evidence": [
+                  {
+                    "statement": "The ordered sequence progresses from Remembering the analyzer identifier, to Understanding a video-schema capability, to Analyzing/Evaluating an applied analyzer-selection decision.",
+                    "item_keys": [
+                      "extract-information-from-video/prebuilt-video-analyzer/r3/v2",
+                      "extract-information-from-video/video-meeting-schema/r3/v2",
+                      "extract-information-from-video/prebuilt-video-analyzer/r5/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/0",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/1",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/2"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "mechanic_rhythm_variation",
+                "score": 0.95,
+                "evidence": [
+                  {
+                    "statement": "The three consecutive items use distinct mechanics—fill blank, sentence arrangement, and multi-select—without repeating a mechanic.",
+                    "item_keys": [
+                      "extract-information-from-video/prebuilt-video-analyzer/r3/v2",
+                      "extract-information-from-video/video-meeting-schema/r3/v2",
+                      "extract-information-from-video/prebuilt-video-analyzer/r5/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/0",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/1",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/2"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "prompt_language_variation",
+                "score": 0.91,
+                "evidence": [
+                  {
+                    "statement": "Prompt stems vary across direct completion, ordering instruction, and an applied lead scenario with a select-all instruction.",
+                    "item_keys": [
+                      "extract-information-from-video/prebuilt-video-analyzer/r3/v2",
+                      "extract-information-from-video/video-meeting-schema/r3/v2",
+                      "extract-information-from-video/prebuilt-video-analyzer/r5/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/0",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/1",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/2"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "scenario_authenticity",
+                "score": 0.86,
+                "evidence": [
+                  {
+                    "statement": "The meeting-services lead selecting an analyzer for recorded video conferences and reporting structured meeting details is a credible workplace task consistent with the source's recorded-meeting and downstream-processing examples.",
+                    "item_keys": [
+                      "extract-information-from-video/prebuilt-video-analyzer/r5/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/2"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "feedback_usefulness",
+                "score": 0.72,
+                "evidence": [
+                  {
+                    "statement": "Items 1 and 3 provide actionable analyzer-matching feedback, but item 2's intrinsic feedback, 'The speaker field would be described unclearly,' does not explain the source-backed concept that a video schema can capture who spoke and what they said.",
+                    "item_keys": [
+                      "extract-information-from-video/prebuilt-video-analyzer/r3/v2",
+                      "extract-information-from-video/video-meeting-schema/r3/v2",
+                      "extract-information-from-video/prebuilt-video-analyzer/r5/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/0",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/1",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/2"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "difficulty_appropriateness",
+                "score": 0.91,
+                "evidence": [
+                  {
+                    "statement": "The session begins with recall, adds a straightforward schema interpretation, and ends with a moderate applied selection task, which is appropriate for a Level 3 video-extraction lesson.",
+                    "item_keys": [
+                      "extract-information-from-video/prebuilt-video-analyzer/r3/v2",
+                      "extract-information-from-video/video-meeting-schema/r3/v2",
+                      "extract-information-from-video/prebuilt-video-analyzer/r5/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/0",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/1",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/2"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "terminology_consistency",
+                "score": 0.98,
+                "evidence": [
+                  {
+                    "statement": "The artifact consistently uses video analyzer, prebuilt-videoSearch, schema, structured information, and meeting details in ways aligned with the source terminology.",
+                    "item_keys": [
+                      "extract-information-from-video/prebuilt-video-analyzer/r3/v2",
+                      "extract-information-from-video/video-meeting-schema/r3/v2",
+                      "extract-information-from-video/prebuilt-video-analyzer/r5/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/0",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/1",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/2"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "overall_learner_experience",
+                "score": 0.84,
+                "evidence": [
+                  {
+                    "statement": "The exact sequence is factual, varied, and progressively applied; the main learner-experience weakness is the vague intrinsic feedback attached to the sentence-arrangement item.",
+                    "item_keys": [
+                      "extract-information-from-video/video-meeting-schema/r3/v2"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/1"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "critical_defects": [],
+            "largest_gap": {
+              "dimension": "feedback_usefulness",
+              "summary": "The arrange-sentence item's intrinsic incorrect feedback is vague and does not teach the governing video-schema capability.",
+              "evidence": [
+                {
+                  "statement": "The item says 'The speaker field would be described unclearly,' but the source explains that a video schema can include details of who spoke during the call and what they said; the feedback should connect the ordering error to that concept.",
+                  "item_keys": [
+                    "extract-information-from-video/video-meeting-schema/r3/v2"
+                  ],
+                  "paths": [
+                    "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/1"
+                  ]
+                }
+              ],
+              "affected_item_keys": [
+                "extract-information-from-video/video-meeting-schema/r3/v2"
+              ],
+              "affected_paths": [
+                "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/1"
+              ],
+              "recommended_scope": "item",
+              "repair_instruction": "Revise only the incorrect-answer feedback nested under the item's options to explain that video schemas can capture who spoke during the meeting and then identify the correct sentence structure; preserve the question_type, word bank, correct order, answer, and explanation.",
+              "allowed_payload_fields": [
+                "options"
+              ]
+            },
+            "confidence": 0.94,
+            "human_review_recommended": false,
+            "human_review_reason": null,
+            "concise_summary": "The challenger is source-faithful, unambiguous, varied, and coherently progressive. One safe item-level repair remains: make the arrange-sentence feedback explain the source-backed video-schema capability."
+          },
+          "artifact_sha256": "c85d389525ce998e02e60b32830982dcf4d9e847057cc7f5ed15fc210014eadf",
+          "evaluation_context_sha256": "86c491616e45f9fc65ed8f32a0e4839b3f011ad01518b45d528cd8c059dac948",
+          "goal_sha256": "6ce6b245bb30616f24e0fa9f76e0f5d01e608776378d036724270915fb57e725",
+          "critic_backend": "codex",
+          "critic_model": "codex:gpt-5.6-luna",
+          "fresh_context": true,
+          "model_independence": "independent",
+          "approved_reference_count": 0,
+          "reference_confidence_reduced": true,
+          "usage": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cost_usd": 0.0,
+            "backend_calls": 1
+          }
+        },
+        "source_fidelity_gate": {
+          "artifact_sha256": "c85d389525ce998e02e60b32830982dcf4d9e847057cc7f5ed15fc210014eadf",
+          "passed": true,
+          "issues": [],
+          "checks": {
+            "factual_fidelity_threshold": true,
+            "critic_confidence_threshold": true,
+            "no_factual_critical_defect": true,
+            "no_human_review_request": true,
+            "fresh_critic_context": true
+          },
+          "metrics": {
+            "factual_fidelity_score": 0.98,
+            "factual_fidelity_threshold": 0.8,
+            "critic_confidence": 0.94
+          },
+          "constraint_relaxations": []
+        },
+        "comparison": {
+          "champion_sha256": "bff200820b8a0b6af21eeeb0fa1cf0a49987de098a99aaac623e628290001440",
+          "challenger_sha256": "c85d389525ce998e02e60b32830982dcf4d9e847057cc7f5ed15fc210014eadf",
+          "evaluation_context_sha256": "86c491616e45f9fc65ed8f32a0e4839b3f011ad01518b45d528cd8c059dac948",
+          "comparator_backend": "codex",
+          "comparator_model": "codex:gpt-5.6-luna",
+          "comparator_fresh_context": true,
+          "records": [
+            {
+              "order_index": 1,
+              "seed": 901,
+              "a_role": "challenger",
+              "b_role": "champion",
+              "mapped_winner": "challenger",
+              "verdict": {
+                "winner": "A",
+                "confidence": 0.99,
+                "margin": 0.1,
+                "dimensions": [
+                  {
+                    "dimension": "factual_fidelity",
+                    "score_a": 1.0,
+                    "score_b": 0.82,
+                    "evidence": "A's ordered sentence is source-faithful; B's declared correct answer is malformed: \"A video schema can record who spoke. during the meeting\"."
+                  },
+                  {
+                    "dimension": "answer_unambiguity",
+                    "score_a": 1.0,
+                    "score_b": 0.45,
+                    "evidence": "A forms one grammatical statement; B's punctuation split makes the intended sentence structurally defective."
+                  },
+                  {
+                    "dimension": "distractor_plausibility",
+                    "score_a": 1.0,
+                    "score_b": 1.0,
+                    "evidence": "Both candidates use the same credible, non-defensible analyzer distractors."
+                  },
+                  {
+                    "dimension": "misconception_quality",
+                    "score_a": 1.0,
+                    "score_b": 1.0,
+                    "evidence": "Both candidates diagnose confusion among video, audio, invoice, and image analyzers."
+                  },
+                  {
+                    "dimension": "cognitive_progression",
+                    "score_a": 0.95,
+                    "score_b": 0.82,
+                    "evidence": "Both progress from recall to comprehension to application, but B's malformed middle item disrupts the progression."
+                  },
+                  {
+                    "dimension": "mechanic_rhythm_variation",
+                    "score_a": 1.0,
+                    "score_b": 1.0,
+                    "evidence": "Both use fill-in-the-blank, sentence arrangement, and multi-select in the same order."
+                  },
+                  {
+                    "dimension": "prompt_language_variation",
+                    "score_a": 1.0,
+                    "score_b": 1.0,
+                    "evidence": "Both have the same varied prompt stems across mechanics."
+                  },
+                  {
+                    "dimension": "scenario_authenticity",
+                    "score_a": 1.0,
+                    "score_b": 1.0,
+                    "evidence": "Both include a credible meeting-services decision involving recorded video and structured reporting."
+                  },
+                  {
+                    "dimension": "feedback_usefulness",
+                    "score_a": 1.0,
+                    "score_b": 0.92,
+                    "evidence": "Feedback is identical and useful, but B's explanation conflicts with its malformed declared answer."
+                  },
+                  {
+                    "dimension": "difficulty_appropriateness",
+                    "score_a": 1.0,
+                    "score_b": 0.95,
+                    "evidence": "Both match the stated rungs and audience; B adds avoidable assembly confusion."
+                  },
+                  {
+                    "dimension": "terminology_consistency",
+                    "score_a": 1.0,
+                    "score_b": 0.9,
+                    "evidence": "A consistently uses the source terminology; B's malformed sentence weakens consistency of the stated concept."
+                  },
+                  {
+                    "dimension": "overall_learner_experience",
+                    "score_a": 0.98,
+                    "score_b": 0.78,
+                    "evidence": "A is coherent and mechanically valid throughout; B contains a visibly broken exact answer in the second item."
+                  }
+                ],
+                "evidence": [
+                  "Candidates are identical except for the second arrange-sentence item.",
+                  "A orders punctuation as \"who spoke\" followed by \"during the meeting.\", producing a grammatical sentence.",
+                  "B orders \"who spoke.\" before \"during the meeting\", and its declared correct answer is visibly malformed."
+                ],
+                "human_review_recommended": false,
+                "usage": {
+                  "input_tokens": 0,
+                  "output_tokens": 0,
+                  "cost_usd": 0.0,
+                  "backend_calls": 1
+                }
+              }
+            },
+            {
+              "order_index": 2,
+              "seed": 901,
+              "a_role": "champion",
+              "b_role": "challenger",
+              "mapped_winner": "challenger",
+              "verdict": {
+                "winner": "B",
+                "confidence": 0.99,
+                "margin": 0.14,
+                "dimensions": [
+                  {
+                    "dimension": "factual_fidelity",
+                    "score_a": 0.9,
+                    "score_b": 1.0,
+                    "evidence": "Both use source-supported analyzer facts; A's keyed sentence is grammatically and semantically malformed because punctuation splits the clause."
+                  },
+                  {
+                    "dimension": "answer_unambiguity",
+                    "score_a": 0.55,
+                    "score_b": 1.0,
+                    "evidence": "A's correct order produces “who spoke. during the meeting,” making the keyed answer defective; B forms one unambiguous sentence."
+                  },
+                  {
+                    "dimension": "distractor_plausibility",
+                    "score_a": 0.92,
+                    "score_b": 0.92,
+                    "evidence": "Both use credible analyzer confusions: audio, invoice, and video-specific alternatives."
+                  },
+                  {
+                    "dimension": "misconception_quality",
+                    "score_a": 0.9,
+                    "score_b": 0.9,
+                    "evidence": "Both diagnose confusing media types and invoice-oriented analysis with video analysis."
+                  },
+                  {
+                    "dimension": "cognitive_progression",
+                    "score_a": 0.88,
+                    "score_b": 0.88,
+                    "evidence": "Both progress from recall to sentence understanding to applied analyzer selection."
+                  },
+                  {
+                    "dimension": "mechanic_rhythm_variation",
+                    "score_a": 0.9,
+                    "score_b": 0.9,
+                    "evidence": "Both vary fill-in, sentence arrangement, and select-all-that-apply mechanics."
+                  },
+                  {
+                    "dimension": "prompt_language_variation",
+                    "score_a": 0.86,
+                    "score_b": 0.86,
+                    "evidence": "Both use distinct prompt forms across the three items."
+                  },
+                  {
+                    "dimension": "scenario_authenticity",
+                    "score_a": 0.9,
+                    "score_b": 0.9,
+                    "evidence": "The recorded video-conference reporting scenario is credible and aligned with the source."
+                  },
+                  {
+                    "dimension": "feedback_usefulness",
+                    "score_a": 0.82,
+                    "score_b": 0.88,
+                    "evidence": "Feedback is generally instructional in both; B's explanation accurately reflects its complete sentence, while A reinforces malformed punctuation."
+                  },
+                  {
+                    "dimension": "difficulty_appropriateness",
+                    "score_a": 0.9,
+                    "score_b": 0.9,
+                    "evidence": "The difficulty fits a short review-to-application sequence for the stated content."
+                  },
+                  {
+                    "dimension": "terminology_consistency",
+                    "score_a": 0.98,
+                    "score_b": 0.98,
+                    "evidence": "Both consistently use prebuilt-videoSearch and distinguish audio, invoice, and video analyzers."
+                  },
+                  {
+                    "dimension": "overall_learner_experience",
+                    "score_a": 0.72,
+                    "score_b": 0.95,
+                    "evidence": "B is coherent and usable throughout; A contains a visible sentence-order defect that can confuse learners and undermine correctness."
+                  }
+                ],
+                "evidence": [
+                  "Candidate B is identical in substantive content but repairs the arrange-sentence punctuation, yielding “A video schema can record who spoke during the meeting.”",
+                  "Candidate A's keyed arrangement yields “A video schema can record who spoke. during the meeting,” which is not a valid sentence.",
+                  "All other items and their sequence are effectively equivalent."
+                ],
+                "human_review_recommended": false,
+                "usage": {
+                  "input_tokens": 0,
+                  "output_tokens": 0,
+                  "cost_usd": 0.0,
+                  "backend_calls": 1
+                }
+              }
+            }
+          ],
+          "position_sensitive": false,
+          "stable": true,
+          "decision": "promote",
+          "protected_regressions": [],
+          "minimum_confidence": 0.99,
+          "minimum_margin": 0.1,
+          "decision_evidence": "Both position orders select the hard-gated challenger without protected regression.",
+          "usage": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cost_usd": 0.0,
+            "backend_calls": 2
+          }
+        },
+        "decision": "promoted",
+        "decision_evidence": "Both position orders select the hard-gated challenger without protected regression.",
+        "champion_hash_after": "c85d389525ce998e02e60b32830982dcf4d9e847057cc7f5ed15fc210014eadf",
+        "constraint_relaxations": [],
+        "cumulative_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost_usd": 0.0,
+          "backend_calls": 5
+        }
+      },
+      {
+        "round_number": 2,
+        "champion_hash_before": "c85d389525ce998e02e60b32830982dcf4d9e847057cc7f5ed15fc210014eadf",
+        "critic": {
+          "result": {
+            "dimensions": [
+              {
+                "dimension": "factual_fidelity",
+                "score": 0.98,
+                "evidence": [
+                  {
+                    "statement": "The source identifies prebuilt-videoSearch as a prebuilt analyzer for video and describes video analysis as returning structured information; the three items reflect those claims.",
+                    "item_keys": [
+                      "extract-information-from-video/prebuilt-video-analyzer/r3/v2",
+                      "extract-information-from-video/video-meeting-schema/r3/v2",
+                      "extract-information-from-video/prebuilt-video-analyzer/r5/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/0",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/1",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/2"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "answer_unambiguity",
+                "score": 0.84,
+                "evidence": [
+                  {
+                    "statement": "The fill-in and sentence-order items have one clear answer. In the select-all item, 'Extract video-related structured information' is broadly true but describes an outcome rather than a concrete decision, slightly weakening the interpretation of the decision-focused stem.",
+                    "item_keys": [
+                      "extract-information-from-video/prebuilt-video-analyzer/r5/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/2"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "distractor_plausibility",
+                "score": 0.95,
+                "evidence": [
+                  {
+                    "statement": "The audio-analyzer and invoice-analyzer distractors are credible alternatives because the source lists both analyzer types, while their content-type mismatch makes them non-defensible for recorded video conferences.",
+                    "item_keys": [
+                      "extract-information-from-video/prebuilt-video-analyzer/r5/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/2"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "misconception_quality",
+                "score": 0.94,
+                "evidence": [
+                  {
+                    "statement": "The distractors diagnose realistic confusions between audio and video inputs and between meeting content and invoice content; the source distinguishes these analyzer scenarios.",
+                    "item_keys": [
+                      "extract-information-from-video/prebuilt-video-analyzer/r5/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/2"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "cognitive_progression",
+                "score": 0.98,
+                "evidence": [
+                  {
+                    "statement": "The ordered sequence progresses from remembering the analyzer ID, to understanding a video-schema capability, to applying the choice in a meeting-services scenario.",
+                    "item_keys": [
+                      "extract-information-from-video/prebuilt-video-analyzer/r3/v2",
+                      "extract-information-from-video/video-meeting-schema/r3/v2",
+                      "extract-information-from-video/prebuilt-video-analyzer/r5/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/0",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/1",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/2"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "mechanic_rhythm_variation",
+                "score": 0.99,
+                "evidence": [
+                  {
+                    "statement": "The sequence uses three different mechanics in succession: fill_blank, arrange_sentence, and multiple_choice.",
+                    "item_keys": [
+                      "extract-information-from-video/prebuilt-video-analyzer/r3/v2",
+                      "extract-information-from-video/video-meeting-schema/r3/v2",
+                      "extract-information-from-video/prebuilt-video-analyzer/r5/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/0",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/1",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/2"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "prompt_language_variation",
+                "score": 0.95,
+                "evidence": [
+                  {
+                    "statement": "Prompt forms vary across direct recall, sentence construction, and a contextual decision scenario, avoiding repeated question-stem patterns.",
+                    "item_keys": [
+                      "extract-information-from-video/prebuilt-video-analyzer/r3/v2",
+                      "extract-information-from-video/video-meeting-schema/r3/v2",
+                      "extract-information-from-video/prebuilt-video-analyzer/r5/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/0",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/1",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/2"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "scenario_authenticity",
+                "score": 0.96,
+                "evidence": [
+                  {
+                    "statement": "The meeting-services lead selecting an analyzer for recorded video conferences and reporting details is a credible application of the source's recorded-meeting and downstream structured-data scenarios.",
+                    "item_keys": [
+                      "extract-information-from-video/prebuilt-video-analyzer/r5/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/2"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "feedback_usefulness",
+                "score": 0.88,
+                "evidence": [
+                  {
+                    "statement": "Feedback generally connects content type to analyzer choice and explains the schema statement, but the arrange-sentence intrinsic feedback ('The speaker field would be described unclearly') is less conceptually informative than the accompanying instructional feedback.",
+                    "item_keys": [
+                      "extract-information-from-video/prebuilt-video-analyzer/r3/v2",
+                      "extract-information-from-video/video-meeting-schema/r3/v2",
+                      "extract-information-from-video/prebuilt-video-analyzer/r5/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/0",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/1",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/2"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "difficulty_appropriateness",
+                "score": 0.95,
+                "evidence": [
+                  {
+                    "statement": "The Level 3 unit's first two items establish essential terminology and capability before the final item asks for an applied analyzer decision, matching the stated session position.",
+                    "item_keys": [
+                      "extract-information-from-video/prebuilt-video-analyzer/r3/v2",
+                      "extract-information-from-video/video-meeting-schema/r3/v2",
+                      "extract-information-from-video/prebuilt-video-analyzer/r5/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/0",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/1",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/2"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "terminology_consistency",
+                "score": 0.97,
+                "evidence": [
+                  {
+                    "statement": "The artifact consistently uses analyzer, video schema, structured information, and meeting terminology in ways aligned with the source's terminology.",
+                    "item_keys": [
+                      "extract-information-from-video/prebuilt-video-analyzer/r3/v2",
+                      "extract-information-from-video/video-meeting-schema/r3/v2",
+                      "extract-information-from-video/prebuilt-video-analyzer/r5/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/0",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/1",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/2"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "overall_learner_experience",
+                "score": 0.9,
+                "evidence": [
+                  {
+                    "statement": "The session is concise, source-faithful, varied, and progressively more applied. Its main weakness is that one keyed-correct choice in the final item is an outcome phrase rather than a clearly framed decision.",
+                    "item_keys": [
+                      "extract-information-from-video/prebuilt-video-analyzer/r3/v2",
+                      "extract-information-from-video/video-meeting-schema/r3/v2",
+                      "extract-information-from-video/prebuilt-video-analyzer/r5/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/0",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/1",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/2"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "critical_defects": [],
+            "largest_gap": {
+              "dimension": "answer_unambiguity",
+              "summary": "The final select-all item mixes a concrete analyzer-selection decision with a broad outcome statement, making the second keyed-correct choice less sharply defined under the decision-focused stem.",
+              "evidence": [
+                {
+                  "statement": "The item asks which decisions best fit, but its keyed-correct option 'Extract video-related structured information' states an outcome. The source supports the narrower, actionable concept of defining a schema for video meeting details.",
+                  "item_keys": [
+                    "extract-information-from-video/prebuilt-video-analyzer/r5/v1"
+                  ],
+                  "paths": [
+                    "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/2"
+                  ]
+                }
+              ],
+              "affected_item_keys": [
+                "extract-information-from-video/prebuilt-video-analyzer/r5/v1"
+              ],
+              "affected_paths": [
+                "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/2"
+              ],
+              "recommended_scope": "item",
+              "repair_instruction": "Within the existing multiple-choice item, replace the broad correct option 'Extract video-related structured information' with the source-bounded decision 'Define a schema for meeting details'; preserve question_type and the existing correct option index.",
+              "allowed_payload_fields": [
+                "options"
+              ]
+            },
+            "confidence": 0.9,
+            "human_review_recommended": false,
+            "human_review_reason": null,
+            "concise_summary": "The session is strongly source-faithful and pedagogically varied, with a coherent remember-to-apply progression. The only notable repairable gap is mild answer ambiguity in the final select-all item because one correct option is phrased as an outcome rather than a concrete decision."
+          },
+          "artifact_sha256": "c85d389525ce998e02e60b32830982dcf4d9e847057cc7f5ed15fc210014eadf",
+          "evaluation_context_sha256": "86c491616e45f9fc65ed8f32a0e4839b3f011ad01518b45d528cd8c059dac948",
+          "goal_sha256": "c4bae546eef7fec8c92895a1538196a8df81a13754329022bca211a6200752ae",
+          "critic_backend": "codex",
+          "critic_model": "codex:gpt-5.6-luna",
+          "fresh_context": true,
+          "model_independence": "independent",
+          "approved_reference_count": 0,
+          "reference_confidence_reduced": true,
+          "usage": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cost_usd": 0.0,
+            "backend_calls": 1
+          }
+        },
+        "critic_failure": null,
+        "repair_scope": null,
+        "repair_summary": null,
+        "editor_backend": null,
+        "editor_model": null,
+        "editor_fresh_context": null,
+        "edit_usage": null,
+        "validation_retry_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost_usd": 0.0,
+          "backend_calls": 0
+        },
+        "touched_item_keys": [],
+        "challenger_hash": null,
+        "promoted_champion_before": null,
+        "promoted_challenger": null,
+        "hard_gate": null,
+        "source_fidelity_critic": null,
+        "source_fidelity_gate": null,
+        "comparison": null,
+        "decision": "retained_no_repair",
+        "decision_evidence": "All configured qualitative thresholds pass.",
+        "champion_hash_after": "c85d389525ce998e02e60b32830982dcf4d9e847057cc7f5ed15fc210014eadf",
+        "constraint_relaxations": [],
+        "cumulative_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost_usd": 0.0,
+          "backend_calls": 6
+        }
+      }
+    ],
+    "stop_reason": "success",
+    "stop_evidence": "All hard and qualitative gates pass.",
+    "human_decision": null,
+    "total_usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "backend_calls": 6
+    },
+    "human_review_recommended": false,
+    "publication_eligible": true
+  }
+}

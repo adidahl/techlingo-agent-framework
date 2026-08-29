@@ -167,7 +167,8 @@ def _workspace(tmp: Path) -> Workspace:
 
 def _mark_valid(ws: Workspace) -> None:
     source = next(ws.iter_sources())
-    workflow_hash = config_hash(resolve_build_config({}, "beginner"))
+    meta = ws.load_meta()
+    workflow_hash = config_hash(resolve_build_config(meta.workflow, meta.difficulty))
     source_banks = list(ws.iter_banks())
     report_hash = sha256_text("valid-report")
     promoted = utc_now_iso()
@@ -442,6 +443,139 @@ def test_workflow_configuration_drift_is_blocking():
         assert any("current workflow configuration" in blocker for blocker in report.blockers)
 
 
+def test_exact_worksheet_item_policy_is_a_publication_gate():
+    with tempfile.TemporaryDirectory() as td:
+        ws = _workspace(Path(td))
+        graph = ws.load_graph()
+        graph.concepts[0].depth = "fact"
+        ws.save_graph(graph)
+        meta = ws.load_meta()
+        meta.workflow = {"worksheet_items_per_lesson": 3}
+        ws.save_meta(meta)
+        _mark_valid(ws)
+        report = inspect_publication_readiness(ws.root)
+        assert any(
+            "exact worksheet policy requires 3 active items, got 1" in blocker
+            for blocker in report.blockers
+        ), report.blockers
+
+        bank = ws.load_bank("lesson")
+        for variant in (2, 3):
+            extra = bank.items[0].model_copy(deep=True)
+            extra.item_key = f"lesson/grounded-fact/r2/v{variant}"
+            extra.variant = variant
+            bank.items.append(extra)
+        ws.save_bank(bank)
+        _mark_valid(ws)  # all hashes genuinely bind the three-item bank
+        assert inspect_publication_readiness(ws.root).ok
+
+        bank = ws.load_bank("lesson")
+        extra = bank.items[0].model_copy(deep=True)
+        extra.item_key = "lesson/grounded-fact/r2/v4"
+        extra.variant = 4
+        bank.items.append(extra)
+        ws.save_bank(bank)
+        _mark_valid(ws)  # all hashes genuinely bind the four-item bank
+
+        report = inspect_publication_readiness(ws.root)
+        assert any(
+            "exact worksheet policy requires 3 active items, got 4" in blocker
+            for blocker in report.blockers
+        ), report.blockers
+
+
+def test_infeasible_worksheet_item_budget_is_a_publication_gate():
+    with tempfile.TemporaryDirectory() as td:
+        ws = _workspace(Path(td))
+        graph = ws.load_graph()
+        graph.concepts[0].depth = "fact"
+        ws.save_graph(graph)
+        meta = ws.load_meta()
+        meta.workflow = {"worksheet_items_per_lesson": 1}
+        ws.save_meta(meta)
+        _mark_valid(ws)
+
+        report = inspect_publication_readiness(ws.root)
+        assert any(
+            "worksheet item budget 1 is infeasible" in blocker
+            and "at least 3 rows" in blocker
+            and "at most 5" in blocker
+            for blocker in report.blockers
+        ), report.blockers
+
+
+def test_exact_worksheet_policy_blocks_missing_concept_refs_and_still_checks_count():
+    with tempfile.TemporaryDirectory() as td:
+        ws = _workspace(Path(td))
+        curriculum = ws.load_curriculum()
+        curriculum.modules[0].lessons[0].concepts = []
+        ws.save_curriculum(curriculum)
+        meta = ws.load_meta()
+        meta.workflow = {"worksheet_items_per_lesson": 3}
+        ws.save_meta(meta)
+        _mark_valid(ws)
+
+        report = inspect_publication_readiness(ws.root)
+
+        assert any(
+            "exact worksheet policy requires 3 active items, got 1" in blocker
+            for blocker in report.blockers
+        ), report.blockers
+        assert any(
+            "worksheet" in blocker.lower()
+            and "concept" in blocker.lower()
+            and "missing" in blocker.lower()
+            for blocker in report.blockers
+        ), report.blockers
+
+
+def test_exact_worksheet_policy_blocks_unresolved_concept_refs_and_still_checks_count():
+    with tempfile.TemporaryDirectory() as td:
+        ws = _workspace(Path(td))
+        curriculum = ws.load_curriculum()
+        curriculum.modules[0].lessons[0].concepts = ["unresolved-concept"]
+        ws.save_curriculum(curriculum)
+        meta = ws.load_meta()
+        meta.workflow = {"worksheet_items_per_lesson": 3}
+        ws.save_meta(meta)
+        _mark_valid(ws)
+
+        report = inspect_publication_readiness(ws.root)
+
+        assert any(
+            "exact worksheet policy requires 3 active items, got 1" in blocker
+            for blocker in report.blockers
+        ), report.blockers
+        assert any(
+            "worksheet" in blocker.lower()
+            and "unresolved" in blocker.lower()
+            and "unresolved-concept" in blocker
+            for blocker in report.blockers
+        ), report.blockers
+
+
+def test_exact_worksheet_policy_blocks_depthless_concepts_and_still_checks_count():
+    with tempfile.TemporaryDirectory() as td:
+        ws = _workspace(Path(td))  # grounded-fact intentionally has depth=None
+        meta = ws.load_meta()
+        meta.workflow = {"worksheet_items_per_lesson": 3}
+        ws.save_meta(meta)
+        _mark_valid(ws)
+
+        report = inspect_publication_readiness(ws.root)
+
+        assert any(
+            "exact worksheet policy requires 3 active items, got 1" in blocker
+            for blocker in report.blockers
+        ), report.blockers
+        assert any(
+            "worksheet" in blocker.lower()
+            and "grounded-fact" in blocker
+            and "depth" in blocker.lower()
+            for blocker in report.blockers
+        ), report.blockers
+
+
 def test_stale_compiled_object_is_rejected_after_compile_config_change():
     with tempfile.TemporaryDirectory() as td:
         ws = _workspace(Path(td))
@@ -512,7 +646,7 @@ def test_required_qualitative_gauntlet_fails_closed_without_exact_records():
         assert not ws.dist_dir.exists() or not list(ws.dist_dir.glob("safe-course-v*"))
 
 
-def test_qualitative_coverage_requires_course_and_champion_content_hashes():
+def test_qualitative_coverage_reuses_exact_unit_across_unrelated_course_hash_change():
     with tempfile.TemporaryDirectory() as td:
         ws = _workspace(Path(td))
         _require_qualitative_gauntlet(ws)
@@ -549,14 +683,42 @@ def test_qualitative_coverage_requires_course_and_champion_content_hashes():
             required_artifacts={unit_key: artifact},
             expected_contexts={unit_key: contexts[unit_key]},
         )
+        assert coverage.ok
+        assert len(coverage.references) == 1
+        reference = coverage.references[0]
+        assert reference.compiled_artifact_sha256 == compiled_hash
+        assert reference.record_compiled_artifact_sha256 == "0" * 64
+        assert reference.champion_artifact_sha256 == artifact.content_hash()
+
+
+def test_qualitative_coverage_never_reuses_changed_unit_content():
+    with tempfile.TemporaryDirectory() as td:
+        ws = _workspace(Path(td))
+        _require_qualitative_gauntlet(ws)
+        compiled = compile_workspace(ws.root)
+        artifacts = compiled_unit_artifacts(compiled)
+        contexts = publication_evaluation_contexts(
+            ws.root, compiled, required_artifacts=artifacts
+        )
+        unit_key, reviewed = next(iter(artifacts.items()))
+        write_gauntlet_record(
+            ws.root,
+            compiled_artifact_sha256="0" * 64,
+            unit_key=unit_key,
+            outcome=_gauntlet_outcome(
+                reviewed, context=contexts[unit_key], run_id="reviewed-before-change"
+            ),
+        )
+        changed = reviewed.model_copy(deep=True)
+        changed.items[0].payload["question_text"] += " Changed after review."
+        coverage = qualitative_publication_coverage(
+            ws.root,
+            compiled_artifact_sha256=hash_data(compiled.tl_course),
+            required_artifacts={unit_key: changed},
+            expected_contexts={unit_key: contexts[unit_key]},
+        )
         assert not coverage.ok
-        assert compiled_hash in coverage.blockers[0]
-        assert artifact.content_hash() in coverage.blockers[0]
-        try:
-            write_bundle(ws.root, compiled)
-            assert False, "wrong course/champion hashes must not cover publication"
-        except PublicationSafetyError:
-            pass
+        assert changed.content_hash() in coverage.blockers[0]
 
 
 def test_qualitative_record_must_be_publication_eligible_without_human_review_flag():

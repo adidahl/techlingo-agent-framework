@@ -72,7 +72,11 @@ class GauntletRecordReference(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
     unit_key: str = Field(min_length=1)
+    # Course artifact being published and the older course artifact under
+    # which this exact unit was reviewed are recorded separately.  They may
+    # differ when unrelated units changed, but champion and context must match.
     compiled_artifact_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
+    record_compiled_artifact_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
     champion_artifact_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
     evaluation_context_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
     gauntlet_policy_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
@@ -647,10 +651,13 @@ def qualitative_publication_coverage(
 ) -> QualitativePublicationCoverage:
     """Match every current unit to an exact publication-eligible record.
 
-    Course hash and unit key are necessary but not sufficient: the persisted
-    champion must have the same content/order hash as the artifact which will
-    actually ship.  When several records cover the same exact unit, the most
-    recently finished result is referenced deterministically.
+    The persisted champion must have the same content/order hash as the exact
+    unit which will ship, and its evaluation context must still match current
+    policy, sources, references, and models.  A course-wide hash mismatch alone
+    does not invalidate an unchanged unit: the reference records both hashes
+    explicitly so unrelated authored repairs do not force fabricated reruns.
+    When several records cover the same exact unit, the most recently finished
+    result is referenced deterministically.
     """
 
     ws = Workspace(course_dir).require()
@@ -676,8 +683,7 @@ def qualitative_publication_coverage(
         content_matches = [
             (path, record)
             for path, record in records
-            if record.compiled_artifact_sha256 == compiled_artifact_sha256
-            and record.unit_key == unit_key
+            if record.unit_key == unit_key
             and record.champion.content_hash() == expected_champion_hash
         ]
         matches = [
@@ -696,8 +702,7 @@ def qualitative_publication_coverage(
                 detail = "; evidence rejected: " + "; ".join(evidence_errors[:3])
             blockers.append(
                 f"gauntlet/{unit_key}: no publication-eligible record matches "
-                f"compiled artifact {compiled_artifact_sha256} and champion "
-                f"{expected_champion_hash} under evaluation context "
+                f"champion {expected_champion_hash} under evaluation context "
                 f"{expected_context.context_sha256}{detail}"
             )
             continue
@@ -713,6 +718,7 @@ def qualitative_publication_coverage(
             GauntletRecordReference(
                 unit_key=unit_key,
                 compiled_artifact_sha256=compiled_artifact_sha256,
+                record_compiled_artifact_sha256=record.compiled_artifact_sha256,
                 champion_artifact_sha256=expected_champion_hash,
                 evaluation_context_sha256=expected_context.context_sha256,
                 gauntlet_policy_sha256=expected_context.gauntlet_policy_sha256,

@@ -1,0 +1,973 @@
+{
+  "schema_version": "techlingo-gauntlet-record-v1",
+  "compiled_artifact_sha256": "69c9d18537cc04d4d24f6ffad549e8d9c17ee1b85b2ba8dc167de6c8be33ae73",
+  "unit_key": "turning-audio-into-speech-features-l1",
+  "champion": {
+    "artifact_id": "ai-901:turning-audio-into-speech-features-l1",
+    "course_id": "ai-901",
+    "session_id": "turning-audio-into-speech-features-l1",
+    "items": [
+      {
+        "item_key": "turning-audio-into-speech-features/audio-capture-and-sampling/r1/v1",
+        "path": "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/0",
+        "payload": {
+          "import_key": "turning-audio-into-speech-features-l1-q1",
+          "question_type": "multiple_choice",
+          "question_text": "What converts sound waves into a digital signal first?",
+          "options": {
+            "options": [
+              {
+                "text": "An MFCC extractor",
+                "is_correct": false,
+                "error_type": "Confuses audio capture with feature extraction",
+                "rationale": "MFCC extraction works on audio that has already been captured digitally. It creates compact features rather than converting sound waves.",
+                "better_fit": "Choose this after audio capture when raw waveforms need compact speech features.",
+                "feedback": {
+                  "intrinsic": "The spoken command would have no digital audio available to prepare.",
+                  "instructional": "Start with the microphone. MFCCs come later and summarize captured audio."
+                }
+              },
+              {
+                "text": "An acoustic model",
+                "is_correct": false,
+                "error_type": "Confuses capture with phoneme prediction",
+                "rationale": "An acoustic model uses feature vectors to predict likely phonemes. It does not capture sound from the speaker.",
+                "better_fit": "Choose this after MFCC features are available and phoneme probabilities are needed.",
+                "feedback": {
+                  "intrinsic": "There would be no prepared audio for predicting the sounds in the command.",
+                  "instructional": "Capture audio first, then prepare features before predicting phonemes."
+                }
+              },
+              {
+                "text": "A microphone",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "A microphone begins audio capture by converting analog sound waves into a digital signal. Those numeric measurements are needed before later recognition stages.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "A neural vocoder",
+                "is_correct": false,
+                "error_type": "Confuses recognition input with synthesis output",
+                "rationale": "A neural vocoder converts mel-spectrograms into audio waveforms during speech synthesis. It does not turn incoming sound into digital measurements.",
+                "better_fit": "Choose this when written text is being turned into spoken audio.",
+                "feedback": {
+                  "intrinsic": "This would create speech output instead of recording the user's voice.",
+                  "instructional": "A vocoder belongs to text-to-speech. Recognition starts with a microphone."
+                }
+              }
+            ],
+            "blooms_level": "Remembering",
+            "original_question_type": "single_choice",
+            "concept_id": "audio-capture-and-sampling",
+            "item_key": "turning-audio-into-speech-features/audio-capture-and-sampling/r1/v1",
+            "rung": 1,
+            "variant": 1,
+            "module_key": "4-introduction-to-ai-speech-concepts",
+            "lesson_key": "turning-audio-into-speech-features",
+            "learning_status": "new"
+          },
+          "correct_answer": "2",
+          "explanation": "Correct. A microphone starts audio capture by turning sound waves into numeric digital measurements.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "turning-audio-into-speech-features/sampling-rate-trade-off/r1/v1",
+        "path": "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/1",
+        "payload": {
+          "import_key": "turning-audio-into-speech-features-l1-q2",
+          "question_type": "multiple_choice",
+          "question_text": "Which facts about sampling rates are correct? Select all that apply.",
+          "options": {
+            "options": [
+              {
+                "text": "Higher rates capture more detail.",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "A higher sampling rate takes more measurements each second. This captures more audio detail.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Higher rates need more processing.",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "More measurements create more information to process. Higher rates therefore require more processing.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Higher rates remove all background noise.",
+                "is_correct": false,
+                "error_type": "Confuses sampling detail with filtering",
+                "rationale": "Higher sampling rates capture more detail, but they do not remove all noise. Filters may reduce hums, clicks, or background noise.",
+                "better_fit": "Choose noise filtering when unwanted recorded sound needs to be reduced.",
+                "feedback": {
+                  "intrinsic": "A noisy call could still be hard to recognize despite using a higher rate.",
+                  "instructional": "Rate affects captured detail and processing needs; filtering addresses unwanted sound."
+                }
+              },
+              {
+                "text": "44.1 kHz is a typical music rate.",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "44.1 kHz is a higher rate commonly used for music. It captures more detail than common speech rates.",
+                "better_fit": null,
+                "feedback": null
+              }
+            ],
+            "blooms_level": "Remembering",
+            "original_question_type": "multi_choice",
+            "concept_id": "sampling-rate-trade-off",
+            "item_key": "turning-audio-into-speech-features/sampling-rate-trade-off/r1/v1",
+            "rung": 1,
+            "variant": 1,
+            "module_key": "4-introduction-to-ai-speech-concepts",
+            "lesson_key": "turning-audio-into-speech-features",
+            "learning_status": "new"
+          },
+          "correct_answer": "[0,1,3]",
+          "explanation": "Correct. Higher rates capture more detail and require more processing; 44.1 kHz is a typical music rate.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "turning-audio-into-speech-features/audio-capture-and-sampling/r2/v1",
+        "path": "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/2",
+        "payload": {
+          "import_key": "turning-audio-into-speech-features-l1-q3",
+          "question_type": "true_false",
+          "question_text": "Sampling rate is the number of audio measurements taken each second.",
+          "options": {
+            "blooms_level": "Understanding",
+            "original_question_type": "true_false",
+            "concept_id": "audio-capture-and-sampling",
+            "feedback_for_incorrect": {
+              "intrinsic": "The recording settings would be described incorrectly, making rate choices harder to compare.",
+              "instructional": "Sampling rate counts the measurements taken each second, such as 16,000 per second for 16 kHz."
+            },
+            "item_key": "turning-audio-into-speech-features/audio-capture-and-sampling/r2/v1",
+            "rung": 2,
+            "variant": 1,
+            "module_key": "4-introduction-to-ai-speech-concepts",
+            "lesson_key": "turning-audio-into-speech-features",
+            "learning_status": "new"
+          },
+          "correct_answer": "true",
+          "explanation": "Correct. Sampling rate tells how many numeric audio measurements are taken each second.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "turning-audio-into-speech-features/sampling-rate-trade-off/r2/v1",
+        "path": "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/3",
+        "payload": {
+          "import_key": "turning-audio-into-speech-features-l1-q4",
+          "question_type": "true_false",
+          "question_text": "A higher sampling rate captures more detail while requiring less processing.",
+          "options": {
+            "blooms_level": "Understanding",
+            "original_question_type": "true_false",
+            "concept_id": "sampling-rate-trade-off",
+            "feedback_for_incorrect": {
+              "intrinsic": "A team might underestimate the processing needed for higher-quality audio.",
+              "instructional": "The trade-off goes together: more samples per second capture more detail and create more processing work."
+            },
+            "item_key": "turning-audio-into-speech-features/sampling-rate-trade-off/r2/v1",
+            "rung": 2,
+            "variant": 1,
+            "module_key": "4-introduction-to-ai-speech-concepts",
+            "lesson_key": "turning-audio-into-speech-features",
+            "learning_status": "new"
+          },
+          "correct_answer": "false",
+          "explanation": "Correct. Higher sampling rates provide more detail, and that extra detail requires more processing.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "turning-audio-into-speech-features/preprocessing-mfcc/r1/v1",
+        "path": "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/4",
+        "payload": {
+          "import_key": "turning-audio-into-speech-features-l1-q5",
+          "question_type": "multiple_choice",
+          "question_text": "What does pre-processing do to raw audio?",
+          "options": {
+            "options": [
+              {
+                "text": "Captures sound with a microphone",
+                "is_correct": false,
+                "error_type": "Confuses pre-processing with audio capture",
+                "rationale": "A microphone captures sound and converts it into a digital signal. Pre-processing begins after audio is already available digitally.",
+                "better_fit": "Choose this for the first stage, audio capture.",
+                "feedback": {
+                  "intrinsic": "The raw recording would remain unprepared for efficient pattern recognition.",
+                  "instructional": "Capture comes first. Pre-processing then changes the raw waveform into compact features."
+                }
+              },
+              {
+                "text": "Predicts phoneme probabilities",
+                "is_correct": false,
+                "error_type": "Confuses features with acoustic modeling",
+                "rationale": "Acoustic modeling predicts phoneme probabilities from feature vectors. Pre-processing creates the feature vectors used in that later stage.",
+                "better_fit": "Choose this for acoustic modeling after MFCC features have been extracted.",
+                "feedback": {
+                  "intrinsic": "The recognition path would skip the compact representation needed before sound prediction.",
+                  "instructional": "Pre-processing prepares features; acoustic modeling uses them to predict phonemes."
+                }
+              },
+              {
+                "text": "Generates a final audio waveform",
+                "is_correct": false,
+                "error_type": "Confuses recognition with synthesis",
+                "rationale": "Generating a final waveform is speech synthesis. Pre-processing is part of recognition and transforms incoming audio.",
+                "better_fit": "Choose this during speech synthesis after phonemes and prosody specifications are available.",
+                "feedback": {
+                  "intrinsic": "The work would produce spoken output instead of preparing a recording for transcription.",
+                  "instructional": "Raw incoming audio is prepared with features; final waveforms are generated for text-to-speech."
+                }
+              },
+              {
+                "text": "Creates compact speech features",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "Pre-processing transforms raw waveforms into compact features for efficient pattern recognition. These features preserve useful speech characteristics while discarding irrelevant detail.",
+                "better_fit": null,
+                "feedback": null
+              }
+            ],
+            "blooms_level": "Remembering",
+            "original_question_type": "single_choice",
+            "concept_id": "preprocessing-mfcc",
+            "item_key": "turning-audio-into-speech-features/preprocessing-mfcc/r1/v1",
+            "rung": 1,
+            "variant": 1,
+            "module_key": "4-introduction-to-ai-speech-concepts",
+            "lesson_key": "turning-audio-into-speech-features",
+            "learning_status": "new"
+          },
+          "correct_answer": "3",
+          "explanation": "Correct. Pre-processing makes raw audio compact while keeping the speech characteristics needed for recognition.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "turning-audio-into-speech-features/mfcc-extraction-process/r1/v1",
+        "path": "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/5",
+        "payload": {
+          "import_key": "turning-audio-into-speech-features-l1-q6",
+          "question_type": "multiple_choice",
+          "question_text": "Which steps are part of MFCC extraction? Select all that apply.",
+          "options": {
+            "options": [
+              {
+                "text": "Split audio into overlapping frames.",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "MFCC extraction divides audio into overlapping 20–30 millisecond frames. Each frame is analyzed separately.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Apply a Fourier transform.",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "A Fourier transform changes each frame into frequency information. It reveals which pitches are present.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Map frequencies to the Mel scale.",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "After frequency analysis, frequencies are mapped to the Mel scale. This reflects human hearing sensitivity.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Decode the best word sequence.",
+                "is_correct": false,
+                "error_type": "Confuses MFCC extraction with decoding",
+                "rationale": "Decoding searches for the best transcription from acoustic and language predictions. It happens after feature extraction.",
+                "better_fit": "Choose this near the end of recognition when selecting the most likely word sequence.",
+                "feedback": {
+                  "intrinsic": "Feature preparation would be skipped before the words could be chosen.",
+                  "instructional": "MFCC extraction prepares sound features. Decoding later selects the best text hypothesis."
+                }
+              }
+            ],
+            "blooms_level": "Remembering",
+            "original_question_type": "multi_choice",
+            "concept_id": "mfcc-extraction-process",
+            "item_key": "turning-audio-into-speech-features/mfcc-extraction-process/r1/v1",
+            "rung": 1,
+            "variant": 1,
+            "module_key": "4-introduction-to-ai-speech-concepts",
+            "lesson_key": "turning-audio-into-speech-features",
+            "learning_status": "new"
+          },
+          "correct_answer": "[0,1,2]",
+          "explanation": "Correct. MFCC extraction uses overlapping frames, Fourier analysis, Mel mapping, and coefficient computation.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "turning-audio-into-speech-features/preprocessing-mfcc/r2/v1",
+        "path": "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/6",
+        "payload": {
+          "import_key": "turning-audio-into-speech-features-l1-q7",
+          "question_type": "true_false",
+          "question_text": "MFCC pre-processing can discard irrelevant information such as absolute volume.",
+          "options": {
+            "blooms_level": "Understanding",
+            "original_question_type": "true_false",
+            "concept_id": "preprocessing-mfcc",
+            "feedback_for_incorrect": {
+              "intrinsic": "The audio representation could be treated as carrying more irrelevant detail than needed.",
+              "instructional": "Feature preparation makes audio compact by retaining useful speech patterns and discarding details such as absolute volume."
+            },
+            "item_key": "turning-audio-into-speech-features/preprocessing-mfcc/r2/v1",
+            "rung": 2,
+            "variant": 1,
+            "module_key": "4-introduction-to-ai-speech-concepts",
+            "lesson_key": "turning-audio-into-speech-features",
+            "learning_status": "new"
+          },
+          "correct_answer": "true",
+          "explanation": "Correct. MFCC features preserve useful speech characteristics while discarding irrelevant information such as absolute volume.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "turning-audio-into-speech-features/fourier-transform-and-mel-scale/r1/v1",
+        "path": "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/7",
+        "payload": {
+          "import_key": "turning-audio-into-speech-features-l1-q8",
+          "question_type": "multiple_choice",
+          "question_text": "What does a Fourier transform reveal in an audio frame?",
+          "options": {
+            "options": [
+              {
+                "text": "The pitches that are present",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "A Fourier transform changes an audio frame from the time domain to the frequency domain. This reveals which pitches are present in that frame.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "The final written words",
+                "is_correct": false,
+                "error_type": "Confuses frequency analysis with transcription",
+                "rationale": "Written words are selected later during decoding. Fourier analysis reveals frequency content, not a transcription.",
+                "better_fit": "Choose this for decoding, which selects the best word sequence.",
+                "feedback": {
+                  "intrinsic": "The team would mistake sound-frequency information for a finished transcript.",
+                  "instructional": "Fourier analysis identifies pitches. Decoding combines later predictions to select words."
+                }
+              },
+              {
+                "text": "The microphone distance",
+                "is_correct": false,
+                "error_type": "Confuses audio conditions with frequency analysis",
+                "rationale": "Distance from the speaker affects downstream accuracy, but a Fourier transform does not identify microphone distance. It reveals pitches in an audio frame.",
+                "better_fit": "Choose microphone distance when evaluating audio-quality conditions that affect recognition accuracy.",
+                "feedback": {
+                  "intrinsic": "A recording issue could be confused with the analysis performed on its frames.",
+                  "instructional": "Keep audio conditions separate from frequency analysis. Fourier transforms reveal pitches."
+                }
+              },
+              {
+                "text": "The final audio waveform",
+                "is_correct": false,
+                "error_type": "Confuses analysis with speech synthesis",
+                "rationale": "The final audio waveform is generated during speech synthesis by a neural vocoder. A Fourier transform analyzes an existing frame rather than generating audio.",
+                "better_fit": "Choose this for the output of speech synthesis after vocoding.",
+                "feedback": {
+                  "intrinsic": "The analysis step would be mistaken for the stage that creates spoken output.",
+                  "instructional": "Fourier transforms inspect frequency content; neural vocoders generate audio waveforms."
+                }
+              }
+            ],
+            "blooms_level": "Remembering",
+            "original_question_type": "single_choice",
+            "concept_id": "fourier-transform-and-mel-scale",
+            "item_key": "turning-audio-into-speech-features/fourier-transform-and-mel-scale/r1/v1",
+            "rung": 1,
+            "variant": 1,
+            "module_key": "4-introduction-to-ai-speech-concepts",
+            "lesson_key": "turning-audio-into-speech-features",
+            "learning_status": "new"
+          },
+          "correct_answer": "0",
+          "explanation": "Correct. A Fourier transform reveals the pitches present by changing a frame into frequency information.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "turning-audio-into-speech-features/mfcc-extraction-process/r2/v1",
+        "path": "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/8",
+        "payload": {
+          "import_key": "turning-audio-into-speech-features-l1-q9",
+          "question_type": "true_false",
+          "question_text": "An MFCC feature vector often contains 13 coefficient values for more than one time frame.",
+          "options": {
+            "blooms_level": "Understanding",
+            "original_question_type": "true_false",
+            "concept_id": "mfcc-extraction-process",
+            "feedback_for_incorrect": {
+              "intrinsic": "The relationship between frames and their feature vectors would be mixed up.",
+              "instructional": "Audio produces a sequence of vectors. Each vector represents one frame and often has 13 coefficient values."
+            },
+            "item_key": "turning-audio-into-speech-features/mfcc-extraction-process/r2/v1",
+            "rung": 2,
+            "variant": 1,
+            "module_key": "4-introduction-to-ai-speech-concepts",
+            "lesson_key": "turning-audio-into-speech-features",
+            "learning_status": "new"
+          },
+          "correct_answer": "false",
+          "explanation": "Correct. One MFCC vector commonly contains 13 coefficient values for one time frame.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "turning-audio-into-speech-features/fourier-transform-and-mel-scale/r2/v1",
+        "path": "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/9",
+        "payload": {
+          "import_key": "turning-audio-into-speech-features-l1-q10",
+          "question_type": "true_false",
+          "question_text": "The Mel scale reflects that people distinguish low pitches better than high pitches.",
+          "options": {
+            "blooms_level": "Understanding",
+            "original_question_type": "true_false",
+            "concept_id": "fourier-transform-and-mel-scale",
+            "feedback_for_incorrect": {
+              "intrinsic": "Frequency bins would be treated as equally important to hearing when they are not.",
+              "instructional": "The Mel scale adjusts frequencies because people distinguish low pitches better than high pitches."
+            },
+            "item_key": "turning-audio-into-speech-features/fourier-transform-and-mel-scale/r2/v1",
+            "rung": 2,
+            "variant": 1,
+            "module_key": "4-introduction-to-ai-speech-concepts",
+            "lesson_key": "turning-audio-into-speech-features",
+            "learning_status": "new"
+          },
+          "correct_answer": "true",
+          "explanation": "Correct. The Mel scale is designed around human hearing sensitivity, including finer distinction among low pitches.",
+          "points": 1
+        }
+      }
+    ],
+    "metadata": {
+      "module_key": "4-introduction-to-ai-speech-concepts",
+      "unit_title": "Turning audio into speech features · Level 1",
+      "unit_slo": "Describe how a speech recognition system captures and prepares audio.",
+      "constraint_relaxations": []
+    }
+  },
+  "history": {
+    "schema_version": "techlingo-gauntlet-history-v1",
+    "run_id": "turning-audio-into-speech-features-l1-eeb95e46fc62",
+    "started_at": "2026-08-27T17:52:29.220026Z",
+    "finished_at": "2026-08-27T17:54:47.482472Z",
+    "initial_champion_hash": "c83a0ddbb3c04aea00e0f01e4b54b4c7eef084a0a9eeca1923d23be1542c3ff3",
+    "final_champion_hash": "c83a0ddbb3c04aea00e0f01e4b54b4c7eef084a0a9eeca1923d23be1542c3ff3",
+    "evaluation_context": {
+      "schema_version": "techlingo-evaluation-context-v1",
+      "goal": "Produce an excellent, source-faithful learner session while preserving all deterministic correctness, identity, and sequence constraints.",
+      "source_fidelity_goal": "Independently verify the hard-gated edited challenger against the supplied source material. Reject unsupported facts, answers, explanations, feedback, or terminology changes; do not edit the artifact.",
+      "gauntlet_policy": {
+        "critic_backend": "codex",
+        "critic_model": "codex:gpt-5.6-luna",
+        "builder_model": "codex:gpt-5.6-terra",
+        "max_rounds": 4,
+        "plateau_rounds": 2,
+        "repeated_loss_rounds": 2,
+        "minimum_improvement_margin": 0.02,
+        "confidence_threshold": 0.65,
+        "human_review_threshold": 0.4,
+        "max_time_seconds": null,
+        "max_tokens": null,
+        "max_cost_usd": null,
+        "qualitative_required_for_publication": true,
+        "quality_thresholds": {
+          "factual_fidelity": 0.8,
+          "answer_unambiguity": 0.8,
+          "distractor_plausibility": 0.8,
+          "misconception_quality": 0.8,
+          "cognitive_progression": 0.8,
+          "mechanic_rhythm_variation": 0.8,
+          "prompt_language_variation": 0.8,
+          "scenario_authenticity": 0.8,
+          "feedback_usefulness": 0.8,
+          "difficulty_appropriateness": 0.8,
+          "terminology_consistency": 0.8,
+          "overall_learner_experience": 0.8
+        },
+        "comparison_seed": 901,
+        "protected_dimensions": [
+          "factual_fidelity",
+          "answer_unambiguity"
+        ],
+        "unstable_comparison_requires_human_review": true,
+        "identifying_metadata_keys": [
+          "artifact_id",
+          "builder_model",
+          "candidate_role",
+          "challenger",
+          "champion",
+          "critic_model",
+          "generated_at",
+          "import_key",
+          "item_key",
+          "model_id",
+          "path",
+          "version_id"
+        ]
+      },
+      "gauntlet_policy_sha256": "035ba75a6dc056e4680b4c7cb97f2859ec5160f72633534a4550ba69e8061ac4",
+      "rubric": {
+        "criteria": {
+          "factual_fidelity": "Every claim and answer is faithful to the supplied source.",
+          "answer_unambiguity": "Each item has one defensible answer under its instructions.",
+          "distractor_plausibility": "Distractors are credible without becoming defensible answers.",
+          "misconception_quality": "Wrong choices diagnose realistic learner misconceptions.",
+          "cognitive_progression": "The ordered session builds understanding at a coherent pace.",
+          "mechanic_rhythm_variation": "Mechanics vary naturally without disruptive repetition.",
+          "prompt_language_variation": "Prompt stems avoid formulaic repetition.",
+          "scenario_authenticity": "Scenarios resemble credible decisions or tasks.",
+          "feedback_usefulness": "Feedback explains the governing concept and next step.",
+          "difficulty_appropriateness": "Difficulty matches the stated audience and session position.",
+          "terminology_consistency": "Terms are used consistently with the source and across items.",
+          "overall_learner_experience": "The exact final sequence is coherent, varied, and instructive."
+        }
+      },
+      "rubric_sha256": "34290a842f2ed7e30b7a98ba70ac97d967c864424010cd31255f97cdce0b57d5",
+      "sources": [
+        {
+          "input_id": "4. Introduction to AI speech concepts.md",
+          "sha256": "3e473e1597e55d94be084b7ef2a67c31d8d44a550976b2272833afa921d83500",
+          "location": "sources/4. Introduction to AI speech concepts.md"
+        }
+      ],
+      "approved_references": [],
+      "models": {
+        "builder_model": "codex:gpt-5.6-terra",
+        "critic_backend": "codex",
+        "critic_model": "codex:gpt-5.6-luna",
+        "critic_fresh_context": true,
+        "editor_backend": "codex",
+        "editor_model": "codex:gpt-5.6-luna",
+        "editor_fresh_context": true,
+        "comparator_backend": "codex",
+        "comparator_model": "codex:gpt-5.6-luna",
+        "comparator_fresh_context": true
+      },
+      "context_sha256": "22064dfe46ba07d1d0ac2a5e3c3b220a582a5d11af7899e25b3fb8c3c8e34448"
+    },
+    "initial_hard_gate": {
+      "artifact_sha256": "c83a0ddbb3c04aea00e0f01e4b54b4c7eef084a0a9eeca1923d23be1542c3ff3",
+      "passed": true,
+      "issues": [],
+      "checks": {
+        "schema_and_answers": true,
+        "identity": true,
+        "final_sequence": true
+      },
+      "metrics": {},
+      "constraint_relaxations": []
+    },
+    "rounds": [
+      {
+        "round_number": 1,
+        "champion_hash_before": "c83a0ddbb3c04aea00e0f01e4b54b4c7eef084a0a9eeca1923d23be1542c3ff3",
+        "critic": {
+          "result": {
+            "dimensions": [
+              {
+                "dimension": "factual_fidelity",
+                "score": 0.98,
+                "evidence": [
+                  {
+                    "statement": "The keyed answers and explanations for capture, sampling rates, pre-processing, MFCC extraction, Fourier analysis, and the Mel scale agree with the supplied source.",
+                    "item_keys": [
+                      "turning-audio-into-speech-features/audio-capture-and-sampling/r1/v1",
+                      "turning-audio-into-speech-features/sampling-rate-trade-off/r1/v1",
+                      "turning-audio-into-speech-features/preprocessing-mfcc/r1/v1",
+                      "turning-audio-into-speech-features/mfcc-extraction-process/r1/v1",
+                      "turning-audio-into-speech-features/fourier-transform-and-mel-scale/r1/v1"
+                    ],
+                    "paths": [
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/0",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/1",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/4",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/5",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/7"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "answer_unambiguity",
+                "score": 0.98,
+                "evidence": [
+                  {
+                    "statement": "Each item has a single defensible keyed answer or an explicitly keyed set; the false statement in item q9 is clarified by the source's one-vector-per-frame description.",
+                    "item_keys": [
+                      "turning-audio-into-speech-features/mfcc-extraction-process/r2/v1",
+                      "turning-audio-into-speech-features/sampling-rate-trade-off/r1/v1"
+                    ],
+                    "paths": [
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/8",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/1"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "distractor_plausibility",
+                "score": 0.91,
+                "evidence": [
+                  {
+                    "statement": "Distractors generally represent neighboring pipeline stages or related audio concerns, such as MFCC extraction versus capture, acoustic modeling versus pre-processing, and filtering versus sampling rate.",
+                    "item_keys": [
+                      "turning-audio-into-speech-features/audio-capture-and-sampling/r1/v1",
+                      "turning-audio-into-speech-features/sampling-rate-trade-off/r1/v1",
+                      "turning-audio-into-speech-features/preprocessing-mfcc/r1/v1"
+                    ],
+                    "paths": [
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/0",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/1",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/4"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "misconception_quality",
+                "score": 0.93,
+                "evidence": [
+                  {
+                    "statement": "Wrong-choice rationales explicitly diagnose realistic misconceptions, including confusing capture with feature extraction, recognition with synthesis, and sampling detail with noise removal.",
+                    "item_keys": [
+                      "turning-audio-into-speech-features/audio-capture-and-sampling/r1/v1",
+                      "turning-audio-into-speech-features/sampling-rate-trade-off/r1/v1",
+                      "turning-audio-into-speech-features/fourier-transform-and-mel-scale/r1/v1"
+                    ],
+                    "paths": [
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/0",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/1",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/7"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "cognitive_progression",
+                "score": 0.78,
+                "evidence": [
+                  {
+                    "statement": "The sequence moves from microphone capture to sampling, pre-processing, MFCC steps, Fourier analysis, feature-vector structure, and the Mel scale, but remains almost entirely at remembering and understanding with no pipeline-ordering or application task.",
+                    "item_keys": [
+                      "turning-audio-into-speech-features/audio-capture-and-sampling/r1/v1",
+                      "turning-audio-into-speech-features/mfcc-extraction-process/r1/v1",
+                      "turning-audio-into-speech-features/fourier-transform-and-mel-scale/r2/v1"
+                    ],
+                    "paths": [
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/0",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/5",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/9"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "mechanic_rhythm_variation",
+                "score": 0.76,
+                "evidence": [
+                  {
+                    "statement": "The session uses multiple-choice, multi-select, and true/false mechanics, but five of the ten items are declarative true/false checks and the rhythm remains drill-like.",
+                    "item_keys": [
+                      "turning-audio-into-speech-features/audio-capture-and-sampling/r2/v1",
+                      "turning-audio-into-speech-features/sampling-rate-trade-off/r2/v1",
+                      "turning-audio-into-speech-features/preprocessing-mfcc/r2/v1",
+                      "turning-audio-into-speech-features/mfcc-extraction-process/r2/v1",
+                      "turning-audio-into-speech-features/fourier-transform-and-mel-scale/r2/v1"
+                    ],
+                    "paths": [
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/2",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/3",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/6",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/8",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/9"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "prompt_language_variation",
+                "score": 0.73,
+                "evidence": [
+                  {
+                    "statement": "Prompt forms vary between What, Which, and declarative stems, but the repeated true/false declarative pattern and recurring stage-definition wording limit linguistic variety.",
+                    "item_keys": [
+                      "turning-audio-into-speech-features/audio-capture-and-sampling/r1/v1",
+                      "turning-audio-into-speech-features/audio-capture-and-sampling/r2/v1",
+                      "turning-audio-into-speech-features/sampling-rate-trade-off/r2/v1",
+                      "turning-audio-into-speech-features/preprocessing-mfcc/r2/v1"
+                    ],
+                    "paths": [
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/0",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/2",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/3",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/6"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "scenario_authenticity",
+                "score": 0.3,
+                "evidence": [
+                  {
+                    "statement": "All ten prompts are detached definitions, fact checks, or process-step selections; none asks the learner to diagnose an audio pipeline, choose settings, or make a credible implementation decision.",
+                    "item_keys": [
+                      "turning-audio-into-speech-features/audio-capture-and-sampling/r1/v1",
+                      "turning-audio-into-speech-features/sampling-rate-trade-off/r1/v1",
+                      "turning-audio-into-speech-features/audio-capture-and-sampling/r2/v1",
+                      "turning-audio-into-speech-features/sampling-rate-trade-off/r2/v1",
+                      "turning-audio-into-speech-features/preprocessing-mfcc/r1/v1",
+                      "turning-audio-into-speech-features/mfcc-extraction-process/r1/v1",
+                      "turning-audio-into-speech-features/preprocessing-mfcc/r2/v1",
+                      "turning-audio-into-speech-features/fourier-transform-and-mel-scale/r1/v1",
+                      "turning-audio-into-speech-features/mfcc-extraction-process/r2/v1",
+                      "turning-audio-into-speech-features/fourier-transform-and-mel-scale/r2/v1"
+                    ],
+                    "paths": [
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/0",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/1",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/2",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/3",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/4",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/5",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/6",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/7",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/8",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/9"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "feedback_usefulness",
+                "score": 0.92,
+                "evidence": [
+                  {
+                    "statement": "Incorrect-option feedback usually explains the governing distinction and gives a next-step cue, while item explanations reinforce the correct concept and pipeline position.",
+                    "item_keys": [
+                      "turning-audio-into-speech-features/audio-capture-and-sampling/r1/v1",
+                      "turning-audio-into-speech-features/preprocessing-mfcc/r1/v1",
+                      "turning-audio-into-speech-features/fourier-transform-and-mel-scale/r1/v1"
+                    ],
+                    "paths": [
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/0",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/4",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/7"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "difficulty_appropriateness",
+                "score": 0.94,
+                "evidence": [
+                  {
+                    "statement": "The new Level 1 unit and stated SLO call for describing capture and preparation; the mostly Remembering and Understanding items are appropriately accessible for an introductory session.",
+                    "item_keys": [
+                      "turning-audio-into-speech-features/audio-capture-and-sampling/r1/v1",
+                      "turning-audio-into-speech-features/preprocessing-mfcc/r1/v1",
+                      "turning-audio-into-speech-features/fourier-transform-and-mel-scale/r2/v1"
+                    ],
+                    "paths": [
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/0",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/4",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/9"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "terminology_consistency",
+                "score": 0.97,
+                "evidence": [
+                  {
+                    "statement": "The artifact consistently distinguishes audio capture, sampling rate, pre-processing, MFCC features, Fourier analysis, acoustic modeling, decoding, and synthesis in accordance with the source.",
+                    "item_keys": [
+                      "turning-audio-into-speech-features/audio-capture-and-sampling/r1/v1",
+                      "turning-audio-into-speech-features/preprocessing-mfcc/r1/v1",
+                      "turning-audio-into-speech-features/mfcc-extraction-process/r1/v1",
+                      "turning-audio-into-speech-features/fourier-transform-and-mel-scale/r1/v1"
+                    ],
+                    "paths": [
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/0",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/4",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/5",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/7"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "overall_learner_experience",
+                "score": 0.79,
+                "evidence": [
+                  {
+                    "statement": "The ordered sequence is source-faithful and coherent for introductory recall, with useful rationales, but it feels repetitive and provides no authentic task or integrative checkpoint.",
+                    "item_keys": [
+                      "turning-audio-into-speech-features/audio-capture-and-sampling/r1/v1",
+                      "turning-audio-into-speech-features/mfcc-extraction-process/r1/v1",
+                      "turning-audio-into-speech-features/fourier-transform-and-mel-scale/r2/v1"
+                    ],
+                    "paths": [
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/0",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/5",
+                      "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/9"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "critical_defects": [],
+            "largest_gap": {
+              "dimension": "scenario_authenticity",
+              "summary": "The session lacks any authentic application or diagnostic decision context.",
+              "evidence": [
+                {
+                  "statement": "Every item asks for a definition, fact selection, or true/false judgment rather than applying the capture-to-feature pipeline to a credible speech-system task.",
+                  "item_keys": [
+                    "turning-audio-into-speech-features/audio-capture-and-sampling/r1/v1",
+                    "turning-audio-into-speech-features/sampling-rate-trade-off/r1/v1",
+                    "turning-audio-into-speech-features/audio-capture-and-sampling/r2/v1",
+                    "turning-audio-into-speech-features/sampling-rate-trade-off/r2/v1",
+                    "turning-audio-into-speech-features/preprocessing-mfcc/r1/v1",
+                    "turning-audio-into-speech-features/mfcc-extraction-process/r1/v1",
+                    "turning-audio-into-speech-features/preprocessing-mfcc/r2/v1",
+                    "turning-audio-into-speech-features/fourier-transform-and-mel-scale/r1/v1",
+                    "turning-audio-into-speech-features/mfcc-extraction-process/r2/v1",
+                    "turning-audio-into-speech-features/fourier-transform-and-mel-scale/r2/v1"
+                  ],
+                  "paths": [
+                    "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/0",
+                    "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/1",
+                    "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/2",
+                    "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/3",
+                    "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/4",
+                    "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/5",
+                    "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/6",
+                    "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/7",
+                    "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/8",
+                    "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/9"
+                  ]
+                }
+              ],
+              "affected_item_keys": [
+                "turning-audio-into-speech-features/audio-capture-and-sampling/r1/v1",
+                "turning-audio-into-speech-features/sampling-rate-trade-off/r1/v1",
+                "turning-audio-into-speech-features/audio-capture-and-sampling/r2/v1",
+                "turning-audio-into-speech-features/sampling-rate-trade-off/r2/v1",
+                "turning-audio-into-speech-features/preprocessing-mfcc/r1/v1",
+                "turning-audio-into-speech-features/mfcc-extraction-process/r1/v1",
+                "turning-audio-into-speech-features/preprocessing-mfcc/r2/v1",
+                "turning-audio-into-speech-features/fourier-transform-and-mel-scale/r1/v1",
+                "turning-audio-into-speech-features/mfcc-extraction-process/r2/v1",
+                "turning-audio-into-speech-features/fourier-transform-and-mel-scale/r2/v1"
+              ],
+              "affected_paths": [
+                "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/0",
+                "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/1",
+                "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/2",
+                "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/3",
+                "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/4",
+                "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/5",
+                "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/6",
+                "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/7",
+                "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/8",
+                "modules/3:4-introduction-to-ai-speech-concepts/units/9:turning-audio-into-speech-features-l1/questions/9"
+              ],
+              "recommended_scope": "session",
+              "repair_instruction": "Revise a small set of existing prompts, preferably the sampling, pre-processing, and MFCC items, into source-grounded scenarios where a learner diagnoses a recording pipeline or chooses an appropriate processing step; preserve the existing keyed concepts and sequence positions.",
+              "allowed_payload_fields": [
+                "question_text",
+                "options.options.text",
+                "options.options.rationale",
+                "options.options.feedback",
+                "explanation"
+              ]
+            },
+            "confidence": 0.86,
+            "human_review_recommended": true,
+            "concise_summary": "The artifact is highly source-faithful, deterministic, and well explained, with no critical correctness defects. Its main remaining weakness is session-wide: it is a repetitive definition drill with no authentic application context. Confidence is reduced because no approved references were supplied."
+          },
+          "artifact_sha256": "c83a0ddbb3c04aea00e0f01e4b54b4c7eef084a0a9eeca1923d23be1542c3ff3",
+          "evaluation_context_sha256": "22064dfe46ba07d1d0ac2a5e3c3b220a582a5d11af7899e25b3fb8c3c8e34448",
+          "goal_sha256": "c4bae546eef7fec8c92895a1538196a8df81a13754329022bca211a6200752ae",
+          "critic_backend": "codex",
+          "critic_model": "codex:gpt-5.6-luna",
+          "fresh_context": true,
+          "model_independence": "independent",
+          "approved_reference_count": 0,
+          "reference_confidence_reduced": true,
+          "usage": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cost_usd": 0.0,
+            "backend_calls": 1
+          }
+        },
+        "critic_failure": null,
+        "repair_scope": null,
+        "repair_summary": null,
+        "editor_backend": null,
+        "editor_model": null,
+        "editor_fresh_context": null,
+        "edit_usage": null,
+        "validation_retry_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost_usd": 0.0,
+          "backend_calls": 0
+        },
+        "touched_item_keys": [],
+        "challenger_hash": null,
+        "hard_gate": null,
+        "source_fidelity_critic": null,
+        "source_fidelity_gate": null,
+        "comparison": null,
+        "decision": "retained_human",
+        "decision_evidence": "Critic confidence/finding requires human review.",
+        "champion_hash_after": "c83a0ddbb3c04aea00e0f01e4b54b4c7eef084a0a9eeca1923d23be1542c3ff3",
+        "constraint_relaxations": [],
+        "cumulative_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost_usd": 0.0,
+          "backend_calls": 1
+        }
+      }
+    ],
+    "stop_reason": "human_review_required",
+    "stop_evidence": "Critic requested human review or confidence was below threshold.",
+    "human_decision": null,
+    "total_usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "backend_calls": 1
+    },
+    "human_review_recommended": true,
+    "publication_eligible": false
+  }
+}

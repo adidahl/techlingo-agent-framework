@@ -1,0 +1,1426 @@
+{
+  "schema_version": "exercise-bank-v1",
+  "lesson": "grounded-and-well-designed-responses",
+  "module": "2-introduction-to-generative-ai-and-agents",
+  "items": [
+    {
+      "item_key": "grounded-and-well-designed-responses/retrieval-augmented-generation/r1/v1",
+      "concept_id": "retrieval-augmented-generation",
+      "rung": 1,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "single_choice",
+        "prompt": "What does retrieval augmented generation (RAG) do?",
+        "concept_id": "retrieval-augmented-generation",
+        "options": [
+          {
+            "text": "Adds retrieved information to a prompt",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "RAG retrieves relevant information, such as documents or emails. It adds that information to the prompt with the user's question.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Stores earlier chat messages only",
+            "is_correct": false,
+            "error_type": "Confuses RAG with conversation history",
+            "rationale": "Earlier messages can provide conversation context. RAG instead retrieves relevant information and adds it to the prompt.",
+            "better_fit": "This fits conversation history. It is useful when a later question needs context from an earlier exchange.",
+            "feedback": {
+              "intrinsic": "The answer could miss important company information and stay generic.",
+              "instructional": "Keep the two ideas separate: conversation history uses earlier messages, while RAG retrieves relevant information."
+            }
+          },
+          {
+            "text": "Sets the model's response style",
+            "is_correct": false,
+            "error_type": "Confuses RAG with system prompting",
+            "rationale": "Behavior and tone are set through a system prompt. RAG supplies relevant information for the response to use.",
+            "better_fit": "This fits a system prompt. It is used to define behavior, tone, and constraints.",
+            "feedback": {
+              "intrinsic": "The reply might sound right but still lack the facts needed for the question.",
+              "instructional": "Style guidance affects how a reply is written; RAG adds relevant information to what the reply can use."
+            }
+          },
+          {
+            "text": "Requests a list or table",
+            "is_correct": false,
+            "error_type": "Confuses RAG with response structure",
+            "rationale": "A list or table tells how to organize a reply. It does not retrieve information to add to the prompt.",
+            "better_fit": "This fits a response-structure request. Use it when the reply should be organized as bullets, a table, or a numbered list.",
+            "feedback": {
+              "intrinsic": "The reply may be neatly organized but still not be based on the needed facts.",
+              "instructional": "Structure changes organization. RAG retrieves relevant information so the response can be grounded."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct—RAG retrieves relevant information and adds it to the prompt. That added context supports a more relevant response."
+      },
+      "payload_hash": "2681cee74eb892a22956c8749d17bf32115e90a9d48d083b66830dacaca19801",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "77d4fc62057eff8e40060c80208cfa6658a1b5b8838d81089d5b2eeb3297629b",
+      "telemetry": {}
+    },
+    {
+      "item_key": "grounded-and-well-designed-responses/retrieval-augmented-generation/r2/v1",
+      "concept_id": "retrieval-augmented-generation",
+      "rung": 2,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "true_false",
+        "prompt": "True or false?",
+        "concept_id": "retrieval-augmented-generation",
+        "statement": "RAG uses only earlier conversation messages to add information to a prompt.",
+        "correct_answer": false,
+        "feedback_for_correct": "Correct—earlier messages are conversation history. RAG retrieves relevant information such as documents or emails.",
+        "feedback_for_incorrect": {
+          "intrinsic": "Using only earlier messages can leave a policy question without the policy details it needs.",
+          "instructional": "Conversation history and RAG both add context, but they get it differently: RAG retrieves relevant information and adds it to the prompt."
+        }
+      },
+      "payload_hash": "81b04ed36ddb6c5c0abcebe475635c86b85e95e2ddc828e5c28c7f8bf3eadcbe",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "77d4fc62057eff8e40060c80208cfa6658a1b5b8838d81089d5b2eeb3297629b",
+      "telemetry": {}
+    },
+    {
+      "item_key": "grounded-and-well-designed-responses/retrieval-augmented-generation/r3/v1",
+      "concept_id": "retrieval-augmented-generation",
+      "rung": 3,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "fill_gaps",
+        "prompt": "Complete the term.",
+        "concept_id": "retrieval-augmented-generation",
+        "parts": [
+          {
+            "type": "text",
+            "text": "The approach that retrieves relevant documents and adds them to a prompt is "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "retrieval augmented generation",
+              "RAG"
+            ],
+            "rejected_answers": [
+              "conversation history",
+              "grounded response",
+              "conversation-history",
+              "grounded-response"
+            ],
+            "placeholder": "technical term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "explanation": "The term names a process that first retrieves relevant information and then augments the prompt with it. Conversation history uses earlier messages, while a grounded response is the result of using relevant supplied information.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The prompt would not name the approach used to bring relevant documents into the answer.",
+          "instructional": "Use retrieval augmented generation, or RAG. Do not confuse it with conversation history or with the grounded response that relevant information can support."
+        }
+      },
+      "payload_hash": "75e7dcf9eef497781fa90cae508368719b9a19077ef312e5fd06e6c5cfc36312",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "77d4fc62057eff8e40060c80208cfa6658a1b5b8838d81089d5b2eeb3297629b",
+      "telemetry": {}
+    },
+    {
+      "item_key": "grounded-and-well-designed-responses/retrieval-augmented-generation/r3/v2",
+      "concept_id": "retrieval-augmented-generation",
+      "rung": 3,
+      "variant": 2,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "rearrange",
+        "prompt": "Arrange the following steps of RAG.",
+        "concept_id": "retrieval-augmented-generation",
+        "word_bank": [
+          "Send the prompt",
+          "Retrieve relevant information",
+          "Generate a grounded response",
+          "Add to prompt"
+        ],
+        "correct_order": [
+          "Retrieve relevant information",
+          "Add to prompt",
+          "Send the prompt",
+          "Generate a grounded response"
+        ],
+        "interchangeable_groups": [],
+        "explanation": "Relevant information has to be found before it can be added to the prompt. Once the prompt includes that information, the response can use it as grounding.",
+        "feedback_for_incorrect": {
+          "intrinsic": "If the prompt is sent before the information is added, the reply cannot use those facts.",
+          "instructional": "Follow the dependency: retrieve the relevant information, add it to the prompt, send the prompt, then generate the grounded response."
+        }
+      },
+      "payload_hash": "11daabb7e0763a273db0d380436b24a9846a1775ab9c2647c7a822c28266b486",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "77d4fc62057eff8e40060c80208cfa6658a1b5b8838d81089d5b2eeb3297629b",
+      "telemetry": {}
+    },
+    {
+      "item_key": "grounded-and-well-designed-responses/retrieval-augmented-generation/r4/v1",
+      "concept_id": "retrieval-augmented-generation",
+      "rung": 4,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Applying",
+        "question_type": "single_choice",
+        "prompt": "An employee asks an expenses assistant for the maximum travel claim. Before the assistant answers, what should its developer have the app do?",
+        "concept_id": "retrieval-augmented-generation",
+        "options": [
+          {
+            "text": "Retrieve relevant travel-expense policy sections",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The relevant policy sections contain the organization-specific information needed for the question. They can be added to the prompt before a response is generated.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Use only the employee's last message",
+            "is_correct": false,
+            "error_type": "Confuses RAG with conversation history",
+            "rationale": "The employee's question identifies the topic but does not provide the maximum claim amount. Relevant policy information is still needed.",
+            "better_fit": "This fits using the latest request as part of conversation context. It is not enough when the answer depends on company policy.",
+            "feedback": {
+              "intrinsic": "The employee may receive a generic answer instead of the company rule.",
+              "instructional": "The question tells what to look for. Retrieve the relevant travel-policy sections to provide the facts."
+            }
+          },
+          {
+            "text": "Ask for a numbered response",
+            "is_correct": false,
+            "error_type": "Confuses retrieval with response structure",
+            "rationale": "A numbered list can make a response easier to read. It does not provide the travel-expense rule.",
+            "better_fit": "This fits a request to organize an answer. It can be added after the relevant policy is supplied.",
+            "feedback": {
+              "intrinsic": "The employee may get a tidy list without learning the correct claim limit.",
+              "instructional": "Format and factual grounding solve different needs. Retrieve the policy when the question depends on policy facts."
+            }
+          },
+          {
+            "text": "Add a style example",
+            "is_correct": false,
+            "error_type": "Confuses retrieval with examples in prompts",
+            "rationale": "A style sample can show how a reply should sound. It does not supply the travel-expense policy.",
+            "better_fit": "This fits a request to match a desired writing style. Use it when tone or style needs to be made concrete.",
+            "feedback": {
+              "intrinsic": "The answer could sound polished while still missing the correct company rule.",
+              "instructional": "A style example guides wording. Relevant retrieved policy information supplies the facts for this question."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct—retrieving the relevant travel-expense policy is the RAG step. It gives the prompt information that can ground the answer."
+      },
+      "payload_hash": "9813b2f40ea9a51a7af0d8f682c40da9a98da82089c22a3c18e1e8d3f577accd",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "77d4fc62057eff8e40060c80208cfa6658a1b5b8838d81089d5b2eeb3297629b",
+      "telemetry": {}
+    },
+    {
+      "item_key": "grounded-and-well-designed-responses/retrieval-augmented-generation/r5/v1",
+      "concept_id": "retrieval-augmented-generation",
+      "rung": 5,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Analyzing/Evaluating",
+        "question_type": "single_choice",
+        "prompt": "A support lead finds that the app gives a generic answer to a question about the current company expense policy. Which change best addresses this problem?",
+        "concept_id": "retrieval-augmented-generation",
+        "options": [
+          {
+            "text": "Retrieve policy text and add it to the prompt",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Current policy text is relevant information for the question. Adding it to the prompt lets the response be grounded in that information.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Include the earlier chat summary",
+            "is_correct": false,
+            "error_type": "Confuses RAG with conversation history",
+            "rationale": "A chat summary can preserve what has already been discussed. It may not contain the current expense-policy rules.",
+            "better_fit": "This fits maintaining continuity in an ongoing conversation. Use it when an earlier exchange is needed for context.",
+            "feedback": {
+              "intrinsic": "The response may remain generic if the earlier exchange does not include the policy.",
+              "instructional": "A conversation summary helps with continuity, but policy questions need relevant policy information in the prompt."
+            }
+          },
+          {
+            "text": "Ask for a bulleted answer",
+            "is_correct": false,
+            "error_type": "Confuses RAG with response structure",
+            "rationale": "Bullets improve organization and scanning. They do not give the response current policy information.",
+            "better_fit": "This fits a need for an easy-to-scan format. It can be combined with retrieved policy text.",
+            "feedback": {
+              "intrinsic": "The lead may get clearer bullets but the same unsupported answer.",
+              "instructional": "When the problem is missing facts, add relevant retrieved information rather than only changing the format."
+            }
+          },
+          {
+            "text": "Provide a sample writing style",
+            "is_correct": false,
+            "error_type": "Confuses RAG with examples in prompts",
+            "rationale": "A sample can guide the tone or style of a reply. It cannot establish what the current policy says.",
+            "better_fit": "This fits a need to reproduce a particular writing style. Use it alongside a complete request when style matters.",
+            "feedback": {
+              "intrinsic": "The answer may match the desired tone but still fail to match the expense rules.",
+              "instructional": "Style examples make tone concrete. Retrieved policy text provides the grounding needed here."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct—retrieved policy text gives the prompt current, relevant information. That directly addresses a generic policy answer."
+      },
+      "payload_hash": "b63f496308a251effc93be2b59f5d0a192c9369b7a09e7d5f5a58ea19df95e6b",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "77d4fc62057eff8e40060c80208cfa6658a1b5b8838d81089d5b2eeb3297629b",
+      "telemetry": {}
+    },
+    {
+      "item_key": "grounded-and-well-designed-responses/grounded-response/r1/v1",
+      "concept_id": "grounded-response",
+      "rung": 1,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "multi_choice",
+        "prompt": "Which statements describe a grounded response? Select all that apply.",
+        "concept_id": "grounded-response",
+        "options": [
+          {
+            "text": "It uses relevant supplied information",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A grounded response is based on relevant information supplied in the prompt. That information gives the response a basis for answering.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It can answer from retrieved policy text",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Retrieved policy text can be supplied in the prompt. A response based on that relevant text is grounded.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It must use only chat history",
+            "is_correct": false,
+            "error_type": "Confuses grounding with conversation history",
+            "rationale": "Conversation history can provide context from earlier messages. Grounding is based on relevant information supplied in the prompt and is not limited to chat history.",
+            "better_fit": "This fits preserving prior conversation context. It is useful when a follow-up question depends on an earlier exchange.",
+            "feedback": {
+              "intrinsic": "A reply may miss the relevant policy facts if earlier messages are the only source used.",
+              "instructional": "Grounding is about relevant supplied information, not about using only prior chat messages."
+            }
+          },
+          {
+            "text": "It must be a numbered list",
+            "is_correct": false,
+            "error_type": "Confuses grounding with response structure",
+            "rationale": "A numbered list is a way to organize a reply. Format alone does not determine whether a response is grounded.",
+            "better_fit": "This fits a request for response structure. Use it when the answer should be organized in numbered steps.",
+            "feedback": {
+              "intrinsic": "The response may be easy to scan but still not be based on relevant information.",
+              "instructional": "A grounded response needs relevant supplied facts. A numbered list only controls organization."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct—grounded responses use relevant information supplied in the prompt. Retrieved policy text is one way to provide that information."
+      },
+      "payload_hash": "758311d2591431551dcda4d2d5195797568ee9fbdc99e73dbecb624ea57056ea",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "77d4fc62057eff8e40060c80208cfa6658a1b5b8838d81089d5b2eeb3297629b",
+      "telemetry": {}
+    },
+    {
+      "item_key": "grounded-and-well-designed-responses/grounded-response/r2/v1",
+      "concept_id": "grounded-response",
+      "rung": 2,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "true_false",
+        "prompt": "Decide whether this statement is true or false.",
+        "concept_id": "grounded-response",
+        "statement": "A response is grounded when it is based on relevant information supplied in the prompt.",
+        "correct_answer": true,
+        "feedback_for_correct": "Correct—relevant information supplied in the prompt gives the response its grounding. This can make an answer more relevant to the question.",
+        "feedback_for_incorrect": {
+          "intrinsic": "Without relevant supplied information, a company-policy answer may stay generic.",
+          "instructional": "Grounding means basing the response on relevant information included in the prompt."
+        }
+      },
+      "payload_hash": "3c36a64823061524f229daf7052653455301d2fe1f5ec4836295e2ecef603358",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "77d4fc62057eff8e40060c80208cfa6658a1b5b8838d81089d5b2eeb3297629b",
+      "telemetry": {}
+    },
+    {
+      "item_key": "grounded-and-well-designed-responses/grounded-response/r2/v2",
+      "concept_id": "grounded-response",
+      "rung": 2,
+      "variant": 2,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "true_false",
+        "prompt": "Is the following statement accurate?",
+        "concept_id": "grounded-response",
+        "statement": "A response is grounded when it is based only on the conversation history.",
+        "correct_answer": false,
+        "feedback_for_correct": "Correct—conversation history can add context, but it is not the definition of grounding. Grounding uses relevant information supplied in the prompt.",
+        "feedback_for_incorrect": {
+          "intrinsic": "Relying only on earlier messages may leave out the facts needed for the current question.",
+          "instructional": "Earlier conversation can be useful context. A grounded response is based on relevant information supplied in the prompt."
+        }
+      },
+      "payload_hash": "26d0a9bb77479418dff3ad797cef17772eb8a5c545f97d17c398e59008f30e35",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "77d4fc62057eff8e40060c80208cfa6658a1b5b8838d81089d5b2eeb3297629b",
+      "telemetry": {}
+    },
+    {
+      "item_key": "grounded-and-well-designed-responses/grounded-response/r3/v1",
+      "concept_id": "grounded-response",
+      "rung": 3,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "rearrange",
+        "prompt": "Reconstruct the statement from the pieces.",
+        "concept_id": "grounded-response",
+        "word_bank": [
+          "a response",
+          "Relevant prompt information",
+          "more relevant",
+          "can make"
+        ],
+        "correct_order": [
+          "Relevant prompt information",
+          "can make",
+          "a response",
+          "more relevant"
+        ],
+        "interchangeable_groups": [],
+        "explanation": "Relevant information supplied with a request gives a response a factual basis and can make it more relevant. This differs from merely preserving earlier conversation context.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The relationship between supplied information and response relevance becomes unclear.",
+          "instructional": "Connect the cause to the outcome: relevant prompt information can make a response more relevant."
+        }
+      },
+      "payload_hash": "70cab44609044edc25897e8ce27b87a070f916f45a9c177e008aa4cee99c0458",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "77d4fc62057eff8e40060c80208cfa6658a1b5b8838d81089d5b2eeb3297629b",
+      "telemetry": {}
+    },
+    {
+      "item_key": "grounded-and-well-designed-responses/grounded-response/r4/v1",
+      "concept_id": "grounded-response",
+      "rung": 4,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Applying",
+        "question_type": "multi_choice",
+        "prompt": "A manager asks an expenses assistant about travel claims. The assistant must answer using the company rules. Which actions help make its answer grounded? Select all that apply.",
+        "concept_id": "grounded-response",
+        "options": [
+          {
+            "text": "Supply relevant travel-policy sections",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Relevant travel-policy sections provide the company rules for the answer. Supplying them in the prompt grounds the response.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Include the manager's question",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The manager's question identifies what information the response should address. Combined with relevant policy sections, it helps focus the grounded answer.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Use a generic answer without policy text",
+            "is_correct": false,
+            "error_type": "Omits grounding information",
+            "rationale": "A generic answer is not based on the company's supplied travel rules. It may not answer the manager's policy question with relevant information.",
+            "better_fit": "This fits a situation with no organization-specific information available. It is weaker when company rules are required.",
+            "feedback": {
+              "intrinsic": "The manager may receive advice that does not match the company's travel rules.",
+              "instructional": "For a grounded policy answer, include relevant policy information with the manager's question."
+            }
+          },
+          {
+            "text": "Require a table format only",
+            "is_correct": false,
+            "error_type": "Confuses grounding with response structure",
+            "rationale": "A table tells how to organize information. It does not provide the company rules on which an answer must be based.",
+            "better_fit": "This fits a need to compare or organize information in a table. It can be used together with relevant supplied policy sections.",
+            "feedback": {
+              "intrinsic": "The manager may get a clear table that still lacks the company rule.",
+              "instructional": "Structure can improve readability, but grounding requires relevant information in the prompt."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct—include the question and the relevant travel-policy sections. The policy sections provide the facts that ground the response."
+      },
+      "payload_hash": "dd93fb25d14e0c4b5a6e414720a793452a550c1d261393454f5ed1bcddf991c8",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "77d4fc62057eff8e40060c80208cfa6658a1b5b8838d81089d5b2eeb3297629b",
+      "telemetry": {}
+    },
+    {
+      "item_key": "grounded-and-well-designed-responses/grounded-response/r5/v1",
+      "concept_id": "grounded-response",
+      "rung": 5,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Analyzing/Evaluating",
+        "question_type": "multi_choice",
+        "prompt": "A developer sees that an expense assistant’s answers do not match the company’s travel rules. Which choices best support answers that match those rules? Select all that apply.",
+        "concept_id": "grounded-response",
+        "options": [
+          {
+            "text": "Provide relevant expense-policy information",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Relevant expense-policy information supplies the rules the answer needs. A response based on it can be grounded in those rules.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Retrieve travel-expense sections first",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Retrieval finds the information most relevant to the travel question. Those sections can then be provided in the prompt.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Rely only on previous chat messages",
+            "is_correct": false,
+            "error_type": "Confuses grounding with conversation history",
+            "rationale": "Earlier chat messages may preserve context but may not include the travel rules. They do not guarantee that the response is based on relevant policy information.",
+            "better_fit": "This fits a follow-up that needs earlier conversational context. It does not replace supplying the needed policy facts.",
+            "feedback": {
+              "intrinsic": "The answers may continue to disagree with the rules if the rules are not in the earlier chat.",
+              "instructional": "Use earlier messages for continuity when helpful, but provide relevant travel-policy information to ground rule-based answers."
+            }
+          },
+          {
+            "text": "Add a sample response style",
+            "is_correct": false,
+            "error_type": "Confuses grounding with style examples",
+            "rationale": "A style sample shows how a response should sound. It does not state the company travel rules.",
+            "better_fit": "This fits a need to make a desired tone or writing style concrete. It can accompany factual policy information but cannot replace it.",
+            "feedback": {
+              "intrinsic": "The response may sound appropriate while still giving the wrong policy guidance.",
+              "instructional": "Use a style sample for style. Use relevant supplied policy information when the response must match company rules."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct—retrieve and provide the relevant travel-policy information. That gives the response a factual basis for matching the company rules."
+      },
+      "payload_hash": "5c872c48b21f6ee094a29a3f7e663225db3c7517c8cc6373396da91d55229090",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "77d4fc62057eff8e40060c80208cfa6658a1b5b8838d81089d5b2eeb3297629b",
+      "telemetry": {}
+    },
+    {
+      "item_key": "grounded-and-well-designed-responses/clear-specific-prompts/r1/v1",
+      "concept_id": "clear-specific-prompts",
+      "rung": 1,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "single_choice",
+        "prompt": "Which prompt is clear and specific?",
+        "concept_id": "clear-specific-prompts",
+        "options": [
+          {
+            "text": "Summarize travel risks for managers in four bullets",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "This request states a task, a topic, an audience, and a format. Those details make the instruction clear and specific.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Tell me about travel",
+            "is_correct": false,
+            "error_type": "Vague prompt",
+            "rationale": "This request does not state what should be done with the topic. It also gives no audience or desired format.",
+            "better_fit": "This fits a broad opening question when no particular outcome is needed. Add instructions and context when a useful work response is required.",
+            "feedback": {
+              "intrinsic": "The reply may cover an unhelpful part of travel or use the wrong level of detail.",
+              "instructional": "State the task clearly, then add useful context such as the audience and desired format."
+            }
+          },
+          {
+            "text": "Write like this sample",
+            "is_correct": false,
+            "error_type": "Confuses specificity with examples",
+            "rationale": "A sample can show a desired style. This request does not state what content should be written.",
+            "better_fit": "This fits style guidance when paired with a complete content request. Use it when the desired style needs to be made concrete.",
+            "feedback": {
+              "intrinsic": "The reply may copy a tone without addressing the travel task the person needs.",
+              "instructional": "Examples help with style, but a clear prompt also states the topic and the requested work."
+            }
+          },
+          {
+            "text": "Use a table",
+            "is_correct": false,
+            "error_type": "Confuses full instructions with structure alone",
+            "rationale": "A table is a structure requirement. By itself, it does not say what information belongs in the table.",
+            "better_fit": "This fits a format instruction added to a complete prompt. Use it when the content and audience are already clear.",
+            "feedback": {
+              "intrinsic": "The response may be organized as a table but have no clear subject to cover.",
+              "instructional": "Structure is helpful, but it needs a clear task and topic around it."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct—this prompt specifies the task, topic, audience, and format. Those details support a more useful response."
+      },
+      "payload_hash": "23184b246fe2c2a78b5419e57d2c1afac8b6f6bdc2ee90f78220531c05d66139",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "77d4fc62057eff8e40060c80208cfa6658a1b5b8838d81089d5b2eeb3297629b",
+      "telemetry": {}
+    },
+    {
+      "item_key": "grounded-and-well-designed-responses/clear-specific-prompts/r2/v1",
+      "concept_id": "clear-specific-prompts",
+      "rung": 2,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "true_false",
+        "prompt": "Evaluate this statement.",
+        "concept_id": "clear-specific-prompts",
+        "statement": "Adding the topic, audience, and desired format can make a prompt more useful.",
+        "correct_answer": true,
+        "feedback_for_correct": "Correct—topic, audience, and format add useful context. They help make the requested response clearer.",
+        "feedback_for_incorrect": {
+          "intrinsic": "Without these details, a response may be relevant in general but unsuitable for the intended reader.",
+          "instructional": "When they matter, name the topic, audience, and desired format so the request is clear and specific."
+        }
+      },
+      "payload_hash": "c0654e12db196ecc50eec26fe64d73cf32d7e1437b496907fc6a43d557110c04",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "77d4fc62057eff8e40060c80208cfa6658a1b5b8838d81089d5b2eeb3297629b",
+      "telemetry": {}
+    },
+    {
+      "item_key": "grounded-and-well-designed-responses/clear-specific-prompts/r2/v2",
+      "concept_id": "clear-specific-prompts",
+      "rung": 2,
+      "variant": 2,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "true_false",
+        "prompt": "True or false?",
+        "concept_id": "clear-specific-prompts",
+        "statement": "Clear, specific prompts work better because they avoid stating explicit instructions.",
+        "correct_answer": false,
+        "feedback_for_correct": "Correct—clear, specific prompts state explicit instructions or questions. Vague language gives less direction.",
+        "feedback_for_incorrect": {
+          "intrinsic": "Avoiding instructions can leave the response focused on the wrong task.",
+          "instructional": "Clear prompts work better because they explicitly say what is needed, rather than leaving the request vague."
+        }
+      },
+      "payload_hash": "f1c31544668d7c42ef33cbe9dcc0400aa9695c8b05c212e65c8ae8f48c9db80a",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "77d4fc62057eff8e40060c80208cfa6658a1b5b8838d81089d5b2eeb3297629b",
+      "telemetry": {}
+    },
+    {
+      "item_key": "grounded-and-well-designed-responses/clear-specific-prompts/r3/v1",
+      "concept_id": "clear-specific-prompts",
+      "rung": 3,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "fill_gaps",
+        "prompt": "Which term completes this sentence?",
+        "concept_id": "clear-specific-prompts",
+        "parts": [
+          {
+            "type": "text",
+            "text": "Prompts with explicit instructions are more "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "clear and specific",
+              "specific and clear"
+            ],
+            "rejected_answers": [
+              "examples in prompts",
+              "requested response structure",
+              "examples-in-prompts",
+              "requested-response-structure"
+            ],
+            "placeholder": "prompt quality"
+          },
+          {
+            "type": "text",
+            "text": " than vague prompts."
+          }
+        ],
+        "explanation": "Explicit instructions make the requested task easier to understand than vague language. Examples and response structure can help too, but they are particular additions rather than the overall quality named here.",
+        "feedback_for_incorrect": {
+          "intrinsic": "A vague request can lead to a response that does not match the intended task.",
+          "instructional": "The missing phrase is clear and specific. Examples show style, and response structure organizes a reply, but explicit instructions make the prompt itself clear."
+        }
+      },
+      "payload_hash": "7c343710a00c9d3629c7c1e417bf8057e17cafdded2b23a992403d54b79f3dcb",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "77d4fc62057eff8e40060c80208cfa6658a1b5b8838d81089d5b2eeb3297629b",
+      "telemetry": {}
+    },
+    {
+      "item_key": "grounded-and-well-designed-responses/clear-specific-prompts/r4/v1",
+      "concept_id": "clear-specific-prompts",
+      "rung": 4,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Applying",
+        "question_type": "single_choice",
+        "prompt": "A communications employee must ask an assistant for a summary of generative AI adoption for corporate executives. Which prompt should the employee send?",
+        "concept_id": "clear-specific-prompts",
+        "options": [
+          {
+            "text": "Summarize AI adoption for executives in six bullets",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "This request identifies the topic, audience, and desired format. It gives explicit instructions for the needed summary.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Summarize AI adoption",
+            "is_correct": false,
+            "error_type": "Missing audience and format context",
+            "rationale": "The task and topic are present, but the audience is missing. The requested format is also not stated.",
+            "better_fit": "This fits a situation where any audience and format are acceptable. Add more context for a corporate-executive summary.",
+            "feedback": {
+              "intrinsic": "The employee may receive a summary that is not suited to executives or is hard to scan.",
+              "instructional": "Add the intended audience and format when they matter. Here, executives and six bullets make the request more useful."
+            }
+          },
+          {
+            "text": "Use this writing sample",
+            "is_correct": false,
+            "error_type": "Confuses specificity with examples",
+            "rationale": "A writing sample can guide style. This instruction does not ask for a summary or identify the topic and audience.",
+            "better_fit": "This fits style guidance alongside a complete request. Use it when a desired style needs to be shown.",
+            "feedback": {
+              "intrinsic": "The response may imitate a style but fail to summarize generative AI adoption for executives.",
+              "instructional": "A complete prompt says what to do and for whom. Add a sample only when style guidance is also needed."
+            }
+          },
+          {
+            "text": "Make a numbered list",
+            "is_correct": false,
+            "error_type": "Confuses complete prompt with structure alone",
+            "rationale": "This requests an organization but gives no topic or audience. It is only one part of a clear and specific prompt.",
+            "better_fit": "This fits a format instruction added to a full request. Use it when the content and audience have already been stated.",
+            "feedback": {
+              "intrinsic": "The response may be numbered but not address the executive summary task.",
+              "instructional": "A structure request helps organize a response; it does not replace the topic, task, and audience."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct—it clearly names the topic, audience, and format. That gives the assistant a focused request to follow."
+      },
+      "payload_hash": "91b26452e192a87edd81f4987e79d266bd716dc652ac546e61aa761c954707ee",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "77d4fc62057eff8e40060c80208cfa6658a1b5b8838d81089d5b2eeb3297629b",
+      "telemetry": {}
+    },
+    {
+      "item_key": "grounded-and-well-designed-responses/clear-specific-prompts/r5/v1",
+      "concept_id": "clear-specific-prompts",
+      "rung": 5,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Analyzing/Evaluating",
+        "question_type": "single_choice",
+        "prompt": "A training coordinator needs an assistant response about privacy risks for new employees. The first prompt, “Tell me about privacy,” is too broad. Which replacement is the best fit?",
+        "concept_id": "clear-specific-prompts",
+        "options": [
+          {
+            "text": "Explain privacy risks for new employees in plain language",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "This request identifies the topic and the intended audience. It also asks for plain language, which gives useful style guidance.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Show a sample friendly response",
+            "is_correct": false,
+            "error_type": "Confuses clear instructions with examples",
+            "rationale": "This asks for a style sample, not an explanation of privacy risks. It does not identify new employees as the audience for the needed response.",
+            "better_fit": "This fits a need to show a desired style after the task is already clear. It can support, but not replace, a complete request.",
+            "feedback": {
+              "intrinsic": "The coordinator may get a friendly sample without the privacy-risk guidance new employees need.",
+              "instructional": "Start with the topic and audience. Use a style example only when you also need to make the style concrete."
+            }
+          },
+          {
+            "text": "Answer in three bullet points",
+            "is_correct": false,
+            "error_type": "Confuses complete specificity with structure alone",
+            "rationale": "Three bullet points specify a format. The instruction does not say what to explain or who needs the explanation.",
+            "better_fit": "This fits a structure request added to a complete privacy-risk prompt. It helps organize content after the task is stated.",
+            "feedback": {
+              "intrinsic": "The reply may be short and organized but still cover the wrong subject.",
+              "instructional": "Format is useful context, but it cannot replace a clear topic and audience."
+            }
+          },
+          {
+            "text": "Tell me about privacy",
+            "is_correct": false,
+            "error_type": "Vague prompt",
+            "rationale": "This is broad and does not state the needed privacy topic. It also omits the intended audience and desired style.",
+            "better_fit": "This fits a casual broad question with no specific workplace outcome. Add details when a focused explanation is needed.",
+            "feedback": {
+              "intrinsic": "The response may not focus on risks or be understandable for new employees.",
+              "instructional": "Make the request explicit: name the privacy risks, the audience, and the desired plain-language style."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct—the replacement clearly gives the topic, audience, and desired style. It is much more focused than the broad original request."
+      },
+      "payload_hash": "b114508de11eca10339e669a2b7a7ea39d013b32e2bacc3e559dcf0d5964660c",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "77d4fc62057eff8e40060c80208cfa6658a1b5b8838d81089d5b2eeb3297629b",
+      "telemetry": {}
+    },
+    {
+      "item_key": "grounded-and-well-designed-responses/examples-in-prompts/r1/v1",
+      "concept_id": "examples-in-prompts",
+      "rung": 1,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "multi_choice",
+        "prompt": "When is an example useful in a prompt? Select all that apply.",
+        "concept_id": "examples-in-prompts",
+        "options": [
+          {
+            "text": "When a desired style needs clarity",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "An example makes a desired style concrete. It helps show what the writer means by that style.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "When you want the model to copy a style",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Examples help a model reproduce a requested style. They provide a concrete pattern for the writing.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "When you need retrieved policy facts",
+            "is_correct": false,
+            "error_type": "Confuses examples with RAG",
+            "rationale": "Policy facts are relevant information that should be retrieved and added to the prompt. A style example does not retrieve or provide those facts.",
+            "better_fit": "This fits retrieval augmented generation. Use it when a response needs relevant documents or other information.",
+            "feedback": {
+              "intrinsic": "The reply may match a style but fail to state the policy facts needed for the decision.",
+              "instructional": "Use an example to show style. Retrieve relevant policy information when the response needs factual grounding."
+            }
+          },
+          {
+            "text": "When you need prior chat context",
+            "is_correct": false,
+            "error_type": "Confuses examples with conversation history",
+            "rationale": "Prior chat context comes from earlier prompts and responses. A style example is added to show the desired writing style.",
+            "better_fit": "This fits conversation history. It is useful when a follow-up question depends on an earlier exchange.",
+            "feedback": {
+              "intrinsic": "The response may lose the earlier discussion if a style sample is used as though it were chat history.",
+              "instructional": "Examples guide style; conversation history preserves prior context. Choose the one that matches the need."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct—examples are useful when a desired style needs to be shown clearly. They help the response reproduce that style."
+      },
+      "payload_hash": "7b62284b898e1fa9c56dfbdefa8309b39bc4459346f583d97199e74747536e57",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "77d4fc62057eff8e40060c80208cfa6658a1b5b8838d81089d5b2eeb3297629b",
+      "telemetry": {}
+    },
+    {
+      "item_key": "grounded-and-well-designed-responses/examples-in-prompts/r2/v1",
+      "concept_id": "examples-in-prompts",
+      "rung": 2,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "true_false",
+        "prompt": "Decide whether this statement is true or false.",
+        "concept_id": "examples-in-prompts",
+        "statement": "Providing an example can help a model reproduce a requested style.",
+        "correct_answer": true,
+        "feedback_for_correct": "Correct—an example makes the desired style concrete. It helps guide the wording and tone of the response.",
+        "feedback_for_incorrect": {
+          "intrinsic": "Without a concrete style guide, the reply may not match the approved tone a writer needs.",
+          "instructional": "Provide an example when you want a particular style and need to show what that style looks like."
+        }
+      },
+      "payload_hash": "4819d9c5425293a959f3f30199ee1ef26d5e8b9aa872390373532108babbf6c3",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "77d4fc62057eff8e40060c80208cfa6658a1b5b8838d81089d5b2eeb3297629b",
+      "telemetry": {}
+    },
+    {
+      "item_key": "grounded-and-well-designed-responses/examples-in-prompts/r2/v2",
+      "concept_id": "examples-in-prompts",
+      "rung": 2,
+      "variant": 2,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "true_false",
+        "prompt": "Is the following statement accurate?",
+        "concept_id": "examples-in-prompts",
+        "statement": "Providing an example is mainly a way to retrieve policy documents for a prompt.",
+        "correct_answer": false,
+        "feedback_for_correct": "Correct—retrieving relevant documents is RAG. An example is used to make a requested style concrete.",
+        "feedback_for_incorrect": {
+          "intrinsic": "A policy answer may lack the needed rules if a style sample is used instead of retrieving relevant policy information.",
+          "instructional": "Keep the purposes distinct: examples show style, while RAG retrieves relevant information such as documents."
+        }
+      },
+      "payload_hash": "4ef3e10e8574b038a4eaa4febcd273a5f8379be72e5614a008e90e90cf8bc784",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "77d4fc62057eff8e40060c80208cfa6658a1b5b8838d81089d5b2eeb3297629b",
+      "telemetry": {}
+    },
+    {
+      "item_key": "grounded-and-well-designed-responses/examples-in-prompts/r3/v1",
+      "concept_id": "examples-in-prompts",
+      "rung": 3,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "rearrange",
+        "prompt": "Put the pieces in the correct order.",
+        "concept_id": "examples-in-prompts",
+        "word_bank": [
+          "needs to be",
+          "Provide an example",
+          "made concrete",
+          "when the desired style"
+        ],
+        "correct_order": [
+          "Provide an example",
+          "when the desired style",
+          "needs to be",
+          "made concrete"
+        ],
+        "interchangeable_groups": [],
+        "explanation": "A style can be hard to describe with general words alone. Providing a concrete sample helps show the style the response should reproduce.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The purpose of the sample becomes unclear when its connection to the desired style is broken.",
+          "instructional": "Keep the logic together: provide a sample when the desired style needs to be made concrete."
+        }
+      },
+      "payload_hash": "f968760a188d54f421485a1349dbebb829aa678c3f9c2481e692ec7687474259",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "77d4fc62057eff8e40060c80208cfa6658a1b5b8838d81089d5b2eeb3297629b",
+      "telemetry": {}
+    },
+    {
+      "item_key": "grounded-and-well-designed-responses/examples-in-prompts/r4/v1",
+      "concept_id": "examples-in-prompts",
+      "rung": 4,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Applying",
+        "question_type": "multi_choice",
+        "prompt": "A customer-support writer needs an assistant to create replies in the same style as an approved customer reply. Which actions should the writer take? Select all that apply.",
+        "concept_id": "examples-in-prompts",
+        "options": [
+          {
+            "text": "Include an approved reply sample",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The approved reply provides a concrete model of the desired style. Including it gives the writer's style request something specific to follow.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Ask the model to follow its style",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "This instruction explains how the approved reply should be used. It connects the sample to the new replies being requested.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Retrieve expense-policy sections",
+            "is_correct": false,
+            "error_type": "Confuses style examples with RAG",
+            "rationale": "Expense-policy sections provide factual context for expense questions. They do not demonstrate the style of an approved customer reply.",
+            "better_fit": "This fits a reply that must answer an expense-policy question. Use it when relevant policy facts are needed.",
+            "feedback": {
+              "intrinsic": "The new reply may include unrelated expense details and still fail to match the approved customer style.",
+              "instructional": "For style matching, provide the approved reply and ask to follow its style. Retrieve policy sections only when policy facts are needed."
+            }
+          },
+          {
+            "text": "Include only earlier chat messages",
+            "is_correct": false,
+            "error_type": "Confuses examples with conversation history",
+            "rationale": "Earlier messages can maintain conversational context. They do not necessarily show the approved style the writer wants to reproduce.",
+            "better_fit": "This fits retaining context from an ongoing exchange. It is useful when a follow-up depends on what was previously said.",
+            "feedback": {
+              "intrinsic": "The reply may continue the conversation but not match the approved customer-reply style.",
+              "instructional": "Conversation history preserves context. A selected approved reply is the concrete style example needed here."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct—include the approved reply and explicitly ask to follow its style. Together, those actions make the desired style concrete."
+      },
+      "payload_hash": "8eb7fb122e5a047355f33ee62974fb13e2d6f9b12b8003e7fb22445690e7e2f9",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "77d4fc62057eff8e40060c80208cfa6658a1b5b8838d81089d5b2eeb3297629b",
+      "telemetry": {}
+    },
+    {
+      "item_key": "grounded-and-well-designed-responses/examples-in-prompts/r5/v1",
+      "concept_id": "examples-in-prompts",
+      "rung": 5,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Analyzing/Evaluating",
+        "question_type": "multi_choice",
+        "prompt": "A corporate communications writer has a saved message with the friendly tone needed for a new employee announcement. Which choices best help the assistant match that tone? Select all that apply.",
+        "concept_id": "examples-in-prompts",
+        "options": [
+          {
+            "text": "Add the saved message as a style example",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The saved message demonstrates the friendly tone in a concrete way. It gives a usable model for the new announcement.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Ask the model to match that style",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "This tells the model how to use the saved message. It links the style sample to the new announcement.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Request a table without a sample",
+            "is_correct": false,
+            "error_type": "Confuses style examples with response structure",
+            "rationale": "A table controls organization. It does not show the friendly tone needed for the announcement.",
+            "better_fit": "This fits a need to organize information in rows and columns. It can be combined with a style example if a table is actually needed.",
+            "feedback": {
+              "intrinsic": "The announcement may be organized clearly but not sound friendly to new employees.",
+              "instructional": "Use a structure request for organization. Use a saved message to show the tone you want."
+            }
+          },
+          {
+            "text": "Retrieve travel-policy facts",
+            "is_correct": false,
+            "error_type": "Confuses style examples with RAG",
+            "rationale": "Travel-policy facts are relevant to travel-expense questions. They do not demonstrate the friendly tone of an employee announcement.",
+            "better_fit": "This fits a travel-expense question that needs policy grounding. It does not address the requested tone.",
+            "feedback": {
+              "intrinsic": "The announcement may include irrelevant travel details and still miss the friendly tone.",
+              "instructional": "Retrieved facts support factual answers. A saved message is the right kind of information for demonstrating tone."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct—the saved message shows the friendly tone, and the instruction asks the assistant to use it. This is the right use of an example in a prompt."
+      },
+      "payload_hash": "a7a79b0e6f9d8501f33e0461165c2e17cab41d374c82d04f839cca583b32a116",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "77d4fc62057eff8e40060c80208cfa6658a1b5b8838d81089d5b2eeb3297629b",
+      "telemetry": {}
+    },
+    {
+      "item_key": "grounded-and-well-designed-responses/requested-response-structure/r1/v1",
+      "concept_id": "requested-response-structure",
+      "rung": 1,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "single_choice",
+        "prompt": "Which request specifies a response structure?",
+        "concept_id": "requested-response-structure",
+        "options": [
+          {
+            "text": "Answer in a numbered list",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A numbered list tells how the response should be organized. It is a direct structure requirement.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Explain travel expenses",
+            "is_correct": false,
+            "error_type": "Missing structure requirement",
+            "rationale": "This states a topic and task. It does not say whether the response should use bullets, a table, or another organization.",
+            "better_fit": "This fits a content request when no particular format is needed. Add a structure instruction when organization matters.",
+            "feedback": {
+              "intrinsic": "The response may explain the topic but be harder for the reader to scan than needed.",
+              "instructional": "To specify structure, state how the response should be organized, such as in bullets, a table, or a numbered list."
+            }
+          },
+          {
+            "text": "Use this response as a style sample",
+            "is_correct": false,
+            "error_type": "Confuses structure with examples",
+            "rationale": "A style sample guides the tone or writing style. It does not specify how the reply should be organized.",
+            "better_fit": "This fits making a desired style concrete. Use it when the response should resemble a particular writing style.",
+            "feedback": {
+              "intrinsic": "The reply may match a tone but still lack the requested organization.",
+              "instructional": "A sample affects style. A numbered list, table, or bullet points affect response structure."
+            }
+          },
+          {
+            "text": "Retrieve the expense policy",
+            "is_correct": false,
+            "error_type": "Confuses structure with RAG",
+            "rationale": "Retrieving the expense policy adds relevant information to a prompt. It does not state the response's organization.",
+            "better_fit": "This fits grounding an expense-policy answer in relevant policy information. It can be combined with a format request.",
+            "feedback": {
+              "intrinsic": "The reply may have the right policy facts but be organized in an unhelpful way.",
+              "instructional": "Retrieval provides information; response structure tells how to present that information."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct—a numbered list tells how the response should be organized. That is a request for response structure."
+      },
+      "payload_hash": "c8a295eda652c94eadb7e5e640a8878f7b500af45ea1062ba38d637acca23ad0",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "77d4fc62057eff8e40060c80208cfa6658a1b5b8838d81089d5b2eeb3297629b",
+      "telemetry": {}
+    },
+    {
+      "item_key": "grounded-and-well-designed-responses/requested-response-structure/r2/v1",
+      "concept_id": "requested-response-structure",
+      "rung": 2,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "true_false",
+        "prompt": "Evaluate this statement.",
+        "concept_id": "requested-response-structure",
+        "statement": "Asking for bullet points, a table, or a numbered list can improve response organization.",
+        "correct_answer": true,
+        "feedback_for_correct": "Correct—bullet points, tables, and numbered lists are structure requirements. They guide how the response is organized.",
+        "feedback_for_incorrect": {
+          "intrinsic": "A useful answer may be harder to scan if its organization is left unspecified.",
+          "instructional": "Ask for bullet points, a table, or a numbered list when a particular organization will help the reader."
+        }
+      },
+      "payload_hash": "0a2b36ef21348551270decfb17ae65f4e359d059a60de6ff24b469936cc3c1d2",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "77d4fc62057eff8e40060c80208cfa6658a1b5b8838d81089d5b2eeb3297629b",
+      "telemetry": {}
+    },
+    {
+      "item_key": "grounded-and-well-designed-responses/requested-response-structure/r3/v1",
+      "concept_id": "requested-response-structure",
+      "rung": 3,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "fill_gaps",
+        "prompt": "Fill in the missing term.",
+        "concept_id": "requested-response-structure",
+        "parts": [
+          {
+            "type": "text",
+            "text": "A request for bullet points or a table specifies the response "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "structure",
+              "requested response structure"
+            ],
+            "rejected_answers": [
+              "examples in prompts",
+              "clear and specific prompts",
+              "clear-specific-prompts",
+              "examples-in-prompts"
+            ],
+            "placeholder": "organization term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "explanation": "Bullet points and tables determine how a response is organized. They do not themselves show a writing style or describe the overall clarity of the prompt.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The requested reply could be organized in the wrong way because the organization term is missing.",
+          "instructional": "The missing term is structure. Examples in prompts guide style, while clear and specific prompts describe the quality of the overall request."
+        }
+      },
+      "payload_hash": "3de7c063d90bf1e2c297bacc5c2e91a1482bc2abbbaf8654d713fb701430f9ed",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "77d4fc62057eff8e40060c80208cfa6658a1b5b8838d81089d5b2eeb3297629b",
+      "telemetry": {}
+    },
+    {
+      "item_key": "grounded-and-well-designed-responses/requested-response-structure/r3/v2",
+      "concept_id": "requested-response-structure",
+      "rung": 3,
+      "variant": 2,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "rearrange",
+        "prompt": "Arrange the parts to form the correct statement.",
+        "concept_id": "requested-response-structure",
+        "word_bank": [
+          "the model organizes",
+          "Ask for structure",
+          "its response",
+          "to improve how"
+        ],
+        "correct_order": [
+          "Ask for structure",
+          "to improve how",
+          "the model organizes",
+          "its response"
+        ],
+        "interchangeable_groups": [],
+        "explanation": "A structure requirement affects the organization of the reply, not the information it contains. Asking for bullets, a table, or numbered steps can make the organization clearer.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The reason for asking for a format becomes unclear when the action and its result are out of sequence.",
+          "instructional": "Put the action first, then its purpose: ask for structure to improve how the response is organized."
+        }
+      },
+      "payload_hash": "999481e88d9b432ea5ca3e30067374b8145afeb39656a1c471e849f80028d750",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "77d4fc62057eff8e40060c80208cfa6658a1b5b8838d81089d5b2eeb3297629b",
+      "telemetry": {}
+    },
+    {
+      "item_key": "grounded-and-well-designed-responses/requested-response-structure/r4/v1",
+      "concept_id": "requested-response-structure",
+      "rung": 4,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Applying",
+        "question_type": "single_choice",
+        "prompt": "A manager asks an assistant to prepare project risks for a meeting. The manager needs the risks presented clearly. Which instruction should be added?",
+        "concept_id": "requested-response-structure",
+        "options": [
+          {
+            "text": "Present the risks in a table",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A table specifies how the project risks should be organized. It can help present the risks clearly for the meeting.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Use a friendly sample reply",
+            "is_correct": false,
+            "error_type": "Confuses structure with examples",
+            "rationale": "A friendly sample reply guides tone or style. It does not specify how to organize project risks.",
+            "better_fit": "This fits a situation where a friendly writing style is needed. It is useful when the desired tone needs a concrete sample.",
+            "feedback": {
+              "intrinsic": "The manager may receive a friendly-sounding response that is still difficult to scan in the meeting.",
+              "instructional": "Use a table when the need is clear organization. Use a sample reply when the need is to demonstrate tone or style."
+            }
+          },
+          {
+            "text": "Retrieve travel-policy sections",
+            "is_correct": false,
+            "error_type": "Confuses structure with RAG",
+            "rationale": "Travel-policy sections provide information for travel-expense questions. They do not organize project risks for a meeting.",
+            "better_fit": "This fits a travel-expense question that needs relevant company policy information. It does not address this formatting need.",
+            "feedback": {
+              "intrinsic": "The meeting material could include unrelated travel information and still present risks poorly.",
+              "instructional": "Retrieved information adds facts. A table is the instruction that directly controls how the project risks are presented."
+            }
+          },
+          {
+            "text": "Mention project risks",
+            "is_correct": false,
+            "error_type": "Missing structure requirement",
+            "rationale": "The project-risk topic is already part of the request. This instruction does not say how the risks should be organized.",
+            "better_fit": "This fits adding topic context to an incomplete request. It is unnecessary when the topic is already clear.",
+            "feedback": {
+              "intrinsic": "The manager may still get an unstructured list that is difficult to use during the meeting.",
+              "instructional": "The missing need is organization. Add a format instruction such as presenting the risks in a table."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct—a table is a clear response-structure request. It tells how to present the project risks for easier scanning."
+      },
+      "payload_hash": "e88f984ead21faeb0c1b58e0f38185cf9383473beecaaa7ae77c45a89c66b76f",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "77d4fc62057eff8e40060c80208cfa6658a1b5b8838d81089d5b2eeb3297629b",
+      "telemetry": {}
+    },
+    {
+      "item_key": "grounded-and-well-designed-responses/requested-response-structure/r5/v1",
+      "concept_id": "requested-response-structure",
+      "rung": 5,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Analyzing/Evaluating",
+        "question_type": "single_choice",
+        "prompt": "A team lead has already asked for a summary of generative AI adoption for corporate executives. The answer is hard to scan. Which addition best solves that problem?",
+        "concept_id": "requested-response-structure",
+        "options": [
+          {
+            "text": "Use six bullet points",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Six bullet points directly specify an easy-to-scan organization. The topic and audience are already clear, so format is the missing instruction.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Include a sample professional paragraph",
+            "is_correct": false,
+            "error_type": "Confuses structure with examples",
+            "rationale": "A professional paragraph sample guides writing style. It does not directly make the response easier to scan.",
+            "better_fit": "This fits a need to demonstrate a professional style. Use it when tone or wording is the main concern.",
+            "feedback": {
+              "intrinsic": "The summary may sound professional but remain difficult for executives to scan quickly.",
+              "instructional": "The problem is organization, so request bullets, a table, or another clear structure rather than a style sample."
+            }
+          },
+          {
+            "text": "Retrieve relevant policy documents",
+            "is_correct": false,
+            "error_type": "Confuses structure with RAG",
+            "rationale": "Retrieval provides relevant information for grounding a response. The stated problem is that the existing answer is hard to scan.",
+            "better_fit": "This fits a question that lacks relevant factual information. It is useful when a response needs to be based on supplied documents.",
+            "feedback": {
+              "intrinsic": "The answer may gain more facts but still be presented in a hard-to-scan form.",
+              "instructional": "Retrieval solves a missing-information problem. Here, add a response-structure instruction to solve the organization problem."
+            }
+          },
+          {
+            "text": "Restate the topic more clearly",
+            "is_correct": false,
+            "error_type": "Confuses structure with prompt specificity",
+            "rationale": "The topic and audience have already been provided. Restating them does not directly specify a more scan-friendly format.",
+            "better_fit": "This fits a request that is vague about its topic or intended audience. It is helpful before the task has been made clear.",
+            "feedback": {
+              "intrinsic": "The lead may receive the same dense format even after the topic is repeated.",
+              "instructional": "Because the request is already clear, focus on format. Bullet points directly improve how the response is organized."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct—six bullet points directly address the scanning problem. They add a clear structure without changing the established topic or audience."
+      },
+      "payload_hash": "38b6eebfa8bd211b8d1597830d79bf8486783cb0cfc2722ab705c9c25e4b9a80",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "77d4fc62057eff8e40060c80208cfa6658a1b5b8838d81089d5b2eeb3297629b",
+      "telemetry": {}
+    }
+  ],
+  "flashcards": [
+    {
+      "front": "What is RAG?",
+      "back": "RAG retrieves relevant information and adds it to a prompt.",
+      "hint": "Think: retrieve, then add context."
+    },
+    {
+      "front": "What is a grounded response?",
+      "back": "A response based on relevant information supplied in its prompt.",
+      "hint": "It uses provided information."
+    },
+    {
+      "front": "Why add examples to prompts?",
+      "back": "Examples help the model reproduce a requested style.",
+      "hint": "Show the style you want."
+    },
+    {
+      "front": "What is response structure?",
+      "back": "The requested organization, such as bullets, tables, or numbered lists.",
+      "hint": "It tells how to organize."
+    }
+  ]
+}

@@ -1,0 +1,100 @@
+{
+  "amendment_sha256": "6a97c2e5a01c7dbc5441bd6b3e2814e933614700cf405e478cf4cd1ce216a37f",
+  "schema_version": "techlingo-gauntlet-authored-amendment-v1",
+  "approved_by": "Codex reviewer for Adi",
+  "approved_at": "2026-08-29T08:11:17.882817+00:00",
+  "approval_sha256": "2420c17de0b1d5f01a356bee06485084b2b30d66f374c75de1dae2daacb76556",
+  "proposal_sha256": "c06ea5a2452982c7ec64a7cb603dd432ecef4affa3d3a4d254e6bb3d2e2ef439",
+  "history_sha256": "303c2a5442c1324e0d0109109062eb8df00cdb57c669901dd007e89e4ea3483d",
+  "item_key": "extract-information-from-audio/prebuilt-audio-sdk-flow/r5/v1",
+  "bank_path": "bank/extract-information-from-audio.json",
+  "reason": "Reviewer accepted the exact source-bound promoted edit without a mechanic change.",
+  "payload_before": {
+    "blooms_level": "Analyzing/Evaluating",
+    "question_type": "multi_choice",
+    "prompt": "A developer must choose a reliable flow for a voicemail WAV file whose transcript and structured fields will be read after processing. Which choices should the developer select? Select all that apply.",
+    "concept_id": "prebuilt-audio-sdk-flow",
+    "options": [
+      {
+        "text": "Use prebuilt-audioSearch",
+        "is_correct": true,
+        "error_type": null,
+        "rationale": "prebuilt-audioSearch is the appropriate prebuilt analyzer for audio. It fits a voicemail WAV input.",
+        "better_fit": null,
+        "feedback": null
+      },
+      {
+        "text": "Provide an accessible voicemail URL",
+        "is_correct": true,
+        "error_type": null,
+        "rationale": "The analysis flow requires an accessible URL to the voicemail file. This makes the audio available to the analyzer.",
+        "better_fit": null,
+        "feedback": null
+      },
+      {
+        "text": "Wait before reading returned content",
+        "is_correct": true,
+        "error_type": null,
+        "rationale": "The operation is asynchronous, so results arrive after processing. Waiting prevents a premature attempt to read output.",
+        "better_fit": null,
+        "feedback": null
+      },
+      {
+        "text": "Use prebuilt-invoice",
+        "is_correct": false,
+        "error_type": "Incorrect analyzer decision",
+        "rationale": "prebuilt-invoice is designed for invoice content rather than audio. It is not a reliable choice for a voicemail WAV file.",
+        "better_fit": "Use prebuilt-invoice when the input is an invoice requiring invoice-field extraction.",
+        "feedback": {
+          "intrinsic": "The selected analyzer would not fit the voicemail input.",
+          "instructional": "Evaluate the media type first: a WAV voicemail requires prebuilt-audioSearch."
+        }
+      }
+    ],
+    "feedback_for_correct": "Correct. This choice set matches the audio input and asynchronous result flow."
+  },
+  "payload_after": {
+    "blooms_level": "Analyzing/Evaluating",
+    "question_type": "multi_choice",
+    "prompt": "A developer must choose a reliable flow for a voicemail WAV file whose transcript and structured fields will be read after processing. Which choices should the developer select? Select all that apply.",
+    "concept_id": "prebuilt-audio-sdk-flow",
+    "options": [
+      {
+        "text": "Use prebuilt-audioSearch",
+        "is_correct": true,
+        "error_type": null,
+        "rationale": "prebuilt-audioSearch is the appropriate prebuilt analyzer for audio. It fits a voicemail WAV input.",
+        "better_fit": null,
+        "feedback": null
+      },
+      {
+        "text": "Provide an accessible voicemail URL",
+        "is_correct": true,
+        "error_type": null,
+        "rationale": "The analysis flow requires an accessible URL to the voicemail file. This makes the audio available to the analyzer.",
+        "better_fit": null,
+        "feedback": null
+      },
+      {
+        "text": "Wait before reading returned content",
+        "is_correct": true,
+        "error_type": null,
+        "rationale": "The operation is asynchronous, so results arrive after processing. Waiting prevents a premature attempt to read output.",
+        "better_fit": null,
+        "feedback": null
+      },
+      {
+        "text": "Use prebuilt-invoice",
+        "is_correct": false,
+        "error_type": "Incorrect analyzer decision",
+        "rationale": "prebuilt-invoice is designed for invoice content rather than audio. It is not a reliable choice for a voicemail WAV file.",
+        "better_fit": "Use prebuilt-invoice when the input is an invoice requiring invoice-field extraction.",
+        "feedback": {
+          "intrinsic": "The selected analyzer would not fit the voicemail input.",
+          "instructional": "Evaluate the media type first: a WAV voicemail requires prebuilt-audioSearch."
+        }
+      }
+    ],
+    "feedback_for_correct": "Use prebuilt-audioSearch for audio, provide an accessible voicemail URL, and wait or poll for the asynchronous operation to complete before reading the transcript and structured results."
+  }
+}

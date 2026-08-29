@@ -38,12 +38,20 @@ class LLMClient:
         self.model_id = model_id or backend.model_label
         self._instructions = instructions
         self._timeout_s = timeout_s if timeout_s is not None else default_timeout_s()
+        self._last_backend_calls = 0
 
     @property
     def backend(self) -> CompletionBackend:
         return self._backend
 
+    @property
+    def last_backend_calls(self) -> int:
+        """Physical completion attempts made by the most recent JSON operation."""
+
+        return self._last_backend_calls
+
     async def _complete(self, prompt: str, response_model: type[BaseModel] | None = None) -> str:
+        self._last_backend_calls += 1
         return (
             await self._backend.complete(
                 prompt,
@@ -82,6 +90,7 @@ class LLMClient:
         return s.strip()
 
     async def run_json(self, prompt: str, *, max_retries: int = 2) -> dict[str, Any]:
+        self._last_backend_calls = 0
         last_err: Exception | None = None
         current = prompt
         for _ in range(max_retries + 1):
@@ -116,8 +125,14 @@ class LLMClient:
         Returns the raw dict (callers still read fields like ``thought_process``)
         alongside the validated model.
         """
+        self._last_backend_calls = 0
         last_err: Exception | None = None
-        current = prompt
+        schema_json = json.dumps(model.model_json_schema(), indent=2, sort_keys=True)
+        schema_prompt = (
+            f"{prompt}\n\nREQUIRED OUTPUT JSON SCHEMA:\n{schema_json}\n\n"
+            "Return only one JSON object that matches this schema exactly."
+        )
+        current = schema_prompt
         for _ in range(max_retries + 1):
             text = await self._complete(current, response_model=model)
             try:
@@ -128,7 +143,7 @@ class LLMClient:
                 current = (
                     "Your previous output was not valid JSON.\n"
                     "Return ONLY a single JSON object, with no markdown fences or commentary.\n\n"
-                    f"Original task:\n{prompt}\n\n"
+                    f"Original task and required schema:\n{schema_prompt}\n\n"
                     f"JSON parse error:\n{e}"
                 )
                 continue
@@ -141,7 +156,7 @@ class LLMClient:
                     "Your previous JSON did not match the required schema.\n"
                     "Return ONLY corrected JSON that matches the schema exactly. "
                     "Do not invent new field values for enums/discriminators; use only the allowed ones.\n\n"
-                    f"Original task:\n{prompt}\n\n"
+                    f"Original task and required schema:\n{schema_prompt}\n\n"
                     f"Schema validation errors:\n{e}"
                 )
         assert last_err is not None

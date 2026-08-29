@@ -1,0 +1,630 @@
+{
+  "schema_version": "techlingo-gauntlet-record-v1",
+  "compiled_artifact_sha256": "69c9d18537cc04d4d24f6ffad549e8d9c17ee1b85b2ba8dc167de6c8be33ae73",
+  "unit_key": "build-document-extraction-in-code-l3",
+  "champion": {
+    "artifact_id": "ai-901:build-document-extraction-in-code-l3",
+    "course_id": "ai-901",
+    "session_id": "build-document-extraction-in-code-l3",
+    "items": [
+      {
+        "item_key": "build-document-extraction-in-code/python-sdk-analysis/r3/v2",
+        "path": "modules/11:12-get-started-with-ai-powered-information-extraction/units/11:build-document-extraction-in-code-l3/questions/0",
+        "payload": {
+          "import_key": "build-document-extraction-in-code-l3-q1",
+          "question_type": "fill_blank",
+          "question_text": "The SDK method that waits for analysis completion is ___.",
+          "options": {
+            "parts": [
+              {
+                "type": "text",
+                "text": "The SDK method that waits for analysis completion is "
+              },
+              {
+                "type": "gap",
+                "accepted_answers": [
+                  "poller.result()",
+                  "result()"
+                ],
+                "rejected_answers": [
+                  "begin_analyze",
+                  "AzureKeyCredential",
+                  "asynchronous-analysis-and-polling",
+                  "content-understanding-api-and-client"
+                ],
+                "placeholder": "method"
+              },
+              {
+                "type": "text",
+                "text": "."
+              }
+            ],
+            "rejected_answers": [
+              "begin_analyze",
+              "AzureKeyCredential",
+              "asynchronous-analysis-and-polling",
+              "content-understanding-api-and-client"
+            ],
+            "blooms_level": "Remembering",
+            "original_question_type": "fill_gaps",
+            "concept_id": "python-sdk-analysis",
+            "feedback_for_incorrect": {
+              "intrinsic": "The code would start analysis or authenticate, but would not wait for the completed result.",
+              "instructional": "Use poller.result() after begin_analyze. The other names have different roles."
+            },
+            "item_key": "build-document-extraction-in-code/python-sdk-analysis/r3/v2",
+            "rung": 3,
+            "variant": 2,
+            "module_key": "12-get-started-with-ai-powered-information-extraction",
+            "lesson_key": "build-document-extraction-in-code",
+            "learning_status": "review"
+          },
+          "correct_answer": "[\"poller.result()\",\"result()\"]",
+          "explanation": "poller.result() waits for the long-running operation to complete, with polling handled by the SDK. begin_analyze starts the operation, and AzureKeyCredential supplies key-based access.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "build-document-extraction-in-code/content-understanding-api-client/r3/v2",
+        "path": "modules/11:12-get-started-with-ai-powered-information-extraction/units/11:build-document-extraction-in-code-l3/questions/1",
+        "payload": {
+          "import_key": "build-document-extraction-in-code-l3-q2",
+          "question_type": "arrange_sentence",
+          "question_text": "Arrange the parts to form the correct statement.",
+          "options": {
+            "word_bank": [
+              "from a server",
+              "The client",
+              "over a network",
+              "requests analysis"
+            ],
+            "correct_order": [
+              "The client",
+              "requests analysis",
+              "from a server",
+              "over a network"
+            ],
+            "blooms_level": "Understanding",
+            "original_question_type": "rearrange",
+            "concept_id": "content-understanding-api-client",
+            "feedback_for_incorrect": {
+              "intrinsic": "The roles or connection details would be hard to follow.",
+              "instructional": "Start with who acts, then what it requests, then where the request goes and how."
+            },
+            "item_key": "build-document-extraction-in-code/content-understanding-api-client/r3/v2",
+            "rung": 3,
+            "variant": 2,
+            "module_key": "12-get-started-with-ai-powered-information-extraction",
+            "lesson_key": "build-document-extraction-in-code",
+            "learning_status": "review"
+          },
+          "correct_answer": "The client requests analysis from a server over a network",
+          "explanation": "The client is the requester, and the server provides the intensive analysis. The network connects the request to the server.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "build-document-extraction-in-code/prebuilt-invoice-sdk-flow/r5/v1",
+        "path": "modules/11:12-get-started-with-ai-powered-information-extraction/units/11:build-document-extraction-in-code-l3/questions/2",
+        "payload": {
+          "import_key": "build-document-extraction-in-code-l3-q3",
+          "question_type": "multiple_choice",
+          "question_text": "An accounts-payable team receives invoice PDFs and must send CustomerName and InvoiceDate into its software automatically. Which approach best fits?",
+          "options": {
+            "options": [
+              {
+                "text": "Use prebuilt-audioSearch with the SDK.",
+                "is_correct": false,
+                "error_type": "Confuses invoice documents with audio input",
+                "rationale": "prebuilt-audioSearch is for audio analysis. Invoice PDFs need the invoice analyzer.",
+                "better_fit": "Use it when processing recordings or calls.",
+                "feedback": {
+                  "intrinsic": "The team would select analysis for the wrong content type and not follow the invoice flow.",
+                  "instructional": "Match the analyzer to the input: use prebuilt-invoice for invoice PDFs."
+                }
+              },
+              {
+                "text": "Use the portal to inspect layout only.",
+                "is_correct": false,
+                "error_type": "Confuses portal testing with coded invoice extraction",
+                "rationale": "The portal can help test analysis and inspect results visually. Inspecting layout alone does not automate sending extracted fields into an application.",
+                "better_fit": "Use the portal to validate analyzer output before writing automation.",
+                "feedback": {
+                  "intrinsic": "The team would still need a person to inspect invoices rather than pass fields onward automatically.",
+                  "instructional": "Use the Python SDK and prebuilt-invoice when invoice fields must be handled automatically."
+                }
+              },
+              {
+                "text": "Use basic OCR without invoice fields.",
+                "is_correct": false,
+                "error_type": "Confuses text recognition with schema-based invoice extraction",
+                "rationale": "Basic OCR recognizes printed text but does not understand meaning or relationships. The team needs specific invoice fields such as CustomerName and InvoiceDate.",
+                "better_fit": "Use basic OCR when only editable and searchable printed text is needed.",
+                "feedback": {
+                  "intrinsic": "The team could get text but not the structured invoice values needed for its workflow.",
+                  "instructional": "Use the invoice analyzer to return named fields, not only recognized text."
+                }
+              },
+              {
+                "text": "Use prebuilt-invoice with the Python SDK.",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "prebuilt-invoice is designed for invoice analysis, and the Python SDK supports coded submission and returned fields. This fits automatic handling of invoice PDFs.",
+                "better_fit": null,
+                "feedback": null
+              }
+            ],
+            "blooms_level": "Analyzing/Evaluating",
+            "original_question_type": "single_choice",
+            "concept_id": "prebuilt-invoice-sdk-flow",
+            "item_key": "build-document-extraction-in-code/prebuilt-invoice-sdk-flow/r5/v1",
+            "rung": 5,
+            "variant": 1,
+            "module_key": "12-get-started-with-ai-powered-information-extraction",
+            "lesson_key": "build-document-extraction-in-code",
+            "learning_status": "new"
+          },
+          "correct_answer": "3",
+          "explanation": "Correct. The prebuilt invoice analyzer and Python SDK support automatic extraction and use of invoice fields.",
+          "points": 1
+        }
+      }
+    ],
+    "metadata": {
+      "module_key": "12-get-started-with-ai-powered-information-extraction",
+      "unit_title": "Build document extraction in code · Level 3",
+      "unit_slo": "Describe how a client application submits and receives document analysis results.",
+      "constraint_relaxations": []
+    }
+  },
+  "history": {
+    "schema_version": "techlingo-gauntlet-history-v1",
+    "run_id": "build-document-extraction-in-code-l3-decd5954d17a",
+    "started_at": "2026-08-28T08:22:50.338989Z",
+    "finished_at": "2026-08-28T08:53:28.418668Z",
+    "initial_champion_hash": "da0275bd0f1a3eaedc43056abbd4d7c3e8db685714db1b28ce30cde675e0b0f7",
+    "final_champion_hash": "da0275bd0f1a3eaedc43056abbd4d7c3e8db685714db1b28ce30cde675e0b0f7",
+    "evaluation_context": {
+      "schema_version": "techlingo-evaluation-context-v1",
+      "goal": "Produce an excellent, source-faithful learner session while preserving all deterministic correctness, identity, and sequence constraints.",
+      "source_fidelity_goal": "Independently verify the hard-gated edited challenger against the supplied source material. Reject unsupported facts, answers, explanations, feedback, or terminology changes; do not edit the artifact.",
+      "gauntlet_policy": {
+        "critic_backend": "codex",
+        "critic_model": "codex:gpt-5.6-luna",
+        "builder_model": "codex:gpt-5.6-terra",
+        "max_rounds": 4,
+        "plateau_rounds": 2,
+        "repeated_loss_rounds": 2,
+        "minimum_improvement_margin": 0.02,
+        "confidence_threshold": 0.65,
+        "human_review_threshold": 0.4,
+        "max_time_seconds": null,
+        "max_tokens": null,
+        "max_cost_usd": null,
+        "qualitative_required_for_publication": true,
+        "quality_thresholds": {
+          "factual_fidelity": 0.8,
+          "answer_unambiguity": 0.8,
+          "distractor_plausibility": 0.8,
+          "misconception_quality": 0.8,
+          "cognitive_progression": 0.8,
+          "mechanic_rhythm_variation": 0.8,
+          "prompt_language_variation": 0.8,
+          "scenario_authenticity": 0.8,
+          "feedback_usefulness": 0.8,
+          "difficulty_appropriateness": 0.8,
+          "terminology_consistency": 0.8,
+          "overall_learner_experience": 0.8
+        },
+        "comparison_seed": 901,
+        "protected_dimensions": [
+          "factual_fidelity",
+          "answer_unambiguity"
+        ],
+        "unstable_comparison_requires_human_review": true,
+        "identifying_metadata_keys": [
+          "artifact_id",
+          "builder_model",
+          "candidate_role",
+          "challenger",
+          "champion",
+          "critic_model",
+          "generated_at",
+          "import_key",
+          "item_key",
+          "model_id",
+          "path",
+          "version_id"
+        ]
+      },
+      "gauntlet_policy_sha256": "035ba75a6dc056e4680b4c7cb97f2859ec5160f72633534a4550ba69e8061ac4",
+      "rubric": {
+        "criteria": {
+          "factual_fidelity": "Every claim and answer is faithful to the supplied source.",
+          "answer_unambiguity": "Each item has one defensible answer under its instructions.",
+          "distractor_plausibility": "Distractors are credible without becoming defensible answers.",
+          "misconception_quality": "Wrong choices diagnose realistic learner misconceptions.",
+          "cognitive_progression": "The ordered session builds understanding at a coherent pace.",
+          "mechanic_rhythm_variation": "Mechanics vary naturally without disruptive repetition.",
+          "prompt_language_variation": "Prompt stems avoid formulaic repetition.",
+          "scenario_authenticity": "Scenarios resemble credible decisions or tasks.",
+          "feedback_usefulness": "Feedback explains the governing concept and next step.",
+          "difficulty_appropriateness": "Difficulty matches the stated audience and session position.",
+          "terminology_consistency": "Terms are used consistently with the source and across items.",
+          "overall_learner_experience": "The exact final sequence is coherent, varied, and instructive."
+        }
+      },
+      "rubric_sha256": "34290a842f2ed7e30b7a98ba70ac97d967c864424010cd31255f97cdce0b57d5",
+      "sources": [
+        {
+          "input_id": "12. Get started with AI-powered information extraction in Azure.md",
+          "sha256": "1e778579ac185d5d6eb4a1b22adfa8cb3b6672f1f586af15fc69e33705113bcd",
+          "location": "sources/12. Get started with AI-powered information extraction in Azure.md"
+        }
+      ],
+      "approved_references": [],
+      "models": {
+        "builder_model": "codex:gpt-5.6-terra",
+        "critic_backend": "codex",
+        "critic_model": "codex:gpt-5.6-luna",
+        "critic_fresh_context": true,
+        "editor_backend": "codex",
+        "editor_model": "codex:gpt-5.6-luna",
+        "editor_fresh_context": true,
+        "comparator_backend": "codex",
+        "comparator_model": "codex:gpt-5.6-luna",
+        "comparator_fresh_context": true
+      },
+      "context_sha256": "5164a64634ebd049a0f094ad803871da79175caa1a1f896d77dadaa278114d51"
+    },
+    "initial_hard_gate": {
+      "artifact_sha256": "da0275bd0f1a3eaedc43056abbd4d7c3e8db685714db1b28ce30cde675e0b0f7",
+      "passed": true,
+      "issues": [],
+      "checks": {
+        "schema_and_answers": true,
+        "identity": true,
+        "final_sequence": true
+      },
+      "metrics": {},
+      "constraint_relaxations": []
+    },
+    "rounds": [
+      {
+        "round_number": 1,
+        "champion_hash_before": "da0275bd0f1a3eaedc43056abbd4d7c3e8db685714db1b28ce30cde675e0b0f7",
+        "critic": {
+          "result": {
+            "dimensions": [
+              {
+                "dimension": "factual_fidelity",
+                "score": 0.96,
+                "evidence": [
+                  {
+                    "statement": "Item 1 identifies poller.result() as the SDK call that waits for the long-running analysis operation, matching the supplied SDK example.",
+                    "item_keys": [
+                      "build-document-extraction-in-code/python-sdk-analysis/r3/v2"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/11:build-document-extraction-in-code-l3/questions/0"
+                    ]
+                  },
+                  {
+                    "statement": "Item 3 correctly pairs invoice PDFs with prebuilt-invoice and the Python SDK.",
+                    "item_keys": [
+                      "build-document-extraction-in-code/prebuilt-invoice-sdk-flow/r5/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/11:build-document-extraction-in-code-l3/questions/2"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "answer_unambiguity",
+                "score": 0.72,
+                "evidence": [
+                  {
+                    "statement": "Items 1 and 3 have clearly intended answers, but item 2 permits another grammatical ordering, such as 'The client requests analysis over a network from a server,' while its fixed correct_order requires a different order.",
+                    "item_keys": [
+                      "build-document-extraction-in-code/content-understanding-api-client/r3/v2"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/11:build-document-extraction-in-code-l3/questions/1"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "distractor_plausibility",
+                "score": 0.91,
+                "evidence": [
+                  {
+                    "statement": "Item 3 uses credible alternatives: audio analysis, portal-only inspection, and basic OCR, while each remains unsuitable for automated structured invoice-field extraction.",
+                    "item_keys": [
+                      "build-document-extraction-in-code/prebuilt-invoice-sdk-flow/r5/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/11:build-document-extraction-in-code-l3/questions/2"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "misconception_quality",
+                "score": 0.92,
+                "evidence": [
+                  {
+                    "statement": "Item 3 diagnoses distinct misconceptions about matching analyzers to content type, confusing portal validation with automation, and confusing OCR text recognition with schema-based extraction.",
+                    "item_keys": [
+                      "build-document-extraction-in-code/prebuilt-invoice-sdk-flow/r5/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/11:build-document-extraction-in-code-l3/questions/2"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "cognitive_progression",
+                "score": 0.87,
+                "evidence": [
+                  {
+                    "statement": "The ordered sequence moves from recalling the completion method, to understanding client-server interaction, to analyzing an invoice-automation choice.",
+                    "item_keys": [
+                      "build-document-extraction-in-code/python-sdk-analysis/r3/v2",
+                      "build-document-extraction-in-code/content-understanding-api-client/r3/v2",
+                      "build-document-extraction-in-code/prebuilt-invoice-sdk-flow/r5/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/11:build-document-extraction-in-code-l3/questions/0",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/11:build-document-extraction-in-code-l3/questions/1",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/11:build-document-extraction-in-code-l3/questions/2"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "mechanic_rhythm_variation",
+                "score": 0.9,
+                "evidence": [
+                  {
+                    "statement": "The three consecutive items use three different mechanics: fill-in-the-blank, sentence arrangement, and multiple choice.",
+                    "item_keys": [
+                      "build-document-extraction-in-code/python-sdk-analysis/r3/v2",
+                      "build-document-extraction-in-code/content-understanding-api-client/r3/v2",
+                      "build-document-extraction-in-code/prebuilt-invoice-sdk-flow/r5/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/11:build-document-extraction-in-code-l3/questions/0",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/11:build-document-extraction-in-code-l3/questions/1",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/11:build-document-extraction-in-code-l3/questions/2"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "prompt_language_variation",
+                "score": 0.86,
+                "evidence": [
+                  {
+                    "statement": "Prompt stems vary across a direct completion request, an arrangement instruction, and an applied workplace question.",
+                    "item_keys": [
+                      "build-document-extraction-in-code/python-sdk-analysis/r3/v2",
+                      "build-document-extraction-in-code/content-understanding-api-client/r3/v2",
+                      "build-document-extraction-in-code/prebuilt-invoice-sdk-flow/r5/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/11:build-document-extraction-in-code-l3/questions/0",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/11:build-document-extraction-in-code-l3/questions/1",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/11:build-document-extraction-in-code-l3/questions/2"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "scenario_authenticity",
+                "score": 0.93,
+                "evidence": [
+                  {
+                    "statement": "The accounts-payable invoice-PDF scenario represents a credible automation decision involving structured fields sent into business software.",
+                    "item_keys": [
+                      "build-document-extraction-in-code/prebuilt-invoice-sdk-flow/r5/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/11:build-document-extraction-in-code-l3/questions/2"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "feedback_usefulness",
+                "score": 0.86,
+                "evidence": [
+                  {
+                    "statement": "Item 1 explains the distinct roles of begin_analyze, poller.result(), and AzureKeyCredential; item 3 explains why invoice analysis and the SDK fit the workflow and why each alternative fails.",
+                    "item_keys": [
+                      "build-document-extraction-in-code/python-sdk-analysis/r3/v2",
+                      "build-document-extraction-in-code/prebuilt-invoice-sdk-flow/r5/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/11:build-document-extraction-in-code-l3/questions/0",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/11:build-document-extraction-in-code-l3/questions/2"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "difficulty_appropriateness",
+                "score": 0.9,
+                "evidence": [
+                  {
+                    "statement": "For a Level 3 unit, the sequence combines foundational SDK recall with a client-flow understanding check and a higher-level analyzer-selection scenario.",
+                    "item_keys": [
+                      "build-document-extraction-in-code/python-sdk-analysis/r3/v2",
+                      "build-document-extraction-in-code/content-understanding-api-client/r3/v2",
+                      "build-document-extraction-in-code/prebuilt-invoice-sdk-flow/r5/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/11:build-document-extraction-in-code-l3/questions/0",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/11:build-document-extraction-in-code-l3/questions/1",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/11:build-document-extraction-in-code-l3/questions/2"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "terminology_consistency",
+                "score": 0.94,
+                "evidence": [
+                  {
+                    "statement": "The artifact consistently uses analyzer, Python SDK, prebuilt-invoice, prebuilt-audioSearch, client, server, and structured fields in compatible roles.",
+                    "item_keys": [
+                      "build-document-extraction-in-code/python-sdk-analysis/r3/v2",
+                      "build-document-extraction-in-code/prebuilt-invoice-sdk-flow/r5/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/11:build-document-extraction-in-code-l3/questions/0",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/11:build-document-extraction-in-code-l3/questions/2"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "overall_learner_experience",
+                "score": 0.85,
+                "evidence": [
+                  {
+                    "statement": "The exact three-item sequence is concise, varied, source-aligned, and progressively applied, but the fixed-order arrangement item can penalize a semantically equivalent answer.",
+                    "item_keys": [
+                      "build-document-extraction-in-code/python-sdk-analysis/r3/v2",
+                      "build-document-extraction-in-code/content-understanding-api-client/r3/v2",
+                      "build-document-extraction-in-code/prebuilt-invoice-sdk-flow/r5/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/11:build-document-extraction-in-code-l3/questions/0",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/11:build-document-extraction-in-code-l3/questions/1",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/11:build-document-extraction-in-code-l3/questions/2"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "critical_defects": [
+              {
+                "defect_id": "D1",
+                "dimension": "answer_unambiguity",
+                "summary": "The sentence-arrangement item has more than one defensible grammatical ordering, creating a deterministic correctness risk.",
+                "evidence": [
+                  {
+                    "statement": "The chunks can produce the keyed sentence or the semantically equivalent 'The client requests analysis over a network from a server'; the prompt provides no punctuation or constraint that uniquely forces the keyed order.",
+                    "item_keys": [
+                      "build-document-extraction-in-code/content-understanding-api-client/r3/v2"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/11:build-document-extraction-in-code-l3/questions/1"
+                    ]
+                  }
+                ],
+                "affected_item_keys": [
+                  "build-document-extraction-in-code/content-understanding-api-client/r3/v2"
+                ],
+                "affected_paths": [
+                  "modules/11:12-get-started-with-ai-powered-information-extraction/units/11:build-document-extraction-in-code-l3/questions/1"
+                ],
+                "recommended_scope": "item"
+              }
+            ],
+            "largest_gap": {
+              "dimension": "answer_unambiguity",
+              "summary": "Item 2 does not uniquely determine its required word order.",
+              "evidence": [
+                {
+                  "statement": "The arrangement mechanic accepts only the listed correct_order even though an alternate chunk order remains grammatical and preserves the intended meaning.",
+                  "item_keys": [
+                    "build-document-extraction-in-code/content-understanding-api-client/r3/v2"
+                  ],
+                  "paths": [
+                    "modules/11:12-get-started-with-ai-powered-information-extraction/units/11:build-document-extraction-in-code-l3/questions/1"
+                  ]
+                }
+              ],
+              "affected_item_keys": [
+                "build-document-extraction-in-code/content-understanding-api-client/r3/v2"
+              ],
+              "affected_paths": [
+                "modules/11:12-get-started-with-ai-powered-information-extraction/units/11:build-document-extraction-in-code-l3/questions/1"
+              ],
+              "recommended_scope": "item",
+              "repair_instruction": "Replace the chunks with wording or punctuation that permits exactly one grammatical ordering, or change the mechanic to accept all explicitly equivalent orders.",
+              "allowed_payload_fields": [
+                "question_text",
+                "options.word_bank",
+                "options.correct_order",
+                "options.feedback_for_incorrect"
+              ]
+            },
+            "confidence": 0.78,
+            "human_review_recommended": true,
+            "concise_summary": "The session is strongly source-faithful, varied, and appropriately progressive. Item 2 has a deterministic answer-order ambiguity. Confidence is reduced because no approved references were supplied."
+          },
+          "artifact_sha256": "da0275bd0f1a3eaedc43056abbd4d7c3e8db685714db1b28ce30cde675e0b0f7",
+          "evaluation_context_sha256": "5164a64634ebd049a0f094ad803871da79175caa1a1f896d77dadaa278114d51",
+          "goal_sha256": "c4bae546eef7fec8c92895a1538196a8df81a13754329022bca211a6200752ae",
+          "critic_backend": "codex",
+          "critic_model": "codex:gpt-5.6-luna",
+          "fresh_context": true,
+          "model_independence": "independent",
+          "approved_reference_count": 0,
+          "reference_confidence_reduced": true,
+          "usage": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cost_usd": 0.0,
+            "backend_calls": 3
+          }
+        },
+        "critic_failure": null,
+        "repair_scope": null,
+        "repair_summary": null,
+        "editor_backend": null,
+        "editor_model": null,
+        "editor_fresh_context": null,
+        "edit_usage": null,
+        "validation_retry_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost_usd": 0.0,
+          "backend_calls": 0
+        },
+        "touched_item_keys": [],
+        "challenger_hash": null,
+        "hard_gate": null,
+        "source_fidelity_critic": null,
+        "source_fidelity_gate": null,
+        "comparison": null,
+        "decision": "retained_human",
+        "decision_evidence": "Critic confidence/finding requires human review.",
+        "champion_hash_after": "da0275bd0f1a3eaedc43056abbd4d7c3e8db685714db1b28ce30cde675e0b0f7",
+        "constraint_relaxations": [],
+        "cumulative_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost_usd": 0.0,
+          "backend_calls": 3
+        }
+      }
+    ],
+    "stop_reason": "human_review_required",
+    "stop_evidence": "Critic requested human review or confidence was below threshold.",
+    "human_decision": null,
+    "total_usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "backend_calls": 3
+    },
+    "human_review_recommended": true,
+    "publication_eligible": false
+  }
+}

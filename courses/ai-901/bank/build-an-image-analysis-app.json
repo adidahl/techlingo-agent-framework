@@ -1,0 +1,1371 @@
+{
+  "schema_version": "exercise-bank-v1",
+  "lesson": "build-an-image-analysis-app",
+  "module": "11-get-started-with-computer-vision-in-azure",
+  "items": [
+    {
+      "item_key": "build-an-image-analysis-app/multimodal-python-request/r1/v1",
+      "concept_id": "multimodal-python-request",
+      "rung": 1,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "single_choice",
+        "prompt": "Which content type attaches a picture to a Python image-analysis request?",
+        "concept_id": "multimodal-python-request",
+        "options": [
+          {
+            "text": "input_image",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "input_image labels attached visual content. It lets the request include a picture.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "input_text",
+            "is_correct": false,
+            "error_type": "Confuses text with image input",
+            "rationale": "input_text holds written instructions rather than a picture. It cannot label the visual attachment.",
+            "better_fit": "Use input_text for a written question or instruction.",
+            "feedback": null
+          },
+          {
+            "text": "image_generation",
+            "is_correct": false,
+            "error_type": "Confuses analysis with generation",
+            "rationale": "Image generation creates a new image. It does not attach an existing image for inspection.",
+            "better_fit": "Use image generation when a prompt should create visual output.",
+            "feedback": null
+          },
+          {
+            "text": "response.output_text",
+            "is_correct": false,
+            "error_type": "Confuses output with input",
+            "rationale": "response.output_text is the returned answer. It is not request content.",
+            "better_fit": "Use response.output_text after the request to read the answer.",
+            "feedback": null
+          }
+        ],
+        "feedback_for_correct": "Correct. input_image identifies the attached picture."
+      },
+      "payload_hash": "26b248dad10f1f1c35351b9d5d57dd95aa44fc6a1d10a684f1c417520f00b89c",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "cb5c140c749f0e1e32219cde088518d11e37c34a25f14b436578ce7d59564083",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-an-image-analysis-app/multimodal-python-request/r2/v1",
+      "concept_id": "multimodal-python-request",
+      "rung": 2,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "true_false",
+        "prompt": "Is the following statement accurate?",
+        "concept_id": "multimodal-python-request",
+        "statement": "An image-analysis request must send the text instruction and image in separate requests.",
+        "correct_answer": false,
+        "feedback_for_correct": "Correct. One message can include both content types.",
+        "feedback_for_incorrect": {
+          "intrinsic": "Separating them can prevent one response from using both inputs.",
+          "instructional": "A user message can contain input_text and input_image together."
+        }
+      },
+      "payload_hash": "6dfbb8b0bce19faba3d04b356381a6d6d16c8ba6edb7d47695e0b2c2225c702f",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "cb5c140c749f0e1e32219cde088518d11e37c34a25f14b436578ce7d59564083",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-an-image-analysis-app/multimodal-python-request/r3/v1",
+      "concept_id": "multimodal-python-request",
+      "rung": 3,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "fill_gaps",
+        "prompt": "Complete the content type for written instructions in a multimodal request.",
+        "concept_id": "multimodal-python-request",
+        "parts": [
+          {
+            "type": "text",
+            "text": "Use "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "input_text"
+            ],
+            "rejected_answers": [
+              "input_image",
+              "image_generation",
+              "image-generation-response",
+              "openai-responses-api"
+            ],
+            "placeholder": "content type"
+          },
+          {
+            "type": "text",
+            "text": " for the written instruction."
+          }
+        ],
+        "explanation": "input_text identifies the words that guide the response.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The instruction would be labeled as the wrong kind of content.",
+          "instructional": "Use input_text for words and input_image for pictures."
+        }
+      },
+      "payload_hash": "d54dc6fe294f1a3566747d225687ab530f65d4f8c8fcc99fb7cca22334dbaa1c",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "cb5c140c749f0e1e32219cde088518d11e37c34a25f14b436578ce7d59564083",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-an-image-analysis-app/multimodal-python-request/r4/v1",
+      "concept_id": "multimodal-python-request",
+      "rung": 4,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Applying",
+        "question_type": "single_choice",
+        "prompt": "A shelf-monitoring developer receives a shelf photo and asks, “Which products are out of stock?” Which request design should the developer choose?",
+        "concept_id": "multimodal-python-request",
+        "options": [
+          {
+            "text": "One message with input_text and input_image",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The question is text and the shelf photo is image content. Sending both together supports an answer based on both.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "One message with input_text only",
+            "is_correct": false,
+            "error_type": "Omits visual input",
+            "rationale": "Text alone cannot show which shelf spaces are empty. The photo supplies the needed visual evidence.",
+            "better_fit": "Use text only when the answer does not depend on a picture.",
+            "feedback": {
+              "intrinsic": "The response could not inspect the shelf.",
+              "instructional": "Include the written question and shelf image in the same message."
+            }
+          },
+          {
+            "text": "An image-generation tool call",
+            "is_correct": false,
+            "error_type": "Confuses analysis with generation",
+            "rationale": "Image generation creates imagery from a description. The task is to inspect an existing shelf photo.",
+            "better_fit": "Use image generation to create a new shelf illustration.",
+            "feedback": {
+              "intrinsic": "The developer would create an image instead of analyzing the shelf.",
+              "instructional": "Send the supplied photo as input_image with the question."
+            }
+          },
+          {
+            "text": "A video render job",
+            "is_correct": false,
+            "error_type": "Confuses image analysis with video generation",
+            "rationale": "A video job produces video output. This task needs a text answer about one image.",
+            "better_fit": "Use a video job when creating a video clip.",
+            "feedback": {
+              "intrinsic": "The store would wait for unrelated video output.",
+              "instructional": "Use a multimodal image request for a photo question."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. The model needs both the photo and written question."
+      },
+      "payload_hash": "ffe1c351d3242cfaa87d4c840c3e15ace848643ffbec12e576dbe098eeba42eb",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "cb5c140c749f0e1e32219cde088518d11e37c34a25f14b436578ce7d59564083",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-an-image-analysis-app/safari-animal-app/r1/v1",
+      "concept_id": "safari-animal-app",
+      "rung": 1,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "multi_choice",
+        "prompt": "Which actions belong in a Safari animal-identification app? Select all that apply.",
+        "concept_id": "safari-animal-app",
+        "options": [
+          {
+            "text": "Upload a Safari photograph",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The photograph provides visual information about the animal. It is an input to identify.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Add a user's natural-language question",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The question tells the app what the visitor wants to know. It accompanies the photograph.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Send image and text in one multi-part message",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A multi-part message can combine the photo and question. The response can use both inputs.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Explain a classroom chart without a photo",
+            "is_correct": false,
+            "error_type": "Confuses animal identification with diagram explanation",
+            "rationale": "Chart explanation is a learning-app task. Safari identification begins with an animal photograph.",
+            "better_fit": "Use this in an app that explains charts or diagrams.",
+            "feedback": null
+          }
+        ],
+        "feedback_for_correct": "Correct. The app combines an animal photograph with a user's question."
+      },
+      "payload_hash": "58bdc5eacd7d9a6ec100831ba47ecc8db62a287399fe8707fa33dcb9358e374d",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "cb5c140c749f0e1e32219cde088518d11e37c34a25f14b436578ce7d59564083",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-an-image-analysis-app/safari-animal-app/r2/v1",
+      "concept_id": "safari-animal-app",
+      "rung": 2,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "true_false",
+        "prompt": "Evaluate this statement.",
+        "concept_id": "safari-animal-app",
+        "statement": "A Safari animal app can produce output based on both an uploaded photograph and a user's question.",
+        "correct_answer": true,
+        "feedback_for_correct": "Correct. The photo provides visual information and the question directs the request.",
+        "feedback_for_incorrect": {
+          "intrinsic": "Using one input alone would leave out either the image or the visitor's request.",
+          "instructional": "The app combines image data and a natural-language prompt."
+        }
+      },
+      "payload_hash": "d95c0240156a454d3a06a8842d8552e89a2a44800f57f8ec02311995d8e61820",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "cb5c140c749f0e1e32219cde088518d11e37c34a25f14b436578ce7d59564083",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-an-image-analysis-app/safari-animal-app/r3/v1",
+      "concept_id": "safari-animal-app",
+      "rung": 3,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "rearrange",
+        "prompt": "Arrange the steps for a Safari animal-identification request.",
+        "concept_id": "safari-animal-app",
+        "word_bank": [
+          "Create a multi-part message",
+          "Upload a photo",
+          "Receive an answer",
+          "Get the question"
+        ],
+        "correct_order": [
+          "Upload a photo",
+          "Get the question",
+          "Create a multi-part message",
+          "Receive an answer"
+        ],
+        "interchangeable_groups": [],
+        "explanation": "The app gathers the photo and question before combining them, then receives an answer.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The app could try to assemble or answer before it has both inputs.",
+          "instructional": "Collect the photo and question, combine them, then receive the answer."
+        }
+      },
+      "payload_hash": "9efe39f22d30b49c905c0d4e3a0365c0a31ad44f556aa76173e3889573071677",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "cb5c140c749f0e1e32219cde088518d11e37c34a25f14b436578ce7d59564083",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-an-image-analysis-app/safari-animal-app/r3/v2",
+      "concept_id": "safari-animal-app",
+      "rung": 3,
+      "variant": 2,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "fill_gaps",
+        "prompt": "Complete the message type that combines a Safari photo and question.",
+        "concept_id": "safari-animal-app",
+        "parts": [
+          {
+            "type": "text",
+            "text": "The app sends the photo and question in a "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "multi-part message",
+              "multipart message"
+            ],
+            "rejected_answers": [
+              "text-only prompt",
+              "image generation request",
+              "customer-photo-support-app",
+              "learning-diagram-app"
+            ],
+            "placeholder": "message type"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "explanation": "A multi-part message carries both image data and written language.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The photo or question could be omitted.",
+          "instructional": "Use a multi-part message for the photo and question together."
+        }
+      },
+      "payload_hash": "b5a8b77822f7f302ba099ca961ef828a71714d84319000d3a64d94e8ed553ae9",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "cb5c140c749f0e1e32219cde088518d11e37c34a25f14b436578ce7d59564083",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-an-image-analysis-app/safari-animal-app/r4/v1",
+      "concept_id": "safari-animal-app",
+      "rung": 4,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Applying",
+        "question_type": "multi_choice",
+        "prompt": "A safari park guide is building an app to identify animals in visitor photos. Which choices should the guide include? Select all that apply.",
+        "concept_id": "safari-animal-app",
+        "options": [
+          {
+            "text": "Let visitors upload photographs",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Visitor photographs provide the animal image. The app needs visual input to identify the animal.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Ask visitors for a natural-language prompt",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A prompt tells the app what the visitor wants to learn. It works with the uploaded photo.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Use output based on both inputs",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The intended result depends on both the photo and prompt. That matches the app's purpose.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Require a chart explanation only",
+            "is_correct": false,
+            "error_type": "Confuses photo identification with diagram explanation",
+            "rationale": "Chart explanation does not identify animals in visitor photos. It belongs to a learning-diagram use case.",
+            "better_fit": "Use chart explanation for learners uploading charts or diagrams.",
+            "feedback": {
+              "intrinsic": "Guests could not ask about animals in their photographs.",
+              "instructional": "Include animal photos, visitor questions, and responses based on both."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. These choices fit a photo-based animal-identification app."
+      },
+      "payload_hash": "a53e95d383e2b2b1bad22834a68d4b1b6b90e22e4fe6b9af6272dbd5b904abd9",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "cb5c140c749f0e1e32219cde088518d11e37c34a25f14b436578ce7d59564083",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-an-image-analysis-app/safari-animal-app/r5/v1",
+      "concept_id": "safari-animal-app",
+      "rung": 5,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Analyzing/Evaluating",
+        "question_type": "multi_choice",
+        "prompt": "A tourism product manager must choose features for travelers who upload Safari photos and ask which animal they see. Which features best fit? Select all that apply.",
+        "concept_id": "safari-animal-app",
+        "options": [
+          {
+            "text": "Accept an uploaded animal photograph",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The photograph is the visual evidence to interpret. It is essential for identifying the animal.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Combine the photo with a user question",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The question supplies the traveler's intent. Combining it with the photo forms a multimodal request.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Return output based on both inputs",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The response should reflect the photo and the user's question. This satisfies the traveler need.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Focus on customer support photos",
+            "is_correct": false,
+            "error_type": "Confuses Safari identification with customer support",
+            "rationale": "Customer support photos address service issues. Travelers need animal identification from Safari photos.",
+            "better_fit": "Choose this for a support app that analyzes customer-submitted issue photos.",
+            "feedback": {
+              "intrinsic": "Travelers would receive a support-focused experience.",
+              "instructional": "Choose features for Safari photos and questions about the animal shown."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. These features support photo-and-question animal identification."
+      },
+      "payload_hash": "905ce2561de49a03086a891d9705222af384186a5dd8eca4e4a088f3d27364a4",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "cb5c140c749f0e1e32219cde088518d11e37c34a25f14b436578ce7d59564083",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-an-image-analysis-app/customer-photo-support-app/r1/v1",
+      "concept_id": "customer-photo-support-app",
+      "rung": 1,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "single_choice",
+        "prompt": "What can a customer-photo support app analyze?",
+        "concept_id": "customer-photo-support-app",
+        "options": [
+          {
+            "text": "Photos submitted by customers",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The app analyzes photos customers submit with help requests. It uses visual input with instructions.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Only Safari animal photos",
+            "is_correct": false,
+            "error_type": "Confuses support with Safari identification",
+            "rationale": "Safari photographs belong to an animal-identification app. Support photos can show a customer's issue.",
+            "better_fit": "Use Safari photos in an animal-identification app.",
+            "feedback": null
+          },
+          {
+            "text": "Only classroom diagrams",
+            "is_correct": false,
+            "error_type": "Confuses support with learning diagrams",
+            "rationale": "Classroom diagrams are explained by a learning app. Support apps analyze customer-submitted photos.",
+            "better_fit": "Use diagrams in a learning app that provides plain-language explanations.",
+            "feedback": null
+          },
+          {
+            "text": "Only generated images",
+            "is_correct": false,
+            "error_type": "Confuses analysis with generation",
+            "rationale": "Generated images are new output. A support app examines pictures customers provide.",
+            "better_fit": "Use generated images when creating new visual content.",
+            "feedback": null
+          }
+        ],
+        "feedback_for_correct": "Correct. The app analyzes photos submitted with customer help requests."
+      },
+      "payload_hash": "68a77303de5d46545e730dd4d634a78f9ca27eeda7911ecfde05f51614c8c08a",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "cb5c140c749f0e1e32219cde088518d11e37c34a25f14b436578ce7d59564083",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-an-image-analysis-app/customer-photo-support-app/r2/v1",
+      "concept_id": "customer-photo-support-app",
+      "rung": 2,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "true_false",
+        "prompt": "True or false?",
+        "concept_id": "customer-photo-support-app",
+        "statement": "A customer-photo support app uses only text instructions and does not use the customer's photo.",
+        "correct_answer": false,
+        "feedback_for_correct": "Correct. The photo is visual input and the text provides context.",
+        "feedback_for_incorrect": {
+          "intrinsic": "Without the photo, the response cannot inspect the reported visual issue.",
+          "instructional": "A vision-enabled model uses the submitted picture together with text instructions."
+        }
+      },
+      "payload_hash": "ac573293cb8f9a391dd4d01898022ef2f5d8927dd35d565540aad301c22d0dd3",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "cb5c140c749f0e1e32219cde088518d11e37c34a25f14b436578ce7d59564083",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-an-image-analysis-app/customer-photo-support-app/r3/v1",
+      "concept_id": "customer-photo-support-app",
+      "rung": 3,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "fill_gaps",
+        "prompt": "Complete the model type for a support app that reads customer photos and instructions.",
+        "concept_id": "customer-photo-support-app",
+        "parts": [
+          {
+            "type": "text",
+            "text": "Use a "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "vision-enabled model",
+              "vision enabled model"
+            ],
+            "rejected_answers": [
+              "image generation model",
+              "video generation model",
+              "safari-animal-app",
+              "learning-diagram-app"
+            ],
+            "placeholder": "model type"
+          },
+          {
+            "type": "text",
+            "text": " to analyze a customer's submitted photo."
+          }
+        ],
+        "explanation": "A vision-enabled model analyzes supplied visual input and responds using text instructions.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The customer could receive new media instead of help interpreting the photo.",
+          "instructional": "Choose a vision-enabled model for analyzing a submitted picture."
+        }
+      },
+      "payload_hash": "24282e59cfc3b158ba80800800981b45e0566e9d8b88ca12e294636cb5f39d1a",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "cb5c140c749f0e1e32219cde088518d11e37c34a25f14b436578ce7d59564083",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-an-image-analysis-app/customer-photo-support-app/r3/v2",
+      "concept_id": "customer-photo-support-app",
+      "rung": 3,
+      "variant": 2,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "rearrange",
+        "prompt": "Arrange the parts to form a correct statement.",
+        "concept_id": "customer-photo-support-app",
+        "word_bank": [
+          "with visual input",
+          "A support app",
+          "and text instructions",
+          "analyzes customer photos"
+        ],
+        "correct_order": [
+          "A support app",
+          "analyzes customer photos",
+          "with visual input",
+          "and text instructions"
+        ],
+        "interchangeable_groups": [],
+        "explanation": "The app analyzes customer photos using visual input and accompanying text instructions.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The sentence may no longer show that both inputs are used.",
+          "instructional": "State the app, its photo-analysis task, then the visual and written inputs."
+        }
+      },
+      "payload_hash": "67f98813f4d5cf88da546a8bef65121e03b9ee2ce12976afd55d2aabe00c31c5",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "cb5c140c749f0e1e32219cde088518d11e37c34a25f14b436578ce7d59564083",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-an-image-analysis-app/customer-photo-support-app/r4/v1",
+      "concept_id": "customer-photo-support-app",
+      "rung": 4,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Applying",
+        "question_type": "single_choice",
+        "prompt": "A support agent receives a customer's photo of a damaged product and their help request. What should the app send to the model?",
+        "concept_id": "customer-photo-support-app",
+        "options": [
+          {
+            "text": "The photo with text instructions",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The photo shows the damage and the help request supplies context. A vision-enabled model can use both.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A Safari photo with a question",
+            "is_correct": false,
+            "error_type": "Confuses support with Safari identification",
+            "rationale": "A Safari photo supports animal identification. The scenario concerns a damaged customer product.",
+            "better_fit": "Use this when identifying an animal in a Safari photo.",
+            "feedback": {
+              "intrinsic": "The damage report would be replaced by an unrelated wildlife task.",
+              "instructional": "Send the customer's product photo and help request together."
+            }
+          },
+          {
+            "text": "A diagram with a lesson request",
+            "is_correct": false,
+            "error_type": "Confuses support with diagram explanation",
+            "rationale": "A diagram and lesson request fit a learning app. They do not address product damage.",
+            "better_fit": "Use this to explain a diagram or chart in plain language.",
+            "feedback": {
+              "intrinsic": "The model would lack the product photo.",
+              "instructional": "Match the inputs to the support case: product photo plus help instructions."
+            }
+          },
+          {
+            "text": "A text prompt without the photo",
+            "is_correct": false,
+            "error_type": "Omits visual input",
+            "rationale": "Text alone cannot show the visible damage. The photo is necessary for photo analysis.",
+            "better_fit": "Use text only when an answer does not require an image.",
+            "feedback": {
+              "intrinsic": "The response could not inspect the damage.",
+              "instructional": "Include the customer photo with the written request."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. The app should provide the photo and written request."
+      },
+      "payload_hash": "e02ddc93559a4833416e338a2e9f75ecb44c326d8e0acc295d2a7d4be3ca379e",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "cb5c140c749f0e1e32219cde088518d11e37c34a25f14b436578ce7d59564083",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-an-image-analysis-app/customer-photo-support-app/r5/v1",
+      "concept_id": "customer-photo-support-app",
+      "rung": 5,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Analyzing/Evaluating",
+        "question_type": "single_choice",
+        "prompt": "A customer-service manager needs a tool for help requests that include photos. Which design best fits that problem?",
+        "concept_id": "customer-photo-support-app",
+        "options": [
+          {
+            "text": "Analyze customer photos with text instructions",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "This design uses the customer's photo and help request together. It directly supports photo-based customer service.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Identify animals in Safari photographs",
+            "is_correct": false,
+            "error_type": "Confuses support with Safari identification",
+            "rationale": "Animal identification is a separate photo-based use case. It does not focus on customer service requests.",
+            "better_fit": "Use this for travelers identifying animals in photos.",
+            "feedback": {
+              "intrinsic": "Customers would receive wildlife features instead of support.",
+              "instructional": "Choose a design that analyzes customer photos with their instructions."
+            }
+          },
+          {
+            "text": "Explain classroom charts in plain language",
+            "is_correct": false,
+            "error_type": "Confuses support with learning diagrams",
+            "rationale": "Chart explanation helps learners understand visual material. It does not solve customer support issues.",
+            "better_fit": "Use this when learners need charts or diagrams explained.",
+            "feedback": {
+              "intrinsic": "Customer photos would not be handled as support cases.",
+              "instructional": "The design must support photo-based customer help requests."
+            }
+          },
+          {
+            "text": "Generate a new product image",
+            "is_correct": false,
+            "error_type": "Confuses analysis with generation",
+            "rationale": "Generating an image creates output rather than analyzing an existing photo. The manager needs the submitted image interpreted.",
+            "better_fit": "Use this to create a product image from a description.",
+            "feedback": {
+              "intrinsic": "The original issue in the photo would remain unexamined.",
+              "instructional": "Analyze the provided photo with the customer's written instructions."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. This design directly supports photo-based customer help."
+      },
+      "payload_hash": "35459ba79b9da45fae1023daa9a614d41684584e5fcc697022b0ed723f5b1ec8",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "cb5c140c749f0e1e32219cde088518d11e37c34a25f14b436578ce7d59564083",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-an-image-analysis-app/learning-diagram-app/r1/v1",
+      "concept_id": "learning-diagram-app",
+      "rung": 1,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "multi_choice",
+        "prompt": "What can a learning diagram app help explain? Select all that apply.",
+        "concept_id": "learning-diagram-app",
+        "options": [
+          {
+            "text": "A diagram in plain language",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The app can explain diagrams in plain language. It interprets visual learning material.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A chart in plain language",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Charts are visual content the app can explain. The response can be plain language.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Visual content using a multimodal model",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A multimodal model can use visual content and text. That capability supports diagram explanation.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Animals in Safari photographs",
+            "is_correct": false,
+            "error_type": "Confuses diagram explanation with Safari identification",
+            "rationale": "Safari identification is a different photo-based app. A learning diagram app focuses on diagrams and charts.",
+            "better_fit": "Use this for an app that identifies animals in Safari photos.",
+            "feedback": null
+          }
+        ],
+        "feedback_for_correct": "Correct. The app explains diagrams and charts in plain language."
+      },
+      "payload_hash": "284aabf0d2d1f1bbcd940166a304ba5ad4b93ed567c5d6e5de323f06fd7018e3",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "cb5c140c749f0e1e32219cde088518d11e37c34a25f14b436578ce7d59564083",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-an-image-analysis-app/learning-diagram-app/r2/v1",
+      "concept_id": "learning-diagram-app",
+      "rung": 2,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "true_false",
+        "prompt": "Decide whether this statement is true or false.",
+        "concept_id": "learning-diagram-app",
+        "statement": "A learning app can use a multimodal model to explain a chart in plain language.",
+        "correct_answer": true,
+        "feedback_for_correct": "Correct. Multimodal models can interpret visual content and respond in natural language.",
+        "feedback_for_incorrect": {
+          "intrinsic": "Learners could be left with a chart but no clear explanation.",
+          "instructional": "The app can provide a chart as visual content and request a plain-language explanation."
+        }
+      },
+      "payload_hash": "ba0c41fbcd8584ae093bd2615d8ad057d5f99fd3d45fd526a3a9f086d95d4dec",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "cb5c140c749f0e1e32219cde088518d11e37c34a25f14b436578ce7d59564083",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-an-image-analysis-app/learning-diagram-app/r2/v2",
+      "concept_id": "learning-diagram-app",
+      "rung": 2,
+      "variant": 2,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "true_false",
+        "prompt": "Is the following statement accurate?",
+        "concept_id": "learning-diagram-app",
+        "statement": "A learning diagram app is designed to identify animals in uploaded Safari photographs.",
+        "correct_answer": false,
+        "feedback_for_correct": "Correct. Safari identification and diagram explanation are different uses of visual input.",
+        "feedback_for_incorrect": {
+          "intrinsic": "Students needing chart help would receive a wildlife-focused feature.",
+          "instructional": "A learning diagram app explains diagrams or charts in plain language."
+        }
+      },
+      "payload_hash": "cf45108ae284222a121a9310028cf5211e6d4b3f339861a30b57e4a10b7100f4",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "cb5c140c749f0e1e32219cde088518d11e37c34a25f14b436578ce7d59564083",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-an-image-analysis-app/learning-diagram-app/r3/v1",
+      "concept_id": "learning-diagram-app",
+      "rung": 3,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "rearrange",
+        "prompt": "Arrange the steps for turning an uploaded diagram into an explanation.",
+        "concept_id": "learning-diagram-app",
+        "word_bank": [
+          "Send both to model",
+          "Upload a diagram",
+          "Receive plain-language explanation",
+          "Add an explanation request"
+        ],
+        "correct_order": [
+          "Upload a diagram",
+          "Add an explanation request",
+          "Send both to model",
+          "Receive plain-language explanation"
+        ],
+        "interchangeable_groups": [],
+        "explanation": "The learner supplies the diagram and explanation request before the multimodal model can return a plain-language explanation.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The app could attempt to respond before it has the diagram and requested task.",
+          "instructional": "First gather the diagram and request, send them to the model, then receive the explanation."
+        }
+      },
+      "payload_hash": "4fe6a263e76d22e3f3cb9a904385a1850807ae4f940d71e61def79c71dd85d6e",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "cb5c140c749f0e1e32219cde088518d11e37c34a25f14b436578ce7d59564083",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-an-image-analysis-app/learning-diagram-app/r4/v1",
+      "concept_id": "learning-diagram-app",
+      "rung": 4,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Applying",
+        "question_type": "multi_choice",
+        "prompt": "A teacher has a confusing sales chart and wants learners to understand it. Which choices should the teacher use in the app? Select all that apply.",
+        "concept_id": "learning-diagram-app",
+        "options": [
+          {
+            "text": "Use a multimodal model",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A multimodal model can interpret visual content and text. It can explain the chart in natural language.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Provide the chart as visual content",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The chart is the material to interpret. The app needs it to explain what learners see.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Ask for a plain-language explanation",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "This directs the model to produce learner-friendly output. It matches the app's purpose.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Generate a replacement chart image",
+            "is_correct": false,
+            "error_type": "Confuses explanation with generation",
+            "rationale": "A replacement image does not explain the existing chart. The teacher needs the original chart interpreted.",
+            "better_fit": "Use image generation when a new chart image is required.",
+            "feedback": {
+              "intrinsic": "Learners may receive a new picture without understanding their chart.",
+              "instructional": "Provide the existing chart and request a plain-language explanation."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. These choices explain the existing chart clearly."
+      },
+      "payload_hash": "87566686b8cccf0026042b9b062158f1e4420e3f7d4f675070ff6afce6a3a116",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "cb5c140c749f0e1e32219cde088518d11e37c34a25f14b436578ce7d59564083",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-an-image-analysis-app/learning-diagram-app/r5/v1",
+      "concept_id": "learning-diagram-app",
+      "rung": 5,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Analyzing/Evaluating",
+        "question_type": "multi_choice",
+        "prompt": "A school technology lead must select a visual AI tool because students upload diagrams they cannot understand. Which features best match? Select all that apply.",
+        "concept_id": "learning-diagram-app",
+        "options": [
+          {
+            "text": "Accept diagrams or charts",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Students need to provide the visual material they want explained. Diagrams and charts are appropriate inputs.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Use a multimodal model",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A multimodal model can understand visual content and text. It supports explanations of uploaded diagrams.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Return plain-language explanations",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Plain-language output helps students understand visual material. It matches the stated need.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Review photos for customer support",
+            "is_correct": false,
+            "error_type": "Confuses learning diagrams with customer support",
+            "rationale": "Customer-photo support addresses service issues. Students need explanations of diagrams and charts.",
+            "better_fit": "Use this in a support app for customer-submitted issue photos.",
+            "feedback": {
+              "intrinsic": "Students would receive a customer-service feature.",
+              "instructional": "Select features that accept diagrams and return clear learner explanations."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. These features match a diagram-explanation tool."
+      },
+      "payload_hash": "acad60b04d474f7ec2dcf83312566cd0c6ddb1e0825aa0ed82c12d422f0568f1",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "cb5c140c749f0e1e32219cde088518d11e37c34a25f14b436578ce7d59564083",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-an-image-analysis-app/image-analysis-deployment-requirements/r1/v1",
+      "concept_id": "image-analysis-deployment-requirements",
+      "rung": 1,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "single_choice",
+        "prompt": "What name should code pass as MODEL_NAME for image analysis?",
+        "concept_id": "image-analysis-deployment-requirements",
+        "options": [
+          {
+            "text": "The model deployment name",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "MODEL_NAME identifies the deployed model to call. It is the deployment's assigned name.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "The Foundry resource key",
+            "is_correct": false,
+            "error_type": "Confuses authentication with deployment identity",
+            "rationale": "The resource key authenticates the client. It does not identify a model deployment.",
+            "better_fit": "Use the resource key as the client's API key.",
+            "feedback": null
+          },
+          {
+            "text": "The Foundry endpoint",
+            "is_correct": false,
+            "error_type": "Confuses service address with deployment identity",
+            "rationale": "The endpoint is the Foundry resource address. It is not the deployment name.",
+            "better_fit": "Use the endpoint as the client's base URL.",
+            "feedback": null
+          },
+          {
+            "text": "The image URL",
+            "is_correct": false,
+            "error_type": "Confuses image input with deployment identity",
+            "rationale": "An image URL identifies image content. It does not name the model deployment.",
+            "better_fit": "Use an image URL as input_image content.",
+            "feedback": null
+          }
+        ],
+        "feedback_for_correct": "Correct. MODEL_NAME holds the deployment name."
+      },
+      "payload_hash": "d61662e2360091378273fcb8512aec6f3f744ebd5accacc40f7592421ec208d4",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "cb5c140c749f0e1e32219cde088518d11e37c34a25f14b436578ce7d59564083",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-an-image-analysis-app/image-analysis-deployment-requirements/r1/v2",
+      "concept_id": "image-analysis-deployment-requirements",
+      "rung": 1,
+      "variant": 2,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "multi_choice",
+        "prompt": "What does an image-analysis app need when using the OpenAI Python SDK? Select all that apply.",
+        "concept_id": "image-analysis-deployment-requirements",
+        "options": [
+          {
+            "text": "A Foundry resource",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The resource hosts the deployment and provides an endpoint. It is part of the required setup.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A vision-capable model deployment",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Image analysis needs a deployment that accepts visual input. Its name is passed as MODEL_NAME.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A resource key and endpoint",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The key authenticates the client and the endpoint locates the resource. Both are connection details.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A completed video file",
+            "is_correct": false,
+            "error_type": "Confuses image-analysis setup with video output",
+            "rationale": "A completed video file is not an image-analysis requirement. Image analysis sends an image and receives text.",
+            "better_fit": "Use a completed video file after a video-generation job finishes.",
+            "feedback": null
+          }
+        ],
+        "feedback_for_correct": "Correct. These details connect the client to a vision-capable deployment."
+      },
+      "payload_hash": "55b33d26bcfda1353fa7447c5b2098ba1efad4fc0bfb7d12732277a09f5d88d4",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "cb5c140c749f0e1e32219cde088518d11e37c34a25f14b436578ce7d59564083",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-an-image-analysis-app/image-analysis-deployment-requirements/r2/v1",
+      "concept_id": "image-analysis-deployment-requirements",
+      "rung": 2,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "true_false",
+        "prompt": "Evaluate this statement.",
+        "concept_id": "image-analysis-deployment-requirements",
+        "statement": "For Python image analysis, the app needs a Foundry resource, a vision-capable deployment, a key, an endpoint, and a deployment name.",
+        "correct_answer": true,
+        "feedback_for_correct": "Correct. The resource, connection details, and deployment name are all required.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The client could lack authentication, an address, or a deployment to call.",
+          "instructional": "The key and endpoint connect the client, while MODEL_NAME identifies the vision-capable deployment."
+        }
+      },
+      "payload_hash": "55b8e8a1caf01ee99ecb39ee1f9bb16948c564c83cc54804d6aa1cd5b777aee1",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "cb5c140c749f0e1e32219cde088518d11e37c34a25f14b436578ce7d59564083",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-an-image-analysis-app/image-analysis-deployment-requirements/r3/v1",
+      "concept_id": "image-analysis-deployment-requirements",
+      "rung": 3,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "fill_gaps",
+        "prompt": "Complete the variable that holds the deployment name.",
+        "concept_id": "image-analysis-deployment-requirements",
+        "parts": [
+          {
+            "type": "text",
+            "text": "Pass the deployment name as "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "MODEL_NAME"
+            ],
+            "rejected_answers": [
+              "ENDPOINT",
+              "FOUNDRY_KEY",
+              "image-generation-requirements",
+              "video-generation-requirements"
+            ],
+            "placeholder": "variable name"
+          },
+          {
+            "type": "text",
+            "text": " when calling the model."
+          }
+        ],
+        "explanation": "MODEL_NAME selects the deployment for the request.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The request may not identify the intended deployment.",
+          "instructional": "Use MODEL_NAME for the deployment name; ENDPOINT is the address and FOUNDRY_KEY authenticates."
+        }
+      },
+      "payload_hash": "3f981f0896fe2b4ba6ec55d9bfbd02387840dea7dab9d621d7bcd0d13de0210d",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "cb5c140c749f0e1e32219cde088518d11e37c34a25f14b436578ce7d59564083",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-an-image-analysis-app/image-analysis-code-flow/r1/v1",
+      "concept_id": "image-analysis-code-flow",
+      "rung": 1,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "multi_choice",
+        "prompt": "Which steps are part of the image-analysis code flow? Select all that apply.",
+        "concept_id": "image-analysis-code-flow",
+        "options": [
+          {
+            "text": "Create an OpenAI client",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The code creates a client with the Foundry key and endpoint. This prepares the connection.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Send text and image content",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The request includes written and image content. The vision deployment processes them together.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Receive a natural-language response",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Image analysis returns a natural-language answer. Code can read response.output_text.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Poll a video job status",
+            "is_correct": false,
+            "error_type": "Confuses image analysis with video workflow",
+            "rationale": "Polling belongs to asynchronous video generation. Image analysis returns a text response after its request.",
+            "better_fit": "Use polling after creating a video-generation job.",
+            "feedback": null
+          }
+        ],
+        "feedback_for_correct": "Correct. The flow creates a client, sends both inputs, and reads text output."
+      },
+      "payload_hash": "0b63b69facb0b4568b0c236ed545e501a3407ec9397bcd6ed8a12394486a66a9",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "cb5c140c749f0e1e32219cde088518d11e37c34a25f14b436578ce7d59564083",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-an-image-analysis-app/image-analysis-code-flow/r2/v1",
+      "concept_id": "image-analysis-code-flow",
+      "rung": 2,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "true_false",
+        "prompt": "True or false?",
+        "concept_id": "image-analysis-code-flow",
+        "statement": "An image-analysis app must poll a job until it is complete before receiving its text response.",
+        "correct_answer": false,
+        "feedback_for_correct": "Correct. Polling is for asynchronous video generation, not this image-analysis flow.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The app could delay a photo answer by following an unnecessary video process.",
+          "instructional": "Image analysis sends text and image content and receives a natural-language response."
+        }
+      },
+      "payload_hash": "427a3e2bc02a76fd05b3c273bf42c4c145e0f29a4b1a3a5f1715f2073d5e26f6",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "cb5c140c749f0e1e32219cde088518d11e37c34a25f14b436578ce7d59564083",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-an-image-analysis-app/image-analysis-code-flow/r3/v1",
+      "concept_id": "image-analysis-code-flow",
+      "rung": 3,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "rearrange",
+        "prompt": "Arrange the steps for the image-analysis code flow.",
+        "concept_id": "image-analysis-code-flow",
+        "word_bank": [
+          "Send text and image",
+          "Create the OpenAI client",
+          "Receive text response",
+          "Use a vision deployment"
+        ],
+        "correct_order": [
+          "Create the OpenAI client",
+          "Use a vision deployment",
+          "Send text and image",
+          "Receive text response"
+        ],
+        "interchangeable_groups": [],
+        "explanation": "Prepare the client and vision deployment before sending both inputs, then receive the text response.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The app could send content before its client or deployment is ready.",
+          "instructional": "Create the client, use the vision deployment, send inputs, then read the response."
+        }
+      },
+      "payload_hash": "29437b115d87ea79c658908f571eab20f1893b31a19fb4398d2fde2b9e9eff51",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "cb5c140c749f0e1e32219cde088518d11e37c34a25f14b436578ce7d59564083",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-an-image-analysis-app/image-analysis-code-flow/r4/v1",
+      "concept_id": "image-analysis-code-flow",
+      "rung": 4,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Applying",
+        "question_type": "multi_choice",
+        "prompt": "A retail team is building an app that answers questions about photos of store shelves. Which code choices should the developer make? Select all that apply.",
+        "concept_id": "image-analysis-code-flow",
+        "options": [
+          {
+            "text": "Create a client with key and endpoint",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The client uses the key and endpoint to connect to the Foundry resource. This starts the image-analysis flow.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Send text and image content together",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The shelf question is text and the shelf photo is image content. Both are needed for a photo-based answer.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Read the natural-language text response",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The image-analysis response is natural-language text. Code can read response.output_text.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Download an MP4 after polling",
+            "is_correct": false,
+            "error_type": "Confuses image analysis with video generation",
+            "rationale": "Downloading an MP4 after polling is a video-generation workflow. The retail task needs text about a shelf photo.",
+            "better_fit": "Use this after a completed video-generation job.",
+            "feedback": {
+              "intrinsic": "The team would wait for video output instead of receiving a shelf answer.",
+              "instructional": "Send the question and image, then read the natural-language response."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. These choices connect the client, send both inputs, and read the answer."
+      },
+      "payload_hash": "e62278fcc20017f846d4dbb42ebd6e532e60e71190f9d159d4a9836418ec0612",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "cb5c140c749f0e1e32219cde088518d11e37c34a25f14b436578ce7d59564083",
+      "telemetry": {}
+    }
+  ],
+  "flashcards": [
+    {
+      "front": "What is input_image?",
+      "back": "It is the content type for an attached image.",
+      "hint": "Think: picture input."
+    },
+    {
+      "front": "Safari app message?",
+      "back": "Combine the photo and user's question in a multi-part message.",
+      "hint": "Two input types."
+    },
+    {
+      "front": "Support app model?",
+      "back": "Use a vision-enabled model with photo and text instructions.",
+      "hint": "It understands pictures."
+    },
+    {
+      "front": "What is MODEL_NAME?",
+      "back": "It is the name given to the deployed model.",
+      "hint": "Not the endpoint."
+    }
+  ]
+}

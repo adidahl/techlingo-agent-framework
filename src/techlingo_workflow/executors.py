@@ -29,8 +29,22 @@ from .prompts import (
     analyzer_prompt,
     reviewer_prompt,
 )
-from .validate import issues_by_lesson, repair_course_if_needed, validate_course
-from .worksheet import CELL_QUOTAS, DEFAULT_DEPTH, assign_tf_answers, build_lesson_worksheet
+from .validate import (
+    a1_owns_validation_issue,
+    concept_identity_meta_matches,
+    concept_meta_reference_matches,
+    issues_by_lesson,
+    repair_course_if_needed,
+    validate_course,
+)
+from .worksheet import (
+    CELL_QUOTAS,
+    DEFAULT_DEPTH,
+    WorksheetBudgetError,
+    assign_tf_answers,
+    build_lesson_worksheet,
+    worksheet_applies,
+)
 
 
 def _artifact_path(state: PipelineState, name: str) -> str:
@@ -121,14 +135,47 @@ def _stamp_default_depths(a1_map: dict) -> None:
                     concept["depth"] = DEFAULT_DEPTH
 
 
+def _a1_meta_reference_problems(a1_map: dict) -> list[str]:
+    """Find concept summaries that depend on source/curriculum exposition."""
+
+    problems: list[str] = []
+    for mi, module in enumerate(a1_map.get("modules") or []):
+        for li, lesson in enumerate(module.get("lessons") or []):
+            for ci, concept in enumerate(lesson.get("concepts") or []):
+                if not isinstance(concept, dict):
+                    continue
+                concept_id = (concept.get("id") or concept.get("label") or "?").strip()
+                identity_matches = concept_identity_meta_matches(
+                    concept.get("id") or "", concept.get("label") or ""
+                )
+                matches = concept_meta_reference_matches(concept.get("summary") or "")
+                if identity_matches:
+                    field, span = identity_matches[0]
+                    kind = "meta/navigation identity"
+                    path = f"modules[{mi}].lessons[{li}].concepts[{ci}].{field}"
+                elif matches:
+                    kind, span = matches[0]
+                    path = f"modules[{mi}].lessons[{li}].concepts[{ci}].summary"
+                else:
+                    continue
+                problems.append(
+                    f"{path}: "
+                    f"Concept '{concept_id}' contains {kind} {span!r} and refers to "
+                    "the course or source presentation instead of stating the fact "
+                    "directly. Meta/navigation content is not learnable material — "
+                    "replace it with a self-contained domain fact from the source."
+                )
+    return problems
+
+
 def _seed_concepts_from_map(course: Course, a1_map: dict) -> None:
-    """Copy per-lesson concepts from the A1 map into the course when A2 dropped
-    them, and restore per-concept `depth` when the A2 echo stripped it.
+    """Restore each exact authoritative A1 concept pack after A2.
 
     Index-aligned: A2 must mirror the map's module/lesson structure, so position
-    is the join key. Best-effort — mismatched shapes just skip. Depth is the
-    worksheet-mode switch (worksheet.py), so it must never be lost to a sloppy
-    echo — the map is its ground truth.
+    is the join key. Concept id/order/depth/summary/confusables define the
+    worksheet and graph merge, so no model echo is allowed to mutate them.
+    Best-effort malformed legacy maps still skip; exact-budget A1 maps fail
+    closed before reaching this function.
     """
     map_modules = a1_map.get("modules") or []
     for mi, module in enumerate(course.modules):
@@ -139,28 +186,18 @@ def _seed_concepts_from_map(course: Course, a1_map: dict) -> None:
             if li >= len(map_lessons):
                 break
             raw = map_lessons[li].get("concepts") or []
-            if not lesson.concepts:
-                try:
-                    lesson.concepts = [ConceptAtom.model_validate(c) for c in raw]
-                except Exception:  # noqa: BLE001 - malformed map concepts must never sink the run
-                    continue
-            else:
-                map_depths = {
-                    c.get("id"): c.get("depth")
-                    for c in raw
-                    if isinstance(c, dict) and c.get("depth") in CELL_QUOTAS
-                }
-                for atom in lesson.concepts:
-                    if atom.depth is None and atom.id in map_depths:
-                        atom.depth = map_depths[atom.id]
+            try:
+                lesson.concepts = [ConceptAtom.model_validate(c) for c in raw]
+            except Exception:  # noqa: BLE001 - legacy malformed packs remain validator-owned
+                continue
 
 
 def _validate_a1_map(a1_map: dict, config) -> list[str]:
     """Deterministic structural check of the A1 course map.
 
-    The self-correction loop re-runs A2, never A1, so a structurally wrong map
-    (wrong module count, missing concepts) poisons every downstream attempt.
-    Validate it immediately and retry A1 itself while it's still cheap.
+    A structurally wrong map (wrong module count, missing concepts) poisons
+    every downstream attempt. Validate it immediately and retry A1 itself while
+    it is still cheap; later concept-level fidelity errors also route to A1.
     """
     problems: list[str] = []
     modules = a1_map.get("modules") or []
@@ -172,18 +209,6 @@ def _validate_a1_map(a1_map: dict, config) -> list[str]:
             f"Course map must have {config.min_lessons_total}-{config.max_lessons_total} lessons in total; "
             f"got {total_lessons}."
         )
-    # Meta/navigation content is not learnable material; a concept about the
-    # course itself produces "What is this course about?"-style questions.
-    meta_markers = (
-        "this course",
-        "this module",
-        "this training",
-        "this unit",
-        "course overview",
-        "module overview",
-        "training module",
-        "high-level overview",
-    )
     # Mirror of the cap computed in a1_modularizer_prompt: a lesson with E
     # exercises cannot cover more than E concepts, and E-1 leaves one concept
     # room for a second exercise.
@@ -196,51 +221,93 @@ def _validate_a1_map(a1_map: dict, config) -> list[str]:
                 problems.append(
                     f"modules[{mi}].lessons[{li}] must define 2-{max_concepts} concepts; got {len(concepts)}."
                 )
-            for c in concepts:
+            for ci, c in enumerate(concepts):
+                concept_path = f"modules[{mi}].lessons[{li}].concepts[{ci}]"
+                if not isinstance(c, dict):
+                    problems.append(
+                        f"{concept_path} must be an object matching the ConceptAtom schema."
+                    )
+                    continue
+                try:
+                    ConceptAtom.model_validate(c)
+                except Exception as error:  # noqa: BLE001 - report the exact A1 schema failure
+                    problems.append(
+                        f"{concept_path} must match the ConceptAtom schema: {error}"
+                    )
                 cid = (c.get("id") or "").strip()
                 if not cid or not c.get("summary", "").strip():
-                    problems.append(f"modules[{mi}].lessons[{li}] has a concept without id/summary.")
+                    problems.append(f"{concept_path} has a concept without id/summary.")
                 elif cid in seen_concept_ids:
                     problems.append(f"Concept id '{cid}' is duplicated; ids must be unique across the course.")
                 else:
                     seen_concept_ids.add(cid)
+                if not (c.get("label") or "").strip():
+                    problems.append(f"{concept_path}.label must be a non-empty human-readable name.")
                 if c.get("depth") not in CELL_QUOTAS:
                     problems.append(
                         f"Concept '{cid or c.get('label', '?')}' must declare \"depth\" as one of "
                         f"{sorted(CELL_QUOTAS)} (got {c.get('depth')!r}). Depth drives how many "
                         "exercises the concept gets per difficulty rung."
                     )
-                meta_text = f"{cid} {c.get('label', '')} {c.get('summary', '')}".lower()
-                if any(marker in meta_text for marker in meta_markers):
+            budget = config.worksheet_items_per_lesson
+            depths = [
+                concept.get("depth")
+                for concept in concepts
+                if isinstance(concept, dict) and concept.get("depth") in CELL_QUOTAS
+            ]
+            if budget is not None and len(depths) == len(concepts):
+                minimum = sum(len(CELL_QUOTAS[depth]) for depth in depths)
+                maximum = sum(sum(CELL_QUOTAS[depth].values()) for depth in depths)
+                if not (minimum <= budget <= maximum):
                     problems.append(
-                        f"Concept '{cid or c.get('label', '?')}' is about the course/module itself. "
-                        "Meta/navigation content is not learnable material — replace it with a "
-                        "domain fact from the source."
+                        f"modules[{mi}].lessons[{li}] cannot satisfy worksheet item budget "
+                        f"{budget}: complete rung coverage requires at least {minimum} rows "
+                        f"and the full quota provides at most {maximum}. Regroup source-grounded "
+                        "concepts across lessons without omitting facts or changing their semantic depth."
                     )
+    problems.extend(_a1_meta_reference_problems(a1_map))
     return problems
 
 
+def _validation_retry_target(report: ValidationReport, course: Course) -> str:
+    """Return the earliest authoritative stage that can fix hard errors.
+
+    Concept packs come from A1 and are deliberately restored after every A2-A5
+    model echo. Sending a concept-level error to A2 therefore cannot converge;
+    all other repairable content remains on the cheaper lesson-local A2 path.
+    """
+
+    if any(a1_owns_validation_issue(issue, course) for issue in report.issues):
+        return "a1"
+    return "a2"
+
+
+def _reset_after_a1_retry(state: PipelineState) -> None:
+    """Invalidate results derived from the superseded A1 concept authority."""
+
+    state.a2_course = None
+    state.a3_course = None
+    state.a4_course = None
+    state.a5_course = None
+    state.validation_report = None
+    state.best_course = None
+    state.best_report = None
+    state.dirty_lessons = None
+    state.retry_target = None
+
+
 def _restore_concept_metadata(prev: Course, new: Course) -> None:
-    """Re-attach concepts/concept_id that a rewrite stage (A3/A4) dropped.
+    """Pin worksheet identity across A3/A4 rewrite-only stages.
 
     Those stages never add or remove lessons/exercises, so index alignment holds;
-    the metadata is not content the rewrite should touch, making deterministic
-    restoration safer than trusting the LLM to echo it back.
+    the authoritative concept pack and each row's concept_id are not content
+    the rewrite may change.
     """
     for pm, nm in zip(prev.modules, new.modules):
         for pl, nl in zip(pm.lessons, nm.lessons):
-            if pl.concepts and not nl.concepts:
-                nl.concepts = [c.model_copy(deep=True) for c in pl.concepts]
-            else:
-                # Echoed concepts may come back stripped of `depth` — the
-                # worksheet-mode switch. Restore it by id from the previous pass.
-                prev_depths = {c.id: c.depth for c in pl.concepts if c.depth}
-                for atom in nl.concepts:
-                    if atom.depth is None and atom.id in prev_depths:
-                        atom.depth = prev_depths[atom.id]
+            nl.concepts = [c.model_copy(deep=True) for c in pl.concepts]
             for pe, ne in zip(pl.exercises, nl.exercises):
-                if not ne.concept_id and pe.concept_id:
-                    ne.concept_id = pe.concept_id
+                ne.concept_id = pe.concept_id
 
 
 @executor(id="content_inventory")
@@ -282,10 +349,37 @@ async def a1_modularizer(state: PipelineState, ctx: WorkflowContext[PipelineStat
         override_title=state.override_title,
         analysis_json=_analysis_inventory_json(state),
     )
+    map_retrying = (
+        state.retry_target == "a1"
+        and state.validation_report is not None
+        and not state.validation_report.ok
+    )
+    if map_retrying:
+        owner_course = state.a5_course or state.a4_course or state.best_course
+        map_issues = [
+            issue
+            for issue in state.validation_report.issues
+            if a1_owns_validation_issue(issue, owner_course)
+        ]
+        feedback = "\n".join(
+            f"- {issue.path}: {issue.message}" for issue in map_issues
+        )
+        previous_map = json.dumps(state.a1_course_map, ensure_ascii=False, indent=2)
+        base_prompt = (
+            "CRITICAL: The previous A1 concept map caused these confirmed hard-validation "
+            "errors. Correct only the implicated concept fields. Preserve the exact module "
+            "and lesson layout, titles, SLOs, concept count and order, and every concept ID, "
+            "depth, and confusable_with list unless an error explicitly identifies that field. "
+            "For a .summary error, rewrite only that summary as a self-contained source-grounded "
+            "domain fact. Do not churn unaffected bank identities.\n"
+            f"{feedback}\n\n"
+            "PREVIOUS A1 MAP TO CORRECT (copy all unaffected fields exactly):\n"
+            f"{previous_map}\n\n{base_prompt}"
+        )
 
-    # The A5 loop re-runs A2, never A1 — so the map must be structurally right
-    # before anything downstream runs. Retry A1 with concrete feedback while a
-    # bad map is still one cheap LLM call instead of a wasted multi-stage loop.
+    # The map must be structurally right before anything downstream runs. Retry
+    # A1 with concrete feedback while a bad map is still one cheap LLM call
+    # instead of a wasted multi-stage loop.
     # If no attempt comes back clean, keep the one with the FEWEST problems.
     MAP_ATTEMPTS = 3
     prompt = base_prompt
@@ -310,6 +404,23 @@ async def a1_modularizer(state: PipelineState, ctx: WorkflowContext[PipelineStat
             "Produce a corrected course map that satisfies every requirement below EXACTLY.\n\n"
             f"{base_prompt}"
         )
+    remaining_problems = _validate_a1_map(data, state.config)
+    remaining_meta_problems = _a1_meta_reference_problems(data)
+    strict_map_gate = (
+        state.config.worksheet_items_per_lesson is not None
+        or bool(remaining_meta_problems)
+    )
+    if remaining_problems and strict_map_gate:
+        details = "\n".join(f"- {problem}" for problem in remaining_problems)
+        gate_label = (
+            "structurally valid exact-budget course map"
+            if state.config.worksheet_items_per_lesson is not None
+            else "course map without source-exposition concepts"
+        )
+        raise ValueError(
+            f"A1 could not produce a {gate_label} "
+            f"after {MAP_ATTEMPTS} attempts:\n{details}"
+        )
     if best_problem_count:
         await ctx.add_event(
             StageLogEvent(
@@ -317,7 +428,8 @@ async def a1_modularizer(state: PipelineState, ctx: WorkflowContext[PipelineStat
                 f"({best_problem_count} problem(s))."
             )
         )
-    # Depth must be total for the cell worksheets — default any survivor gaps.
+    # Legacy/full-envelope runs preserve the historical best-effort fallback.
+    # Exact-budget maps already passed the strict depth/bounds gate above.
     _stamp_default_depths(data)
     await ctx.add_event(StageLogEvent("A1: received LLM response, writing artifact"))
 
@@ -326,6 +438,11 @@ async def a1_modularizer(state: PipelineState, ctx: WorkflowContext[PipelineStat
         await ctx.add_event(StageLogEvent(f"A1 Thought Process:\n{thought_str}"))
 
     state.a1_course_map = data
+    if map_retrying:
+        # A new map invalidates every downstream lesson and best-attempt score.
+        # Clear them so A2 performs a full generation against the new authority
+        # instead of reusing lessons from the previous map by position.
+        _reset_after_a1_retry(state)
     write_json(_artifact_path(state, "a1_course_map.json"), data)
     await ctx.add_event(StageLogEvent("A1: done, forwarding to A2"))
     await ctx.send_message(state)
@@ -366,8 +483,33 @@ async def a2_scaffolder(state: PipelineState, ctx: WorkflowContext[PipelineState
     for _mi, _li, lesson_map, _mt in lesson_entries:
         try:
             atoms = [ConceptAtom.model_validate(c) for c in (lesson_map.get("concepts") or [])]
-            worksheets.append(build_lesson_worksheet(atoms) if atoms else None)
-        except Exception:  # noqa: BLE001 - malformed pack -> legacy path, never sink the run
+            if (
+                state.config.worksheet_items_per_lesson is not None
+                and not worksheet_applies(atoms)
+            ):
+                raise ValueError(
+                    "Exact worksheet policy requires a non-empty, fully depth-classified "
+                    "authoritative concept pack."
+                )
+            worksheets.append(
+                build_lesson_worksheet(
+                    atoms,
+                    item_budget=state.config.worksheet_items_per_lesson,
+                )
+                if atoms
+                else None
+            )
+        except WorksheetBudgetError:
+            # A budget violation is a structural A1 failure, never a reason to
+            # silently fall back to legacy distribution generation.
+            raise
+        except Exception:  # noqa: BLE001 - malformed legacy packs retain historical fallback
+            if state.config.worksheet_items_per_lesson is not None:
+                # An exact worksheet policy must never degrade into a different
+                # prompt/count contract because its authoritative A1 pack is
+                # malformed. A1 normally catches this; fail closed if A2 is
+                # invoked directly or an artifact is externally corrupted.
+                raise
             worksheets.append(None)
     assign_tf_answers([ws for ws in worksheets if ws])
 
@@ -580,15 +722,24 @@ async def a5_validator(state: PipelineState, ctx: WorkflowContext[Never, Workflo
     else:
         await ctx.add_event(StageLogEvent("A5 Validation passed."))
 
-    # Loop Logic: If invalid and we haven't maxed out retries, send back to A2
+    # Loop logic: map-owned errors return to A1; lesson-content errors use the
+    # cheaper A2 partial-regeneration path.
     MAX_RETRIES = 2
     if not report.ok and state.retry_count < MAX_RETRIES:
         state.retry_count += 1
-        await ctx.add_event(StageLogEvent(f"A5: Validation failed (errors found). Looping back to A2 (Attempt {state.retry_count}/{MAX_RETRIES})."))
+        state.retry_target = _validation_retry_target(report, repaired_course)
+        await ctx.add_event(
+            StageLogEvent(
+                "A5: Validation failed (errors found). Looping back to "
+                f"{state.retry_target.upper()} (Attempt {state.retry_count}/{MAX_RETRIES})."
+            )
+        )
         # We DO NOT yield output here. We loop back.
         # The edges in workflow.py will handle the routing, but we need to ensure we don't proceed to 'yield_output'.
         await ctx.send_message(state)
         return
+
+    state.retry_target = None
 
     final_course = state.best_course or repaired_course
     final_report = state.best_report or report

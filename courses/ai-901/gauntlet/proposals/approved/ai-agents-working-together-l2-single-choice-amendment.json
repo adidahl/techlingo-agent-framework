@@ -1,0 +1,106 @@
+{
+  "schema_version": "techlingo-gauntlet-authored-amendment-v1",
+  "amendment_sha256": "ec26a43639b9c2a5fa093f2f32f7cec7ecf1ea74037a0a69af913fdfd5a81fde",
+  "approved_by": "Adi",
+  "approved_at": "2026-08-28T16:43:51.925446+00:00",
+  "approval_sha256": "b0a55c58dbc480c83df39c7bea5ee06eb54949ef5053747328e43d76042fb0d9",
+  "proposal_sha256": "dcd2d587e67f4da76ef15fbeafb35f8711303e8652f34548e0d57a6a3f7443cd",
+  "history_sha256": "9f31c705bf32f4fb625ead5a255d271bb0fdf818bf5415b7043e95df222dc567",
+  "item_key": "ai-agents-working-together/agent-llm/r4/v1",
+  "bank_path": "bank/ai-agents-working-together.json",
+  "reason": "Reviewer explicitly approved converting the corrected one-answer question from multi_choice to single_choice after deterministic validation exposed the mechanic mismatch.",
+  "payload_before": {
+    "blooms_level": "Applying",
+    "question_type": "multi_choice",
+    "prompt": "An expenses assistant must interpret a travel-expense question before retrieving policy details. Which parts support language understanding and reasoning? Select all that apply.",
+    "concept_id": "agent-llm",
+    "options": [
+      {
+        "text": "A large language model",
+        "is_correct": true,
+        "error_type": null,
+        "rationale": "Correct. The large language model understands and reasons about the question.",
+        "better_fit": null,
+        "feedback": null
+      },
+      {
+        "text": "Generative AI for natural-language reasoning",
+        "is_correct": true,
+        "error_type": null,
+        "rationale": "Correct. Generative AI provides the language-processing basis for the agent's model.",
+        "better_fit": null,
+        "feedback": null
+      },
+      {
+        "text": "An action tool that sends an email",
+        "is_correct": false,
+        "error_type": "Confuses reasoning with action",
+        "rationale": "Sending email is an external action. It does not supply reasoning about the question.",
+        "better_fit": "This fits delivering a completed response.",
+        "feedback": {
+          "intrinsic": "An email could be sent before an informed answer is developed.",
+          "instructional": "Use the language model to reason and an action tool to perform the later task."
+        }
+      },
+      {
+        "text": "Instructions that set the agent's role",
+        "is_correct": false,
+        "error_type": "Confuses guidance with reasoning",
+        "rationale": "Instructions set role and behavior. They do not perform language understanding and reasoning.",
+        "better_fit": "This fits specifying how the assistant should respond.",
+        "feedback": {
+          "intrinsic": "The assistant may know its role but still not interpret the question.",
+          "instructional": "Instructions guide behavior, while the language model reasons over language."
+        }
+      }
+    ],
+    "feedback_for_correct": "Correct! Language understanding and reasoning come from the language-model side of the agent."
+  },
+  "payload_after": {
+    "blooms_level": "Applying",
+    "question_type": "single_choice",
+    "prompt": "Which key element of an AI agent serves as its brain for language understanding and reasoning?",
+    "concept_id": "agent-llm",
+    "options": [
+      {
+        "text": "A large language model",
+        "is_correct": true,
+        "error_type": null,
+        "rationale": "Correct. The large language model is the agent's key brain-like element for language understanding and reasoning.",
+        "better_fit": null,
+        "feedback": null
+      },
+      {
+        "text": "Generative AI for natural-language reasoning",
+        "is_correct": false,
+        "error_type": null,
+        "rationale": "Generative AI is the underlying technology used by the language model; it is not one of the agent's three key elements.",
+        "better_fit": null,
+        "feedback": null
+      },
+      {
+        "text": "An action tool that sends an email",
+        "is_correct": false,
+        "error_type": "Confuses reasoning with action",
+        "rationale": "Sending email is an external action. It does not supply reasoning about the question.",
+        "better_fit": "This fits delivering a completed response.",
+        "feedback": {
+          "intrinsic": "An email could be sent before an informed answer is developed.",
+          "instructional": "Use the language model to reason and an action tool to perform the later task."
+        }
+      },
+      {
+        "text": "Instructions that set the agent's role",
+        "is_correct": false,
+        "error_type": "Confuses guidance with reasoning",
+        "rationale": "Instructions set role and behavior. They do not perform language understanding and reasoning.",
+        "better_fit": "This fits specifying how the assistant should respond.",
+        "feedback": {
+          "intrinsic": "The assistant may know its role but still not interpret the question.",
+          "instructional": "Instructions guide behavior, while the language model reasons over language."
+        }
+      }
+    ],
+    "feedback_for_correct": "Correct! The large language model is the agent's key element for language understanding and reasoning."
+  }
+}

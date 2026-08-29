@@ -339,6 +339,28 @@ def test_merge_cross_file_match_adds_lesson_but_keeps_wording():
     assert nlp.source == {"file": "1. First.md"}  # owner unchanged
 
 
+def test_merge_cross_file_match_fills_legacy_depth_gap_without_rewriting_owner():
+    first = merge_source_concepts(ConceptGraph(), _atoms_file1(), source_file="1. First.md")
+    assert first.graph.by_id()["nlp"].depth is None
+    atoms_file2 = {
+        "nlp-deep-dive": [
+            ConceptAtom(
+                id="natural-language-processing",
+                label="Natural Language Processing",
+                summary="A different wording about understanding language.",
+                depth="mechanism",
+            )
+        ]
+    }
+
+    second = merge_source_concepts(first.graph, atoms_file2, source_file="2. Second.md")
+
+    nlp = second.graph.by_id()["nlp"]
+    assert nlp.depth == "mechanism"
+    assert "making sense of human language" in nlp.summary
+    assert nlp.source == {"file": "1. First.md"}
+
+
 def test_merge_id_collision_gets_suffixed():
     first = merge_source_concepts(ConceptGraph(), _atoms_file1(), source_file="1. First.md")
     atoms_file2 = {

@@ -1,0 +1,1246 @@
+{
+  "schema_version": "techlingo-gauntlet-record-v1",
+  "compiled_artifact_sha256": "69c9d18537cc04d4d24f6ffad549e8d9c17ee1b85b2ba8dc167de6c8be33ae73",
+  "unit_key": "build-speech-to-text-applications-l2",
+  "champion": {
+    "artifact_id": "ai-901:build-speech-to-text-applications-l2",
+    "course_id": "ai-901",
+    "session_id": "build-speech-to-text-applications-l2",
+    "items": [
+      {
+        "item_key": "build-speech-to-text-applications/foundry-playground-and-api/r1/v2",
+        "path": "modules/9:10-get-started-with-speech-in-azure/units/4:build-speech-to-text-applications-l2/questions/0",
+        "payload": {
+          "import_key": "build-speech-to-text-applications-l2-q1",
+          "question_type": "multiple_choice",
+          "question_text": "Which actions can the Speech-to-Text playground do? Select all that apply.",
+          "options": {
+            "options": [
+              {
+                "text": "Transcribe an uploaded audio file",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "The playground accepts an uploaded audio file. Azure Speech then transcribes what was said.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Transcribe speech you record",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "You can record yourself speaking in the playground. The recorded speech is transcribed into text.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Test Azure Speech capabilities",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "The playground is intended for experimenting with Azure Speech capabilities. It lets a person see how transcription responds to audio input.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Replace application code in production",
+                "is_correct": false,
+                "error_type": "Confuses a testing playground with application integration",
+                "rationale": "The playground is for trying capabilities. Using transcription in an application requires writing code.",
+                "better_fit": "Choose this only when discussing code that integrates speech recognition into an application.",
+                "feedback": {
+                  "intrinsic": "A production app would still need its own integration code.",
+                  "instructional": "Use the playground to experiment. Use application code and the SDK when adding transcription to an app."
+                }
+              }
+            ],
+            "blooms_level": "Remembering",
+            "original_question_type": "multi_choice",
+            "concept_id": "foundry-playground-and-api",
+            "item_key": "build-speech-to-text-applications/foundry-playground-and-api/r1/v2",
+            "rung": 1,
+            "variant": 2,
+            "module_key": "10-get-started-with-speech-in-azure",
+            "lesson_key": "build-speech-to-text-applications",
+            "learning_status": "review"
+          },
+          "correct_answer": "[0,1,2]",
+          "explanation": "Correct! The playground supports trying uploaded audio and recorded speech, then reviewing the transcription.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "build-speech-to-text-applications/stt-recognition-objects/r1/v2",
+        "path": "modules/9:10-get-started-with-speech-in-azure/units/4:build-speech-to-text-applications-l2/questions/1",
+        "payload": {
+          "import_key": "build-speech-to-text-applications-l2-q2",
+          "question_type": "multiple_choice",
+          "question_text": "Which object-to-job matches are correct? Select all that apply.",
+          "options": {
+            "options": [
+              {
+                "text": "SpeechConfig supplies endpoint information",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "SpeechConfig supplies endpoint information. The endpoint is the address used to connect to the Azure resource.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "SpeechRecognizer selects the resource key",
+                "is_correct": false,
+                "error_type": "Confuses recognizer with SpeechConfig",
+                "rationale": "SpeechRecognizer performs transcription. SpeechConfig is the object that supplies endpoint and authentication information, including the resource key.",
+                "better_fit": "Choose this for SpeechConfig when assigning endpoint and authentication details.",
+                "feedback": {
+                  "intrinsic": "The recognizer would be asked to provide configuration it does not own.",
+                  "instructional": "SpeechConfig supplies connection details. SpeechRecognizer uses those details to perform transcription."
+                }
+              },
+              {
+                "text": "SpeechConfig supplies authentication information",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "SpeechConfig also supplies authentication information. This can include a resource key or Microsoft Entra ID.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "AudioConfig specifies an audio source",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "AudioConfig specifies an audio input or output source. A microphone is one possible input source.",
+                "better_fit": null,
+                "feedback": null
+              }
+            ],
+            "blooms_level": "Remembering",
+            "original_question_type": "multi_choice",
+            "concept_id": "stt-recognition-objects",
+            "item_key": "build-speech-to-text-applications/stt-recognition-objects/r1/v2",
+            "rung": 1,
+            "variant": 2,
+            "module_key": "10-get-started-with-speech-in-azure",
+            "lesson_key": "build-speech-to-text-applications",
+            "learning_status": "review"
+          },
+          "correct_answer": "[0,2,3]",
+          "explanation": "Correct! SpeechConfig carries connection details, while AudioConfig identifies the audio source.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "build-speech-to-text-applications/endpoint-and-authentication/r3/v1",
+        "path": "modules/9:10-get-started-with-speech-in-azure/units/4:build-speech-to-text-applications-l2/questions/2",
+        "payload": {
+          "import_key": "build-speech-to-text-applications-l2-q3",
+          "question_type": "arrange_sentence",
+          "question_text": "Arrange the following connection setup steps.",
+          "options": {
+            "word_bank": [
+              "initialize the Speech SDK",
+              "Provide the endpoint",
+              "connect to Azure Speech",
+              "provide authentication"
+            ],
+            "correct_order": [
+              "Provide the endpoint",
+              "provide authentication",
+              "initialize the Speech SDK",
+              "connect to Azure Speech"
+            ],
+            "blooms_level": "Understanding",
+            "original_question_type": "rearrange",
+            "concept_id": "endpoint-and-authentication",
+            "feedback_for_incorrect": {
+              "intrinsic": "The connection could be attempted before its address or authorization was available.",
+              "instructional": "Provide the endpoint and authentication first. Then initialize the SDK so it can connect to Azure Speech."
+            },
+            "item_key": "build-speech-to-text-applications/endpoint-and-authentication/r3/v1",
+            "rung": 3,
+            "variant": 1,
+            "module_key": "10-get-started-with-speech-in-azure",
+            "lesson_key": "build-speech-to-text-applications",
+            "learning_status": "new"
+          },
+          "correct_answer": "Provide the endpoint provide authentication initialize the Speech SDK connect to Azure Speech",
+          "explanation": "The application supplies the service address and authorization details to initialize the SDK. With those details in place, it can connect to Azure Speech.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "build-speech-to-text-applications/speech-sdk-responsibilities/r3/v1",
+        "path": "modules/9:10-get-started-with-speech-in-azure/units/4:build-speech-to-text-applications-l2/questions/3",
+        "payload": {
+          "import_key": "build-speech-to-text-applications-l2-q4",
+          "question_type": "fill_blank",
+          "question_text": "The Speech-to-Text SDK acts as a bridge between application code and ___.",
+          "options": {
+            "parts": [
+              {
+                "type": "text",
+                "text": "The Speech-to-Text SDK acts as a bridge between application code and "
+              },
+              {
+                "type": "gap",
+                "accepted_answers": [
+                  "Azure Speech"
+                ],
+                "rejected_answers": [
+                  "SpeechRecognizer",
+                  "Microsoft Foundry playground",
+                  "SpeechConfig",
+                  "stt-recognition-objects",
+                  "realtime-transcription"
+                ],
+                "placeholder": "service name"
+              },
+              {
+                "type": "text",
+                "text": "."
+              }
+            ],
+            "rejected_answers": [
+              "SpeechRecognizer",
+              "Microsoft Foundry playground",
+              "SpeechConfig",
+              "stt-recognition-objects",
+              "realtime-transcription"
+            ],
+            "blooms_level": "Remembering",
+            "original_question_type": "fill_gaps",
+            "concept_id": "speech-sdk-responsibilities",
+            "feedback_for_incorrect": {
+              "intrinsic": "The bridge would be aimed at an object or testing area instead of the speech service.",
+              "instructional": "The SDK bridges an application to Azure Speech. SpeechRecognizer performs transcription, SpeechConfig holds connection details, and the playground is a place to try capabilities."
+            },
+            "item_key": "build-speech-to-text-applications/speech-sdk-responsibilities/r3/v1",
+            "rung": 3,
+            "variant": 1,
+            "module_key": "10-get-started-with-speech-in-azure",
+            "lesson_key": "build-speech-to-text-applications",
+            "learning_status": "new"
+          },
+          "correct_answer": "Azure Speech",
+          "explanation": "The SDK connects application code to the Azure Speech service so audio can be sent and transcription can be returned. SpeechRecognizer and SpeechConfig are code objects, while the playground is for experimentation.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "build-speech-to-text-applications/endpoint-and-authentication/r4/v1",
+        "path": "modules/9:10-get-started-with-speech-in-azure/units/4:build-speech-to-text-applications-l2/questions/4",
+        "payload": {
+          "import_key": "build-speech-to-text-applications-l2-q5",
+          "question_type": "multiple_choice",
+          "question_text": "A media platform is setting up live captioning, but its new transcription app cannot connect to Azure Speech. Which setup information should the developer provide? Select all that apply.",
+          "options": {
+            "options": [
+              {
+                "text": "The Azure resource endpoint",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "The endpoint is the service address required to connect to the Azure resource. The SDK initialization uses this address.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "A Foundry resource key",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "A resource key authenticates a connection made to the endpoint. It is one supported authentication method.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "A recognized text event",
+                "is_correct": false,
+                "error_type": "Confuses setup credentials with a result notification",
+                "rationale": "A recognized event returns completed text after recognition. It cannot provide the endpoint or authenticate a connection.",
+                "better_fit": "Choose this when handling completed transcription during recognition.",
+                "feedback": {
+                  "intrinsic": "The app would still lack the information needed to connect.",
+                  "instructional": "For connection setup, provide the endpoint and one authentication method. A recognized event is a result notification, not setup information."
+                }
+              },
+              {
+                "text": "Microsoft Entra ID authentication",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "Microsoft Entra ID is an identity-based authentication alternative to a resource key. It can be used for SDK initialization.",
+                "better_fit": null,
+                "feedback": null
+              }
+            ],
+            "blooms_level": "Applying",
+            "original_question_type": "multi_choice",
+            "concept_id": "endpoint-and-authentication",
+            "item_key": "build-speech-to-text-applications/endpoint-and-authentication/r4/v1",
+            "rung": 4,
+            "variant": 1,
+            "module_key": "10-get-started-with-speech-in-azure",
+            "lesson_key": "build-speech-to-text-applications",
+            "learning_status": "new"
+          },
+          "correct_answer": "[0,1,3]",
+          "explanation": "Correct! The app needs the endpoint plus authentication; a resource key and Microsoft Entra ID are supported authentication choices.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "build-speech-to-text-applications/speech-sdk-responsibilities/r4/v1",
+        "path": "modules/9:10-get-started-with-speech-in-azure/units/4:build-speech-to-text-applications-l2/questions/5",
+        "payload": {
+          "import_key": "build-speech-to-text-applications-l2-q6",
+          "question_type": "multiple_choice",
+          "question_text": "A healthcare developer is adding clinical dictation. The app must handle networking, authentication, audio streaming, and returned transcription while the developer focuses on the note-taking screen. What should the developer use?",
+          "options": {
+            "options": [
+              {
+                "text": "A recognizing event",
+                "is_correct": false,
+                "error_type": "Confuses one interim-result event with SDK responsibilities",
+                "rationale": "A recognizing event returns interim text during recognition. It does not handle the broader connection and audio-transfer responsibilities.",
+                "better_fit": "Choose this when the app needs to react to interim, not-yet-completed text.",
+                "feedback": {
+                  "intrinsic": "The note-taking app would receive partial text but still lack the needed connection handling.",
+                  "instructional": "Recognizing is one event for interim results. The SDK handles the wider networking, authentication, streaming, and parsing work."
+                }
+              },
+              {
+                "text": "The Speech-to-Text SDK",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "The SDK handles networking, authentication, audio streaming, and response parsing. This leaves the developer free to focus on application logic such as the note-taking screen.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Real-time transcription",
+                "is_correct": false,
+                "error_type": "Confuses a transcription mode with the SDK",
+                "rationale": "Real-time transcription describes when text is returned from an audio stream. It is not the client library that handles networking and authentication.",
+                "better_fit": "Choose this when a person is speaking live and text must be returned as the audio arrives.",
+                "feedback": {
+                  "intrinsic": "The developer would name a timing mode without addressing the connection work.",
+                  "instructional": "Real-time transcription is a use pattern. The SDK is what handles the supporting communication tasks."
+                }
+              },
+              {
+                "text": "A SpeechRecognizer object",
+                "is_correct": false,
+                "error_type": "Confuses the recognizer object with the SDK's broader responsibilities",
+                "rationale": "SpeechRecognizer performs transcription in application code. The SDK has the broader responsibility for networking, authentication, audio streaming, and parsing.",
+                "better_fit": "Choose this when creating the object that performs transcription after configuration is supplied.",
+                "feedback": {
+                  "intrinsic": "The app would focus on the recognizer while its underlying communication needs remain unaddressed.",
+                  "instructional": "SpeechRecognizer performs transcription, but the SDK is the broader client library that handles the supporting work."
+                }
+              }
+            ],
+            "blooms_level": "Applying",
+            "original_question_type": "single_choice",
+            "concept_id": "speech-sdk-responsibilities",
+            "item_key": "build-speech-to-text-applications/speech-sdk-responsibilities/r4/v1",
+            "rung": 4,
+            "variant": 1,
+            "module_key": "10-get-started-with-speech-in-azure",
+            "lesson_key": "build-speech-to-text-applications",
+            "learning_status": "new"
+          },
+          "correct_answer": "1",
+          "explanation": "Correct! The Speech-to-Text SDK handles those underlying responsibilities so the developer can focus on the app experience.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "build-speech-to-text-applications/stt-recognition-objects/r3/v1",
+        "path": "modules/9:10-get-started-with-speech-in-azure/units/4:build-speech-to-text-applications-l2/questions/6",
+        "payload": {
+          "import_key": "build-speech-to-text-applications-l2-q7",
+          "question_type": "fill_blank",
+          "question_text": "During continuous recognition, the event that returns completed text is the ___ event.",
+          "options": {
+            "parts": [
+              {
+                "type": "text",
+                "text": "During continuous recognition, the event that returns completed text is the "
+              },
+              {
+                "type": "gap",
+                "accepted_answers": [
+                  "recognized",
+                  "recognized event"
+                ],
+                "rejected_answers": [
+                  "recognizing",
+                  "recognizing event",
+                  "SpeechConfig",
+                  "stt-sdk-responsibilities",
+                  "speech-synthesizer-output-config"
+                ],
+                "placeholder": "event name"
+              },
+              {
+                "type": "text",
+                "text": " event."
+              }
+            ],
+            "rejected_answers": [
+              "recognizing",
+              "recognizing event",
+              "SpeechConfig",
+              "stt-sdk-responsibilities",
+              "speech-synthesizer-output-config"
+            ],
+            "blooms_level": "Remembering",
+            "original_question_type": "fill_gaps",
+            "concept_id": "stt-recognition-objects",
+            "feedback_for_incorrect": {
+              "intrinsic": "An unfinished transcription could be treated as the completed result.",
+              "instructional": "Use recognized for completed text. Recognizing means interim text, while SpeechConfig handles endpoint and authentication details."
+            },
+            "item_key": "build-speech-to-text-applications/stt-recognition-objects/r3/v1",
+            "rung": 3,
+            "variant": 1,
+            "module_key": "10-get-started-with-speech-in-azure",
+            "lesson_key": "build-speech-to-text-applications",
+            "learning_status": "new"
+          },
+          "correct_answer": "[\"recognized\",\"recognized event\"]",
+          "explanation": "Completed text is returned by a recognized event. Recognizing events return interim text, and SpeechConfig supplies connection information rather than transcription results.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "build-speech-to-text-applications/azure-speech-stt-api-sdk/r3/v1",
+        "path": "modules/9:10-get-started-with-speech-in-azure/units/4:build-speech-to-text-applications-l2/questions/7",
+        "payload": {
+          "import_key": "build-speech-to-text-applications-l2-q8",
+          "question_type": "arrange_sentence",
+          "question_text": "Order the pieces correctly.",
+          "options": {
+            "word_bank": [
+              "that converts spoken audio",
+              "The Speech-to-Text SDK",
+              "into written text",
+              "is a client library"
+            ],
+            "correct_order": [
+              "The Speech-to-Text SDK",
+              "is a client library",
+              "that converts spoken audio",
+              "into written text"
+            ],
+            "blooms_level": "Understanding",
+            "original_question_type": "rearrange",
+            "concept_id": "azure-speech-stt-api-sdk",
+            "feedback_for_incorrect": {
+              "intrinsic": "The sentence would not clearly connect the library to transcription.",
+              "instructional": "Name the SDK first, identify it as a client library, and then describe its audio-to-text purpose."
+            },
+            "item_key": "build-speech-to-text-applications/azure-speech-stt-api-sdk/r3/v1",
+            "rung": 3,
+            "variant": 1,
+            "module_key": "10-get-started-with-speech-in-azure",
+            "lesson_key": "build-speech-to-text-applications",
+            "learning_status": "new"
+          },
+          "correct_answer": "The Speech-to-Text SDK is a client library that converts spoken audio into written text",
+          "explanation": "The first part names the component, then identifies its type, then states the conversion it supports. This connects the SDK's client-library role to transcription.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "build-speech-to-text-applications/stt-recognition-objects/r4/v1",
+        "path": "modules/9:10-get-started-with-speech-in-azure/units/4:build-speech-to-text-applications-l2/questions/8",
+        "payload": {
+          "import_key": "build-speech-to-text-applications-l2-q9",
+          "question_type": "multiple_choice",
+          "question_text": "A retail virtual-assistant app must listen to a customer's spoken request until the customer ends the conversation. Which action should the developer use?",
+          "options": {
+            "options": [
+              {
+                "text": "Handle a recognized event",
+                "is_correct": false,
+                "error_type": "Confuses receiving completed text with keeping audio listening",
+                "rationale": "A recognized event provides completed text. It does not start or keep recognition listening.",
+                "better_fit": "Choose this when the app needs to handle a completed transcription result.",
+                "feedback": {
+                  "intrinsic": "The app could receive a result but would not begin ongoing listening.",
+                  "instructional": "Use continuous recognition to keep listening. Handle a recognized event when completed text arrives."
+                }
+              },
+              {
+                "text": "Create an AudioConfig",
+                "is_correct": false,
+                "error_type": "Confuses choosing an input source with starting recognition",
+                "rationale": "AudioConfig specifies the microphone or other audio source. It does not begin speech recognition.",
+                "better_fit": "Choose this when setting the audio input source before creating the recognizer.",
+                "feedback": {
+                  "intrinsic": "The microphone could be selected, but listening would not start.",
+                  "instructional": "AudioConfig identifies where audio comes from. Start continuous recognition to begin and continue listening."
+                }
+              },
+              {
+                "text": "Start continuous recognition",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "Continuous recognition keeps listening until the application stops it. This fits a spoken conversation that continues until the customer finishes.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Create a SpeechConfig",
+                "is_correct": false,
+                "error_type": "Confuses connection setup with starting recognition",
+                "rationale": "SpeechConfig supplies endpoint and authentication information. It does not start recognition of the customer's speech.",
+                "better_fit": "Choose this when supplying the Azure Speech connection details.",
+                "feedback": {
+                  "intrinsic": "The connection could be configured, but the conversation would not yet be listened to.",
+                  "instructional": "SpeechConfig prepares the connection. Start continuous recognition when the app is ready to listen."
+                }
+              }
+            ],
+            "blooms_level": "Applying",
+            "original_question_type": "single_choice",
+            "concept_id": "stt-recognition-objects",
+            "item_key": "build-speech-to-text-applications/stt-recognition-objects/r4/v1",
+            "rung": 4,
+            "variant": 1,
+            "module_key": "10-get-started-with-speech-in-azure",
+            "lesson_key": "build-speech-to-text-applications",
+            "learning_status": "new"
+          },
+          "correct_answer": "2",
+          "explanation": "Correct! Continuous recognition keeps listening until the application stops it.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "build-speech-to-text-applications/foundry-playground-and-api/r3/v1",
+        "path": "modules/9:10-get-started-with-speech-in-azure/units/4:build-speech-to-text-applications-l2/questions/9",
+        "payload": {
+          "import_key": "build-speech-to-text-applications-l2-q10",
+          "question_type": "fill_blank",
+          "question_text": "A set of rules and endpoints that lets one application use another service is an ___.",
+          "options": {
+            "parts": [
+              {
+                "type": "text",
+                "text": "A set of rules and endpoints that lets one application use another service is an "
+              },
+              {
+                "type": "gap",
+                "accepted_answers": [
+                  "API",
+                  "Application Programming Interface"
+                ],
+                "rejected_answers": [
+                  "endpoint",
+                  "resource key",
+                  "Speech-to-Text SDK",
+                  "azure-speech-stt-api-sdk",
+                  "endpoint-and-authentication"
+                ],
+                "placeholder": "technical term"
+              },
+              {
+                "type": "text",
+                "text": "."
+              }
+            ],
+            "rejected_answers": [
+              "endpoint",
+              "resource key",
+              "Speech-to-Text SDK",
+              "azure-speech-stt-api-sdk",
+              "endpoint-and-authentication"
+            ],
+            "blooms_level": "Remembering",
+            "original_question_type": "fill_gaps",
+            "concept_id": "foundry-playground-and-api",
+            "feedback_for_incorrect": {
+              "intrinsic": "The communication role would remain unclear.",
+              "instructional": "Choose API for the rules and endpoints. An endpoint is an address, a resource key is a credential, and the SDK is client-library code."
+            },
+            "item_key": "build-speech-to-text-applications/foundry-playground-and-api/r3/v1",
+            "rung": 3,
+            "variant": 1,
+            "module_key": "10-get-started-with-speech-in-azure",
+            "lesson_key": "build-speech-to-text-applications",
+            "learning_status": "new"
+          },
+          "correct_answer": "[\"API\",\"Application Programming Interface\"]",
+          "explanation": "An API defines how one application can access another application's functions or data. An endpoint is part of an API, while a key authenticates access and an SDK provides ready-made code.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "build-speech-to-text-applications/azure-speech-stt-api-sdk/r4/v1",
+        "path": "modules/9:10-get-started-with-speech-in-azure/units/4:build-speech-to-text-applications-l2/questions/10",
+        "payload": {
+          "import_key": "build-speech-to-text-applications-l2-q11",
+          "question_type": "multiple_choice",
+          "question_text": "A developer is building a voicemail app. A recorded voicemail must become written text. Which components fit this need? Select all that apply.",
+          "options": {
+            "options": [
+              {
+                "text": "A text-to-speech voice",
+                "is_correct": false,
+                "error_type": "Confuses transcribing voicemail with vocalizing text",
+                "rationale": "A synthetic voice generates spoken audio from written text. The voicemail task needs recorded speech converted to text.",
+                "better_fit": "Choose this when the app needs to read a written message aloud.",
+                "feedback": {
+                  "intrinsic": "The voicemail would be spoken rather than written out.",
+                  "instructional": "For voicemail transcription, use an audio file with speech-to-text. A voice is for text-to-speech."
+                }
+              },
+              {
+                "text": "The Speech-to-Text API",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "The API processes spoken audio into text. A recorded voicemail is an audio source for transcription.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "The Speech-to-Text SDK",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "The SDK is ready-made client-library code for connecting an application to transcription. It helps the voicemail app communicate with Azure Speech.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "An audio file as input",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "A voicemail recording can be supplied as an audio file. Speech-to-text can process file audio into written text.",
+                "better_fit": null,
+                "feedback": null
+              }
+            ],
+            "blooms_level": "Applying",
+            "original_question_type": "multi_choice",
+            "concept_id": "azure-speech-stt-api-sdk",
+            "item_key": "build-speech-to-text-applications/azure-speech-stt-api-sdk/r4/v1",
+            "rung": 4,
+            "variant": 1,
+            "module_key": "10-get-started-with-speech-in-azure",
+            "lesson_key": "build-speech-to-text-applications",
+            "learning_status": "new"
+          },
+          "correct_answer": "[1,2,3]",
+          "explanation": "Correct! The audio file is the input, the API processes it, and the SDK helps the app communicate with Azure Speech.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "build-speech-to-text-applications/foundry-playground-and-api/r4/v1",
+        "path": "modules/9:10-get-started-with-speech-in-azure/units/4:build-speech-to-text-applications-l2/questions/11",
+        "payload": {
+          "import_key": "build-speech-to-text-applications-l2-q12",
+          "question_type": "multiple_choice",
+          "question_text": "A customer-support manager has a recorded customer call and wants to test its transcription before developers write the call-transcription app. Where should the manager start?",
+          "options": {
+            "options": [
+              {
+                "text": "A SpeechRecognizer object",
+                "is_correct": false,
+                "error_type": "Confuses code integration with playground testing",
+                "rationale": "SpeechRecognizer is an object used in application code to perform transcription. The manager first wants to test a recording without building the app.",
+                "better_fit": "Choose this when writing the transcription portion of an application.",
+                "feedback": {
+                  "intrinsic": "The manager would need application code before testing the call.",
+                  "instructional": "SpeechRecognizer belongs in code. The playground is the quick place to test an uploaded recording."
+                }
+              },
+              {
+                "text": "A Foundry resource key",
+                "is_correct": false,
+                "error_type": "Confuses testing location with authentication",
+                "rationale": "A resource key is used to authenticate a connection. It is not the place where an uploaded recording is tested.",
+                "better_fit": "Choose this when configuring authenticated access to Azure Speech in code.",
+                "feedback": {
+                  "intrinsic": "The call would not yet be uploaded for testing.",
+                  "instructional": "A key proves access. The Speech-to-Text playground is where a recorded call can be tried."
+                }
+              },
+              {
+                "text": "A text-to-speech voice",
+                "is_correct": false,
+                "error_type": "Confuses speech-to-text with text-to-speech",
+                "rationale": "A text-to-speech voice converts written text into audible speech. The manager needs spoken call audio converted into text.",
+                "better_fit": "Choose this when an application needs to read a written response aloud.",
+                "feedback": {
+                  "intrinsic": "The call would be read aloud rather than transcribed.",
+                  "instructional": "Recorded speech needs speech-to-text. A synthetic voice is used for text-to-speech."
+                }
+              },
+              {
+                "text": "The Speech-to-Text playground",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "The playground lets people upload audio and try transcription. It is suitable for testing a recorded call before application code is written.",
+                "better_fit": null,
+                "feedback": null
+              }
+            ],
+            "blooms_level": "Applying",
+            "original_question_type": "single_choice",
+            "concept_id": "foundry-playground-and-api",
+            "item_key": "build-speech-to-text-applications/foundry-playground-and-api/r4/v1",
+            "rung": 4,
+            "variant": 1,
+            "module_key": "10-get-started-with-speech-in-azure",
+            "lesson_key": "build-speech-to-text-applications",
+            "learning_status": "new"
+          },
+          "correct_answer": "3",
+          "explanation": "Correct! The Speech-to-Text playground is designed for trying transcription with uploaded audio.",
+          "points": 1
+        }
+      }
+    ],
+    "metadata": {
+      "module_key": "10-get-started-with-speech-in-azure",
+      "unit_title": "Build speech-to-text applications · Level 2",
+      "unit_slo": "Identify the Azure Speech components needed to transcribe microphone or file audio.",
+      "constraint_relaxations": []
+    }
+  },
+  "history": {
+    "schema_version": "techlingo-gauntlet-history-v1",
+    "run_id": "build-speech-to-text-applications-l2-ffb9b308573f",
+    "started_at": "2026-08-28T03:27:15.215390Z",
+    "finished_at": "2026-08-28T03:30:00.825542Z",
+    "initial_champion_hash": "72d8f26a70ade89e11566b935b78dee9b52b3445ac26ad31dabf27fb0f899553",
+    "final_champion_hash": "72d8f26a70ade89e11566b935b78dee9b52b3445ac26ad31dabf27fb0f899553",
+    "evaluation_context": {
+      "schema_version": "techlingo-evaluation-context-v1",
+      "goal": "Produce an excellent, source-faithful learner session while preserving all deterministic correctness, identity, and sequence constraints.",
+      "source_fidelity_goal": "Independently verify the hard-gated edited challenger against the supplied source material. Reject unsupported facts, answers, explanations, feedback, or terminology changes; do not edit the artifact.",
+      "gauntlet_policy": {
+        "critic_backend": "codex",
+        "critic_model": "codex:gpt-5.6-luna",
+        "builder_model": "codex:gpt-5.6-terra",
+        "max_rounds": 4,
+        "plateau_rounds": 2,
+        "repeated_loss_rounds": 2,
+        "minimum_improvement_margin": 0.02,
+        "confidence_threshold": 0.65,
+        "human_review_threshold": 0.4,
+        "max_time_seconds": null,
+        "max_tokens": null,
+        "max_cost_usd": null,
+        "qualitative_required_for_publication": true,
+        "quality_thresholds": {
+          "factual_fidelity": 0.8,
+          "answer_unambiguity": 0.8,
+          "distractor_plausibility": 0.8,
+          "misconception_quality": 0.8,
+          "cognitive_progression": 0.8,
+          "mechanic_rhythm_variation": 0.8,
+          "prompt_language_variation": 0.8,
+          "scenario_authenticity": 0.8,
+          "feedback_usefulness": 0.8,
+          "difficulty_appropriateness": 0.8,
+          "terminology_consistency": 0.8,
+          "overall_learner_experience": 0.8
+        },
+        "comparison_seed": 901,
+        "protected_dimensions": [
+          "factual_fidelity",
+          "answer_unambiguity"
+        ],
+        "unstable_comparison_requires_human_review": true,
+        "identifying_metadata_keys": [
+          "artifact_id",
+          "builder_model",
+          "candidate_role",
+          "challenger",
+          "champion",
+          "critic_model",
+          "generated_at",
+          "import_key",
+          "item_key",
+          "model_id",
+          "path",
+          "version_id"
+        ]
+      },
+      "gauntlet_policy_sha256": "035ba75a6dc056e4680b4c7cb97f2859ec5160f72633534a4550ba69e8061ac4",
+      "rubric": {
+        "criteria": {
+          "factual_fidelity": "Every claim and answer is faithful to the supplied source.",
+          "answer_unambiguity": "Each item has one defensible answer under its instructions.",
+          "distractor_plausibility": "Distractors are credible without becoming defensible answers.",
+          "misconception_quality": "Wrong choices diagnose realistic learner misconceptions.",
+          "cognitive_progression": "The ordered session builds understanding at a coherent pace.",
+          "mechanic_rhythm_variation": "Mechanics vary naturally without disruptive repetition.",
+          "prompt_language_variation": "Prompt stems avoid formulaic repetition.",
+          "scenario_authenticity": "Scenarios resemble credible decisions or tasks.",
+          "feedback_usefulness": "Feedback explains the governing concept and next step.",
+          "difficulty_appropriateness": "Difficulty matches the stated audience and session position.",
+          "terminology_consistency": "Terms are used consistently with the source and across items.",
+          "overall_learner_experience": "The exact final sequence is coherent, varied, and instructive."
+        }
+      },
+      "rubric_sha256": "34290a842f2ed7e30b7a98ba70ac97d967c864424010cd31255f97cdce0b57d5",
+      "sources": [
+        {
+          "input_id": "10. Get started with speech in Azure.md",
+          "sha256": "c1f0e4a77acb1e94a9836b9a469ad7697002a8289fd318c15e108d4f24c4b69c",
+          "location": "sources/10. Get started with speech in Azure.md"
+        }
+      ],
+      "approved_references": [],
+      "models": {
+        "builder_model": "codex:gpt-5.6-terra",
+        "critic_backend": "codex",
+        "critic_model": "codex:gpt-5.6-luna",
+        "critic_fresh_context": true,
+        "editor_backend": "codex",
+        "editor_model": "codex:gpt-5.6-luna",
+        "editor_fresh_context": true,
+        "comparator_backend": "codex",
+        "comparator_model": "codex:gpt-5.6-luna",
+        "comparator_fresh_context": true
+      },
+      "context_sha256": "509def19d2f54671087c4619759ed45cffb862ba60235287a06d44f66e818766"
+    },
+    "initial_hard_gate": {
+      "artifact_sha256": "72d8f26a70ade89e11566b935b78dee9b52b3445ac26ad31dabf27fb0f899553",
+      "passed": true,
+      "issues": [],
+      "checks": {
+        "schema_and_answers": true,
+        "identity": true,
+        "final_sequence": true
+      },
+      "metrics": {},
+      "constraint_relaxations": []
+    },
+    "rounds": [
+      {
+        "round_number": 1,
+        "champion_hash_before": "72d8f26a70ade89e11566b935b78dee9b52b3445ac26ad31dabf27fb0f899553",
+        "critic": {
+          "result": {
+            "dimensions": [
+              {
+                "dimension": "factual_fidelity",
+                "score": 0.89,
+                "evidence": [
+                  {
+                    "statement": "Most claims match the source: the playground accepts uploads and recordings, SpeechConfig carries endpoint/authentication, AudioConfig identifies audio input, and the SDK bridges application code to Azure Speech.",
+                    "item_keys": [
+                      "build-speech-to-text-applications/foundry-playground-and-api/r1/v2",
+                      "build-speech-to-text-applications/stt-recognition-objects/r1/v2",
+                      "build-speech-to-text-applications/speech-sdk-responsibilities/r3/v1"
+                    ],
+                    "paths": [
+                      "modules/9:10-get-started-with-speech-in-azure/units/4:build-speech-to-text-applications-l2/questions/0",
+                      "modules/9:10-get-started-with-speech-in-azure/units/4:build-speech-to-text-applications-l2/questions/1",
+                      "modules/9:10-get-started-with-speech-in-azure/units/4:build-speech-to-text-applications-l2/questions/3"
+                    ]
+                  },
+                  {
+                    "statement": "The supplied source shows recognized and recognizing handlers but does not explicitly define completed-versus-interim semantics, which several items assert.",
+                    "item_keys": [
+                      "build-speech-to-text-applications/stt-recognition-objects/r3/v1",
+                      "build-speech-to-text-applications/speech-sdk-responsibilities/r4/v1",
+                      "build-speech-to-text-applications/stt-recognition-objects/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/9:10-get-started-with-speech-in-azure/units/4:build-speech-to-text-applications-l2/questions/6",
+                      "modules/9:10-get-started-with-speech-in-azure/units/4:build-speech-to-text-applications-l2/questions/5",
+                      "modules/9:10-get-started-with-speech-in-azure/units/4:build-speech-to-text-applications-l2/questions/8"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "answer_unambiguity",
+                "score": 0.72,
+                "evidence": [
+                  {
+                    "statement": "Q5 marks both a resource key and Microsoft Entra ID as correct, although the source presents them as alternative authentication methods using 'key or Microsoft Entra ID'.",
+                    "item_keys": [
+                      "build-speech-to-text-applications/endpoint-and-authentication/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/9:10-get-started-with-speech-in-azure/units/4:build-speech-to-text-applications-l2/questions/4"
+                    ]
+                  },
+                  {
+                    "statement": "Q3 imposes a separate order between endpoint and authentication that the source does not explicitly prescribe, and Q7 accepts 'recognized event' in a sentence that already supplies the word 'event'.",
+                    "item_keys": [
+                      "build-speech-to-text-applications/endpoint-and-authentication/r3/v1",
+                      "build-speech-to-text-applications/stt-recognition-objects/r3/v1"
+                    ],
+                    "paths": [
+                      "modules/9:10-get-started-with-speech-in-azure/units/4:build-speech-to-text-applications-l2/questions/2",
+                      "modules/9:10-get-started-with-speech-in-azure/units/4:build-speech-to-text-applications-l2/questions/6"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "distractor_plausibility",
+                "score": 0.9,
+                "evidence": [
+                  {
+                    "statement": "Distractors are credible alternatives tied to nearby concepts: SpeechRecognizer versus SpeechConfig, recognized events versus setup credentials, and text-to-speech versus speech-to-text.",
+                    "item_keys": [
+                      "build-speech-to-text-applications/stt-recognition-objects/r1/v2",
+                      "build-speech-to-text-applications/endpoint-and-authentication/r4/v1",
+                      "build-speech-to-text-applications/azure-speech-stt-api-sdk/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/9:10-get-started-with-speech-in-azure/units/4:build-speech-to-text-applications-l2/questions/1",
+                      "modules/9:10-get-started-with-speech-in-azure/units/4:build-speech-to-text-applications-l2/questions/4",
+                      "modules/9:10-get-started-with-speech-in-azure/units/4:build-speech-to-text-applications-l2/questions/10"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "misconception_quality",
+                "score": 0.89,
+                "evidence": [
+                  {
+                    "statement": "Wrong choices diagnose realistic confusions between a testing playground and production code, configuration and recognition objects, transcription modes and SDK responsibilities, and speech recognition and synthesis.",
+                    "item_keys": [
+                      "build-speech-to-text-applications/foundry-playground-and-api/r4/v1",
+                      "build-speech-to-text-applications/speech-sdk-responsibilities/r4/v1",
+                      "build-speech-to-text-applications/stt-recognition-objects/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/9:10-get-started-with-speech-in-azure/units/4:build-speech-to-text-applications-l2/questions/11",
+                      "modules/9:10-get-started-with-speech-in-azure/units/4:build-speech-to-text-applications-l2/questions/5",
+                      "modules/9:10-get-started-with-speech-in-azure/units/4:build-speech-to-text-applications-l2/questions/8"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "cognitive_progression",
+                "score": 0.62,
+                "evidence": [
+                  {
+                    "statement": "The ordered Bloom levels are Remembering, Remembering, Understanding, Remembering, Applying, Applying, Remembering, Understanding, Applying, Remembering, Applying, Applying; later recall items interrupt progression and the session lacks a final integrative transfer task.",
+                    "item_keys": [
+                      "build-speech-to-text-applications/foundry-playground-and-api/r1/v2",
+                      "build-speech-to-text-applications/stt-recognition-objects/r1/v2",
+                      "build-speech-to-text-applications/endpoint-and-authentication/r3/v1",
+                      "build-speech-to-text-applications/stt-recognition-objects/r3/v1",
+                      "build-speech-to-text-applications/foundry-playground-and-api/r3/v1"
+                    ],
+                    "paths": [
+                      "modules/9:10-get-started-with-speech-in-azure/units/4:build-speech-to-text-applications-l2/questions/0",
+                      "modules/9:10-get-started-with-speech-in-azure/units/4:build-speech-to-text-applications-l2/questions/1",
+                      "modules/9:10-get-started-with-speech-in-azure/units/4:build-speech-to-text-applications-l2/questions/2",
+                      "modules/9:10-get-started-with-speech-in-azure/units/4:build-speech-to-text-applications-l2/questions/6",
+                      "modules/9:10-get-started-with-speech-in-azure/units/4:build-speech-to-text-applications-l2/questions/9"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "mechanic_rhythm_variation",
+                "score": 0.7,
+                "evidence": [
+                  {
+                    "statement": "The session uses multiple mechanics, but seven of twelve items are multiple choice and repeated multiple-choice blocks occur at items 1-2, 5-6, and 11-12.",
+                    "item_keys": [
+                      "build-speech-to-text-applications/foundry-playground-and-api/r1/v2",
+                      "build-speech-to-text-applications/stt-recognition-objects/r1/v2",
+                      "build-speech-to-text-applications/endpoint-and-authentication/r4/v1",
+                      "build-speech-to-text-applications/speech-sdk-responsibilities/r4/v1",
+                      "build-speech-to-text-applications/azure-speech-stt-api-sdk/r4/v1",
+                      "build-speech-to-text-applications/foundry-playground-and-api/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/9:10-get-started-with-speech-in-azure/units/4:build-speech-to-text-applications-l2/questions/0",
+                      "modules/9:10-get-started-with-speech-in-azure/units/4:build-speech-to-text-applications-l2/questions/1",
+                      "modules/9:10-get-started-with-speech-in-azure/units/4:build-speech-to-text-applications-l2/questions/4",
+                      "modules/9:10-get-started-with-speech-in-azure/units/4:build-speech-to-text-applications-l2/questions/5",
+                      "modules/9:10-get-started-with-speech-in-azure/units/4:build-speech-to-text-applications-l2/questions/10",
+                      "modules/9:10-get-started-with-speech-in-azure/units/4:build-speech-to-text-applications-l2/questions/11"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "prompt_language_variation",
+                "score": 0.72,
+                "evidence": [
+                  {
+                    "statement": "Scenario framing varies across healthcare, media, retail, voicemail, and customer support, but 'Which...' stems recur across items 1, 2, 9, 11, and 12.",
+                    "item_keys": [
+                      "build-speech-to-text-applications/foundry-playground-and-api/r1/v2",
+                      "build-speech-to-text-applications/stt-recognition-objects/r1/v2",
+                      "build-speech-to-text-applications/stt-recognition-objects/r4/v1",
+                      "build-speech-to-text-applications/azure-speech-stt-api-sdk/r4/v1",
+                      "build-speech-to-text-applications/foundry-playground-and-api/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/9:10-get-started-with-speech-in-azure/units/4:build-speech-to-text-applications-l2/questions/0",
+                      "modules/9:10-get-started-with-speech-in-azure/units/4:build-speech-to-text-applications-l2/questions/1",
+                      "modules/9:10-get-started-with-speech-in-azure/units/4:build-speech-to-text-applications-l2/questions/8",
+                      "modules/9:10-get-started-with-speech-in-azure/units/4:build-speech-to-text-applications-l2/questions/10",
+                      "modules/9:10-get-started-with-speech-in-azure/units/4:build-speech-to-text-applications-l2/questions/11"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "scenario_authenticity",
+                "score": 0.86,
+                "evidence": [
+                  {
+                    "statement": "The media captioning, clinical dictation, retail assistant, voicemail, and recorded customer-call contexts are credible uses of the source's speech-to-text capabilities.",
+                    "item_keys": [
+                      "build-speech-to-text-applications/endpoint-and-authentication/r4/v1",
+                      "build-speech-to-text-applications/speech-sdk-responsibilities/r4/v1",
+                      "build-speech-to-text-applications/stt-recognition-objects/r4/v1",
+                      "build-speech-to-text-applications/azure-speech-stt-api-sdk/r4/v1",
+                      "build-speech-to-text-applications/foundry-playground-and-api/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/9:10-get-started-with-speech-in-azure/units/4:build-speech-to-text-applications-l2/questions/4",
+                      "modules/9:10-get-started-with-speech-in-azure/units/4:build-speech-to-text-applications-l2/questions/5",
+                      "modules/9:10-get-started-with-speech-in-azure/units/4:build-speech-to-text-applications-l2/questions/8",
+                      "modules/9:10-get-started-with-speech-in-azure/units/4:build-speech-to-text-applications-l2/questions/10",
+                      "modules/9:10-get-started-with-speech-in-azure/units/4:build-speech-to-text-applications-l2/questions/11"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "feedback_usefulness",
+                "score": 0.9,
+                "evidence": [
+                  {
+                    "statement": "Incorrect-choice feedback usually identifies the misconception and gives the next action, such as using SpeechConfig for connection details, AudioConfig for the source, and continuous recognition for ongoing listening.",
+                    "item_keys": [
+                      "build-speech-to-text-applications/stt-recognition-objects/r1/v2",
+                      "build-speech-to-text-applications/stt-recognition-objects/r4/v1",
+                      "build-speech-to-text-applications/endpoint-and-authentication/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/9:10-get-started-with-speech-in-azure/units/4:build-speech-to-text-applications-l2/questions/1",
+                      "modules/9:10-get-started-with-speech-in-azure/units/4:build-speech-to-text-applications-l2/questions/8",
+                      "modules/9:10-get-started-with-speech-in-azure/units/4:build-speech-to-text-applications-l2/questions/4"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "difficulty_appropriateness",
+                "score": 0.84,
+                "evidence": [
+                  {
+                    "statement": "The unit targets identifying components, and the artifact mixes direct identification with moderate application scenarios involving configuration, SDK responsibilities, audio sources, and the playground.",
+                    "item_keys": [
+                      "build-speech-to-text-applications/endpoint-and-authentication/r4/v1",
+                      "build-speech-to-text-applications/speech-sdk-responsibilities/r4/v1",
+                      "build-speech-to-text-applications/azure-speech-stt-api-sdk/r4/v1",
+                      "build-speech-to-text-applications/foundry-playground-and-api/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/9:10-get-started-with-speech-in-azure/units/4:build-speech-to-text-applications-l2/questions/4",
+                      "modules/9:10-get-started-with-speech-in-azure/units/4:build-speech-to-text-applications-l2/questions/5",
+                      "modules/9:10-get-started-with-speech-in-azure/units/4:build-speech-to-text-applications-l2/questions/10",
+                      "modules/9:10-get-started-with-speech-in-azure/units/4:build-speech-to-text-applications-l2/questions/11"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "terminology_consistency",
+                "score": 0.91,
+                "evidence": [
+                  {
+                    "statement": "Core terms remain consistent across the session: SpeechConfig, AudioConfig, SpeechRecognizer, Speech-to-Text SDK, endpoint, authentication, playground, API, and audio file are used in source-aligned roles.",
+                    "item_keys": [
+                      "build-speech-to-text-applications/stt-recognition-objects/r1/v2",
+                      "build-speech-to-text-applications/speech-sdk-responsibilities/r3/v1",
+                      "build-speech-to-text-applications/azure-speech-stt-api-sdk/r3/v1"
+                    ],
+                    "paths": [
+                      "modules/9:10-get-started-with-speech-in-azure/units/4:build-speech-to-text-applications-l2/questions/1",
+                      "modules/9:10-get-started-with-speech-in-azure/units/4:build-speech-to-text-applications-l2/questions/3",
+                      "modules/9:10-get-started-with-speech-in-azure/units/4:build-speech-to-text-applications-l2/questions/7"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "overall_learner_experience",
+                "score": 0.75,
+                "evidence": [
+                  {
+                    "statement": "The sequence is generally coherent, source-aligned, and well supported by feedback, but the Q5 authentication ambiguity, unsupported event-semantics assertions, recall regressions, and repeated mechanics reduce reliability and instructional flow.",
+                    "item_keys": [
+                      "build-speech-to-text-applications/endpoint-and-authentication/r4/v1",
+                      "build-speech-to-text-applications/stt-recognition-objects/r3/v1",
+                      "build-speech-to-text-applications/stt-recognition-objects/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/9:10-get-started-with-speech-in-azure/units/4:build-speech-to-text-applications-l2/questions/4",
+                      "modules/9:10-get-started-with-speech-in-azure/units/4:build-speech-to-text-applications-l2/questions/6",
+                      "modules/9:10-get-started-with-speech-in-azure/units/4:build-speech-to-text-applications-l2/questions/8"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "critical_defects": [
+              {
+                "defect_id": "DEF-UNAMBIGUOUS-AUTH-01",
+                "dimension": "answer_unambiguity",
+                "summary": "Q5 keys both authentication methods as correct even though the source presents a resource key and Microsoft Entra ID as alternatives.",
+                "evidence": [
+                  {
+                    "statement": "The source specifies authentication as 'key or Microsoft Entra ID', while Q5 uses correct_answer [0,1,3] and asks which setup information the developer should provide.",
+                    "item_keys": [
+                      "build-speech-to-text-applications/endpoint-and-authentication/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/9:10-get-started-with-speech-in-azure/units/4:build-speech-to-text-applications-l2/questions/4"
+                    ]
+                  }
+                ],
+                "affected_item_keys": [
+                  "build-speech-to-text-applications/endpoint-and-authentication/r4/v1"
+                ],
+                "affected_paths": [
+                  "modules/9:10-get-started-with-speech-in-azure/units/4:build-speech-to-text-applications-l2/questions/4"
+                ],
+                "recommended_scope": "item"
+              },
+              {
+                "defect_id": "DEF-UNSUPPORTED-EVENT-SEMANTICS-02",
+                "dimension": "factual_fidelity",
+                "summary": "Three items assert completed-versus-interim event semantics that are not explicitly explained in the supplied source.",
+                "evidence": [
+                  {
+                    "statement": "The source code names recognized_handler and recognizing_handler but does not define one as completed text and the other as interim text; Q6, Q7, and Q9 make that distinction central to their answers or feedback.",
+                    "item_keys": [
+                      "build-speech-to-text-applications/speech-sdk-responsibilities/r4/v1",
+                      "build-speech-to-text-applications/stt-recognition-objects/r3/v1",
+                      "build-speech-to-text-applications/stt-recognition-objects/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/9:10-get-started-with-speech-in-azure/units/4:build-speech-to-text-applications-l2/questions/5",
+                      "modules/9:10-get-started-with-speech-in-azure/units/4:build-speech-to-text-applications-l2/questions/6",
+                      "modules/9:10-get-started-with-speech-in-azure/units/4:build-speech-to-text-applications-l2/questions/8"
+                    ]
+                  }
+                ],
+                "affected_item_keys": [
+                  "build-speech-to-text-applications/speech-sdk-responsibilities/r4/v1",
+                  "build-speech-to-text-applications/stt-recognition-objects/r3/v1",
+                  "build-speech-to-text-applications/stt-recognition-objects/r4/v1"
+                ],
+                "affected_paths": [
+                  "modules/9:10-get-started-with-speech-in-azure/units/4:build-speech-to-text-applications-l2/questions/5",
+                  "modules/9:10-get-started-with-speech-in-azure/units/4:build-speech-to-text-applications-l2/questions/6",
+                  "modules/9:10-get-started-with-speech-in-azure/units/4:build-speech-to-text-applications-l2/questions/8"
+                ],
+                "recommended_scope": "session"
+              }
+            ],
+            "largest_gap": {
+              "dimension": "answer_unambiguity",
+              "summary": "The authentication scenario has a deterministic ambiguity about whether both supported authentication methods must be selected.",
+              "evidence": [
+                {
+                  "statement": "Q5 marks the endpoint, resource key, and Microsoft Entra ID as correct, but the source says the SDK uses a key or Microsoft Entra ID; the stem does not state that the choices represent alternatives.",
+                  "item_keys": [
+                    "build-speech-to-text-applications/endpoint-and-authentication/r4/v1"
+                  ],
+                  "paths": [
+                    "modules/9:10-get-started-with-speech-in-azure/units/4:build-speech-to-text-applications-l2/questions/4"
+                  ]
+                }
+              ],
+              "affected_item_keys": [
+                "build-speech-to-text-applications/endpoint-and-authentication/r4/v1"
+              ],
+              "affected_paths": [
+                "modules/9:10-get-started-with-speech-in-azure/units/4:build-speech-to-text-applications-l2/questions/4"
+              ],
+              "recommended_scope": "item",
+              "repair_instruction": "Rewrite the stem to say 'Which combination is valid?' and key endpoint plus exactly one authentication method, or keep multi-select and explicitly state that the choices represent supported alternatives rather than simultaneous requirements.",
+              "allowed_payload_fields": [
+                "question_text",
+                "options",
+                "correct_answer",
+                "explanation"
+              ]
+            },
+            "confidence": 0.76,
+            "human_review_recommended": true,
+            "concise_summary": "The session is mostly source-faithful, varied enough, and feedback-rich, but Q5 has a deterministic authentication ambiguity and Q6-Q9 rely on event semantics not explicitly supplied by the source. Cognitive progression also regresses into repeated recall. No approved references were supplied, so confidence is reduced."
+          },
+          "artifact_sha256": "72d8f26a70ade89e11566b935b78dee9b52b3445ac26ad31dabf27fb0f899553",
+          "evaluation_context_sha256": "509def19d2f54671087c4619759ed45cffb862ba60235287a06d44f66e818766",
+          "goal_sha256": "c4bae546eef7fec8c92895a1538196a8df81a13754329022bca211a6200752ae",
+          "critic_backend": "codex",
+          "critic_model": "codex:gpt-5.6-luna",
+          "fresh_context": true,
+          "model_independence": "independent",
+          "approved_reference_count": 0,
+          "reference_confidence_reduced": true,
+          "usage": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cost_usd": 0.0,
+            "backend_calls": 1
+          }
+        },
+        "critic_failure": null,
+        "repair_scope": null,
+        "repair_summary": null,
+        "editor_backend": null,
+        "editor_model": null,
+        "editor_fresh_context": null,
+        "edit_usage": null,
+        "validation_retry_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost_usd": 0.0,
+          "backend_calls": 0
+        },
+        "touched_item_keys": [],
+        "challenger_hash": null,
+        "hard_gate": null,
+        "source_fidelity_critic": null,
+        "source_fidelity_gate": null,
+        "comparison": null,
+        "decision": "retained_human",
+        "decision_evidence": "Critic confidence/finding requires human review.",
+        "champion_hash_after": "72d8f26a70ade89e11566b935b78dee9b52b3445ac26ad31dabf27fb0f899553",
+        "constraint_relaxations": [],
+        "cumulative_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost_usd": 0.0,
+          "backend_calls": 1
+        }
+      }
+    ],
+    "stop_reason": "human_review_required",
+    "stop_evidence": "Critic requested human review or confidence was below threshold.",
+    "human_decision": null,
+    "total_usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "backend_calls": 1
+    },
+    "human_review_recommended": true,
+    "publication_eligible": false
+  }
+}

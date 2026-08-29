@@ -125,7 +125,71 @@ python main.py course gauntlet history show courses/ai-901 RUN_ID --json
 
 Gauntlet records do not silently rewrite canonical banks. If the winning
 champion contains a content edit, review and apply it through the authored/bank
-workflow, rebuild, recompile, and evaluate that new exact artifact.
+workflow, rerun deterministic validation, and evaluate that new exact artifact
+when qualitative publication evidence is required. A reviewed bank edit does
+not require regenerating its source with A0–A5.
+
+### Hash-bound authored proposals
+
+Only promoted rounds with an exact persisted edited champion, passing hard
+gate, passing fresh source-fidelity gate, stable position-swapped comparison,
+and an unambiguous current bank/source mapping can be exported. The list view
+shows exact item-key/field before-and-after values and the bound evidence:
+
+```bash
+python main.py course gauntlet proposal list courses/ai-901
+python main.py course gauntlet proposal list courses/ai-901 --json
+python main.py course gauntlet proposal queue courses/ai-901
+python main.py course gauntlet proposal export courses/ai-901 PROPOSAL_ID \
+  --output /tmp/proposal.json
+python main.py course gauntlet proposal review courses/ai-901 PROPOSAL_ID \
+  --output /tmp/proposal-review.html
+```
+
+`proposal queue` is deliberately separate. It contains blocking
+`unsafe_or_unbounded_repair` findings that need a human-authored redesign, not
+an automatic item edit.
+
+Export is review-only. Approval repeats four exact hashes and writes an
+immutable approval artifact without changing banks:
+
+```bash
+python main.py course gauntlet proposal approve courses/ai-901 /tmp/proposal.json \
+  --approved-by "Reviewer" \
+  --proposal-sha256 PROPOSAL_SHA \
+  --history-sha256 HISTORY_SHA \
+  --compiled-artifact-sha256 COMPILED_SHA \
+  --champion-after-sha256 CHALLENGER_SHA
+```
+
+Incorporation is dry unless `--execute` is explicit. Before any write it
+recomputes the proposal from immutable history and the current compiled and
+authored artifacts. Execution updates only the uniquely mapped authoritative
+bank item, marks it `human-edited` and pinned under the regeneration contract,
+preserves its identity/mechanic/concept/source provenance, and runs the
+deterministic AI-901 audit/course-quality checks. It does not invoke Terra,
+regenerate a source, patch a generated compiled unit, or publish a bundle.
+Fresh v6 Luna evaluation is a separate explicit option and covers only the
+affected unit:
+
+```bash
+python main.py course gauntlet proposal incorporate courses/ai-901 APPROVAL.json
+python main.py course gauntlet proposal incorporate courses/ai-901 APPROVAL.json --execute
+python main.py course gauntlet proposal incorporate courses/ai-901 APPROVAL.json \
+  --execute --fresh-gauntlet
+python main.py course gauntlet proposal promote courses/ai-901 APPROVAL.json \
+  --amendment APPROVED_AMENDMENT.json --receipt APPLICATION_RECEIPT.json --execute
+```
+
+Any hash drift, ambiguous mapping, protected-mechanic change, unsupported
+authored mapping, deterministic failure, or non-eligible fresh evaluation
+fails closed and leaves publication blocked; it does not weaken any gate.
+An explicitly human-approved mechanic amendment is separate evidence: focused
+promotion accepts it only when it changes the approved payload by the declared
+mechanic conversion, the repaired item is pinned and human-edited, the old
+promoted bank can be reconstructed by reversing that one item, and the receipt
+matches the freshly compiled deterministic artifact. Promotion changes only
+`build_state.json`; it never changes the bank or emits a bundle.
 
 ## Validated publication
 
@@ -141,12 +205,15 @@ python main.py course compile courses/ai-901
 `course compile` refuses unresolved or unknown source validation, source or
 configuration drift, bank tampering, emitted schema/answer errors, unexplained
 sequence errors, and—when `qualitative_required_for_publication: true`—missing
-exact Gauntlet coverage. Qualitative coverage is bound to the compiled-course
-artifact, unit, champion content/order, complete Gauntlet policy and rubric,
+exact Gauntlet coverage. Qualitative coverage is bound to the exact unit
+champion content/order, complete Gauntlet policy and rubric,
 current source hashes, approved-reference hashes, and actual model/backend
-roles. Context drift or an incoherent/replayed history fails closed. The bundle
-is staged, rechecked, and atomically promoted; an invalid challenger cannot
-replace the last-known-good bundle.
+roles. An unchanged unit may reuse immutable evidence reviewed under an older
+course-wide artifact hash; the manifest records both the reviewed course hash
+and the course hash being published. Changed unit content, context drift, or an
+incoherent/replayed history still fails closed. The bundle is staged, rechecked,
+and atomically promoted; an invalid challenger cannot replace the last-known-good
+bundle.
 
 ## Migration and compatibility
 

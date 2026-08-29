@@ -1,0 +1,1443 @@
+{
+  "schema_version": "exercise-bank-v1",
+  "lesson": "tables-quality-and-business-integration",
+  "module": "6-introduction-to-ai-powered-information-extraction-concepts",
+  "items": [
+    {
+      "item_key": "tables-quality-and-business-integration/field-detection-and-candidates/r1/v1",
+      "concept_id": "field-detection-and-candidates",
+      "rung": 1,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "single_choice",
+        "prompt": "What happens during field detection and candidate identification?",
+        "concept_id": "field-detection-and-candidates",
+        "options": [
+          {
+            "text": "Possible field values are found",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "This stage identifies likely values in OCR output. Assignment to labeled schema fields happens later.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Values are assigned to schema fields",
+            "is_correct": false,
+            "error_type": "Confuses detection with field mapping",
+            "rationale": "Assigning a value to a labeled schema field is field mapping and association. Detection only finds possible values first.",
+            "better_fit": "Use this when candidate values have already been identified and must be associated with schema fields.",
+            "feedback": {
+              "intrinsic": "A clerk could know a number was found but still not know which business field it belongs in.",
+              "instructional": "Good distinction: detection finds candidates; mapping gives each candidate its labeled destination."
+            }
+          },
+          {
+            "text": "OCR text enters the pipeline",
+            "is_correct": false,
+            "error_type": "Confuses detection with OCR ingestion",
+            "rationale": "OCR output ingestion brings extracted text and its metadata into field extraction. Candidate identification happens after that input is available.",
+            "better_fit": "Use this for the first field-extraction stage, when OCR results are received.",
+            "feedback": {
+              "intrinsic": "The workflow would start at the wrong step and skip identifying likely values.",
+              "instructional": "OCR ingestion supplies the text, position, layout, and confidence information; detection examines that information for candidates."
+            }
+          },
+          {
+            "text": "Dates are converted to one format",
+            "is_correct": false,
+            "error_type": "Confuses detection with normalization",
+            "rationale": "Converting dates to a standard format is date normalization. It occurs after values have been extracted.",
+            "better_fit": "Use this when a raw date needs a consistent ISO format.",
+            "feedback": {
+              "intrinsic": "A date might be neatly formatted before anyone has identified it as the correct date field.",
+              "instructional": "Normalization makes a known value consistent; detection finds possible values."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. This stage finds likely values before any schema assignment is made."
+      },
+      "payload_hash": "e8689de282e989dae97092c3c52cd47dea405a2bba3c2b02ad296b23ff714691",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "3d3c02870615a224c40ed60d74fddb378f768fcfbc9dc485c3ef6f65f459b354",
+      "telemetry": {}
+    },
+    {
+      "item_key": "tables-quality-and-business-integration/field-detection-and-candidates/r1/v2",
+      "concept_id": "field-detection-and-candidates",
+      "rung": 1,
+      "variant": 2,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "multi_choice",
+        "prompt": "Which approaches can identify possible fields in OCR output? Select all that apply.",
+        "concept_id": "field-detection-and-candidates",
+        "options": [
+          {
+            "text": "Template-based detection",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Templates use known layouts, positions, anchor keywords, and patterns to find fields. They are useful for known document types.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Machine learning-based detection",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Machine learning can learn field relationships from example documents. It can use contextual cues across layouts.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Generative AI-based detection",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Generative approaches can match provided text to fields in a schema. They can also use minimal examples for custom fields.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Schema mapping",
+            "is_correct": false,
+            "error_type": "Confuses finding candidates with downstream integration",
+            "rationale": "Schema mapping aligns extracted fields with a downstream database, API payload, or message queue. It does not identify possible field values in OCR output.",
+            "better_fit": "Use this after extraction when values must match a target data structure.",
+            "feedback": {
+              "intrinsic": "Values could be prepared for delivery before the right candidates have been found.",
+              "instructional": "Choose templates, machine learning, or generative extraction to identify candidates; use schema mapping later."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. All three detection approaches can be used independently or in combination."
+      },
+      "payload_hash": "4ea4cccffdd54027aa80f29a3b04c8c9c4e6f42d98559f36d42aaeeaf1ba8f50",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "3d3c02870615a224c40ed60d74fddb378f768fcfbc9dc485c3ef6f65f459b354",
+      "telemetry": {}
+    },
+    {
+      "item_key": "tables-quality-and-business-integration/field-detection-and-candidates/r2/v1",
+      "concept_id": "field-detection-and-candidates",
+      "rung": 2,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "true_false",
+        "prompt": "True or false?",
+        "concept_id": "field-detection-and-candidates",
+        "statement": "Field detection assigns each identified value to its final schema field.",
+        "correct_answer": false,
+        "feedback_for_correct": "Correct. Candidate finding comes before association with schema fields.",
+        "feedback_for_incorrect": {
+          "intrinsic": "A value might be treated as final before its correct field has been established.",
+          "instructional": "Field detection identifies possible values. Field mapping and association assigns those values to schema fields."
+        }
+      },
+      "payload_hash": "9c26940352a512feb2989dc908491a72f3ceb059cc886089e46e0314acda42bd",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "3d3c02870615a224c40ed60d74fddb378f768fcfbc9dc485c3ef6f65f459b354",
+      "telemetry": {}
+    },
+    {
+      "item_key": "tables-quality-and-business-integration/field-detection-and-candidates/r3/v1",
+      "concept_id": "field-detection-and-candidates",
+      "rung": 3,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "fill_gaps",
+        "prompt": "Complete the statement.",
+        "concept_id": "field-detection-and-candidates",
+        "parts": [
+          {
+            "type": "text",
+            "text": "Finding possible values before assigning them to schema fields is field "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "detection",
+              "field detection and candidate identification"
+            ],
+            "rejected_answers": [
+              "field mapping and association",
+              "OCR output ingestion",
+              "field-mapping-and-association",
+              "ocr-output-ingestion"
+            ],
+            "placeholder": "technical term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "explanation": "Candidate identification occurs before association because a value must first be found before it can be labeled for a schema.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The work would be placed at the wrong point in the extraction flow.",
+          "instructional": "Field mapping assigns candidates, while OCR output ingestion supplies the input. Use field detection for finding possible values."
+        }
+      },
+      "payload_hash": "751709fc4199d19fa33e1e99fc5b005c25410338a378c3264b6e548801ca9ebd",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "3d3c02870615a224c40ed60d74fddb378f768fcfbc9dc485c3ef6f65f459b354",
+      "telemetry": {}
+    },
+    {
+      "item_key": "tables-quality-and-business-integration/field-detection-and-candidates/r4/v1",
+      "concept_id": "field-detection-and-candidates",
+      "rung": 4,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Applying",
+        "question_type": "single_choice",
+        "prompt": "An accounts-payable analyst receives invoices from many vendors, each with a different layout. Before invoice numbers can be assigned to fields, what approach should the analyst choose to find the possible invoice numbers?",
+        "concept_id": "field-detection-and-candidates",
+        "options": [
+          {
+            "text": "Machine learning-based detection",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Machine learning can learn relationships from a corpus of example documents. It is suited to varied layouts rather than fixed positions.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Field mapping and association",
+            "is_correct": false,
+            "error_type": "Confuses candidate finding with assignment",
+            "rationale": "Field mapping associates already identified candidates with schema fields. The invoice number must be found before it can be assigned.",
+            "better_fit": "Use this after likely invoice-number values have been detected.",
+            "feedback": {
+              "intrinsic": "An analyst could try to label a value before identifying the right candidate across vendor layouts.",
+              "instructional": "First choose a detection approach for varied layouts; then map the selected value to its field."
+            }
+          },
+          {
+            "text": "OCR output ingestion",
+            "is_correct": false,
+            "error_type": "Confuses input receipt with candidate finding",
+            "rationale": "Ingestion receives OCR text, positions, confidence scores, and layout information. It does not determine which text is an invoice number.",
+            "better_fit": "Use this when starting field extraction with OCR results.",
+            "feedback": {
+              "intrinsic": "The invoices would enter the workflow, but invoice-number candidates would remain unidentified.",
+              "instructional": "Ingestion provides material for analysis. Detection finds the likely field values in it."
+            }
+          },
+          {
+            "text": "Date normalization",
+            "is_correct": false,
+            "error_type": "Confuses field finding with formatting",
+            "rationale": "Date normalization standardizes date values. It does not locate invoice numbers.",
+            "better_fit": "Use this after a date value has been extracted and needs a consistent format.",
+            "feedback": {
+              "intrinsic": "Time could be spent formatting dates while the invoice number is still unknown.",
+              "instructional": "Match the action to the value: detection finds invoice-number candidates; normalization formats dates."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. Learned contextual relationships help identify fields across many layouts."
+      },
+      "payload_hash": "b1438d740a274d88d1dd7974b3a5dc67533ac6f08be37f56fb0608e52ee31454",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "3d3c02870615a224c40ed60d74fddb378f768fcfbc9dc485c3ef6f65f459b354",
+      "telemetry": {}
+    },
+    {
+      "item_key": "tables-quality-and-business-integration/table-structured-content/r1/v1",
+      "concept_id": "table-structured-content",
+      "rung": 1,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "multi_choice",
+        "prompt": "Which techniques can detect a table in a document? Select all that apply.",
+        "concept_id": "table-structured-content",
+        "options": [
+          {
+            "text": "Specialized CNN architectures",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Specialized convolutional neural network architectures can recognize table structure. They are listed as a table-detection approach.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Object detection approaches",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Object detection can be adapted to identify table cells. This supports recognizing a table structure.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Graph-based parsing approaches",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Graph-based parsing can model relationships between table cells. It is another way to determine table presence and structure.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Date normalization",
+            "is_correct": false,
+            "error_type": "Confuses table detection with data standardization",
+            "rationale": "Date normalization identifies date formats and converts dates to a standard format. It does not identify table structures.",
+            "better_fit": "Use this after a date has been extracted from any part of the content.",
+            "feedback": {
+              "intrinsic": "A receipt table could remain unrecognized even though its dates were formatted consistently.",
+              "instructional": "Table detection identifies rows, columns, and cells; date normalization standardizes date values."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. Each listed technique can help recognize table structure."
+      },
+      "payload_hash": "90b4bbe5e849a58dbe84fa6aa953bbf946bebd62d3770b86cbb38b3da932b748",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "3d3c02870615a224c40ed60d74fddb378f768fcfbc9dc485c3ef6f65f459b354",
+      "telemetry": {}
+    },
+    {
+      "item_key": "tables-quality-and-business-integration/table-structured-content/r2/v1",
+      "concept_id": "table-structured-content",
+      "rung": 2,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "true_false",
+        "prompt": "Decide whether this statement is true or false.",
+        "concept_id": "table-structured-content",
+        "statement": "Header detection helps determine what table columns mean.",
+        "correct_answer": true,
+        "feedback_for_correct": "Correct. Column headers provide the meaning needed to map values such as item, price, or quantity.",
+        "feedback_for_incorrect": {
+          "intrinsic": "Values in a receipt table could be placed under the wrong field meaning.",
+          "instructional": "Header detection identifies column headers, which tells you what the values in each column represent."
+        }
+      },
+      "payload_hash": "527a4862cc7be88e05bb40a71fca8650674e9e8173e4ed2c666cd7d74ce3abc0",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "3d3c02870615a224c40ed60d74fddb378f768fcfbc9dc485c3ef6f65f459b354",
+      "telemetry": {}
+    },
+    {
+      "item_key": "tables-quality-and-business-integration/table-structured-content/r3/v1",
+      "concept_id": "table-structured-content",
+      "rung": 3,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "rearrange",
+        "prompt": "Arrange the following table-processing steps in order.",
+        "concept_id": "table-structured-content",
+        "word_bank": [
+          "Associate rows and columns",
+          "Detect the table",
+          "Map cells to fields",
+          "Identify column headers"
+        ],
+        "correct_order": [
+          "Detect the table",
+          "Identify column headers",
+          "Associate rows and columns",
+          "Map cells to fields"
+        ],
+        "interchangeable_groups": [],
+        "explanation": "The table structure and header meanings must be known before cell relationships can be used to map values to fields.",
+        "feedback_for_incorrect": {
+          "intrinsic": "Line-item values could be mapped before their table structure and column meaning are clear.",
+          "instructional": "Start by detecting the table, then use headers and row-column relationships to make reliable field mappings."
+        }
+      },
+      "payload_hash": "b19b07ccae5e67c355f1b1b16a77d7c8d06c8e4128faf1be554186adcfe32178",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "3d3c02870615a224c40ed60d74fddb378f768fcfbc9dc485c3ef6f65f459b354",
+      "telemetry": {}
+    },
+    {
+      "item_key": "tables-quality-and-business-integration/table-structured-content/r3/v2",
+      "concept_id": "table-structured-content",
+      "rung": 3,
+      "variant": 2,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "fill_gaps",
+        "prompt": "Complete the statement.",
+        "concept_id": "table-structured-content",
+        "parts": [
+          {
+            "type": "text",
+            "text": "Matching table cells to their field schemas is called "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "row-column association"
+            ],
+            "rejected_answers": [
+              "field mapping and association",
+              "format preservation",
+              "field-mapping-and-association",
+              "format-preservation"
+            ],
+            "placeholder": "technical term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "explanation": "Table cells need their row and column relationships interpreted so each value can be connected to its specific field schema.",
+        "feedback_for_incorrect": {
+          "intrinsic": "A line-item value could be associated with the wrong field in a table.",
+          "instructional": "Field mapping is broader, and format preservation keeps layout. Row-column association specifically connects table cells to field schemas."
+        }
+      },
+      "payload_hash": "3e0979dfb9417eb9c8efe111f3756a654c56896c68e61f187a96e10ea3e90b5d",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "3d3c02870615a224c40ed60d74fddb378f768fcfbc9dc485c3ef6f65f459b354",
+      "telemetry": {}
+    },
+    {
+      "item_key": "tables-quality-and-business-integration/table-structured-content/r4/v1",
+      "concept_id": "table-structured-content",
+      "rung": 4,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Applying",
+        "question_type": "multi_choice",
+        "prompt": "A receipt-processing clerk needs to extract purchased items, quantities, and prices from a receipt table. Which actions should the extraction solution use? Select all that apply.",
+        "concept_id": "table-structured-content",
+        "options": [
+          {
+            "text": "Detect the table structure",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The table must be identified before its cells can be processed. This establishes the structured area containing line items.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Identify column headers",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Headers identify what columns mean, such as item, quantity, and price. Their meaning guides the field assignment.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Use row-column association",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Row-column association maps cells to specific field schemas. It connects each line-item value to the right meaning.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Convert dates to ISO format",
+            "is_correct": false,
+            "error_type": "Confuses table extraction with normalization",
+            "rationale": "ISO conversion standardizes dates, not item-table cells. It is unrelated to identifying item, quantity, and price columns.",
+            "better_fit": "Use this when an extracted date needs a consistent date format.",
+            "feedback": {
+              "intrinsic": "The clerk could receive tidy dates while the purchased items and prices remain unassigned.",
+              "instructional": "For line-item tables, focus on structure, headers, and row-column association."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. Those actions establish table structure and connect each line-item value to the right field."
+      },
+      "payload_hash": "df905a2299af4a76cb238a1236fcf93046eb1411e3f3ab51d2aedfc216c28a49",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "3d3c02870615a224c40ed60d74fddb378f768fcfbc9dc485c3ef6f65f459b354",
+      "telemetry": {}
+    },
+    {
+      "item_key": "tables-quality-and-business-integration/field-confidence-and-validation/r1/v1",
+      "concept_id": "field-confidence-and-validation",
+      "rung": 1,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "single_choice",
+        "prompt": "What does cross-field validation check?",
+        "concept_id": "field-confidence-and-validation",
+        "options": [
+          {
+            "text": "Whether related fields agree logically",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Cross-field validation checks relationships among extracted values. A stated example is checking whether line-item subtotals equal an invoice total.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Whether every character has a confidence score",
+            "is_correct": false,
+            "error_type": "Confuses field validation with OCR confidence",
+            "rationale": "OCR confidence concerns certainty about recognized text elements. Cross-field validation compares relationships among extracted fields.",
+            "better_fit": "Use this when evaluating the certainty of text recognition.",
+            "feedback": {
+              "intrinsic": "A clear-looking character could distract from totals that do not agree.",
+              "instructional": "Confidence asks how certain recognition is; cross-field validation asks whether related values make sense together."
+            }
+          },
+          {
+            "text": "Whether dates use one format",
+            "is_correct": false,
+            "error_type": "Confuses validation with normalization",
+            "rationale": "One date format is the goal of date normalization. Cross-field validation checks logical consistency across fields.",
+            "better_fit": "Use this when dates need conversion to a standard ISO form.",
+            "feedback": {
+              "intrinsic": "Dates could look consistent while related amounts still conflict.",
+              "instructional": "Formatting a single value is normalization. Comparing values such as subtotals and totals is cross-field validation."
+            }
+          },
+          {
+            "text": "Whether a field matches a database column",
+            "is_correct": false,
+            "error_type": "Confuses validation with schema mapping",
+            "rationale": "Matching fields to database columns is schema mapping for downstream integration. It does not test whether field values agree with each other.",
+            "better_fit": "Use this when preparing extracted fields for a database.",
+            "feedback": {
+              "intrinsic": "Data could reach the correct column despite an incorrect relationship between its values.",
+              "instructional": "Schema mapping aligns structures; cross-field validation checks whether extracted field relationships are logical."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. It tests whether related extracted values are logically consistent."
+      },
+      "payload_hash": "faa7f0f910fb452382e261615e15a218700a90186055590bdae3bb9774828b4a",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "3d3c02870615a224c40ed60d74fddb378f768fcfbc9dc485c3ef6f65f459b354",
+      "telemetry": {}
+    },
+    {
+      "item_key": "tables-quality-and-business-integration/field-confidence-and-validation/r1/v2",
+      "concept_id": "field-confidence-and-validation",
+      "rung": 1,
+      "variant": 2,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "multi_choice",
+        "prompt": "Which inputs can contribute to field-confidence evaluation? Select all that apply.",
+        "concept_id": "field-confidence-and-validation",
+        "options": [
+          {
+            "text": "Inherited OCR confidence",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Field-confidence evaluation can inherit confidence from underlying text recognition. This gives evidence about recognition certainty.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Pattern-match scores",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Pattern matching confidence measures how well an extracted value matches expected patterns. It contributes to evaluating a field prediction.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Context validation",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Context validation checks whether a value makes sense in context. It is one listed source for field-confidence evaluation.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Column renaming rules",
+            "is_correct": false,
+            "error_type": "Confuses confidence evaluation with schema mapping",
+            "rationale": "Field renaming aligns extracted names with target conventions during schema mapping. It is not evidence that a field value was identified correctly.",
+            "better_fit": "Use this when a target database or API uses a different field name.",
+            "feedback": {
+              "intrinsic": "A value could be renamed correctly even when confidence in the extracted value is low.",
+              "instructional": "Confidence comes from recognition, pattern matching, and validation; renaming is a downstream transformation."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. These inputs provide different evidence about whether a predicted field value is reliable."
+      },
+      "payload_hash": "e05981d40fb2254d5e7db1e00a8b7543096c7c108a4106068dbee559a5c0e79e",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "3d3c02870615a224c40ed60d74fddb378f768fcfbc9dc485c3ef6f65f459b354",
+      "telemetry": {}
+    },
+    {
+      "item_key": "tables-quality-and-business-integration/field-confidence-and-validation/r2/v1",
+      "concept_id": "field-confidence-and-validation",
+      "rung": 2,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "true_false",
+        "prompt": "Is the following statement accurate?",
+        "concept_id": "field-confidence-and-validation",
+        "statement": "Cross-field validation checks only whether a date follows the expected format.",
+        "correct_answer": false,
+        "feedback_for_correct": "Correct. Date-format checking is different from checking relationships among multiple fields.",
+        "feedback_for_incorrect": {
+          "intrinsic": "A mismatched subtotal and total could be missed by looking only at date format.",
+          "instructional": "Cross-field validation checks logical relationships, such as whether line-item subtotals equal the invoice total. Expected date formats are checked with rule-based validation."
+        }
+      },
+      "payload_hash": "05fbc40b1f5016016fb431d16275061b969faf4eadc1000049887a4abfd89b05",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "3d3c02870615a224c40ed60d74fddb378f768fcfbc9dc485c3ef6f65f459b354",
+      "telemetry": {}
+    },
+    {
+      "item_key": "tables-quality-and-business-integration/field-confidence-and-validation/r3/v1",
+      "concept_id": "field-confidence-and-validation",
+      "rung": 3,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "fill_gaps",
+        "prompt": "Complete the statement.",
+        "concept_id": "field-confidence-and-validation",
+        "parts": [
+          {
+            "type": "text",
+            "text": "Checking whether line-item subtotals equal an invoice total is "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "cross-field validation"
+            ],
+            "rejected_answers": [
+              "OCR confidence scoring",
+              "rule-based validation",
+              "statistical validation",
+              "ocr-confidence-scoring",
+              "rule-based-validation",
+              "statistical-validation"
+            ],
+            "placeholder": "technical term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "explanation": "This check compares related values from multiple fields to confirm that their relationship is logically consistent.",
+        "feedback_for_incorrect": {
+          "intrinsic": "An incorrect total could pass review even though its line items do not add up.",
+          "instructional": "OCR confidence measures recognition certainty, rule-based validation checks rules, and statistical validation finds unusual patterns. Use cross-field validation for relationships between fields."
+        }
+      },
+      "payload_hash": "0cdc93d90a1b888023eb4866dfc702d3e9268e496e7b5e67211ca81bf681d885",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "3d3c02870615a224c40ed60d74fddb378f768fcfbc9dc485c3ef6f65f459b354",
+      "telemetry": {}
+    },
+    {
+      "item_key": "tables-quality-and-business-integration/field-confidence-and-validation/r4/v1",
+      "concept_id": "field-confidence-and-validation",
+      "rung": 4,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Applying",
+        "question_type": "single_choice",
+        "prompt": "A finance clerk processes a receipt. Its extracted line items add to $45, but its extracted total is $54. What check should the clerk's system perform?",
+        "concept_id": "field-confidence-and-validation",
+        "options": [
+          {
+            "text": "Cross-field validation",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The line-item sum and total are related fields. Cross-field validation checks whether they agree logically.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "OCR confidence scoring",
+            "is_correct": false,
+            "error_type": "Confuses field relationships with character certainty",
+            "rationale": "OCR confidence estimates certainty in text recognition. It does not compare the arithmetic relationship between totals and line items.",
+            "better_fit": "Use this when deciding how certain a recognized character or text element is.",
+            "feedback": {
+              "intrinsic": "Each number might be recognized with confidence while the receipt total is still inconsistent.",
+              "instructional": "Here the issue is the relationship between two extracted values, so use cross-field validation."
+            }
+          },
+          {
+            "text": "Date normalization",
+            "is_correct": false,
+            "error_type": "Confuses relationship checking with formatting",
+            "rationale": "Date normalization standardizes date formats. No date-format issue is involved in the conflicting amounts.",
+            "better_fit": "Use this when dates such as MM/DD/YYYY and DD-MM-YYYY need a standard format.",
+            "feedback": {
+              "intrinsic": "The total mismatch would remain after dates were formatted.",
+              "instructional": "Choose a check that compares the related monetary fields, not one that reformats dates."
+            }
+          },
+          {
+            "text": "Outlier detection",
+            "is_correct": false,
+            "error_type": "Confuses internal field consistency with statistical validation",
+            "rationale": "Outlier detection flags unusually high or low values compared with patterns. It does not specifically test whether this receipt's line items equal its total.",
+            "better_fit": "Use this to identify values that are unusually high or low.",
+            "feedback": {
+              "intrinsic": "A total might not be unusual overall but can still disagree with its own line items.",
+              "instructional": "Use cross-field validation for a direct relationship within one receipt."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. The check compares related receipt fields to find the inconsistency."
+      },
+      "payload_hash": "e67ac437240c96a1cd8998635dbfd253694d47687b86b2beffc0574537cdb305",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "3d3c02870615a224c40ed60d74fddb378f768fcfbc9dc485c3ef6f65f459b354",
+      "telemetry": {}
+    },
+    {
+      "item_key": "tables-quality-and-business-integration/data-normalization-standardization/r1/v1",
+      "concept_id": "data-normalization-standardization",
+      "rung": 1,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "multi_choice",
+        "prompt": "Which tasks are part of data normalization and standardization? Select all that apply.",
+        "concept_id": "data-normalization-standardization",
+        "options": [
+          {
+            "text": "Convert dates to ISO format",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Date normalization detects date formats and converts them to standardized ISO formats. This makes dates consistent.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Standardize decimal representation",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Currency and numeric processing standardizes decimal point representation across locales. This is a normalization task.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Apply consistent capitalization",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Text standardization includes case normalization for consistent capitalization. It turns raw text into a consistent form.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Check required fields",
+            "is_correct": false,
+            "error_type": "Confuses standardization with rule-based validation",
+            "rationale": "Required-field checking confirms that mandatory fields are present. It validates completeness rather than changing formats.",
+            "better_fit": "Use this when a form must contain required information before it is accepted.",
+            "feedback": {
+              "intrinsic": "Values may look consistent but a required value could still be missing.",
+              "instructional": "Normalization makes values consistent; required-field checking is rule-based validation."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. These actions turn raw values into consistent formats."
+      },
+      "payload_hash": "57c2b3ed6080647c461c8242103ef49fcce29898f5df07f00745185f27680d63",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "3d3c02870615a224c40ed60d74fddb378f768fcfbc9dc485c3ef6f65f459b354",
+      "telemetry": {}
+    },
+    {
+      "item_key": "tables-quality-and-business-integration/data-normalization-standardization/r2/v1",
+      "concept_id": "data-normalization-standardization",
+      "rung": 2,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "true_false",
+        "prompt": "Evaluate this statement.",
+        "concept_id": "data-normalization-standardization",
+        "statement": "Date normalization can identify different date formats and convert them to a standard ISO format.",
+        "correct_answer": true,
+        "feedback_for_correct": "Correct. It identifies formats, resolves ambiguity where needed, and then converts the date to ISO form.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The same date could be treated inconsistently when it appears in different formats.",
+          "instructional": "Date normalization includes format detection, ambiguity resolution, and conversion to a standardized ISO format."
+        }
+      },
+      "payload_hash": "ee686d51c4b12920109745f8f967bdddb2979efd1f9eceba8cb41b4abac0604b",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "3d3c02870615a224c40ed60d74fddb378f768fcfbc9dc485c3ef6f65f459b354",
+      "telemetry": {}
+    },
+    {
+      "item_key": "tables-quality-and-business-integration/data-normalization-standardization/r3/v1",
+      "concept_id": "data-normalization-standardization",
+      "rung": 3,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "rearrange",
+        "prompt": "Arrange the following date-normalization steps in order.",
+        "concept_id": "data-normalization-standardization",
+        "word_bank": [
+          "Resolve ambiguity",
+          "Read the raw date",
+          "Convert to ISO",
+          "Detect its format"
+        ],
+        "correct_order": [
+          "Read the raw date",
+          "Detect its format",
+          "Resolve ambiguity",
+          "Convert to ISO"
+        ],
+        "interchangeable_groups": [],
+        "explanation": "A raw date must be interpreted first: identify its format and settle any ambiguity before converting it to the standard ISO representation.",
+        "feedback_for_incorrect": {
+          "intrinsic": "An unclear date could be converted using the wrong interpretation.",
+          "instructional": "Read the value, detect its format, resolve any ambiguity, then standardize it as ISO."
+        }
+      },
+      "payload_hash": "40d3d4feb7c9f4dce6449b65b7980c04cca3a635b8bc2efbb0b4fcb8dec0a45f",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "3d3c02870615a224c40ed60d74fddb378f768fcfbc9dc485c3ef6f65f459b354",
+      "telemetry": {}
+    },
+    {
+      "item_key": "tables-quality-and-business-integration/data-normalization-standardization/r3/v2",
+      "concept_id": "data-normalization-standardization",
+      "rung": 3,
+      "variant": 2,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "fill_gaps",
+        "prompt": "Complete the statement.",
+        "concept_id": "data-normalization-standardization",
+        "parts": [
+          {
+            "type": "text",
+            "text": "Changing raw extracted values into consistent, valid formats is data "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "normalization and standardization",
+              "normalization"
+            ],
+            "rejected_answers": [
+              "rule-based validation",
+              "schema mapping",
+              "rule-based-validation",
+              "schema-mapping"
+            ],
+            "placeholder": "technical term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "explanation": "This stage transforms values into consistent formats, including dates, numeric values, and text; it is not merely a check or a destination mapping.",
+        "feedback_for_incorrect": {
+          "intrinsic": "Raw values could remain inconsistent even if they pass a rule or have a target field.",
+          "instructional": "Rule-based validation checks expectations, and schema mapping aligns data with a destination. Use normalization for consistent formats."
+        }
+      },
+      "payload_hash": "460409613a2433c7e5eca99c5eac57095b0516d7ecbd3bc72fa0a78aeb93e62e",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "3d3c02870615a224c40ed60d74fddb378f768fcfbc9dc485c3ef6f65f459b354",
+      "telemetry": {}
+    },
+    {
+      "item_key": "tables-quality-and-business-integration/data-normalization-standardization/r4/v1",
+      "concept_id": "data-normalization-standardization",
+      "rung": 4,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Applying",
+        "question_type": "multi_choice",
+        "prompt": "A receipt-processing specialist receives amounts written as “1,234.50” and “1.234,50” with different currency symbols. Which actions should the specialist's system use to prepare the values consistently? Select all that apply.",
+        "concept_id": "data-normalization-standardization",
+        "options": [
+          {
+            "text": "Recognize currency symbols",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Currency processing handles different currency symbols. Recognizing them supports consistent numeric handling.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Standardize decimal notation",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Decimal normalization standardizes decimal point representation across locales. This addresses the different notations shown.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Handle thousand separators",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Currency and numeric processing handles thousand separators. This is needed to interpret both displayed amounts consistently.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Check mandatory fields",
+            "is_correct": false,
+            "error_type": "Confuses numeric standardization with validation",
+            "rationale": "Required-field checking verifies that mandatory data is present. It does not reconcile currency symbols, decimal notation, or separators.",
+            "better_fit": "Use this when confirming that a required value has been supplied.",
+            "feedback": {
+              "intrinsic": "An amount could be present but still be interpreted inconsistently.",
+              "instructional": "This situation needs numeric standardization: recognize symbols and handle decimal and thousand separators."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. These actions make differently written currency values consistent."
+      },
+      "payload_hash": "3efdb8f27bcfa0142efd0e41c59fc4e06e999f5e96c9b78eb0fd007dba2d334f",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "3d3c02870615a224c40ed60d74fddb378f768fcfbc9dc485c3ef6f65f459b354",
+      "telemetry": {}
+    },
+    {
+      "item_key": "tables-quality-and-business-integration/data-validation-and-quality-assurance/r1/v1",
+      "concept_id": "data-validation-and-quality-assurance",
+      "rung": 1,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "single_choice",
+        "prompt": "Which validation checks whether a phone number matches an expected pattern?",
+        "concept_id": "data-validation-and-quality-assurance",
+        "options": [
+          {
+            "text": "Rule-based validation",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Rule-based validation includes format checking for expected patterns such as phone numbers and email addresses. It checks the value against a defined expectation.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Statistical validation",
+            "is_correct": false,
+            "error_type": "Confuses format checking with pattern analysis",
+            "rationale": "Statistical validation uses outlier detection, distribution analysis, and cross-document checks. It is not the listed method for expected phone-number formats.",
+            "better_fit": "Use this when looking for unusual values or patterns across data.",
+            "feedback": {
+              "intrinsic": "A malformed phone number could remain unnoticed if only broad value patterns were reviewed.",
+              "instructional": "Expected formats are explicit rules, so use rule-based validation."
+            }
+          },
+          {
+            "text": "Field-confidence evaluation",
+            "is_correct": false,
+            "error_type": "Confuses validation rule with confidence scoring",
+            "rationale": "Field confidence evaluates evidence for a predicted field value. It does not itself enforce a phone-number format.",
+            "better_fit": "Use this when judging how reliable an extracted field value appears.",
+            "feedback": {
+              "intrinsic": "A confidently recognized number could still fail the expected phone-number pattern.",
+              "instructional": "Confidence and format compliance are different checks. Use a rule to verify the expected pattern."
+            }
+          },
+          {
+            "text": "Data normalization",
+            "is_correct": false,
+            "error_type": "Confuses checking with formatting",
+            "rationale": "Normalization changes raw values into consistent formats. Format checking verifies whether a value matches an expected pattern.",
+            "better_fit": "Use this when values need consistent representation, such as date or decimal formats.",
+            "feedback": {
+              "intrinsic": "A phone number could be reformatted without confirming that it meets the required pattern.",
+              "instructional": "Use rule-based validation to check the pattern; use normalization to standardize representation."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. Rule-based validation checks whether a value follows an expected format."
+      },
+      "payload_hash": "2f2ebfbcd5a05c5e243d42d4c2c7203c3a23e80ad9f0df38414e32482a38abcd",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "3d3c02870615a224c40ed60d74fddb378f768fcfbc9dc485c3ef6f65f459b354",
+      "telemetry": {}
+    },
+    {
+      "item_key": "tables-quality-and-business-integration/data-validation-and-quality-assurance/r1/v2",
+      "concept_id": "data-validation-and-quality-assurance",
+      "rung": 1,
+      "variant": 2,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "multi_choice",
+        "prompt": "Which are statistical validation techniques? Select all that apply.",
+        "concept_id": "data-validation-and-quality-assurance",
+        "options": [
+          {
+            "text": "Outlier detection",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Outlier detection finds unusually high or low values that may signal extraction errors. It is a statistical validation technique.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Distribution analysis",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Distribution analysis compares extracted values against historical patterns. It is listed under statistical validation.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Cross-document validation",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Cross-document validation checks consistency across related items. It is a statistical validation technique.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Required field checking",
+            "is_correct": false,
+            "error_type": "Confuses statistical validation with rule-based validation",
+            "rationale": "Required-field checking confirms that mandatory fields are present. It is rule-based validation, not statistical validation.",
+            "better_fit": "Use this when a required form value must be present.",
+            "feedback": {
+              "intrinsic": "A missing required value might be found, but unusual patterns across many records would not be reviewed.",
+              "instructional": "Required fields use explicit rules. Statistical validation looks for outliers, distributions, and cross-document consistency."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. These techniques identify possible errors by examining unusual values and broader patterns."
+      },
+      "payload_hash": "caeed2758cb81b3443f7e50c081e52c69d38cae544019d6cab09e6ae7c8c7359",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "3d3c02870615a224c40ed60d74fddb378f768fcfbc9dc485c3ef6f65f459b354",
+      "telemetry": {}
+    },
+    {
+      "item_key": "tables-quality-and-business-integration/data-validation-and-quality-assurance/r2/v1",
+      "concept_id": "data-validation-and-quality-assurance",
+      "rung": 2,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "true_false",
+        "prompt": "True or false?",
+        "concept_id": "data-validation-and-quality-assurance",
+        "statement": "Statistical validation confirms that all mandatory fields are present.",
+        "correct_answer": false,
+        "feedback_for_correct": "Correct. Mandatory-field presence is checked with rules, not statistical patterns.",
+        "feedback_for_incorrect": {
+          "intrinsic": "A required value could be overlooked while attention stays on broad data patterns.",
+          "instructional": "Statistical validation uses outliers, distributions, and cross-document consistency. Required-field checking is rule-based validation."
+        }
+      },
+      "payload_hash": "ff1dfbf9fbe35ee0c219a5d6ac716dcd87b4752e0caccb2dfc7f80a994919a9a",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "3d3c02870615a224c40ed60d74fddb378f768fcfbc9dc485c3ef6f65f459b354",
+      "telemetry": {}
+    },
+    {
+      "item_key": "tables-quality-and-business-integration/data-validation-and-quality-assurance/r3/v1",
+      "concept_id": "data-validation-and-quality-assurance",
+      "rung": 3,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "fill_gaps",
+        "prompt": "Complete the statement.",
+        "concept_id": "data-validation-and-quality-assurance",
+        "parts": [
+          {
+            "type": "text",
+            "text": "Finding an unusually high or low extracted value is "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "outlier detection"
+            ],
+            "rejected_answers": [
+              "cross-field validation",
+              "data normalization and standardization",
+              "field-confidence-and-validation",
+              "data-normalization-and-standardization"
+            ],
+            "placeholder": "technical term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "explanation": "An outlier is a value that is unusually high or low compared with expected patterns, which may indicate an extraction error.",
+        "feedback_for_incorrect": {
+          "intrinsic": "An unusually large or small value could remain unflagged for review.",
+          "instructional": "Cross-field validation compares related values, while normalization standardizes formats. Use outlier detection for unusual highs or lows."
+        }
+      },
+      "payload_hash": "f8233f80ffbab7df22d16e00153cd226dbc253a5690bd8e3738e8b3032339943",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "3d3c02870615a224c40ed60d74fddb378f768fcfbc9dc485c3ef6f65f459b354",
+      "telemetry": {}
+    },
+    {
+      "item_key": "tables-quality-and-business-integration/data-validation-and-quality-assurance/r4/v1",
+      "concept_id": "data-validation-and-quality-assurance",
+      "rung": 4,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Applying",
+        "question_type": "single_choice",
+        "prompt": "An insurance-claims clerk processes forms that must include an email address before submission. What should the system use to enforce this requirement?",
+        "concept_id": "data-validation-and-quality-assurance",
+        "options": [
+          {
+            "text": "Required field checking",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Required-field checking confirms that mandatory fields are present. An email address required before submission is exactly this kind of rule.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Distribution analysis",
+            "is_correct": false,
+            "error_type": "Confuses a mandatory rule with statistical patterns",
+            "rationale": "Distribution analysis compares values against historical patterns. It does not enforce whether one required field is present.",
+            "better_fit": "Use this when comparing extracted values with broader historical distributions.",
+            "feedback": {
+              "intrinsic": "A form missing its email address could still look typical in a broad pattern review.",
+              "instructional": "Presence of a mandatory field is an explicit rule, so use required-field checking."
+            }
+          },
+          {
+            "text": "Cross-field validation",
+            "is_correct": false,
+            "error_type": "Confuses field presence with field relationships",
+            "rationale": "Cross-field validation tests logical relationships among fields. It does not check whether a single required field exists.",
+            "better_fit": "Use this when related values, such as subtotals and a total, must agree.",
+            "feedback": {
+              "intrinsic": "A missing email address could be missed because there is no relationship to compare.",
+              "instructional": "This is a completeness requirement, not a relationship check. Use required-field checking."
+            }
+          },
+          {
+            "text": "Date normalization",
+            "is_correct": false,
+            "error_type": "Confuses validation with format conversion",
+            "rationale": "Date normalization standardizes date formats. It does not verify email-address presence.",
+            "better_fit": "Use this when dates need conversion to a consistent ISO format.",
+            "feedback": {
+              "intrinsic": "Dates could be standardized while a required email address remains absent.",
+              "instructional": "Choose validation that checks mandatory fields, rather than formatting unrelated values."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. Required-field checking confirms that the mandatory email address is present."
+      },
+      "payload_hash": "8952b24e60053ea01063720d799f011e17d65197594f96dd143b73720422b9e1",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "3d3c02870615a224c40ed60d74fddb378f768fcfbc9dc485c3ef6f65f459b354",
+      "telemetry": {}
+    },
+    {
+      "item_key": "tables-quality-and-business-integration/business-system-integration/r1/v1",
+      "concept_id": "business-system-integration",
+      "rung": 1,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "multi_choice",
+        "prompt": "Which targets can schema mapping prepare data for? Select all that apply.",
+        "concept_id": "business-system-integration",
+        "options": [
+          {
+            "text": "Database columns and tables",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Schema mapping can align extracted fields with database columns and tables. This prepares structured data for storage.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "REST API payloads",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Schema mapping can format data for REST API consumption downstream. API payloads are an explicit target.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Message queues",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Schema mapping can prepare structured messages for asynchronous processing. Message queues are therefore a target.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "OCR image cleanup filters",
+            "is_correct": false,
+            "error_type": "Confuses integration with OCR preprocessing",
+            "rationale": "Image cleanup filters belong to preprocessing before text recognition. Schema mapping occurs after fields are extracted and standardized.",
+            "better_fit": "Use this during OCR preprocessing to reduce noise or improve image quality.",
+            "feedback": {
+              "intrinsic": "A later-stage data handoff could be confused with early image preparation.",
+              "instructional": "Schema mapping prepares extracted fields for downstream destinations, not image cleanup."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. Schema mapping can prepare structured values for databases, REST APIs, and message queues."
+      },
+      "payload_hash": "40f03a58984416b3115d6d7781713846fba80572dc0e99dea11070fdd6ac1eb3",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "3d3c02870615a224c40ed60d74fddb378f768fcfbc9dc485c3ef6f65f459b354",
+      "telemetry": {}
+    },
+    {
+      "item_key": "tables-quality-and-business-integration/business-system-integration/r2/v1",
+      "concept_id": "business-system-integration",
+      "rung": 2,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "true_false",
+        "prompt": "Decide whether this statement is true or false.",
+        "concept_id": "business-system-integration",
+        "statement": "Schema mapping can rename fields and convert data types for a target system.",
+        "correct_answer": true,
+        "feedback_for_correct": "Correct. These transformations align extracted values with the target schema's conventions and data types.",
+        "feedback_for_incorrect": {
+          "intrinsic": "A destination could receive a field name or value type it cannot use as intended.",
+          "instructional": "Schema mapping can rename fields, convert data types, and apply conditional business logic to match target requirements."
+        }
+      },
+      "payload_hash": "8278f5bf2500880be8e02285ed527fcf024eece137b3ae6dc1db1cfa1489373e",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "3d3c02870615a224c40ed60d74fddb378f768fcfbc9dc485c3ef6f65f459b354",
+      "telemetry": {}
+    },
+    {
+      "item_key": "tables-quality-and-business-integration/business-system-integration/r3/v1",
+      "concept_id": "business-system-integration",
+      "rung": 3,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "rearrange",
+        "prompt": "Arrange the following business-integration steps in order.",
+        "concept_id": "business-system-integration",
+        "word_bank": [
+          "Map target schema",
+          "Extracted fields arrive",
+          "Send downstream data",
+          "Standardize the values"
+        ],
+        "correct_order": [
+          "Extracted fields arrive",
+          "Standardize the values",
+          "Map target schema",
+          "Send downstream data"
+        ],
+        "interchangeable_groups": [],
+        "explanation": "Values must first be available and consistent, then aligned with the destination schema before they can be sent onward.",
+        "feedback_for_incorrect": {
+          "intrinsic": "A downstream destination could receive raw or mismatched values.",
+          "instructional": "First obtain extracted fields, standardize them, map them to the target schema, and then send the prepared data."
+        }
+      },
+      "payload_hash": "cbf989e9e51a6814d5c2406dad45a90e5559a89e3afb154e653082b9e549dc63",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "3d3c02870615a224c40ed60d74fddb378f768fcfbc9dc485c3ef6f65f459b354",
+      "telemetry": {}
+    },
+    {
+      "item_key": "tables-quality-and-business-integration/business-system-integration/r3/v2",
+      "concept_id": "business-system-integration",
+      "rung": 3,
+      "variant": 2,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "fill_gaps",
+        "prompt": "Complete the statement.",
+        "concept_id": "business-system-integration",
+        "parts": [
+          {
+            "type": "text",
+            "text": "Aligning extracted fields with database columns or API payloads is "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "schema mapping"
+            ],
+            "rejected_answers": [
+              "data normalization and standardization",
+              "field mapping and association",
+              "data-normalization-and-standardization",
+              "field-mapping-and-association"
+            ],
+            "placeholder": "technical term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "explanation": "Database columns and API payloads are target structures, so extracted fields must be aligned to their required schema during integration.",
+        "feedback_for_incorrect": {
+          "intrinsic": "Prepared values could arrive under names or data types the destination does not expect.",
+          "instructional": "Normalization makes values consistent, and field mapping associates candidates with schema fields earlier. Schema mapping aligns data with downstream structures."
+        }
+      },
+      "payload_hash": "35d9a6ec3d9e0c1e2f7f2fa2a61c33293d54c82400eae89de0dee31faee9ce49",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "3d3c02870615a224c40ed60d74fddb378f768fcfbc9dc485c3ef6f65f459b354",
+      "telemetry": {}
+    },
+    {
+      "item_key": "tables-quality-and-business-integration/business-system-integration/r4/v1",
+      "concept_id": "business-system-integration",
+      "rung": 4,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Applying",
+        "question_type": "multi_choice",
+        "prompt": "A medical-records coordinator sends extracted patient information to a downstream system. The target system uses a different field name for a medical record number and requires it as a number. Which integration actions should the coordinator apply? Select all that apply.",
+        "concept_id": "business-system-integration",
+        "options": [
+          {
+            "text": "Rename the extracted field",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Field renaming maps an extracted name to the target convention. This addresses the different field name.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Convert the data type",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Data type conversion ensures a value matches the type expected by the target. This addresses the numeric requirement.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Apply conditional business logic",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Conditional logic is a schema-mapping transformation that can apply business rules for transformation and derivation. It can be part of preparing data for the target.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Detect text regions",
+            "is_correct": false,
+            "error_type": "Confuses integration with OCR layout detection",
+            "rationale": "Text-region detection identifies areas containing text during OCR. The patient fields have already been extracted and are now being prepared for a target.",
+            "better_fit": "Use this earlier when locating text areas in an image before character recognition.",
+            "feedback": {
+              "intrinsic": "The coordinator could revisit image analysis instead of making the existing patient data fit its destination.",
+              "instructional": "At this stage, use schema-mapping transformations such as renaming and type conversion, not OCR layout detection."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. Renaming and type conversion align the medical record number with the target requirements; conditional logic can apply applicable business rules."
+      },
+      "payload_hash": "acdee551f4ba4c6ae2bb69dbad5d272e4f15559694f30882607a7f649f84a718",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "3d3c02870615a224c40ed60d74fddb378f768fcfbc9dc485c3ef6f65f459b354",
+      "telemetry": {}
+    }
+  ],
+  "flashcards": [
+    {
+      "front": "What is field detection?",
+      "back": "It finds possible field values before schema assignment.",
+      "hint": "Think: find values first."
+    },
+    {
+      "front": "What does header detection do?",
+      "back": "It identifies column headers to determine field meanings.",
+      "hint": "Think: column labels."
+    },
+    {
+      "front": "What is cross-field validation?",
+      "back": "It checks whether related extracted values are logically consistent.",
+      "hint": "Think: totals and subtotals."
+    },
+    {
+      "front": "What is schema mapping?",
+      "back": "It aligns extracted fields with a target system structure.",
+      "hint": "Think: database or API."
+    }
+  ]
+}

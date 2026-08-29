@@ -1,0 +1,1453 @@
+{
+  "schema_version": "exercise-bank-v1",
+  "lesson": "build-with-python-sdks",
+  "module": "9-get-started-with-text-analysis-in-azure",
+  "items": [
+    {
+      "item_key": "build-with-python-sdks/openai-python-library/r1/v1",
+      "concept_id": "openai-python-library",
+      "rung": 1,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "single_choice",
+        "prompt": "What is the OpenAI Python library?",
+        "concept_id": "openai-python-library",
+        "options": [
+          {
+            "text": "An official Python SDK for OpenAI models",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Correct. It is the official Python SDK for interacting with OpenAI models and services through code instead of raw HTTP requests.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "An Azure Language SDK for text analyzers",
+            "is_correct": false,
+            "error_type": "Confuses the OpenAI library with the Azure Language SDK",
+            "rationale": "This names a different Python library. Azure Language uses its own SDK for language detection and PII detection.",
+            "better_fit": "Choose this when building Python code for Azure Language capabilities such as detect_language().",
+            "feedback": {
+              "intrinsic": "Your app would be set up for language analysis rather than calls to a deployed OpenAI model.",
+              "instructional": "Keep the libraries separate: openai connects Python code to OpenAI models, while Azure Language has a different SDK."
+            }
+          },
+          {
+            "text": "A file that stores environment values",
+            "is_correct": false,
+            "error_type": "Confuses an SDK with a .env file",
+            "rationale": "A .env file stores named configuration values. It is not a Python library developers install to make model calls.",
+            "better_fit": "Choose this for a .env file that holds an endpoint, API key, and deployment name.",
+            "feedback": {
+              "intrinsic": "You would look for connection code in a configuration file instead of installing the library that provides it.",
+              "instructional": "A .env file stores values; the OpenAI Python library provides ready-made Python code for the connection."
+            }
+          },
+          {
+            "text": "A deployed model's assigned name",
+            "is_correct": false,
+            "error_type": "Confuses an SDK with a deployment name",
+            "rationale": "A deployment name identifies a deployed model. The library is the Python SDK used to interact with that deployment.",
+            "better_fit": "Choose this when referring to a name such as gpt-demo-model assigned during deployment.",
+            "feedback": {
+              "intrinsic": "The app could identify a deployment but would still lack the Python library for sending requests.",
+              "instructional": "A deployment name selects a model deployment; the SDK provides the code interface used to call it."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. The OpenAI Python library is the official SDK for using OpenAI models and services from Python."
+      },
+      "payload_hash": "2fa5f48f60cf345e1f95ed5b7460ae51ade6a5f956a4d8c58df6b9b158113d8d",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "8f78119975e8831c999691da33ad83b6005101bd6189763dca095b0c2c474d85",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-with-python-sdks/openai-python-library/r1/v2",
+      "concept_id": "openai-python-library",
+      "rung": 1,
+      "variant": 2,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "multi_choice",
+        "prompt": "Which statements describe the OpenAI Python library? Select all that apply.",
+        "concept_id": "openai-python-library",
+        "options": [
+          {
+            "text": "It is an official Python SDK",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Correct. The library is described as the official Python SDK. SDK means software development kit.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It lets Python code use OpenAI services",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Correct. It lets Python applications interact with OpenAI models and services through code.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It avoids writing raw HTTP requests",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Correct. The SDK provides code for interacting with services instead of using raw HTTP requests.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It detects language with detect_language()",
+            "is_correct": false,
+            "error_type": "Confuses the OpenAI library with the Azure Language SDK",
+            "rationale": "detect_language() belongs to the Azure Language Python SDK client. It is not the described OpenAI library call.",
+            "better_fit": "Choose this for an Azure Language client that detects a primary language and confidence score.",
+            "feedback": {
+              "intrinsic": "A developer expecting this method from the OpenAI library would be working with the wrong library.",
+              "instructional": "Use the OpenAI Python library for deployed model interactions; use the Azure Language SDK for detect_language()."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. The official SDK lets Python code work with OpenAI models and services without raw HTTP requests."
+      },
+      "payload_hash": "58093ac40891fab427a5270134a259e4a4c9eebcc737b1df28b272aed87248ba",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "8f78119975e8831c999691da33ad83b6005101bd6189763dca095b0c2c474d85",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-with-python-sdks/openai-python-library/r2/v1",
+      "concept_id": "openai-python-library",
+      "rung": 2,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "true_false",
+        "prompt": "Decide whether this statement is true or false.",
+        "concept_id": "openai-python-library",
+        "statement": "The OpenAI Python library lets developers use OpenAI models and services through Python code instead of raw HTTP requests.",
+        "correct_answer": true,
+        "feedback_for_correct": "Correct. The SDK provides ready-made Python code for connecting to OpenAI models and services.",
+        "feedback_for_incorrect": {
+          "intrinsic": "Choosing false would overlook the library's main purpose when building a Python application.",
+          "instructional": "The OpenAI Python library is the official SDK for using OpenAI models and services through Python code rather than raw HTTP requests."
+        }
+      },
+      "payload_hash": "da07f50a73d9d7cac67b24dedcf4dfb5cb7ee295f41f3360e57f76d5d1c5fba2",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "8f78119975e8831c999691da33ad83b6005101bd6189763dca095b0c2c474d85",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-with-python-sdks/openai-python-library/r3/v1",
+      "concept_id": "openai-python-library",
+      "rung": 3,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "fill_gaps",
+        "prompt": "Complete the command used to install the official OpenAI Python SDK.",
+        "concept_id": "openai-python-library",
+        "parts": [
+          {
+            "type": "text",
+            "text": "pip install "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "openai"
+            ],
+            "rejected_answers": [
+              "azure-ai-textanalytics",
+              "azure-language-sdk",
+              "client-application-api-and-library"
+            ],
+            "placeholder": "package name"
+          }
+        ],
+        "explanation": "The package name identifies which Python library pip installs. The official library for OpenAI models and services uses the name openai.",
+        "feedback_for_incorrect": {
+          "intrinsic": "Installing the other package would prepare the app for Azure Language features instead of OpenAI model access.",
+          "instructional": "Use openai here. azure-ai-textanalytics is the package for the Azure Language Python SDK."
+        }
+      },
+      "payload_hash": "f53c518acca6f4ecd3ef5cb6b7273774f49bdcca00dfaadefa088c29f28dcb1f",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "8f78119975e8831c999691da33ad83b6005101bd6189763dca095b0c2c474d85",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-with-python-sdks/openai-python-library/r4/v1",
+      "concept_id": "openai-python-library",
+      "rung": 4,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Applying",
+        "question_type": "single_choice",
+        "prompt": "A customer-feedback analyst is building a Python app to send review prompts to a deployed OpenAI model. Which package should she install?",
+        "concept_id": "openai-python-library",
+        "options": [
+          {
+            "text": "openai",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Correct. The openai package installs the official Python SDK for interacting with deployed OpenAI models.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "azure-ai-textanalytics",
+            "is_correct": false,
+            "error_type": "Confuses OpenAI model access with Azure Language tools",
+            "rationale": "This package is for the Azure Language Python SDK. It supports capabilities such as language detection and PII detection.",
+            "better_fit": "Choose this when the app needs Azure Language features such as detect_language() or recognize_pii_entities().",
+            "feedback": {
+              "intrinsic": "The analyst would have a package for specialized language analysis, not the requested deployed-model prompts.",
+              "instructional": "For prompts sent to a deployed OpenAI model, install openai. Azure Language uses azure-ai-textanalytics."
+            }
+          },
+          {
+            "text": "dotenv",
+            "is_correct": false,
+            "error_type": "Confuses loading configuration with model access",
+            "rationale": "load_dotenv() loads values from a .env file. It does not provide the OpenAI model connection.",
+            "better_fit": "Choose this when loading endpoint, key, and deployment-name values from a .env file.",
+            "feedback": {
+              "intrinsic": "The app could load saved values but would not gain the library needed to call the deployed model.",
+              "instructional": "Configuration loading and model access have different roles. The OpenAI package supplies the Python SDK for model calls."
+            }
+          },
+          {
+            "text": "os",
+            "is_correct": false,
+            "error_type": "Confuses Python environment access with the OpenAI SDK",
+            "rationale": "The os package retrieves environment values with os.getenv(). It is not the OpenAI Python SDK.",
+            "better_fit": "Choose this when code needs to retrieve a named environment value after it is loaded.",
+            "feedback": {
+              "intrinsic": "The analyst could retrieve a value by name but could not create the OpenAI connection from this package alone.",
+              "instructional": "Use os.getenv() for configuration values and openai for interacting with deployed OpenAI models."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. Install openai when Python code needs to send prompts to a deployed OpenAI model."
+      },
+      "payload_hash": "15818bc4740faeddd514f59430da39f400f96bb3f74cad7e9f140f2ea1522b0a",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "8f78119975e8831c999691da33ad83b6005101bd6189763dca095b0c2c474d85",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-with-python-sdks/code-editor-and-terminal/r1/v1",
+      "concept_id": "code-editor-and-terminal",
+      "rung": 1,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "multi_choice",
+        "prompt": "Which statements correctly match a code editor and a terminal? Select all that apply.",
+        "concept_id": "code-editor-and-terminal",
+        "options": [
+          {
+            "text": "A code editor is used to write application code",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Correct. A code editor is software used to write application code.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A terminal runs command-line commands",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Correct. A terminal is a command-line window where commands can run.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Visual Studio Code can include a terminal",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Correct. A terminal can be built into a code editor such as Visual Studio Code.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A terminal is the OpenAI Python SDK",
+            "is_correct": false,
+            "error_type": "Confuses a command window with a Python library",
+            "rationale": "A terminal is a command-line window. The OpenAI Python SDK is a library installed for Python code.",
+            "better_fit": "Choose this for the openai library used in Python applications.",
+            "feedback": {
+              "intrinsic": "You would search for library features in a place meant for entering commands.",
+              "instructional": "The editor and terminal are workspaces for writing and running code; the SDK is code your application imports."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. Write application code in the editor, then use its terminal to run commands."
+      },
+      "payload_hash": "40be064f35ad35f8bbe5bcf264d5ef7a08962d8e5512681eb4529a1feb0d8f30",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "8f78119975e8831c999691da33ad83b6005101bd6189763dca095b0c2c474d85",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-with-python-sdks/code-editor-and-terminal/r1/v2",
+      "concept_id": "code-editor-and-terminal",
+      "rung": 1,
+      "variant": 2,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "single_choice",
+        "prompt": "Where can you run python app.py from inside Visual Studio Code?",
+        "concept_id": "code-editor-and-terminal",
+        "options": [
+          {
+            "text": "The editor's terminal",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Correct. The terminal is the command-line window inside the editor where Python commands can run.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "The .env file",
+            "is_correct": false,
+            "error_type": "Confuses a configuration file with a command window",
+            "rationale": "A .env file stores named configuration values. It does not run application commands.",
+            "better_fit": "Choose this for storing values such as an endpoint and API key.",
+            "feedback": {
+              "intrinsic": "Putting a run command there would leave the application unstarted.",
+              "instructional": "Use the terminal to run python app.py. Use .env only to store configuration values."
+            }
+          },
+          {
+            "text": "The model deployment name",
+            "is_correct": false,
+            "error_type": "Confuses a model identifier with a command window",
+            "rationale": "A deployment name identifies a deployed model. It is not a place where commands are entered.",
+            "better_fit": "Choose this when selecting the model deployment for a request.",
+            "feedback": {
+              "intrinsic": "The model could be named correctly, but the application would still not run.",
+              "instructional": "A deployment name selects a deployed model; a terminal runs the Python command."
+            }
+          },
+          {
+            "text": "The OpenAI client object",
+            "is_correct": false,
+            "error_type": "Confuses a Python object with a command window",
+            "rationale": "A client object makes authorized calls from application code. It is not a command-line window.",
+            "better_fit": "Choose this after obtaining an endpoint and API key for calls from Python code.",
+            "feedback": {
+              "intrinsic": "The client can be used only after the application is running, so it cannot replace the terminal.",
+              "instructional": "Create the client in code, then run that code from the terminal."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. The editor's terminal is where you can run python app.py."
+      },
+      "payload_hash": "bbe5b911d5a82356d5460c0756d71efebc9699674034c5893ed9eab0ef59ed96",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "8f78119975e8831c999691da33ad83b6005101bd6189763dca095b0c2c474d85",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-with-python-sdks/code-editor-and-terminal/r2/v1",
+      "concept_id": "code-editor-and-terminal",
+      "rung": 2,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "true_false",
+        "prompt": "Is the following statement accurate?",
+        "concept_id": "code-editor-and-terminal",
+        "statement": "A code editor's terminal is where you write the application's Python code.",
+        "correct_answer": false,
+        "feedback_for_correct": "Correct. Write Python code in the editor and use the terminal to run commands.",
+        "feedback_for_incorrect": {
+          "intrinsic": "Choosing true would mix up the place for writing code with the place for running it.",
+          "instructional": "A code editor is for writing application code. Its terminal is a command-line window for commands such as python <file_name>.py."
+        }
+      },
+      "payload_hash": "a76b1c0efaa1257a29ecc8dc905676c42f35fb77905908979fcedfc34fde4d5f",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "8f78119975e8831c999691da33ad83b6005101bd6189763dca095b0c2c474d85",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-with-python-sdks/code-editor-and-terminal/r3/v1",
+      "concept_id": "code-editor-and-terminal",
+      "rung": 3,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "rearrange",
+        "prompt": "Reconstruct the statement from the pieces.",
+        "concept_id": "code-editor-and-terminal",
+        "word_bank": [
+          "is a command-line window",
+          "A terminal",
+          "for running commands",
+          "inside the editor"
+        ],
+        "correct_order": [
+          "A terminal",
+          "inside the editor",
+          "is a command-line window",
+          "for running commands"
+        ],
+        "interchangeable_groups": [],
+        "explanation": "The sentence first identifies the terminal, then explains where it can appear, what it is, and why it is used. This follows the relationship between a code editor and its built-in command-line window.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The meaning becomes unclear when the location, definition, and purpose are placed out of sequence.",
+          "instructional": "Begin with the terminal, then say it can be inside the editor, define it as a command-line window, and state that it runs commands."
+        }
+      },
+      "payload_hash": "7384d6ff06b79aca4e7b1756e108150a91ff272b88bce246d3a0eca90f8309de",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "8f78119975e8831c999691da33ad83b6005101bd6189763dca095b0c2c474d85",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-with-python-sdks/code-editor-and-terminal/r4/v1",
+      "concept_id": "code-editor-and-terminal",
+      "rung": 4,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Applying",
+        "question_type": "multi_choice",
+        "prompt": "A developer has finished analyze.py for customer reviews in Visual Studio Code and must test it. Which actions should the developer take? Select all that apply.",
+        "concept_id": "code-editor-and-terminal",
+        "options": [
+          {
+            "text": "Open the built-in terminal",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Correct. Visual Studio Code can include a terminal for running commands.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Run python analyze.py",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Correct. Running python <file_name>.py in the terminal runs the application.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Write the command in the .env file",
+            "is_correct": false,
+            "error_type": "Confuses configuration storage with command execution",
+            "rationale": "A .env file stores named configuration values. It is not where application commands run.",
+            "better_fit": "Choose this when saving values such as API_KEY for the application to load.",
+            "feedback": {
+              "intrinsic": "The testing command would be stored as text, so the review analysis would not begin.",
+              "instructional": "Open the terminal and enter the Python command there. Keep .env for configuration values."
+            }
+          },
+          {
+            "text": "Use the deployment name as a command window",
+            "is_correct": false,
+            "error_type": "Confuses a model identifier with a terminal",
+            "rationale": "A deployment name identifies the model used by a request. A terminal is the command-line window that runs the application.",
+            "better_fit": "Choose this when supplying the deployed model name to the model argument.",
+            "feedback": {
+              "intrinsic": "The app would have no command-line window in which to start its review analysis.",
+              "instructional": "Use the terminal to run analyze.py; use a deployment name inside the code to select the deployed model."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. After writing analyze.py, open the terminal and run python analyze.py to test it."
+      },
+      "payload_hash": "79ba9a2e3f836301763a2acfae6b2a8af6d8b669c77d9d8e490706b76efca654",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "8f78119975e8831c999691da33ad83b6005101bd6189763dca095b0c2c474d85",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-with-python-sdks/env-file-variables/r1/v1",
+      "concept_id": "env-file-variables",
+      "rung": 1,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "single_choice",
+        "prompt": "What does a .env file store?",
+        "concept_id": "env-file-variables",
+        "options": [
+          {
+            "text": "Named configuration values",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Correct. A .env file stores named configuration values such as an endpoint, API key, and deployment name.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A model's generated response",
+            "is_correct": false,
+            "error_type": "Confuses configuration with model output",
+            "rationale": "Generated output is returned after a model request. A .env file holds configuration values used by the application.",
+            "better_fit": "Choose this when referring to output returned from client.responses.create().",
+            "feedback": {
+              "intrinsic": "Saving a response as configuration would not provide the endpoint, key, and deployment details needed for later calls.",
+              "instructional": "A .env file stores setup values. Generated output is the result of a request, not configuration."
+            }
+          },
+          {
+            "text": "A deployed model itself",
+            "is_correct": false,
+            "error_type": "Confuses configuration with a model deployment",
+            "rationale": "A deployed model is accessed through a Foundry resource. A .env file can store its deployment name, not the model itself.",
+            "better_fit": "Choose this when referring to the model that has been deployed in Foundry.",
+            "feedback": {
+              "intrinsic": "The application would still need access to the deployed model outside its local configuration file.",
+              "instructional": "Store the deployment name in .env so code can select the deployed model when making a request."
+            }
+          },
+          {
+            "text": "The OpenAI client object",
+            "is_correct": false,
+            "error_type": "Confuses stored values with a Python object",
+            "rationale": "The OpenAI client object is created in Python from an endpoint and API key. A .env file stores those values for the code to load.",
+            "better_fit": "Choose this for the authenticated object created with base_url and api_key.",
+            "feedback": {
+              "intrinsic": "The app would lack the configured object that actually makes authorized calls.",
+              "instructional": "The .env file supplies values; Python code uses those values to create the client object."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. A .env file stores named configuration values, including endpoint, key, and deployment name."
+      },
+      "payload_hash": "b0a30a5fbe1c6272947e9899d4a6d66e071235e0050c4474680a68d90e231097",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "8f78119975e8831c999691da33ad83b6005101bd6189763dca095b0c2c474d85",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-with-python-sdks/env-file-variables/r1/v2",
+      "concept_id": "env-file-variables",
+      "rung": 1,
+      "variant": 2,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "multi_choice",
+        "prompt": "Which values can be environment variables in a .env file? Select all that apply.",
+        "concept_id": "env-file-variables",
+        "options": [
+          {
+            "text": "An endpoint",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Correct. An endpoint is a named configuration value that can be stored in .env.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "An API key",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Correct. An API key is a named configuration value stored in the shown .env files.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A model deployment name",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Correct. MODEL_DEPLOYMENT_NAME stores the name used to call a deployed model.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A sentence generated by the model",
+            "is_correct": false,
+            "error_type": "Confuses configuration values with model output",
+            "rationale": "A generated sentence is request output. Environment variables are named values used to configure the application.",
+            "better_fit": "Choose this for output returned after a request to the deployed model.",
+            "feedback": {
+              "intrinsic": "The application would save a result where it needs a reusable connection or deployment value.",
+              "instructional": "Keep endpoints, keys, and deployment names in .env. Generated wording belongs to the response from a request."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. Endpoints, API keys, and deployment names are named configuration values suitable for .env."
+      },
+      "payload_hash": "eeaaec213a0602f33ae9cc92f8b238157db587bc99640648ff53f3b8f4833387",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "8f78119975e8831c999691da33ad83b6005101bd6189763dca095b0c2c474d85",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-with-python-sdks/env-file-variables/r2/v1",
+      "concept_id": "env-file-variables",
+      "rung": 2,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "true_false",
+        "prompt": "Evaluate this statement.",
+        "concept_id": "env-file-variables",
+        "statement": "A key in a .env file must exactly match the name requested by os.getenv() in code.",
+        "correct_answer": true,
+        "feedback_for_correct": "Correct. Exact matching lets os.getenv() retrieve the intended value.",
+        "feedback_for_incorrect": {
+          "intrinsic": "A mismatch leaves the application unable to retrieve the configuration value it expects.",
+          "instructional": "If code requests API_KEY, the .env file must use API_KEY exactly. Consistent names avoid missing values at runtime."
+        }
+      },
+      "payload_hash": "11baeca630cddd056b64ca82bfd0ac1fd3a12df41e7dedb5e4dbf665a77cb46d",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "8f78119975e8831c999691da33ad83b6005101bd6189763dca095b0c2c474d85",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-with-python-sdks/env-file-variables/r3/v1",
+      "concept_id": "env-file-variables",
+      "rung": 3,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "fill_gaps",
+        "prompt": "Complete the Python function that reads a named environment value.",
+        "concept_id": "env-file-variables",
+        "parts": [
+          {
+            "type": "text",
+            "text": "endpoint = os."
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "getenv"
+            ],
+            "rejected_answers": [
+              "load_dotenv",
+              "responses.create",
+              "endpoint-and-api-key",
+              "model-deployment-name",
+              "openai-client-object"
+            ],
+            "placeholder": "function name"
+          },
+          {
+            "type": "text",
+            "text": "(\"AZURE_OPENAI_ENDPOINT\")"
+          }
+        ],
+        "explanation": "load_dotenv() loads stored .env values into the application environment, while os.getenv() retrieves one value by its name. The endpoint assignment needs the retrieval step.",
+        "feedback_for_incorrect": {
+          "intrinsic": "Using a loading call or a response call here would not place the named endpoint value into endpoint.",
+          "instructional": "Use getenv to retrieve AZURE_OPENAI_ENDPOINT. load_dotenv() has the earlier job of loading .env values, and responses.create() sends a model request."
+        }
+      },
+      "payload_hash": "2f8663adedbb4b3fdd888a665d456ac943c8331bcb7b70a9cab079161704d2e2",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "8f78119975e8831c999691da33ad83b6005101bd6189763dca095b0c2c474d85",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-with-python-sdks/env-file-variables/r4/v1",
+      "concept_id": "env-file-variables",
+      "rung": 4,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Applying",
+        "question_type": "single_choice",
+        "prompt": "A developer's customer-review app cannot find its API key. The .env file says APIKEY, but the code calls os.getenv(\"API_KEY\"). What should the developer change?",
+        "concept_id": "env-file-variables",
+        "options": [
+          {
+            "text": "Rename the .env key to API_KEY",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Correct. The .env key must exactly match the name requested by os.getenv() in code.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Replace the key with a deployment name",
+            "is_correct": false,
+            "error_type": "Confuses an API key variable with a deployment name",
+            "rationale": "A deployment name selects a deployed model. It cannot replace the API key used to authorize access.",
+            "better_fit": "Choose a deployment name when setting MODEL_DEPLOYMENT_NAME for the model argument.",
+            "feedback": {
+              "intrinsic": "The app would still have no matching API key value for authorization.",
+              "instructional": "Keep each configuration value in its own role: API_KEY authorizes access, while a deployment name selects the model."
+            }
+          },
+          {
+            "text": "Put the API key in the model output",
+            "is_correct": false,
+            "error_type": "Confuses configuration with generated output",
+            "rationale": "The API key is configuration used to create an authenticated client. Model output is returned after a request.",
+            "better_fit": "Choose model output when referring to results returned from a deployed model request.",
+            "feedback": {
+              "intrinsic": "The app could not use a returned response to fix the missing configuration before making its call.",
+              "instructional": "Store the API key in .env under the exact name the code requests."
+            }
+          },
+          {
+            "text": "Remove load_dotenv() from the code",
+            "is_correct": false,
+            "error_type": "Confuses loading configuration with variable naming",
+            "rationale": "load_dotenv() loads .env values into the application environment. Removing it does not fix the mismatch between APIKEY and API_KEY.",
+            "better_fit": "Choose this only when discussing whether an application loads values from a .env file.",
+            "feedback": {
+              "intrinsic": "The app would have even less access to the saved configuration values.",
+              "instructional": "Keep load_dotenv() and make the .env key match os.getenv(\"API_KEY\") exactly."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. Rename the .env key to API_KEY so the saved name exactly matches the name requested in code."
+      },
+      "payload_hash": "951f1877dfa66aacd6a3624e2984086a32607da77d2b09423dceea4efb23444c",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "8f78119975e8831c999691da33ad83b6005101bd6189763dca095b0c2c474d85",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-with-python-sdks/model-deployment-name/r1/v1",
+      "concept_id": "model-deployment-name",
+      "rung": 1,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "multi_choice",
+        "prompt": "Which statements about a model deployment name are correct? Select all that apply.",
+        "concept_id": "model-deployment-name",
+        "options": [
+          {
+            "text": "It is assigned when a model is deployed",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Correct. A deployment name is assigned to a model when it is deployed.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It can be gpt-demo-model",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Correct. gpt-demo-model is a stated example of a customized deployment name.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It can match the model name if unchanged",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Correct. When the name is not customized, it can match a model name such as gpt-4.1-mini.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It is the API key used for authorization",
+            "is_correct": false,
+            "error_type": "Confuses a deployment name with an API key",
+            "rationale": "An API key proves authorization. A deployment name identifies which deployed model receives the request.",
+            "better_fit": "Choose this for API_KEY, which is used when creating an authenticated client.",
+            "feedback": {
+              "intrinsic": "The application might select a name but would not have the authorization value needed to connect.",
+              "instructional": "Use the deployment name as the model value and the API key to authorize access."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. A deployment name is assigned during deployment and may be customized or left to match the model name."
+      },
+      "payload_hash": "2f2be3f98bd39169767f27079d400b301f641b543cec59b719c6a5aa894b8bbd",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "8f78119975e8831c999691da33ad83b6005101bd6189763dca095b0c2c474d85",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-with-python-sdks/model-deployment-name/r2/v1",
+      "concept_id": "model-deployment-name",
+      "rung": 2,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "true_false",
+        "prompt": "Is the following statement accurate?",
+        "concept_id": "model-deployment-name",
+        "statement": "A model deployment name is always different from the model name.",
+        "correct_answer": false,
+        "feedback_for_correct": "Correct. A customized deployment can differ, but an unchanged name can match the model name.",
+        "feedback_for_incorrect": {
+          "intrinsic": "Treating the names as always different could make a developer overlook the deployment name actually in use.",
+          "instructional": "A model may be given a custom deployment name such as gpt-demo-model. If it is not customized, the deployment name can match gpt-4.1-mini."
+        }
+      },
+      "payload_hash": "f5e5869f16713a4bddbd58279de10c71293372e8d8eb58a434bbced46f51b7be",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "8f78119975e8831c999691da33ad83b6005101bd6189763dca095b0c2c474d85",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-with-python-sdks/model-deployment-name/r3/v1",
+      "concept_id": "model-deployment-name",
+      "rung": 3,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "rearrange",
+        "prompt": "Put the pieces in the correct order.",
+        "concept_id": "model-deployment-name",
+        "word_bank": [
+          "given to a model",
+          "A deployment name",
+          "when deployed",
+          "is the name"
+        ],
+        "correct_order": [
+          "A deployment name",
+          "is the name",
+          "given to a model",
+          "when deployed"
+        ],
+        "interchangeable_groups": [],
+        "explanation": "The order defines the term before stating when it is assigned. It clearly connects the name to the model deployment event.",
+        "feedback_for_incorrect": {
+          "intrinsic": "A mixed order can make it unclear whether the name belongs to the model or to another configuration value.",
+          "instructional": "Start with the term, define it as a name, then connect it to the model and its deployment."
+        }
+      },
+      "payload_hash": "dcd75a88f99aba30be8b061e303620a9f931d5027015bf31fb9529ad6ae671d2",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "8f78119975e8831c999691da33ad83b6005101bd6189763dca095b0c2c474d85",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-with-python-sdks/model-deployment-name/r3/v2",
+      "concept_id": "model-deployment-name",
+      "rung": 3,
+      "variant": 2,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "fill_gaps",
+        "prompt": "Complete the configuration variable for the name used to call a deployed model.",
+        "concept_id": "model-deployment-name",
+        "parts": [
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "MODEL_DEPLOYMENT_NAME"
+            ],
+            "rejected_answers": [
+              "API_KEY",
+              "AZURE_OPENAI_ENDPOINT",
+              "endpoint-and-api-key",
+              "environment-variables-and-env-file"
+            ],
+            "placeholder": "variable name"
+          },
+          {
+            "type": "text",
+            "text": "=gpt-4.1-mini"
+          }
+        ],
+        "explanation": "The application retrieves MODEL_DEPLOYMENT_NAME and passes that value as the model when making a request. An API key authorizes access, while an endpoint identifies the service address.",
+        "feedback_for_incorrect": {
+          "intrinsic": "Using the key or endpoint variable here would leave the application without the name needed to select the deployed model.",
+          "instructional": "Use MODEL_DEPLOYMENT_NAME for gpt-4.1-mini. API_KEY and AZURE_OPENAI_ENDPOINT have different configuration roles."
+        }
+      },
+      "payload_hash": "d5951794e54d7cef537e0e8c3c2c45f1652790ce9cf43de4913581bd91f5499a",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "8f78119975e8831c999691da33ad83b6005101bd6189763dca095b0c2c474d85",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-with-python-sdks/model-deployment-name/r4/v1",
+      "concept_id": "model-deployment-name",
+      "rung": 4,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Applying",
+        "question_type": "multi_choice",
+        "prompt": "A bank deploys gpt-4.1 to summarize loan applications and names the deployment support-reviewer. Which choices should its app use to select that deployment? Select all that apply.",
+        "concept_id": "model-deployment-name",
+        "options": [
+          {
+            "text": "support-reviewer",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Correct. support-reviewer is the assigned deployment name, so it identifies the deployed model.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "The MODEL_DEPLOYMENT_NAME variable",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Correct. This configuration variable can store the name assigned to the deployed model.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "The model argument in responses.create",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Correct. client.responses.create() uses model=deployment_name to send a request to a specific deployment.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "The API key as the model argument",
+            "is_correct": false,
+            "error_type": "Confuses authorization with model selection",
+            "rationale": "The API key proves authorization when creating the client. It does not identify the deployed model in the model argument.",
+            "better_fit": "Choose this when setting api_key while creating the OpenAI client object.",
+            "feedback": {
+              "intrinsic": "The bank's request would not identify support-reviewer as the model deployment to use.",
+              "instructional": "Pass the deployment name to model. Use the API key separately to authorize the client connection."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. Store support-reviewer as MODEL_DEPLOYMENT_NAME and pass that value to the model argument."
+      },
+      "payload_hash": "f64697795ce2f05449953a3669758352305f6702bf89b454a907ccbc9bc31298",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "8f78119975e8831c999691da33ad83b6005101bd6189763dca095b0c2c474d85",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-with-python-sdks/openai-client-object/r1/v1",
+      "concept_id": "openai-client-object",
+      "rung": 1,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "single_choice",
+        "prompt": "What does an authenticated OpenAI client object enable?",
+        "concept_id": "openai-client-object",
+        "options": [
+          {
+            "text": "Authorized API calls to a service",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Correct. A configured client object can securely make authorized API calls without code manually managing tokens or secrets.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Language detection without a service call",
+            "is_correct": false,
+            "error_type": "Confuses the OpenAI client with Azure Language analysis",
+            "rationale": "Language detection is an Azure Language capability called through its client. The OpenAI client makes authorized calls to a deployed model.",
+            "better_fit": "Choose this for Azure Language language detection through TextAnalyticsClient.",
+            "feedback": {
+              "intrinsic": "The application would not obtain a language result merely by creating an OpenAI client.",
+              "instructional": "An OpenAI client connects to a deployed model. Language detection uses the Azure Language client and its detect_language() method."
+            }
+          },
+          {
+            "text": "Storage for .env configuration values",
+            "is_correct": false,
+            "error_type": "Confuses a client object with a .env file",
+            "rationale": "A .env file stores endpoint, key, and deployment-name values. The client object is created from loaded endpoint and key values.",
+            "better_fit": "Choose this for the .env file used to save named configuration values.",
+            "feedback": {
+              "intrinsic": "The application would have stored values but no authenticated object for making the call.",
+              "instructional": "Load configuration from .env, then use the endpoint and API key to create the OpenAI client."
+            }
+          },
+          {
+            "text": "A fixed model deployment name",
+            "is_correct": false,
+            "error_type": "Confuses a client object with a deployment identifier",
+            "rationale": "A deployment name selects a model. A client object is the configured connection that sends authorized requests.",
+            "better_fit": "Choose this for MODEL_DEPLOYMENT_NAME, which identifies a deployed model.",
+            "feedback": {
+              "intrinsic": "A name alone would not create the authorized connection needed to send the request.",
+              "instructional": "Use both pieces correctly: the client authorizes and connects, while the deployment name selects the model."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. The authenticated client object enables authorized API calls without manually managing tokens or secrets."
+      },
+      "payload_hash": "7efa339ddf714d03f06625c3dd5f19b6776d3ec0b37acf39a4c05a1b31542c26",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "8f78119975e8831c999691da33ad83b6005101bd6189763dca095b0c2c474d85",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-with-python-sdks/openai-client-object/r2/v1",
+      "concept_id": "openai-client-object",
+      "rung": 2,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "true_false",
+        "prompt": "Decide whether this statement is true or false.",
+        "concept_id": "openai-client-object",
+        "statement": "An OpenAI client object can be created with a base URL and API key.",
+        "correct_answer": true,
+        "feedback_for_correct": "Correct. The base URL and API key configure the client for an authorized connection.",
+        "feedback_for_incorrect": {
+          "intrinsic": "Choosing false would prevent the developer from using the shown connection details to create the client.",
+          "instructional": "The OpenAI client is created with base_url set to the endpoint and api_key set to the API key."
+        }
+      },
+      "payload_hash": "0c338b069a7103bcebb3a24fb6bbb174dd2096eefa21a6dc41fb3b1dbdb99a6c",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "8f78119975e8831c999691da33ad83b6005101bd6189763dca095b0c2c474d85",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-with-python-sdks/openai-client-object/r3/v1",
+      "concept_id": "openai-client-object",
+      "rung": 3,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "fill_gaps",
+        "prompt": "Complete the SDK call that creates a response from a deployed model.",
+        "concept_id": "openai-client-object",
+        "parts": [
+          {
+            "type": "text",
+            "text": "client."
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "responses.create"
+            ],
+            "rejected_answers": [
+              "detect_language",
+              "recognize_pii_entities",
+              "azure-key-credential-and-text-client",
+              "endpoint-and-api-key",
+              "responses-api"
+            ],
+            "placeholder": "method call"
+          },
+          {
+            "type": "text",
+            "text": "(model=deployment_name, input=\"\")"
+          }
+        ],
+        "explanation": "The configured OpenAI client uses responses.create() to send a prompt to the named deployment. The rejected methods belong to the Azure Language client for language and PII analysis.",
+        "feedback_for_incorrect": {
+          "intrinsic": "Using an Azure Language method on this client would not send the prompt to the deployed OpenAI model.",
+          "instructional": "Use client.responses.create() here. detect_language() and recognize_pii_entities() are called through TextAnalyticsClient."
+        }
+      },
+      "payload_hash": "931736ac70fd93a083b3706ff53087d0eb1af63b3665569f00c7e77731f12068",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "8f78119975e8831c999691da33ad83b6005101bd6189763dca095b0c2c474d85",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-with-python-sdks/openai-client-object/r4/v1",
+      "concept_id": "openai-client-object",
+      "rung": 4,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Applying",
+        "question_type": "single_choice",
+        "prompt": "A legal-document team needs its Python app to send case-file summaries to a deployed OpenAI model. It has an endpoint and API key. What should the developer create next?",
+        "concept_id": "openai-client-object",
+        "options": [
+          {
+            "text": "An OpenAI client object",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Correct. The endpoint and API key are used as base_url and api_key to create the authenticated OpenAI client.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A TextAnalyticsClient object",
+            "is_correct": false,
+            "error_type": "Confuses the OpenAI client with the Azure Language client",
+            "rationale": "TextAnalyticsClient is for Azure Language features such as language detection and PII detection. The team needs to send prompts to a deployed OpenAI model.",
+            "better_fit": "Choose this when the legal team needs Azure Language functions such as recognize_pii_entities().",
+            "feedback": {
+              "intrinsic": "The team would create a client for specialized language analysis rather than the requested case-summary prompts.",
+              "instructional": "For a deployed OpenAI model, create OpenAI(base_url=endpoint, api_key=api_key)."
+            }
+          },
+          {
+            "text": "A model deployment name",
+            "is_correct": false,
+            "error_type": "Confuses model selection with an authenticated client",
+            "rationale": "A deployment name is needed to select the model in a request. It does not itself create the authorized connection.",
+            "better_fit": "Choose this when setting the model value in client.responses.create().",
+            "feedback": {
+              "intrinsic": "The team could name a model but could not send its case-file prompt without a configured client.",
+              "instructional": "Create the OpenAI client from endpoint and key, then use the deployment name in the request."
+            }
+          },
+          {
+            "text": "A .env file",
+            "is_correct": false,
+            "error_type": "Confuses stored configuration with a service client",
+            "rationale": "A .env file stores configuration values for code to load. The endpoint and API key must then be used to create a client object.",
+            "better_fit": "Choose this when the team needs to store endpoint, API key, and deployment name values.",
+            "feedback": {
+              "intrinsic": "The values could be saved, but the app would still have no object to make the authorized call.",
+              "instructional": "A .env file is storage for configuration. The next connection step is creating the OpenAI client object."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. Create an OpenAI client object with the endpoint as base_url and the API key for authorization."
+      },
+      "payload_hash": "a42b15e0d9d6cdee91b108873f9dc5a648c8aa495e8174a0a548216fb552ac0c",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "8f78119975e8831c999691da33ad83b6005101bd6189763dca095b0c2c474d85",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-with-python-sdks/consistent-output-choice/r1/v1",
+      "concept_id": "consistent-output-choice",
+      "rung": 1,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "multi_choice",
+        "prompt": "Which statements describe probabilistic model output? Select all that apply.",
+        "concept_id": "consistent-output-choice",
+        "options": [
+          {
+            "text": "Equivalent prompts can vary across calls",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Correct. Equivalent prompts can produce different results across calls because generated output is probabilistic.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Wording can be slightly different",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Correct. Slight differences in wording are a stated form of variation.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Formatting can be slightly different",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Correct. Formatting can also vary slightly between calls.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Results are always deterministic",
+            "is_correct": false,
+            "error_type": "Confuses probabilistic generation with deterministic output",
+            "rationale": "Deterministic results stay consistent for a specific task. Generative-model output can vary in wording or formatting between equivalent prompts.",
+            "better_fit": "Choose this when referring to Azure Language analyzers that return structured, deterministic results.",
+            "feedback": {
+              "intrinsic": "A workflow expecting an identical format every time could receive slightly different generated wording instead.",
+              "instructional": "Probabilistic means variation is possible. Choose Azure Language when consistent structured values are required."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. Probabilistic generation means equivalent prompts can return slightly different wording or formatting."
+      },
+      "payload_hash": "882dc1e5aa2c73368df136e80e1abd4cf5e57fbf5f589ace8e8916e17db6c0d6",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "8f78119975e8831c999691da33ad83b6005101bd6189763dca095b0c2c474d85",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-with-python-sdks/consistent-output-choice/r2/v1",
+      "concept_id": "consistent-output-choice",
+      "rung": 2,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "true_false",
+        "prompt": "Is the following statement accurate?",
+        "concept_id": "consistent-output-choice",
+        "statement": "The same prompt always returns exactly the same wording and formatting from a generative model.",
+        "correct_answer": false,
+        "feedback_for_correct": "Correct. Generated output can vary slightly in wording or formatting between calls.",
+        "feedback_for_incorrect": {
+          "intrinsic": "Expecting an exact repeat could make an automated workflow depend on formatting that changes on a later call.",
+          "instructional": "Generative-model output is probabilistic, so equivalent prompts can return slightly different wording or formatting."
+        }
+      },
+      "payload_hash": "f6883ef96c49222977cd6b808aeb3c5e3340a667a7c5b3b23bb2e5f4a2ac5e3d",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "8f78119975e8831c999691da33ad83b6005101bd6189763dca095b0c2c474d85",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-with-python-sdks/consistent-output-choice/r3/v1",
+      "concept_id": "consistent-output-choice",
+      "rung": 3,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "rearrange",
+        "prompt": "Arrange the parts to form the correct statement.",
+        "concept_id": "consistent-output-choice",
+        "word_bank": [
+          "between calls",
+          "Generative output",
+          "for equivalent prompts",
+          "can vary"
+        ],
+        "correct_order": [
+          "Generative output",
+          "can vary",
+          "between calls",
+          "for equivalent prompts"
+        ],
+        "interchangeable_groups": [],
+        "explanation": "The sequence states what can vary, then describes the variation and the condition under which it occurs. It captures why equivalent prompts are not guaranteed to have identical generated results.",
+        "feedback_for_incorrect": {
+          "intrinsic": "A scrambled order can hide the important link between variation and equivalent prompts.",
+          "instructional": "Start with generative output, state that it can vary, then say the variation happens between calls for equivalent prompts."
+        }
+      },
+      "payload_hash": "c6d87f90a59f56e1e0cb153ba7982bf9750a27653887759a7f8f585e4e481453",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "8f78119975e8831c999691da33ad83b6005101bd6189763dca095b0c2c474d85",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-with-python-sdks/consistent-output-choice/r3/v2",
+      "concept_id": "consistent-output-choice",
+      "rung": 3,
+      "variant": 2,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "fill_gaps",
+        "prompt": "Complete the term: output that can vary between equivalent prompts is ____.",
+        "concept_id": "consistent-output-choice",
+        "parts": [
+          {
+            "type": "text",
+            "text": "Generated model output can vary in wording or formatting between equivalent calls because it is "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "probabilistic",
+              "probabilistic generation"
+            ],
+            "rejected_answers": [
+              "deterministic",
+              "deterministic output",
+              "deterministic-output",
+              "azure-language-sdk",
+              "general-purpose-models"
+            ],
+            "placeholder": "term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "explanation": "Probabilistic generation allows slight variation in wording or formatting across calls. Deterministic output is the contrasting choice used when consistent structured values matter.",
+        "feedback_for_incorrect": {
+          "intrinsic": "Calling the output deterministic would create the wrong expectation of identical results for equivalent prompts.",
+          "instructional": "Use probabilistic because generated wording or formatting can vary. Deterministic describes the consistent structured results provided by Azure Language analyzers."
+        }
+      },
+      "payload_hash": "e64f78bbe68e348cc014f21b19a972f9b0bd2927bbd7e7df66a63f84ea78817a",
+      "provenance": "human-edited",
+      "pinned": true,
+      "status": "active",
+      "source_hash": "8f78119975e8831c999691da33ad83b6005101bd6189763dca095b0c2c474d85",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-with-python-sdks/consistent-output-choice/r4/v1",
+      "concept_id": "consistent-output-choice",
+      "rung": 4,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Applying",
+        "question_type": "multi_choice",
+        "prompt": "A healthcare system must return a language code, confidence score, and redacted patient text in consistent structured values. Which choices fit this need? Select all that apply.",
+        "concept_id": "consistent-output-choice",
+        "options": [
+          {
+            "text": "Use Azure Language",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Correct. Azure Language is the better choice when language codes, confidence scores, or redacted text must be consistent structured values.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Use purpose-built language tools",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Correct. Purpose-built language analyzers return structured, deterministic results for specific tasks.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Choose deterministic structured output",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Correct. Deterministic structured output fits an application that needs consistent values.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Rely on generated wording alone",
+            "is_correct": false,
+            "error_type": "Confuses flexible generative output with predictable structured analysis",
+            "rationale": "Generated wording can vary between calls. The required codes, scores, and redacted text call for consistent structured results.",
+            "better_fit": "Choose this for flexible conversational analysis where a fixed structured output is not required.",
+            "feedback": {
+              "intrinsic": "Patient-processing results could vary in wording or formatting when the workflow needs consistent fields.",
+              "instructional": "For language codes, confidence scores, and redacted text, use Azure Language and its deterministic structured results."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. Azure Language purpose-built analyzers return the consistent structured values this healthcare workflow needs."
+      },
+      "payload_hash": "c04c229ecbd8429a019edb1696d3791209a6e5908d9edf565e8116af93cd38df",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "8f78119975e8831c999691da33ad83b6005101bd6189763dca095b0c2c474d85",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-with-python-sdks/consistent-output-choice/r5/v1",
+      "concept_id": "consistent-output-choice",
+      "rung": 5,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Analyzing/Evaluating",
+        "question_type": "multi_choice",
+        "prompt": "A support-team manager must route every incoming ticket by an exact language code and confidence score. Which reasons support choosing Azure Language instead of a general-purpose model? Select all that apply.",
+        "concept_id": "consistent-output-choice",
+        "options": [
+          {
+            "text": "It returns consistent structured values",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Correct. Azure Language analyzers return structured, deterministic output for specific tasks.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It is better for language codes and confidence scores",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Correct. Language detection returns a primary language, ISO 639-1 code, and confidence score, which are consistent structured values.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Generative output can vary between calls",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Correct. General-purpose model output is probabilistic, so equivalent prompts can vary in wording or formatting.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A general-purpose model has no language ability",
+            "is_correct": false,
+            "error_type": "Confuses output predictability with language capability",
+            "rationale": "General-purpose models have broad language understanding and can perform many text-analysis tasks. The reason to choose Azure Language here is predictable structured output, not an absence of language ability.",
+            "better_fit": "Choose this for no stated situation; general-purpose models do have broad language capabilities.",
+            "feedback": {
+              "intrinsic": "The manager could reject useful general-purpose analysis for the wrong reason instead of choosing based on the routing requirement.",
+              "instructional": "Both approaches handle language. Azure Language is the better fit here because exact codes and confidence scores need consistent structured results."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. Azure Language fits ticket routing because it returns consistent structured language results, while generated output can vary."
+      },
+      "payload_hash": "fa9d2858e299e754f21e527abed9bb8e050bb94f52b6acfe8da7eb2bfb8474f8",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "8f78119975e8831c999691da33ad83b6005101bd6189763dca095b0c2c474d85",
+      "telemetry": {}
+    }
+  ],
+  "flashcards": [
+    {
+      "front": "What is the OpenAI Python library?",
+      "back": "The official Python SDK for OpenAI models and services.",
+      "hint": "SDK means software development kit."
+    },
+    {
+      "front": "What does a terminal do?",
+      "back": "It runs command-line commands, including Python applications.",
+      "hint": "It can be built into a code editor."
+    },
+    {
+      "front": "What does os.getenv() do?",
+      "back": "It retrieves an environment value by its exact name.",
+      "hint": "The .env key must match."
+    },
+    {
+      "front": "Why choose Azure Language for structured values?",
+      "back": "It provides consistent, deterministic results.",
+      "hint": "Use it for codes, scores, or redacted text."
+    }
+  ]
+}

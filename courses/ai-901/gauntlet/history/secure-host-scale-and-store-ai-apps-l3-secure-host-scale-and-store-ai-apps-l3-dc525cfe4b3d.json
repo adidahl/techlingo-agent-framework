@@ -1,0 +1,1389 @@
+{
+  "schema_version": "techlingo-gauntlet-record-v1",
+  "compiled_artifact_sha256": "2fa356d363b3a7f13d4d399d67361e952b387b4b6502e0aa169d3bb7f3169d2b",
+  "unit_key": "secure-host-scale-and-store-ai-apps-l3",
+  "champion": {
+    "artifact_id": "ai-901:secure-host-scale-and-store-ai-apps-l3",
+    "course_id": "ai-901",
+    "session_id": "secure-host-scale-and-store-ai-apps-l3",
+    "items": [
+      {
+        "item_key": "secure-host-scale-and-store-ai-apps/entra-id-and-rbac/r5/v1",
+        "path": "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/0",
+        "payload": {
+          "import_key": "secure-host-scale-and-store-ai-apps-l3-q1",
+          "question_type": "multiple_choice",
+          "question_text": "A healthcare diagnostic app uses medical images. The app service needs a stored key, but doctors need different access to model data. Which approach should set the doctors' permissions?",
+          "options": {
+            "options": [
+              {
+                "text": "Azure Key Vault",
+                "is_correct": false,
+                "error_type": "Confuses employee permissions with secret storage",
+                "rationale": "Key Vault stores the application's key as a secret. It does not assign different permissions to doctors.",
+                "better_fit": "Use Key Vault to keep the app service's key out of code and GitHub.",
+                "feedback": {
+                  "intrinsic": "The key could be protected, but doctors would not receive the needed access levels.",
+                  "instructional": "Protect keys in Key Vault; assign people permissions with Entra ID and RBAC."
+                }
+              },
+              {
+                "text": "Azure Entra ID with RBAC",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "Doctors need permissions that differ by role. Entra ID with RBAC limits access to data and resources according to assigned roles.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "A managed identity",
+                "is_correct": false,
+                "error_type": "Confuses application identity with user role permissions",
+                "rationale": "A managed identity lets the app retrieve a secret securely at runtime. It does not set doctors' role-based access to data.",
+                "better_fit": "Use a managed identity when the app service retrieves its stored key from Key Vault.",
+                "feedback": {
+                  "intrinsic": "The application could get its key, while doctor permissions would remain unset.",
+                  "instructional": "Managed identity serves the application; RBAC serves role-based permissions."
+                }
+              },
+              {
+                "text": "An API key",
+                "is_correct": false,
+                "error_type": "Confuses endpoint authentication with role-based authorization",
+                "rationale": "An API key authenticates a request to an endpoint. It does not give different doctors different data permissions.",
+                "better_fit": "Use an API key when an application calls an endpoint and must authenticate that call.",
+                "feedback": {
+                  "intrinsic": "One key would not separate doctors by their assigned access.",
+                  "instructional": "A key authenticates a call. RBAC authorizes access by role."
+                }
+              }
+            ],
+            "blooms_level": "Analyzing/Evaluating",
+            "original_question_type": "single_choice",
+            "concept_id": "entra-id-and-rbac",
+            "item_key": "secure-host-scale-and-store-ai-apps/entra-id-and-rbac/r5/v1",
+            "rung": 5,
+            "variant": 1,
+            "module_key": "7-get-started-with-ai-in-azure",
+            "lesson_key": "secure-host-scale-and-store-ai-apps",
+            "learning_status": "new"
+          },
+          "correct_answer": "1",
+          "explanation": "Correct. Doctors' different permissions should be assigned through Entra ID with RBAC.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "secure-host-scale-and-store-ai-apps/azure-storage-options/r5/v1",
+        "path": "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/1",
+        "payload": {
+          "import_key": "secure-host-scale-and-store-ai-apps-l3-q2",
+          "question_type": "multiple_choice",
+          "question_text": "A finance company must keep real-time transaction data available across global locations. Which choices best fit this need? Select all that apply.",
+          "options": {
+            "options": [
+              {
+                "text": "Azure Cosmos DB",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "Azure Cosmos DB supports real-time globally distributed data. That matches transaction data needed across global locations.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Azure SQL Database only",
+                "is_correct": false,
+                "error_type": "Confuses mission-critical workloads with global real-time data",
+                "rationale": "Azure SQL Database is described for mission-critical workloads. Azure Cosmos DB is the option described for real-time globally distributed data.",
+                "better_fit": "Choose Azure SQL Database when the key requirement is a mission-critical workload.",
+                "feedback": {
+                  "intrinsic": "The company could overlook the storage option identified for real-time global distribution.",
+                  "instructional": "For real-time data across global locations, select Azure Cosmos DB and persistent storage."
+                }
+              },
+              {
+                "text": "Persistent data storage",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "Persistent storage keeps information available for later use. The company needs transaction data to remain available across locations.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Real-time global distribution",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "Real-time global distribution is the capability described for Azure Cosmos DB. It directly matches the stated availability need.",
+                "better_fit": null,
+                "feedback": null
+              }
+            ],
+            "blooms_level": "Analyzing/Evaluating",
+            "original_question_type": "multi_choice",
+            "concept_id": "azure-storage-options",
+            "item_key": "secure-host-scale-and-store-ai-apps/azure-storage-options/r5/v1",
+            "rung": 5,
+            "variant": 1,
+            "module_key": "7-get-started-with-ai-in-azure",
+            "lesson_key": "secure-host-scale-and-store-ai-apps",
+            "learning_status": "new"
+          },
+          "correct_answer": "[0,2,3]",
+          "explanation": "Correct. Azure Cosmos DB with persistent storage and real-time global distribution fits this transaction-data requirement.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "secure-host-scale-and-store-ai-apps/scaling-and-instances/r3/v1",
+        "path": "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/2",
+        "payload": {
+          "import_key": "secure-host-scale-and-store-ai-apps-l3-q3",
+          "question_type": "arrange_sentence",
+          "question_text": "Put the pieces in the correct order.",
+          "options": {
+            "word_bank": [
+              "while scale up",
+              "Scale out",
+              "adds CPU or memory",
+              "adds more instances"
+            ],
+            "correct_order": [
+              "Scale out",
+              "adds more instances",
+              "while scale up",
+              "adds CPU or memory"
+            ],
+            "blooms_level": "Understanding",
+            "original_question_type": "rearrange",
+            "concept_id": "scaling-and-instances",
+            "feedback_for_incorrect": {
+              "intrinsic": "A capacity change could be planned in the wrong direction.",
+              "instructional": "Remember the pairing: scale out adds instances, and scale up adds CPU or memory to an existing instance."
+            },
+            "item_key": "secure-host-scale-and-store-ai-apps/scaling-and-instances/r3/v1",
+            "rung": 3,
+            "variant": 1,
+            "module_key": "7-get-started-with-ai-in-azure",
+            "lesson_key": "secure-host-scale-and-store-ai-apps",
+            "learning_status": "review"
+          },
+          "correct_answer": "Scale out adds more instances while scale up adds CPU or memory",
+          "explanation": "Horizontal scaling adds running copies, while vertical scaling gives an existing copy more CPU or memory. These choices address different capacity needs.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "secure-host-scale-and-store-ai-apps/hosts-containers-aks-and-app-service/r5/v1",
+        "path": "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/3",
+        "payload": {
+          "import_key": "secure-host-scale-and-store-ai-apps-l3-q4",
+          "question_type": "multiple_choice",
+          "question_text": "A manufacturing team packages its predictive-maintenance workloads as many containers. It needs one service to manage those workloads together. Which choice best fits?",
+          "options": {
+            "options": [
+              {
+                "text": "Azure App Service",
+                "is_correct": false,
+                "error_type": "Confuses container orchestration with web app hosting",
+                "rationale": "App Service hosts web apps, APIs, and background jobs. It is not the service described for orchestrating many containers.",
+                "better_fit": "Use App Service when quickly hosting a web app, API, or background job.",
+                "feedback": {
+                  "intrinsic": "The containers would not be managed by the service intended for large container workloads.",
+                  "instructional": "Choose AKS when the central need is orchestrating many containers."
+                }
+              },
+              {
+                "text": "Scale out",
+                "is_correct": false,
+                "error_type": "Confuses capacity adjustment with workload orchestration",
+                "rationale": "Scale out adds more app instances. It does not manage a collection of containerized workloads.",
+                "better_fit": "Use scale out when request volume requires additional app copies.",
+                "feedback": {
+                  "intrinsic": "The team could add copies without organizing its container workloads.",
+                  "instructional": "Scaling changes capacity; AKS orchestrates containers."
+                }
+              },
+              {
+                "text": "A virtual machine",
+                "is_correct": false,
+                "error_type": "Confuses a host environment with a container orchestrator",
+                "rationale": "A virtual machine is a host that provides compute, memory, and networking. It is not the service that orchestrates many containers.",
+                "better_fit": "Use a virtual machine when an application needs a cloud host environment.",
+                "feedback": {
+                  "intrinsic": "The workloads would have a host, but no orchestrator for managing them together.",
+                  "instructional": "A VM is a host. AKS manages large numbers of containerized workloads."
+                }
+              },
+              {
+                "text": "Azure Kubernetes Service",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "AKS orchestrates many containerized workloads. That directly matches a team that needs to manage many containers together.",
+                "better_fit": null,
+                "feedback": null
+              }
+            ],
+            "blooms_level": "Analyzing/Evaluating",
+            "original_question_type": "single_choice",
+            "concept_id": "hosts-containers-aks-and-app-service",
+            "item_key": "secure-host-scale-and-store-ai-apps/hosts-containers-aks-and-app-service/r5/v1",
+            "rung": 5,
+            "variant": 1,
+            "module_key": "7-get-started-with-ai-in-azure",
+            "lesson_key": "secure-host-scale-and-store-ai-apps",
+            "learning_status": "new"
+          },
+          "correct_answer": "3",
+          "explanation": "Correct. AKS is the Azure service for orchestrating many containerized workloads.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "secure-host-scale-and-store-ai-apps/scaling-and-instances/r5/v1",
+        "path": "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/4",
+        "payload": {
+          "import_key": "secure-host-scale-and-store-ai-apps-l3-q5",
+          "question_type": "multiple_choice",
+          "question_text": "A finance fraud-detection service has one busy app instance. Its engineer wants that same instance to have more processing power, not more copies. Which choices fit? Select all that apply.",
+          "options": {
+            "options": [
+              {
+                "text": "Use scale up",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "Scale up is vertical scaling of an existing instance. It matches the requirement for more power without more copies.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Increase its CPU",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "Scale up increases CPU or memory on an existing instance. More CPU gives that same copy more processing capacity.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Increase its memory",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "More memory is another form of scale up. It changes resources on the existing instance rather than adding copies.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Use scale out",
+                "is_correct": false,
+                "error_type": "Confuses vertical scaling with horizontal scaling",
+                "rationale": "Scale out adds more instances. The engineer specifically wants to keep one instance and increase its resources.",
+                "better_fit": "Use scale out when additional copies of the application are wanted.",
+                "feedback": {
+                  "intrinsic": "The service would gain more copies, contrary to the engineer's stated need.",
+                  "instructional": "Choose scale up for more CPU or memory on one existing instance."
+                }
+              }
+            ],
+            "blooms_level": "Analyzing/Evaluating",
+            "original_question_type": "multi_choice",
+            "concept_id": "scaling-and-instances",
+            "item_key": "secure-host-scale-and-store-ai-apps/scaling-and-instances/r5/v1",
+            "rung": 5,
+            "variant": 1,
+            "module_key": "7-get-started-with-ai-in-azure",
+            "lesson_key": "secure-host-scale-and-store-ai-apps",
+            "learning_status": "new"
+          },
+          "correct_answer": "[0,1,2]",
+          "explanation": "Correct. Scale up increases CPU or memory on the existing instance without adding copies.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "secure-host-scale-and-store-ai-apps/secrets-key-vault-managed-identity/r3/v2",
+        "path": "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/5",
+        "payload": {
+          "import_key": "secure-host-scale-and-store-ai-apps-l3-q6",
+          "question_type": "fill_blank",
+          "question_text": "An application can securely retrieve a secret at runtime by using a ___.",
+          "options": {
+            "parts": [
+              {
+                "type": "text",
+                "text": "An application can securely retrieve a secret at runtime by using a "
+              },
+              {
+                "type": "gap",
+                "accepted_answers": [
+                  "managed identity"
+                ],
+                "rejected_answers": [
+                  "Azure Entra ID",
+                  "RBAC",
+                  "API key",
+                  "entra-id-and-rbac",
+                  "endpoint-authentication"
+                ],
+                "placeholder": "technical term"
+              },
+              {
+                "type": "text",
+                "text": "."
+              }
+            ],
+            "rejected_answers": [
+              "Azure Entra ID",
+              "RBAC",
+              "API key",
+              "entra-id-and-rbac",
+              "endpoint-authentication"
+            ],
+            "blooms_level": "Remembering",
+            "original_question_type": "fill_gaps",
+            "concept_id": "secrets-key-vault-managed-identity",
+            "feedback_for_incorrect": {
+              "intrinsic": "The app would not have the secure retrieval method needed for its stored secret.",
+              "instructional": "Use managed identity to retrieve a Key Vault secret. Entra ID and RBAC manage access, while an API key authenticates an endpoint request."
+            },
+            "item_key": "secure-host-scale-and-store-ai-apps/secrets-key-vault-managed-identity/r3/v2",
+            "rung": 3,
+            "variant": 2,
+            "module_key": "7-get-started-with-ai-in-azure",
+            "lesson_key": "secure-host-scale-and-store-ai-apps",
+            "learning_status": "review"
+          },
+          "correct_answer": "managed identity",
+          "explanation": "A managed identity is the secure identity an application uses to retrieve a stored secret at runtime.",
+          "points": 1
+        }
+      }
+    ],
+    "metadata": {
+      "module_key": "7-get-started-with-ai-in-azure",
+      "unit_title": "Secure, host, scale, and store AI apps · Level 3",
+      "unit_slo": "Choose Azure approaches for protecting, running, scaling, and storing AI application data.",
+      "constraint_relaxations": []
+    }
+  },
+  "history": {
+    "schema_version": "techlingo-gauntlet-history-v1",
+    "run_id": "secure-host-scale-and-store-ai-apps-l3-dc525cfe4b3d",
+    "started_at": "2026-08-29T00:15:42.002139Z",
+    "finished_at": "2026-08-29T00:23:03.895743Z",
+    "initial_champion_hash": "67c515e8daa2349e7582e5695efbfa43422dde793babc26199207ed164487480",
+    "final_champion_hash": "67c515e8daa2349e7582e5695efbfa43422dde793babc26199207ed164487480",
+    "evaluation_context": {
+      "schema_version": "techlingo-evaluation-context-v1",
+      "goal": "Produce an excellent, source-faithful learner session while preserving all deterministic correctness, identity, and sequence constraints.",
+      "source_fidelity_goal": "Independently verify the hard-gated edited challenger against the supplied source material. Reject unsupported facts, answers, explanations, feedback, or terminology changes; do not edit the artifact.",
+      "gauntlet_policy": {
+        "critic_backend": "codex",
+        "critic_model": "codex:gpt-5.6-luna",
+        "builder_model": "codex:gpt-5.6-terra",
+        "evaluator_protocol_version": "critic-review-semantics-v6",
+        "max_rounds": 4,
+        "plateau_rounds": 2,
+        "repeated_loss_rounds": 2,
+        "minimum_improvement_margin": 0.02,
+        "confidence_threshold": 0.65,
+        "human_review_threshold": 0.4,
+        "max_time_seconds": null,
+        "max_tokens": null,
+        "max_cost_usd": null,
+        "qualitative_required_for_publication": true,
+        "quality_thresholds": {
+          "factual_fidelity": 0.8,
+          "answer_unambiguity": 0.8,
+          "distractor_plausibility": 0.8,
+          "misconception_quality": 0.8,
+          "cognitive_progression": 0.8,
+          "mechanic_rhythm_variation": 0.8,
+          "prompt_language_variation": 0.8,
+          "scenario_authenticity": 0.8,
+          "feedback_usefulness": 0.8,
+          "difficulty_appropriateness": 0.8,
+          "terminology_consistency": 0.8,
+          "overall_learner_experience": 0.8
+        },
+        "comparison_seed": 901,
+        "protected_dimensions": [
+          "factual_fidelity",
+          "answer_unambiguity"
+        ],
+        "unstable_comparison_requires_human_review": true,
+        "identifying_metadata_keys": [
+          "artifact_id",
+          "builder_model",
+          "candidate_role",
+          "challenger",
+          "champion",
+          "critic_model",
+          "generated_at",
+          "import_key",
+          "item_key",
+          "model_id",
+          "path",
+          "version_id"
+        ]
+      },
+      "gauntlet_policy_sha256": "3ffb6943742c9fc0b33d6668a9c5695b535ee3121f7b697df8ab4d4392014385",
+      "rubric": {
+        "criteria": {
+          "factual_fidelity": "Every claim and answer is faithful to the supplied source.",
+          "answer_unambiguity": "Each item has one defensible answer under its instructions.",
+          "distractor_plausibility": "Distractors are credible without becoming defensible answers.",
+          "misconception_quality": "Wrong choices diagnose realistic learner misconceptions.",
+          "cognitive_progression": "The ordered session builds understanding at a coherent pace.",
+          "mechanic_rhythm_variation": "Mechanics vary naturally without disruptive repetition.",
+          "prompt_language_variation": "Prompt stems avoid formulaic repetition.",
+          "scenario_authenticity": "Scenarios resemble credible decisions or tasks.",
+          "feedback_usefulness": "Feedback explains the governing concept and next step.",
+          "difficulty_appropriateness": "Difficulty matches the stated audience and session position.",
+          "terminology_consistency": "Terms are used consistently with the source and across items.",
+          "overall_learner_experience": "The exact final sequence is coherent, varied, and instructive."
+        }
+      },
+      "rubric_sha256": "34290a842f2ed7e30b7a98ba70ac97d967c864424010cd31255f97cdce0b57d5",
+      "sources": [
+        {
+          "input_id": "7. Get started with AI in Azure.md",
+          "sha256": "ca81baf02b3d141ff91ba02560b1d47fce11676a1fa4e27b45d8e7235e7d1aaa",
+          "location": "sources/7. Get started with AI in Azure.md"
+        }
+      ],
+      "approved_references": [],
+      "models": {
+        "builder_model": "codex:gpt-5.6-terra",
+        "critic_backend": "codex",
+        "critic_model": "codex:gpt-5.6-luna",
+        "critic_fresh_context": true,
+        "editor_backend": "codex",
+        "editor_model": "codex:gpt-5.6-luna",
+        "editor_fresh_context": true,
+        "comparator_backend": "codex",
+        "comparator_model": "codex:gpt-5.6-luna",
+        "comparator_fresh_context": true
+      },
+      "context_sha256": "238f40be7667f9fbdd19c27d6cad131b5021dd2f1abf08b8c5364d9e3b2b26f2"
+    },
+    "initial_hard_gate": {
+      "artifact_sha256": "67c515e8daa2349e7582e5695efbfa43422dde793babc26199207ed164487480",
+      "passed": true,
+      "issues": [],
+      "checks": {
+        "schema_and_answers": true,
+        "identity": true,
+        "final_sequence": true
+      },
+      "metrics": {},
+      "constraint_relaxations": []
+    },
+    "rounds": [
+      {
+        "round_number": 1,
+        "champion_hash_before": "67c515e8daa2349e7582e5695efbfa43422dde793babc26199207ed164487480",
+        "critic": {
+          "result": {
+            "dimensions": [
+              {
+                "dimension": "factual_fidelity",
+                "score": 0.96,
+                "evidence": [
+                  {
+                    "statement": "All keyed answers and explanations align with the source: Entra ID/RBAC handles role permissions, Cosmos DB supports real-time globally distributed data, scale out adds instances, scale up adds CPU or memory, AKS orchestrates containers, and managed identity retrieves secrets at runtime.",
+                    "item_keys": [
+                      "secure-host-scale-and-store-ai-apps/entra-id-and-rbac/r5/v1",
+                      "secure-host-scale-and-store-ai-apps/azure-storage-options/r5/v1",
+                      "secure-host-scale-and-store-ai-apps/scaling-and-instances/r3/v1",
+                      "secure-host-scale-and-store-ai-apps/hosts-containers-aks-and-app-service/r5/v1",
+                      "secure-host-scale-and-store-ai-apps/scaling-and-instances/r5/v1",
+                      "secure-host-scale-and-store-ai-apps/secrets-key-vault-managed-identity/r3/v2"
+                    ],
+                    "paths": [
+                      "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/0",
+                      "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/1",
+                      "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/2",
+                      "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/3",
+                      "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/4",
+                      "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/5"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "answer_unambiguity",
+                "score": 0.72,
+                "evidence": [
+                  {
+                    "statement": "The storage item asks which 'choices' fit, but its keyed answers mix a service ('Azure Cosmos DB') with a storage property ('Persistent data storage') and a capability ('Real-time global distribution'), making the intended selection unit ambiguous.",
+                    "item_keys": [
+                      "secure-host-scale-and-store-ai-apps/azure-storage-options/r5/v1"
+                    ],
+                    "paths": [
+                      "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/1"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "distractor_plausibility",
+                "score": 0.88,
+                "evidence": [
+                  {
+                    "statement": "Distractors are credible contrasts grounded in the source: Key Vault, managed identity, and API key are plausible security confusions; App Service, scale out, and VM are plausible hosting or scaling confusions; Azure SQL Database contrasts mission-critical workloads with globally distributed data.",
+                    "item_keys": [
+                      "secure-host-scale-and-store-ai-apps/entra-id-and-rbac/r5/v1",
+                      "secure-host-scale-and-store-ai-apps/azure-storage-options/r5/v1",
+                      "secure-host-scale-and-store-ai-apps/hosts-containers-aks-and-app-service/r5/v1",
+                      "secure-host-scale-and-store-ai-apps/scaling-and-instances/r5/v1"
+                    ],
+                    "paths": [
+                      "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/0",
+                      "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/1",
+                      "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/3",
+                      "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/4"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "misconception_quality",
+                "score": 0.9,
+                "evidence": [
+                  {
+                    "statement": "Wrong-answer rationales diagnose realistic confusions, including secret storage versus authorization, application identity versus user permissions, endpoint authentication versus authorization, orchestration versus hosting, and vertical versus horizontal scaling.",
+                    "item_keys": [
+                      "secure-host-scale-and-store-ai-apps/entra-id-and-rbac/r5/v1",
+                      "secure-host-scale-and-store-ai-apps/hosts-containers-aks-and-app-service/r5/v1",
+                      "secure-host-scale-and-store-ai-apps/scaling-and-instances/r5/v1",
+                      "secure-host-scale-and-store-ai-apps/secrets-key-vault-managed-identity/r3/v2"
+                    ],
+                    "paths": [
+                      "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/0",
+                      "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/3",
+                      "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/4",
+                      "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/5"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "cognitive_progression",
+                "score": 0.78,
+                "evidence": [
+                  {
+                    "statement": "The session covers related concepts, but the ordered rungs are uneven: an analyzing/evaluating storage item is followed by an understanding-level scaling item, and the final item drops back to remembering-level secret retrieval.",
+                    "item_keys": [
+                      "secure-host-scale-and-store-ai-apps/azure-storage-options/r5/v1",
+                      "secure-host-scale-and-store-ai-apps/scaling-and-instances/r3/v1",
+                      "secure-host-scale-and-store-ai-apps/secrets-key-vault-managed-identity/r3/v2"
+                    ],
+                    "paths": [
+                      "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/1",
+                      "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/2",
+                      "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/5"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "mechanic_rhythm_variation",
+                "score": 0.94,
+                "evidence": [
+                  {
+                    "statement": "The six-item sequence varies mechanics across multiple choice, multi-select, arrangement, multiple choice, multi-select, and fill-in-the-blank without repeating the same mechanic consecutively.",
+                    "item_keys": [
+                      "secure-host-scale-and-store-ai-apps/entra-id-and-rbac/r5/v1",
+                      "secure-host-scale-and-store-ai-apps/azure-storage-options/r5/v1",
+                      "secure-host-scale-and-store-ai-apps/scaling-and-instances/r3/v1",
+                      "secure-host-scale-and-store-ai-apps/hosts-containers-aks-and-app-service/r5/v1",
+                      "secure-host-scale-and-store-ai-apps/scaling-and-instances/r5/v1",
+                      "secure-host-scale-and-store-ai-apps/secrets-key-vault-managed-identity/r3/v2"
+                    ],
+                    "paths": [
+                      "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/0",
+                      "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/1",
+                      "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/2",
+                      "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/3",
+                      "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/4",
+                      "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/5"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "prompt_language_variation",
+                "score": 0.9,
+                "evidence": [
+                  {
+                    "statement": "Prompt stems use varied forms: scenario-based questions, a select-all-that-apply task, an ordering instruction, and a fill-in-the-blank sentence.",
+                    "item_keys": [
+                      "secure-host-scale-and-store-ai-apps/entra-id-and-rbac/r5/v1",
+                      "secure-host-scale-and-store-ai-apps/azure-storage-options/r5/v1",
+                      "secure-host-scale-and-store-ai-apps/scaling-and-instances/r3/v1",
+                      "secure-host-scale-and-store-ai-apps/secrets-key-vault-managed-identity/r3/v2"
+                    ],
+                    "paths": [
+                      "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/0",
+                      "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/1",
+                      "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/2",
+                      "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/5"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "scenario_authenticity",
+                "score": 0.91,
+                "evidence": [
+                  {
+                    "statement": "Healthcare permissions, finance transaction distribution, manufacturing container orchestration, and fraud-detection capacity decisions are credible Azure application tasks.",
+                    "item_keys": [
+                      "secure-host-scale-and-store-ai-apps/entra-id-and-rbac/r5/v1",
+                      "secure-host-scale-and-store-ai-apps/azure-storage-options/r5/v1",
+                      "secure-host-scale-and-store-ai-apps/hosts-containers-aks-and-app-service/r5/v1",
+                      "secure-host-scale-and-store-ai-apps/scaling-and-instances/r5/v1"
+                    ],
+                    "paths": [
+                      "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/0",
+                      "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/1",
+                      "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/3",
+                      "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/4"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "feedback_usefulness",
+                "score": 0.86,
+                "evidence": [
+                  {
+                    "statement": "Incorrect options generally include both an intrinsic consequence and an instructional distinction, while item-level explanations reinforce the governing concept and next step; correct-option feedback is less explicit but remains supported by the explanations.",
+                    "item_keys": [
+                      "secure-host-scale-and-store-ai-apps/entra-id-and-rbac/r5/v1",
+                      "secure-host-scale-and-store-ai-apps/hosts-containers-aks-and-app-service/r5/v1",
+                      "secure-host-scale-and-store-ai-apps/scaling-and-instances/r5/v1",
+                      "secure-host-scale-and-store-ai-apps/secrets-key-vault-managed-identity/r3/v2"
+                    ],
+                    "paths": [
+                      "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/0",
+                      "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/3",
+                      "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/4",
+                      "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/5"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "difficulty_appropriateness",
+                "score": 0.87,
+                "evidence": [
+                  {
+                    "statement": "The session targets choosing Azure approaches and uses realistic application decisions, with a mix of remembering, understanding, and analyzing/evaluating tasks suitable for a Level 3 unit.",
+                    "item_keys": [
+                      "secure-host-scale-and-store-ai-apps/entra-id-and-rbac/r5/v1",
+                      "secure-host-scale-and-store-ai-apps/scaling-and-instances/r3/v1",
+                      "secure-host-scale-and-store-ai-apps/secrets-key-vault-managed-identity/r3/v2"
+                    ],
+                    "paths": [
+                      "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/0",
+                      "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/2",
+                      "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/5"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "terminology_consistency",
+                "score": 0.94,
+                "evidence": [
+                  {
+                    "statement": "The artifact consistently distinguishes Entra ID/RBAC, Key Vault, managed identity, API keys, AKS, scale out, scale up, instances, and persistent storage in ways consistent with the source.",
+                    "item_keys": [
+                      "secure-host-scale-and-store-ai-apps/entra-id-and-rbac/r5/v1",
+                      "secure-host-scale-and-store-ai-apps/azure-storage-options/r5/v1",
+                      "secure-host-scale-and-store-ai-apps/scaling-and-instances/r3/v1",
+                      "secure-host-scale-and-store-ai-apps/hosts-containers-aks-and-app-service/r5/v1",
+                      "secure-host-scale-and-store-ai-apps/secrets-key-vault-managed-identity/r3/v2"
+                    ],
+                    "paths": [
+                      "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/0",
+                      "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/1",
+                      "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/2",
+                      "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/3",
+                      "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/5"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "overall_learner_experience",
+                "score": 0.82,
+                "evidence": [
+                  {
+                    "statement": "The sequence is relevant, varied, source-faithful, and mostly instructive, but the ambiguous storage multi-select item interrupts clarity and the level progression is somewhat uneven.",
+                    "item_keys": [
+                      "secure-host-scale-and-store-ai-apps/azure-storage-options/r5/v1",
+                      "secure-host-scale-and-store-ai-apps/scaling-and-instances/r3/v1",
+                      "secure-host-scale-and-store-ai-apps/secrets-key-vault-managed-identity/r3/v2"
+                    ],
+                    "paths": [
+                      "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/1",
+                      "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/2",
+                      "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/5"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "critical_defects": [
+              {
+                "defect_id": "ambiguous-storage-multiselect",
+                "dimension": "answer_unambiguity",
+                "summary": "The storage multi-select mixes a service, a storage property, and a capability under a prompt asking which choices fit, so the selection unit is not consistently defined.",
+                "evidence": [
+                  {
+                    "statement": "The keyed answers are 'Azure Cosmos DB', 'Persistent data storage', and 'Real-time global distribution', while the prompt asks which 'choices' fit the need. A learner could reasonably interpret the task as selecting services only or selecting supporting facts as well.",
+                    "item_keys": [
+                      "secure-host-scale-and-store-ai-apps/azure-storage-options/r5/v1"
+                    ],
+                    "paths": [
+                      "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/1"
+                    ]
+                  }
+                ],
+                "affected_item_keys": [
+                  "secure-host-scale-and-store-ai-apps/azure-storage-options/r5/v1"
+                ],
+                "affected_paths": [
+                  "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/1"
+                ],
+                "recommended_scope": "item"
+              }
+            ],
+            "largest_gap": {
+              "dimension": "answer_unambiguity",
+              "summary": "The storage multi-select prompt does not clearly establish whether learners should select Azure services or statements describing the fit.",
+              "evidence": [
+                {
+                  "statement": "The prompt asks 'Which choices best fit this need?' but the keyed options include one service and two descriptive concepts, creating an avoidable ambiguity in what each selection represents.",
+                  "item_keys": [
+                    "secure-host-scale-and-store-ai-apps/azure-storage-options/r5/v1"
+                  ],
+                  "paths": [
+                    "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/1"
+                  ]
+                }
+              ],
+              "affected_item_keys": [
+                "secure-host-scale-and-store-ai-apps/azure-storage-options/r5/v1"
+              ],
+              "affected_paths": [
+                "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/1"
+              ],
+              "recommended_scope": "item",
+              "repair_instruction": "Change only the question_text to explicitly ask which statements correctly describe why Azure Cosmos DB fits the stated requirement, preserving the existing question_type, options, answer, and deterministic identity fields.",
+              "allowed_payload_fields": [
+                "question_text"
+              ]
+            },
+            "confidence": 0.9,
+            "human_review_recommended": false,
+            "human_review_reason": null,
+            "concise_summary": "The session is strongly source-faithful, varied, and realistic, with one repairable ambiguity in the storage multi-select prompt and a modestly uneven cognitive progression."
+          },
+          "artifact_sha256": "67c515e8daa2349e7582e5695efbfa43422dde793babc26199207ed164487480",
+          "evaluation_context_sha256": "238f40be7667f9fbdd19c27d6cad131b5021dd2f1abf08b8c5364d9e3b2b26f2",
+          "goal_sha256": "c4bae546eef7fec8c92895a1538196a8df81a13754329022bca211a6200752ae",
+          "critic_backend": "codex",
+          "critic_model": "codex:gpt-5.6-luna",
+          "fresh_context": true,
+          "model_independence": "independent",
+          "approved_reference_count": 0,
+          "reference_confidence_reduced": true,
+          "usage": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cost_usd": 0.0,
+            "backend_calls": 2
+          }
+        },
+        "critic_failure": null,
+        "repair_scope": "item",
+        "repair_summary": "Changed only the question_text for secure-host-scale-and-store-ai-apps/azure-storage-options/r5/v1 to clarify that learners should select statements describing why Azure Cosmos DB fits the requirement.",
+        "editor_backend": "codex",
+        "editor_model": "codex:gpt-5.6-luna",
+        "editor_fresh_context": true,
+        "edit_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost_usd": 0.0,
+          "backend_calls": 1
+        },
+        "validation_retry_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost_usd": 0.0,
+          "backend_calls": 0
+        },
+        "touched_item_keys": [
+          "secure-host-scale-and-store-ai-apps/azure-storage-options/r5/v1"
+        ],
+        "challenger_hash": "325636a8ddf37a454eb19a2e956c28ca21e99d518c968e8e6b3783a74ea74251",
+        "promoted_champion_before": null,
+        "promoted_challenger": null,
+        "hard_gate": {
+          "artifact_sha256": "325636a8ddf37a454eb19a2e956c28ca21e99d518c968e8e6b3783a74ea74251",
+          "passed": true,
+          "issues": [],
+          "checks": {
+            "schema_and_answers": true,
+            "identity": true,
+            "final_sequence": true
+          },
+          "metrics": {},
+          "constraint_relaxations": []
+        },
+        "source_fidelity_critic": {
+          "result": {
+            "dimensions": [
+              {
+                "dimension": "factual_fidelity",
+                "score": 0.99,
+                "evidence": [
+                  {
+                    "statement": "The answers and explanations match the supplied source: Entra ID with RBAC manages role-based access, Key Vault stores secrets, managed identity retrieves secrets at runtime, AKS orchestrates containers, scale out adds instances, scale up adds CPU or memory, and Cosmos DB supports real-time globally distributed data.",
+                    "item_keys": [
+                      "secure-host-scale-and-store-ai-apps/entra-id-and-rbac/r5/v1",
+                      "secure-host-scale-and-store-ai-apps/azure-storage-options/r5/v1",
+                      "secure-host-scale-and-store-ai-apps/scaling-and-instances/r3/v1",
+                      "secure-host-scale-and-store-ai-apps/hosts-containers-aks-and-app-service/r5/v1",
+                      "secure-host-scale-and-store-ai-apps/scaling-and-instances/r5/v1",
+                      "secure-host-scale-and-store-ai-apps/secrets-key-vault-managed-identity/r3/v2"
+                    ],
+                    "paths": []
+                  }
+                ]
+              },
+              {
+                "dimension": "answer_unambiguity",
+                "score": 0.88,
+                "evidence": [
+                  {
+                    "statement": "Items have one defensible answer or complete selected set. The only minor weakness is that 'Persistent data storage' in the Cosmos DB item is a general storage property rather than a Cosmos-specific discriminator, although it remains source-supported in context.",
+                    "item_keys": [
+                      "secure-host-scale-and-store-ai-apps/azure-storage-options/r5/v1"
+                    ],
+                    "paths": [
+                      "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/1"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "distractor_plausibility",
+                "score": 0.94,
+                "evidence": [
+                  {
+                    "statement": "Distractors represent credible confusions documented by the source, including secret storage versus authorization, application identity versus user permissions, hosting versus orchestration, scale direction, and mission-critical SQL workloads versus globally distributed data.",
+                    "item_keys": [
+                      "secure-host-scale-and-store-ai-apps/entra-id-and-rbac/r5/v1",
+                      "secure-host-scale-and-store-ai-apps/azure-storage-options/r5/v1",
+                      "secure-host-scale-and-store-ai-apps/hosts-containers-aks-and-app-service/r5/v1",
+                      "secure-host-scale-and-store-ai-apps/scaling-and-instances/r5/v1"
+                    ],
+                    "paths": []
+                  }
+                ]
+              },
+              {
+                "dimension": "misconception_quality",
+                "score": 0.95,
+                "evidence": [
+                  {
+                    "statement": "Wrong-choice rationales diagnose realistic misconceptions and distinguish authentication, authorization, secret retrieval, orchestration, scaling, and storage-selection concepts using the source terminology.",
+                    "item_keys": [
+                      "secure-host-scale-and-store-ai-apps/entra-id-and-rbac/r5/v1",
+                      "secure-host-scale-and-store-ai-apps/hosts-containers-aks-and-app-service/r5/v1",
+                      "secure-host-scale-and-store-ai-apps/scaling-and-instances/r5/v1",
+                      "secure-host-scale-and-store-ai-apps/secrets-key-vault-managed-identity/r3/v2"
+                    ],
+                    "paths": []
+                  }
+                ]
+              },
+              {
+                "dimension": "cognitive_progression",
+                "score": 0.67,
+                "evidence": [
+                  {
+                    "statement": "The exact order begins with two rung-5 analyzing/evaluating items, then moves to a rung-3 understanding item, returns to two rung-5 items, and ends with a rung-3 remembering item. Foundational scale and secret-retrieval concepts therefore appear after advanced application decisions.",
+                    "item_keys": [
+                      "secure-host-scale-and-store-ai-apps/entra-id-and-rbac/r5/v1",
+                      "secure-host-scale-and-store-ai-apps/azure-storage-options/r5/v1",
+                      "secure-host-scale-and-store-ai-apps/scaling-and-instances/r3/v1",
+                      "secure-host-scale-and-store-ai-apps/hosts-containers-aks-and-app-service/r5/v1",
+                      "secure-host-scale-and-store-ai-apps/scaling-and-instances/r5/v1",
+                      "secure-host-scale-and-store-ai-apps/secrets-key-vault-managed-identity/r3/v2"
+                    ],
+                    "paths": [
+                      "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/0",
+                      "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/1",
+                      "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/2",
+                      "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/3",
+                      "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/4",
+                      "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/5"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "mechanic_rhythm_variation",
+                "score": 0.94,
+                "evidence": [
+                  {
+                    "statement": "The sequence uses multiple choice, multi-select, arrange sentence, multiple choice, multi-select, and fill-in-the-blank mechanics without a disruptive repeated run.",
+                    "item_keys": [
+                      "secure-host-scale-and-store-ai-apps/entra-id-and-rbac/r5/v1",
+                      "secure-host-scale-and-store-ai-apps/azure-storage-options/r5/v1",
+                      "secure-host-scale-and-store-ai-apps/scaling-and-instances/r3/v1",
+                      "secure-host-scale-and-store-ai-apps/hosts-containers-aks-and-app-service/r5/v1",
+                      "secure-host-scale-and-store-ai-apps/scaling-and-instances/r5/v1",
+                      "secure-host-scale-and-store-ai-apps/secrets-key-vault-managed-identity/r3/v2"
+                    ],
+                    "paths": []
+                  }
+                ]
+              },
+              {
+                "dimension": "prompt_language_variation",
+                "score": 0.94,
+                "evidence": [
+                  {
+                    "statement": "Prompt stems vary across scenario questions, statement selection, ordering, and a completion prompt; they do not rely on one repeated formula.",
+                    "item_keys": [
+                      "secure-host-scale-and-store-ai-apps/entra-id-and-rbac/r5/v1",
+                      "secure-host-scale-and-store-ai-apps/azure-storage-options/r5/v1",
+                      "secure-host-scale-and-store-ai-apps/scaling-and-instances/r3/v1",
+                      "secure-host-scale-and-store-ai-apps/hosts-containers-aks-and-app-service/r5/v1",
+                      "secure-host-scale-and-store-ai-apps/scaling-and-instances/r5/v1",
+                      "secure-host-scale-and-store-ai-apps/secrets-key-vault-managed-identity/r3/v2"
+                    ],
+                    "paths": []
+                  }
+                ]
+              },
+              {
+                "dimension": "scenario_authenticity",
+                "score": 0.92,
+                "evidence": [
+                  {
+                    "statement": "The healthcare, finance, manufacturing, application-security, and fraud-detection contexts reflect credible Azure decisions grounded in the source's industry examples and infrastructure descriptions.",
+                    "item_keys": [
+                      "secure-host-scale-and-store-ai-apps/entra-id-and-rbac/r5/v1",
+                      "secure-host-scale-and-store-ai-apps/azure-storage-options/r5/v1",
+                      "secure-host-scale-and-store-ai-apps/hosts-containers-aks-and-app-service/r5/v1",
+                      "secure-host-scale-and-store-ai-apps/scaling-and-instances/r5/v1",
+                      "secure-host-scale-and-store-ai-apps/secrets-key-vault-managed-identity/r3/v2"
+                    ],
+                    "paths": []
+                  }
+                ]
+              },
+              {
+                "dimension": "feedback_usefulness",
+                "score": 0.94,
+                "evidence": [
+                  {
+                    "statement": "Feedback explains the governing distinction and gives a next step, such as using Key Vault for secrets and Entra ID with RBAC for permissions, AKS for container orchestration, and scale up for CPU or memory on one instance.",
+                    "item_keys": [
+                      "secure-host-scale-and-store-ai-apps/entra-id-and-rbac/r5/v1",
+                      "secure-host-scale-and-store-ai-apps/hosts-containers-aks-and-app-service/r5/v1",
+                      "secure-host-scale-and-store-ai-apps/scaling-and-instances/r5/v1",
+                      "secure-host-scale-and-store-ai-apps/secrets-key-vault-managed-identity/r3/v2"
+                    ],
+                    "paths": []
+                  }
+                ]
+              },
+              {
+                "dimension": "difficulty_appropriateness",
+                "score": 0.82,
+                "evidence": [
+                  {
+                    "statement": "The session includes appropriate Level 3 review items and Level 5 application items, but the advanced items are placed before the foundational review items, making the opening difficulty less well calibrated.",
+                    "item_keys": [
+                      "secure-host-scale-and-store-ai-apps/entra-id-and-rbac/r5/v1",
+                      "secure-host-scale-and-store-ai-apps/azure-storage-options/r5/v1",
+                      "secure-host-scale-and-store-ai-apps/scaling-and-instances/r3/v1",
+                      "secure-host-scale-and-store-ai-apps/secrets-key-vault-managed-identity/r3/v2"
+                    ],
+                    "paths": []
+                  }
+                ]
+              },
+              {
+                "dimension": "terminology_consistency",
+                "score": 0.98,
+                "evidence": [
+                  {
+                    "statement": "The artifact consistently uses source-aligned terms including Azure Entra ID, RBAC, Key Vault, managed identity, AKS, scale out, scale up, instances, Azure Cosmos DB, and persistent storage.",
+                    "item_keys": [
+                      "secure-host-scale-and-store-ai-apps/entra-id-and-rbac/r5/v1",
+                      "secure-host-scale-and-store-ai-apps/azure-storage-options/r5/v1",
+                      "secure-host-scale-and-store-ai-apps/scaling-and-instances/r3/v1",
+                      "secure-host-scale-and-store-ai-apps/hosts-containers-aks-and-app-service/r5/v1",
+                      "secure-host-scale-and-store-ai-apps/scaling-and-instances/r5/v1",
+                      "secure-host-scale-and-store-ai-apps/secrets-key-vault-managed-identity/r3/v2"
+                    ],
+                    "paths": []
+                  }
+                ]
+              },
+              {
+                "dimension": "overall_learner_experience",
+                "score": 0.84,
+                "evidence": [
+                  {
+                    "statement": "The artifact is source-faithful, varied, and instructive, but the exact sequence weakens the learner experience by presenting multiple advanced decisions before foundational concepts and ending with a basic secret-retrieval recall item.",
+                    "item_keys": [
+                      "secure-host-scale-and-store-ai-apps/entra-id-and-rbac/r5/v1",
+                      "secure-host-scale-and-store-ai-apps/azure-storage-options/r5/v1",
+                      "secure-host-scale-and-store-ai-apps/scaling-and-instances/r3/v1",
+                      "secure-host-scale-and-store-ai-apps/hosts-containers-aks-and-app-service/r5/v1",
+                      "secure-host-scale-and-store-ai-apps/scaling-and-instances/r5/v1",
+                      "secure-host-scale-and-store-ai-apps/secrets-key-vault-managed-identity/r3/v2"
+                    ],
+                    "paths": []
+                  }
+                ]
+              }
+            ],
+            "critical_defects": [],
+            "largest_gap": {
+              "dimension": "cognitive_progression",
+              "summary": "Foundational rung-3 concepts are interleaved after advanced rung-5 decisions, so the session does not build from core definitions into application.",
+              "evidence": [
+                {
+                  "statement": "The ordered artifact is r5, r5, r3, r5, r5, r3; the scale-pairing and managed-identity foundations occur after advanced access, storage, orchestration, and scaling decisions.",
+                  "item_keys": [
+                    "secure-host-scale-and-store-ai-apps/entra-id-and-rbac/r5/v1",
+                    "secure-host-scale-and-store-ai-apps/azure-storage-options/r5/v1",
+                    "secure-host-scale-and-store-ai-apps/scaling-and-instances/r3/v1",
+                    "secure-host-scale-and-store-ai-apps/hosts-containers-aks-and-app-service/r5/v1",
+                    "secure-host-scale-and-store-ai-apps/scaling-and-instances/r5/v1",
+                    "secure-host-scale-and-store-ai-apps/secrets-key-vault-managed-identity/r3/v2"
+                  ],
+                  "paths": [
+                    "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/0",
+                    "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/1",
+                    "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/2",
+                    "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/3",
+                    "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/4",
+                    "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/5"
+                  ]
+                }
+              ],
+              "affected_item_keys": [
+                "secure-host-scale-and-store-ai-apps/entra-id-and-rbac/r5/v1",
+                "secure-host-scale-and-store-ai-apps/azure-storage-options/r5/v1",
+                "secure-host-scale-and-store-ai-apps/scaling-and-instances/r3/v1",
+                "secure-host-scale-and-store-ai-apps/hosts-containers-aks-and-app-service/r5/v1",
+                "secure-host-scale-and-store-ai-apps/scaling-and-instances/r5/v1",
+                "secure-host-scale-and-store-ai-apps/secrets-key-vault-managed-identity/r3/v2"
+              ],
+              "affected_paths": [
+                "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/0",
+                "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/1",
+                "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/2",
+                "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/3",
+                "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/4",
+                "modules/6:7-get-started-with-ai-in-azure/units/11:secure-host-scale-and-store-ai-apps-l3/questions/5"
+              ],
+              "recommended_scope": "session",
+              "repair_instruction": "Reorder only the existing item objects so the rung-3 foundational items precede their related rung-5 application items; preserve every payload, question_type, and item object unchanged.",
+              "allowed_payload_fields": []
+            },
+            "confidence": 0.93,
+            "human_review_recommended": false,
+            "human_review_reason": null,
+            "concise_summary": "The artifact is source-faithful with clear answers, plausible misconceptions, useful feedback, and varied mechanics. The main repairable issue is the exact ordering: advanced rung-5 items precede foundational rung-3 items."
+          },
+          "artifact_sha256": "325636a8ddf37a454eb19a2e956c28ca21e99d518c968e8e6b3783a74ea74251",
+          "evaluation_context_sha256": "238f40be7667f9fbdd19c27d6cad131b5021dd2f1abf08b8c5364d9e3b2b26f2",
+          "goal_sha256": "6ce6b245bb30616f24e0fa9f76e0f5d01e608776378d036724270915fb57e725",
+          "critic_backend": "codex",
+          "critic_model": "codex:gpt-5.6-luna",
+          "fresh_context": true,
+          "model_independence": "independent",
+          "approved_reference_count": 0,
+          "reference_confidence_reduced": true,
+          "usage": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cost_usd": 0.0,
+            "backend_calls": 1
+          }
+        },
+        "source_fidelity_gate": {
+          "artifact_sha256": "325636a8ddf37a454eb19a2e956c28ca21e99d518c968e8e6b3783a74ea74251",
+          "passed": true,
+          "issues": [],
+          "checks": {
+            "factual_fidelity_threshold": true,
+            "critic_confidence_threshold": true,
+            "no_factual_critical_defect": true,
+            "no_human_review_request": true,
+            "fresh_critic_context": true
+          },
+          "metrics": {
+            "factual_fidelity_score": 0.99,
+            "factual_fidelity_threshold": 0.8,
+            "critic_confidence": 0.93
+          },
+          "constraint_relaxations": []
+        },
+        "comparison": {
+          "champion_sha256": "67c515e8daa2349e7582e5695efbfa43422dde793babc26199207ed164487480",
+          "challenger_sha256": "325636a8ddf37a454eb19a2e956c28ca21e99d518c968e8e6b3783a74ea74251",
+          "evaluation_context_sha256": "238f40be7667f9fbdd19c27d6cad131b5021dd2f1abf08b8c5364d9e3b2b26f2",
+          "comparator_backend": "codex",
+          "comparator_model": "codex:gpt-5.6-luna",
+          "comparator_fresh_context": true,
+          "records": [
+            {
+              "order_index": 1,
+              "seed": 901,
+              "a_role": "challenger",
+              "b_role": "champion",
+              "mapped_winner": "tie",
+              "verdict": {
+                "winner": "tie",
+                "confidence": 1.0,
+                "margin": 0.0,
+                "dimensions": [
+                  {
+                    "dimension": "factual_fidelity",
+                    "score_a": 1.0,
+                    "score_b": 1.0,
+                    "evidence": "Candidates are identical and their claims align with the supplied Azure source."
+                  },
+                  {
+                    "dimension": "answer_unambiguity",
+                    "score_a": 1.0,
+                    "score_b": 1.0,
+                    "evidence": "Each item has explicit correct-answer metadata and sufficiently constrained instructions."
+                  },
+                  {
+                    "dimension": "distractor_plausibility",
+                    "score_a": 1.0,
+                    "score_b": 1.0,
+                    "evidence": "Distractors are credible Azure concepts while remaining distinguishable under the scenarios."
+                  },
+                  {
+                    "dimension": "misconception_quality",
+                    "score_a": 1.0,
+                    "score_b": 1.0,
+                    "evidence": "Feedback identifies realistic confusions such as authentication versus authorization and scale-up versus scale-out."
+                  },
+                  {
+                    "dimension": "cognitive_progression",
+                    "score_a": 1.0,
+                    "score_b": 1.0,
+                    "evidence": "The sequence covers security, storage, scaling, hosting, and retrieval with review items interleaved."
+                  },
+                  {
+                    "dimension": "mechanic_rhythm_variation",
+                    "score_a": 1.0,
+                    "score_b": 1.0,
+                    "evidence": "The sequence uses multiple choice, multi-select, sentence arrangement, and fill-in-the-blank mechanics."
+                  },
+                  {
+                    "dimension": "prompt_language_variation",
+                    "score_a": 1.0,
+                    "score_b": 1.0,
+                    "evidence": "Scenario-based, procedural, and direct recall stems are used across the session."
+                  },
+                  {
+                    "dimension": "scenario_authenticity",
+                    "score_a": 1.0,
+                    "score_b": 1.0,
+                    "evidence": "Healthcare, finance, and manufacturing contexts represent credible Azure decisions."
+                  },
+                  {
+                    "dimension": "feedback_usefulness",
+                    "score_a": 1.0,
+                    "score_b": 1.0,
+                    "evidence": "Incorrect-answer feedback explains the governing distinction and recommends the better fit."
+                  },
+                  {
+                    "dimension": "difficulty_appropriateness",
+                    "score_a": 1.0,
+                    "score_b": 1.0,
+                    "evidence": "Items combine foundational recall with applied selection appropriate to an introductory Azure module."
+                  },
+                  {
+                    "dimension": "terminology_consistency",
+                    "score_a": 1.0,
+                    "score_b": 1.0,
+                    "evidence": "Azure, Entra ID, RBAC, Key Vault, managed identity, AKS, and scaling terms are used consistently."
+                  },
+                  {
+                    "dimension": "overall_learner_experience",
+                    "score_a": 1.0,
+                    "score_b": 1.0,
+                    "evidence": "The candidates have the same coherent six-item sequence, metadata, answers, explanations, and feedback."
+                  }
+                ],
+                "evidence": [
+                  "Candidate A and candidate B are observably identical in ordered items, wording, options, answer keys, explanations, metadata, and feedback.",
+                  "No approved reference standard adds a basis for distinguishing them."
+                ],
+                "human_review_recommended": false,
+                "usage": {
+                  "input_tokens": 0,
+                  "output_tokens": 0,
+                  "cost_usd": 0.0,
+                  "backend_calls": 1
+                }
+              }
+            },
+            {
+              "order_index": 2,
+              "seed": 901,
+              "a_role": "champion",
+              "b_role": "challenger",
+              "mapped_winner": "champion",
+              "verdict": {
+                "winner": "A",
+                "confidence": 0.99,
+                "margin": 0.01,
+                "dimensions": [
+                  {
+                    "dimension": "factual_fidelity",
+                    "score_a": 0.99,
+                    "score_b": 0.99,
+                    "evidence": "The ordered items, answers, rationales, and feedback in both candidates faithfully reflect the supplied Azure source."
+                  },
+                  {
+                    "dimension": "answer_unambiguity",
+                    "score_a": 0.98,
+                    "score_b": 0.95,
+                    "evidence": "A's second stem asks which choices fit the need; B's wording asks for statements explaining Cosmos DB while including 'Azure Cosmos DB' itself as an option, creating slight circularity."
+                  },
+                  {
+                    "dimension": "distractor_plausibility",
+                    "score_a": 0.99,
+                    "score_b": 0.99,
+                    "evidence": "Both use credible distractors such as Key Vault versus RBAC, App Service versus AKS, and scale out versus scale up."
+                  },
+                  {
+                    "dimension": "misconception_quality",
+                    "score_a": 0.99,
+                    "score_b": 0.99,
+                    "evidence": "Both diagnose realistic confusions among authentication, authorization, secret storage, orchestration, and scaling."
+                  },
+                  {
+                    "dimension": "cognitive_progression",
+                    "score_a": 0.98,
+                    "score_b": 0.98,
+                    "evidence": "Both follow the same coherent sequence from security and storage through scaling, orchestration, and secret retrieval."
+                  },
+                  {
+                    "dimension": "mechanic_rhythm_variation",
+                    "score_a": 0.99,
+                    "score_b": 0.99,
+                    "evidence": "Both use single-choice, multi-select, sentence arrangement, and fill-in-the-blank mechanics in a varied sequence."
+                  },
+                  {
+                    "dimension": "prompt_language_variation",
+                    "score_a": 0.98,
+                    "score_b": 0.97,
+                    "evidence": "Both have varied stems overall; A's second prompt is more direct and natural than B's more repetitive, explanatory wording."
+                  },
+                  {
+                    "dimension": "scenario_authenticity",
+                    "score_a": 0.99,
+                    "score_b": 0.98,
+                    "evidence": "Both use credible healthcare, finance, manufacturing, and application-security scenarios; B's Cosmos DB stem is slightly more artificial because it names the answer in the question."
+                  },
+                  {
+                    "dimension": "feedback_usefulness",
+                    "score_a": 0.99,
+                    "score_b": 0.99,
+                    "evidence": "Both provide specific intrinsic and instructional feedback that explains the governing distinction and better-fit action."
+                  },
+                  {
+                    "dimension": "difficulty_appropriateness",
+                    "score_a": 0.99,
+                    "score_b": 0.99,
+                    "evidence": "Both match the stated rungs and provide appropriately applied beginner-to-intermediate Azure decisions."
+                  },
+                  {
+                    "dimension": "terminology_consistency",
+                    "score_a": 1.0,
+                    "score_b": 1.0,
+                    "evidence": "Both consistently use source terminology including Entra ID, RBAC, Key Vault, managed identity, AKS, scale out, and scale up."
+                  },
+                  {
+                    "dimension": "overall_learner_experience",
+                    "score_a": 0.99,
+                    "score_b": 0.98,
+                    "evidence": "The candidates are otherwise identical; A offers the slightly clearer and less circular second prompt."
+                  }
+                ],
+                "evidence": [
+                  "Candidates A and B contain the same six items, ordering, answers, metadata, rationales, and feedback.",
+                  "The only material difference is the second question stem, where A is clearer and B makes the Cosmos DB option partly circular.",
+                  "A therefore wins narrowly on clarity and learner-facing naturalness; all other dimensions are effectively tied."
+                ],
+                "human_review_recommended": false,
+                "usage": {
+                  "input_tokens": 0,
+                  "output_tokens": 0,
+                  "cost_usd": 0.0,
+                  "backend_calls": 1
+                }
+              }
+            }
+          ],
+          "position_sensitive": true,
+          "stable": false,
+          "decision": "human_review",
+          "protected_regressions": [
+            "answer_unambiguity"
+          ],
+          "minimum_confidence": 0.99,
+          "minimum_margin": 0.0,
+          "decision_evidence": "Position-swapped judgments disagree; the champion is retained.",
+          "usage": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cost_usd": 0.0,
+            "backend_calls": 2
+          }
+        },
+        "decision": "retained_human",
+        "decision_evidence": "Position-swapped judgments disagree; the champion is retained.",
+        "champion_hash_after": "67c515e8daa2349e7582e5695efbfa43422dde793babc26199207ed164487480",
+        "constraint_relaxations": [],
+        "cumulative_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost_usd": 0.0,
+          "backend_calls": 6
+        }
+      }
+    ],
+    "stop_reason": "human_review_required",
+    "stop_evidence": "Position-swapped judgments disagree; the champion is retained.",
+    "human_decision": null,
+    "total_usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "backend_calls": 6
+    },
+    "human_review_recommended": true,
+    "publication_eligible": false
+  }
+}

@@ -1,0 +1,1458 @@
+{
+  "schema_version": "exercise-bank-v1",
+  "lesson": "build-document-extraction-in-code",
+  "module": "12-get-started-with-ai-powered-information-extraction",
+  "items": [
+    {
+      "item_key": "build-document-extraction-in-code/content-understanding-api-client/r1/v1",
+      "concept_id": "content-understanding-api-client",
+      "rung": 1,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "single_choice",
+        "prompt": "What lets a client application submit content for analysis in code?",
+        "concept_id": "content-understanding-api-client",
+        "options": [
+          {
+            "text": "Content Understanding API",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "This is the interface a client application uses to submit content programmatically. It requests analysis from a server.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Foundry portal visual interface",
+            "is_correct": false,
+            "error_type": "Confuses programmatic API use with portal testing",
+            "rationale": "The portal is a visual place to test analysis and review results. It is not the coded interface an application uses to submit requests.",
+            "better_fit": "Use it when you want to try analysis visually before automating it in code.",
+            "feedback": {
+              "intrinsic": "The receipt would need to be uploaded by hand instead of being sent by the app.",
+              "instructional": "For coded submission, choose the API. The portal is useful for visual testing."
+            }
+          },
+          {
+            "text": "Basic OCR text extraction",
+            "is_correct": false,
+            "error_type": "Confuses an analysis method with the API",
+            "rationale": "OCR reads printed text from images. It is part of analysis, not the interface for sending a request.",
+            "better_fit": "Use OCR when the goal is to recognize text in a scanned image.",
+            "feedback": {
+              "intrinsic": "You would name a way to read text, but not a way for the app to send the request.",
+              "instructional": "Keep the roles separate: the API submits content, while OCR helps analyze it."
+            }
+          },
+          {
+            "text": "JSON structured output",
+            "is_correct": false,
+            "error_type": "Confuses returned data with the request interface",
+            "rationale": "JSON is a format for returned structured data. It comes after analysis rather than submitting the content.",
+            "better_fit": "Use JSON when storing, searching, or passing returned structured results onward.",
+            "feedback": {
+              "intrinsic": "You would be looking at the response format instead of the way to make the request.",
+              "instructional": "The API sends the request; JSON can carry the structured result back."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. The API lets a client application submit content programmatically for analysis."
+      },
+      "payload_hash": "cc9cddf39fe9078ad4b2d344a99860cfbcdd63a9df1cde3b6b0f8bafd863b0fe",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "1e778579ac185d5d6eb4a1b22adfa8cb3b6672f1f586af15fc69e33705113bcd",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-document-extraction-in-code/content-understanding-api-client/r1/v2",
+      "concept_id": "content-understanding-api-client",
+      "rung": 1,
+      "variant": 2,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "multi_choice",
+        "prompt": "Which statements describe a client application? Select all that apply.",
+        "concept_id": "content-understanding-api-client",
+        "options": [
+          {
+            "text": "It runs on a user's device.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A client application runs on a user's device. It is the part users interact with.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It requests a service over a network.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A client requests data or actions from another service over a network. It receives a structured response.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It performs the intensive analysis work.",
+            "is_correct": false,
+            "error_type": "Confuses client work with server work",
+            "rationale": "The server performs the intensive analysis work behind the scenes. The client requests that work.",
+            "better_fit": "This describes the server's role after receiving the request.",
+            "feedback": {
+              "intrinsic": "The roles would be reversed, making it unclear where the analysis happens.",
+              "instructional": "The client requests analysis; the server does the intensive work."
+            }
+          },
+          {
+            "text": "It replaces the analyzer schema.",
+            "is_correct": false,
+            "error_type": "Confuses application role with analyzer configuration",
+            "rationale": "A schema defines the fields and structure to extract. A client application does not replace that definition.",
+            "better_fit": "A schema is used when defining what information an analyzer should extract.",
+            "feedback": {
+              "intrinsic": "The app would still lack a defined set of fields to return.",
+              "instructional": "The client sends the request, while the analyzer uses its schema."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. A client runs on a user's device and requests work over a network; the server does the intensive work."
+      },
+      "payload_hash": "47cd29e41acd93840787cfadc022b4271c4a566f6389b810fdc48130f85e5e25",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "1e778579ac185d5d6eb4a1b22adfa8cb3b6672f1f586af15fc69e33705113bcd",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-document-extraction-in-code/content-understanding-api-client/r2/v1",
+      "concept_id": "content-understanding-api-client",
+      "rung": 2,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "true_false",
+        "prompt": "Evaluate this statement.",
+        "concept_id": "content-understanding-api-client",
+        "statement": "A client application can use the Content Understanding API to request analysis from a server.",
+        "correct_answer": true,
+        "feedback_for_correct": "Correct. The client uses the API to request analysis, while the server performs the intensive work.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The client would have no way to request the analysis from the server.",
+          "instructional": "A client application uses the API to request services over a network."
+        }
+      },
+      "payload_hash": "3f46260a8ac90352c184ec158b1d78e797c2625f369c2b4c94e694adf093259f",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "1e778579ac185d5d6eb4a1b22adfa8cb3b6672f1f586af15fc69e33705113bcd",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-document-extraction-in-code/content-understanding-api-client/r3/v1",
+      "concept_id": "content-understanding-api-client",
+      "rung": 3,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "fill_gaps",
+        "prompt": "Type the term that completes this sentence.",
+        "concept_id": "content-understanding-api-client",
+        "parts": [
+          {
+            "type": "text",
+            "text": "A software interface used to submit content programmatically is the Content Understanding "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "API"
+            ],
+            "rejected_answers": [
+              "Python SDK",
+              "Foundry portal",
+              "foundry-portal-testing",
+              "python-sdk-analysis"
+            ],
+            "placeholder": "term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "explanation": "An API is the interface used by an application to request analysis programmatically. The SDK provides code support for using that interface, while the portal supports visual testing.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The sentence would name a related item, but not the interface used for programmatic requests.",
+          "instructional": "Use API here. The Python SDK helps write code, and the Foundry portal is for visual testing."
+        }
+      },
+      "payload_hash": "a9a6ac68f10446ac2d441eaf1b61e33a1fb1bffc3489ca6c079cafe197b4754c",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "1e778579ac185d5d6eb4a1b22adfa8cb3b6672f1f586af15fc69e33705113bcd",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-document-extraction-in-code/content-understanding-api-client/r3/v2",
+      "concept_id": "content-understanding-api-client",
+      "rung": 3,
+      "variant": 2,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "rearrange",
+        "prompt": "Arrange the parts to form the correct statement.",
+        "concept_id": "content-understanding-api-client",
+        "word_bank": [
+          "from a server",
+          "The client",
+          "over a network",
+          "requests analysis"
+        ],
+        "correct_order": [
+          "The client",
+          "requests analysis",
+          "from a server",
+          "over a network"
+        ],
+        "interchangeable_groups": [],
+        "explanation": "The client is the requester, and the server provides the intensive analysis. The network connects the request to the server.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The roles or connection details would be hard to follow.",
+          "instructional": "Start with who acts, then what it requests, then where the request goes and how."
+        }
+      },
+      "payload_hash": "90c3b4bcc0d4d2f438e1d0321993538d2f28c53752e7547d8033acd52c23f14b",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "1e778579ac185d5d6eb4a1b22adfa8cb3b6672f1f586af15fc69e33705113bcd",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-document-extraction-in-code/content-understanding-api-client/r4/v1",
+      "concept_id": "content-understanding-api-client",
+      "rung": 4,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Applying",
+        "question_type": "single_choice",
+        "prompt": "An expense-claim team wants its desktop app to send scanned receipts for analysis automatically. What should the app use?",
+        "concept_id": "content-understanding-api-client",
+        "options": [
+          {
+            "text": "The Content Understanding API",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The API supports programmatic submission from an application. That fits automatic receipt processing.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "The Foundry portal interface",
+            "is_correct": false,
+            "error_type": "Confuses portal testing with coded integration",
+            "rationale": "The portal supports visual testing and uploads. It does not provide the application's coded submission path.",
+            "better_fit": "Use it to validate an analyzer with sample material before automation.",
+            "feedback": {
+              "intrinsic": "Staff would still need to upload receipts manually.",
+              "instructional": "An app that sends receipts automatically should use the API."
+            }
+          },
+          {
+            "text": "An OCR result",
+            "is_correct": false,
+            "error_type": "Confuses analysis output with an integration method",
+            "rationale": "OCR helps recognize text during analysis. A result is not how an application submits content.",
+            "better_fit": "OCR fits recognizing printed text in a scanned receipt.",
+            "feedback": {
+              "intrinsic": "The app would have no request method for sending the receipt.",
+              "instructional": "Choose the API for submission; OCR is part of analyzing content."
+            }
+          },
+          {
+            "text": "A JSON response",
+            "is_correct": false,
+            "error_type": "Confuses returned data with a request mechanism",
+            "rationale": "JSON is structured data returned after processing. It does not initiate analysis.",
+            "better_fit": "Use it when handling returned fields in later work.",
+            "feedback": {
+              "intrinsic": "The app would be waiting for a response without having sent a request.",
+              "instructional": "The API starts the request; JSON can hold the returned result."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. The API is the programmatic route for an application to submit receipts."
+      },
+      "payload_hash": "8003b685ff44738d6b48280767e45f91691f530651b4f37c5c571998378ac374",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "1e778579ac185d5d6eb4a1b22adfa8cb3b6672f1f586af15fc69e33705113bcd",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-document-extraction-in-code/endpoint-and-authentication/r1/v1",
+      "concept_id": "endpoint-and-authentication",
+      "rung": 1,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "multi_choice",
+        "prompt": "What does a client need to connect securely to a Foundry resource? Select all that apply.",
+        "concept_id": "endpoint-and-authentication",
+        "options": [
+          {
+            "text": "The Foundry resource endpoint",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The endpoint is the service address the client contacts. The client needs that address to reach the resource.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "An API key or Microsoft Entra ID",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Authentication can use an API key or Microsoft Entra ID. It proves access when contacting the resource.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "An invoice number",
+            "is_correct": false,
+            "error_type": "Confuses extracted field data with connection setup",
+            "rationale": "An invoice number is a field that may be extracted from an invoice. It is not a connection detail.",
+            "better_fit": "Use it as returned invoice information after analysis.",
+            "feedback": {
+              "intrinsic": "The client would still not know the service address or how to prove access.",
+              "instructional": "Connection setup needs the endpoint and authentication, not an extracted invoice value."
+            }
+          },
+          {
+            "text": "A confidence score",
+            "is_correct": false,
+            "error_type": "Confuses analysis output with authentication",
+            "rationale": "A confidence score can appear with an extracted field in returned results. It is not used to authenticate a client.",
+            "better_fit": "Use it when reviewing how confidently a field was extracted.",
+            "feedback": {
+              "intrinsic": "The client could review a result later but could not authenticate first.",
+              "instructional": "Use an API key or Microsoft Entra ID for authentication."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. The endpoint identifies where to connect, and an API key or Microsoft Entra ID provides authentication."
+      },
+      "payload_hash": "da04e50374708828721ff3b1a488f51c60ee19be6f954d664808785e92f893e8",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "1e778579ac185d5d6eb4a1b22adfa8cb3b6672f1f586af15fc69e33705113bcd",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-document-extraction-in-code/endpoint-and-authentication/r1/v2",
+      "concept_id": "endpoint-and-authentication",
+      "rung": 1,
+      "variant": 2,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "single_choice",
+        "prompt": "What is a Foundry resource endpoint?",
+        "concept_id": "endpoint-and-authentication",
+        "options": [
+          {
+            "text": "The service address",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "An endpoint is the address of a service. A client contacts that address.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "The invoice analyzer ID",
+            "is_correct": false,
+            "error_type": "Confuses service address with analyzer selection",
+            "rationale": "An analyzer ID selects which analyzer performs analysis. It is not the service address.",
+            "better_fit": "Use an analyzer ID when choosing an invoice analyzer such as prebuilt-invoice.",
+            "feedback": {
+              "intrinsic": "The client could select analysis but would not know where to send the request.",
+              "instructional": "The endpoint identifies the service address; the analyzer ID selects analysis."
+            }
+          },
+          {
+            "text": "The returned JSON field",
+            "is_correct": false,
+            "error_type": "Confuses connection address with output data",
+            "rationale": "A JSON field is part of returned structured data. An endpoint is used before results are returned.",
+            "better_fit": "Use a returned field when reading extracted values.",
+            "feedback": {
+              "intrinsic": "The client would have output data in mind but no address to contact.",
+              "instructional": "Think of an endpoint as the address, not a value inside the response."
+            }
+          },
+          {
+            "text": "The polling result",
+            "is_correct": false,
+            "error_type": "Confuses endpoint with job completion",
+            "rationale": "Polling checks an asynchronous job until it succeeds. It does not identify the service address.",
+            "better_fit": "Use polling when an analysis job is still running.",
+            "feedback": {
+              "intrinsic": "The app would confuse checking job status with finding the service.",
+              "instructional": "The endpoint is the address; polling is repeated status checking."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. An endpoint is the service address a client contacts."
+      },
+      "payload_hash": "dd08c2d8ab0c95a472ab2219ebf2c8dcbdbff123ccad4a56e57d37b99ecee104",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "1e778579ac185d5d6eb4a1b22adfa8cb3b6672f1f586af15fc69e33705113bcd",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-document-extraction-in-code/endpoint-and-authentication/r2/v1",
+      "concept_id": "endpoint-and-authentication",
+      "rung": 2,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "true_false",
+        "prompt": "Is the following statement accurate?",
+        "concept_id": "endpoint-and-authentication",
+        "statement": "A Foundry resource endpoint is the API key used to prove access.",
+        "correct_answer": false,
+        "feedback_for_correct": "Correct. The endpoint is an address, while an API key is one way to prove access.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The client would mix up where to connect with how to authenticate.",
+          "instructional": "Use the endpoint as the service address. Use an API key or Microsoft Entra ID for authentication."
+        }
+      },
+      "payload_hash": "2bf862d0b4239302429f0de8c569e883b082564d5f482c2c187ac8815c1d00bb",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "1e778579ac185d5d6eb4a1b22adfa8cb3b6672f1f586af15fc69e33705113bcd",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-document-extraction-in-code/endpoint-and-authentication/r3/v1",
+      "concept_id": "endpoint-and-authentication",
+      "rung": 3,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "rearrange",
+        "prompt": "Order the pieces correctly.",
+        "concept_id": "endpoint-and-authentication",
+        "word_bank": [
+          "of the service",
+          "An endpoint",
+          "a client contacts",
+          "is the address"
+        ],
+        "correct_order": [
+          "An endpoint",
+          "is the address",
+          "of the service",
+          "a client contacts"
+        ],
+        "interchangeable_groups": [],
+        "explanation": "An endpoint identifies the address a client uses to contact a service. The phrase must connect the address to the service being contacted.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The definition would no longer clearly say what an endpoint identifies.",
+          "instructional": "Begin with endpoint, then define it as an address and connect it to the service the client contacts."
+        }
+      },
+      "payload_hash": "0f979641fec4f073f02f77fb2495ca36bc31a4c9a449652535e75b38fed5a984",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "1e778579ac185d5d6eb4a1b22adfa8cb3b6672f1f586af15fc69e33705113bcd",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-document-extraction-in-code/endpoint-and-authentication/r3/v2",
+      "concept_id": "endpoint-and-authentication",
+      "rung": 3,
+      "variant": 2,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "fill_gaps",
+        "prompt": "Which term completes this sentence?",
+        "concept_id": "endpoint-and-authentication",
+        "parts": [
+          {
+            "type": "text",
+            "text": "For key-based access, the Python client uses "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "AzureKeyCredential"
+            ],
+            "rejected_answers": [
+              "ContentUnderstandingClient",
+              "begin_analyze",
+              "content-understanding-api-and-client",
+              "python-sdk-analysis"
+            ],
+            "placeholder": "class name"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "explanation": "AzureKeyCredential supplies key-based access for the client. ContentUnderstandingClient creates the client, and begin_analyze starts analysis.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The code would name a client or starting method instead of the item used with the key.",
+          "instructional": "Use AzureKeyCredential for key-based access. The client and begin_analyze have different roles."
+        }
+      },
+      "payload_hash": "af2cec498e31645a5f47a624c886041a6763dc9457eb6eaa3234c3dd1cdbf74b",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "1e778579ac185d5d6eb4a1b22adfa8cb3b6672f1f586af15fc69e33705113bcd",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-document-extraction-in-code/endpoint-and-authentication/r4/v1",
+      "concept_id": "endpoint-and-authentication",
+      "rung": 4,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Applying",
+        "question_type": "multi_choice",
+        "prompt": "A developer is building an app to extract fields from invoice PDFs. Which connection details can the app use? Select all that apply.",
+        "concept_id": "endpoint-and-authentication",
+        "options": [
+          {
+            "text": "The Foundry resource endpoint",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The endpoint is needed because it is the service address. The app contacts that address.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "An API key",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "An API key is an authentication option. It can provide key-based access.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Microsoft Entra ID",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Microsoft Entra ID is another authentication option. It can be used instead of an API key.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "The invoice confidence value",
+            "is_correct": false,
+            "error_type": "Confuses returned field metadata with connection requirements",
+            "rationale": "A confidence value is returned with extracted field data. It is not an endpoint or authentication method.",
+            "better_fit": "Use it when reviewing the returned extraction result.",
+            "feedback": {
+              "intrinsic": "The app could not connect securely using a confidence value.",
+              "instructional": "Use the endpoint plus an API key or Microsoft Entra ID."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. The app needs the endpoint and an authentication method; either an API key or Microsoft Entra ID can authenticate access."
+      },
+      "payload_hash": "763d531966163df4cf887f476c0bd7a6dbb3f18781009a121df88b421d04b1d0",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "1e778579ac185d5d6eb4a1b22adfa8cb3b6672f1f586af15fc69e33705113bcd",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-document-extraction-in-code/asynchronous-analysis/r1/v1",
+      "concept_id": "asynchronous-analysis",
+      "rung": 1,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "single_choice",
+        "prompt": "What does asynchronous analysis mean?",
+        "concept_id": "asynchronous-analysis",
+        "options": [
+          {
+            "text": "The result arrives later when ready.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Asynchronous analysis returns its result later when the job is ready. The request starts before completion.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "The result is returned before analysis starts.",
+            "is_correct": false,
+            "error_type": "Confuses job start with job completion",
+            "rationale": "Analysis must start before it can finish. An asynchronous result arrives later, not before the request.",
+            "better_fit": "This would not fit any analysis flow described here.",
+            "feedback": {
+              "intrinsic": "There would be no completed work to return.",
+              "instructional": "Asynchronous means the result is received later when the analysis is ready."
+            }
+          },
+          {
+            "text": "The client never receives a result.",
+            "is_correct": false,
+            "error_type": "Confuses delayed results with no results",
+            "rationale": "Asynchronous work delays the result; it does not remove it. The application checks until the job succeeds.",
+            "better_fit": "This might describe an unfinished or failed situation, not asynchronous completion.",
+            "feedback": {
+              "intrinsic": "The application would stop before reading the completed fields.",
+              "instructional": "Keep checking the job until it succeeds, then receive the result."
+            }
+          },
+          {
+            "text": "The analyzer skips the schema.",
+            "is_correct": false,
+            "error_type": "Confuses operation timing with analyzer behavior",
+            "rationale": "A schema defines fields and structure for analysis. Asynchronous describes when the result becomes available.",
+            "better_fit": "Schema selection matters when defining what an analyzer should extract.",
+            "feedback": {
+              "intrinsic": "The timing of the job would still be unanswered.",
+              "instructional": "Asynchronous refers to delayed completion, not to whether a schema is used."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. Asynchronous analysis starts now and returns the result later when it is ready."
+      },
+      "payload_hash": "c33d895cfcf112285d374d9e9799719fa486dc90b37916557e618b5bbc882aa8",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "1e778579ac185d5d6eb4a1b22adfa8cb3b6672f1f586af15fc69e33705113bcd",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-document-extraction-in-code/asynchronous-analysis/r1/v2",
+      "concept_id": "asynchronous-analysis",
+      "rung": 1,
+      "variant": 2,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "multi_choice",
+        "prompt": "Which are ways to check an asynchronous analysis job until it succeeds? Select all that apply.",
+        "concept_id": "asynchronous-analysis",
+        "options": [
+          {
+            "text": "Poll the Operation-Location URL.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The Operation-Location URL can be polled until the job succeeds. Polling means checking repeatedly.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Poll analyzerResults.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "analyzerResults can also be polled until the job succeeds. It is a repeated status check.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Read the invoice number once.",
+            "is_correct": false,
+            "error_type": "Confuses extracted content with job status",
+            "rationale": "An invoice number is extracted content, not job status. Reading it once does not check whether a job has succeeded.",
+            "better_fit": "Use it after successful analysis when reading invoice fields.",
+            "feedback": {
+              "intrinsic": "The app might try to read a field before the job is finished.",
+              "instructional": "Poll the Operation-Location URL or analyzerResults to check completion."
+            }
+          },
+          {
+            "text": "Change the endpoint repeatedly.",
+            "is_correct": false,
+            "error_type": "Confuses job polling with service setup",
+            "rationale": "The endpoint is the service address. Changing it does not check a running job.",
+            "better_fit": "Use the endpoint when initially connecting to the resource.",
+            "feedback": {
+              "intrinsic": "The app could lose the address it needs while the job remains unfinished.",
+              "instructional": "Polling checks the job repeatedly; the endpoint identifies the service."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. Polling repeatedly checks the Operation-Location URL or analyzerResults until the job succeeds."
+      },
+      "payload_hash": "53767ae44683145ca2f3222cf73ee5acca900499b06bd0bf5ccc19fb81edca6d",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "1e778579ac185d5d6eb4a1b22adfa8cb3b6672f1f586af15fc69e33705113bcd",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-document-extraction-in-code/asynchronous-analysis/r2/v1",
+      "concept_id": "asynchronous-analysis",
+      "rung": 2,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "true_false",
+        "prompt": "Decide whether this statement is true or false.",
+        "concept_id": "asynchronous-analysis",
+        "statement": "An asynchronous analysis job is a long-running operation that an application checks repeatedly until it succeeds.",
+        "correct_answer": true,
+        "feedback_for_correct": "Correct. This is a long-running operation, and repeatedly checking it is called polling.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The app could stop while the analysis is still running.",
+          "instructional": "Because the result arrives later, poll the job until it succeeds."
+        }
+      },
+      "payload_hash": "e9f131149ef8c7f37ce534c2e07cbbb02f0a4bb2c7d038114f10444fa963f1a0",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "1e778579ac185d5d6eb4a1b22adfa8cb3b6672f1f586af15fc69e33705113bcd",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-document-extraction-in-code/asynchronous-analysis/r3/v1",
+      "concept_id": "asynchronous-analysis",
+      "rung": 3,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "fill_gaps",
+        "prompt": "Fill in the missing term.",
+        "concept_id": "asynchronous-analysis",
+        "parts": [
+          {
+            "type": "text",
+            "text": "Repeatedly checking a long-running analysis job is called "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "polling",
+              "poll"
+            ],
+            "rejected_answers": [
+              "transcription",
+              "OCR",
+              "python-sdk-analysis",
+              "analyzer-and-schema-reuse"
+            ],
+            "placeholder": "term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "explanation": "Polling is the repeated check used while an asynchronous job is running. Transcription and OCR analyze content rather than check job completion.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The response would describe content analysis, not the repeated completion check.",
+          "instructional": "Use polling or poll. Transcription and OCR are different kinds of analysis."
+        }
+      },
+      "payload_hash": "07957e60def8a2acef01bf370573c4265645b00a9e03dbc02daff834ecb3db65",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "1e778579ac185d5d6eb4a1b22adfa8cb3b6672f1f586af15fc69e33705113bcd",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-document-extraction-in-code/asynchronous-analysis/r4/v1",
+      "concept_id": "asynchronous-analysis",
+      "rung": 4,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Applying",
+        "question_type": "single_choice",
+        "prompt": "A company submits a scanned receipt for an expense claim, but the analysis is still running. What should its app do next?",
+        "concept_id": "asynchronous-analysis",
+        "options": [
+          {
+            "text": "Poll the job until it succeeds.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The analysis is asynchronous and still running. Polling repeatedly checks it until it succeeds.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Submit the same receipt again.",
+            "is_correct": false,
+            "error_type": "Confuses polling with starting a new analysis",
+            "rationale": "Submitting again starts another analysis request. It does not check the job already running.",
+            "better_fit": "Submit content when starting analysis for the first time.",
+            "feedback": {
+              "intrinsic": "The team could create duplicate work on the same receipt.",
+              "instructional": "Keep checking the existing job until it succeeds."
+            }
+          },
+          {
+            "text": "Replace the analyzer schema.",
+            "is_correct": false,
+            "error_type": "Confuses job status with analyzer design",
+            "rationale": "A schema defines fields and structure. It does not complete a job already in progress.",
+            "better_fit": "Change a schema when the needed extracted fields or structure changes.",
+            "feedback": {
+              "intrinsic": "The original receipt job would still be running.",
+              "instructional": "Use polling for a running job; schema design is a separate activity."
+            }
+          },
+          {
+            "text": "Read fields immediately.",
+            "is_correct": false,
+            "error_type": "Confuses completed output with an unfinished job",
+            "rationale": "Fields are read from completed structured results. A running job is not ready to provide its final result.",
+            "better_fit": "Read fields after the job succeeds.",
+            "feedback": {
+              "intrinsic": "The expense team could act before the receipt values are ready.",
+              "instructional": "Poll first, then read the completed fields."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. Since the job is still running, the app should poll it until it succeeds."
+      },
+      "payload_hash": "a242f98f60435dce865d0197aa15ef06ce217bfb68a1a23d8f17a99f4babe353",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "1e778579ac185d5d6eb4a1b22adfa8cb3b6672f1f586af15fc69e33705113bcd",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-document-extraction-in-code/python-sdk-analysis/r1/v1",
+      "concept_id": "python-sdk-analysis",
+      "rung": 1,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "multi_choice",
+        "prompt": "Which facts describe the Azure Content Understanding Python SDK? Select all that apply.",
+        "concept_id": "python-sdk-analysis",
+        "options": [
+          {
+            "text": "Its package is azure-ai-contentunderstanding.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The Python package is installed with this name. It provides the Python SDK.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It uses ContentUnderstandingClient.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "ContentUnderstandingClient is created with an endpoint and credential. It is used to begin analysis.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It uses AzureKeyCredential for keys.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "AzureKeyCredential provides key-based access. It is passed as the client's credential.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It requires the Foundry portal.",
+            "is_correct": false,
+            "error_type": "Confuses SDK code with portal use",
+            "rationale": "The SDK supports client application code. The portal is a separate visual way to test analysis.",
+            "better_fit": "Use the portal when validating analyzer output visually.",
+            "feedback": {
+              "intrinsic": "The developer would be sent to a manual testing path instead of the code path.",
+              "instructional": "The SDK works in code; the portal is optional for visual testing."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. The package, ContentUnderstandingClient, and AzureKeyCredential are all part of the Python code flow."
+      },
+      "payload_hash": "c09ae514f518b9f7040a9178a49b131f951e21b1aaa1ccfcd110ff8b9a9769ba",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "1e778579ac185d5d6eb4a1b22adfa8cb3b6672f1f586af15fc69e33705113bcd",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-document-extraction-in-code/python-sdk-analysis/r1/v2",
+      "concept_id": "python-sdk-analysis",
+      "rung": 1,
+      "variant": 2,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "single_choice",
+        "prompt": "Which method starts an analysis in the Python SDK?",
+        "concept_id": "python-sdk-analysis",
+        "options": [
+          {
+            "text": "begin_analyze",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "begin_analyze starts the long-running analysis. It returns a poller for the operation.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "poller.result",
+            "is_correct": false,
+            "error_type": "Confuses waiting for completion with starting analysis",
+            "rationale": "poller.result() waits for the started operation to complete. It does not begin a new request.",
+            "better_fit": "Use it after begin_analyze when waiting for completion.",
+            "feedback": {
+              "intrinsic": "There would be no started operation for the poller to wait on.",
+              "instructional": "Start with begin_analyze, then call poller.result() to wait."
+            }
+          },
+          {
+            "text": "AzureKeyCredential",
+            "is_correct": false,
+            "error_type": "Confuses authentication with analysis start",
+            "rationale": "AzureKeyCredential is used for key-based access. It does not start analysis.",
+            "better_fit": "Use it when creating a client with an API key.",
+            "feedback": {
+              "intrinsic": "The client could authenticate but would not begin processing the invoice.",
+              "instructional": "Authentication and starting analysis are separate: use begin_analyze to start."
+            }
+          },
+          {
+            "text": "ContentUnderstandingClient",
+            "is_correct": false,
+            "error_type": "Confuses client creation with analysis start",
+            "rationale": "ContentUnderstandingClient creates the client used to make requests. The method on that client starts analysis.",
+            "better_fit": "Use it before analysis when creating the client.",
+            "feedback": {
+              "intrinsic": "The app would be ready to request work but would not have requested it.",
+              "instructional": "Create the client first, then call begin_analyze."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. begin_analyze starts the long-running analysis and returns its poller."
+      },
+      "payload_hash": "b17ab48bdc025179c739a6388db6d9f3fa51c96bd134a891c809e5fe543449e5",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "1e778579ac185d5d6eb4a1b22adfa8cb3b6672f1f586af15fc69e33705113bcd",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-document-extraction-in-code/python-sdk-analysis/r2/v1",
+      "concept_id": "python-sdk-analysis",
+      "rung": 2,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "true_false",
+        "prompt": "Is the following statement accurate?",
+        "concept_id": "python-sdk-analysis",
+        "statement": "In the Python SDK, poller.result() starts a new analysis request.",
+        "correct_answer": false,
+        "feedback_for_correct": "Correct. begin_analyze starts analysis; poller.result() waits for the operation to finish.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The code would try to wait before starting an analysis.",
+          "instructional": "Call begin_analyze first. Then use poller.result() while the SDK handles polling."
+        }
+      },
+      "payload_hash": "83a9812df75854fb0d3c148c700329d4f0e70fba176c3e421b2245d0d3681a30",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "1e778579ac185d5d6eb4a1b22adfa8cb3b6672f1f586af15fc69e33705113bcd",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-document-extraction-in-code/python-sdk-analysis/r3/v1",
+      "concept_id": "python-sdk-analysis",
+      "rung": 3,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "rearrange",
+        "prompt": "Reconstruct the statement from the pieces.",
+        "concept_id": "python-sdk-analysis",
+        "word_bank": [
+          "Get the poller",
+          "Create the client",
+          "Call poller.result",
+          "Call begin_analyze"
+        ],
+        "correct_order": [
+          "Create the client",
+          "Call begin_analyze",
+          "Get the poller",
+          "Call poller.result"
+        ],
+        "interchangeable_groups": [],
+        "explanation": "A client must exist before it can start analysis. Starting analysis returns a poller, and that poller is then used to wait for completion.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The code would try to use a client or poller before it exists.",
+          "instructional": "Create the client first, start analysis next, receive the poller, and then wait for its result."
+        }
+      },
+      "payload_hash": "d3f7d2ebb5c32d19f4512d591ee27368b4d1644d8365afad9f0dd921412bad04",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "1e778579ac185d5d6eb4a1b22adfa8cb3b6672f1f586af15fc69e33705113bcd",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-document-extraction-in-code/python-sdk-analysis/r3/v2",
+      "concept_id": "python-sdk-analysis",
+      "rung": 3,
+      "variant": 2,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "fill_gaps",
+        "prompt": "Complete the sentence with the correct term.",
+        "concept_id": "python-sdk-analysis",
+        "parts": [
+          {
+            "type": "text",
+            "text": "The SDK method that waits for analysis completion is "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "poller.result()",
+              "result()"
+            ],
+            "rejected_answers": [
+              "begin_analyze",
+              "AzureKeyCredential",
+              "asynchronous-analysis-and-polling",
+              "content-understanding-api-and-client"
+            ],
+            "placeholder": "method"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "explanation": "poller.result() waits for the long-running operation to complete, with polling handled by the SDK. begin_analyze starts the operation, and AzureKeyCredential supplies key-based access.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The code would start analysis or authenticate, but would not wait for the completed result.",
+          "instructional": "Use poller.result() after begin_analyze. The other names have different roles."
+        }
+      },
+      "payload_hash": "55df155a972c6ef14acf15cefcb44e2423ed5d622ca6d16bde46173cb5d879a6",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "1e778579ac185d5d6eb4a1b22adfa8cb3b6672f1f586af15fc69e33705113bcd",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-document-extraction-in-code/python-sdk-analysis/r4/v1",
+      "concept_id": "python-sdk-analysis",
+      "rung": 4,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Applying",
+        "question_type": "multi_choice",
+        "prompt": "A developer is coding an invoice-PDF extraction app with an API key. Which actions should the code take to start analysis and later receive its result? Select all that apply.",
+        "concept_id": "python-sdk-analysis",
+        "options": [
+          {
+            "text": "Create ContentUnderstandingClient.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The code creates ContentUnderstandingClient with an endpoint and credential. That client is used to begin analysis.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Use AzureKeyCredential for the key.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "AzureKeyCredential supports key-based access. It is supplied when creating the client.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Call begin_analyze.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "begin_analyze starts the long-running analysis. It returns a poller that can later provide the result.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Read portal layout information.",
+            "is_correct": false,
+            "error_type": "Confuses SDK workflow with portal output",
+            "rationale": "Portal layout information is part of visual portal use. It is not required to start or receive a result in Python code.",
+            "better_fit": "Use it when inspecting a document through the portal interface.",
+            "feedback": {
+              "intrinsic": "The developer would spend time reviewing a portal display without advancing the coded request.",
+              "instructional": "For this code flow, create the client, authenticate with the key, and call begin_analyze."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. These steps create and authenticate the client, then start the operation that later returns the result."
+      },
+      "payload_hash": "739590861ea7bd6fc7b92a11ef3b6b42bea191fbf1a6964f6c10ac7b545e6cab",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "1e778579ac185d5d6eb4a1b22adfa8cb3b6672f1f586af15fc69e33705113bcd",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-document-extraction-in-code/prebuilt-invoice-sdk-flow/r1/v1",
+      "concept_id": "prebuilt-invoice-sdk-flow",
+      "rung": 1,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "single_choice",
+        "prompt": "Which analyzer ID is used for a prebuilt invoice analyzer?",
+        "concept_id": "prebuilt-invoice-sdk-flow",
+        "options": [
+          {
+            "text": "prebuilt-invoice",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "prebuilt-invoice is the analyzer ID for invoice analysis. It is selected before submitting invoice content.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "prebuilt-audioSearch",
+            "is_correct": false,
+            "error_type": "Confuses invoice analysis with audio analysis",
+            "rationale": "prebuilt-audioSearch is identified for audio analysis. It is not the invoice analyzer ID.",
+            "better_fit": "Use it when analyzing an audio file.",
+            "feedback": {
+              "intrinsic": "Invoice fields such as CustomerName and InvoiceDate would not be requested with the intended invoice analyzer.",
+              "instructional": "Match the analyzer to the content: use prebuilt-invoice for invoices."
+            }
+          },
+          {
+            "text": "prebuilt-videoSearch",
+            "is_correct": false,
+            "error_type": "Confuses invoice analysis with video analysis",
+            "rationale": "prebuilt-videoSearch is a prebuilt analyzer for video. An invoice PDF is document content.",
+            "better_fit": "Use it when analyzing video content.",
+            "feedback": {
+              "intrinsic": "The app would choose analysis intended for a different content type.",
+              "instructional": "For invoice PDFs, select prebuilt-invoice."
+            }
+          },
+          {
+            "text": "prebuilt-imageSearch",
+            "is_correct": false,
+            "error_type": "Confuses invoice analysis with image search",
+            "rationale": "prebuilt-imageSearch is a distinct prebuilt analyzer. The invoice workflow specifically selects prebuilt-invoice.",
+            "better_fit": "Use it when the task calls for the prebuilt image search analyzer.",
+            "feedback": {
+              "intrinsic": "The needed invoice-focused fields would not be requested through the intended analyzer.",
+              "instructional": "Use the analyzer ID named for the invoice task: prebuilt-invoice."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. prebuilt-invoice is the prebuilt analyzer ID for invoice extraction."
+      },
+      "payload_hash": "cac72fb6a3488231f4652c55ca5ae151b744b7739abfbaed595a768d9dafdbba",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "1e778579ac185d5d6eb4a1b22adfa8cb3b6672f1f586af15fc69e33705113bcd",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-document-extraction-in-code/prebuilt-invoice-sdk-flow/r2/v1",
+      "concept_id": "prebuilt-invoice-sdk-flow",
+      "rung": 2,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "true_false",
+        "prompt": "Evaluate this statement.",
+        "concept_id": "prebuilt-invoice-sdk-flow",
+        "statement": "To analyze an invoice from a URL, inputs can include the invoice PDF URL.",
+        "correct_answer": true,
+        "feedback_for_correct": "Correct. The inputs list can include the invoice PDF URL for analysis.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The app would have no invoice content address to submit for this flow.",
+          "instructional": "For an invoice at a web address, place its PDF URL in inputs."
+        }
+      },
+      "payload_hash": "c917c15768ad6d3a71c57f2420419160ef50aaa2479e99a92521c402380c1ee0",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "1e778579ac185d5d6eb4a1b22adfa8cb3b6672f1f586af15fc69e33705113bcd",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-document-extraction-in-code/prebuilt-invoice-sdk-flow/r2/v2",
+      "concept_id": "prebuilt-invoice-sdk-flow",
+      "rung": 2,
+      "variant": 2,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "true_false",
+        "prompt": "Is the following statement accurate?",
+        "concept_id": "prebuilt-invoice-sdk-flow",
+        "statement": "The prebuilt-invoice flow uses prebuilt-audioSearch as its analyzer ID.",
+        "correct_answer": false,
+        "feedback_for_correct": "Correct. prebuilt-audioSearch is for audio, while invoices use prebuilt-invoice.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The app would select analysis for the wrong content type.",
+          "instructional": "Use prebuilt-invoice for invoice PDFs and prebuilt-audioSearch for audio."
+        }
+      },
+      "payload_hash": "16ded137bf650b55f299a7a7b3767860222c559ed78cb071e552a3e1a5a0650d",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "1e778579ac185d5d6eb4a1b22adfa8cb3b6672f1f586af15fc69e33705113bcd",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-document-extraction-in-code/prebuilt-invoice-sdk-flow/r3/v1",
+      "concept_id": "prebuilt-invoice-sdk-flow",
+      "rung": 3,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "fill_gaps",
+        "prompt": "Type the term that completes this sentence.",
+        "concept_id": "prebuilt-invoice-sdk-flow",
+        "parts": [
+          {
+            "type": "text",
+            "text": "After invoice analysis completes, each content item can provide markdown and "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "fields"
+            ],
+            "rejected_answers": [
+              "analyzerResults",
+              "Operation-Location URL",
+              "prebuilt-audio-sdk-flow",
+              "prebuilt-and-custom-analyzers"
+            ],
+            "placeholder": "term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "explanation": "Completed content items can include markdown and extracted fields. analyzerResults and the Operation-Location URL are used to check an asynchronous operation rather than hold the content-item values.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The response would point to job-checking information instead of the invoice values available after completion.",
+          "instructional": "Use fields for structured extracted values. Polling locations are used while waiting for the job."
+        }
+      },
+      "payload_hash": "727109743df639bf47e58aed3a7f9e3164cdf33bce8abb3c61f3f27281b65391",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "1e778579ac185d5d6eb4a1b22adfa8cb3b6672f1f586af15fc69e33705113bcd",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-document-extraction-in-code/prebuilt-invoice-sdk-flow/r3/v2",
+      "concept_id": "prebuilt-invoice-sdk-flow",
+      "rung": 3,
+      "variant": 2,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "rearrange",
+        "prompt": "Put the pieces in the correct order.",
+        "concept_id": "prebuilt-invoice-sdk-flow",
+        "word_bank": [
+          "Submit the PDF URL",
+          "Create the client",
+          "Read markdown and fields",
+          "Choose prebuilt-invoice"
+        ],
+        "correct_order": [
+          "Create the client",
+          "Choose prebuilt-invoice",
+          "Submit the PDF URL",
+          "Read markdown and fields"
+        ],
+        "interchangeable_groups": [],
+        "explanation": "The client and analyzer selection come before sending the invoice URL. Markdown and fields are read after analysis has completed.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The app could try to read invoice values before it has submitted the invoice.",
+          "instructional": "Set up the client, select prebuilt-invoice, submit the URL, then read the completed result."
+        }
+      },
+      "payload_hash": "323cc7d0f61f398381c1672a74695cfe19c1a57589ee7d6118a6488c9737a532",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "1e778579ac185d5d6eb4a1b22adfa8cb3b6672f1f586af15fc69e33705113bcd",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-document-extraction-in-code/prebuilt-invoice-sdk-flow/r4/v1",
+      "concept_id": "prebuilt-invoice-sdk-flow",
+      "rung": 4,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Applying",
+        "question_type": "single_choice",
+        "prompt": "Luis needs to extract CustomerName and InvoiceDate from an invoice PDF at a web address. Which analyzer should his Python app choose?",
+        "concept_id": "prebuilt-invoice-sdk-flow",
+        "options": [
+          {
+            "text": "prebuilt-invoice",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The task is to analyze an invoice PDF and extract invoice fields. prebuilt-invoice is the matching prebuilt analyzer.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "prebuilt-audioSearch",
+            "is_correct": false,
+            "error_type": "Confuses document invoices with audio",
+            "rationale": "prebuilt-audioSearch is for audio files. Luis has an invoice PDF, not audio.",
+            "better_fit": "Use it for recorded calls or other audio content.",
+            "feedback": {
+              "intrinsic": "Luis would choose analysis for audio instead of obtaining the requested invoice fields.",
+              "instructional": "Choose prebuilt-invoice when the input is an invoice PDF."
+            }
+          },
+          {
+            "text": "prebuilt-videoSearch",
+            "is_correct": false,
+            "error_type": "Confuses document invoices with video",
+            "rationale": "prebuilt-videoSearch is for video analysis. It does not match an invoice PDF.",
+            "better_fit": "Use it when analyzing recorded meetings or other video files.",
+            "feedback": {
+              "intrinsic": "The invoice would be sent to analysis intended for a different kind of content.",
+              "instructional": "Match invoice PDFs with prebuilt-invoice."
+            }
+          },
+          {
+            "text": "A custom audio analyzer",
+            "is_correct": false,
+            "error_type": "Confuses invoice task with audio analyzer selection",
+            "rationale": "A custom audio analyzer is tailored to audio needs. Luis needs the prebuilt analyzer for invoices.",
+            "better_fit": "Use a custom analyzer when a tailored audio schema is needed.",
+            "feedback": {
+              "intrinsic": "Luis would move away from the available invoice-focused choice for the task.",
+              "instructional": "The prebuilt invoice analyzer directly fits invoice field extraction."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. prebuilt-invoice fits extracting CustomerName and InvoiceDate from an invoice PDF."
+      },
+      "payload_hash": "4d148b8c75d99889bc03297fa9b629cc915a83fa56a191b76ebbe3b1de6c32e7",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "1e778579ac185d5d6eb4a1b22adfa8cb3b6672f1f586af15fc69e33705113bcd",
+      "telemetry": {}
+    },
+    {
+      "item_key": "build-document-extraction-in-code/prebuilt-invoice-sdk-flow/r5/v1",
+      "concept_id": "prebuilt-invoice-sdk-flow",
+      "rung": 5,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Analyzing/Evaluating",
+        "question_type": "single_choice",
+        "prompt": "An accounts-payable team receives invoice PDFs and must send CustomerName and InvoiceDate into its software automatically. Which approach best fits?",
+        "concept_id": "prebuilt-invoice-sdk-flow",
+        "options": [
+          {
+            "text": "Use prebuilt-invoice with the Python SDK.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "prebuilt-invoice is designed for invoice analysis, and the Python SDK supports coded submission and returned fields. This fits automatic handling of invoice PDFs.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Use prebuilt-audioSearch with the SDK.",
+            "is_correct": false,
+            "error_type": "Confuses invoice documents with audio input",
+            "rationale": "prebuilt-audioSearch is for audio analysis. Invoice PDFs need the invoice analyzer.",
+            "better_fit": "Use it when processing recordings or calls.",
+            "feedback": {
+              "intrinsic": "The team would select analysis for the wrong content type and not follow the invoice flow.",
+              "instructional": "Match the analyzer to the input: use prebuilt-invoice for invoice PDFs."
+            }
+          },
+          {
+            "text": "Use the portal to inspect layout only.",
+            "is_correct": false,
+            "error_type": "Confuses portal testing with coded invoice extraction",
+            "rationale": "The portal can help test analysis and inspect results visually. Inspecting layout alone does not automate sending extracted fields into an application.",
+            "better_fit": "Use the portal to validate analyzer output before writing automation.",
+            "feedback": {
+              "intrinsic": "The team would still need a person to inspect invoices rather than pass fields onward automatically.",
+              "instructional": "Use the Python SDK and prebuilt-invoice when invoice fields must be handled automatically."
+            }
+          },
+          {
+            "text": "Use basic OCR without invoice fields.",
+            "is_correct": false,
+            "error_type": "Confuses text recognition with schema-based invoice extraction",
+            "rationale": "Basic OCR recognizes printed text but does not understand meaning or relationships. The team needs specific invoice fields such as CustomerName and InvoiceDate.",
+            "better_fit": "Use basic OCR when only editable and searchable printed text is needed.",
+            "feedback": {
+              "intrinsic": "The team could get text but not the structured invoice values needed for its workflow.",
+              "instructional": "Use the invoice analyzer to return named fields, not only recognized text."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. The prebuilt invoice analyzer and Python SDK support automatic extraction and use of invoice fields."
+      },
+      "payload_hash": "f09a6973cb1d41c02ab7c7131bf3563d46238631b5241c2102c757f64f67835c",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "1e778579ac185d5d6eb4a1b22adfa8cb3b6672f1f586af15fc69e33705113bcd",
+      "telemetry": {}
+    }
+  ],
+  "flashcards": [
+    {
+      "front": "What does the API enable?",
+      "back": "It lets a client submit content programmatically for analysis.",
+      "hint": "Think coded requests."
+    },
+    {
+      "front": "What is an endpoint?",
+      "back": "It is the service address a client contacts.",
+      "hint": "Think service address."
+    },
+    {
+      "front": "What is polling?",
+      "back": "Repeatedly checking an asynchronous job until it succeeds.",
+      "hint": "Think repeated status checks."
+    },
+    {
+      "front": "What starts SDK analysis?",
+      "back": "begin_analyze starts the long-running analysis.",
+      "hint": "Think start method."
+    }
+  ]
+}

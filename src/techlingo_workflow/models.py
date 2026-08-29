@@ -285,9 +285,10 @@ class PipelineState(BaseModel):
     validation_report: Optional[ValidationReport] = None
     analysis_result: Optional[TextAnalysisResult] = None
 
-    # Best attempt seen across the A5->A2 self-correction loop. Regeneration can
+    # Best attempt seen across A5->A2 lesson-content retries. Regeneration can
     # come back WORSE than the attempt it was meant to fix, so the final output
-    # is always the best-scoring attempt, never blindly the last one.
+    # is always the best-scoring attempt. An A5->A1 map retry clears these because
+    # attempts from different authoritative maps cannot be mixed.
     best_course: Optional[Course] = None
     best_report: Optional[ValidationReport] = None
 
@@ -301,6 +302,13 @@ class PipelineState(BaseModel):
     config: WorkflowConfig = Field(default_factory=lambda: WorkflowConfig())
     override_title: Optional[str] = Field(default=None, description="Manual override for the output course/module title.")
     retry_count: int = Field(default=0, description="Number of times the workflow has looped back for self-correction.")
+    retry_target: Optional[Literal["a1", "a2"]] = Field(
+        default=None,
+        description=(
+            "The authoritative stage that owns the current validation errors. "
+            "Concept-pack errors return to A1; lesson-content errors return to A2."
+        ),
+    )
 
 
 
@@ -309,7 +317,5 @@ class WorkflowRunResult(BaseModel):
     run_dir: str
     course: Course
     validation_report: ValidationReport
-
-
 
 

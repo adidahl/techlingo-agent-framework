@@ -1,0 +1,2616 @@
+{
+  "schema_version": "techlingo-gauntlet-record-v1",
+  "compiled_artifact_sha256": "2fa356d363b3a7f13d4d399d67361e952b387b4b6502e0aa169d3bb7f3169d2b",
+  "unit_key": "build-document-extraction-in-code-l2",
+  "champion": {
+    "artifact_id": "ai-901:build-document-extraction-in-code-l2",
+    "course_id": "ai-901",
+    "session_id": "build-document-extraction-in-code-l2",
+    "items": [
+      {
+        "item_key": "build-document-extraction-in-code/python-sdk-analysis/r1/v2",
+        "path": "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/0",
+        "payload": {
+          "import_key": "build-document-extraction-in-code-l2-q1",
+          "question_type": "multiple_choice",
+          "question_text": "Which method starts an analysis in the Python SDK?",
+          "options": {
+            "options": [
+              {
+                "text": "poller.result",
+                "is_correct": false,
+                "error_type": "Confuses waiting for completion with starting analysis",
+                "rationale": "poller.result() waits for the started operation to complete. It does not begin a new request.",
+                "better_fit": "Use it after begin_analyze when waiting for completion.",
+                "feedback": {
+                  "intrinsic": "There would be no started operation for the poller to wait on.",
+                  "instructional": "Start with begin_analyze, then call poller.result() to wait."
+                }
+              },
+              {
+                "text": "AzureKeyCredential",
+                "is_correct": false,
+                "error_type": "Confuses authentication with analysis start",
+                "rationale": "AzureKeyCredential is used for key-based access. It does not start analysis.",
+                "better_fit": "Use it when creating a client with an API key.",
+                "feedback": {
+                  "intrinsic": "The client could authenticate but would not begin processing the invoice.",
+                  "instructional": "Authentication and starting analysis are separate: use begin_analyze to start."
+                }
+              },
+              {
+                "text": "begin_analyze",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "begin_analyze starts the long-running analysis. It returns a poller for the operation.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "ContentUnderstandingClient",
+                "is_correct": false,
+                "error_type": "Confuses client creation with analysis start",
+                "rationale": "ContentUnderstandingClient creates the client used to make requests. The method on that client starts analysis.",
+                "better_fit": "Use it before analysis when creating the client.",
+                "feedback": {
+                  "intrinsic": "The app would be ready to request work but would not have requested it.",
+                  "instructional": "Create the client first, then call begin_analyze."
+                }
+              }
+            ],
+            "blooms_level": "Remembering",
+            "original_question_type": "single_choice",
+            "concept_id": "python-sdk-analysis",
+            "item_key": "build-document-extraction-in-code/python-sdk-analysis/r1/v2",
+            "rung": 1,
+            "variant": 2,
+            "module_key": "12-get-started-with-ai-powered-information-extraction",
+            "lesson_key": "build-document-extraction-in-code",
+            "learning_status": "review"
+          },
+          "correct_answer": "2",
+          "explanation": "Correct. begin_analyze starts the long-running analysis and returns its poller.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "build-document-extraction-in-code/content-understanding-api-client/r1/v2",
+        "path": "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/1",
+        "payload": {
+          "import_key": "build-document-extraction-in-code-l2-q2",
+          "question_type": "multiple_choice",
+          "question_text": "Which statements describe a client application? Select all that apply.",
+          "options": {
+            "options": [
+              {
+                "text": "It runs on a user's device.",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "A client application runs on a user's device. It is the part users interact with.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "It performs the intensive analysis work.",
+                "is_correct": false,
+                "error_type": "Confuses client work with server work",
+                "rationale": "The server performs the intensive analysis work behind the scenes. The client requests that work.",
+                "better_fit": "This describes the server's role after receiving the request.",
+                "feedback": {
+                  "intrinsic": "The roles would be reversed, making it unclear where the analysis happens.",
+                  "instructional": "The client requests analysis; the server does the intensive work."
+                }
+              },
+              {
+                "text": "It replaces the analyzer schema.",
+                "is_correct": false,
+                "error_type": "Confuses application role with analyzer configuration",
+                "rationale": "A schema defines the fields and structure to extract. A client application does not replace that definition.",
+                "better_fit": "A schema is used when defining what information an analyzer should extract.",
+                "feedback": {
+                  "intrinsic": "The app would still lack a defined set of fields to return.",
+                  "instructional": "The client sends the request, while the analyzer uses its schema."
+                }
+              },
+              {
+                "text": "It requests a service over a network.",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "A client requests data or actions from another service over a network. It receives a structured response.",
+                "better_fit": null,
+                "feedback": null
+              }
+            ],
+            "blooms_level": "Remembering",
+            "original_question_type": "multi_choice",
+            "concept_id": "content-understanding-api-client",
+            "item_key": "build-document-extraction-in-code/content-understanding-api-client/r1/v2",
+            "rung": 1,
+            "variant": 2,
+            "module_key": "12-get-started-with-ai-powered-information-extraction",
+            "lesson_key": "build-document-extraction-in-code",
+            "learning_status": "review"
+          },
+          "correct_answer": "[0,3]",
+          "explanation": "Correct. A client runs on a user's device and requests work over a network; the server does the intensive work.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "build-document-extraction-in-code/python-sdk-analysis/r3/v1",
+        "path": "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/2",
+        "payload": {
+          "import_key": "build-document-extraction-in-code-l2-q3",
+          "question_type": "arrange_sentence",
+          "question_text": "Reconstruct the statement from the pieces.",
+          "options": {
+            "word_bank": [
+              "Get the poller",
+              "Create the client",
+              "Call poller.result",
+              "Call begin_analyze"
+            ],
+            "correct_order": [
+              "Create the client",
+              "Call begin_analyze",
+              "Get the poller",
+              "Call poller.result"
+            ],
+            "blooms_level": "Understanding",
+            "original_question_type": "rearrange",
+            "concept_id": "python-sdk-analysis",
+            "feedback_for_incorrect": {
+              "intrinsic": "The code would try to use a client or poller before it exists.",
+              "instructional": "Create the client first, start analysis next, receive the poller, and then wait for its result."
+            },
+            "item_key": "build-document-extraction-in-code/python-sdk-analysis/r3/v1",
+            "rung": 3,
+            "variant": 1,
+            "module_key": "12-get-started-with-ai-powered-information-extraction",
+            "lesson_key": "build-document-extraction-in-code",
+            "learning_status": "new"
+          },
+          "correct_answer": "Create the client Call begin_analyze Get the poller Call poller.result",
+          "explanation": "A client must exist before it can start analysis. Starting analysis returns a poller, and that poller is then used to wait for completion.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "build-document-extraction-in-code/content-understanding-api-client/r3/v1",
+        "path": "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/3",
+        "payload": {
+          "import_key": "build-document-extraction-in-code-l2-q4",
+          "question_type": "fill_blank",
+          "question_text": "A software interface used to submit content programmatically is the Content Understanding ___.",
+          "options": {
+            "parts": [
+              {
+                "type": "text",
+                "text": "A software interface used to submit content programmatically is the Content Understanding "
+              },
+              {
+                "type": "gap",
+                "accepted_answers": [
+                  "API"
+                ],
+                "rejected_answers": [
+                  "Python SDK",
+                  "Foundry portal",
+                  "foundry-portal-testing",
+                  "python-sdk-analysis"
+                ],
+                "placeholder": "term"
+              },
+              {
+                "type": "text",
+                "text": "."
+              }
+            ],
+            "rejected_answers": [
+              "Python SDK",
+              "Foundry portal",
+              "foundry-portal-testing",
+              "python-sdk-analysis"
+            ],
+            "blooms_level": "Remembering",
+            "original_question_type": "fill_gaps",
+            "concept_id": "content-understanding-api-client",
+            "feedback_for_incorrect": {
+              "intrinsic": "The sentence would name a related item, but not the interface used for programmatic requests.",
+              "instructional": "Use API here. The Python SDK helps write code, and the Foundry portal is for visual testing."
+            },
+            "item_key": "build-document-extraction-in-code/content-understanding-api-client/r3/v1",
+            "rung": 3,
+            "variant": 1,
+            "module_key": "12-get-started-with-ai-powered-information-extraction",
+            "lesson_key": "build-document-extraction-in-code",
+            "learning_status": "new"
+          },
+          "correct_answer": "API",
+          "explanation": "An API is the interface used by an application to request analysis programmatically. The SDK provides code support for using that interface, while the portal supports visual testing.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "build-document-extraction-in-code/python-sdk-analysis/r4/v1",
+        "path": "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/4",
+        "payload": {
+          "import_key": "build-document-extraction-in-code-l2-q5",
+          "question_type": "multiple_choice",
+          "question_text": "A developer is coding an invoice-PDF extraction app with an API key. Which actions should the code take to start analysis and later receive its result? Select all that apply.",
+          "options": {
+            "options": [
+              {
+                "text": "Read portal layout information.",
+                "is_correct": false,
+                "error_type": "Confuses SDK workflow with portal output",
+                "rationale": "Portal layout information is part of visual portal use. It is not required to start or receive a result in Python code.",
+                "better_fit": "Use it when inspecting a document through the portal interface.",
+                "feedback": {
+                  "intrinsic": "The developer would spend time reviewing a portal display without advancing the coded request.",
+                  "instructional": "For this code flow, create the client, authenticate with the key, and call begin_analyze."
+                }
+              },
+              {
+                "text": "Create ContentUnderstandingClient.",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "The code creates ContentUnderstandingClient with an endpoint and credential. That client is used to begin analysis.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Use AzureKeyCredential for the key.",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "AzureKeyCredential supports key-based access. It is supplied when creating the client.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Call begin_analyze.",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "begin_analyze starts the long-running analysis. It returns a poller that can later provide the result.",
+                "better_fit": null,
+                "feedback": null
+              }
+            ],
+            "blooms_level": "Applying",
+            "original_question_type": "multi_choice",
+            "concept_id": "python-sdk-analysis",
+            "item_key": "build-document-extraction-in-code/python-sdk-analysis/r4/v1",
+            "rung": 4,
+            "variant": 1,
+            "module_key": "12-get-started-with-ai-powered-information-extraction",
+            "lesson_key": "build-document-extraction-in-code",
+            "learning_status": "new"
+          },
+          "correct_answer": "[1,2,3]",
+          "explanation": "Correct. These steps create and authenticate the client, then start the operation that later returns the result.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "build-document-extraction-in-code/content-understanding-api-client/r4/v1",
+        "path": "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/5",
+        "payload": {
+          "import_key": "build-document-extraction-in-code-l2-q6",
+          "question_type": "multiple_choice",
+          "question_text": "An expense-claim team wants its desktop app to send scanned receipts for analysis automatically. What should the app use?",
+          "options": {
+            "options": [
+              {
+                "text": "The Foundry portal interface",
+                "is_correct": false,
+                "error_type": "Confuses portal testing with coded integration",
+                "rationale": "The portal supports visual testing and uploads. It does not provide the application's coded submission path.",
+                "better_fit": "Use it to validate an analyzer with sample material before automation.",
+                "feedback": {
+                  "intrinsic": "Staff would still need to upload receipts manually.",
+                  "instructional": "An app that sends receipts automatically should use the API."
+                }
+              },
+              {
+                "text": "The Content Understanding API",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "The API supports programmatic submission from an application. That fits automatic receipt processing.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "An OCR result",
+                "is_correct": false,
+                "error_type": "Confuses analysis output with an integration method",
+                "rationale": "OCR helps recognize text during analysis. A result is not how an application submits content.",
+                "better_fit": "OCR fits recognizing printed text in a scanned receipt.",
+                "feedback": {
+                  "intrinsic": "The app would have no request method for sending the receipt.",
+                  "instructional": "Choose the API for submission; OCR is part of analyzing content."
+                }
+              },
+              {
+                "text": "A JSON response",
+                "is_correct": false,
+                "error_type": "Confuses returned data with a request mechanism",
+                "rationale": "JSON is structured data returned after processing. It does not initiate analysis.",
+                "better_fit": "Use it when handling returned fields in later work.",
+                "feedback": {
+                  "intrinsic": "The app would be waiting for a response without having sent a request.",
+                  "instructional": "The API starts the request; JSON can hold the returned result."
+                }
+              }
+            ],
+            "blooms_level": "Applying",
+            "original_question_type": "single_choice",
+            "concept_id": "content-understanding-api-client",
+            "item_key": "build-document-extraction-in-code/content-understanding-api-client/r4/v1",
+            "rung": 4,
+            "variant": 1,
+            "module_key": "12-get-started-with-ai-powered-information-extraction",
+            "lesson_key": "build-document-extraction-in-code",
+            "learning_status": "new"
+          },
+          "correct_answer": "1",
+          "explanation": "Correct. The API is the programmatic route for an application to submit receipts.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "build-document-extraction-in-code/asynchronous-analysis/r3/v1",
+        "path": "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/6",
+        "payload": {
+          "import_key": "build-document-extraction-in-code-l2-q7",
+          "question_type": "fill_blank",
+          "question_text": "Repeatedly checking a long-running analysis job is called ___.",
+          "options": {
+            "parts": [
+              {
+                "type": "text",
+                "text": "Repeatedly checking a long-running analysis job is called "
+              },
+              {
+                "type": "gap",
+                "accepted_answers": [
+                  "polling",
+                  "poll"
+                ],
+                "rejected_answers": [
+                  "transcription",
+                  "OCR",
+                  "python-sdk-analysis",
+                  "analyzer-and-schema-reuse"
+                ],
+                "placeholder": "term"
+              },
+              {
+                "type": "text",
+                "text": "."
+              }
+            ],
+            "rejected_answers": [
+              "transcription",
+              "OCR",
+              "python-sdk-analysis",
+              "analyzer-and-schema-reuse"
+            ],
+            "blooms_level": "Remembering",
+            "original_question_type": "fill_gaps",
+            "concept_id": "asynchronous-analysis",
+            "feedback_for_incorrect": {
+              "intrinsic": "The response would describe content analysis, not the repeated completion check.",
+              "instructional": "Use polling or poll. Transcription and OCR are different kinds of analysis."
+            },
+            "item_key": "build-document-extraction-in-code/asynchronous-analysis/r3/v1",
+            "rung": 3,
+            "variant": 1,
+            "module_key": "12-get-started-with-ai-powered-information-extraction",
+            "lesson_key": "build-document-extraction-in-code",
+            "learning_status": "new"
+          },
+          "correct_answer": "[\"polling\",\"poll\"]",
+          "explanation": "Polling is the repeated check used while an asynchronous job is running. Transcription and OCR analyze content rather than check job completion.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "build-document-extraction-in-code/endpoint-and-authentication/r3/v1",
+        "path": "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/7",
+        "payload": {
+          "import_key": "build-document-extraction-in-code-l2-q8",
+          "question_type": "arrange_sentence",
+          "question_text": "Order the pieces correctly.",
+          "options": {
+            "word_bank": [
+              "of the service",
+              "An endpoint",
+              "a client contacts",
+              "is the address"
+            ],
+            "correct_order": [
+              "An endpoint",
+              "is the address",
+              "of the service",
+              "a client contacts"
+            ],
+            "blooms_level": "Understanding",
+            "original_question_type": "rearrange",
+            "concept_id": "endpoint-and-authentication",
+            "feedback_for_incorrect": {
+              "intrinsic": "The definition would no longer clearly say what an endpoint identifies.",
+              "instructional": "Begin with endpoint, then define it as an address and connect it to the service the client contacts."
+            },
+            "item_key": "build-document-extraction-in-code/endpoint-and-authentication/r3/v1",
+            "rung": 3,
+            "variant": 1,
+            "module_key": "12-get-started-with-ai-powered-information-extraction",
+            "lesson_key": "build-document-extraction-in-code",
+            "learning_status": "new"
+          },
+          "correct_answer": "An endpoint is the address of the service a client contacts",
+          "explanation": "An endpoint identifies the address a client uses to contact a service. The phrase must connect the address to the service being contacted.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "build-document-extraction-in-code/asynchronous-analysis/r4/v1",
+        "path": "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/8",
+        "payload": {
+          "import_key": "build-document-extraction-in-code-l2-q9",
+          "question_type": "multiple_choice",
+          "question_text": "A company submits a scanned receipt for an expense claim, but the analysis is still running. What should its app do next?",
+          "options": {
+            "options": [
+              {
+                "text": "Poll the job until it succeeds.",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "The analysis is asynchronous and still running. Polling repeatedly checks it until it succeeds.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Submit the same receipt again.",
+                "is_correct": false,
+                "error_type": "Confuses polling with starting a new analysis",
+                "rationale": "Submitting again starts another analysis request. It does not check the job already running.",
+                "better_fit": "Submit content when starting analysis for the first time.",
+                "feedback": {
+                  "intrinsic": "The team could create duplicate work on the same receipt.",
+                  "instructional": "Keep checking the existing job until it succeeds."
+                }
+              },
+              {
+                "text": "Replace the analyzer schema.",
+                "is_correct": false,
+                "error_type": "Confuses job status with analyzer design",
+                "rationale": "A schema defines fields and structure. It does not complete a job already in progress.",
+                "better_fit": "Change a schema when the needed extracted fields or structure changes.",
+                "feedback": {
+                  "intrinsic": "The original receipt job would still be running.",
+                  "instructional": "Use polling for a running job; schema design is a separate activity."
+                }
+              },
+              {
+                "text": "Read fields immediately.",
+                "is_correct": false,
+                "error_type": "Confuses completed output with an unfinished job",
+                "rationale": "Fields are read from completed structured results. A running job is not ready to provide its final result.",
+                "better_fit": "Read fields after the job succeeds.",
+                "feedback": {
+                  "intrinsic": "The expense team could act before the receipt values are ready.",
+                  "instructional": "Poll first, then read the completed fields."
+                }
+              }
+            ],
+            "blooms_level": "Applying",
+            "original_question_type": "single_choice",
+            "concept_id": "asynchronous-analysis",
+            "item_key": "build-document-extraction-in-code/asynchronous-analysis/r4/v1",
+            "rung": 4,
+            "variant": 1,
+            "module_key": "12-get-started-with-ai-powered-information-extraction",
+            "lesson_key": "build-document-extraction-in-code",
+            "learning_status": "new"
+          },
+          "correct_answer": "0",
+          "explanation": "Correct. Since the job is still running, the app should poll it until it succeeds.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "build-document-extraction-in-code/prebuilt-invoice-sdk-flow/r3/v1",
+        "path": "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/9",
+        "payload": {
+          "import_key": "build-document-extraction-in-code-l2-q10",
+          "question_type": "fill_blank",
+          "question_text": "After invoice analysis completes, each content item can provide markdown and ___.",
+          "options": {
+            "parts": [
+              {
+                "type": "text",
+                "text": "After invoice analysis completes, each content item can provide markdown and "
+              },
+              {
+                "type": "gap",
+                "accepted_answers": [
+                  "fields"
+                ],
+                "rejected_answers": [
+                  "analyzerResults",
+                  "Operation-Location URL",
+                  "prebuilt-audio-sdk-flow",
+                  "prebuilt-and-custom-analyzers"
+                ],
+                "placeholder": "term"
+              },
+              {
+                "type": "text",
+                "text": "."
+              }
+            ],
+            "rejected_answers": [
+              "analyzerResults",
+              "Operation-Location URL",
+              "prebuilt-audio-sdk-flow",
+              "prebuilt-and-custom-analyzers"
+            ],
+            "blooms_level": "Remembering",
+            "original_question_type": "fill_gaps",
+            "concept_id": "prebuilt-invoice-sdk-flow",
+            "feedback_for_incorrect": {
+              "intrinsic": "The response would point to job-checking information instead of the invoice values available after completion.",
+              "instructional": "Use fields for structured extracted values. Polling locations are used while waiting for the job."
+            },
+            "item_key": "build-document-extraction-in-code/prebuilt-invoice-sdk-flow/r3/v1",
+            "rung": 3,
+            "variant": 1,
+            "module_key": "12-get-started-with-ai-powered-information-extraction",
+            "lesson_key": "build-document-extraction-in-code",
+            "learning_status": "new"
+          },
+          "correct_answer": "fields",
+          "explanation": "Completed content items can include markdown and extracted fields. analyzerResults and the Operation-Location URL are used to check an asynchronous operation rather than hold the content-item values.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "build-document-extraction-in-code/endpoint-and-authentication/r4/v1",
+        "path": "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/10",
+        "payload": {
+          "import_key": "build-document-extraction-in-code-l2-q11",
+          "question_type": "multiple_choice",
+          "question_text": "A developer is building an app to extract fields from invoice PDFs. Which connection details can the app use? Select all that apply.",
+          "options": {
+            "options": [
+              {
+                "text": "The Foundry resource endpoint",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "The endpoint is needed because it is the service address. The app contacts that address.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "The invoice confidence value",
+                "is_correct": false,
+                "error_type": "Confuses returned field metadata with connection requirements",
+                "rationale": "A confidence value is returned with extracted field data. It is not an endpoint or authentication method.",
+                "better_fit": "Use it when reviewing the returned extraction result.",
+                "feedback": {
+                  "intrinsic": "The app could not connect securely using a confidence value.",
+                  "instructional": "Use the endpoint plus an API key or Microsoft Entra ID."
+                }
+              },
+              {
+                "text": "An API key",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "An API key is an authentication option. It can provide key-based access.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Microsoft Entra ID",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "Microsoft Entra ID is another authentication option. It can be used instead of an API key.",
+                "better_fit": null,
+                "feedback": null
+              }
+            ],
+            "blooms_level": "Applying",
+            "original_question_type": "multi_choice",
+            "concept_id": "endpoint-and-authentication",
+            "item_key": "build-document-extraction-in-code/endpoint-and-authentication/r4/v1",
+            "rung": 4,
+            "variant": 1,
+            "module_key": "12-get-started-with-ai-powered-information-extraction",
+            "lesson_key": "build-document-extraction-in-code",
+            "learning_status": "new"
+          },
+          "correct_answer": "[0,2,3]",
+          "explanation": "Correct. The app needs the endpoint and an authentication method; either an API key or Microsoft Entra ID can authenticate access.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "build-document-extraction-in-code/prebuilt-invoice-sdk-flow/r4/v1",
+        "path": "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/11",
+        "payload": {
+          "import_key": "build-document-extraction-in-code-l2-q12",
+          "question_type": "multiple_choice",
+          "question_text": "Luis needs to extract CustomerName and InvoiceDate from an invoice PDF at a web address. Which analyzer should his Python app choose?",
+          "options": {
+            "options": [
+              {
+                "text": "prebuilt-audioSearch",
+                "is_correct": false,
+                "error_type": "Confuses document invoices with audio",
+                "rationale": "prebuilt-audioSearch is for audio files. Luis has an invoice PDF, not audio.",
+                "better_fit": "Use it for recorded calls or other audio content.",
+                "feedback": {
+                  "intrinsic": "Luis would choose analysis for audio instead of obtaining the requested invoice fields.",
+                  "instructional": "Choose prebuilt-invoice when the input is an invoice PDF."
+                }
+              },
+              {
+                "text": "prebuilt-videoSearch",
+                "is_correct": false,
+                "error_type": "Confuses document invoices with video",
+                "rationale": "prebuilt-videoSearch is for video analysis. It does not match an invoice PDF.",
+                "better_fit": "Use it when analyzing recorded meetings or other video files.",
+                "feedback": {
+                  "intrinsic": "The invoice would be sent to analysis intended for a different kind of content.",
+                  "instructional": "Match invoice PDFs with prebuilt-invoice."
+                }
+              },
+              {
+                "text": "A custom audio analyzer",
+                "is_correct": false,
+                "error_type": "Confuses invoice task with audio analyzer selection",
+                "rationale": "A custom audio analyzer is tailored to audio needs. Luis needs the prebuilt analyzer for invoices.",
+                "better_fit": "Use a custom analyzer when a tailored audio schema is needed.",
+                "feedback": {
+                  "intrinsic": "Luis would move away from the available invoice-focused choice for the task.",
+                  "instructional": "The prebuilt invoice analyzer directly fits invoice field extraction."
+                }
+              },
+              {
+                "text": "prebuilt-invoice",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "The task is to analyze an invoice PDF and extract invoice fields. prebuilt-invoice is the matching prebuilt analyzer.",
+                "better_fit": null,
+                "feedback": null
+              }
+            ],
+            "blooms_level": "Applying",
+            "original_question_type": "single_choice",
+            "concept_id": "prebuilt-invoice-sdk-flow",
+            "item_key": "build-document-extraction-in-code/prebuilt-invoice-sdk-flow/r4/v1",
+            "rung": 4,
+            "variant": 1,
+            "module_key": "12-get-started-with-ai-powered-information-extraction",
+            "lesson_key": "build-document-extraction-in-code",
+            "learning_status": "new"
+          },
+          "correct_answer": "3",
+          "explanation": "Correct. prebuilt-invoice fits extracting CustomerName and InvoiceDate from an invoice PDF.",
+          "points": 1
+        }
+      }
+    ],
+    "metadata": {
+      "module_key": "12-get-started-with-ai-powered-information-extraction",
+      "unit_title": "Build document extraction in code · Level 2",
+      "unit_slo": "Describe how a client application submits and receives document analysis results.",
+      "constraint_relaxations": []
+    }
+  },
+  "history": {
+    "schema_version": "techlingo-gauntlet-history-v1",
+    "run_id": "build-document-extraction-in-code-l2-afda91b432a4",
+    "started_at": "2026-08-29T02:49:52.883641Z",
+    "finished_at": "2026-08-29T03:07:40.851525Z",
+    "initial_champion_hash": "ecfa263ea03ea03a2f9ccae51c0282ee9ff49b5c80e5ad3e46d8ef2be036f438",
+    "final_champion_hash": "ecfa263ea03ea03a2f9ccae51c0282ee9ff49b5c80e5ad3e46d8ef2be036f438",
+    "evaluation_context": {
+      "schema_version": "techlingo-evaluation-context-v1",
+      "goal": "Produce an excellent, source-faithful learner session while preserving all deterministic correctness, identity, and sequence constraints.",
+      "source_fidelity_goal": "Independently verify the hard-gated edited challenger against the supplied source material. Reject unsupported facts, answers, explanations, feedback, or terminology changes; do not edit the artifact.",
+      "gauntlet_policy": {
+        "critic_backend": "codex",
+        "critic_model": "codex:gpt-5.6-luna",
+        "builder_model": "codex:gpt-5.6-terra",
+        "evaluator_protocol_version": "critic-review-semantics-v6",
+        "max_rounds": 4,
+        "plateau_rounds": 2,
+        "repeated_loss_rounds": 2,
+        "minimum_improvement_margin": 0.02,
+        "confidence_threshold": 0.65,
+        "human_review_threshold": 0.4,
+        "max_time_seconds": null,
+        "max_tokens": null,
+        "max_cost_usd": null,
+        "qualitative_required_for_publication": true,
+        "quality_thresholds": {
+          "factual_fidelity": 0.8,
+          "answer_unambiguity": 0.8,
+          "distractor_plausibility": 0.8,
+          "misconception_quality": 0.8,
+          "cognitive_progression": 0.8,
+          "mechanic_rhythm_variation": 0.8,
+          "prompt_language_variation": 0.8,
+          "scenario_authenticity": 0.8,
+          "feedback_usefulness": 0.8,
+          "difficulty_appropriateness": 0.8,
+          "terminology_consistency": 0.8,
+          "overall_learner_experience": 0.8
+        },
+        "comparison_seed": 901,
+        "protected_dimensions": [
+          "factual_fidelity",
+          "answer_unambiguity"
+        ],
+        "unstable_comparison_requires_human_review": true,
+        "identifying_metadata_keys": [
+          "artifact_id",
+          "builder_model",
+          "candidate_role",
+          "challenger",
+          "champion",
+          "critic_model",
+          "generated_at",
+          "import_key",
+          "item_key",
+          "model_id",
+          "path",
+          "version_id"
+        ]
+      },
+      "gauntlet_policy_sha256": "3ffb6943742c9fc0b33d6668a9c5695b535ee3121f7b697df8ab4d4392014385",
+      "rubric": {
+        "criteria": {
+          "factual_fidelity": "Every claim and answer is faithful to the supplied source.",
+          "answer_unambiguity": "Each item has one defensible answer under its instructions.",
+          "distractor_plausibility": "Distractors are credible without becoming defensible answers.",
+          "misconception_quality": "Wrong choices diagnose realistic learner misconceptions.",
+          "cognitive_progression": "The ordered session builds understanding at a coherent pace.",
+          "mechanic_rhythm_variation": "Mechanics vary naturally without disruptive repetition.",
+          "prompt_language_variation": "Prompt stems avoid formulaic repetition.",
+          "scenario_authenticity": "Scenarios resemble credible decisions or tasks.",
+          "feedback_usefulness": "Feedback explains the governing concept and next step.",
+          "difficulty_appropriateness": "Difficulty matches the stated audience and session position.",
+          "terminology_consistency": "Terms are used consistently with the source and across items.",
+          "overall_learner_experience": "The exact final sequence is coherent, varied, and instructive."
+        }
+      },
+      "rubric_sha256": "34290a842f2ed7e30b7a98ba70ac97d967c864424010cd31255f97cdce0b57d5",
+      "sources": [
+        {
+          "input_id": "12. Get started with AI-powered information extraction in Azure.md",
+          "sha256": "1e778579ac185d5d6eb4a1b22adfa8cb3b6672f1f586af15fc69e33705113bcd",
+          "location": "sources/12. Get started with AI-powered information extraction in Azure.md"
+        }
+      ],
+      "approved_references": [],
+      "models": {
+        "builder_model": "codex:gpt-5.6-terra",
+        "critic_backend": "codex",
+        "critic_model": "codex:gpt-5.6-luna",
+        "critic_fresh_context": true,
+        "editor_backend": "codex",
+        "editor_model": "codex:gpt-5.6-luna",
+        "editor_fresh_context": true,
+        "comparator_backend": "codex",
+        "comparator_model": "codex:gpt-5.6-luna",
+        "comparator_fresh_context": true
+      },
+      "context_sha256": "86c491616e45f9fc65ed8f32a0e4839b3f011ad01518b45d528cd8c059dac948"
+    },
+    "initial_hard_gate": {
+      "artifact_sha256": "ecfa263ea03ea03a2f9ccae51c0282ee9ff49b5c80e5ad3e46d8ef2be036f438",
+      "passed": true,
+      "issues": [],
+      "checks": {
+        "schema_and_answers": true,
+        "identity": true,
+        "final_sequence": true
+      },
+      "metrics": {},
+      "constraint_relaxations": []
+    },
+    "rounds": [
+      {
+        "round_number": 1,
+        "champion_hash_before": "ecfa263ea03ea03a2f9ccae51c0282ee9ff49b5c80e5ad3e46d8ef2be036f438",
+        "critic": {
+          "result": {
+            "dimensions": [
+              {
+                "dimension": "factual_fidelity",
+                "score": 0.96,
+                "evidence": [
+                  {
+                    "statement": "The items consistently reflect the source workflow: create a client, authenticate, call begin_analyze, wait for completion, and read structured fields. Item 5 slightly overstates completeness by implying its selected actions alone receive the result.",
+                    "item_keys": [
+                      "build-document-extraction-in-code/python-sdk-analysis/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/4"
+                    ]
+                  },
+                  {
+                    "statement": "The source's Python example explicitly calls poller.result() after begin_analyze to wait for completion.",
+                    "item_keys": [],
+                    "paths": []
+                  }
+                ]
+              },
+              {
+                "dimension": "answer_unambiguity",
+                "score": 0.86,
+                "evidence": [
+                  {
+                    "statement": "Item 5 asks which actions start analysis and later receive its result, but its options omit poller.result(); the keyed answer therefore does not fully cover the stated workflow.",
+                    "item_keys": [
+                      "build-document-extraction-in-code/python-sdk-analysis/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/4"
+                    ]
+                  },
+                  {
+                    "statement": "The source distinguishes starting analysis with begin_analyze from waiting for completion with poller.result().",
+                    "item_keys": [],
+                    "paths": []
+                  }
+                ]
+              },
+              {
+                "dimension": "distractor_plausibility",
+                "score": 0.88,
+                "evidence": [
+                  {
+                    "statement": "Most distractors represent credible confusions, such as authentication versus analysis, client versus server, polling versus resubmission, and returned data versus request mechanisms.",
+                    "item_keys": [
+                      "build-document-extraction-in-code/python-sdk-analysis/r1/v2",
+                      "build-document-extraction-in-code/content-understanding-api-client/r1/v2",
+                      "build-document-extraction-in-code/asynchronous-analysis/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/0",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/1",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/8"
+                    ]
+                  },
+                  {
+                    "statement": "Some distractors are comparatively easy to eliminate because they use an obviously mismatched media type, such as audio analyzers for an invoice PDF.",
+                    "item_keys": [
+                      "build-document-extraction-in-code/prebuilt-invoice-sdk-flow/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/11"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "misconception_quality",
+                "score": 0.9,
+                "evidence": [
+                  {
+                    "statement": "Wrong options generally diagnose realistic misconceptions: reversing client and server roles, confusing OCR with an API, treating JSON as a submission mechanism, and reading fields before asynchronous completion.",
+                    "item_keys": [
+                      "build-document-extraction-in-code/content-understanding-api-client/r1/v2",
+                      "build-document-extraction-in-code/content-understanding-api-client/r4/v1",
+                      "build-document-extraction-in-code/asynchronous-analysis/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/1",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/5",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/8"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "cognitive_progression",
+                "score": 0.82,
+                "evidence": [
+                  {
+                    "statement": "The session moves from recall and sequencing toward application, including client setup, API use, asynchronous analysis, authentication, and analyzer selection.",
+                    "item_keys": [
+                      "build-document-extraction-in-code/python-sdk-analysis/r1/v2",
+                      "build-document-extraction-in-code/python-sdk-analysis/r3/v1",
+                      "build-document-extraction-in-code/prebuilt-invoice-sdk-flow/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/0",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/2",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/11"
+                    ]
+                  },
+                  {
+                    "statement": "The order is somewhat interrupted by returning from applying items to recall and definition items, especially items 7 and 10 after application-oriented items.",
+                    "item_keys": [
+                      "build-document-extraction-in-code/asynchronous-analysis/r3/v1",
+                      "build-document-extraction-in-code/prebuilt-invoice-sdk-flow/r3/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/6",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/9"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "mechanic_rhythm_variation",
+                "score": 0.79,
+                "evidence": [
+                  {
+                    "statement": "The session uses multiple-choice, arrange-sentence, and fill-blank mechanics, but multiple-choice dominates and appears in adjacent pairs at items 5–6 and 11–12.",
+                    "item_keys": [
+                      "build-document-extraction-in-code/python-sdk-analysis/r4/v1",
+                      "build-document-extraction-in-code/content-understanding-api-client/r4/v1",
+                      "build-document-extraction-in-code/endpoint-and-authentication/r4/v1",
+                      "build-document-extraction-in-code/prebuilt-invoice-sdk-flow/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/4",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/5",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/10",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/11"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "prompt_language_variation",
+                "score": 0.87,
+                "evidence": [
+                  {
+                    "statement": "Prompt forms vary across direct questions, scenarios, reconstruction, and completion stems, although several items reuse 'Which' or developer/app scenario patterns.",
+                    "item_keys": [
+                      "build-document-extraction-in-code/python-sdk-analysis/r1/v2",
+                      "build-document-extraction-in-code/python-sdk-analysis/r3/v1",
+                      "build-document-extraction-in-code/content-understanding-api-client/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/0",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/2",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/5"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "scenario_authenticity",
+                "score": 0.95,
+                "evidence": [
+                  {
+                    "statement": "The invoice-PDF, expense-claim, desktop-app, and developer scenarios closely match the source's documented business and coding contexts.",
+                    "item_keys": [
+                      "build-document-extraction-in-code/python-sdk-analysis/r4/v1",
+                      "build-document-extraction-in-code/content-understanding-api-client/r4/v1",
+                      "build-document-extraction-in-code/prebuilt-invoice-sdk-flow/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/4",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/5",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/11"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "feedback_usefulness",
+                "score": 0.93,
+                "evidence": [
+                  {
+                    "statement": "Incorrect options usually explain the misconception and provide a corrective next step, such as polling before reading fields or using the API for programmatic submission.",
+                    "item_keys": [
+                      "build-document-extraction-in-code/content-understanding-api-client/r4/v1",
+                      "build-document-extraction-in-code/asynchronous-analysis/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/5",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/8"
+                    ]
+                  },
+                  {
+                    "statement": "Item 5's explanation should explicitly distinguish begin_analyze from poller.result() to make the complete SDK sequence useful to learners.",
+                    "item_keys": [
+                      "build-document-extraction-in-code/python-sdk-analysis/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/4"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "difficulty_appropriateness",
+                "score": 0.89,
+                "evidence": [
+                  {
+                    "statement": "The progression from remembering method roles and API terminology to applying SDK, authentication, asynchronous-analysis, and analyzer-selection decisions is appropriate for a Level 2 session.",
+                    "item_keys": [
+                      "build-document-extraction-in-code/python-sdk-analysis/r1/v2",
+                      "build-document-extraction-in-code/python-sdk-analysis/r4/v1",
+                      "build-document-extraction-in-code/prebuilt-invoice-sdk-flow/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/0",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/4",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/11"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "terminology_consistency",
+                "score": 0.96,
+                "evidence": [
+                  {
+                    "statement": "The artifact consistently uses the source's terms: client application, API, endpoint, analyzer, schema, begin_analyze, poller, polling, markdown, and fields.",
+                    "item_keys": [
+                      "build-document-extraction-in-code/content-understanding-api-client/r3/v1",
+                      "build-document-extraction-in-code/asynchronous-analysis/r3/v1",
+                      "build-document-extraction-in-code/prebuilt-invoice-sdk-flow/r3/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/3",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/6",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/9"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "overall_learner_experience",
+                "score": 0.85,
+                "evidence": [
+                  {
+                    "statement": "The exact session is source-faithful, varied in task format, and strongly grounded in practical SDK decisions, with one notable ambiguity in item 5 and some uneven sequencing.",
+                    "item_keys": [
+                      "build-document-extraction-in-code/python-sdk-analysis/r4/v1",
+                      "build-document-extraction-in-code/asynchronous-analysis/r3/v1",
+                      "build-document-extraction-in-code/prebuilt-invoice-sdk-flow/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/4",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/6",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/11"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "critical_defects": [],
+            "largest_gap": {
+              "dimension": "answer_unambiguity",
+              "summary": "Item 5's stem asks about both starting analysis and later receiving its result, but the keyed options omit poller.result().",
+              "evidence": [
+                {
+                  "statement": "The item selects client creation, API-key credential use, and begin_analyze, but does not include the source's required poller.result() wait step while claiming to cover later result receipt.",
+                  "item_keys": [
+                    "build-document-extraction-in-code/python-sdk-analysis/r4/v1"
+                  ],
+                  "paths": [
+                    "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/4"
+                  ]
+                },
+                {
+                  "statement": "The source Python SDK example calls begin_analyze and then poller.result() to wait for completion.",
+                  "item_keys": [],
+                  "paths": []
+                }
+              ],
+              "affected_item_keys": [
+                "build-document-extraction-in-code/python-sdk-analysis/r4/v1"
+              ],
+              "affected_paths": [
+                "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/4"
+              ],
+              "recommended_scope": "item",
+              "repair_instruction": "Revise the question_text to ask only which actions configure the client and start invoice analysis with an API key, and revise the explanation to note that poller.result() is the later wait step; preserve question_type exactly.",
+              "allowed_payload_fields": [
+                "question_text",
+                "explanation"
+              ]
+            },
+            "confidence": 0.9,
+            "human_review_recommended": false,
+            "human_review_reason": null,
+            "concise_summary": "The session is highly source-faithful and practically useful. The main repair is a bounded wording and explanation change for item 5 so its keyed answer matches the workflow it asks about."
+          },
+          "artifact_sha256": "ecfa263ea03ea03a2f9ccae51c0282ee9ff49b5c80e5ad3e46d8ef2be036f438",
+          "evaluation_context_sha256": "86c491616e45f9fc65ed8f32a0e4839b3f011ad01518b45d528cd8c059dac948",
+          "goal_sha256": "c4bae546eef7fec8c92895a1538196a8df81a13754329022bca211a6200752ae",
+          "critic_backend": "codex",
+          "critic_model": "codex:gpt-5.6-luna",
+          "fresh_context": true,
+          "model_independence": "independent",
+          "approved_reference_count": 0,
+          "reference_confidence_reduced": true,
+          "usage": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cost_usd": 0.0,
+            "backend_calls": 2
+          }
+        },
+        "critic_failure": null,
+        "repair_scope": "item",
+        "repair_summary": "Revised item 5 to ask only about configuring the client and starting invoice analysis, and clarified that poller.result() is the later wait step.",
+        "editor_backend": "codex",
+        "editor_model": "codex:gpt-5.6-luna",
+        "editor_fresh_context": true,
+        "edit_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost_usd": 0.0,
+          "backend_calls": 1
+        },
+        "validation_retry_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost_usd": 0.0,
+          "backend_calls": 0
+        },
+        "touched_item_keys": [
+          "build-document-extraction-in-code/python-sdk-analysis/r4/v1"
+        ],
+        "challenger_hash": "2e1e9fa6cc0f388b79b649248180fa0e6d77c538a684ab980aa56133a5a7cf43",
+        "promoted_champion_before": null,
+        "promoted_challenger": null,
+        "hard_gate": {
+          "artifact_sha256": "2e1e9fa6cc0f388b79b649248180fa0e6d77c538a684ab980aa56133a5a7cf43",
+          "passed": true,
+          "issues": [],
+          "checks": {
+            "schema_and_answers": true,
+            "identity": true,
+            "final_sequence": true
+          },
+          "metrics": {},
+          "constraint_relaxations": []
+        },
+        "source_fidelity_critic": {
+          "result": {
+            "dimensions": [
+              {
+                "dimension": "factual_fidelity",
+                "score": 0.96,
+                "evidence": [
+                  {
+                    "statement": "The source states that client.begin_analyze starts asynchronous analysis and poller.result() waits for completion; the artifact preserves this distinction in the SDK workflow items.",
+                    "item_keys": [
+                      "build-document-extraction-in-code/python-sdk-analysis/r1/v2",
+                      "build-document-extraction-in-code/python-sdk-analysis/r3/v1",
+                      "build-document-extraction-in-code/python-sdk-analysis/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/0",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/2",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/4"
+                    ]
+                  },
+                  {
+                    "statement": "The source identifies the Content Understanding API, endpoint, API key or Microsoft Entra ID, prebuilt-invoice, polling, markdown, and fields as part of the documented workflow; the corresponding artifact items use these terms consistently.",
+                    "item_keys": [
+                      "build-document-extraction-in-code/content-understanding-api-client/r3/v1",
+                      "build-document-extraction-in-code/endpoint-and-authentication/r3/v1",
+                      "build-document-extraction-in-code/asynchronous-analysis/r3/v1",
+                      "build-document-extraction-in-code/prebuilt-invoice-sdk-flow/r3/v1",
+                      "build-document-extraction-in-code/endpoint-and-authentication/r4/v1",
+                      "build-document-extraction-in-code/prebuilt-invoice-sdk-flow/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/3",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/7",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/6",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/9",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/10",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/11"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "answer_unambiguity",
+                "score": 0.91,
+                "evidence": [
+                  {
+                    "statement": "The SDK, API, polling, output, analyzer-selection, and client-role items each provide a clearly keyed answer supported by the source workflow.",
+                    "item_keys": [
+                      "build-document-extraction-in-code/python-sdk-analysis/r1/v2",
+                      "build-document-extraction-in-code/content-understanding-api-client/r1/v2",
+                      "build-document-extraction-in-code/asynchronous-analysis/r4/v1",
+                      "build-document-extraction-in-code/prebuilt-invoice-sdk-flow/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/0",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/1",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/8",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/11"
+                    ]
+                  },
+                  {
+                    "statement": "The connection-details item is defensible because the source says an application uses the endpoint and API key or Microsoft Entra ID; its explanation clarifies that the authentication choices are alternatives.",
+                    "item_keys": [
+                      "build-document-extraction-in-code/endpoint-and-authentication/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/10"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "distractor_plausibility",
+                "score": 0.95,
+                "evidence": [
+                  {
+                    "statement": "Distractors are adjacent concepts from the documented workflow, such as poller.result versus begin_analyze, client versus server work, portal versus API, OCR versus submission, and audio/video analyzers versus invoice analysis.",
+                    "item_keys": [
+                      "build-document-extraction-in-code/python-sdk-analysis/r1/v2",
+                      "build-document-extraction-in-code/content-understanding-api-client/r1/v2",
+                      "build-document-extraction-in-code/content-understanding-api-client/r4/v1",
+                      "build-document-extraction-in-code/asynchronous-analysis/r4/v1",
+                      "build-document-extraction-in-code/prebuilt-invoice-sdk-flow/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/0",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/1",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/5",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/8",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/11"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "misconception_quality",
+                "score": 0.94,
+                "evidence": [
+                  {
+                    "statement": "Wrong-choice rationales diagnose realistic confusions: starting analysis versus waiting, client versus server responsibility, portal testing versus coded integration, and polling versus submitting duplicate work.",
+                    "item_keys": [
+                      "build-document-extraction-in-code/python-sdk-analysis/r1/v2",
+                      "build-document-extraction-in-code/content-understanding-api-client/r1/v2",
+                      "build-document-extraction-in-code/content-understanding-api-client/r4/v1",
+                      "build-document-extraction-in-code/asynchronous-analysis/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/0",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/1",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/5",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/8"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "cognitive_progression",
+                "score": 0.75,
+                "evidence": [
+                  {
+                    "statement": "The sequence begins with remembering and understanding, then reaches applying in the first half, but later returns to remembering and understanding after applied items: q5 and q6 are Applying, followed by q7 and q8 at lower levels, and q10 is Remembering before more Applying items.",
+                    "item_keys": [
+                      "build-document-extraction-in-code/python-sdk-analysis/r4/v1",
+                      "build-document-extraction-in-code/content-understanding-api-client/r4/v1",
+                      "build-document-extraction-in-code/asynchronous-analysis/r3/v1",
+                      "build-document-extraction-in-code/endpoint-and-authentication/r3/v1",
+                      "build-document-extraction-in-code/prebuilt-invoice-sdk-flow/r3/v1",
+                      "build-document-extraction-in-code/endpoint-and-authentication/r4/v1",
+                      "build-document-extraction-in-code/prebuilt-invoice-sdk-flow/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/4",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/5",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/6",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/7",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/9",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/10",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/11"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "mechanic_rhythm_variation",
+                "score": 0.89,
+                "evidence": [
+                  {
+                    "statement": "The ordered session mixes multiple choice, fill-in-the-blank, and arrange-sentence mechanics; although multiple choice is most frequent, it is interrupted regularly by the other mechanics.",
+                    "item_keys": [
+                      "build-document-extraction-in-code/python-sdk-analysis/r1/v2",
+                      "build-document-extraction-in-code/content-understanding-api-client/r3/v1",
+                      "build-document-extraction-in-code/python-sdk-analysis/r3/v1",
+                      "build-document-extraction-in-code/asynchronous-analysis/r3/v1",
+                      "build-document-extraction-in-code/endpoint-and-authentication/r3/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/0",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/3",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/2",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/6",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/7"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "prompt_language_variation",
+                "score": 0.86,
+                "evidence": [
+                  {
+                    "statement": "Prompt forms vary across method identification, multi-select statements, reconstruction, definitions, and workplace scenarios; repeated 'Which' and developer/app framing remain noticeable but not disruptive.",
+                    "item_keys": [
+                      "build-document-extraction-in-code/python-sdk-analysis/r1/v2",
+                      "build-document-extraction-in-code/content-understanding-api-client/r1/v2",
+                      "build-document-extraction-in-code/python-sdk-analysis/r3/v1",
+                      "build-document-extraction-in-code/content-understanding-api-client/r3/v1",
+                      "build-document-extraction-in-code/python-sdk-analysis/r4/v1",
+                      "build-document-extraction-in-code/content-understanding-api-client/r4/v1",
+                      "build-document-extraction-in-code/asynchronous-analysis/r4/v1",
+                      "build-document-extraction-in-code/prebuilt-invoice-sdk-flow/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/0",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/1",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/2",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/3",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/4",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/5",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/8",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/11"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "scenario_authenticity",
+                "score": 0.83,
+                "evidence": [
+                  {
+                    "statement": "The expense-claim, receipt-processing, invoice-PDF, and application-connection scenarios are credible tasks aligned with the source's expense, invoice, and programmatic client examples.",
+                    "item_keys": [
+                      "build-document-extraction-in-code/python-sdk-analysis/r4/v1",
+                      "build-document-extraction-in-code/content-understanding-api-client/r4/v1",
+                      "build-document-extraction-in-code/asynchronous-analysis/r4/v1",
+                      "build-document-extraction-in-code/endpoint-and-authentication/r4/v1",
+                      "build-document-extraction-in-code/prebuilt-invoice-sdk-flow/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/4",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/5",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/8",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/10",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/11"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "feedback_usefulness",
+                "score": 0.94,
+                "evidence": [
+                  {
+                    "statement": "Incorrect-option feedback generally explains the specific role confusion and gives the next correct action, such as create the client, call begin_analyze, poll the existing job, or read fields after completion.",
+                    "item_keys": [
+                      "build-document-extraction-in-code/python-sdk-analysis/r1/v2",
+                      "build-document-extraction-in-code/content-understanding-api-client/r1/v2",
+                      "build-document-extraction-in-code/content-understanding-api-client/r4/v1",
+                      "build-document-extraction-in-code/asynchronous-analysis/r4/v1",
+                      "build-document-extraction-in-code/prebuilt-invoice-sdk-flow/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/0",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/1",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/5",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/8",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/11"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "difficulty_appropriateness",
+                "score": 0.89,
+                "evidence": [
+                  {
+                    "statement": "The session combines foundational recall and understanding with applying questions about client configuration, asynchronous jobs, authentication, and analyzer selection, matching a Level 2 objective to describe submission and result handling.",
+                    "item_keys": [
+                      "build-document-extraction-in-code/python-sdk-analysis/r3/v1",
+                      "build-document-extraction-in-code/python-sdk-analysis/r4/v1",
+                      "build-document-extraction-in-code/asynchronous-analysis/r4/v1",
+                      "build-document-extraction-in-code/prebuilt-invoice-sdk-flow/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/2",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/4",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/8",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/11"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "terminology_consistency",
+                "score": 0.96,
+                "evidence": [
+                  {
+                    "statement": "The artifact consistently distinguishes the API, Python SDK, client, endpoint, analyzer, poller, polling, markdown, and fields in the same roles established by the source.",
+                    "item_keys": [
+                      "build-document-extraction-in-code/content-understanding-api-client/r3/v1",
+                      "build-document-extraction-in-code/python-sdk-analysis/r3/v1",
+                      "build-document-extraction-in-code/endpoint-and-authentication/r3/v1",
+                      "build-document-extraction-in-code/asynchronous-analysis/r3/v1",
+                      "build-document-extraction-in-code/prebuilt-invoice-sdk-flow/r3/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/3",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/2",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/7",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/6",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/9"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "overall_learner_experience",
+                "score": 0.85,
+                "evidence": [
+                  {
+                    "statement": "The exact sequence is source-faithful, varied in mechanics, and strongly supported by actionable feedback, but its movement from applying back to remembering and understanding weakens the instructional arc.",
+                    "item_keys": [
+                      "build-document-extraction-in-code/python-sdk-analysis/r4/v1",
+                      "build-document-extraction-in-code/content-understanding-api-client/r4/v1",
+                      "build-document-extraction-in-code/asynchronous-analysis/r3/v1",
+                      "build-document-extraction-in-code/endpoint-and-authentication/r3/v1",
+                      "build-document-extraction-in-code/prebuilt-invoice-sdk-flow/r3/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/4",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/5",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/6",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/7",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/9"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "critical_defects": [],
+            "largest_gap": {
+              "dimension": "cognitive_progression",
+              "summary": "The sequence regresses from Applying items to lower-level Remembering and Understanding items before returning to Applying.",
+              "evidence": [
+                {
+                  "statement": "The ordered artifact places Applying items about client configuration and API use before Remembering and Understanding items about polling and endpoint meaning, then places another Remembering item before the final Applying items.",
+                  "item_keys": [
+                    "build-document-extraction-in-code/python-sdk-analysis/r4/v1",
+                    "build-document-extraction-in-code/content-understanding-api-client/r4/v1",
+                    "build-document-extraction-in-code/asynchronous-analysis/r3/v1",
+                    "build-document-extraction-in-code/endpoint-and-authentication/r3/v1",
+                    "build-document-extraction-in-code/prebuilt-invoice-sdk-flow/r3/v1",
+                    "build-document-extraction-in-code/endpoint-and-authentication/r4/v1",
+                    "build-document-extraction-in-code/prebuilt-invoice-sdk-flow/r4/v1"
+                  ],
+                  "paths": [
+                    "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/4",
+                    "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/5",
+                    "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/6",
+                    "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/7",
+                    "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/9",
+                    "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/10",
+                    "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/11"
+                  ]
+                }
+              ],
+              "affected_item_keys": [
+                "build-document-extraction-in-code/python-sdk-analysis/r4/v1",
+                "build-document-extraction-in-code/content-understanding-api-client/r4/v1",
+                "build-document-extraction-in-code/asynchronous-analysis/r3/v1",
+                "build-document-extraction-in-code/endpoint-and-authentication/r3/v1",
+                "build-document-extraction-in-code/prebuilt-invoice-sdk-flow/r3/v1",
+                "build-document-extraction-in-code/endpoint-and-authentication/r4/v1",
+                "build-document-extraction-in-code/prebuilt-invoice-sdk-flow/r4/v1"
+              ],
+              "affected_paths": [
+                "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/4",
+                "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/5",
+                "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/6",
+                "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/7",
+                "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/9",
+                "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/10",
+                "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/11"
+              ],
+              "recommended_scope": "session",
+              "repair_instruction": "Reorder only the existing item objects so foundational Remembering and Understanding items precede the Applying items, and avoid returning to lower-level items after the applied practice. Preserve every payload and each question_type exactly; use no payload-field changes.",
+              "allowed_payload_fields": []
+            },
+            "confidence": 0.94,
+            "human_review_recommended": false,
+            "human_review_reason": null,
+            "concise_summary": "The challenger is source-faithful, unambiguous, varied, and feedback-rich. The main repairable issue is a non-monotonic cognitive sequence that should be corrected by reordering existing items only."
+          },
+          "artifact_sha256": "2e1e9fa6cc0f388b79b649248180fa0e6d77c538a684ab980aa56133a5a7cf43",
+          "evaluation_context_sha256": "86c491616e45f9fc65ed8f32a0e4839b3f011ad01518b45d528cd8c059dac948",
+          "goal_sha256": "6ce6b245bb30616f24e0fa9f76e0f5d01e608776378d036724270915fb57e725",
+          "critic_backend": "codex",
+          "critic_model": "codex:gpt-5.6-luna",
+          "fresh_context": true,
+          "model_independence": "independent",
+          "approved_reference_count": 0,
+          "reference_confidence_reduced": true,
+          "usage": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cost_usd": 0.0,
+            "backend_calls": 1
+          }
+        },
+        "source_fidelity_gate": {
+          "artifact_sha256": "2e1e9fa6cc0f388b79b649248180fa0e6d77c538a684ab980aa56133a5a7cf43",
+          "passed": true,
+          "issues": [],
+          "checks": {
+            "factual_fidelity_threshold": true,
+            "critic_confidence_threshold": true,
+            "no_factual_critical_defect": true,
+            "no_human_review_request": true,
+            "fresh_critic_context": true
+          },
+          "metrics": {
+            "factual_fidelity_score": 0.96,
+            "factual_fidelity_threshold": 0.8,
+            "critic_confidence": 0.94
+          },
+          "constraint_relaxations": []
+        },
+        "comparison": {
+          "champion_sha256": "ecfa263ea03ea03a2f9ccae51c0282ee9ff49b5c80e5ad3e46d8ef2be036f438",
+          "challenger_sha256": "2e1e9fa6cc0f388b79b649248180fa0e6d77c538a684ab980aa56133a5a7cf43",
+          "evaluation_context_sha256": "86c491616e45f9fc65ed8f32a0e4839b3f011ad01518b45d528cd8c059dac948",
+          "comparator_backend": "codex",
+          "comparator_model": "codex:gpt-5.6-luna",
+          "comparator_fresh_context": true,
+          "records": [
+            {
+              "order_index": 1,
+              "seed": 901,
+              "a_role": "challenger",
+              "b_role": "champion",
+              "mapped_winner": "challenger",
+              "verdict": {
+                "winner": "A",
+                "confidence": 0.99,
+                "margin": 0.06,
+                "dimensions": [
+                  {
+                    "dimension": "factual_fidelity",
+                    "score_a": 0.98,
+                    "score_b": 0.94,
+                    "evidence": "The candidates are otherwise identical; B's revised stem asks about later receiving the result, but its marked actions omit poller.result, which the source identifies as the SDK step that waits for and returns the result."
+                  },
+                  {
+                    "dimension": "answer_unambiguity",
+                    "score_a": 0.97,
+                    "score_b": 0.82,
+                    "evidence": "A asks only about starting analysis, matching begin_analyze. B asks about starting analysis and later receiving its result while marking only client creation, authentication, and begin_analyze as correct."
+                  },
+                  {
+                    "dimension": "distractor_plausibility",
+                    "score_a": 0.89,
+                    "score_b": 0.89,
+                    "evidence": "Both use credible distractors involving the portal, client setup, authentication, and OCR, without making them defensible answers to the original A stem."
+                  },
+                  {
+                    "dimension": "misconception_quality",
+                    "score_a": 0.91,
+                    "score_b": 0.91,
+                    "evidence": "Both diagnose realistic confusions between client creation, authentication, portal output, OCR, analysis initiation, and result handling."
+                  },
+                  {
+                    "dimension": "cognitive_progression",
+                    "score_a": 0.86,
+                    "score_b": 0.84,
+                    "evidence": "Both progress from recognition to sequencing and application; B's ambiguous fifth item weakens the otherwise coherent progression."
+                  },
+                  {
+                    "dimension": "mechanic_rhythm_variation",
+                    "score_a": 0.66,
+                    "score_b": 0.66,
+                    "evidence": "Both use the same sequence of multiple choice, multi-select, arranging, and fill-in mechanics, with moderate variation but several repeated multiple-choice items."
+                  },
+                  {
+                    "dimension": "prompt_language_variation",
+                    "score_a": 0.76,
+                    "score_b": 0.76,
+                    "evidence": "Both contain varied stems across definitions, workflows, and scenarios, though several prompts use similar formulaic constructions."
+                  },
+                  {
+                    "dimension": "scenario_authenticity",
+                    "score_a": 0.86,
+                    "score_b": 0.86,
+                    "evidence": "Both include credible invoice, expense-claim, desktop-app, and asynchronous-processing tasks grounded in the source."
+                  },
+                  {
+                    "dimension": "feedback_usefulness",
+                    "score_a": 0.94,
+                    "score_b": 0.88,
+                    "evidence": "A's fifth-item explanation correctly limits the task to configuring and starting analysis. B claims the selected steps later return the result without identifying the required poller.result wait step."
+                  },
+                  {
+                    "dimension": "difficulty_appropriateness",
+                    "score_a": 0.86,
+                    "score_b": 0.84,
+                    "evidence": "Both are suitable for an introductory SDK workflow session; B's compound fifth prompt is less appropriately aligned with its answer set."
+                  },
+                  {
+                    "dimension": "terminology_consistency",
+                    "score_a": 0.97,
+                    "score_b": 0.95,
+                    "evidence": "Both consistently use source terms such as begin_analyze, poller.result, API, endpoint, analyzers, and fields; B creates a slight workflow-term mismatch in item five."
+                  },
+                  {
+                    "dimension": "overall_learner_experience",
+                    "score_a": 0.88,
+                    "score_b": 0.81,
+                    "evidence": "The sequences are nearly identical, but A preserves a clear single target in item five, while B introduces a deterministically incorrect implication about receiving results."
+                  }
+                ],
+                "evidence": [
+                  "A and B are identical except for item five's question wording and explanation.",
+                  "A's item five asks only how to configure the client and start analysis, so its marked answers are complete.",
+                  "B's item five additionally asks how to later receive the result, but does not mark poller.result as correct despite the source code using it to wait for completion and obtain the result."
+                ],
+                "human_review_recommended": false,
+                "usage": {
+                  "input_tokens": 0,
+                  "output_tokens": 0,
+                  "cost_usd": 0.0,
+                  "backend_calls": 1
+                }
+              }
+            },
+            {
+              "order_index": 2,
+              "seed": 901,
+              "a_role": "champion",
+              "b_role": "challenger",
+              "mapped_winner": "challenger",
+              "verdict": {
+                "winner": "B",
+                "confidence": 0.94,
+                "margin": 0.01,
+                "dimensions": [
+                  {
+                    "dimension": "factual_fidelity",
+                    "score_a": 0.99,
+                    "score_b": 0.99,
+                    "evidence": "Both candidates closely match the source; B's revised item more explicitly distinguishes starting analysis from receiving the later result."
+                  },
+                  {
+                    "dimension": "answer_unambiguity",
+                    "score_a": 0.94,
+                    "score_b": 0.98,
+                    "evidence": "A asks about starting analysis and later receiving its result but omits poller.result from the selectable correct actions; B narrows the task to configuring the client and starting analysis."
+                  },
+                  {
+                    "dimension": "distractor_plausibility",
+                    "score_a": 0.98,
+                    "score_b": 0.98,
+                    "evidence": "Both use credible confusions among client creation, authentication, portal output, and asynchronous results."
+                  },
+                  {
+                    "dimension": "misconception_quality",
+                    "score_a": 0.98,
+                    "score_b": 0.98,
+                    "evidence": "Both identify realistic misconceptions such as confusing polling with resubmission and OCR with an integration method."
+                  },
+                  {
+                    "dimension": "cognitive_progression",
+                    "score_a": 0.91,
+                    "score_b": 0.92,
+                    "evidence": "Both progress from SDK facts to ordering, API concepts, applied workflows, and analyzer selection; B's clearer item wording supports the progression slightly better."
+                  },
+                  {
+                    "dimension": "mechanic_rhythm_variation",
+                    "score_a": 0.88,
+                    "score_b": 0.88,
+                    "evidence": "Both vary multiple choice, multi-select, ordering, and fill-in mechanics, though multiple choice remains dominant."
+                  },
+                  {
+                    "dimension": "prompt_language_variation",
+                    "score_a": 0.86,
+                    "score_b": 0.86,
+                    "evidence": "Both include varied scenario and definition stems, but several prompts use recurring patterns such as 'Which' and 'A developer/company'."
+                  },
+                  {
+                    "dimension": "scenario_authenticity",
+                    "score_a": 0.97,
+                    "score_b": 0.97,
+                    "evidence": "Receipt automation, invoice extraction, asynchronous jobs, and Python SDK tasks are credible operational scenarios grounded in the source."
+                  },
+                  {
+                    "dimension": "feedback_usefulness",
+                    "score_a": 0.97,
+                    "score_b": 0.98,
+                    "evidence": "Feedback consistently explains the governing distinction and next step; B additionally clarifies that poller.result waits for completion."
+                  },
+                  {
+                    "dimension": "difficulty_appropriateness",
+                    "score_a": 0.95,
+                    "score_b": 0.95,
+                    "evidence": "The sequence is appropriate for introductory-to-applied learning, moving from remembering to applying without requiring unsupported knowledge."
+                  },
+                  {
+                    "dimension": "terminology_consistency",
+                    "score_a": 0.99,
+                    "score_b": 0.99,
+                    "evidence": "Both consistently use API, SDK, analyzer, schema, endpoint, polling, fields, and poller terminology in line with the source."
+                  },
+                  {
+                    "dimension": "overall_learner_experience",
+                    "score_a": 0.93,
+                    "score_b": 0.95,
+                    "evidence": "The sequences are identical and generally coherent; B improves one potentially mismatched prompt and explanation, making the session slightly clearer."
+                  }
+                ],
+                "evidence": [
+                  "Candidates are identical except for the fifth item's prompt and explanation.",
+                  "B's fifth item aligns its wording directly with the selected correct actions and explicitly places poller.result after starting analysis.",
+                  "No approved reference standard was supplied; evaluation is based on the source and rubric only."
+                ],
+                "human_review_recommended": false,
+                "usage": {
+                  "input_tokens": 0,
+                  "output_tokens": 0,
+                  "cost_usd": 0.0,
+                  "backend_calls": 1
+                }
+              }
+            }
+          ],
+          "position_sensitive": false,
+          "stable": true,
+          "decision": "retain",
+          "protected_regressions": [],
+          "minimum_confidence": 0.94,
+          "minimum_margin": 0.01,
+          "decision_evidence": "Challenger advantage is below the minimum improvement margin.",
+          "usage": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cost_usd": 0.0,
+            "backend_calls": 2
+          }
+        },
+        "decision": "rejected_comparison",
+        "decision_evidence": "Challenger advantage is below the minimum improvement margin.",
+        "champion_hash_after": "ecfa263ea03ea03a2f9ccae51c0282ee9ff49b5c80e5ad3e46d8ef2be036f438",
+        "constraint_relaxations": [],
+        "cumulative_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost_usd": 0.0,
+          "backend_calls": 6
+        }
+      },
+      {
+        "round_number": 2,
+        "champion_hash_before": "ecfa263ea03ea03a2f9ccae51c0282ee9ff49b5c80e5ad3e46d8ef2be036f438",
+        "critic": {
+          "result": {
+            "dimensions": [
+              {
+                "dimension": "factual_fidelity",
+                "score": 0.93,
+                "evidence": [
+                  {
+                    "statement": "Most items match the supplied source, including begin_analyze, poller.result(), client/API roles, polling, endpoint and authentication, and prebuilt-invoice. The invoice SDK item asks for receiving a result but its keyed answer omits poller.result(), creating a source-to-item mismatch.",
+                    "item_keys": [
+                      "build-document-extraction-in-code/python-sdk-analysis/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/4"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "answer_unambiguity",
+                "score": 0.86,
+                "evidence": [
+                  {
+                    "statement": "The answer is unambiguous in nearly every item. In the invoice-PDF SDK item, the stem asks about starting analysis and later receiving its result, while the available correct choices exclude poller.result(), which the source uses to wait for and receive completion.",
+                    "item_keys": [
+                      "build-document-extraction-in-code/python-sdk-analysis/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/4"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "distractor_plausibility",
+                "score": 0.96,
+                "evidence": [
+                  {
+                    "statement": "Distractors are credible role, workflow, and content-type confusions, such as authentication versus analysis start, portal output versus SDK workflow, and document versus audio/video analyzers.",
+                    "item_keys": [
+                      "build-document-extraction-in-code/python-sdk-analysis/r1/v2",
+                      "build-document-extraction-in-code/content-understanding-api-client/r1/v2",
+                      "build-document-extraction-in-code/prebuilt-invoice-sdk-flow/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/0",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/1",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/11"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "misconception_quality",
+                "score": 0.95,
+                "evidence": [
+                  {
+                    "statement": "Wrong options diagnose realistic misconceptions: treating poller.result as the starter, reversing client and server responsibilities, confusing OCR or JSON with an integration method, and confusing polling with submitting duplicate work.",
+                    "item_keys": [
+                      "build-document-extraction-in-code/python-sdk-analysis/r1/v2",
+                      "build-document-extraction-in-code/content-understanding-api-client/r1/v2",
+                      "build-document-extraction-in-code/asynchronous-analysis/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/0",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/1",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/8"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "cognitive_progression",
+                "score": 0.84,
+                "evidence": [
+                  {
+                    "statement": "The sequence moves from recognition of SDK and client concepts into ordering, API identification, workflow application, asynchronous processing, and analyzer selection. Progression is generally coherent, though remembering and applying items are interleaved rather than steadily increasing.",
+                    "item_keys": [],
+                    "paths": []
+                  }
+                ]
+              },
+              {
+                "dimension": "mechanic_rhythm_variation",
+                "score": 0.89,
+                "evidence": [
+                  {
+                    "statement": "The session uses multiple choice, multi-select, arrange, and fill-blank mechanics across the ordered sequence, with no long uninterrupted run of one mechanic.",
+                    "item_keys": [],
+                    "paths": []
+                  }
+                ]
+              },
+              {
+                "dimension": "prompt_language_variation",
+                "score": 0.84,
+                "evidence": [
+                  {
+                    "statement": "Stems vary across definitions, reconstruction, fill-in prompts, and workplace scenarios, but several items repeatedly use 'Which' and developer/app framing.",
+                    "item_keys": [
+                      "build-document-extraction-in-code/python-sdk-analysis/r1/v2",
+                      "build-document-extraction-in-code/content-understanding-api-client/r1/v2",
+                      "build-document-extraction-in-code/endpoint-and-authentication/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/0",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/1",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/10"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "scenario_authenticity",
+                "score": 0.92,
+                "evidence": [
+                  {
+                    "statement": "Scenarios use credible tasks such as extracting invoice PDFs, automatically submitting expense receipts, and handling an asynchronous analysis job.",
+                    "item_keys": [
+                      "build-document-extraction-in-code/python-sdk-analysis/r4/v1",
+                      "build-document-extraction-in-code/content-understanding-api-client/r4/v1",
+                      "build-document-extraction-in-code/asynchronous-analysis/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/4",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/5",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/8"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "feedback_usefulness",
+                "score": 0.91,
+                "evidence": [
+                  {
+                    "statement": "Distractors generally include both intrinsic consequences and instructional next steps, such as distinguishing begin_analyze from poller.result and polling from reading unfinished fields. Correct-answer explanations reinforce the governing workflow.",
+                    "item_keys": [
+                      "build-document-extraction-in-code/python-sdk-analysis/r1/v2",
+                      "build-document-extraction-in-code/asynchronous-analysis/r4/v1",
+                      "build-document-extraction-in-code/prebuilt-invoice-sdk-flow/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/0",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/8",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/11"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "difficulty_appropriateness",
+                "score": 0.9,
+                "evidence": [
+                  {
+                    "statement": "The session begins with foundational SDK and client concepts, then includes ordering and workplace application items appropriate for a Level 2 unit. The applying items remain bounded by the supplied examples.",
+                    "item_keys": [],
+                    "paths": []
+                  }
+                ]
+              },
+              {
+                "dimension": "terminology_consistency",
+                "score": 0.96,
+                "evidence": [
+                  {
+                    "statement": "Terms such as Content Understanding API, ContentUnderstandingClient, begin_analyze, poller.result(), polling, endpoint, API key, Microsoft Entra ID, and prebuilt-invoice are used consistently with the source.",
+                    "item_keys": [
+                      "build-document-extraction-in-code/python-sdk-analysis/r1/v2",
+                      "build-document-extraction-in-code/content-understanding-api-client/r3/v1",
+                      "build-document-extraction-in-code/asynchronous-analysis/r3/v1",
+                      "build-document-extraction-in-code/prebuilt-invoice-sdk-flow/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/0",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/3",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/6",
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/11"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "overall_learner_experience",
+                "score": 0.87,
+                "evidence": [
+                  {
+                    "statement": "The session is varied, source-faithful, and instructionally useful overall, but one workflow item has a stem-answer mismatch about receiving the asynchronous result, preventing a fully coherent experience.",
+                    "item_keys": [
+                      "build-document-extraction-in-code/python-sdk-analysis/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/4"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "critical_defects": [
+              {
+                "defect_id": "sdk-result-step-omitted",
+                "dimension": "answer_unambiguity",
+                "summary": "The invoice SDK item asks how to start analysis and later receive its result, but its correct answer omits poller.result().",
+                "evidence": [
+                  {
+                    "statement": "The supplied source's Python SDK example calls begin_analyze to start the long-running operation and then calls poller.result() to wait for completion. This item's stem asks for both starting analysis and later receiving the result, but its correct choices only cover client creation, key credential use, and begin_analyze.",
+                    "item_keys": [
+                      "build-document-extraction-in-code/python-sdk-analysis/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/4"
+                    ]
+                  }
+                ],
+                "affected_item_keys": [
+                  "build-document-extraction-in-code/python-sdk-analysis/r4/v1"
+                ],
+                "affected_paths": [
+                  "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/4"
+                ],
+                "recommended_scope": "item"
+              }
+            ],
+            "largest_gap": {
+              "dimension": "answer_unambiguity",
+              "summary": "The SDK workflow item combines starting analysis with receiving the result but does not offer poller.result() as a selectable action.",
+              "evidence": [
+                {
+                  "statement": "The source distinguishes begin_analyze as the starter and poller.result() as the completion step. The item's stem includes both stages while its keyed answer includes only the starting-stage actions.",
+                  "item_keys": [
+                    "build-document-extraction-in-code/python-sdk-analysis/r4/v1"
+                  ],
+                  "paths": [
+                    "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/4"
+                  ]
+                }
+              ],
+              "affected_item_keys": [
+                "build-document-extraction-in-code/python-sdk-analysis/r4/v1"
+              ],
+              "affected_paths": [
+                "modules/11:12-get-started-with-ai-powered-information-extraction/units/10:build-document-extraction-in-code-l2/questions/4"
+              ],
+              "recommended_scope": "item",
+              "repair_instruction": "Revise only question_text to ask which actions start the analysis, removing the phrase about later receiving its result; preserve question_type and all answer options and keys.",
+              "allowed_payload_fields": [
+                "question_text"
+              ]
+            },
+            "confidence": 0.96,
+            "human_review_recommended": false,
+            "human_review_reason": null,
+            "concise_summary": "The session is strong and source-faithful across all dimensions, with one safe, narrow wording repair needed to align an SDK workflow stem with its keyed answer."
+          },
+          "artifact_sha256": "ecfa263ea03ea03a2f9ccae51c0282ee9ff49b5c80e5ad3e46d8ef2be036f438",
+          "evaluation_context_sha256": "86c491616e45f9fc65ed8f32a0e4839b3f011ad01518b45d528cd8c059dac948",
+          "goal_sha256": "c4bae546eef7fec8c92895a1538196a8df81a13754329022bca211a6200752ae",
+          "critic_backend": "codex",
+          "critic_model": "codex:gpt-5.6-luna",
+          "fresh_context": true,
+          "model_independence": "independent",
+          "approved_reference_count": 0,
+          "reference_confidence_reduced": true,
+          "usage": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cost_usd": 0.0,
+            "backend_calls": 2
+          }
+        },
+        "critic_failure": null,
+        "repair_scope": "item",
+        "repair_summary": "Revised only the question_text for build-document-extraction-in-code/python-sdk-analysis/r4/v1 to ask which actions start the analysis.",
+        "editor_backend": "codex",
+        "editor_model": "codex:gpt-5.6-luna",
+        "editor_fresh_context": true,
+        "edit_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost_usd": 0.0,
+          "backend_calls": 2
+        },
+        "validation_retry_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost_usd": 0.0,
+          "backend_calls": 0
+        },
+        "touched_item_keys": [
+          "build-document-extraction-in-code/python-sdk-analysis/r4/v1"
+        ],
+        "challenger_hash": "fbfe1f6205bbd6749c847a726b250b7989c59cd497f37e9f9d887c5f7955fb5f",
+        "promoted_champion_before": null,
+        "promoted_challenger": null,
+        "hard_gate": {
+          "artifact_sha256": "fbfe1f6205bbd6749c847a726b250b7989c59cd497f37e9f9d887c5f7955fb5f",
+          "passed": true,
+          "issues": [],
+          "checks": {
+            "schema_and_answers": true,
+            "identity": true,
+            "final_sequence": true
+          },
+          "metrics": {},
+          "constraint_relaxations": []
+        },
+        "source_fidelity_critic": {
+          "result": {
+            "dimensions": [
+              {
+                "dimension": "factual_fidelity",
+                "score": 0.98,
+                "evidence": [
+                  {
+                    "statement": "The supplied source explicitly identifies begin_analyze as starting analysis, poller.result as waiting for completion, the API as the programmatic submission route, and prebuilt-invoice as the invoice analyzer.",
+                    "item_keys": [
+                      "build-document-extraction-in-code/python-sdk-analysis/r1/v2",
+                      "build-document-extraction-in-code/python-sdk-analysis/r3/v1",
+                      "build-document-extraction-in-code/content-understanding-api-client/r4/v1",
+                      "build-document-extraction-in-code/prebuilt-invoice-sdk-flow/r4/v1"
+                    ],
+                    "paths": []
+                  },
+                  {
+                    "statement": "The source also supports the endpoint, authentication, asynchronous polling, markdown, and fields claims used in the remaining items.",
+                    "item_keys": [
+                      "build-document-extraction-in-code/asynchronous-analysis/r3/v1",
+                      "build-document-extraction-in-code/endpoint-and-authentication/r3/v1",
+                      "build-document-extraction-in-code/prebuilt-invoice-sdk-flow/r3/v1",
+                      "build-document-extraction-in-code/endpoint-and-authentication/r4/v1"
+                    ],
+                    "paths": []
+                  }
+                ]
+              },
+              {
+                "dimension": "answer_unambiguity",
+                "score": 0.97,
+                "evidence": [
+                  {
+                    "statement": "Each multiple-choice and multi-select item has a defensible keyed answer, and the distractors describe distinct roles or workflow errors. The polling fill-in explicitly accepts both polling and poll, matching the source's noun and verb usage.",
+                    "item_keys": [
+                      "build-document-extraction-in-code/python-sdk-analysis/r1/v2",
+                      "build-document-extraction-in-code/content-understanding-api-client/r1/v2",
+                      "build-document-extraction-in-code/asynchronous-analysis/r3/v1"
+                    ],
+                    "paths": []
+                  }
+                ]
+              },
+              {
+                "dimension": "distractor_plausibility",
+                "score": 0.95,
+                "evidence": [
+                  {
+                    "statement": "Distractors are credible adjacent concepts: poller.result, AzureKeyCredential, and ContentUnderstandingClient are all real SDK elements, while audio/video analyzers are real alternatives for different media types; none is defensible for the stated target.",
+                    "item_keys": [
+                      "build-document-extraction-in-code/python-sdk-analysis/r1/v2",
+                      "build-document-extraction-in-code/prebuilt-invoice-sdk-flow/r4/v1"
+                    ],
+                    "paths": []
+                  }
+                ]
+              },
+              {
+                "dimension": "misconception_quality",
+                "score": 0.94,
+                "evidence": [
+                  {
+                    "statement": "Wrong choices diagnose realistic confusions between starting and waiting, client and server responsibilities, API and output format, portal testing and coded integration, and document versus media analyzers.",
+                    "item_keys": [
+                      "build-document-extraction-in-code/python-sdk-analysis/r1/v2",
+                      "build-document-extraction-in-code/content-understanding-api-client/r1/v2",
+                      "build-document-extraction-in-code/content-understanding-api-client/r4/v1",
+                      "build-document-extraction-in-code/prebuilt-invoice-sdk-flow/r4/v1"
+                    ],
+                    "paths": []
+                  }
+                ]
+              },
+              {
+                "dimension": "cognitive_progression",
+                "score": 0.94,
+                "evidence": [
+                  {
+                    "statement": "The ordered sequence moves from identifying SDK methods and client responsibilities, through reconstructing the SDK flow and naming API/polling concepts, into applied workflow, connection, and analyzer-selection scenarios.",
+                    "item_keys": [
+                      "build-document-extraction-in-code/python-sdk-analysis/r1/v2",
+                      "build-document-extraction-in-code/python-sdk-analysis/r3/v1",
+                      "build-document-extraction-in-code/python-sdk-analysis/r4/v1",
+                      "build-document-extraction-in-code/prebuilt-invoice-sdk-flow/r4/v1"
+                    ],
+                    "paths": []
+                  }
+                ]
+              },
+              {
+                "dimension": "mechanic_rhythm_variation",
+                "score": 0.98,
+                "evidence": [
+                  {
+                    "statement": "The 12-item sequence alternates multiple choice, multi-select, arrange, and fill-in mechanics without long disruptive runs of one mechanic.",
+                    "item_keys": [
+                      "build-document-extraction-in-code/python-sdk-analysis/r1/v2",
+                      "build-document-extraction-in-code/content-understanding-api-client/r1/v2",
+                      "build-document-extraction-in-code/python-sdk-analysis/r3/v1",
+                      "build-document-extraction-in-code/content-understanding-api-client/r3/v1",
+                      "build-document-extraction-in-code/python-sdk-analysis/r4/v1",
+                      "build-document-extraction-in-code/content-understanding-api-client/r4/v1",
+                      "build-document-extraction-in-code/asynchronous-analysis/r3/v1",
+                      "build-document-extraction-in-code/endpoint-and-authentication/r3/v1",
+                      "build-document-extraction-in-code/asynchronous-analysis/r4/v1",
+                      "build-document-extraction-in-code/prebuilt-invoice-sdk-flow/r3/v1",
+                      "build-document-extraction-in-code/endpoint-and-authentication/r4/v1",
+                      "build-document-extraction-in-code/prebuilt-invoice-sdk-flow/r4/v1"
+                    ],
+                    "paths": []
+                  }
+                ]
+              },
+              {
+                "dimension": "prompt_language_variation",
+                "score": 0.96,
+                "evidence": [
+                  {
+                    "statement": "Prompt stems vary across method identification, statement selection, reconstruction, definition completion, procedural action, and realistic app scenarios; repetition is limited and functional.",
+                    "item_keys": [
+                      "build-document-extraction-in-code/python-sdk-analysis/r1/v2",
+                      "build-document-extraction-in-code/content-understanding-api-client/r1/v2",
+                      "build-document-extraction-in-code/python-sdk-analysis/r3/v1",
+                      "build-document-extraction-in-code/content-understanding-api-client/r3/v1",
+                      "build-document-extraction-in-code/content-understanding-api-client/r4/v1",
+                      "build-document-extraction-in-code/asynchronous-analysis/r4/v1"
+                    ],
+                    "paths": []
+                  }
+                ]
+              },
+              {
+                "dimension": "scenario_authenticity",
+                "score": 0.95,
+                "evidence": [
+                  {
+                    "statement": "The scenarios reflect credible tasks from the source: automatically submitting scanned expense receipts, handling an asynchronous receipt job, connecting to an invoice-analysis service, and selecting an analyzer for an invoice PDF.",
+                    "item_keys": [
+                      "build-document-extraction-in-code/content-understanding-api-client/r4/v1",
+                      "build-document-extraction-in-code/asynchronous-analysis/r4/v1",
+                      "build-document-extraction-in-code/endpoint-and-authentication/r4/v1",
+                      "build-document-extraction-in-code/prebuilt-invoice-sdk-flow/r4/v1"
+                    ],
+                    "paths": []
+                  }
+                ]
+              },
+              {
+                "dimension": "feedback_usefulness",
+                "score": 0.97,
+                "evidence": [
+                  {
+                    "statement": "Explanations state the governing concept and next step, while incorrect options include intrinsic consequences and instructional corrections, such as polling before reading fields and using the API for programmatic submission.",
+                    "item_keys": [
+                      "build-document-extraction-in-code/content-understanding-api-client/r4/v1",
+                      "build-document-extraction-in-code/asynchronous-analysis/r4/v1",
+                      "build-document-extraction-in-code/prebuilt-invoice-sdk-flow/r4/v1"
+                    ],
+                    "paths": []
+                  }
+                ]
+              },
+              {
+                "dimension": "difficulty_appropriateness",
+                "score": 0.95,
+                "evidence": [
+                  {
+                    "statement": "The session begins with remembering and understanding, then introduces applying-level workflow and scenario decisions, which fits a Level 2 unit whose objective is describing client submission and receipt of analysis results.",
+                    "item_keys": [
+                      "build-document-extraction-in-code/python-sdk-analysis/r1/v2",
+                      "build-document-extraction-in-code/python-sdk-analysis/r3/v1",
+                      "build-document-extraction-in-code/content-understanding-api-client/r4/v1",
+                      "build-document-extraction-in-code/prebuilt-invoice-sdk-flow/r4/v1"
+                    ],
+                    "paths": []
+                  }
+                ]
+              },
+              {
+                "dimension": "terminology_consistency",
+                "score": 0.98,
+                "evidence": [
+                  {
+                    "statement": "Client, server, API, endpoint, analyzer, schema, poller, polling, fields, markdown, and prebuilt-invoice are used consistently with the supplied source and across the session.",
+                    "item_keys": [
+                      "build-document-extraction-in-code/content-understanding-api-client/r1/v2",
+                      "build-document-extraction-in-code/python-sdk-analysis/r3/v1",
+                      "build-document-extraction-in-code/asynchronous-analysis/r3/v1",
+                      "build-document-extraction-in-code/prebuilt-invoice-sdk-flow/r3/v1",
+                      "build-document-extraction-in-code/prebuilt-invoice-sdk-flow/r4/v1"
+                    ],
+                    "paths": []
+                  }
+                ]
+              },
+              {
+                "dimension": "overall_learner_experience",
+                "score": 0.96,
+                "evidence": [
+                  {
+                    "statement": "The exact ordered sequence is coherent, source-faithful, varied in mechanics and prompts, and repeatedly connects terminology to concrete SDK and application decisions.",
+                    "item_keys": [
+                      "build-document-extraction-in-code/python-sdk-analysis/r1/v2",
+                      "build-document-extraction-in-code/python-sdk-analysis/r4/v1",
+                      "build-document-extraction-in-code/asynchronous-analysis/r4/v1",
+                      "build-document-extraction-in-code/endpoint-and-authentication/r4/v1",
+                      "build-document-extraction-in-code/prebuilt-invoice-sdk-flow/r4/v1"
+                    ],
+                    "paths": []
+                  }
+                ]
+              }
+            ],
+            "critical_defects": [],
+            "largest_gap": null,
+            "confidence": 0.92,
+            "human_review_recommended": false,
+            "human_review_reason": null,
+            "concise_summary": "The challenger passes the hard-gated review: its answers, explanations, feedback, terminology, sequence, and distractors are supported by the authoritative source, with no critical defects or repairable threshold gaps identified."
+          },
+          "artifact_sha256": "fbfe1f6205bbd6749c847a726b250b7989c59cd497f37e9f9d887c5f7955fb5f",
+          "evaluation_context_sha256": "86c491616e45f9fc65ed8f32a0e4839b3f011ad01518b45d528cd8c059dac948",
+          "goal_sha256": "6ce6b245bb30616f24e0fa9f76e0f5d01e608776378d036724270915fb57e725",
+          "critic_backend": "codex",
+          "critic_model": "codex:gpt-5.6-luna",
+          "fresh_context": true,
+          "model_independence": "independent",
+          "approved_reference_count": 0,
+          "reference_confidence_reduced": true,
+          "usage": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cost_usd": 0.0,
+            "backend_calls": 1
+          }
+        },
+        "source_fidelity_gate": {
+          "artifact_sha256": "fbfe1f6205bbd6749c847a726b250b7989c59cd497f37e9f9d887c5f7955fb5f",
+          "passed": true,
+          "issues": [],
+          "checks": {
+            "factual_fidelity_threshold": true,
+            "critic_confidence_threshold": true,
+            "no_factual_critical_defect": true,
+            "no_human_review_request": true,
+            "fresh_critic_context": true
+          },
+          "metrics": {
+            "factual_fidelity_score": 0.98,
+            "factual_fidelity_threshold": 0.8,
+            "critic_confidence": 0.92
+          },
+          "constraint_relaxations": []
+        },
+        "comparison": {
+          "champion_sha256": "ecfa263ea03ea03a2f9ccae51c0282ee9ff49b5c80e5ad3e46d8ef2be036f438",
+          "challenger_sha256": "fbfe1f6205bbd6749c847a726b250b7989c59cd497f37e9f9d887c5f7955fb5f",
+          "evaluation_context_sha256": "86c491616e45f9fc65ed8f32a0e4839b3f011ad01518b45d528cd8c059dac948",
+          "comparator_backend": "codex",
+          "comparator_model": "codex:gpt-5.6-luna",
+          "comparator_fresh_context": true,
+          "records": [
+            {
+              "order_index": 1,
+              "seed": 902,
+              "a_role": "challenger",
+              "b_role": "champion",
+              "mapped_winner": "challenger",
+              "verdict": {
+                "winner": "A",
+                "confidence": 0.99,
+                "margin": 0.05,
+                "dimensions": [
+                  {
+                    "dimension": "factual_fidelity",
+                    "score_a": 0.95,
+                    "score_b": 0.95,
+                    "evidence": "Both candidates are substantively faithful to the supplied SDK, API, analyzer, schema, polling, authentication, and client-application material."
+                  },
+                  {
+                    "dimension": "answer_unambiguity",
+                    "score_a": 0.95,
+                    "score_b": 0.72,
+                    "evidence": "Candidate B asks how to start analysis and later receive its result, but omits poller.result from the options and answer key; A has a narrower, fully answerable stem."
+                  },
+                  {
+                    "dimension": "distractor_plausibility",
+                    "score_a": 0.91,
+                    "score_b": 0.91,
+                    "evidence": "Both use credible confusions such as authentication versus analysis, portal versus API, OCR versus structured output, and audio versus invoice analyzers."
+                  },
+                  {
+                    "dimension": "misconception_quality",
+                    "score_a": 0.9,
+                    "score_b": 0.9,
+                    "evidence": "Both diagnose realistic misunderstandings about client/server roles, asynchronous processing, schemas, endpoints, and analyzer selection."
+                  },
+                  {
+                    "dimension": "cognitive_progression",
+                    "score_a": 0.84,
+                    "score_b": 0.8,
+                    "evidence": "Both progress from recall to ordering and application; B's expanded item introduces a result-receipt requirement that its answer set does not support."
+                  },
+                  {
+                    "dimension": "mechanic_rhythm_variation",
+                    "score_a": 0.68,
+                    "score_b": 0.68,
+                    "evidence": "Both vary multiple choice, select-all, arrange, and fill-in mechanics, though multiple-choice items still dominate."
+                  },
+                  {
+                    "dimension": "prompt_language_variation",
+                    "score_a": 0.76,
+                    "score_b": 0.78,
+                    "evidence": "Both use varied stems; B's item 5 adds more contextual wording, though that added wording creates an answer-scope mismatch."
+                  },
+                  {
+                    "dimension": "scenario_authenticity",
+                    "score_a": 0.82,
+                    "score_b": 0.86,
+                    "evidence": "Both include credible invoice, receipt, desktop-app, and developer contexts; B's item 5 is slightly more realistic as an app-development scenario."
+                  },
+                  {
+                    "dimension": "feedback_usefulness",
+                    "score_a": 0.88,
+                    "score_b": 0.81,
+                    "evidence": "A's item 5 explanation matches its stated task; B's explanation does not address the omitted action needed to receive the later result."
+                  },
+                  {
+                    "dimension": "difficulty_appropriateness",
+                    "score_a": 0.88,
+                    "score_b": 0.86,
+                    "evidence": "Both fit an introductory review-to-application session; B's compound item is somewhat harder but inadequately supported by its options."
+                  },
+                  {
+                    "dimension": "terminology_consistency",
+                    "score_a": 0.94,
+                    "score_b": 0.94,
+                    "evidence": "Both consistently use source terms including begin_analyze, poller.result, API, endpoint, schema, analyzer, fields, and JSON."
+                  },
+                  {
+                    "dimension": "overall_learner_experience",
+                    "score_a": 0.86,
+                    "score_b": 0.8,
+                    "evidence": "The sequences are otherwise identical, but B creates a visible learner-facing contradiction between its compound prompt and its keyed choices."
+                  }
+                ],
+                "evidence": [
+                  "The candidates are identical except for the fifth multiple-choice stem and its unchanged options, answer key, and explanation.",
+                  "Candidate A asks only what starts analysis, correctly keyed to begin_analyze; Candidate B also asks how to later receive the result without offering poller.result as a choice."
+                ],
+                "human_review_recommended": false,
+                "usage": {
+                  "input_tokens": 0,
+                  "output_tokens": 0,
+                  "cost_usd": 0.0,
+                  "backend_calls": 1
+                }
+              }
+            },
+            {
+              "order_index": 2,
+              "seed": 902,
+              "a_role": "champion",
+              "b_role": "challenger",
+              "mapped_winner": "champion",
+              "verdict": {
+                "winner": "A",
+                "confidence": 0.98,
+                "margin": 0.02,
+                "dimensions": [
+                  {
+                    "dimension": "factual_fidelity",
+                    "score_a": 0.99,
+                    "score_b": 0.99,
+                    "evidence": "Both candidates accurately reflect the supplied SDK, API, analyzer, authentication, polling, and structured-output content."
+                  },
+                  {
+                    "dimension": "answer_unambiguity",
+                    "score_a": 0.99,
+                    "score_b": 0.95,
+                    "evidence": "A specifies an invoice-PDF app using an API key and asks about starting and receiving results; B's generic stem is slightly less precise for the same multi-select answers."
+                  },
+                  {
+                    "dimension": "distractor_plausibility",
+                    "score_a": 0.98,
+                    "score_b": 0.98,
+                    "evidence": "Both use credible distractors such as portal layout, OCR results, JSON responses, and authentication or client-role confusions."
+                  },
+                  {
+                    "dimension": "misconception_quality",
+                    "score_a": 0.98,
+                    "score_b": 0.98,
+                    "evidence": "Both diagnose realistic confusions between client/server roles, portal/API use, polling, schemas, outputs, and analyzer types."
+                  },
+                  {
+                    "dimension": "cognitive_progression",
+                    "score_a": 0.95,
+                    "score_b": 0.94,
+                    "evidence": "Both progress from SDK recall through sequencing and terminology to applied workflow decisions; A's added context slightly strengthens the applied step."
+                  },
+                  {
+                    "dimension": "mechanic_rhythm_variation",
+                    "score_a": 0.96,
+                    "score_b": 0.96,
+                    "evidence": "Both alternate multiple choice, multi-select, arranging, and fill-in mechanics across the sequence."
+                  },
+                  {
+                    "dimension": "prompt_language_variation",
+                    "score_a": 0.94,
+                    "score_b": 0.94,
+                    "evidence": "Both contain varied stems and task wording, with no material difference except the fifth item's added context in A."
+                  },
+                  {
+                    "dimension": "scenario_authenticity",
+                    "score_a": 0.97,
+                    "score_b": 0.94,
+                    "evidence": "A frames the fifth item as a realistic invoice-PDF coding task; B removes that context and becomes more abstract."
+                  },
+                  {
+                    "dimension": "feedback_usefulness",
+                    "score_a": 0.98,
+                    "score_b": 0.98,
+                    "evidence": "Both provide concept-specific rationales, intrinsic consequences, instructional corrections, and next steps for incorrect choices."
+                  },
+                  {
+                    "dimension": "difficulty_appropriateness",
+                    "score_a": 0.96,
+                    "score_b": 0.96,
+                    "evidence": "Both mix foundational recall with appropriately scaffolded application for the stated lesson position."
+                  },
+                  {
+                    "dimension": "terminology_consistency",
+                    "score_a": 0.99,
+                    "score_b": 0.99,
+                    "evidence": "Both consistently use source terminology including Content Understanding API, analyzer, schema, endpoint, poller, fields, and prebuilt-invoice."
+                  },
+                  {
+                    "dimension": "overall_learner_experience",
+                    "score_a": 0.97,
+                    "score_b": 0.94,
+                    "evidence": "The candidates are otherwise identical, but A's more specific fifth prompt better aligns the scenario, instructions, and selected answers."
+                  }
+                ],
+                "evidence": [
+                  "The candidates contain the same ordered items, options, answers, rationales, feedback, metadata, and explanations except for the fifth question stem.",
+                  "A's fifth stem explicitly supplies the invoice-PDF and API-key context and includes receiving the result, making the three selected actions more defensible.",
+                  "B's corresponding stem is shorter and less contextual, producing a small clarity and authenticity disadvantage without changing the underlying answer key."
+                ],
+                "human_review_recommended": false,
+                "usage": {
+                  "input_tokens": 0,
+                  "output_tokens": 0,
+                  "cost_usd": 0.0,
+                  "backend_calls": 1
+                }
+              }
+            }
+          ],
+          "position_sensitive": true,
+          "stable": false,
+          "decision": "human_review",
+          "protected_regressions": [
+            "answer_unambiguity"
+          ],
+          "minimum_confidence": 0.98,
+          "minimum_margin": 0.02,
+          "decision_evidence": "Position-swapped judgments disagree; the champion is retained.",
+          "usage": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cost_usd": 0.0,
+            "backend_calls": 2
+          }
+        },
+        "decision": "retained_human",
+        "decision_evidence": "Position-swapped judgments disagree; the champion is retained.",
+        "champion_hash_after": "ecfa263ea03ea03a2f9ccae51c0282ee9ff49b5c80e5ad3e46d8ef2be036f438",
+        "constraint_relaxations": [],
+        "cumulative_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost_usd": 0.0,
+          "backend_calls": 13
+        }
+      }
+    ],
+    "stop_reason": "human_review_required",
+    "stop_evidence": "Position-swapped judgments disagree; the champion is retained.",
+    "human_decision": null,
+    "total_usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "backend_calls": 13
+    },
+    "human_review_recommended": true,
+    "publication_eligible": false
+  }
+}

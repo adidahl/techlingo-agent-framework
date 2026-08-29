@@ -24,6 +24,7 @@ from .workspace import (
     canonical_json,
     sha256_text,
 )
+from .worksheet import worksheet_size_bounds
 
 
 class PublicationSafetyError(WorkspaceError):
@@ -145,6 +146,7 @@ def _inspect_publication_readiness_locked(ws: Workspace) -> PublicationReadiness
     meta = ws.load_meta()
     curriculum = ws.load_curriculum()
     graph = ws.load_graph()
+    concepts_by_id = graph.by_id()
     state = ws.load_build_state()
     sources = list(ws.iter_sources())
     source_hashes = {source.name: ws.source_hash(source) for source in sources}
@@ -161,9 +163,11 @@ def _inspect_publication_readiness_locked(ws: Workspace) -> PublicationReadiness
     # publication preflight needs the same authoritative config resolver.
     from .course_build import config_hash, resolve_build_config
 
-    workflow_hash = config_hash(resolve_build_config(meta.workflow, meta.difficulty))
+    workflow_config = resolve_build_config(meta.workflow, meta.difficulty)
+    workflow_hash = config_hash(workflow_config)
     compile_hash = hash_data(ws.load_compile_config())
     current_bank_hash = banks_sha256(banks)
+    blockers: list[str] = []
     validation_report_hashes = {
         source.name: (
             state.sources[source.name].validation_report_sha256
@@ -172,7 +176,30 @@ def _inspect_publication_readiness_locked(ws: Workspace) -> PublicationReadiness
         )
         for source in sources
     }
-    blockers: list[str] = []
+    seen_repair_items: set[str] = set()
+    for repair in state.authored_repairs:
+        label = f"authored-repair:{repair.item_key}"
+        if repair.item_key in seen_repair_items:
+            blockers.append(f"{label}: duplicate promoted repair identity")
+        seen_repair_items.add(repair.item_key)
+        receipt = ws.root / repair.receipt_path
+        expected_parent = ws.root / "gauntlet" / "proposals" / "applied"
+        if (
+            receipt.is_symlink()
+            or receipt.parent != expected_parent
+            or not receipt.is_file()
+        ):
+            blockers.append(f"{label}: application receipt is missing or unsafe")
+            validation_report_hashes[label] = None
+            continue
+        actual_receipt_hash = sha256_text(receipt.read_text(encoding="utf-8"))
+        validation_report_hashes[label] = actual_receipt_hash
+        if actual_receipt_hash != repair.receipt_sha256:
+            blockers.append(f"{label}: application receipt changed after promotion")
+        if repair.source_file not in source_hashes:
+            blockers.append(f"{label}: authoritative source is missing")
+    if state.authored_repairs and state.authored_repairs[-1].bank_sha256 != state.bank_sha256:
+        blockers.append("authored-repair: latest receipt is not bound to the promoted bank state")
 
     if state.schema_version != BUILD_STATE_SCHEMA:
         blockers.append(
@@ -246,6 +273,62 @@ def _inspect_publication_readiness_locked(ws: Workspace) -> PublicationReadiness
                 blockers.append(
                     f"bank/{lesson.key}: declares module '{banks[lesson.key].module}', expected '{module.key}'"
                 )
+            if (
+                not module.authored
+                and workflow_config.worksheet_items_per_lesson is not None
+            ):
+                expected_count = workflow_config.worksheet_items_per_lesson
+                if lesson.key in banks:
+                    active_count = sum(
+                        item.status != "retired" for item in banks[lesson.key].items
+                    )
+                    if active_count != expected_count:
+                        blockers.append(
+                            f"bank/{lesson.key}: exact worksheet policy requires {expected_count} "
+                            f"active items, got {active_count}"
+                        )
+
+                lesson_path = f"curriculum/modules/{module.key}/lessons/{lesson.key}"
+                if not lesson.concepts:
+                    blockers.append(
+                        f"{lesson_path}: exact worksheet policy is missing concept references"
+                    )
+                    continue
+
+                unresolved = [
+                    concept_id
+                    for concept_id in lesson.concepts
+                    if concept_id not in concepts_by_id
+                ]
+                if unresolved:
+                    blockers.append(
+                        f"{lesson_path}: exact worksheet policy has unresolved concept "
+                        f"references: {sorted(unresolved)}"
+                    )
+                    continue
+
+                worksheet_concepts = [
+                    concepts_by_id[concept_id] for concept_id in lesson.concepts
+                ]
+                depthless = [
+                    concept.id
+                    for concept in worksheet_concepts
+                    if concept.depth not in {"fact", "mechanism", "decision"}
+                ]
+                if depthless:
+                    blockers.append(
+                        f"{lesson_path}: exact worksheet policy requires a valid depth for "
+                        f"every concept; missing/invalid depth: {sorted(depthless)}"
+                    )
+                    continue
+
+                minimum, maximum = worksheet_size_bounds(worksheet_concepts)
+                if not minimum <= expected_count <= maximum:
+                    blockers.append(
+                        f"{lesson_path}: worksheet item budget {expected_count} is "
+                        f"infeasible; complete rung coverage requires at least {minimum} "
+                        f"rows and the full quota provides at most {maximum}"
+                    )
     for orphan in sorted(set(banks) - set(curriculum_lessons)):
         blockers.append(f"bank/{orphan}: is not referenced by curriculum")
 

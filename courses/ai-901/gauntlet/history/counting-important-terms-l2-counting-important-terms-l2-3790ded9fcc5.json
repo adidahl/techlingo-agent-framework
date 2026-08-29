@@ -1,0 +1,1115 @@
+{
+  "schema_version": "techlingo-gauntlet-record-v1",
+  "compiled_artifact_sha256": "69c9d18537cc04d4d24f6ffad549e8d9c17ee1b85b2ba8dc167de6c8be33ae73",
+  "unit_key": "counting-important-terms-l2",
+  "champion": {
+    "artifact_id": "ai-901:counting-important-terms-l2",
+    "course_id": "ai-901",
+    "session_id": "counting-important-terms-l2",
+    "items": [
+      {
+        "item_key": "counting-important-terms/idf-inverse-document-frequency/r1/v2",
+        "path": "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/0",
+        "payload": {
+          "import_key": "counting-important-terms-l2-q1",
+          "question_type": "multiple_choice",
+          "question_text": "In the IDF formula, what is df(t)?",
+          "options": {
+            "options": [
+              {
+                "text": "Uses of term t in one document",
+                "is_correct": false,
+                "error_type": "Confuses document frequency with TF",
+                "rationale": "Uses in one item are TF. df(t) counts how many items contain the term.",
+                "better_fit": "Choose this when calculating TF.",
+                "feedback": {
+                  "intrinsic": "You would put a local count into a collection-wide calculation.",
+                  "instructional": "df(t) counts items containing t, while TF counts uses within one item."
+                }
+              },
+              {
+                "text": "Documents containing term t",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "df(t) is the number of items containing term t. It is used with N in log(N/df(t)).",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Total tokens in term t",
+                "is_correct": false,
+                "error_type": "Confuses IDF with tokenization",
+                "rationale": "IDF does not count the tokens inside a term. It uses the number of items containing that term.",
+                "better_fit": "This does not fit the IDF formula.",
+                "feedback": {
+                  "intrinsic": "The rarity calculation would not reflect how widely the term appears.",
+                  "instructional": "For IDF, count the items that contain the term, not the tokens in its spelling."
+                }
+              },
+              {
+                "text": "Similarity score for term t",
+                "is_correct": false,
+                "error_type": "Confuses IDF with vector similarity",
+                "rationale": "Similarity scores compare vectors. df(t) is a count of items containing a term.",
+                "better_fit": "Choose this when comparing semantic vectors.",
+                "feedback": {
+                  "intrinsic": "You would replace a count with an unrelated comparison value.",
+                  "instructional": "IDF uses counts of items, not vector similarity."
+                }
+              }
+            ],
+            "blooms_level": "Remembering",
+            "original_question_type": "single_choice",
+            "concept_id": "idf-inverse-document-frequency",
+            "item_key": "counting-important-terms/idf-inverse-document-frequency/r1/v2",
+            "rung": 1,
+            "variant": 2,
+            "module_key": "3-introduction-to-natural-language-processing-concepts",
+            "lesson_key": "counting-important-terms",
+            "learning_status": "review"
+          },
+          "correct_answer": "1",
+          "explanation": "Correct. df(t) is the number of items that contain the term.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "counting-important-terms/tf-idf/r2/v2",
+        "path": "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/1",
+        "payload": {
+          "import_key": "counting-important-terms-l2-q2",
+          "question_type": "true_false",
+          "question_text": "TF-IDF gives low discriminative weight to a term that appears in every document.",
+          "options": {
+            "blooms_level": "Understanding",
+            "original_question_type": "true_false",
+            "concept_id": "tf-idf",
+            "feedback_for_incorrect": {
+              "intrinsic": "A shared term would be treated as if it separated individual topics.",
+              "instructional": "When a term appears in every item, its IDF is zero, so it contributes no distinguishing TF-IDF weight."
+            },
+            "item_key": "counting-important-terms/tf-idf/r2/v2",
+            "rung": 2,
+            "variant": 2,
+            "module_key": "3-introduction-to-natural-language-processing-concepts",
+            "lesson_key": "counting-important-terms",
+            "learning_status": "review"
+          },
+          "correct_answer": "true",
+          "explanation": "Correct. A term in every item has IDF of zero and no discriminative TF-IDF weight.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "counting-important-terms/frequency-across-corpus-limitation/r3/v1",
+        "path": "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/2",
+        "payload": {
+          "import_key": "counting-important-terms-l2-q3",
+          "question_type": "arrange_sentence",
+          "question_text": "Arrange the parts to form the correct statement.",
+          "options": {
+            "word_bank": [
+              "one document",
+              "Terms common in many documents",
+              "from another",
+              "do not distinguish"
+            ],
+            "correct_order": [
+              "Terms common in many documents",
+              "do not distinguish",
+              "one document",
+              "from another"
+            ],
+            "blooms_level": "Understanding",
+            "original_question_type": "rearrange",
+            "concept_id": "frequency-across-corpus-limitation",
+            "feedback_for_incorrect": {
+              "intrinsic": "The comparison claim would be unclear to a colleague.",
+              "instructional": "Place the shared terms first, followed by what they cannot do, then the two items being compared."
+            },
+            "item_key": "counting-important-terms/frequency-across-corpus-limitation/r3/v1",
+            "rung": 3,
+            "variant": 1,
+            "module_key": "3-introduction-to-natural-language-processing-concepts",
+            "lesson_key": "counting-important-terms",
+            "learning_status": "new"
+          },
+          "correct_answer": "Terms common in many documents do not distinguish one document from another",
+          "explanation": "The sentence first identifies the shared terms, then explains their limitation: they cannot separate individual topics.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "counting-important-terms/term-frequency/r3/v1",
+        "path": "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/3",
+        "payload": {
+          "import_key": "counting-important-terms-l2-q4",
+          "question_type": "fill_blank",
+          "question_text": "If “agent” appears six times in one document, its ___ is 6.",
+          "options": {
+            "parts": [
+              {
+                "type": "text",
+                "text": "If “agent” appears six times in one document, its "
+              },
+              {
+                "type": "gap",
+                "accepted_answers": [
+                  "term frequency",
+                  "TF"
+                ],
+                "rejected_answers": [
+                  "IDF",
+                  "inverse document frequency",
+                  "TF-IDF"
+                ],
+                "placeholder": "measure"
+              },
+              {
+                "type": "text",
+                "text": " is 6."
+              }
+            ],
+            "rejected_answers": [
+              "IDF",
+              "inverse document frequency",
+              "TF-IDF"
+            ],
+            "blooms_level": "Remembering",
+            "original_question_type": "fill_gaps",
+            "concept_id": "term-frequency",
+            "feedback_for_incorrect": {
+              "intrinsic": "The six-count result would be given the wrong name.",
+              "instructional": "Use TF for an appearance count in one item, not IDF or the combined TF-IDF score."
+            },
+            "item_key": "counting-important-terms/term-frequency/r3/v1",
+            "rung": 3,
+            "variant": 1,
+            "module_key": "3-introduction-to-natural-language-processing-concepts",
+            "lesson_key": "counting-important-terms",
+            "learning_status": "new"
+          },
+          "correct_answer": "[\"term frequency\",\"TF\"]",
+          "explanation": "The measure is based only on the number of appearances in one item. IDF uses the collection, while TF-IDF combines two values.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "counting-important-terms/frequency-across-corpus-limitation/r4/v1",
+        "path": "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/4",
+        "payload": {
+          "import_key": "counting-important-terms-l2-q5",
+          "question_type": "multiple_choice",
+          "question_text": "A content analyst compares a Copilot Studio article with a Microsoft Foundry article. Which terms would best help identify their different topics? Select all that apply.",
+          "options": {
+            "options": [
+              {
+                "text": "copilot",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "Copilot is specific to one sample. It helps separate that topic from the Foundry sample.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "agent",
+                "is_correct": false,
+                "error_type": "Chooses a shared high-frequency term",
+                "rationale": "Agent appears frequently in both samples. It identifies their shared theme, not their difference.",
+                "better_fit": "Choose this when stating the broad theme common to both articles.",
+                "feedback": {
+                  "intrinsic": "You would label both articles similarly instead of separating their focuses.",
+                  "instructional": "Use terms that occur in one topic, not shared terms such as agent, to distinguish items."
+                }
+              },
+              {
+                "text": "declarative",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "Declarative identifies the configured-not-programmed approach. It is specific enough to distinguish the topic.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "foundry",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "Foundry identifies the code-based development sample. It helps distinguish the two focuses.",
+                "better_fit": null,
+                "feedback": null
+              }
+            ],
+            "blooms_level": "Applying",
+            "original_question_type": "multi_choice",
+            "concept_id": "frequency-across-corpus-limitation",
+            "item_key": "counting-important-terms/frequency-across-corpus-limitation/r4/v1",
+            "rung": 4,
+            "variant": 1,
+            "module_key": "3-introduction-to-natural-language-processing-concepts",
+            "lesson_key": "counting-important-terms",
+            "learning_status": "new"
+          },
+          "correct_answer": "[0,2,3]",
+          "explanation": "Correct. These terms identify the separate topics more clearly than shared terms do.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "counting-important-terms/tf-idf/r3/v1",
+        "path": "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/5",
+        "payload": {
+          "import_key": "counting-important-terms-l2-q6",
+          "question_type": "fill_blank",
+          "question_text": "A score calculated as TF multiplied by IDF is called ___.",
+          "options": {
+            "parts": [
+              {
+                "type": "text",
+                "text": "A score calculated as TF multiplied by IDF is called "
+              },
+              {
+                "type": "gap",
+                "accepted_answers": [
+                  "TF-IDF",
+                  "tf-idf"
+                ],
+                "rejected_answers": [
+                  "TF",
+                  "term frequency",
+                  "IDF",
+                  "inverse document frequency",
+                  "frequency analysis",
+                  "frequency-analysis",
+                  "tf-term-frequency",
+                  "idf-inverse-document-frequency"
+                ],
+                "placeholder": "technical term"
+              },
+              {
+                "type": "text",
+                "text": "."
+              }
+            ],
+            "rejected_answers": [
+              "TF",
+              "term frequency",
+              "IDF",
+              "inverse document frequency",
+              "frequency analysis",
+              "frequency-analysis",
+              "tf-term-frequency",
+              "idf-inverse-document-frequency"
+            ],
+            "blooms_level": "Remembering",
+            "original_question_type": "fill_gaps",
+            "concept_id": "tf-idf",
+            "feedback_for_incorrect": {
+              "intrinsic": "The result would be named as only part of the calculation.",
+              "instructional": "TF-IDF is the combined score from TF multiplied by IDF; TF and IDF alone are not the final score."
+            },
+            "item_key": "counting-important-terms/tf-idf/r3/v1",
+            "rung": 3,
+            "variant": 1,
+            "module_key": "3-introduction-to-natural-language-processing-concepts",
+            "lesson_key": "counting-important-terms",
+            "learning_status": "new"
+          },
+          "correct_answer": "[\"TF-IDF\",\"tf-idf\"]",
+          "explanation": "The score joins a term’s count in one item with its collection-wide rarity. TF and IDF are the separate inputs, while frequency analysis is simple counting.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "counting-important-terms/idf-inverse-document-frequency/r3/v1",
+        "path": "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/6",
+        "payload": {
+          "import_key": "counting-important-terms-l2-q7",
+          "question_type": "arrange_sentence",
+          "question_text": "Arrange the following steps to calculate IDF.",
+          "options": {
+            "word_bank": [
+              "Divide N by df(t)",
+              "Count all documents",
+              "Take the logarithm",
+              "Find documents containing t"
+            ],
+            "correct_order": [
+              "Count all documents",
+              "Find documents containing t",
+              "Divide N by df(t)",
+              "Take the logarithm"
+            ],
+            "blooms_level": "Understanding",
+            "original_question_type": "rearrange",
+            "concept_id": "idf-inverse-document-frequency",
+            "feedback_for_incorrect": {
+              "intrinsic": "The calculation would no longer follow the IDF formula.",
+              "instructional": "Find N and df(t) first, divide N by df(t), then take the logarithm."
+            },
+            "item_key": "counting-important-terms/idf-inverse-document-frequency/r3/v1",
+            "rung": 3,
+            "variant": 1,
+            "module_key": "3-introduction-to-natural-language-processing-concepts",
+            "lesson_key": "counting-important-terms",
+            "learning_status": "new"
+          },
+          "correct_answer": "Count all documents Find documents containing t Divide N by df(t) Take the logarithm",
+          "explanation": "IDF needs both collection counts before forming N/df(t). The logarithm is applied after the ratio is calculated.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "counting-important-terms/tf-idf/r4/v1",
+        "path": "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/7",
+        "payload": {
+          "import_key": "counting-important-terms-l2-q8",
+          "question_type": "multiple_choice",
+          "question_text": "A support analyst has a large collection of support tickets. One ticket repeatedly mentions a term that is unusual in the rest of the collection. Which score should the analyst use to find that term?",
+          "options": {
+            "options": [
+              {
+                "text": "Raw frequency analysis",
+                "is_correct": false,
+                "error_type": "Uses within-document counts only",
+                "rationale": "Raw frequency counts appearances but does not account for rarity across the collection. It may elevate widely shared terms.",
+                "better_fit": "Choose this for a quick topic clue from one item.",
+                "feedback": {
+                  "intrinsic": "You might highlight a common term rather than a distinctive one.",
+                  "instructional": "Use TF-IDF when both repeated use in one item and rarity across the collection matter."
+                }
+              },
+              {
+                "text": "Term Frequency",
+                "is_correct": false,
+                "error_type": "Uses TF without IDF",
+                "rationale": "TF captures repeated use in the ticket. It does not measure whether the term is unusual elsewhere.",
+                "better_fit": "Choose this when only the count within one ticket is needed.",
+                "feedback": {
+                  "intrinsic": "You would miss whether the term is common across the rest of the collection.",
+                  "instructional": "TF is one input; TF-IDF adds IDF to account for rarity."
+                }
+              },
+              {
+                "text": "TF-IDF",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "The term is frequent in one ticket and rare elsewhere. TF-IDF combines both facts into one score.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Inverse Document Frequency",
+                "is_correct": false,
+                "error_type": "Uses IDF without TF",
+                "rationale": "IDF captures rarity across the collection. It does not show whether the term is repeated in this ticket.",
+                "better_fit": "Choose this when measuring collection-wide rarity alone.",
+                "feedback": {
+                  "intrinsic": "You would miss whether the rare term is important in this ticket.",
+                  "instructional": "TF-IDF needs both within-item frequency and collection-wide rarity."
+                }
+              }
+            ],
+            "blooms_level": "Applying",
+            "original_question_type": "single_choice",
+            "concept_id": "tf-idf",
+            "item_key": "counting-important-terms/tf-idf/r4/v1",
+            "rung": 4,
+            "variant": 1,
+            "module_key": "3-introduction-to-natural-language-processing-concepts",
+            "lesson_key": "counting-important-terms",
+            "learning_status": "new"
+          },
+          "correct_answer": "2",
+          "explanation": "Correct. TF-IDF rewards a term that is frequent here and relatively rare elsewhere.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "counting-important-terms/frequency-analysis/r3/v1",
+        "path": "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/8",
+        "payload": {
+          "import_key": "counting-important-terms-l2-q9",
+          "question_type": "fill_blank",
+          "question_text": "Counting occurrences of normalized tokens to infer a document's topic is ___.",
+          "options": {
+            "parts": [
+              {
+                "type": "text",
+                "text": "Counting occurrences of normalized tokens to infer a document's topic is "
+              },
+              {
+                "type": "gap",
+                "accepted_answers": [
+                  "frequency analysis"
+                ],
+                "rejected_answers": [
+                  "TF-IDF",
+                  "term frequency",
+                  "inverse document frequency",
+                  "bag-of-words",
+                  "keyterm-extraction-semantic"
+                ],
+                "placeholder": "technical term"
+              },
+              {
+                "type": "text",
+                "text": "."
+              }
+            ],
+            "rejected_answers": [
+              "TF-IDF",
+              "term frequency",
+              "inverse document frequency",
+              "bag-of-words",
+              "keyterm-extraction-semantic"
+            ],
+            "blooms_level": "Remembering",
+            "original_question_type": "fill_gaps",
+            "concept_id": "frequency-analysis",
+            "feedback_for_incorrect": {
+              "intrinsic": "The chosen label would make the counting task unclear.",
+              "instructional": "Use frequency analysis for overall normalized-token counts. TF is one count, IDF measures rarity, and TF-IDF combines both."
+            },
+            "item_key": "counting-important-terms/frequency-analysis/r3/v1",
+            "rung": 3,
+            "variant": 1,
+            "module_key": "3-introduction-to-natural-language-processing-concepts",
+            "lesson_key": "counting-important-terms",
+            "learning_status": "new"
+          },
+          "correct_answer": "frequency analysis",
+          "explanation": "This method uses normalized token counts to indicate a subject. TF, IDF, and TF-IDF measure narrower or combined aspects.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "counting-important-terms/idf-inverse-document-frequency/r4/v1",
+        "path": "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/9",
+        "payload": {
+          "import_key": "counting-important-terms-l2-q10",
+          "question_type": "multiple_choice",
+          "question_text": "An analyst compares the Copilot Studio and Microsoft Foundry articles. Which terms have IDF of zero because both articles contain them? Select all that apply.",
+          "options": {
+            "options": [
+              {
+                "text": "AI",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "This term occurs in both of the two samples. Its IDF is log(2/2), which is zero.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Microsoft",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "This term is in both samples. Therefore its IDF is zero.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "copilot",
+                "is_correct": false,
+                "error_type": "Confuses a document-specific term with a term in every document",
+                "rationale": "Copilot is specific to the Copilot Studio sample. It is not present in both samples.",
+                "better_fit": "Choose this as a term with distinguishing value for the Copilot Studio topic.",
+                "feedback": {
+                  "intrinsic": "You would treat a distinguishing term as if it were shared.",
+                  "instructional": "Only terms present in every item have IDF of zero in this two-item comparison."
+                }
+              },
+              {
+                "text": "agent",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "Both samples contain agent. A term present in every item has zero IDF.",
+                "better_fit": null,
+                "feedback": null
+              }
+            ],
+            "blooms_level": "Applying",
+            "original_question_type": "multi_choice",
+            "concept_id": "idf-inverse-document-frequency",
+            "item_key": "counting-important-terms/idf-inverse-document-frequency/r4/v1",
+            "rung": 4,
+            "variant": 1,
+            "module_key": "3-introduction-to-natural-language-processing-concepts",
+            "lesson_key": "counting-important-terms",
+            "learning_status": "new"
+          },
+          "correct_answer": "[0,1,3]",
+          "explanation": "Correct. Each selected term occurs in both items, so its IDF is zero.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "counting-important-terms/frequency-analysis/r4/v1",
+        "path": "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/10",
+        "payload": {
+          "import_key": "counting-important-terms-l2-q11",
+          "question_type": "multiple_choice",
+          "question_text": "A support analyst has one long customer-feedback report and needs a quick clue to its main topic. Which method should the analyst choose?",
+          "options": {
+            "options": [
+              {
+                "text": "Compare term rarity across documents",
+                "is_correct": false,
+                "error_type": "Confuses frequency analysis with TF-IDF",
+                "rationale": "The situation has one report, not a collection comparison. Rarity across items is the role of IDF.",
+                "better_fit": "Choose this when a collection contains many items with shared terms.",
+                "feedback": {
+                  "intrinsic": "You would spend effort comparing items that are not part of the task.",
+                  "instructional": "For one report, count normalized terms. Compare rarity only across a collection."
+                }
+              },
+              {
+                "text": "Rank sentences by graph links",
+                "is_correct": false,
+                "error_type": "Confuses frequency analysis with TextRank",
+                "rationale": "Graph-linked sentence ranking is TextRank. It is used to select representative sentences for a summary.",
+                "better_fit": "Choose this when selecting sentences for an extractive summary.",
+                "feedback": {
+                  "intrinsic": "You would produce summary candidates instead of a quick topic clue.",
+                  "instructional": "Topic clues from one report come from frequent normalized terms."
+                }
+              },
+              {
+                "text": "Compare word-vector orientations",
+                "is_correct": false,
+                "error_type": "Confuses frequency analysis with semantic similarity",
+                "rationale": "Vector orientations compare semantic similarity. They are not required for basic frequency counts.",
+                "better_fit": "Choose this when finding semantically related terms.",
+                "feedback": {
+                  "intrinsic": "You would compare meanings instead of using the available counts.",
+                  "instructional": "Frequency analysis is the direct method when the goal is to count important terms."
+                }
+              },
+              {
+                "text": "Count normalized token occurrences",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "For one report, frequent normalized terms can suggest the main topic. This is frequency analysis.",
+                "better_fit": null,
+                "feedback": null
+              }
+            ],
+            "blooms_level": "Applying",
+            "original_question_type": "single_choice",
+            "concept_id": "frequency-analysis",
+            "item_key": "counting-important-terms/frequency-analysis/r4/v1",
+            "rung": 4,
+            "variant": 1,
+            "module_key": "3-introduction-to-natural-language-processing-concepts",
+            "lesson_key": "counting-important-terms",
+            "learning_status": "new"
+          },
+          "correct_answer": "3",
+          "explanation": "Correct. Counting frequent normalized terms is useful for one report.",
+          "points": 1
+        }
+      }
+    ],
+    "metadata": {
+      "module_key": "3-introduction-to-natural-language-processing-concepts",
+      "unit_title": "Counting Important Terms · Level 2",
+      "unit_slo": "Explain how frequency analysis and TF-IDF identify document topics.",
+      "constraint_relaxations": []
+    }
+  },
+  "history": {
+    "schema_version": "techlingo-gauntlet-history-v1",
+    "run_id": "counting-important-terms-l2-3790ded9fcc5",
+    "started_at": "2026-08-27T16:04:38.351592Z",
+    "finished_at": "2026-08-27T16:08:35.425088Z",
+    "initial_champion_hash": "ebd3a712aa8e6c33c0e4929674501c79e9a9be57824af2b31139f3a9aeba9241",
+    "final_champion_hash": "ebd3a712aa8e6c33c0e4929674501c79e9a9be57824af2b31139f3a9aeba9241",
+    "evaluation_context": {
+      "schema_version": "techlingo-evaluation-context-v1",
+      "goal": "Produce an excellent, source-faithful learner session while preserving all deterministic correctness, identity, and sequence constraints.",
+      "source_fidelity_goal": "Independently verify the hard-gated edited challenger against the supplied source material. Reject unsupported facts, answers, explanations, feedback, or terminology changes; do not edit the artifact.",
+      "gauntlet_policy": {
+        "critic_backend": "codex",
+        "critic_model": "codex:gpt-5.6-luna",
+        "builder_model": "codex:gpt-5.6-terra",
+        "max_rounds": 4,
+        "plateau_rounds": 2,
+        "repeated_loss_rounds": 2,
+        "minimum_improvement_margin": 0.02,
+        "confidence_threshold": 0.65,
+        "human_review_threshold": 0.4,
+        "max_time_seconds": null,
+        "max_tokens": null,
+        "max_cost_usd": null,
+        "qualitative_required_for_publication": true,
+        "quality_thresholds": {
+          "factual_fidelity": 0.8,
+          "answer_unambiguity": 0.8,
+          "distractor_plausibility": 0.8,
+          "misconception_quality": 0.8,
+          "cognitive_progression": 0.8,
+          "mechanic_rhythm_variation": 0.8,
+          "prompt_language_variation": 0.8,
+          "scenario_authenticity": 0.8,
+          "feedback_usefulness": 0.8,
+          "difficulty_appropriateness": 0.8,
+          "terminology_consistency": 0.8,
+          "overall_learner_experience": 0.8
+        },
+        "comparison_seed": 901,
+        "protected_dimensions": [
+          "factual_fidelity",
+          "answer_unambiguity"
+        ],
+        "unstable_comparison_requires_human_review": true,
+        "identifying_metadata_keys": [
+          "artifact_id",
+          "builder_model",
+          "candidate_role",
+          "challenger",
+          "champion",
+          "critic_model",
+          "generated_at",
+          "import_key",
+          "item_key",
+          "model_id",
+          "path",
+          "version_id"
+        ]
+      },
+      "gauntlet_policy_sha256": "035ba75a6dc056e4680b4c7cb97f2859ec5160f72633534a4550ba69e8061ac4",
+      "rubric": {
+        "criteria": {
+          "factual_fidelity": "Every claim and answer is faithful to the supplied source.",
+          "answer_unambiguity": "Each item has one defensible answer under its instructions.",
+          "distractor_plausibility": "Distractors are credible without becoming defensible answers.",
+          "misconception_quality": "Wrong choices diagnose realistic learner misconceptions.",
+          "cognitive_progression": "The ordered session builds understanding at a coherent pace.",
+          "mechanic_rhythm_variation": "Mechanics vary naturally without disruptive repetition.",
+          "prompt_language_variation": "Prompt stems avoid formulaic repetition.",
+          "scenario_authenticity": "Scenarios resemble credible decisions or tasks.",
+          "feedback_usefulness": "Feedback explains the governing concept and next step.",
+          "difficulty_appropriateness": "Difficulty matches the stated audience and session position.",
+          "terminology_consistency": "Terms are used consistently with the source and across items.",
+          "overall_learner_experience": "The exact final sequence is coherent, varied, and instructive."
+        }
+      },
+      "rubric_sha256": "34290a842f2ed7e30b7a98ba70ac97d967c864424010cd31255f97cdce0b57d5",
+      "sources": [
+        {
+          "input_id": "3. Introduction to natural language processing concepts.md",
+          "sha256": "a2a7646efefed2d7b1d2e8624bf2ba42bf2faaf507959888bb5e54602c3ce0a9",
+          "location": "sources/3. Introduction to natural language processing concepts.md"
+        }
+      ],
+      "approved_references": [],
+      "models": {
+        "builder_model": "codex:gpt-5.6-terra",
+        "critic_backend": "codex",
+        "critic_model": "codex:gpt-5.6-luna",
+        "critic_fresh_context": true,
+        "editor_backend": "codex",
+        "editor_model": "codex:gpt-5.6-luna",
+        "editor_fresh_context": true,
+        "comparator_backend": "codex",
+        "comparator_model": "codex:gpt-5.6-luna",
+        "comparator_fresh_context": true
+      },
+      "context_sha256": "8337622f7e74c84d721857d5822e69be73ce7995faa1eddb0ccbc6e222abd550"
+    },
+    "initial_hard_gate": {
+      "artifact_sha256": "ebd3a712aa8e6c33c0e4929674501c79e9a9be57824af2b31139f3a9aeba9241",
+      "passed": true,
+      "issues": [],
+      "checks": {
+        "schema_and_answers": true,
+        "identity": true,
+        "final_sequence": true
+      },
+      "metrics": {},
+      "constraint_relaxations": []
+    },
+    "rounds": [
+      {
+        "round_number": 1,
+        "champion_hash_before": "ebd3a712aa8e6c33c0e4929674501c79e9a9be57824af2b31139f3a9aeba9241",
+        "critic": {
+          "result": {
+            "dimensions": [
+              {
+                "dimension": "factual_fidelity",
+                "score": 0.98,
+                "evidence": [
+                  {
+                    "statement": "The keyed answers and explanations for df(t), TF, IDF, TF-IDF, frequency analysis, and zero IDF consistently match the supplied source concepts and examples.",
+                    "item_keys": [
+                      "counting-important-terms/idf-inverse-document-frequency/r1/v2",
+                      "counting-important-terms/tf-idf/r2/v2",
+                      "counting-important-terms/term-frequency/r3/v1",
+                      "counting-important-terms/tf-idf/r3/v1",
+                      "counting-important-terms/idf-inverse-document-frequency/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/0",
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/1",
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/3",
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/5",
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/9"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "answer_unambiguity",
+                "score": 0.97,
+                "evidence": [
+                  {
+                    "statement": "Each item has a defensible keyed answer; the multi-select items provide options that distinguish shared terms from document-specific terms, and the ordering item supplies a determinate formula sequence.",
+                    "item_keys": [
+                      "counting-important-terms/frequency-across-corpus-limitation/r4/v1",
+                      "counting-important-terms/idf-inverse-document-frequency/r3/v1",
+                      "counting-important-terms/idf-inverse-document-frequency/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/4",
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/6",
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/9"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "distractor_plausibility",
+                "score": 0.9,
+                "evidence": [
+                  {
+                    "statement": "Distractors generally represent credible alternatives, such as TF versus TF-IDF, IDF versus TF, TextRank, and semantic similarity; the weakest is 'Total tokens in term t,' which is less natural than the other alternatives.",
+                    "item_keys": [
+                      "counting-important-terms/idf-inverse-document-frequency/r1/v2",
+                      "counting-important-terms/tf-idf/r4/v1",
+                      "counting-important-terms/frequency-analysis/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/0",
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/7",
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/10"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "misconception_quality",
+                "score": 0.86,
+                "evidence": [
+                  {
+                    "statement": "Most wrong choices explicitly diagnose confusion between within-document frequency, collection-wide rarity, combined TF-IDF, tokenization, vector similarity, and TextRank; the arrange item mainly tests ordering rather than a distinct misconception.",
+                    "item_keys": [
+                      "counting-important-terms/idf-inverse-document-frequency/r1/v2",
+                      "counting-important-terms/tf-idf/r4/v1",
+                      "counting-important-terms/frequency-analysis/r4/v1",
+                      "counting-important-terms/idf-inverse-document-frequency/r3/v1"
+                    ],
+                    "paths": [
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/0",
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/7",
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/10",
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/6"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "cognitive_progression",
+                "score": 0.65,
+                "evidence": [
+                  {
+                    "statement": "The session interleaves review definitions and applications: TF-IDF is judged before TF is explicitly established, frequency-analysis foundations appear late, and several later items revisit previously tested distinctions instead of forming a clean foundation-to-application progression.",
+                    "item_keys": [
+                      "counting-important-terms/tf-idf/r2/v2",
+                      "counting-important-terms/frequency-across-corpus-limitation/r3/v1",
+                      "counting-important-terms/term-frequency/r3/v1",
+                      "counting-important-terms/tf-idf/r3/v1",
+                      "counting-important-terms/frequency-analysis/r3/v1"
+                    ],
+                    "paths": [
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/1",
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/2",
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/3",
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/5",
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/8"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "mechanic_rhythm_variation",
+                "score": 0.82,
+                "evidence": [
+                  {
+                    "statement": "The 11-item sequence uses multiple choice, true/false, sentence arrangement, fill-in-the-blank, and multi-select; however, the final portion relies heavily on repeated selection mechanics.",
+                    "item_keys": [
+                      "counting-important-terms/idf-inverse-document-frequency/r1/v2",
+                      "counting-important-terms/tf-idf/r2/v2",
+                      "counting-important-terms/frequency-across-corpus-limitation/r3/v1",
+                      "counting-important-terms/term-frequency/r3/v1",
+                      "counting-important-terms/frequency-across-corpus-limitation/r4/v1",
+                      "counting-important-terms/tf-idf/r3/v1",
+                      "counting-important-terms/idf-inverse-document-frequency/r3/v1",
+                      "counting-important-terms/tf-idf/r4/v1",
+                      "counting-important-terms/frequency-analysis/r3/v1",
+                      "counting-important-terms/idf-inverse-document-frequency/r4/v1",
+                      "counting-important-terms/frequency-analysis/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/0",
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/1",
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/2",
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/3",
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/4",
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/5",
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/6",
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/7",
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/8",
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/9",
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/10"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "prompt_language_variation",
+                "score": 0.75,
+                "evidence": [
+                  {
+                    "statement": "Prompt forms vary across item types, but 'Which...' selection stems and analyst scenarios recur in items 5, 8, 10, and 11, with support-analyst framing repeated twice.",
+                    "item_keys": [
+                      "counting-important-terms/frequency-across-corpus-limitation/r4/v1",
+                      "counting-important-terms/tf-idf/r4/v1",
+                      "counting-important-terms/idf-inverse-document-frequency/r4/v1",
+                      "counting-important-terms/frequency-analysis/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/4",
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/7",
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/9",
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/10"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "scenario_authenticity",
+                "score": 0.88,
+                "evidence": [
+                  {
+                    "statement": "The content-analyst, support-ticket, and customer-feedback scenarios represent credible uses of frequency analysis and TF-IDF, while the direct-definition items appropriately target foundational terminology.",
+                    "item_keys": [
+                      "counting-important-terms/frequency-across-corpus-limitation/r4/v1",
+                      "counting-important-terms/tf-idf/r4/v1",
+                      "counting-important-terms/idf-inverse-document-frequency/r4/v1",
+                      "counting-important-terms/frequency-analysis/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/4",
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/7",
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/9",
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/10"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "feedback_usefulness",
+                "score": 0.91,
+                "evidence": [
+                  {
+                    "statement": "Incorrect-choice feedback usually states both the immediate error and the governing distinction, while explanations reinforce the correct concept; arrange-item feedback is more procedural than diagnostic.",
+                    "item_keys": [
+                      "counting-important-terms/idf-inverse-document-frequency/r1/v2",
+                      "counting-important-terms/tf-idf/r4/v1",
+                      "counting-important-terms/frequency-analysis/r4/v1",
+                      "counting-important-terms/idf-inverse-document-frequency/r3/v1"
+                    ],
+                    "paths": [
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/0",
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/7",
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/10",
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/6"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "difficulty_appropriateness",
+                "score": 0.87,
+                "evidence": [
+                  {
+                    "statement": "The Level 2 session emphasizes remembering and understanding, then includes several accessible application items using the supplied Copilot Studio, Foundry, and support-ticket contexts; it does not require burdensome numerical calculation.",
+                    "item_keys": [
+                      "counting-important-terms/idf-inverse-document-frequency/r1/v2",
+                      "counting-important-terms/tf-idf/r2/v2",
+                      "counting-important-terms/frequency-across-corpus-limitation/r4/v1",
+                      "counting-important-terms/tf-idf/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/0",
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/1",
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/4",
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/7"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "terminology_consistency",
+                "score": 0.84,
+                "evidence": [
+                  {
+                    "statement": "Technical labels such as TF, IDF, TF-IDF, frequency analysis, and df(t) are used consistently, but feedback frequently substitutes 'item' for the source's more specific 'document' terminology.",
+                    "item_keys": [
+                      "counting-important-terms/idf-inverse-document-frequency/r1/v2",
+                      "counting-important-terms/tf-idf/r2/v2",
+                      "counting-important-terms/term-frequency/r3/v1",
+                      "counting-important-terms/tf-idf/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/0",
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/1",
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/3",
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/7"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "overall_learner_experience",
+                "score": 0.81,
+                "evidence": [
+                  {
+                    "statement": "The artifact is correct, varied, and well-supported by feedback, with coherent scenarios and no observed identity or answer-key failures; the main learner-experience weakness is the less-than-ideal ordering of foundations, definitions, and applications.",
+                    "item_keys": [
+                      "counting-important-terms/idf-inverse-document-frequency/r1/v2",
+                      "counting-important-terms/frequency-analysis/r4/v1"
+                    ],
+                    "paths": [
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/0",
+                      "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/10"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "critical_defects": [],
+            "largest_gap": {
+              "dimension": "cognitive_progression",
+              "summary": "The ordered sequence does not cleanly build from frequency-analysis foundations through TF and IDF to TF-IDF application.",
+              "evidence": [
+                {
+                  "statement": "TF-IDF is tested before TF is explicitly established, the frequency-analysis definition appears at item 9, and later items repeat distinctions already tested instead of reserving application for the end.",
+                  "item_keys": [
+                    "counting-important-terms/tf-idf/r2/v2",
+                    "counting-important-terms/term-frequency/r3/v1",
+                    "counting-important-terms/tf-idf/r3/v1",
+                    "counting-important-terms/frequency-analysis/r3/v1",
+                    "counting-important-terms/tf-idf/r4/v1"
+                  ],
+                  "paths": [
+                    "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/1",
+                    "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/3",
+                    "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/5",
+                    "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/8",
+                    "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/7"
+                  ]
+                }
+              ],
+              "affected_item_keys": [
+                "counting-important-terms/tf-idf/r2/v2",
+                "counting-important-terms/frequency-across-corpus-limitation/r3/v1",
+                "counting-important-terms/term-frequency/r3/v1",
+                "counting-important-terms/frequency-across-corpus-limitation/r4/v1",
+                "counting-important-terms/tf-idf/r3/v1",
+                "counting-important-terms/idf-inverse-document-frequency/r3/v1",
+                "counting-important-terms/tf-idf/r4/v1",
+                "counting-important-terms/frequency-analysis/r3/v1",
+                "counting-important-terms/idf-inverse-document-frequency/r4/v1",
+                "counting-important-terms/frequency-analysis/r4/v1"
+              ],
+              "affected_paths": [
+                "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/1",
+                "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/2",
+                "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/3",
+                "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/4",
+                "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/5",
+                "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/6",
+                "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/7",
+                "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/8",
+                "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/9",
+                "modules/2:3-introduction-to-natural-language-processing-concepts/units/7:counting-important-terms-l2/questions/10"
+              ],
+              "recommended_scope": "session",
+              "repair_instruction": "Reorder the existing items so the learner first establishes frequency analysis and its corpus limitation, then TF and df(t)/IDF, then TF-IDF, followed by the scenario applications; preserve all item payloads, keys, answers, and correctness indices.",
+              "allowed_payload_fields": []
+            },
+            "confidence": 0.74,
+            "human_review_recommended": true,
+            "concise_summary": "The session is highly source-faithful and deterministically keyed, with clear answers, credible distractors, varied mechanics, and useful feedback. The largest remaining issue is session-level sequencing: foundational frequency, TF, and IDF concepts should precede TF-IDF applications. Confidence is reduced because no approved references are supplied and validation flags the cited source path as unknown."
+          },
+          "artifact_sha256": "ebd3a712aa8e6c33c0e4929674501c79e9a9be57824af2b31139f3a9aeba9241",
+          "evaluation_context_sha256": "8337622f7e74c84d721857d5822e69be73ce7995faa1eddb0ccbc6e222abd550",
+          "goal_sha256": "c4bae546eef7fec8c92895a1538196a8df81a13754329022bca211a6200752ae",
+          "critic_backend": "codex",
+          "critic_model": "codex:gpt-5.6-luna",
+          "fresh_context": true,
+          "model_independence": "independent",
+          "approved_reference_count": 0,
+          "reference_confidence_reduced": true,
+          "usage": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cost_usd": 0.0,
+            "backend_calls": 2
+          }
+        },
+        "critic_failure": null,
+        "repair_scope": null,
+        "repair_summary": null,
+        "editor_backend": null,
+        "editor_model": null,
+        "editor_fresh_context": null,
+        "edit_usage": null,
+        "validation_retry_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost_usd": 0.0,
+          "backend_calls": 0
+        },
+        "touched_item_keys": [],
+        "challenger_hash": null,
+        "hard_gate": null,
+        "source_fidelity_critic": null,
+        "source_fidelity_gate": null,
+        "comparison": null,
+        "decision": "retained_human",
+        "decision_evidence": "Critic confidence/finding requires human review.",
+        "champion_hash_after": "ebd3a712aa8e6c33c0e4929674501c79e9a9be57824af2b31139f3a9aeba9241",
+        "constraint_relaxations": [],
+        "cumulative_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost_usd": 0.0,
+          "backend_calls": 2
+        }
+      }
+    ],
+    "stop_reason": "human_review_required",
+    "stop_evidence": "Critic requested human review or confidence was below threshold.",
+    "human_decision": null,
+    "total_usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "backend_calls": 2
+    },
+    "human_review_recommended": true,
+    "publication_eligible": false
+  }
+}

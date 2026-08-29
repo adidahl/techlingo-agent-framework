@@ -80,11 +80,11 @@ def a1_modularizer_prompt(
 ) -> str:
     target_title = override_title if override_title else "AI Core Capabilities and Responsibility"
 
-    # Deterministic per-module lesson plan. The self-correction loop re-runs A2
-    # (not A1), so A1's module/lesson counts are never fixed downstream — they
-    # must be exact on the first try. Giving explicit per-module counts (instead
-    # of a range) dramatically improves adherence. Target the top of the allowed
-    # range and distribute as evenly as possible across modules.
+    # Deterministic per-module lesson plan. A1's own structural retry gate must
+    # accept module/lesson counts before A2 starts; no downstream stage may
+    # mutate them. Giving explicit per-module counts (instead of a range)
+    # dramatically improves adherence. Target the top of the allowed range and
+    # distribute as evenly as possible across modules.
     target_total = max(config.max_lessons_total, config.modules_count)
     base, rem = divmod(target_total, config.modules_count)
     per_module = [base + (1 if i < rem else 0) for i in range(config.modules_count)]
@@ -104,6 +104,24 @@ def a1_modularizer_prompt(
             Content inventory (terms/definitions/explanations/examples extracted from the source —
             use it as a COVERAGE CHECKLIST: every inventory item must end up inside some lesson's concepts):
             {analysis_json}
+            """
+        )
+
+    worksheet_budget_section = ""
+    if config.worksheet_items_per_lesson is not None:
+        worksheet_budget_section = dedent(
+            f"""\
+            EXACT WORKSHEET BUDGET (hard structural rule): every lesson must admit
+            exactly {config.worksheet_items_per_lesson} worksheet rows BEFORE any
+            exercise is generated. For each fact concept, complete rung coverage
+            requires 3 rows and the full variant quota offers 5; mechanism requires
+            4 and offers 7; decision requires 5 and offers 9. For every lesson, the
+            sum of the required rows must be <= {config.worksheet_items_per_lesson}
+            and the sum of the full quotas must be >=
+            {config.worksheet_items_per_lesson}. Regroup source-grounded concepts
+            across lessons until both bounds hold. Never omit a source fact, merge
+            unrelated facts, or misclassify a concept's depth merely to make the
+            arithmetic fit.
             """
         )
 
@@ -138,6 +156,12 @@ def a1_modularizer_prompt(
           below), and confusable_with (ids of sibling concepts a learner could mix it up
           with — e.g. image-classification vs object-detection vs semantic-segmentation;
           these become distractor material).
+        - Every concept summary must stand alone when the source is unavailable. State the
+          domain fact directly; never describe how the source, course, section, diagram, or
+          teaching example presents, simplifies, illustrates, or visualizes it. Forbidden
+          source-exposition phrases include "described here", "shown above", "this example
+          shows", "the example uses only", and "intentionally simplified". Rewrite the
+          underlying fact without the deictic commentary.
         - DEPTH (required on EVERY concept): classify how far the concept can be
           meaningfully drilled. Exactly one of:
           - "fact": a term, definition, or standalone fact ("token", "NFKC"). The learner
@@ -154,6 +178,8 @@ def a1_modularizer_prompt(
           under different names (e.g., "speech recognition" and "speech-to-text"), MERGE
           them into ONE concept and mention the alternative name in its summary. Never
           create two concepts a single exercise could legitimately test at once.
+
+        {worksheet_budget_section}
 
         Constraints:
         - EXACTLY {config.modules_count} modules — no more, no fewer.
@@ -810,7 +836,8 @@ def a5_lesson_repair_prompt(
             f"""\
             - **Cell worksheet**: the lesson was generated against this exact plan — one
               exercise per row (concept_id, question_type, blooms_level all dictated; the
-              set of exercises must still match it after your repair):
+              exercises must still match it in this exact row order after your repair,
+              including every dictated true/false correct_answer):
 {format_worksheet_rows(worksheet)}
             - **Concept coverage**: every exercise must have a `concept_id` matching one concept
               from the lesson's `concepts` array, per the worksheet rows above.
@@ -905,6 +932,8 @@ def analyzer_prompt(source_text: str) -> str:
         - modules_count: typically 1 (since input is usually a single module/unit). Only suggest >1 if content is massive and clearly distinct sections.
         - lessons_total: typically 5-15 depending on content length.
         - exercises_per_lesson: typically 15-30 (as requested for robust practice).
+        - worksheet_items_per_lesson: null (an exact worksheet budget is an explicit
+          course-owner policy, not something this analysis should invent).
         - flashcards_per_lesson: typically 6-10
         - blooms_distribution: how many of each level per lesson (Remembering/Understanding/Applying/Analyzing/Evaluating)
         - question_type_distribution: exact mix of question types per lesson. 
@@ -948,6 +977,7 @@ def analyzer_prompt(source_text: str) -> str:
                 "min_lessons_total": 0,
                 "max_lessons_total": 0,
                 "exercises_per_lesson": 0,
+                "worksheet_items_per_lesson": null,
                 "flashcards_per_lesson": 0,
                 "blooms_distribution": {{
                     "Remembering": 0,
@@ -993,6 +1023,8 @@ def reviewer_prompt(source_text: str, current_analysis_json: str) -> str:
         6. Verify and Refine the `recommended_config`:
            - Ensure it pushes for deep learning (e.g., higher Bloom's levels).
            - Ensure exercises_per_lesson is 15-30.
+           - Keep worksheet_items_per_lesson null unless the current analysis already
+             contains an explicit owner-supplied integer policy.
            - Ensure question_type_distribution sums EXACTLY to exercises_per_lesson.
            - Ensure question_type_distribution ONLY uses keys: "single_choice", "multi_choice", "true_false", "fill_gaps", "rearrange".
            - REMOVE any invalid keys like "short_answer".

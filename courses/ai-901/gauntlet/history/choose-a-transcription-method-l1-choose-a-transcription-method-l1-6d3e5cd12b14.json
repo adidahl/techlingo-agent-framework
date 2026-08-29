@@ -1,0 +1,944 @@
+{
+  "schema_version": "techlingo-gauntlet-record-v1",
+  "compiled_artifact_sha256": "69c9d18537cc04d4d24f6ffad549e8d9c17ee1b85b2ba8dc167de6c8be33ae73",
+  "unit_key": "choose-a-transcription-method-l1",
+  "champion": {
+    "artifact_id": "ai-901:choose-a-transcription-method-l1",
+    "course_id": "ai-901",
+    "session_id": "choose-a-transcription-method-l1",
+    "items": [
+      {
+        "item_key": "choose-a-transcription-method/batch-job-scheduling/r1/v1",
+        "path": "modules/9:10-get-started-with-speech-in-azure/units/6:choose-a-transcription-method-l1/questions/0",
+        "payload": {
+          "import_key": "choose-a-transcription-method-l1-q1",
+          "question_type": "multiple_choice",
+          "question_text": "Which statements describe batch job scheduling? Select all that apply.",
+          "options": {
+            "options": [
+              {
+                "text": "Text returns during live speech",
+                "is_correct": false,
+                "error_type": "Confuses batch scheduling with real-time transcription",
+                "rationale": "Text during live speech describes real-time transcription. Batch jobs process stored recordings on a best-effort schedule.",
+                "better_fit": "Expect text during speech when using real-time transcription.",
+                "feedback": {
+                  "intrinsic": "A producer could promise live results that a batch job does not provide.",
+                  "instructional": "Batch scheduling concerns later processing, not transcription while someone speaks."
+                }
+              },
+              {
+                "text": "Jobs use a best-effort schedule",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "Batch jobs are scheduled on a best-effort basis. Their start timing is not guaranteed.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Jobs commonly start within minutes",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "A batch job normally starts within minutes after the request. This is common timing, not a promise.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Start time is not guaranteed",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "There is no guaranteed time when the job changes to running. Best-effort scheduling allows that uncertainty.",
+                "better_fit": null,
+                "feedback": null
+              }
+            ],
+            "blooms_level": "Remembering",
+            "original_question_type": "multi_choice",
+            "concept_id": "batch-job-scheduling",
+            "item_key": "choose-a-transcription-method/batch-job-scheduling/r1/v1",
+            "rung": 1,
+            "variant": 1,
+            "module_key": "10-get-started-with-speech-in-azure",
+            "lesson_key": "choose-a-transcription-method",
+            "learning_status": "new"
+          },
+          "correct_answer": "[1,2,3]",
+          "explanation": "Correct. Batch jobs are best-effort: they commonly start within minutes, but the running time is not guaranteed.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "choose-a-transcription-method/transcription-method-choice/r1/v1",
+        "path": "modules/9:10-get-started-with-speech-in-azure/units/6:choose-a-transcription-method-l1/questions/1",
+        "payload": {
+          "import_key": "choose-a-transcription-method-l1-q2",
+          "question_type": "multiple_choice",
+          "question_text": "Which method fits live incoming speech that needs text now?",
+          "options": {
+            "options": [
+              {
+                "text": "Real-time transcription",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "Live incoming speech needs text while the person speaks. Real-time transcription is designed for that timing.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Batch transcription",
+                "is_correct": false,
+                "error_type": "Confuses live speech with stored recordings",
+                "rationale": "Batch transcription processes stored recordings. Its results can arrive later rather than during live speech.",
+                "better_fit": "Use batch transcription when recordings already exist and later results are acceptable.",
+                "feedback": {
+                  "intrinsic": "The person speaking now would not receive text when it is needed.",
+                  "instructional": "Choose real-time transcription for incoming live audio."
+                }
+              },
+              {
+                "text": "A SAS URI",
+                "is_correct": false,
+                "error_type": "Confuses a storage URI with a transcription method",
+                "rationale": "A SAS URI points batch transcription to audio in storage. It is not a method for converting incoming speech.",
+                "better_fit": "Use a SAS URI to point batch transcription to stored audio files.",
+                "feedback": {
+                  "intrinsic": "The live transcription need would remain unanswered.",
+                  "instructional": "A SAS URI identifies stored audio; it does not process live speech."
+                }
+              },
+              {
+                "text": "Text-to-speech",
+                "is_correct": false,
+                "error_type": "Confuses converting speech to text with converting text to speech",
+                "rationale": "Text-to-speech converts written text into audible speech. The task requires spoken audio to become written text.",
+                "better_fit": "Use text-to-speech when an application needs to read text aloud.",
+                "feedback": {
+                  "intrinsic": "No live transcript would be created from the speaker’s words.",
+                  "instructional": "For speech becoming text, use transcription rather than text-to-speech."
+                }
+              }
+            ],
+            "blooms_level": "Remembering",
+            "original_question_type": "single_choice",
+            "concept_id": "transcription-method-choice",
+            "item_key": "choose-a-transcription-method/transcription-method-choice/r1/v1",
+            "rung": 1,
+            "variant": 1,
+            "module_key": "10-get-started-with-speech-in-azure",
+            "lesson_key": "choose-a-transcription-method",
+            "learning_status": "new"
+          },
+          "correct_answer": "0",
+          "explanation": "Correct. Real-time transcription returns text from live incoming speech as it happens.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "choose-a-transcription-method/batch-job-scheduling/r2/v1",
+        "path": "modules/9:10-get-started-with-speech-in-azure/units/6:choose-a-transcription-method-l1/questions/2",
+        "payload": {
+          "import_key": "choose-a-transcription-method-l1-q3",
+          "question_type": "true_false",
+          "question_text": "A batch transcription job has a guaranteed time when it changes to the running state.",
+          "options": {
+            "blooms_level": "Understanding",
+            "original_question_type": "true_false",
+            "concept_id": "batch-job-scheduling",
+            "feedback_for_incorrect": {
+              "intrinsic": "A producer could make a timing promise that cannot be relied upon.",
+              "instructional": "Batch transcription uses best-effort scheduling, so the change to running is not guaranteed."
+            },
+            "item_key": "choose-a-transcription-method/batch-job-scheduling/r2/v1",
+            "rung": 2,
+            "variant": 1,
+            "module_key": "10-get-started-with-speech-in-azure",
+            "lesson_key": "choose-a-transcription-method",
+            "learning_status": "new"
+          },
+          "correct_answer": "false",
+          "explanation": "Correct. A batch job commonly starts within minutes, but there is no guaranteed running time.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "choose-a-transcription-method/transcription-method-choice/r2/v1",
+        "path": "modules/9:10-get-started-with-speech-in-azure/units/6:choose-a-transcription-method-l1/questions/3",
+        "payload": {
+          "import_key": "choose-a-transcription-method-l1-q4",
+          "question_type": "true_false",
+          "question_text": "Use batch transcription when audio is already stored and results can arrive later.",
+          "options": {
+            "blooms_level": "Understanding",
+            "original_question_type": "true_false",
+            "concept_id": "transcription-method-choice",
+            "feedback_for_incorrect": {
+              "intrinsic": "A saved recording could be handled as if it needed immediate live text.",
+              "instructional": "Choose batch transcription when audio already exists and receiving the transcript later is acceptable."
+            },
+            "item_key": "choose-a-transcription-method/transcription-method-choice/r2/v1",
+            "rung": 2,
+            "variant": 1,
+            "module_key": "10-get-started-with-speech-in-azure",
+            "lesson_key": "choose-a-transcription-method",
+            "learning_status": "new"
+          },
+          "correct_answer": "true",
+          "explanation": "Correct. Batch transcription is for stored recordings and asynchronous results.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "choose-a-transcription-method/real-time-transcription/r1/v1",
+        "path": "modules/9:10-get-started-with-speech-in-azure/units/6:choose-a-transcription-method-l1/questions/4",
+        "payload": {
+          "import_key": "choose-a-transcription-method-l1-q5",
+          "question_type": "multiple_choice",
+          "question_text": "What converts incoming spoken audio to text as a person speaks?",
+          "options": {
+            "options": [
+              {
+                "text": "Batch transcription",
+                "is_correct": false,
+                "error_type": "Confuses live audio with stored recordings",
+                "rationale": "Batch transcription processes recordings that already exist. Its results arrive after submission rather than during live speech.",
+                "better_fit": "Use batch transcription for stored recordings when results can arrive later.",
+                "feedback": {
+                  "intrinsic": "Captions would not appear while the person is speaking.",
+                  "instructional": "Choose real-time transcription when audio is arriving live."
+                }
+              },
+              {
+                "text": "Real-time transcription",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "Real-time transcription converts incoming speech into text while the person speaks. It is used when text is needed from live audio.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Speech synthesis",
+                "is_correct": false,
+                "error_type": "Confuses speech-to-text with text-to-speech",
+                "rationale": "Speech synthesis converts text into spoken audio. It does not create written text from spoken input.",
+                "better_fit": "Use speech synthesis when written content needs to be read aloud.",
+                "feedback": {
+                  "intrinsic": "The spoken words would still not become captions.",
+                  "instructional": "This task needs speech-to-text, not text-to-speech."
+                }
+              },
+              {
+                "text": "Speech translation",
+                "is_correct": false,
+                "error_type": "Confuses transcription with translation",
+                "rationale": "Translation changes content between languages. The need here is to convert spoken audio into text.",
+                "better_fit": "Use speech translation when someone speaks one language and needs output in another.",
+                "feedback": {
+                  "intrinsic": "The live speech would not be captured as a transcript.",
+                  "instructional": "First identify whether the task is speech-to-text or a language change."
+                }
+              }
+            ],
+            "blooms_level": "Remembering",
+            "original_question_type": "single_choice",
+            "concept_id": "real-time-transcription",
+            "item_key": "choose-a-transcription-method/real-time-transcription/r1/v1",
+            "rung": 1,
+            "variant": 1,
+            "module_key": "10-get-started-with-speech-in-azure",
+            "lesson_key": "choose-a-transcription-method",
+            "learning_status": "new"
+          },
+          "correct_answer": "1",
+          "explanation": "Correct. Real-time transcription receives live audio and returns text while speech is happening.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "choose-a-transcription-method/batch-transcription/r1/v1",
+        "path": "modules/9:10-get-started-with-speech-in-azure/units/6:choose-a-transcription-method-l1/questions/5",
+        "payload": {
+          "import_key": "choose-a-transcription-method-l1-q6",
+          "question_type": "multiple_choice",
+          "question_text": "Which statements describe batch transcription? Select all that apply.",
+          "options": {
+            "options": [
+              {
+                "text": "It processes stored recordings",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "Batch transcription is for audio recordings that already exist. Those recordings can be on a file share, remote server, or Azure storage.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "It needs a live microphone stream",
+                "is_correct": false,
+                "error_type": "Confuses stored recordings with live audio",
+                "rationale": "A live microphone stream is used for real-time transcription. Batch transcription processes stored recordings.",
+                "better_fit": "Use a live microphone stream for real-time transcription.",
+                "feedback": {
+                  "intrinsic": "The team would prepare live input even though the recordings already exist.",
+                  "instructional": "Batch work begins with stored audio, not a required live microphone stream."
+                }
+              },
+              {
+                "text": "It returns results asynchronously",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "Asynchronously means results arrive after the request is submitted. Batch transcription does not require an immediate result.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "It can use audio in Azure storage",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "Batch transcription can process audio stored in Azure storage. A SAS URI can point to such audio files.",
+                "better_fit": null,
+                "feedback": null
+              }
+            ],
+            "blooms_level": "Remembering",
+            "original_question_type": "multi_choice",
+            "concept_id": "batch-transcription",
+            "item_key": "choose-a-transcription-method/batch-transcription/r1/v1",
+            "rung": 1,
+            "variant": 1,
+            "module_key": "10-get-started-with-speech-in-azure",
+            "lesson_key": "choose-a-transcription-method",
+            "learning_status": "new"
+          },
+          "correct_answer": "[0,2,3]",
+          "explanation": "Correct. Batch transcription processes stored audio and provides results later.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "choose-a-transcription-method/real-time-transcription/r2/v1",
+        "path": "modules/9:10-get-started-with-speech-in-azure/units/6:choose-a-transcription-method-l1/questions/6",
+        "payload": {
+          "import_key": "choose-a-transcription-method-l1-q7",
+          "question_type": "true_false",
+          "question_text": "Real-time transcription can be used when someone is speaking during a presentation.",
+          "options": {
+            "blooms_level": "Understanding",
+            "original_question_type": "true_false",
+            "concept_id": "real-time-transcription",
+            "feedback_for_incorrect": {
+              "intrinsic": "Captions would arrive too late for people following the presentation.",
+              "instructional": "Real-time transcription is intended for incoming speech, including presentations and demonstrations."
+            },
+            "item_key": "choose-a-transcription-method/real-time-transcription/r2/v1",
+            "rung": 2,
+            "variant": 1,
+            "module_key": "10-get-started-with-speech-in-azure",
+            "lesson_key": "choose-a-transcription-method",
+            "learning_status": "new"
+          },
+          "correct_answer": "true",
+          "explanation": "Correct. A presentation is a live-speaking situation, so text can be returned as the person speaks.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "choose-a-transcription-method/sas-uri/r1/v1",
+        "path": "modules/9:10-get-started-with-speech-in-azure/units/6:choose-a-transcription-method-l1/questions/7",
+        "payload": {
+          "import_key": "choose-a-transcription-method-l1-q8",
+          "question_type": "multiple_choice",
+          "question_text": "What can point batch transcription to audio files in storage?",
+          "options": {
+            "options": [
+              {
+                "text": "A SpeechRecognizer",
+                "is_correct": false,
+                "error_type": "Confuses an audio-file URI with a recognition object",
+                "rationale": "A SpeechRecognizer performs transcription in an application. It is not the URI that points batch work to stored audio.",
+                "better_fit": "Use a SpeechRecognizer to perform transcription after configuring audio input.",
+                "feedback": {
+                  "intrinsic": "The stored file location would still be missing.",
+                  "instructional": "A SAS URI identifies audio in storage for batch transcription."
+                }
+              },
+              {
+                "text": "A Foundry endpoint",
+                "is_correct": false,
+                "error_type": "Confuses storage access with service connection",
+                "rationale": "An endpoint connects an application to Azure Speech. It does not point batch transcription to an audio file in storage.",
+                "better_fit": "Use an endpoint when initializing a connection to Azure Speech.",
+                "feedback": {
+                  "intrinsic": "The batch request would not identify the stored recording.",
+                  "instructional": "Connection details and a stored-file URI have different roles."
+                }
+              },
+              {
+                "text": "A speech key",
+                "is_correct": false,
+                "error_type": "Confuses storage access with authentication",
+                "rationale": "A speech key is used for authentication. It is not a pointer to stored audio.",
+                "better_fit": "Use a speech key with an endpoint to authenticate a connection.",
+                "feedback": {
+                  "intrinsic": "The audio file location would still not be supplied.",
+                  "instructional": "Authentication proves access; a SAS URI points to the stored audio."
+                }
+              },
+              {
+                "text": "A SAS URI",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "A shared access signature, or SAS, URI can point batch transcription to stored audio files. It is used with audio in storage.",
+                "better_fit": null,
+                "feedback": null
+              }
+            ],
+            "blooms_level": "Remembering",
+            "original_question_type": "single_choice",
+            "concept_id": "sas-uri",
+            "item_key": "choose-a-transcription-method/sas-uri/r1/v1",
+            "rung": 1,
+            "variant": 1,
+            "module_key": "10-get-started-with-speech-in-azure",
+            "lesson_key": "choose-a-transcription-method",
+            "learning_status": "new"
+          },
+          "correct_answer": "3",
+          "explanation": "Correct. A SAS URI can point batch transcription to audio files in storage.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "choose-a-transcription-method/batch-transcription/r2/v1",
+        "path": "modules/9:10-get-started-with-speech-in-azure/units/6:choose-a-transcription-method-l1/questions/8",
+        "payload": {
+          "import_key": "choose-a-transcription-method-l1-q9",
+          "question_type": "true_false",
+          "question_text": "Batch transcription converts an incoming microphone stream into text as a person speaks.",
+          "options": {
+            "blooms_level": "Understanding",
+            "original_question_type": "true_false",
+            "concept_id": "batch-transcription",
+            "feedback_for_incorrect": {
+              "intrinsic": "Someone waiting for live text could receive it only after later processing.",
+              "instructional": "Batch transcription works with stored recordings and returns results asynchronously."
+            },
+            "item_key": "choose-a-transcription-method/batch-transcription/r2/v1",
+            "rung": 2,
+            "variant": 1,
+            "module_key": "10-get-started-with-speech-in-azure",
+            "lesson_key": "choose-a-transcription-method",
+            "learning_status": "new"
+          },
+          "correct_answer": "false",
+          "explanation": "Correct. Incoming microphone audio while a person speaks describes real-time transcription.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "choose-a-transcription-method/sas-uri/r2/v1",
+        "path": "modules/9:10-get-started-with-speech-in-azure/units/6:choose-a-transcription-method-l1/questions/9",
+        "payload": {
+          "import_key": "choose-a-transcription-method-l1-q10",
+          "question_type": "true_false",
+          "question_text": "A shared access signature (SAS) URI is a storage pointer, not a transcription method.",
+          "options": {
+            "blooms_level": "Understanding",
+            "original_question_type": "true_false",
+            "concept_id": "sas-uri",
+            "feedback_for_incorrect": {
+              "intrinsic": "The task could assign transcription work to a URI that only identifies stored audio.",
+              "instructional": "A SAS URI points batch transcription to stored audio, while the transcription service performs the conversion."
+            },
+            "item_key": "choose-a-transcription-method/sas-uri/r2/v1",
+            "rung": 2,
+            "variant": 1,
+            "module_key": "10-get-started-with-speech-in-azure",
+            "lesson_key": "choose-a-transcription-method",
+            "learning_status": "new"
+          },
+          "correct_answer": "true",
+          "explanation": "Correct. A SAS URI identifies audio in storage for batch transcription; it does not perform transcription.",
+          "points": 1
+        }
+      }
+    ],
+    "metadata": {
+      "module_key": "10-get-started-with-speech-in-azure",
+      "unit_title": "Choose a transcription method · Level 1",
+      "unit_slo": "Choose real-time or batch transcription for a workplace audio task.",
+      "constraint_relaxations": []
+    }
+  },
+  "history": {
+    "schema_version": "techlingo-gauntlet-history-v1",
+    "run_id": "choose-a-transcription-method-l1-6d3e5cd12b14",
+    "started_at": "2026-08-28T03:33:54.675320Z",
+    "finished_at": "2026-08-28T03:41:01.062060Z",
+    "initial_champion_hash": "337cb50ef9d2fac8d2797bfd3838786ad3a0affdb864eb19602bea8767e974a1",
+    "final_champion_hash": "337cb50ef9d2fac8d2797bfd3838786ad3a0affdb864eb19602bea8767e974a1",
+    "evaluation_context": {
+      "schema_version": "techlingo-evaluation-context-v1",
+      "goal": "Produce an excellent, source-faithful learner session while preserving all deterministic correctness, identity, and sequence constraints.",
+      "source_fidelity_goal": "Independently verify the hard-gated edited challenger against the supplied source material. Reject unsupported facts, answers, explanations, feedback, or terminology changes; do not edit the artifact.",
+      "gauntlet_policy": {
+        "critic_backend": "codex",
+        "critic_model": "codex:gpt-5.6-luna",
+        "builder_model": "codex:gpt-5.6-terra",
+        "max_rounds": 4,
+        "plateau_rounds": 2,
+        "repeated_loss_rounds": 2,
+        "minimum_improvement_margin": 0.02,
+        "confidence_threshold": 0.65,
+        "human_review_threshold": 0.4,
+        "max_time_seconds": null,
+        "max_tokens": null,
+        "max_cost_usd": null,
+        "qualitative_required_for_publication": true,
+        "quality_thresholds": {
+          "factual_fidelity": 0.8,
+          "answer_unambiguity": 0.8,
+          "distractor_plausibility": 0.8,
+          "misconception_quality": 0.8,
+          "cognitive_progression": 0.8,
+          "mechanic_rhythm_variation": 0.8,
+          "prompt_language_variation": 0.8,
+          "scenario_authenticity": 0.8,
+          "feedback_usefulness": 0.8,
+          "difficulty_appropriateness": 0.8,
+          "terminology_consistency": 0.8,
+          "overall_learner_experience": 0.8
+        },
+        "comparison_seed": 901,
+        "protected_dimensions": [
+          "factual_fidelity",
+          "answer_unambiguity"
+        ],
+        "unstable_comparison_requires_human_review": true,
+        "identifying_metadata_keys": [
+          "artifact_id",
+          "builder_model",
+          "candidate_role",
+          "challenger",
+          "champion",
+          "critic_model",
+          "generated_at",
+          "import_key",
+          "item_key",
+          "model_id",
+          "path",
+          "version_id"
+        ]
+      },
+      "gauntlet_policy_sha256": "035ba75a6dc056e4680b4c7cb97f2859ec5160f72633534a4550ba69e8061ac4",
+      "rubric": {
+        "criteria": {
+          "factual_fidelity": "Every claim and answer is faithful to the supplied source.",
+          "answer_unambiguity": "Each item has one defensible answer under its instructions.",
+          "distractor_plausibility": "Distractors are credible without becoming defensible answers.",
+          "misconception_quality": "Wrong choices diagnose realistic learner misconceptions.",
+          "cognitive_progression": "The ordered session builds understanding at a coherent pace.",
+          "mechanic_rhythm_variation": "Mechanics vary naturally without disruptive repetition.",
+          "prompt_language_variation": "Prompt stems avoid formulaic repetition.",
+          "scenario_authenticity": "Scenarios resemble credible decisions or tasks.",
+          "feedback_usefulness": "Feedback explains the governing concept and next step.",
+          "difficulty_appropriateness": "Difficulty matches the stated audience and session position.",
+          "terminology_consistency": "Terms are used consistently with the source and across items.",
+          "overall_learner_experience": "The exact final sequence is coherent, varied, and instructive."
+        }
+      },
+      "rubric_sha256": "34290a842f2ed7e30b7a98ba70ac97d967c864424010cd31255f97cdce0b57d5",
+      "sources": [
+        {
+          "input_id": "10. Get started with speech in Azure.md",
+          "sha256": "c1f0e4a77acb1e94a9836b9a469ad7697002a8289fd318c15e108d4f24c4b69c",
+          "location": "sources/10. Get started with speech in Azure.md"
+        }
+      ],
+      "approved_references": [],
+      "models": {
+        "builder_model": "codex:gpt-5.6-terra",
+        "critic_backend": "codex",
+        "critic_model": "codex:gpt-5.6-luna",
+        "critic_fresh_context": true,
+        "editor_backend": "codex",
+        "editor_model": "codex:gpt-5.6-luna",
+        "editor_fresh_context": true,
+        "comparator_backend": "codex",
+        "comparator_model": "codex:gpt-5.6-luna",
+        "comparator_fresh_context": true
+      },
+      "context_sha256": "509def19d2f54671087c4619759ed45cffb862ba60235287a06d44f66e818766"
+    },
+    "initial_hard_gate": {
+      "artifact_sha256": "337cb50ef9d2fac8d2797bfd3838786ad3a0affdb864eb19602bea8767e974a1",
+      "passed": true,
+      "issues": [],
+      "checks": {
+        "schema_and_answers": true,
+        "identity": true,
+        "final_sequence": true
+      },
+      "metrics": {},
+      "constraint_relaxations": []
+    },
+    "rounds": [
+      {
+        "round_number": 1,
+        "champion_hash_before": "337cb50ef9d2fac8d2797bfd3838786ad3a0affdb864eb19602bea8767e974a1",
+        "critic": {
+          "result": {
+            "dimensions": [
+              {
+                "dimension": "factual_fidelity",
+                "score": 0.96,
+                "evidence": [
+                  {
+                    "statement": "All keyed answers and explanations align with the source: real-time transcription handles live audio, batch transcription handles stored recordings asynchronously, and SAS URIs point to stored audio.",
+                    "item_keys": [
+                      "choose-a-transcription-method/transcription-method-choice/r1/v1",
+                      "choose-a-transcription-method/batch-transcription/r1/v1",
+                      "choose-a-transcription-method/sas-uri/r1/v1"
+                    ],
+                    "paths": [
+                      "modules/9:10-get-started-with-speech-in-azure/units/6:choose-a-transcription-method-l1/questions/1",
+                      "modules/9:10-get-started-with-speech-in-azure/units/6:choose-a-transcription-method-l1/questions/5",
+                      "modules/9:10-get-started-with-speech-in-azure/units/6:choose-a-transcription-method-l1/questions/7"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "answer_unambiguity",
+                "score": 0.95,
+                "evidence": [
+                  {
+                    "statement": "Each item has a defensible keyed answer; the distinction between live versus stored audio and between a transcription method versus a SAS URI is explicit.",
+                    "item_keys": [
+                      "choose-a-transcription-method/transcription-method-choice/r1/v1",
+                      "choose-a-transcription-method/batch-job-scheduling/r2/v1",
+                      "choose-a-transcription-method/sas-uri/r2/v1"
+                    ],
+                    "paths": [
+                      "modules/9:10-get-started-with-speech-in-azure/units/6:choose-a-transcription-method-l1/questions/1",
+                      "modules/9:10-get-started-with-speech-in-azure/units/6:choose-a-transcription-method-l1/questions/2",
+                      "modules/9:10-get-started-with-speech-in-azure/units/6:choose-a-transcription-method-l1/questions/9"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "distractor_plausibility",
+                "score": 0.82,
+                "evidence": [
+                  {
+                    "statement": "Most distractors represent credible category or timing confusions, but several are obviously different object types, such as text-to-speech, a speech key, or a Foundry endpoint in method-selection questions.",
+                    "item_keys": [
+                      "choose-a-transcription-method/transcription-method-choice/r1/v1",
+                      "choose-a-transcription-method/sas-uri/r1/v1",
+                      "choose-a-transcription-method/real-time-transcription/r1/v1"
+                    ],
+                    "paths": [
+                      "modules/9:10-get-started-with-speech-in-azure/units/6:choose-a-transcription-method-l1/questions/1",
+                      "modules/9:10-get-started-with-speech-in-azure/units/6:choose-a-transcription-method-l1/questions/7",
+                      "modules/9:10-get-started-with-speech-in-azure/units/6:choose-a-transcription-method-l1/questions/4"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "misconception_quality",
+                "score": 0.88,
+                "evidence": [
+                  {
+                    "statement": "Wrong-choice labels and rationales diagnose realistic confusions: live versus stored audio, speech-to-text versus text-to-speech, transcription versus translation, and storage pointers versus authentication.",
+                    "item_keys": [
+                      "choose-a-transcription-method/transcription-method-choice/r1/v1",
+                      "choose-a-transcription-method/real-time-transcription/r1/v1",
+                      "choose-a-transcription-method/sas-uri/r1/v1"
+                    ],
+                    "paths": [
+                      "modules/9:10-get-started-with-speech-in-azure/units/6:choose-a-transcription-method-l1/questions/1",
+                      "modules/9:10-get-started-with-speech-in-azure/units/6:choose-a-transcription-method-l1/questions/4",
+                      "modules/9:10-get-started-with-speech-in-azure/units/6:choose-a-transcription-method-l1/questions/7"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "cognitive_progression",
+                "score": 0.52,
+                "evidence": [
+                  {
+                    "statement": "The sequence repeatedly cycles through remembering and simple understanding of the same three concepts; it begins with batch-scheduling details before establishing the broader real-time-versus-batch decision and never advances to a multi-factor workplace choice.",
+                    "item_keys": [
+                      "choose-a-transcription-method/batch-job-scheduling/r1/v1",
+                      "choose-a-transcription-method/transcription-method-choice/r1/v1",
+                      "choose-a-transcription-method/batch-job-scheduling/r2/v1",
+                      "choose-a-transcription-method/sas-uri/r2/v1"
+                    ],
+                    "paths": [
+                      "modules/9:10-get-started-with-speech-in-azure/units/6:choose-a-transcription-method-l1/questions/0",
+                      "modules/9:10-get-started-with-speech-in-azure/units/6:choose-a-transcription-method-l1/questions/1",
+                      "modules/9:10-get-started-with-speech-in-azure/units/6:choose-a-transcription-method-l1/questions/2",
+                      "modules/9:10-get-started-with-speech-in-azure/units/6:choose-a-transcription-method-l1/questions/9"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "mechanic_rhythm_variation",
+                "score": 0.56,
+                "evidence": [
+                  {
+                    "statement": "Mechanics include multiple-choice and true/false, but the ten-item rhythm remains repetitive, with several adjacent or near-adjacent checks of the same concepts and no application or constructed-response mechanic.",
+                    "item_keys": [
+                      "choose-a-transcription-method/transcription-method-choice/r1/v1",
+                      "choose-a-transcription-method/batch-job-scheduling/r2/v1",
+                      "choose-a-transcription-method/transcription-method-choice/r2/v1",
+                      "choose-a-transcription-method/batch-transcription/r2/v1"
+                    ],
+                    "paths": [
+                      "modules/9:10-get-started-with-speech-in-azure/units/6:choose-a-transcription-method-l1/questions/1",
+                      "modules/9:10-get-started-with-speech-in-azure/units/6:choose-a-transcription-method-l1/questions/2",
+                      "modules/9:10-get-started-with-speech-in-azure/units/6:choose-a-transcription-method-l1/questions/3",
+                      "modules/9:10-get-started-with-speech-in-azure/units/6:choose-a-transcription-method-l1/questions/8"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "prompt_language_variation",
+                "score": 0.68,
+                "evidence": [
+                  {
+                    "statement": "Prompt stems vary somewhat, but the session repeats near-formulas such as 'Which statements describe...', 'What...', and direct true/false assertions; items 0 and 5 use the same multi-select stem.",
+                    "item_keys": [
+                      "choose-a-transcription-method/batch-job-scheduling/r1/v1",
+                      "choose-a-transcription-method/batch-transcription/r1/v1",
+                      "choose-a-transcription-method/transcription-method-choice/r1/v1"
+                    ],
+                    "paths": [
+                      "modules/9:10-get-started-with-speech-in-azure/units/6:choose-a-transcription-method-l1/questions/0",
+                      "modules/9:10-get-started-with-speech-in-azure/units/6:choose-a-transcription-method-l1/questions/5",
+                      "modules/9:10-get-started-with-speech-in-azure/units/6:choose-a-transcription-method-l1/questions/1"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "scenario_authenticity",
+                "score": 0.25,
+                "evidence": [
+                  {
+                    "statement": "The stated objective is to choose a method for a workplace audio task, but nearly every item is a decontextualized definition or property check; the lone presentation reference supplies no realistic requirements, constraints, or stakeholder decision.",
+                    "item_keys": [
+                      "choose-a-transcription-method/transcription-method-choice/r1/v1",
+                      "choose-a-transcription-method/real-time-transcription/r2/v1",
+                      "choose-a-transcription-method/batch-transcription/r1/v1"
+                    ],
+                    "paths": [
+                      "modules/9:10-get-started-with-speech-in-azure/units/6:choose-a-transcription-method-l1/questions/1",
+                      "modules/9:10-get-started-with-speech-in-azure/units/6:choose-a-transcription-method-l1/questions/6",
+                      "modules/9:10-get-started-with-speech-in-azure/units/6:choose-a-transcription-method-l1/questions/5"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "feedback_usefulness",
+                "score": 0.86,
+                "evidence": [
+                  {
+                    "statement": "Incorrect options generally include both an intrinsic consequence and an instructional next step, while item-level explanations reinforce the governing distinction; correct options in multi-select items lack option-level feedback but are covered by the explanation.",
+                    "item_keys": [
+                      "choose-a-transcription-method/transcription-method-choice/r1/v1",
+                      "choose-a-transcription-method/batch-job-scheduling/r1/v1",
+                      "choose-a-transcription-method/sas-uri/r1/v1"
+                    ],
+                    "paths": [
+                      "modules/9:10-get-started-with-speech-in-azure/units/6:choose-a-transcription-method-l1/questions/1",
+                      "modules/9:10-get-started-with-speech-in-azure/units/6:choose-a-transcription-method-l1/questions/0",
+                      "modules/9:10-get-started-with-speech-in-azure/units/6:choose-a-transcription-method-l1/questions/7"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "difficulty_appropriateness",
+                "score": 0.78,
+                "evidence": [
+                  {
+                    "statement": "The content is appropriate for a Level 1 session and uses foundational distinctions, but the repeated recall and true/false checks make the exact session easier and less discriminating than the stated workplace-selection objective.",
+                    "item_keys": [
+                      "choose-a-transcription-method/batch-job-scheduling/r1/v1",
+                      "choose-a-transcription-method/transcription-method-choice/r2/v1",
+                      "choose-a-transcription-method/real-time-transcription/r2/v1"
+                    ],
+                    "paths": [
+                      "modules/9:10-get-started-with-speech-in-azure/units/6:choose-a-transcription-method-l1/questions/0",
+                      "modules/9:10-get-started-with-speech-in-azure/units/6:choose-a-transcription-method-l1/questions/3",
+                      "modules/9:10-get-started-with-speech-in-azure/units/6:choose-a-transcription-method-l1/questions/6"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "terminology_consistency",
+                "score": 0.93,
+                "evidence": [
+                  {
+                    "statement": "The artifact consistently distinguishes real-time transcription, batch transcription, speech-to-text, text-to-speech, batch scheduling, and SAS URI, matching the source terminology.",
+                    "item_keys": [
+                      "choose-a-transcription-method/real-time-transcription/r1/v1",
+                      "choose-a-transcription-method/batch-transcription/r1/v1",
+                      "choose-a-transcription-method/sas-uri/r2/v1"
+                    ],
+                    "paths": [
+                      "modules/9:10-get-started-with-speech-in-azure/units/6:choose-a-transcription-method-l1/questions/4",
+                      "modules/9:10-get-started-with-speech-in-azure/units/6:choose-a-transcription-method-l1/questions/5",
+                      "modules/9:10-get-started-with-speech-in-azure/units/6:choose-a-transcription-method-l1/questions/9"
+                    ]
+                  }
+                ]
+              },
+              {
+                "dimension": "overall_learner_experience",
+                "score": 0.64,
+                "evidence": [
+                  {
+                    "statement": "The session is correct and feedback-rich, but the exact order feels repetitive and recall-heavy, with limited contextual decision-making despite the unit's workplace-task objective.",
+                    "item_keys": [
+                      "choose-a-transcription-method/batch-job-scheduling/r1/v1",
+                      "choose-a-transcription-method/transcription-method-choice/r1/v1",
+                      "choose-a-transcription-method/batch-transcription/r2/v1",
+                      "choose-a-transcription-method/sas-uri/r2/v1"
+                    ],
+                    "paths": [
+                      "modules/9:10-get-started-with-speech-in-azure/units/6:choose-a-transcription-method-l1/questions/0",
+                      "modules/9:10-get-started-with-speech-in-azure/units/6:choose-a-transcription-method-l1/questions/1",
+                      "modules/9:10-get-started-with-speech-in-azure/units/6:choose-a-transcription-method-l1/questions/8",
+                      "modules/9:10-get-started-with-speech-in-azure/units/6:choose-a-transcription-method-l1/questions/9"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "critical_defects": [],
+            "largest_gap": {
+              "dimension": "scenario_authenticity",
+              "summary": "The session does not operationalize its workplace audio-task objective through authentic scenarios.",
+              "evidence": [
+                {
+                  "statement": "The items ask learners to identify definitions, properties, or isolated service objects rather than choose a transcription method for a credible workplace need with timing and storage constraints.",
+                  "item_keys": [
+                    "choose-a-transcription-method/transcription-method-choice/r1/v1",
+                    "choose-a-transcription-method/batch-transcription/r1/v1",
+                    "choose-a-transcription-method/real-time-transcription/r2/v1",
+                    "choose-a-transcription-method/sas-uri/r1/v1"
+                  ],
+                  "paths": [
+                    "modules/9:10-get-started-with-speech-in-azure/units/6:choose-a-transcription-method-l1/questions/1",
+                    "modules/9:10-get-started-with-speech-in-azure/units/6:choose-a-transcription-method-l1/questions/5",
+                    "modules/9:10-get-started-with-speech-in-azure/units/6:choose-a-transcription-method-l1/questions/6",
+                    "modules/9:10-get-started-with-speech-in-azure/units/6:choose-a-transcription-method-l1/questions/7"
+                  ]
+                }
+              ],
+              "affected_item_keys": [
+                "choose-a-transcription-method/batch-job-scheduling/r1/v1",
+                "choose-a-transcription-method/transcription-method-choice/r1/v1",
+                "choose-a-transcription-method/batch-job-scheduling/r2/v1",
+                "choose-a-transcription-method/transcription-method-choice/r2/v1",
+                "choose-a-transcription-method/real-time-transcription/r1/v1",
+                "choose-a-transcription-method/batch-transcription/r1/v1",
+                "choose-a-transcription-method/real-time-transcription/r2/v1",
+                "choose-a-transcription-method/sas-uri/r1/v1",
+                "choose-a-transcription-method/batch-transcription/r2/v1",
+                "choose-a-transcription-method/sas-uri/r2/v1"
+              ],
+              "affected_paths": [
+                "modules/9:10-get-started-with-speech-in-azure/units/6:choose-a-transcription-method-l1/questions/0",
+                "modules/9:10-get-started-with-speech-in-azure/units/6:choose-a-transcription-method-l1/questions/1",
+                "modules/9:10-get-started-with-speech-in-azure/units/6:choose-a-transcription-method-l1/questions/2",
+                "modules/9:10-get-started-with-speech-in-azure/units/6:choose-a-transcription-method-l1/questions/3",
+                "modules/9:10-get-started-with-speech-in-azure/units/6:choose-a-transcription-method-l1/questions/4",
+                "modules/9:10-get-started-with-speech-in-azure/units/6:choose-a-transcription-method-l1/questions/5",
+                "modules/9:10-get-started-with-speech-in-azure/units/6:choose-a-transcription-method-l1/questions/6",
+                "modules/9:10-get-started-with-speech-in-azure/units/6:choose-a-transcription-method-l1/questions/7",
+                "modules/9:10-get-started-with-speech-in-azure/units/6:choose-a-transcription-method-l1/questions/8",
+                "modules/9:10-get-started-with-speech-in-azure/units/6:choose-a-transcription-method-l1/questions/9"
+              ],
+              "recommended_scope": "session",
+              "repair_instruction": "Revise the session's question_text and corresponding options, rationales, feedback, and explanations to embed credible workplace audio decisions involving live versus stored audio, urgency, asynchronous timing, and storage location, while preserving the existing source-faithful answers and deterministic identity/sequence constraints.",
+              "allowed_payload_fields": [
+                "question_text",
+                "options.options.text",
+                "options.options.rationale",
+                "options.options.better_fit",
+                "options.options.feedback",
+                "explanation"
+              ]
+            },
+            "confidence": 0.78,
+            "human_review_recommended": false,
+            "concise_summary": "The artifact is source-faithful, unambiguous, terminology-consistent, and supported by useful misconception feedback. Its main weakness is a repetitive recall-oriented sequence that does not sufficiently realize the workplace audio-task objective. Confidence is reduced because no approved references were supplied."
+          },
+          "artifact_sha256": "337cb50ef9d2fac8d2797bfd3838786ad3a0affdb864eb19602bea8767e974a1",
+          "evaluation_context_sha256": "509def19d2f54671087c4619759ed45cffb862ba60235287a06d44f66e818766",
+          "goal_sha256": "c4bae546eef7fec8c92895a1538196a8df81a13754329022bca211a6200752ae",
+          "critic_backend": "codex",
+          "critic_model": "codex:gpt-5.6-luna",
+          "fresh_context": true,
+          "model_independence": "independent",
+          "approved_reference_count": 0,
+          "reference_confidence_reduced": true,
+          "usage": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "cost_usd": 0.0,
+            "backend_calls": 1
+          }
+        },
+        "critic_failure": null,
+        "repair_scope": null,
+        "repair_summary": null,
+        "editor_backend": null,
+        "editor_model": null,
+        "editor_fresh_context": null,
+        "edit_usage": null,
+        "validation_retry_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost_usd": 0.0,
+          "backend_calls": 3
+        },
+        "touched_item_keys": [],
+        "challenger_hash": null,
+        "hard_gate": null,
+        "source_fidelity_critic": null,
+        "source_fidelity_gate": null,
+        "comparison": null,
+        "decision": "retained_human",
+        "decision_evidence": "editor scope validation failed after 3 attempts: editor touched_payload_fields report does not match actual changes",
+        "champion_hash_after": "337cb50ef9d2fac8d2797bfd3838786ad3a0affdb864eb19602bea8767e974a1",
+        "constraint_relaxations": [],
+        "cumulative_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost_usd": 0.0,
+          "backend_calls": 4
+        }
+      }
+    ],
+    "stop_reason": "human_review_required",
+    "stop_evidence": "editor scope validation failed after 3 attempts: editor touched_payload_fields report does not match actual changes",
+    "human_decision": null,
+    "total_usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "backend_calls": 4
+    },
+    "human_review_recommended": true,
+    "publication_eligible": false
+  }
+}

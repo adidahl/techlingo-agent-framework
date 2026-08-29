@@ -1,0 +1,340 @@
+{
+  "schema_version": "techlingo-gauntlet-record-v1",
+  "compiled_artifact_sha256": "69c9d18537cc04d4d24f6ffad549e8d9c17ee1b85b2ba8dc167de6c8be33ae73",
+  "unit_key": "extract-information-from-video-l3",
+  "champion": {
+    "artifact_id": "ai-901:extract-information-from-video-l3",
+    "course_id": "ai-901",
+    "session_id": "extract-information-from-video-l3",
+    "items": [
+      {
+        "item_key": "extract-information-from-video/prebuilt-video-analyzer/r3/v2",
+        "path": "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/0",
+        "payload": {
+          "import_key": "extract-information-from-video-l3-q1",
+          "question_type": "fill_blank",
+          "question_text": "The prebuilt analyzer for video analysis is ___.",
+          "options": {
+            "parts": [
+              {
+                "type": "text",
+                "text": "The prebuilt analyzer for video analysis is "
+              },
+              {
+                "type": "gap",
+                "accepted_answers": [
+                  "prebuilt-videoSearch"
+                ],
+                "rejected_answers": [
+                  "prebuilt-audioSearch",
+                  "prebuilt-invoice",
+                  "prebuilt-imageSearch",
+                  "prebuilt-audio-sdk-flow",
+                  "prebuilt-invoice-sdk-flow",
+                  "prebuilt-and-custom-analyzers"
+                ],
+                "placeholder": "analyzer ID"
+              },
+              {
+                "type": "text",
+                "text": "."
+              }
+            ],
+            "rejected_answers": [
+              "prebuilt-audioSearch",
+              "prebuilt-invoice",
+              "prebuilt-imageSearch",
+              "prebuilt-audio-sdk-flow",
+              "prebuilt-invoice-sdk-flow",
+              "prebuilt-and-custom-analyzers"
+            ],
+            "blooms_level": "Remembering",
+            "original_question_type": "fill_gaps",
+            "concept_id": "prebuilt-video-analyzer",
+            "feedback_for_incorrect": {
+              "intrinsic": "The video could be sent to an analyzer for a different content type.",
+              "instructional": "Use prebuilt-videoSearch for video input."
+            },
+            "item_key": "extract-information-from-video/prebuilt-video-analyzer/r3/v2",
+            "rung": 3,
+            "variant": 2,
+            "module_key": "12-get-started-with-ai-powered-information-extraction",
+            "lesson_key": "extract-information-from-video",
+            "learning_status": "review"
+          },
+          "correct_answer": "prebuilt-videoSearch",
+          "explanation": "prebuilt-videoSearch is the prebuilt analyzer identifier for video. Its name distinguishes it from audio, image, and invoice analyzers.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "extract-information-from-video/video-meeting-schema/r3/v2",
+        "path": "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/1",
+        "payload": {
+          "import_key": "extract-information-from-video-l3-q2",
+          "question_type": "arrange_sentence",
+          "question_text": "Order the pieces to form the correct statement.",
+          "options": {
+            "word_bank": [
+              "who spoke.",
+              "A video schema",
+              "during the meeting",
+              "can record"
+            ],
+            "correct_order": [
+              "A video schema",
+              "can record",
+              "who spoke.",
+              "during the meeting"
+            ],
+            "blooms_level": "Understanding",
+            "original_question_type": "rearrange",
+            "concept_id": "video-meeting-schema",
+            "feedback_for_incorrect": {
+              "intrinsic": "The speaker field would be described unclearly.",
+              "instructional": "Begin with the schema, then state that it can record who spoke during the meeting."
+            },
+            "item_key": "extract-information-from-video/video-meeting-schema/r3/v2",
+            "rung": 3,
+            "variant": 2,
+            "module_key": "12-get-started-with-ai-powered-information-extraction",
+            "lesson_key": "extract-information-from-video",
+            "learning_status": "review"
+          },
+          "correct_answer": "A video schema can record who spoke. during the meeting",
+          "explanation": "A video meeting schema can record speaker identity. The ordered pieces form a statement about that distinct schema field.",
+          "points": 1
+        }
+      },
+      {
+        "item_key": "extract-information-from-video/prebuilt-video-analyzer/r5/v1",
+        "path": "modules/11:12-get-started-with-ai-powered-information-extraction/units/17:extract-information-from-video-l3/questions/2",
+        "payload": {
+          "import_key": "extract-information-from-video-l3-q3",
+          "question_type": "multiple_choice",
+          "question_text": "A meeting-services lead must select an analyzer for recorded video conferences and deliver structured meeting details to a reporting system. Which decisions best fit? Select all that apply.",
+          "options": {
+            "options": [
+              {
+                "text": "Use an audio analyzer",
+                "is_correct": false,
+                "error_type": "Confuses video input with audio input",
+                "rationale": "This is incorrect. An audio analyzer is intended for audio input, while the input here is recorded video.",
+                "better_fit": "Use an audio analyzer for a call recording or another audio file.",
+                "feedback": {
+                  "intrinsic": "The lead would choose an analyzer that does not match the conference video.",
+                  "instructional": "Match the analyzer to the input type: recorded video uses prebuilt-videoSearch."
+                }
+              },
+              {
+                "text": "Use an invoice analyzer",
+                "is_correct": false,
+                "error_type": "Confuses meeting video with invoice documents",
+                "rationale": "This is incorrect. An invoice analyzer extracts invoice-oriented fields, not meeting details from a video conference.",
+                "better_fit": "Use an invoice analyzer for invoices containing billing fields such as tax and total.",
+                "feedback": {
+                  "intrinsic": "The requested meeting details would be replaced by invoice-oriented fields.",
+                  "instructional": "Choose prebuilt-videoSearch for recorded video conferences."
+                }
+              },
+              {
+                "text": "Use prebuilt-videoSearch",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "This is correct. It is the prebuilt analyzer selected for video input.",
+                "better_fit": null,
+                "feedback": null
+              },
+              {
+                "text": "Extract video-related structured information",
+                "is_correct": true,
+                "error_type": null,
+                "rationale": "This is correct. The stated reporting need requires structured information from the conference video.",
+                "better_fit": null,
+                "feedback": null
+              }
+            ],
+            "blooms_level": "Analyzing/Evaluating",
+            "original_question_type": "multi_choice",
+            "concept_id": "prebuilt-video-analyzer",
+            "item_key": "extract-information-from-video/prebuilt-video-analyzer/r5/v1",
+            "rung": 5,
+            "variant": 1,
+            "module_key": "12-get-started-with-ai-powered-information-extraction",
+            "lesson_key": "extract-information-from-video",
+            "learning_status": "new"
+          },
+          "correct_answer": "[2,3]",
+          "explanation": "Correct—the video analyzer is the appropriate decision for video input and structured meeting details.",
+          "points": 1
+        }
+      }
+    ],
+    "metadata": {
+      "module_key": "12-get-started-with-ai-powered-information-extraction",
+      "unit_title": "Extract information from video · Level 3",
+      "unit_slo": "Describe the information a video analyzer can extract from a meeting.",
+      "constraint_relaxations": []
+    }
+  },
+  "history": {
+    "schema_version": "techlingo-gauntlet-history-v1",
+    "run_id": "extract-information-from-video-l3-9dd18d8ba5b0",
+    "started_at": "2026-08-28T09:19:16.843393Z",
+    "finished_at": "2026-08-28T09:28:10.745821Z",
+    "initial_champion_hash": "bff200820b8a0b6af21eeeb0fa1cf0a49987de098a99aaac623e628290001440",
+    "final_champion_hash": "bff200820b8a0b6af21eeeb0fa1cf0a49987de098a99aaac623e628290001440",
+    "evaluation_context": {
+      "schema_version": "techlingo-evaluation-context-v1",
+      "goal": "Produce an excellent, source-faithful learner session while preserving all deterministic correctness, identity, and sequence constraints.",
+      "source_fidelity_goal": "Independently verify the hard-gated edited challenger against the supplied source material. Reject unsupported facts, answers, explanations, feedback, or terminology changes; do not edit the artifact.",
+      "gauntlet_policy": {
+        "critic_backend": "codex",
+        "critic_model": "codex:gpt-5.6-luna",
+        "builder_model": "codex:gpt-5.6-terra",
+        "max_rounds": 4,
+        "plateau_rounds": 2,
+        "repeated_loss_rounds": 2,
+        "minimum_improvement_margin": 0.02,
+        "confidence_threshold": 0.65,
+        "human_review_threshold": 0.4,
+        "max_time_seconds": null,
+        "max_tokens": null,
+        "max_cost_usd": null,
+        "qualitative_required_for_publication": true,
+        "quality_thresholds": {
+          "factual_fidelity": 0.8,
+          "answer_unambiguity": 0.8,
+          "distractor_plausibility": 0.8,
+          "misconception_quality": 0.8,
+          "cognitive_progression": 0.8,
+          "mechanic_rhythm_variation": 0.8,
+          "prompt_language_variation": 0.8,
+          "scenario_authenticity": 0.8,
+          "feedback_usefulness": 0.8,
+          "difficulty_appropriateness": 0.8,
+          "terminology_consistency": 0.8,
+          "overall_learner_experience": 0.8
+        },
+        "comparison_seed": 901,
+        "protected_dimensions": [
+          "factual_fidelity",
+          "answer_unambiguity"
+        ],
+        "unstable_comparison_requires_human_review": true,
+        "identifying_metadata_keys": [
+          "artifact_id",
+          "builder_model",
+          "candidate_role",
+          "challenger",
+          "champion",
+          "critic_model",
+          "generated_at",
+          "import_key",
+          "item_key",
+          "model_id",
+          "path",
+          "version_id"
+        ]
+      },
+      "gauntlet_policy_sha256": "035ba75a6dc056e4680b4c7cb97f2859ec5160f72633534a4550ba69e8061ac4",
+      "rubric": {
+        "criteria": {
+          "factual_fidelity": "Every claim and answer is faithful to the supplied source.",
+          "answer_unambiguity": "Each item has one defensible answer under its instructions.",
+          "distractor_plausibility": "Distractors are credible without becoming defensible answers.",
+          "misconception_quality": "Wrong choices diagnose realistic learner misconceptions.",
+          "cognitive_progression": "The ordered session builds understanding at a coherent pace.",
+          "mechanic_rhythm_variation": "Mechanics vary naturally without disruptive repetition.",
+          "prompt_language_variation": "Prompt stems avoid formulaic repetition.",
+          "scenario_authenticity": "Scenarios resemble credible decisions or tasks.",
+          "feedback_usefulness": "Feedback explains the governing concept and next step.",
+          "difficulty_appropriateness": "Difficulty matches the stated audience and session position.",
+          "terminology_consistency": "Terms are used consistently with the source and across items.",
+          "overall_learner_experience": "The exact final sequence is coherent, varied, and instructive."
+        }
+      },
+      "rubric_sha256": "34290a842f2ed7e30b7a98ba70ac97d967c864424010cd31255f97cdce0b57d5",
+      "sources": [
+        {
+          "input_id": "12. Get started with AI-powered information extraction in Azure.md",
+          "sha256": "1e778579ac185d5d6eb4a1b22adfa8cb3b6672f1f586af15fc69e33705113bcd",
+          "location": "sources/12. Get started with AI-powered information extraction in Azure.md"
+        }
+      ],
+      "approved_references": [],
+      "models": {
+        "builder_model": "codex:gpt-5.6-terra",
+        "critic_backend": "codex",
+        "critic_model": "codex:gpt-5.6-luna",
+        "critic_fresh_context": true,
+        "editor_backend": "codex",
+        "editor_model": "codex:gpt-5.6-luna",
+        "editor_fresh_context": true,
+        "comparator_backend": "codex",
+        "comparator_model": "codex:gpt-5.6-luna",
+        "comparator_fresh_context": true
+      },
+      "context_sha256": "5164a64634ebd049a0f094ad803871da79175caa1a1f896d77dadaa278114d51"
+    },
+    "initial_hard_gate": {
+      "artifact_sha256": "bff200820b8a0b6af21eeeb0fa1cf0a49987de098a99aaac623e628290001440",
+      "passed": true,
+      "issues": [],
+      "checks": {
+        "schema_and_answers": true,
+        "identity": true,
+        "final_sequence": true
+      },
+      "metrics": {},
+      "constraint_relaxations": []
+    },
+    "rounds": [
+      {
+        "round_number": 1,
+        "champion_hash_before": "bff200820b8a0b6af21eeeb0fa1cf0a49987de098a99aaac623e628290001440",
+        "critic": null,
+        "critic_failure": "critic evidence validation failed after 3 attempts: dimension feedback_usefulness evidence[0] cites unknown path(s): modules/11:12:extract-information-from-video-l3/questions/0",
+        "repair_scope": null,
+        "repair_summary": null,
+        "editor_backend": null,
+        "editor_model": null,
+        "editor_fresh_context": null,
+        "edit_usage": null,
+        "validation_retry_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost_usd": 0.0,
+          "backend_calls": 3
+        },
+        "touched_item_keys": [],
+        "challenger_hash": null,
+        "hard_gate": null,
+        "source_fidelity_critic": null,
+        "source_fidelity_gate": null,
+        "comparison": null,
+        "decision": "retained_human",
+        "decision_evidence": "critic evidence validation failed after 3 attempts: dimension feedback_usefulness evidence[0] cites unknown path(s): modules/11:12:extract-information-from-video-l3/questions/0",
+        "champion_hash_after": "bff200820b8a0b6af21eeeb0fa1cf0a49987de098a99aaac623e628290001440",
+        "constraint_relaxations": [],
+        "cumulative_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "cost_usd": 0.0,
+          "backend_calls": 3
+        }
+      }
+    ],
+    "stop_reason": "human_review_required",
+    "stop_evidence": "critic evidence validation failed after 3 attempts: dimension feedback_usefulness evidence[0] cites unknown path(s): modules/11:12:extract-information-from-video-l3/questions/0",
+    "human_decision": null,
+    "total_usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0.0,
+      "backend_calls": 3
+    },
+    "human_review_recommended": true,
+    "publication_eligible": false
+  }
+}
