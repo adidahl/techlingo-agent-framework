@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { RunInfo, getRuns, getCourse } from '../../app/actions/viewer';
+import { RunInfo, getCourse } from '../../app/actions/viewer';
 import { RunSelector } from './RunSelector';
 import { BrowseTab } from './BrowseTab';
 import { QuizTab } from './QuizTab';
@@ -13,8 +13,8 @@ interface Props {
 }
 
 export const ViewerContainer: React.FC<Props> = ({ initialRuns }) => {
-    const [runs, setRuns] = useState<RunInfo[]>(initialRuns);
-    const [selectedRunId, setSelectedRunId] = useState<string>('');
+    const runs = initialRuns;
+    const [selectedRunId, setSelectedRunId] = useState<string>(initialRuns[0]?.id || '');
     const [course, setCourse] = useState<Course | null>(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
@@ -90,7 +90,11 @@ export const ViewerContainer: React.FC<Props> = ({ initialRuns }) => {
                             <Tabs.Tab value="quiz">Interactive Quiz</Tabs.Tab>
                         </Tabs.List>
                         <Tabs.Panel value="browse" style={{ paddingTop: '1.5rem' }}>
-                            <BrowseTab course={course} runId={selectedRunId} onCourseChanged={refreshCourse} />
+                            <BrowseTab
+                                course={course}
+                                runId={selectedRunId.startsWith('bundle:') ? undefined : selectedRunId}
+                                onCourseChanged={refreshCourse}
+                            />
                         </Tabs.Panel>
                         <Tabs.Panel value="quiz" style={{ paddingTop: '1.5rem' }}>
                             <QuizTab course={course} seed={seed} />
