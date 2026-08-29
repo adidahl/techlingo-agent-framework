@@ -909,6 +909,17 @@ def compile_workspace(course_dir: str | Path) -> CompiledCourse:
         f"duplicate bank lesson identity: {lesson!r}"
         for lesson in sorted(duplicate_bank_lessons)
     )
+    for bank in banks.values():
+        for item in _active_items(bank):
+            concept = concepts_by_id.get(item.concept_id)
+            if concept is None:
+                problems.append(
+                    f"active bank item {item.item_key!r} references missing concept {item.concept_id!r}"
+                )
+            elif concept.status != "active":
+                problems.append(
+                    f"active bank item {item.item_key!r} references retired concept {item.concept_id!r}"
+                )
     sequence_quality = validate_tl_course(
         tl_course,
         policy=_sequence_quality_policy(cfg),

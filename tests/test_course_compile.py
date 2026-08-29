@@ -707,6 +707,23 @@ def test_compile_workspace_produces_valid_flat_course():
         assert compiled.notes == []
 
 
+def test_compile_rejects_active_bank_item_for_retired_concept():
+    with tempfile.TemporaryDirectory() as td:
+        ws = _compiled_workspace(Path(td))
+        graph = ws.load_graph()
+        active_concept_id = next(iter(ws.iter_banks())).items[0].concept_id
+        graph.by_id()[active_concept_id].status = "retired"
+        ws.save_graph(graph)
+
+        compiled = compile_workspace(ws.root)
+
+        assert any(
+            "active bank item" in problem
+            and f"retired concept {active_concept_id!r}" in problem
+            for problem in compiled.problems
+        )
+
+
 def test_compile_skips_retired_items_and_keeps_dense_keys():
     with tempfile.TemporaryDirectory() as td:
         ws = _compiled_workspace(Path(td))
