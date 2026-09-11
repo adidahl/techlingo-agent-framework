@@ -1,0 +1,512 @@
+{
+  "import_key": "call-models-and-build-agents-l3",
+  "title": "Call models and build agents · Level 3",
+  "slo": "Distinguish a model from an agent and identify how an application calls each one.",
+  "exercises": [
+    {
+      "import_key": "call-models-and-build-agents-l3-q1",
+      "question_type": "multiple_choice",
+      "question_text": "Which agent component defines role, style, constraints, and output rules?",
+      "options": {
+        "options": [
+          {
+            "text": "Instructions",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Instructions define role, behavior, style, constraints, and output rules. They guide how the agent responds.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Model",
+            "is_correct": false,
+            "error_type": "Confuses reasoning with behavior rules",
+            "rationale": "The model provides reasoning and generation. It does not itself specify behavior boundaries.",
+            "better_fit": "Use a model for the agent's reasoning capability.",
+            "feedback": null
+          },
+          {
+            "text": "Tools",
+            "is_correct": false,
+            "error_type": "Confuses actions with behavior rules",
+            "rationale": "Tools let an agent take actions through external systems. They do not set tone or output requirements.",
+            "better_fit": "Use tools when the agent must search, query, or act externally.",
+            "feedback": null
+          },
+          {
+            "text": "Knowledge",
+            "is_correct": false,
+            "error_type": "Confuses context with behavior rules",
+            "rationale": "Knowledge supplies retrieved context. It does not define the agent's role or output style.",
+            "better_fit": "Use knowledge to ground responses in relevant content.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "agent",
+        "item_key": "call-models-and-build-agents/agent/r1/v2",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. Instructions define the agent's behavior.",
+      "points": 1
+    },
+    {
+      "import_key": "call-models-and-build-agents-l3-q2",
+      "question_type": "multiple_choice",
+      "question_text": "What does the Foundry SDK provide? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "A Project client for Foundry operations",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The SDK provides a Project client for Foundry-native operations. This client connects application work to a Foundry project.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "An OpenAI-compatible client for model calls",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The SDK also provides an OpenAI-compatible client. That client supports Responses API model calls.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Automatic model evaluation scores",
+            "is_correct": false,
+            "error_type": "Confuses SDK clients with evaluation",
+            "rationale": "Model evaluation scores come from Foundry's benchmarking and evaluator capabilities, not from the SDK clients. The SDK provides clients for Foundry operations and model calls.",
+            "better_fit": "Use evaluation scores when comparing model quality, safety, or performance.",
+            "feedback": null
+          },
+          {
+            "text": "A replacement for a model deployment",
+            "is_correct": false,
+            "error_type": "Confuses SDK with deployment",
+            "rationale": "An SDK supplies clients and connection patterns. A deployment is the model service being called.",
+            "better_fit": "A model deployment is needed to expose a selected model through an endpoint.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "foundry-sdk",
+        "item_key": "call-models-and-build-agents/foundry-sdk/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "[0,1]",
+      "explanation": "Correct. The Foundry SDK provides a Project client for Foundry operations and an OpenAI-compatible client for model calls. Model evaluation scores come from Foundry evaluation features, not the SDK.",
+      "points": 1
+    },
+    {
+      "import_key": "call-models-and-build-agents-l3-q3",
+      "question_type": "true_false",
+      "question_text": "An agent can maintain working memory during a conversation and create structured outputs.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "agent",
+        "feedback_for_incorrect": {
+          "intrinsic": "The agent's multi-step conversational capabilities would be underestimated.",
+          "instructional": "Agents can maintain working memory, decide actions, and create structured outputs."
+        },
+        "item_key": "call-models-and-build-agents/agent/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. Agents can maintain working memory and create structured outputs.",
+      "points": 1
+    },
+    {
+      "import_key": "call-models-and-build-agents-l3-q4",
+      "question_type": "true_false",
+      "question_text": "Tools are retrieved context, while knowledge is used to take actions in external systems.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "tools-and-knowledge",
+        "feedback_for_incorrect": {
+          "intrinsic": "The assistant could be configured for the wrong need: retrieval or action.",
+          "instructional": "Tools are actions through external systems; knowledge is retrieved context."
+        },
+        "item_key": "call-models-and-build-agents/tools-and-knowledge/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct. The statement reverses the two roles.",
+      "points": 1
+    },
+    {
+      "import_key": "call-models-and-build-agents-l3-q5",
+      "question_type": "multiple_choice",
+      "question_text": "What is a model when used on its own?",
+      "options": {
+        "options": [
+          {
+            "text": "Raw intelligence for inference",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A model provides the raw intelligence used for inference. It generates output from a prompt.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A packaged task worker",
+            "is_correct": false,
+            "error_type": "Confuses model with agent",
+            "rationale": "A packaged, task-oriented worker is an agent built on a model. A model is the underlying intelligence.",
+            "better_fit": "Use this description for an agent with reusable behavior.",
+            "feedback": null
+          },
+          {
+            "text": "A set of external actions",
+            "is_correct": false,
+            "error_type": "Confuses model with tools",
+            "rationale": "External actions are supplied by tools. The model supplies reasoning and generation.",
+            "better_fit": "Use this for callable capabilities such as search or database queries.",
+            "feedback": null
+          },
+          {
+            "text": "A store of retrieved documents",
+            "is_correct": false,
+            "error_type": "Confuses model with knowledge",
+            "rationale": "Retrieved documents are knowledge used as context. They are separate from the model that generates the response.",
+            "better_fit": "Use this for external content that grounds an answer.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "model-versus-agent",
+        "item_key": "call-models-and-build-agents/model-versus-agent/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. A model alone is raw intelligence for inference.",
+      "points": 1
+    },
+    {
+      "import_key": "call-models-and-build-agents-l3-q6",
+      "question_type": "multiple_choice",
+      "question_text": "Which are features of a lightweight chat client? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "It collects user input",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A lightweight chat client accepts a person's request. It sends that request to a remote service.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It calls a remote API or service",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Calling a remote service is a core job of the client. Most compute can remain on the server.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It displays results",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The client presents the returned response to the user. Displaying results completes its focused interaction loop.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It requires a heavy UI framework",
+            "is_correct": false,
+            "error_type": "Confuses lightweight clients with complex applications",
+            "rationale": "A lightweight client avoids heavy frameworks and large local dependencies. It can be a simple CLI, utility, or web page.",
+            "better_fit": "A heavy framework may fit a large application with a complex interface.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "responses-api-and-lightweight-client",
+        "item_key": "call-models-and-build-agents/responses-api-and-lightweight-client/r1/v2",
+        "rung": 1
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. A lightweight client collects input, makes a remote call, and shows the result.",
+      "points": 1
+    },
+    {
+      "import_key": "call-models-and-build-agents-l3-q7",
+      "question_type": "arrange_sentence",
+      "question_text": "Put the pieces in the correct order.",
+      "options": {
+        "word_bank": [
+          "An agent",
+          "is a packaged",
+          "built on",
+          "task-oriented worker",
+          "a model"
+        ],
+        "correct_order": [
+          "An agent",
+          "is a packaged",
+          "task-oriented worker",
+          "built on",
+          "a model"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "model-versus-agent",
+        "feedback_for_incorrect": {
+          "intrinsic": "The relationship between the worker and its underlying model would be unclear.",
+          "instructional": "Name the packaged worker first, then show what it is built on."
+        },
+        "item_key": "call-models-and-build-agents/model-versus-agent/r3/v2",
+        "rung": 3
+      },
+      "correct_answer": "An agent is a packaged task-oriented worker built on a model",
+      "explanation": "The sentence identifies an agent as the worker and then states that it is built on a model.",
+      "points": 1
+    },
+    {
+      "import_key": "call-models-and-build-agents-l3-q8",
+      "question_type": "multiple_choice",
+      "question_text": "What can the Project API do for agents? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Integrate agents into web apps",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The Project API can integrate agents into web applications. It also supports bots and backend workflows.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Orchestrate multi-step tasks",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The Project API can orchestrate multi-step tasks. This supports workflow-oriented agent use.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Pass structured inputs or tool calls",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The Project API can pass structured inputs or tool calls. This supports application-driven agent workflows.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Replace agent instructions",
+            "is_correct": false,
+            "error_type": "Confuses calling an agent with defining behavior",
+            "rationale": "Instructions are part of the agent and define its behavior. The Project API connects an application to that agent.",
+            "better_fit": "Use agent instructions when creating or refining the agent's behavior.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "project-api-and-agent-client",
+        "item_key": "call-models-and-build-agents/project-api-and-agent-client/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. The Project API integrates agents and supports workflow operations.",
+      "points": 1
+    },
+    {
+      "import_key": "call-models-and-build-agents-l3-q9",
+      "question_type": "fill_blank",
+      "question_text": "A small application that collects input, calls a remote service, and displays results is a ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "A small application that collects input, calls a remote service, and displays results is a "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "lightweight chat client"
+            ],
+            "rejected_answers": [
+              "Responses API",
+              "Project API",
+              "Foundry SDK",
+              "agent",
+              "foundry-sdk",
+              "foundry-playground",
+              "project-api-and-agent-client"
+            ],
+            "placeholder": "technical term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "Responses API",
+          "Project API",
+          "Foundry SDK",
+          "agent",
+          "foundry-sdk",
+          "foundry-playground",
+          "project-api-and-agent-client"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "responses-api-and-lightweight-client",
+        "feedback_for_incorrect": {
+          "intrinsic": "The term would fail to identify the small client application being described.",
+          "instructional": "Use “lightweight chat client,” which describes the application rather than the API it calls."
+        },
+        "item_key": "call-models-and-build-agents/responses-api-and-lightweight-client/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "lightweight chat client",
+      "explanation": "A lightweight chat client has a focused role: gather input, call a remote service, and display the result without heavy local complexity.",
+      "points": 1
+    },
+    {
+      "import_key": "call-models-and-build-agents-l3-q10",
+      "question_type": "arrange_sentence",
+      "question_text": "Order the pieces correctly.",
+      "options": {
+        "word_bank": [
+          "A tool",
+          "is a callable capability",
+          "act through",
+          "that lets a model",
+          "an external system"
+        ],
+        "correct_order": [
+          "A tool",
+          "is a callable capability",
+          "that lets a model",
+          "act through",
+          "an external system"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "tools-and-knowledge",
+        "feedback_for_incorrect": {
+          "intrinsic": "The action role of a tool would become unclear.",
+          "instructional": "Place the capability first, then show that it lets the model act externally."
+        },
+        "item_key": "call-models-and-build-agents/tools-and-knowledge/r3/v2",
+        "rung": 3
+      },
+      "correct_answer": "A tool is a callable capability that lets a model act through an external system",
+      "explanation": "A tool is a callable capability that enables a model to act through an external system.",
+      "points": 1
+    },
+    {
+      "import_key": "call-models-and-build-agents-l3-q11",
+      "question_type": "fill_blank",
+      "question_text": "In a Responses API request, use ___ in extra_body to direct the call to an existing agent.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "In a Responses API request, use "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "agent_reference"
+            ],
+            "rejected_answers": [
+              "response.output_text",
+              "DefaultAzureCredential",
+              "deployment name",
+              "responses-api-and-lightweight-client",
+              "foundry-sdk",
+              "model-versus-agent"
+            ],
+            "placeholder": "request field"
+          },
+          {
+            "type": "text",
+            "text": " in extra_body to direct the call to an existing agent."
+          }
+        ],
+        "rejected_answers": [
+          "response.output_text",
+          "DefaultAzureCredential",
+          "deployment name",
+          "responses-api-and-lightweight-client",
+          "foundry-sdk",
+          "model-versus-agent"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "project-api-and-agent-client",
+        "feedback_for_incorrect": {
+          "intrinsic": "The request would not clearly target the saved agent.",
+          "instructional": "Use agent_reference in extra_body; credentials and output fields serve different roles."
+        },
+        "item_key": "call-models-and-build-agents/project-api-and-agent-client/r3/v2",
+        "rung": 3
+      },
+      "correct_answer": "agent_reference",
+      "explanation": "agent_reference is the request value that targets an existing agent.",
+      "points": 1
+    },
+    {
+      "import_key": "call-models-and-build-agents-l3-q12",
+      "question_type": "multiple_choice",
+      "question_text": "Which Foundry SDK client is used for Foundry-native operations?",
+      "options": {
+        "options": [
+          {
+            "text": "Project client",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The Project client is supplied by the Foundry SDK for Foundry-native operations. It is distinct from the OpenAI-compatible model-call client.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "OpenAI-compatible client",
+            "is_correct": false,
+            "error_type": "Confuses model calls with Foundry operations",
+            "rationale": "The OpenAI-compatible client is used for Responses API model calls. It does not have the Project client's stated role.",
+            "better_fit": "Use it for direct model calls through the Responses API.",
+            "feedback": null
+          },
+          {
+            "text": "agent_reference",
+            "is_correct": false,
+            "error_type": "Confuses a request value with a client",
+            "rationale": "agent_reference is a request value used to target an existing agent. It is not an SDK client.",
+            "better_fit": "Use it in extra_body when directing a Responses API request to a saved agent.",
+            "feedback": null
+          },
+          {
+            "text": "Tool Catalog client",
+            "is_correct": false,
+            "error_type": "Invented client role",
+            "rationale": "The SDK's stated client roles are Project client and OpenAI-compatible client. The Tool Catalog is for managing capabilities.",
+            "better_fit": "Use the Tool Catalog when discovering and managing callable tools.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "foundry-sdk",
+        "item_key": "call-models-and-build-agents/foundry-sdk/r1/v2",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. The Project client handles Foundry-native operations.",
+      "points": 1
+    }
+  ],
+  "flashcards": []
+}

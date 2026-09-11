@@ -1,0 +1,1042 @@
+{
+  "import_key": "7-get-started-with-ai-in-azure-checkpoint",
+  "title": "7. Get started with AI in Azure · Checkpoint",
+  "slo": "Review the key concepts of 7. Get started with AI in Azure.",
+  "exercises": [
+    {
+      "import_key": "7-get-started-with-ai-in-azure-checkpoint-q1",
+      "question_type": "multiple_choice",
+      "question_text": "Which items can an Azure tenant contain? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Users",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Users belong in a tenant's identity space. The tenant manages their access.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Groups",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Groups are identity-management objects in a tenant. They help organize access.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Access policies",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Access policies belong to the tenant's management space. They govern access to cloud resources.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Payment methods",
+            "is_correct": false,
+            "error_type": "Confuses tenant with subscription",
+            "rationale": "Payment and credits are associated with Azure usage through a subscription. A tenant focuses on identity and access.",
+            "better_fit": "Use this when describing a subscription's billing role.",
+            "feedback": {
+              "intrinsic": "Identity management would be mixed with billing.",
+              "instructional": "Keep tenant identity contents separate from subscription billing."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "azure-tenant",
+        "item_key": "organize-and-manage-azure/azure-tenant/r1/v2",
+        "rung": 1
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. Tenants contain identity and access-management items.",
+      "points": 1
+    },
+    {
+      "import_key": "7-get-started-with-ai-in-azure-checkpoint-q2",
+      "question_type": "multiple_choice",
+      "question_text": "What is a resource group (RG)?",
+      "options": {
+        "options": [
+          {
+            "text": "A container for related Azure resources",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A resource group is a folder-like container for related resources. It enables joint management.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A billing container for cloud resources",
+            "is_correct": false,
+            "error_type": "Confuses resource group with subscription",
+            "rationale": "Billing, costs, and quotas are subscription responsibilities. A resource group organizes related resources.",
+            "better_fit": "Use this for an Azure subscription.",
+            "feedback": {
+              "intrinsic": "A project grouping would be mistaken for a billing boundary.",
+              "instructional": "Use a resource group to organize resources, not to define billing."
+            }
+          },
+          {
+            "text": "An individual Azure service object",
+            "is_correct": false,
+            "error_type": "Confuses resource group with resource",
+            "rationale": "A resource is one individual service or object. A resource group is its container.",
+            "better_fit": "Use this for one database, storage account, or Foundry resource.",
+            "feedback": {
+              "intrinsic": "A folder would be confused with an item inside it.",
+              "instructional": "A resource group contains resources; it is not one resource."
+            }
+          },
+          {
+            "text": "An organization's cloud identity space",
+            "is_correct": false,
+            "error_type": "Confuses resource group with tenant",
+            "rationale": "An organization's identity space is a tenant. A resource group is a smaller related-resource container.",
+            "better_fit": "Use this for an Azure tenant.",
+            "feedback": {
+              "intrinsic": "Project organization would be mixed with organization identity.",
+              "instructional": "Tenant means identity space; resource group means related-resource management."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "azure-resource-group",
+        "item_key": "organize-and-manage-azure/azure-resource-group/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. A resource group holds related resources for joint management.",
+      "points": 1
+    },
+    {
+      "import_key": "7-get-started-with-ai-in-azure-checkpoint-q3",
+      "question_type": "true_false",
+      "question_text": "An Azure subscription is a folder-like container for related Azure resources that are managed together.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "azure-subscription",
+        "feedback_for_incorrect": {
+          "intrinsic": "Related-resource organization would be confused with billing management.",
+          "instructional": "A subscription sets billing, quota, and access boundaries; a resource group organizes related resources."
+        },
+        "item_key": "organize-and-manage-azure/azure-subscription/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct. A resource group, not a subscription, is the folder-like container for related resources.",
+      "points": 1
+    },
+    {
+      "import_key": "7-get-started-with-ai-in-azure-checkpoint-q4",
+      "question_type": "multiple_choice",
+      "question_text": "A retail recommendation engine receives a shopper's new browsing activity and uses a trained model to suggest products. What should the team call this model activity?",
+      "options": {
+        "options": [
+          {
+            "text": "Performing inference",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The model applies learned patterns to new browsing activity. That use of a trained model is inference.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Retraining the model",
+            "is_correct": false,
+            "error_type": "Confuses inference with retraining",
+            "rationale": "Retraining changes a model with training data. This scenario uses an existing model for a live request.",
+            "better_fit": "Use this when the team updates the model with additional training data.",
+            "feedback": {
+              "intrinsic": "The shopper would not receive a result from the current request.",
+              "instructional": "Inference uses an existing trained model on new input."
+            }
+          },
+          {
+            "text": "Building an AI application",
+            "is_correct": false,
+            "error_type": "Confuses use with creation",
+            "rationale": "The recommendation application already exists. The scenario describes its model responding to input.",
+            "better_fit": "Use this when creating software that uses AI techniques.",
+            "feedback": {
+              "intrinsic": "The immediate browsing activity would remain unprocessed.",
+              "instructional": "The model activity described is inference."
+            }
+          },
+          {
+            "text": "Converting the app to static rules",
+            "is_correct": false,
+            "error_type": "Confuses model with static software",
+            "rationale": "Static rules do not use learned patterns from a trained model. The scenario explicitly uses such a model.",
+            "better_fit": "Use this for a traditional preset-rule program.",
+            "feedback": {
+              "intrinsic": "The retailer would lose learned recommendation behavior.",
+              "instructional": "A trained model processing new input performs inference."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "single_choice",
+        "concept_id": "ml-models-and-inference",
+        "item_key": "ai-apps-and-machine-learning/ml-models-and-inference/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. The model is performing inference.",
+      "points": 1
+    },
+    {
+      "import_key": "7-get-started-with-ai-in-azure-checkpoint-q5",
+      "question_type": "fill_blank",
+      "question_text": "The setting that identifies where an Azure resource is deployed is its ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "The setting that identifies where an Azure resource is deployed is its "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "region"
+            ],
+            "rejected_answers": [
+              "performance tier",
+              "subscription",
+              "resource type",
+              "azure-resource-and-settings",
+              "azure-subscription"
+            ],
+            "placeholder": "term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "performance tier",
+          "subscription",
+          "resource type",
+          "azure-resource-and-settings",
+          "azure-subscription"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "region-and-performance-tier",
+        "feedback_for_incorrect": {
+          "intrinsic": "The deployment location would be mislabeled.",
+          "instructional": "Use region for location, not performance tier, subscription, or resource type."
+        },
+        "item_key": "organize-and-manage-azure/region-and-performance-tier/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "region",
+      "explanation": "Region describes deployment location.",
+      "points": 1
+    },
+    {
+      "import_key": "7-get-started-with-ai-in-azure-checkpoint-q6",
+      "question_type": "true_false",
+      "question_text": "Azure is a cloud platform for building secure, reliable applications that can scale globally.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "cloud-platform-and-azure",
+        "feedback_for_incorrect": {
+          "intrinsic": "Marking this false could exclude Azure from a global application plan.",
+          "instructional": "Azure is a cloud platform for building secure, reliable applications that can scale globally."
+        },
+        "item_key": "azure-cloud-services/cloud-platform-and-azure/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. Azure supports secure, reliable applications at global scale.",
+      "points": 1
+    },
+    {
+      "import_key": "7-get-started-with-ai-in-azure-checkpoint-q7",
+      "question_type": "multiple_choice",
+      "question_text": "A team deploys a chat app that uses a trained model to answer new customer messages and plans to fine-tune it later. Which descriptions fit? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "The app is model-powered",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The app uses a trained model to answer messages. That makes it model-powered.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "The app can be dynamic",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Fine-tuning can improve the model over time. That supports dynamic behavior.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "The model performs inference on new messages",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Customer messages are new model inputs. Applying learned patterns to them is inference.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "The app must remain static",
+            "is_correct": false,
+            "error_type": "Confuses dynamic improvement with static behavior",
+            "rationale": "Fine-tuning supports improvement over time. A static app cannot improve this way.",
+            "better_fit": "Use this for an app that cannot be improved through retraining or fine-tuning.",
+            "feedback": {
+              "intrinsic": "The team could not follow its improvement plan.",
+              "instructional": "Fine-tuning supports a dynamic application."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "multi_choice",
+        "concept_id": "model-powered-and-dynamic-apps",
+        "item_key": "ai-apps-and-machine-learning/model-powered-and-dynamic-apps/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. The app is model-powered, can be dynamic, and performs inference.",
+      "points": 1
+    },
+    {
+      "import_key": "7-get-started-with-ai-in-azure-checkpoint-q8",
+      "question_type": "arrange_sentence",
+      "question_text": "Put the pieces in the correct order.",
+      "options": {
+        "word_bank": [
+          "service or object",
+          "An Azure resource",
+          "such as a database",
+          "is an individual"
+        ],
+        "correct_order": [
+          "An Azure resource",
+          "is an individual",
+          "service or object",
+          "such as a database"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "azure-resource",
+        "feedback_for_incorrect": {
+          "intrinsic": "The difference between an item and a container becomes unclear.",
+          "instructional": "Name the resource, identify it as individual, then add an example."
+        },
+        "item_key": "organize-and-manage-azure/azure-resource/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "An Azure resource is an individual service or object such as a database",
+      "explanation": "An Azure resource is one individual service or object, such as a database.",
+      "points": 1
+    },
+    {
+      "import_key": "7-get-started-with-ai-in-azure-checkpoint-q9",
+      "question_type": "true_false",
+      "question_text": "Azure Key Vault is mainly used to store secrets directly in application code.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "secrets-key-vault-managed-identity",
+        "feedback_for_incorrect": {
+          "intrinsic": "A copied secret could be exposed wherever the code is shared.",
+          "instructional": "Store secrets in Azure Key Vault, not directly in application code or GitHub."
+        },
+        "item_key": "secure-host-scale-and-store-ai-apps/secrets-key-vault-managed-identity/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct. Key Vault keeps secrets separate from code and GitHub.",
+      "points": 1
+    },
+    {
+      "import_key": "7-get-started-with-ai-in-azure-checkpoint-q10",
+      "question_type": "multiple_choice",
+      "question_text": "A student uses an intelligent tutoring app and returns later to finish the same lesson. The app must remember the student's current task. What data should it keep?",
+      "options": {
+        "options": [
+          {
+            "text": "Application state",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Application state supports user-specific continuity. It can keep the student's current task available for the next visit.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Training data",
+            "is_correct": false,
+            "error_type": "Confuses user continuity with model learning",
+            "rationale": "Training data teaches patterns to a model. It does not preserve one student's task or progress.",
+            "better_fit": "Use training data when teaching patterns to a model.",
+            "feedback": {
+              "intrinsic": "The student could return without the app remembering the current task.",
+              "instructional": "Keep application state when a user's experience must continue later."
+            }
+          },
+          {
+            "text": "Inference input data",
+            "is_correct": false,
+            "error_type": "Confuses a current request with persistent continuity",
+            "rationale": "Inference input data is real-time input from a user or service. It is not the stored information that supports continuity across visits.",
+            "better_fit": "Use inference input data for a user's current request to the application.",
+            "feedback": {
+              "intrinsic": "The current request could be handled, but the later return point would not be retained.",
+              "instructional": "A current request is inference input; continuing a user's experience needs application state."
+            }
+          },
+          {
+            "text": "Security and access data",
+            "is_correct": false,
+            "error_type": "Confuses continuity with authentication",
+            "rationale": "Security and access data supports authentication and authorization. It does not hold the student's current task.",
+            "better_fit": "Use security and access data when controlling safe authentication and authorization.",
+            "feedback": {
+              "intrinsic": "The student could sign in safely but still lose their lesson position.",
+              "instructional": "Authentication data protects access; application state keeps continuity."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "single_choice",
+        "concept_id": "ai-application-data",
+        "item_key": "secure-host-scale-and-store-ai-apps/ai-application-data/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. Application state lets the app remember the student's current task for a later visit.",
+      "points": 1
+    },
+    {
+      "import_key": "7-get-started-with-ai-in-azure-checkpoint-q11",
+      "question_type": "fill_blank",
+      "question_text": "The AI technique that converts speech to text and text to speech is ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "The AI technique that converts speech to text and text to speech is "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "speech AI"
+            ],
+            "rejected_answers": [
+              "computer vision",
+              "information extraction",
+              "model-powered AI application",
+              "industry-ai-applications",
+              "model-powered-and-dynamic-apps"
+            ],
+            "placeholder": "AI technique"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "computer vision",
+          "information extraction",
+          "model-powered AI application",
+          "industry-ai-applications",
+          "model-powered-and-dynamic-apps"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "ai-techniques",
+        "feedback_for_incorrect": {
+          "intrinsic": "The selected technique would not convert spoken and written language.",
+          "instructional": "Use speech AI for speech-text conversion."
+        },
+        "item_key": "ai-apps-and-machine-learning/ai-techniques/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "speech AI",
+      "explanation": "Speech AI supports speech-to-text and text-to-speech.",
+      "points": 1
+    },
+    {
+      "import_key": "7-get-started-with-ai-in-azure-checkpoint-q12",
+      "question_type": "fill_blank",
+      "question_text": "Azure ___ hosts web apps, APIs, and background jobs.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "Azure "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "App Service",
+              "Azure App Service"
+            ],
+            "rejected_answers": [
+              "Azure Kubernetes Service",
+              "AKS",
+              "Azure Entra ID",
+              "scaling-and-instances",
+              "compute"
+            ],
+            "placeholder": "service name"
+          },
+          {
+            "type": "text",
+            "text": " hosts web apps, APIs, and background jobs."
+          }
+        ],
+        "rejected_answers": [
+          "Azure Kubernetes Service",
+          "AKS",
+          "Azure Entra ID",
+          "scaling-and-instances",
+          "compute"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "hosts-containers-aks-and-app-service",
+        "feedback_for_incorrect": {
+          "intrinsic": "The team could select a service that does not match its web-hosting work.",
+          "instructional": "Use App Service for web apps, APIs, and background jobs. AKS manages containers, and Entra ID manages access."
+        },
+        "item_key": "secure-host-scale-and-store-ai-apps/hosts-containers-aks-and-app-service/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "[\"App Service\",\"Azure App Service\"]",
+      "explanation": "App Service is the ready-made hosting service for web apps, APIs, and background jobs, allowing quick deployment without managing underlying servers.",
+      "points": 1
+    },
+    {
+      "import_key": "7-get-started-with-ai-in-azure-checkpoint-q13",
+      "question_type": "multiple_choice",
+      "question_text": "A manufacturer operates a custom failure-prediction workload. Demand rises, and the engineer must decide how to make its cloud computer capacity adjustable. Which choices best fit? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Use compute to run the prediction workload",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Correct. Compute runs the custom prediction workload. It provides the execution resources the system needs.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Scale the cloud computer capacity",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Correct. Compute can scale up or down as demand changes. Scaling directly addresses the increased demand in this scenario.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Use storage to execute the predictions",
+            "is_correct": false,
+            "error_type": "Confuses storage with execution",
+            "rationale": "Storage preserves data but does not execute prediction workloads. The decision concerns processing capacity, which is compute.",
+            "better_fit": "Choose this when prediction records or backups need to be retained.",
+            "feedback": {
+              "intrinsic": "The workload would still lack execution capacity.",
+              "instructional": "Storage keeps information; compute runs the workload."
+            }
+          },
+          {
+            "text": "Use networking to add CPU capacity",
+            "is_correct": false,
+            "error_type": "Confuses networking with compute",
+            "rationale": "Networking enables communication rather than CPU capacity. Increasing cloud computer capacity is a compute decision.",
+            "better_fit": "Choose this when the workload must connect securely to other resources.",
+            "feedback": {
+              "intrinsic": "The system could connect successfully but remain short of processing power.",
+              "instructional": "Networking connects resources; compute supplies adjustable processing capacity."
+            }
+          }
+        ],
+        "blooms_level": "Analyzing/Evaluating",
+        "original_question_type": "multi_choice",
+        "concept_id": "azure-compute",
+        "item_key": "azure-cloud-services/azure-compute/r5/v1",
+        "rung": 5
+      },
+      "correct_answer": "[0,1]",
+      "explanation": "Correct. Compute runs the workload and can be scaled as demand increases.",
+      "points": 1
+    },
+    {
+      "import_key": "7-get-started-with-ai-in-azure-checkpoint-q14",
+      "question_type": "multiple_choice",
+      "question_text": "A healthcare team must choose between additional cloud power for a diagnostic app and a service category for retaining backups. Its immediate decision is to preserve backups safely for later. Which choice fits best?",
+      "options": {
+        "options": [
+          {
+            "text": "Storage",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Correct. Backups are data that must be retained and accessed later. Storage directly addresses that immediate requirement.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Compute",
+            "is_correct": false,
+            "error_type": "Confuses backup retention with processing",
+            "rationale": "Compute adds capacity for running the diagnostic application. It does not preserve backups for later use.",
+            "better_fit": "Choose this when the diagnostic workload needs more running capacity.",
+            "feedback": {
+              "intrinsic": "The team could gain processing power but still lack backup retention.",
+              "instructional": "Backups need storage; application execution needs compute."
+            }
+          },
+          {
+            "text": "Networking",
+            "is_correct": false,
+            "error_type": "Confuses persistence with connectivity",
+            "rationale": "Networking provides secure connections between resources. It does not provide persistent backup retention.",
+            "better_fit": "Choose this when the app must securely connect to another resource.",
+            "feedback": {
+              "intrinsic": "Resources could connect while backups remain unprotected from loss.",
+              "instructional": "Connectivity and persistent data storage are different needs."
+            }
+          },
+          {
+            "text": "App Services",
+            "is_correct": false,
+            "error_type": "Confuses hosting with backup storage",
+            "rationale": "App Services provide managed application hosting. They do not name the category for retaining backups.",
+            "better_fit": "Choose this when the diagnostic app needs managed hosting.",
+            "feedback": {
+              "intrinsic": "The app could be hosted while backup retention remains unsolved.",
+              "instructional": "Use storage for backups and App Services for managed app hosting."
+            }
+          }
+        ],
+        "blooms_level": "Analyzing/Evaluating",
+        "original_question_type": "single_choice",
+        "concept_id": "storage",
+        "item_key": "azure-cloud-services/storage/r5/v1",
+        "rung": 5
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. Storage is the best fit for retaining backups.",
+      "points": 1
+    },
+    {
+      "import_key": "7-get-started-with-ai-in-azure-checkpoint-q15",
+      "question_type": "arrange_sentence",
+      "question_text": "Put the pieces in the correct order.",
+      "options": {
+        "word_bank": [
+          "to perform",
+          "An AI application",
+          "human-like intelligent tasks",
+          "uses AI techniques"
+        ],
+        "correct_order": [
+          "An AI application",
+          "uses AI techniques",
+          "to perform",
+          "human-like intelligent tasks"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "ai-application",
+        "feedback_for_incorrect": {
+          "intrinsic": "The definition would be unclear.",
+          "instructional": "Start with the application, then what it uses, then its purpose."
+        },
+        "item_key": "ai-apps-and-machine-learning/ai-application/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "An AI application uses AI techniques to perform human-like intelligent tasks",
+      "explanation": "The sentence starts with the application, then states its method and purpose.",
+      "points": 1
+    },
+    {
+      "import_key": "7-get-started-with-ai-in-azure-checkpoint-q16",
+      "question_type": "arrange_sentence",
+      "question_text": "Arrange the pieces to form a correct statement.",
+      "options": {
+        "word_bank": [
+          "to each other",
+          "Networking tools",
+          "securely and efficiently",
+          "connect cloud resources"
+        ],
+        "correct_order": [
+          "Networking tools",
+          "connect cloud resources",
+          "to each other",
+          "securely and efficiently"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "azure-networking",
+        "feedback_for_incorrect": {
+          "intrinsic": "The statement would not clearly communicate networking's purpose.",
+          "instructional": "State the networking tool first, followed by its connection action and benefit."
+        },
+        "item_key": "azure-cloud-services/azure-networking/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "Networking tools connect cloud resources to each other securely and efficiently",
+      "explanation": "Networking tools connect cloud resources to each other securely and efficiently. The statement identifies the tool, action, connection target, and manner.",
+      "points": 1
+    },
+    {
+      "import_key": "7-get-started-with-ai-in-azure-checkpoint-q17",
+      "question_type": "fill_blank",
+      "question_text": "App Services provide managed ___ for applications.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "App Services provide managed "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "hosting"
+            ],
+            "rejected_answers": [
+              "compute",
+              "storage",
+              "networking",
+              "azure-app-service"
+            ],
+            "placeholder": "application function"
+          },
+          {
+            "type": "text",
+            "text": " for applications."
+          }
+        ],
+        "rejected_answers": [
+          "compute",
+          "storage",
+          "networking",
+          "azure-app-service"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "azure-app-services",
+        "feedback_for_incorrect": {
+          "intrinsic": "The sentence would not identify the managed application function.",
+          "instructional": "Use hosting for the function App Services provide."
+        },
+        "item_key": "azure-cloud-services/azure-app-services/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "hosting",
+      "explanation": "App Services provide managed hosting for applications. Compute runs workloads, storage retains data, and networking connects resources.",
+      "points": 1
+    },
+    {
+      "import_key": "7-get-started-with-ai-in-azure-checkpoint-q18",
+      "question_type": "fill_blank",
+      "question_text": "A system designed for reasoning, problem-solving, perception, and language understanding is ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "A system designed for reasoning, problem-solving, perception, and language understanding is "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "artificial intelligence",
+              "AI"
+            ],
+            "rejected_answers": [
+              "AI application",
+              "machine learning model",
+              "ML model",
+              "ai-application",
+              "machine-learning-model"
+            ],
+            "placeholder": "technical term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "AI application",
+          "machine learning model",
+          "ML model",
+          "ai-application",
+          "machine-learning-model"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "artificial-intelligence",
+        "feedback_for_incorrect": {
+          "intrinsic": "An application or model would name something narrower.",
+          "instructional": "Use AI for the broad capability."
+        },
+        "item_key": "ai-apps-and-machine-learning/artificial-intelligence/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "[\"artificial intelligence\",\"AI\"]",
+      "explanation": "Artificial intelligence is the broad term for systems designed for tasks that normally need human intelligence.",
+      "points": 1
+    },
+    {
+      "import_key": "7-get-started-with-ai-in-azure-checkpoint-q19",
+      "question_type": "multiple_choice",
+      "question_text": "A manufacturer is expanding a predictive-maintenance solution to several environments and needs repeatable deployment, clearer governance, and cost control. Which choices best support that goal? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Use scripts or templates for deployment",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Scripts and templates create resources repeatedly across environments. They reduce manual errors and improve reliability.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Organize related assets in resource groups",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Resource groups organize related assets for joint management. They support policies, monitoring, and governance.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Use subscriptions for cost boundaries",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Subscriptions set cost, quota, and access-control boundaries. They support cost control.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Use one resource as the folder",
+            "is_correct": false,
+            "error_type": "Confuses resource with resource group",
+            "rationale": "A resource is an individual service or object. It is not the folder-like container for related assets.",
+            "better_fit": "Use this when referring to one created item such as a database.",
+            "feedback": {
+              "intrinsic": "Related assets would lack the intended shared-management container.",
+              "instructional": "Use a resource group as the folder-like container and a resource as an individual item."
+            }
+          }
+        ],
+        "blooms_level": "Analyzing/Evaluating",
+        "original_question_type": "multi_choice",
+        "concept_id": "azure-portal-and-automation",
+        "item_key": "organize-and-manage-azure/azure-portal-and-automation/r5/v1",
+        "rung": 5
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. Automation supports repeatability, resource groups support governance, and subscriptions support cost control.",
+      "points": 1
+    },
+    {
+      "import_key": "7-get-started-with-ai-in-azure-checkpoint-q20",
+      "question_type": "multiple_choice",
+      "question_text": "A healthcare diagnostic app uses medical images. The app service needs a stored key, but doctors need different access to model data. Which approach should set the doctors' permissions?",
+      "options": {
+        "options": [
+          {
+            "text": "Azure Entra ID with RBAC",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Doctors need permissions that differ by role. Entra ID with RBAC limits access to data and resources according to assigned roles.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Azure Key Vault",
+            "is_correct": false,
+            "error_type": "Confuses employee permissions with secret storage",
+            "rationale": "Key Vault stores the application's key as a secret. It does not assign different permissions to doctors.",
+            "better_fit": "Use Key Vault to keep the app service's key out of code and GitHub.",
+            "feedback": {
+              "intrinsic": "The key could be protected, but doctors would not receive the needed access levels.",
+              "instructional": "Protect keys in Key Vault; assign people permissions with Entra ID and RBAC."
+            }
+          },
+          {
+            "text": "A managed identity",
+            "is_correct": false,
+            "error_type": "Confuses application identity with user role permissions",
+            "rationale": "A managed identity lets the app retrieve a secret securely at runtime. It does not set doctors' role-based access to data.",
+            "better_fit": "Use a managed identity when the app service retrieves its stored key from Key Vault.",
+            "feedback": {
+              "intrinsic": "The application could get its key, while doctor permissions would remain unset.",
+              "instructional": "Managed identity serves the application; RBAC serves role-based permissions."
+            }
+          },
+          {
+            "text": "An API key",
+            "is_correct": false,
+            "error_type": "Confuses endpoint authentication with role-based authorization",
+            "rationale": "An API key authenticates a request to an endpoint. It does not give different doctors different data permissions.",
+            "better_fit": "Use an API key when an application calls an endpoint and must authenticate that call.",
+            "feedback": {
+              "intrinsic": "One key would not separate doctors by their assigned access.",
+              "instructional": "A key authenticates a call. RBAC authorizes access by role."
+            }
+          }
+        ],
+        "blooms_level": "Analyzing/Evaluating",
+        "original_question_type": "single_choice",
+        "concept_id": "entra-id-and-rbac",
+        "item_key": "secure-host-scale-and-store-ai-apps/entra-id-and-rbac/r5/v1",
+        "rung": 5
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. Doctors' different permissions should be assigned through Entra ID with RBAC.",
+      "points": 1
+    },
+    {
+      "import_key": "7-get-started-with-ai-in-azure-checkpoint-q21",
+      "question_type": "arrange_sentence",
+      "question_text": "Reconstruct the statement from the pieces.",
+      "options": {
+        "word_bank": [
+          "to forecast",
+          "Predictive maintenance",
+          "likely machine failures",
+          "uses AI"
+        ],
+        "correct_order": [
+          "Predictive maintenance",
+          "uses AI",
+          "to forecast",
+          "likely machine failures"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "ai-application-industry-examples",
+        "feedback_for_incorrect": {
+          "intrinsic": "The manufacturing use case and its purpose would be unclear.",
+          "instructional": "Begin with predictive maintenance, then state that it uses AI to forecast failures."
+        },
+        "item_key": "ai-apps-and-machine-learning/ai-application-industry-examples/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "Predictive maintenance uses AI to forecast likely machine failures",
+      "explanation": "Predictive maintenance uses AI to forecast likely machine failures.",
+      "points": 1
+    },
+    {
+      "import_key": "7-get-started-with-ai-in-azure-checkpoint-q22",
+      "question_type": "multiple_choice",
+      "question_text": "A finance company must keep real-time transaction data available across global locations. Which choices best fit this need? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Azure Cosmos DB",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Azure Cosmos DB supports real-time globally distributed data. That matches transaction data needed across global locations.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Persistent data storage",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Persistent storage keeps information available for later use. The company needs transaction data to remain available across locations.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Real-time global distribution",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Real-time global distribution is the capability described for Azure Cosmos DB. It directly matches the stated availability need.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Azure SQL Database only",
+            "is_correct": false,
+            "error_type": "Confuses mission-critical workloads with global real-time data",
+            "rationale": "Azure SQL Database is described for mission-critical workloads. Azure Cosmos DB is the option described for real-time globally distributed data.",
+            "better_fit": "Choose Azure SQL Database when the key requirement is a mission-critical workload.",
+            "feedback": {
+              "intrinsic": "The company could overlook the storage option identified for real-time global distribution.",
+              "instructional": "For real-time data across global locations, select Azure Cosmos DB and persistent storage."
+            }
+          }
+        ],
+        "blooms_level": "Analyzing/Evaluating",
+        "original_question_type": "multi_choice",
+        "concept_id": "azure-storage-options",
+        "item_key": "secure-host-scale-and-store-ai-apps/azure-storage-options/r5/v1",
+        "rung": 5
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. Azure Cosmos DB with persistent storage and real-time global distribution fits this transaction-data requirement.",
+      "points": 1
+    },
+    {
+      "import_key": "7-get-started-with-ai-in-azure-checkpoint-q23",
+      "question_type": "arrange_sentence",
+      "question_text": "Put the pieces in the correct order.",
+      "options": {
+        "word_bank": [
+          "while scale up",
+          "Scale out",
+          "adds CPU or memory",
+          "adds more instances"
+        ],
+        "correct_order": [
+          "Scale out",
+          "adds more instances",
+          "while scale up",
+          "adds CPU or memory"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "scaling-and-instances",
+        "feedback_for_incorrect": {
+          "intrinsic": "A capacity change could be planned in the wrong direction.",
+          "instructional": "Remember the pairing: scale out adds instances, and scale up adds CPU or memory to an existing instance."
+        },
+        "item_key": "secure-host-scale-and-store-ai-apps/scaling-and-instances/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "Scale out adds more instances while scale up adds CPU or memory",
+      "explanation": "Horizontal scaling adds running copies, while vertical scaling gives an existing copy more CPU or memory. These choices address different capacity needs.",
+      "points": 1
+    },
+    {
+      "import_key": "7-get-started-with-ai-in-azure-checkpoint-q24",
+      "question_type": "true_false",
+      "question_text": "A production AI application needs only a model because Azure removes the need for security and storage.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "azure-infrastructure-for-ai",
+        "feedback_for_incorrect": {
+          "intrinsic": "This could leave an AI app without essential protections and data capabilities.",
+          "instructional": "Azure provides services for security and storage, but production applications still need those capabilities."
+        },
+        "item_key": "azure-cloud-services/azure-infrastructure-for-ai/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct. A model alone is not a complete production application.",
+      "points": 1
+    }
+  ],
+  "flashcards": []
+}

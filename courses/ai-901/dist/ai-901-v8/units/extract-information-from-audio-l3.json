@@ -1,0 +1,501 @@
+{
+  "import_key": "extract-information-from-audio-l3",
+  "title": "Extract information from audio · Level 3",
+  "slo": "Identify the structured information an audio analyzer can return from a call.",
+  "exercises": [
+    {
+      "import_key": "extract-information-from-audio-l3-q1",
+      "question_type": "multiple_choice",
+      "question_text": "What can the Foundry portal run on an audio file?",
+      "options": {
+        "options": [
+          {
+            "text": "An audio analyzer",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The portal can run an audio analyzer on a media file. It can return transcripts and extracted insights.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A document OCR scan",
+            "is_correct": false,
+            "error_type": "Confuses audio with OCR",
+            "rationale": "Document OCR reads printed text from images or scans. An audio file requires an audio analyzer.",
+            "better_fit": "Use it for a scanned form or photographed document.",
+            "feedback": null
+          },
+          {
+            "text": "An invoice-only analyzer",
+            "is_correct": false,
+            "error_type": "Confuses audio with invoices",
+            "rationale": "An invoice analyzer is intended for invoice content. It is not the appropriate tool for a recording.",
+            "better_fit": "Use it when the uploaded file is an invoice.",
+            "feedback": null
+          },
+          {
+            "text": "A video attendance schema",
+            "is_correct": false,
+            "error_type": "Confuses audio with video",
+            "rationale": "Video attendance concerns people visible in visual media. It does not analyze a call recording.",
+            "better_fit": "Use it for meeting video or images where attendance matters.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "audio-portal-validation",
+        "item_key": "extract-information-from-audio/audio-portal-validation/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. The portal can run an audio analyzer on an audio file.",
+      "points": 1
+    },
+    {
+      "import_key": "extract-information-from-audio-l3-q2",
+      "question_type": "multiple_choice",
+      "question_text": "Which outputs may be inspected after audio analysis? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Markdown",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Returned content may include markdown. Markdown is formatted plain text.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A transcript",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Returned content may include a transcript. It renders spoken audio as written text.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Extracted fields",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Returned content may include extracted fields. These provide structured details from the audio.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Only a paper document",
+            "is_correct": false,
+            "error_type": "Confuses input and output",
+            "rationale": "A paper document is an input medium, not an audio-analysis output. Results can include text and structured fields.",
+            "better_fit": "Use a paper document as input for document analysis.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "markdown-and-transcript-output",
+        "item_key": "extract-information-from-audio/markdown-and-transcript-output/r1/v2",
+        "rung": 1
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. Audio analysis may return markdown, a transcript, and fields.",
+      "points": 1
+    },
+    {
+      "import_key": "extract-information-from-audio-l3-q3",
+      "question_type": "arrange_sentence",
+      "question_text": "Order the validation process.",
+      "options": {
+        "word_bank": [
+          "review the outputs",
+          "Select an audio analyzer",
+          "view JSON results",
+          "run it on media"
+        ],
+        "correct_order": [
+          "Select an audio analyzer",
+          "run it on media",
+          "review the outputs",
+          "view JSON results"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "audio-portal-validation",
+        "feedback_for_incorrect": {
+          "intrinsic": "Results could be reviewed before any analysis has produced them.",
+          "instructional": "Select and run the analyzer first, then review its outputs and JSON."
+        },
+        "item_key": "extract-information-from-audio/audio-portal-validation/r3/v2",
+        "rung": 3
+      },
+      "correct_answer": "Select an audio analyzer run it on media review the outputs view JSON results",
+      "explanation": "The analyzer must be selected and run before its outputs and JSON result can be reviewed.",
+      "points": 1
+    },
+    {
+      "import_key": "extract-information-from-audio-l3-q4",
+      "question_type": "arrange_sentence",
+      "question_text": "Put the pieces in the correct order.",
+      "options": {
+        "word_bank": [
+          "of spoken",
+          "A transcript",
+          "audio content",
+          "is the written rendering"
+        ],
+        "correct_order": [
+          "A transcript",
+          "is the written rendering",
+          "of spoken",
+          "audio content"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "markdown-and-transcript-output",
+        "feedback_for_incorrect": {
+          "intrinsic": "The definition would not clearly describe the transcript.",
+          "instructional": "Start with the output name, then state that it is the written rendering of spoken audio content."
+        },
+        "item_key": "extract-information-from-audio/markdown-and-transcript-output/r3/v2",
+        "rung": 3
+      },
+      "correct_answer": "A transcript is the written rendering of spoken audio content",
+      "explanation": "The sentence defines a transcript as the written rendering of spoken audio content.",
+      "points": 1
+    },
+    {
+      "import_key": "extract-information-from-audio-l3-q5",
+      "question_type": "multiple_choice",
+      "question_text": "Which parts are used in the Python audio analysis flow? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Analyzer ID prebuilt-audioSearch",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The flow uses prebuilt-audioSearch for audio. This ID selects the prebuilt audio analyzer.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "An accessible audio URL",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The flow supplies the audio through an accessible URL. The analyzer needs this input to start analysis.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Asynchronous analysis",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The analysis operation is asynchronous. The flow waits for its result before inspection.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Analyzer ID prebuilt-invoice",
+            "is_correct": false,
+            "error_type": "Confuses audio and invoice analyzers",
+            "rationale": "prebuilt-invoice is intended for invoices. The audio flow uses prebuilt-audioSearch.",
+            "better_fit": "Use prebuilt-invoice for invoice content.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "prebuilt-audio-sdk-flow",
+        "item_key": "extract-information-from-audio/prebuilt-audio-sdk-flow/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. The flow uses the audio ID, an accessible URL, and asynchronous analysis.",
+      "points": 1
+    },
+    {
+      "import_key": "extract-information-from-audio-l3-q6",
+      "question_type": "multiple_choice",
+      "question_text": "What can audio analysis create from a recorded call?",
+      "options": {
+        "options": [
+          {
+            "text": "A transcription",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Audio analysis can create a transcription from recorded speech. It renders the call's spoken content as written words.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A printed-text scan",
+            "is_correct": false,
+            "error_type": "Confuses speech recognition with OCR",
+            "rationale": "A printed-text scan concerns words visible in an image or page. Audio analysis works with spoken content.",
+            "better_fit": "Use this for a scanned form or photographed receipt.",
+            "feedback": null
+          },
+          {
+            "text": "An invoice item collection",
+            "is_correct": false,
+            "error_type": "Confuses audio with invoices",
+            "rationale": "Invoice items are structured fields from an invoice. They do not represent a caller's speech.",
+            "better_fit": "Use this when extracting line items from an invoice.",
+            "feedback": null
+          },
+          {
+            "text": "A video attendance count",
+            "is_correct": false,
+            "error_type": "Confuses audio with video",
+            "rationale": "Attendance counts concern people visible in video or images. They are not written records of a call.",
+            "better_fit": "Use this for a meeting video where attendance is needed.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "audio-information-extraction",
+        "item_key": "extract-information-from-audio/audio-information-extraction/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. A transcription creates a written record of spoken audio.",
+      "points": 1
+    },
+    {
+      "import_key": "extract-information-from-audio-l3-q7",
+      "question_type": "true_false",
+      "question_text": "An audio analysis result may contain a transcript, extracted fields, or both.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "prebuilt-audio-sdk-flow",
+        "feedback_for_incorrect": {
+          "intrinsic": "Useful returned content from the call could be overlooked.",
+          "instructional": "The analyzer and schema determine whether the result contains a transcript, fields, or both."
+        },
+        "item_key": "extract-information-from-audio/prebuilt-audio-sdk-flow/r2/v2",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. The returned content may include a transcript, fields, or both.",
+      "points": 1
+    },
+    {
+      "import_key": "extract-information-from-audio-l3-q8",
+      "question_type": "true_false",
+      "question_text": "A transcript is spoken audio shown as written text.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "audio-information-extraction",
+        "feedback_for_incorrect": {
+          "intrinsic": "The written record of the call would be misidentified.",
+          "instructional": "Speech recognition turns spoken audio into text; that written rendering is a transcript."
+        },
+        "item_key": "extract-information-from-audio/audio-information-extraction/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. A transcript is the written rendering of spoken audio.",
+      "points": 1
+    },
+    {
+      "import_key": "extract-information-from-audio-l3-q9",
+      "question_type": "multiple_choice",
+      "question_text": "Which extracted detail is Ava's callback number?",
+      "options": {
+        "options": [
+          {
+            "text": "555-12345",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "555-12345 is Ava's telephone number for a return call. It is the callback-number value.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Ava@contoso.com",
+            "is_correct": false,
+            "error_type": "Confuses phone and email contact",
+            "rationale": "Ava@contoso.com is an email address. It is an alternative contact detail, not a callback number.",
+            "better_fit": "Use this when the field asks for an alternative email contact.",
+            "feedback": null
+          },
+          {
+            "text": "Ava from Contoso",
+            "is_correct": false,
+            "error_type": "Confuses caller and number",
+            "rationale": "Ava from Contoso identifies who left the voicemail. It is not a telephone number.",
+            "better_fit": "Use this when the field asks for the caller.",
+            "feedback": null
+          },
+          {
+            "text": "Meet price expectations",
+            "is_correct": false,
+            "error_type": "Confuses summary and number",
+            "rationale": "Meeting price expectations describes the voicemail topic. It belongs in a message summary, not a callback field.",
+            "better_fit": "Use this when summarizing Ava's message.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "audio-voicemail-results",
+        "item_key": "extract-information-from-audio/audio-voicemail-results/r1/v2",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. Ava's callback number is 555-12345.",
+      "points": 1
+    },
+    {
+      "import_key": "extract-information-from-audio-l3-q10",
+      "question_type": "fill_blank",
+      "question_text": "Speech recognition turns spoken audio into ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "Speech recognition turns spoken audio into "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "text"
+            ],
+            "rejected_answers": [
+              "OCR",
+              "video",
+              "basic-ocr",
+              "video-information-extraction"
+            ],
+            "placeholder": "technical term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "OCR",
+          "video",
+          "basic-ocr",
+          "video-information-extraction"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "audio-information-extraction",
+        "feedback_for_incorrect": {
+          "intrinsic": "The output type would be named incorrectly.",
+          "instructional": "Use text: OCR reads printed words in images, not spoken audio."
+        },
+        "item_key": "extract-information-from-audio/audio-information-extraction/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "text",
+      "explanation": "Speech recognition changes spoken audio into written text.",
+      "points": 1
+    },
+    {
+      "import_key": "extract-information-from-audio-l3-q11",
+      "question_type": "multiple_choice",
+      "question_text": "A developer must choose a reliable flow for a voicemail WAV file whose transcript and structured fields will be read after processing. Which choices should the developer select? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Use prebuilt-audioSearch",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "prebuilt-audioSearch is the appropriate prebuilt analyzer for audio. It fits a voicemail WAV input.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Provide an accessible voicemail URL",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The analysis flow requires an accessible URL to the voicemail file. This makes the audio available to the analyzer.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Wait before reading returned content",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The operation is asynchronous, so results arrive after processing. Waiting prevents a premature attempt to read output.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Use prebuilt-invoice",
+            "is_correct": false,
+            "error_type": "Incorrect analyzer decision",
+            "rationale": "prebuilt-invoice is designed for invoice content rather than audio. It is not a reliable choice for a voicemail WAV file.",
+            "better_fit": "Use prebuilt-invoice when the input is an invoice requiring invoice-field extraction.",
+            "feedback": {
+              "intrinsic": "The selected analyzer would not fit the voicemail input.",
+              "instructional": "Evaluate the media type first: a WAV voicemail requires prebuilt-audioSearch."
+            }
+          }
+        ],
+        "blooms_level": "Analyzing/Evaluating",
+        "original_question_type": "multi_choice",
+        "concept_id": "prebuilt-audio-sdk-flow",
+        "item_key": "extract-information-from-audio/prebuilt-audio-sdk-flow/r5/v1",
+        "rung": 5
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Use prebuilt-audioSearch for audio, provide an accessible voicemail URL, and wait or poll for the asynchronous operation to complete before reading the transcript and structured results.",
+      "points": 1
+    },
+    {
+      "import_key": "extract-information-from-audio-l3-q12",
+      "question_type": "fill_blank",
+      "question_text": "Ava's alternative contact detail is ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "Ava's alternative contact detail is "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "Ava@contoso.com"
+            ],
+            "rejected_answers": [
+              "555-12345",
+              "Ava from Contoso",
+              "invoice-schema-fields",
+              "video-meeting-schema"
+            ],
+            "placeholder": "contact detail"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "555-12345",
+          "Ava from Contoso",
+          "invoice-schema-fields",
+          "video-meeting-schema"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "audio-voicemail-results",
+        "feedback_for_incorrect": {
+          "intrinsic": "The reply could use the wrong contact method.",
+          "instructional": "Use Ava@contoso.com for the alternative contact detail."
+        },
+        "item_key": "extract-information-from-audio/audio-voicemail-results/r3/v2",
+        "rung": 3
+      },
+      "correct_answer": "Ava@contoso.com",
+      "explanation": "Ava@contoso.com is Ava's alternative email contact. Her callback number is 555-12345.",
+      "points": 1
+    }
+  ],
+  "flashcards": []
+}

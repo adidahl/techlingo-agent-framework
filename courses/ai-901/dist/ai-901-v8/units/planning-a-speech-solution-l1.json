@@ -1,0 +1,491 @@
+{
+  "import_key": "planning-a-speech-solution-l1",
+  "title": "Planning a speech solution · Level 1",
+  "slo": "Assess the main requirements before adding speech to an application.",
+  "exercises": [
+    {
+      "import_key": "planning-a-speech-solution-l1-q1",
+      "question_type": "multiple_choice",
+      "question_text": "Which factor can lower speech recognition accuracy?",
+      "options": {
+        "options": [
+          {
+            "text": "Background noise",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Background noise can make captured speech less clear. It can confuse recognition and lower accuracy.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Language model vocabulary",
+            "is_correct": false,
+            "error_type": "Confuses audio conditions with language modeling",
+            "rationale": "Vocabulary helps predict likely word sequences after speech sounds are analyzed. It does not describe an audio condition that makes the microphone capture less clear.",
+            "better_fit": "Use this when improving likely word choices, especially for specialized terms.",
+            "feedback": {
+              "intrinsic": "The call may still be hard to transcribe because the loud sound remains in the recording.",
+              "instructional": "Start with the audio conditions: background noise directly affects recognition accuracy."
+            }
+          },
+          {
+            "text": "Low processing delay",
+            "is_correct": false,
+            "error_type": "Confuses audio quality with latency",
+            "rationale": "Low delay makes a live interaction feel responsive. It does not make noisy audio clearer.",
+            "better_fit": "Use this when planning how quickly a live response must arrive.",
+            "feedback": {
+              "intrinsic": "People may receive a fast transcript that is still inaccurate in a noisy area.",
+              "instructional": "Latency is response delay; noise is an audio-quality concern."
+            }
+          },
+          {
+            "text": "Text punctuation rules",
+            "is_correct": false,
+            "error_type": "Confuses audio input with text post-processing",
+            "rationale": "Punctuation restoration improves readability after words are transcribed. It does not improve the quality of the captured speech.",
+            "better_fit": "Use this when making a completed transcript easier to read.",
+            "feedback": {
+              "intrinsic": "The transcript may look neater while words affected by noise remain wrong.",
+              "instructional": "Punctuation is added after recognition; background noise affects the earlier audio capture."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "audio-quality-requirements",
+        "item_key": "planning-a-speech-solution/audio-quality-requirements/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. Background noise can make spoken words harder to recognize.",
+      "points": 1
+    },
+    {
+      "import_key": "planning-a-speech-solution-l1-q2",
+      "question_type": "multiple_choice",
+      "question_text": "What should a team verify for language and dialect support? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Target languages",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Support must include the languages users need. Language requirements differ across languages.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Regional speech variations",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Regional variations are dialects. A team should verify that required dialects are supported.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "System ability to understand them",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "For spoken input, the capability must understand the required languages and variations. Support should be checked before implementation.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Microphone distance",
+            "is_correct": false,
+            "error_type": "Confuses language support with audio quality",
+            "rationale": "Microphone distance affects captured audio quality. It does not determine which languages or dialects are supported.",
+            "better_fit": "Use this when assessing audio capture conditions for recognition.",
+            "feedback": {
+              "intrinsic": "A suitable microphone position would not add support for a needed regional variation.",
+              "instructional": "Language support concerns what people speak; microphone distance concerns how clearly speech is captured."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "language-and-dialect-support",
+        "item_key": "planning-a-speech-solution/language-and-dialect-support/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. Verify the target languages, regional variations, and the ability to handle them.",
+      "points": 1
+    },
+    {
+      "import_key": "planning-a-speech-solution-l1-q3",
+      "question_type": "true_false",
+      "question_text": "Microphone quality affects only speech synthesis, not speech recognition accuracy.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "audio-quality-requirements",
+        "feedback_for_incorrect": {
+          "intrinsic": "A team could focus on spoken output while poor recordings continue to cause inaccurate transcripts.",
+          "instructional": "Microphone quality is part of audio capture for recognition. It affects how clearly spoken words are recorded."
+        },
+        "item_key": "planning-a-speech-solution/audio-quality-requirements/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct. Microphone quality affects the audio captured for recognition, so it can affect accuracy.",
+      "points": 1
+    },
+    {
+      "import_key": "planning-a-speech-solution-l1-q4",
+      "question_type": "multiple_choice",
+      "question_text": "Which approach fits an application that needs to understand spoken commands?",
+      "options": {
+        "options": [
+          {
+            "text": "Speech recognition",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Speech recognition converts spoken words into written text. It fits an application that must understand spoken commands.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Speech synthesis",
+            "is_correct": false,
+            "error_type": "Confuses spoken input with spoken output",
+            "rationale": "Speech synthesis converts written text into spoken audio. It does not turn a spoken command into text.",
+            "better_fit": "Use this when text must be spoken aloud.",
+            "feedback": {
+              "intrinsic": "The application could speak a reply but would not capture what the person said.",
+              "instructional": "Use recognition for spoken input and synthesis for spoken output."
+            }
+          },
+          {
+            "text": "Text normalization",
+            "is_correct": false,
+            "error_type": "Confuses solution selection with a synthesis stage",
+            "rationale": "Text normalization prepares written text for pronunciation in speech synthesis. It is not the capability for understanding spoken commands.",
+            "better_fit": "Use this when preparing written text for pronunciation.",
+            "feedback": {
+              "intrinsic": "The application may prepare outgoing text well while the spoken command remains unrecognized.",
+              "instructional": "Text normalization is one synthesis stage; speech recognition handles incoming spoken words."
+            }
+          },
+          {
+            "text": "Beam search decoding",
+            "is_correct": false,
+            "error_type": "Confuses solution selection with a recognition stage",
+            "rationale": "Beam search is a decoding technique that selects a likely transcription. It is not the overall capability selected for spoken input.",
+            "better_fit": "Use this when selecting the best transcription during recognition.",
+            "feedback": {
+              "intrinsic": "Choosing this stage alone would not describe the full approach needed for voice commands.",
+              "instructional": "Select speech recognition for the capability; beam search is one part of its decoding process."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "speech-implementation-selection",
+        "item_key": "planning-a-speech-solution/speech-implementation-selection/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. Speech recognition converts spoken input into text so commands can be understood.",
+      "points": 1
+    },
+    {
+      "import_key": "planning-a-speech-solution-l1-q5",
+      "question_type": "true_false",
+      "question_text": "Teams should verify target language and regional dialect support before implementation.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "language-and-dialect-support",
+        "feedback_for_incorrect": {
+          "intrinsic": "A launch could leave some intended users unable to use voice features as expected.",
+          "instructional": "Verify required languages and dialects before implementation so the capability matches the people it serves."
+        },
+        "item_key": "planning-a-speech-solution/language-and-dialect-support/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. Speech sounds and requirements differ across languages and regional variations.",
+      "points": 1
+    },
+    {
+      "import_key": "planning-a-speech-solution-l1-q6",
+      "question_type": "true_false",
+      "question_text": "Speech synthesis is the right capability when an application must convert spoken commands into text.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "speech-implementation-selection",
+        "feedback_for_incorrect": {
+          "intrinsic": "A person could speak a command, but the application would not have the text needed to understand it.",
+          "instructional": "Match recognition to spoken input. Match speech synthesis, also called text-to-speech, to spoken output."
+        },
+        "item_key": "planning-a-speech-solution/speech-implementation-selection/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct. Speech recognition converts spoken commands into text; synthesis creates spoken audio from text.",
+      "points": 1
+    },
+    {
+      "import_key": "planning-a-speech-solution-l1-q7",
+      "question_type": "arrange_sentence",
+      "question_text": "Reconstruct the statement from the pieces.",
+      "options": {
+        "word_bank": [
+          "and regional dialects",
+          "Verify support",
+          "before implementation",
+          "for target languages"
+        ],
+        "correct_order": [
+          "Verify support",
+          "for target languages",
+          "and regional dialects",
+          "before implementation"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "language-and-dialect-support",
+        "feedback_for_incorrect": {
+          "intrinsic": "The team may not clearly see what must be checked before beginning the work.",
+          "instructional": "Start with verification, name both language needs, and end with the timing."
+        },
+        "item_key": "planning-a-speech-solution/language-and-dialect-support/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "Verify support for target languages and regional dialects before implementation",
+      "explanation": "The action is to verify support before work begins. The support must cover both target languages and regional dialects.",
+      "points": 1
+    },
+    {
+      "import_key": "planning-a-speech-solution-l1-q8",
+      "question_type": "fill_blank",
+      "question_text": "For a fluid two-way voice conversation, combine speech recognition with speech ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "For a fluid two-way voice conversation, combine speech recognition with speech "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "synthesis",
+              "text-to-speech",
+              "TTS"
+            ],
+            "rejected_answers": [
+              "sampling",
+              "decoding",
+              "normalization",
+              "speech-recognition",
+              "speech-synthesis",
+              "synthesis-media-and-combined-use-cases"
+            ],
+            "placeholder": "technical term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "sampling",
+          "decoding",
+          "normalization",
+          "speech-recognition",
+          "speech-synthesis",
+          "synthesis-media-and-combined-use-cases"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "speech-implementation-selection",
+        "feedback_for_incorrect": {
+          "intrinsic": "The interaction may understand speech without answering aloud, or speak without understanding the person.",
+          "instructional": "Use synthesis, also called text-to-speech. Sampling, decoding, and normalization are stages within speech processing, not the matching output capability."
+        },
+        "item_key": "planning-a-speech-solution/speech-implementation-selection/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "[\"synthesis\",\"text-to-speech\",\"TTS\"]",
+      "explanation": "Recognition turns spoken input into text, while synthesis turns text into spoken audio. Together they enable a two-way conversation.",
+      "points": 1
+    },
+    {
+      "import_key": "planning-a-speech-solution-l1-q9",
+      "question_type": "multiple_choice",
+      "question_text": "Which statements describe latency? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "It is a delay",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Latency means delay. In speech work, it describes waiting time.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It occurs between input and output",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Latency is measured from user input to output. This describes the timing relationship.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It matters for real-time conversations",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Live conversations need low latency to feel responsive. Long waits create friction.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It measures microphone quality",
+            "is_correct": false,
+            "error_type": "Confuses latency with audio quality",
+            "rationale": "Microphone quality concerns how clearly audio is captured. Latency concerns how long processing takes.",
+            "better_fit": "Use this when evaluating how clearly audio is captured.",
+            "feedback": {
+              "intrinsic": "A team could measure delay carefully while poor microphone capture still harms recognition.",
+              "instructional": "Separate timing from audio quality: latency is input-to-output delay."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "latency-requirements",
+        "item_key": "planning-a-speech-solution/latency-requirements/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. Latency is the delay from user input to output and is especially important in live conversations.",
+      "points": 1
+    },
+    {
+      "import_key": "planning-a-speech-solution-l1-q10",
+      "question_type": "multiple_choice",
+      "question_text": "Which planning area covers how audio is stored and protected?",
+      "options": {
+        "options": [
+          {
+            "text": "Privacy and compliance",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Privacy and compliance cover how audio is processed, stored, protected, and regulated. This is the planning area for data handling.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Audio quality requirements",
+            "is_correct": false,
+            "error_type": "Confuses data protection with audio conditions",
+            "rationale": "Audio quality concerns noise, microphones, distance, and bandwidth. It does not cover storage or protection of audio data.",
+            "better_fit": "Use this when assessing noise or microphone quality.",
+            "feedback": {
+              "intrinsic": "The recording may be clear while its handling still fails to protect sensitive information.",
+              "instructional": "Choose privacy and compliance for questions about processing, storage, and protection."
+            }
+          },
+          {
+            "text": "Language and dialect support",
+            "is_correct": false,
+            "error_type": "Confuses data protection with language support",
+            "rationale": "Language support concerns target languages and regional speech variations. It does not describe how audio data is protected.",
+            "better_fit": "Use this when checking supported speech variations.",
+            "feedback": {
+              "intrinsic": "Supporting a caller's dialect would not answer how their audio is stored safely.",
+              "instructional": "Keep language support separate from privacy obligations."
+            }
+          },
+          {
+            "text": "Latency requirements",
+            "is_correct": false,
+            "error_type": "Confuses data protection with processing delay",
+            "rationale": "Latency is the delay between input and output. It does not address data storage or protection.",
+            "better_fit": "Use this when setting response-time needs.",
+            "feedback": {
+              "intrinsic": "Fast responses would not protect audio that is handled improperly.",
+              "instructional": "Latency concerns timing; privacy and compliance concern responsible audio-data handling."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "privacy-and-compliance",
+        "item_key": "planning-a-speech-solution/privacy-and-compliance/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. Privacy and compliance address how audio data is handled and protected.",
+      "points": 1
+    },
+    {
+      "import_key": "planning-a-speech-solution-l1-q11",
+      "question_type": "true_false",
+      "question_text": "Real-time conversations require low-latency processing.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "latency-requirements",
+        "feedback_for_incorrect": {
+          "intrinsic": "Long pauses can make a live exchange feel slow and interrupt the flow of conversation.",
+          "instructional": "Real-time conversations need low latency, while batch transcription can tolerate more delay."
+        },
+        "item_key": "planning-a-speech-solution/latency-requirements/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. Low latency helps a live conversation feel responsive.",
+      "points": 1
+    },
+    {
+      "import_key": "planning-a-speech-solution-l1-q12",
+      "question_type": "true_false",
+      "question_text": "Privacy and compliance only matter when audio is processed, not when it is stored.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "privacy-and-compliance",
+        "feedback_for_incorrect": {
+          "intrinsic": "Sensitive audio could be stored without the needed safeguards even if its processing was considered.",
+          "instructional": "Privacy and compliance cover processing, storage, protection, and regulatory requirements for audio data."
+        },
+        "item_key": "planning-a-speech-solution/privacy-and-compliance/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct. Audio storage is also part of privacy and compliance planning.",
+      "points": 1
+    }
+  ],
+  "flashcards": [
+    {
+      "import_key": "planning-a-speech-solution-l1-f0",
+      "front": "What affects recognition accuracy?",
+      "back": "Noise, microphone quality, speaker distance, and bandwidth affect accuracy.",
+      "hint": "Think about captured audio."
+    },
+    {
+      "import_key": "planning-a-speech-solution-l1-f1",
+      "front": "What is a regional dialect?",
+      "back": "A regional variation in how people speak a language.",
+      "hint": "It varies by region."
+    },
+    {
+      "import_key": "planning-a-speech-solution-l1-f2",
+      "front": "What is latency?",
+      "back": "The delay between user input and system output.",
+      "hint": "Think response time."
+    },
+    {
+      "import_key": "planning-a-speech-solution-l1-f3",
+      "front": "When use speech synthesis?",
+      "back": "Use it when text must become spoken audio.",
+      "hint": "Text-to-speech."
+    }
+  ]
+}

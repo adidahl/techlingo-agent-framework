@@ -4,6 +4,8 @@ recycle:
   l2: 0.4
   l3: 0.3
 session_size_hint: 12
+level_session_size: 12
+review_session_size: 24
 checkpoints: per_module
 final_review: true
 seed: 901
@@ -28,7 +30,9 @@ sequence_quality:
   max_downward_rung_jump: 1
   max_same_rung_streak: 6
   block_on_errors: true
-  permute_choice_options: true
+  # The Admin importer compares compiled questions with their bank conversion
+  # byte-for-byte, so option presentation stays in canonical bank order.
+  permute_choice_options: false
 gauntlet:
   critic_backend: codex
   critic_model: codex:gpt-5.6-luna
@@ -42,7 +46,10 @@ gauntlet:
   max_time_seconds: null
   max_tokens: null
   max_cost_usd: null
-  qualitative_required_for_publication: true
+  # Deterministic source, worksheet, sequence, hash, and importer checks are
+  # the publication authority.  Gauntlet runs remain recorded advisory
+  # evidence, rather than a second blocking approval loop.
+  qualitative_required_for_publication: false
   quality_thresholds:
     factual_fidelity: 0.80
     answer_unambiguity: 0.80

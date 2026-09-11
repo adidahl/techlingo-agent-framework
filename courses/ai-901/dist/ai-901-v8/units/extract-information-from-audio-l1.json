@@ -1,0 +1,452 @@
+{
+  "import_key": "extract-information-from-audio-l1",
+  "title": "Extract information from audio · Level 1",
+  "slo": "Identify the structured information an audio analyzer can return from a call.",
+  "exercises": [
+    {
+      "import_key": "extract-information-from-audio-l1-q1",
+      "question_type": "multiple_choice",
+      "question_text": "What can audio analysis create from a recorded call?",
+      "options": {
+        "options": [
+          {
+            "text": "A transcription",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Audio analysis can create a transcription from recorded speech. It renders the call's spoken content as written words.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A printed-text scan",
+            "is_correct": false,
+            "error_type": "Confuses speech recognition with OCR",
+            "rationale": "A printed-text scan concerns words visible in an image or page. Audio analysis works with spoken content.",
+            "better_fit": "Use this for a scanned form or photographed receipt.",
+            "feedback": null
+          },
+          {
+            "text": "An invoice item collection",
+            "is_correct": false,
+            "error_type": "Confuses audio with invoices",
+            "rationale": "Invoice items are structured fields from an invoice. They do not represent a caller's speech.",
+            "better_fit": "Use this when extracting line items from an invoice.",
+            "feedback": null
+          },
+          {
+            "text": "A video attendance count",
+            "is_correct": false,
+            "error_type": "Confuses audio with video",
+            "rationale": "Attendance counts concern people visible in video or images. They are not written records of a call.",
+            "better_fit": "Use this for a meeting video where attendance is needed.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "audio-information-extraction",
+        "item_key": "extract-information-from-audio/audio-information-extraction/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. A transcription creates a written record of spoken audio.",
+      "points": 1
+    },
+    {
+      "import_key": "extract-information-from-audio-l1-q2",
+      "question_type": "multiple_choice",
+      "question_text": "Which fields can a voicemail schema define? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Caller",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Caller is a voicemail-schema field. It identifies who left the message.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Requested actions",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Requested actions can be defined in a voicemail schema. They capture what the caller asks someone to do.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Callback number",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Callback number is a voicemail-schema field. It identifies how to return the call.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Invoice subtotal",
+            "is_correct": false,
+            "error_type": "Confuses voicemail and invoice fields",
+            "rationale": "An invoice subtotal is an amount from an invoice. It is not a call-related voicemail field.",
+            "better_fit": "Use this in a schema designed for invoice amounts.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "audio-voicemail-results",
+        "item_key": "extract-information-from-audio/audio-voicemail-results/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. A voicemail schema can define caller, actions, and callback number.",
+      "points": 1
+    },
+    {
+      "import_key": "extract-information-from-audio-l1-q3",
+      "question_type": "true_false",
+      "question_text": "A transcript is spoken audio shown as written text.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "audio-information-extraction",
+        "feedback_for_incorrect": {
+          "intrinsic": "The written record of the call would be misidentified.",
+          "instructional": "Speech recognition turns spoken audio into text; that written rendering is a transcript."
+        },
+        "item_key": "extract-information-from-audio/audio-information-extraction/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. A transcript is the written rendering of spoken audio.",
+      "points": 1
+    },
+    {
+      "import_key": "extract-information-from-audio-l1-q4",
+      "question_type": "true_false",
+      "question_text": "A voicemail schema can define an invoice subtotal field.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "audio-voicemail-results",
+        "feedback_for_incorrect": {
+          "intrinsic": "Important call details could be excluded from the reply plan.",
+          "instructional": "Voicemail schemas use caller, summary, actions, and contact fields; invoice subtotal is for invoices."
+        },
+        "item_key": "extract-information-from-audio/audio-voicemail-results/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct. Invoice subtotal belongs in an invoice schema.",
+      "points": 1
+    },
+    {
+      "import_key": "extract-information-from-audio-l1-q5",
+      "question_type": "multiple_choice",
+      "question_text": "What is Markdown in an audio-analysis result?",
+      "options": {
+        "options": [
+          {
+            "text": "Formatted plain text",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Markdown is formatted plain text. It can be returned with extracted content.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A recording's spoken words only",
+            "is_correct": false,
+            "error_type": "Confuses markdown with transcript",
+            "rationale": "Spoken words rendered in writing are specifically a transcript. Markdown is a text formatting form that can contain different content.",
+            "better_fit": "Use this when defining a transcript.",
+            "feedback": null
+          },
+          {
+            "text": "A JSON field type",
+            "is_correct": false,
+            "error_type": "Confuses formatting with structured data",
+            "rationale": "JSON represents structured result data. Markdown is formatted plain text, not a JSON field type.",
+            "better_fit": "Use this when describing structured machine-readable result data.",
+            "feedback": null
+          },
+          {
+            "text": "A document image layout",
+            "is_correct": false,
+            "error_type": "Confuses output formatting with layout",
+            "rationale": "Document layout describes positions in an image or page. Markdown describes formatting for plain text.",
+            "better_fit": "Use this when analyzing text placement in a document image.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "markdown-and-transcript-output",
+        "item_key": "extract-information-from-audio/markdown-and-transcript-output/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. Markdown is formatted plain text that can accompany extracted content.",
+      "points": 1
+    },
+    {
+      "import_key": "extract-information-from-audio-l1-q6",
+      "question_type": "multiple_choice",
+      "question_text": "Which parts are used in the Python audio analysis flow? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Analyzer ID prebuilt-audioSearch",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The flow uses prebuilt-audioSearch for audio. This ID selects the prebuilt audio analyzer.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "An accessible audio URL",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The flow supplies the audio through an accessible URL. The analyzer needs this input to start analysis.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Asynchronous analysis",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The analysis operation is asynchronous. The flow waits for its result before inspection.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Analyzer ID prebuilt-invoice",
+            "is_correct": false,
+            "error_type": "Confuses audio and invoice analyzers",
+            "rationale": "prebuilt-invoice is intended for invoices. The audio flow uses prebuilt-audioSearch.",
+            "better_fit": "Use prebuilt-invoice for invoice content.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "prebuilt-audio-sdk-flow",
+        "item_key": "extract-information-from-audio/prebuilt-audio-sdk-flow/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. The flow uses the audio ID, an accessible URL, and asynchronous analysis.",
+      "points": 1
+    },
+    {
+      "import_key": "extract-information-from-audio-l1-q7",
+      "question_type": "true_false",
+      "question_text": "A transcript specifically represents printed document text as written text.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "markdown-and-transcript-output",
+        "feedback_for_incorrect": {
+          "intrinsic": "A reviewer could look for page content instead of spoken words.",
+          "instructional": "Printed document text is handled by document or image analysis; a transcript is for spoken audio."
+        },
+        "item_key": "extract-information-from-audio/markdown-and-transcript-output/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct. A transcript represents spoken audio as written text.",
+      "points": 1
+    },
+    {
+      "import_key": "extract-information-from-audio-l1-q8",
+      "question_type": "multiple_choice",
+      "question_text": "What can the Foundry portal run on an audio file?",
+      "options": {
+        "options": [
+          {
+            "text": "An audio analyzer",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The portal can run an audio analyzer on a media file. It can return transcripts and extracted insights.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A document OCR scan",
+            "is_correct": false,
+            "error_type": "Confuses audio with OCR",
+            "rationale": "Document OCR reads printed text from images or scans. An audio file requires an audio analyzer.",
+            "better_fit": "Use it for a scanned form or photographed document.",
+            "feedback": null
+          },
+          {
+            "text": "An invoice-only analyzer",
+            "is_correct": false,
+            "error_type": "Confuses audio with invoices",
+            "rationale": "An invoice analyzer is intended for invoice content. It is not the appropriate tool for a recording.",
+            "better_fit": "Use it when the uploaded file is an invoice.",
+            "feedback": null
+          },
+          {
+            "text": "A video attendance schema",
+            "is_correct": false,
+            "error_type": "Confuses audio with video",
+            "rationale": "Video attendance concerns people visible in visual media. It does not analyze a call recording.",
+            "better_fit": "Use it for meeting video or images where attendance matters.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "audio-portal-validation",
+        "item_key": "extract-information-from-audio/audio-portal-validation/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. The portal can run an audio analyzer on an audio file.",
+      "points": 1
+    },
+    {
+      "import_key": "extract-information-from-audio-l1-q9",
+      "question_type": "true_false",
+      "question_text": "The prebuilt-invoice analyzer ID is used to analyze an audio file in this flow.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "prebuilt-audio-sdk-flow",
+        "feedback_for_incorrect": {
+          "intrinsic": "The voicemail would be processed with an identifier for invoices.",
+          "instructional": "Use prebuilt-audioSearch for audio and prebuilt-invoice for invoice content."
+        },
+        "item_key": "extract-information-from-audio/prebuilt-audio-sdk-flow/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct. The audio flow uses prebuilt-audioSearch, not prebuilt-invoice.",
+      "points": 1
+    },
+    {
+      "import_key": "extract-information-from-audio-l1-q10",
+      "question_type": "true_false",
+      "question_text": "Portal testing can help confirm that an audio analyzer returns expected fields before automation in code.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "audio-portal-validation",
+        "feedback_for_incorrect": {
+          "intrinsic": "Automation could begin before a needed field is found to be missing.",
+          "instructional": "Run the analyzer in the portal and review its outputs before building code automation."
+        },
+        "item_key": "extract-information-from-audio/audio-portal-validation/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. Testing in the portal lets a team check results before automating.",
+      "points": 1
+    },
+    {
+      "import_key": "extract-information-from-audio-l1-q11",
+      "question_type": "arrange_sentence",
+      "question_text": "Order the SDK flow.",
+      "options": {
+        "word_bank": [
+          "wait for the result",
+          "Provide an audio URL",
+          "inspect extracted fields",
+          "start asynchronous analysis"
+        ],
+        "correct_order": [
+          "Provide an audio URL",
+          "start asynchronous analysis",
+          "wait for the result",
+          "inspect extracted fields"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "prebuilt-audio-sdk-flow",
+        "feedback_for_incorrect": {
+          "intrinsic": "Fields could be inspected before analysis has completed.",
+          "instructional": "Provide the URL, start analysis, wait for completion, and then inspect fields."
+        },
+        "item_key": "extract-information-from-audio/prebuilt-audio-sdk-flow/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "Provide an audio URL start asynchronous analysis wait for the result inspect extracted fields",
+      "explanation": "Supply the input first, then start analysis. Because it is asynchronous, wait before inspecting fields.",
+      "points": 1
+    },
+    {
+      "import_key": "extract-information-from-audio-l1-q12",
+      "question_type": "fill_blank",
+      "question_text": "The portal can display returned results in ___ format.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "The portal can display returned results in "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "JSON"
+            ],
+            "rejected_answers": [
+              "OCR",
+              "CSV",
+              "foundry-portal-testing",
+              "audio-information-extraction"
+            ],
+            "placeholder": "data format"
+          },
+          {
+            "type": "text",
+            "text": " format."
+          }
+        ],
+        "rejected_answers": [
+          "OCR",
+          "CSV",
+          "foundry-portal-testing",
+          "audio-information-extraction"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "audio-portal-validation",
+        "feedback_for_incorrect": {
+          "intrinsic": "The reviewer would name the wrong returned-data format.",
+          "instructional": "Use JSON; OCR is a recognition method, not the stated result format."
+        },
+        "item_key": "extract-information-from-audio/audio-portal-validation/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "JSON",
+      "explanation": "The returned results can be displayed as JSON, a structured data format.",
+      "points": 1
+    }
+  ],
+  "flashcards": [
+    {
+      "import_key": "extract-information-from-audio-l1-f0",
+      "front": "What is a transcript?",
+      "back": "Written text that represents spoken audio content.",
+      "hint": "Think: spoken words written down."
+    },
+    {
+      "import_key": "extract-information-from-audio-l1-f1",
+      "front": "What does a voicemail schema define?",
+      "back": "It defines fields to extract from a voicemail.",
+      "hint": "Think: planned information fields."
+    },
+    {
+      "import_key": "extract-information-from-audio-l1-f2",
+      "front": "Why test audio in the portal?",
+      "back": "To confirm the analyzer returns expected fields.",
+      "hint": "Test before coding automation."
+    },
+    {
+      "import_key": "extract-information-from-audio-l1-f3",
+      "front": "Which analyzer ID handles audio?",
+      "back": "prebuilt-audioSearch.",
+      "hint": "It includes audioSearch."
+    }
+  ]
+}

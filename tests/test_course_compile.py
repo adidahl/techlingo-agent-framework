@@ -9,6 +9,7 @@ Or with pytest:      PYTHONPATH=src pytest tests/test_course_compile.py
 from __future__ import annotations
 
 import json
+import shutil
 import tempfile
 from pathlib import Path
 
@@ -773,6 +774,7 @@ def test_write_bundle_manifest_hashes_and_versioning():
         manifest = json.loads((out1.bundle_dir / "manifest.json").read_text(encoding="utf-8"))
         assert manifest["schema_version"] == "bundle-v1"
         assert manifest["compile"]["levels"] == 1 and manifest["compile"]["seed"] == 901
+        assert manifest["compile"]["level_session_size"] == 12
         kinds = {e["kind"] for e in manifest["entities"]}
         assert kinds == {
             "unit",
@@ -780,7 +782,6 @@ def test_write_bundle_manifest_hashes_and_versioning():
             "concepts",
             "bank",
             "flat-course",
-            "sequence-quality",
         }
         for entity in manifest["entities"]:
             text = (out1.bundle_dir / entity["path"]).read_text(encoding="utf-8")
@@ -789,9 +790,9 @@ def test_write_bundle_manifest_hashes_and_versioning():
         # Flat course in the bundle parses as a valid TL course tree.
         flat = json.loads(out1.flat_path.read_text(encoding="utf-8"))
         assert flat["import_key"] == "demo" and len(flat["modules"]) == 1
-        quality = json.loads((out1.bundle_dir / "quality_report.json").read_text(encoding="utf-8"))
-        assert quality["schema_version"] == "sequence-quality-v1"
-        assert quality["summary"]["ok"] is True
+        # The Admin ZIP contract rejects unlisted files, so sequence evidence is
+        # retained by the workspace audit rather than placed beside entities.
+        assert not (out1.bundle_dir / "quality_report.json").exists()
 
         out2 = write_bundle(ws.root, compiled, flat=False)
         assert out2.version == 2 and out2.flat_path is None
@@ -914,7 +915,13 @@ def test_recycling_prefers_unseen_variants_with_seen_repeat_fallback():
 
 def test_recycle_ratios_honored():
     with tempfile.TemporaryDirectory() as td:
-        ws = _compiled_workspace(Path(td), cfg=_leveled_cfg(), course=_ratio_course())
+        cfg = _leveled_cfg()
+        # This fixture deliberately has five same-mechanic R1 probes; relax
+        # only its synthetic experience policy so the test isolates recycle
+        # arithmetic rather than scheduler feasibility.
+        cfg.experience.max_same_mechanic_streak = 5
+        cfg.experience.max_same_ui_family_streak = 5
+        ws = _compiled_workspace(Path(td), cfg=cfg, course=_ratio_course())
         compiled = compile_workspace(ws.root)
         assert compiled.problems == []
         by_key = _units_by_key(compiled)
@@ -977,7 +984,7 @@ def test_module_checkpoint_sampling():
 
 def test_checkpoint_growth_respects_session_size_hint():
     with tempfile.TemporaryDirectory() as td:
-        ws = _compiled_workspace(Path(td), cfg=_leveled_cfg(checkpoints="per_module", session_size_hint=4))
+        ws = _compiled_workspace(Path(td), cfg=_leveled_cfg(checkpoints="per_module", review_session_size=4))
         compiled = compile_workspace(ws.root)
         checkpoint = _units_by_key(compiled)["1-intro-to-ai-checkpoint"]
         assert len(checkpoint.exercises) == 4  # 3 concepts x 1, then one growth item
@@ -1009,7 +1016,7 @@ def test_final_review_course_wide_and_depth_weighted():
             concept.depth = depths[concept.id]
         ws.save_graph(graph)
         cfg = ws.load_compile_config()
-        cfg.session_size_hint = 1  # final-review budget = 2 items
+        cfg.review_session_size = 2
         ws.save_compile_config(cfg)
         unit2 = _units_by_key(compile_workspace(ws.root))["demo-final-review"]
         assert {q.options["concept_id"] for q in unit2.exercises} == {"generative-ai", "llm-vs-slm"}
@@ -1040,6 +1047,20 @@ def test_seed_determinism_byte_identical_bundles():
         cfg.seed = 902
         ws.save_compile_config(cfg)
         assert compile_workspace(ws.root).problems == []
+
+
+def test_missing_recorded_bundle_is_recreated_with_its_original_version():
+    with tempfile.TemporaryDirectory() as td:
+        ws = _compiled_workspace(Path(td), cfg=_leveled_cfg())
+        compiled = compile_workspace(ws.root)
+        original = write_bundle(ws.root, compiled, flat=True)
+        assert original.version == 1
+
+        shutil.rmtree(original.bundle_dir)
+        recovered = write_bundle(ws.root, compile_workspace(ws.root), flat=True)
+
+        assert recovered.version == 1
+        assert recovered.bundle_dir.name == "demo-v1"
 
 
 def _run_all():

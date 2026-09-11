@@ -1,0 +1,477 @@
+{
+  "import_key": "tables-quality-and-business-integration-l1",
+  "title": "Tables, quality, and business integration · Level 1",
+  "slo": "Validate extracted data and prepare it for a business system.",
+  "exercises": [
+    {
+      "import_key": "tables-quality-and-business-integration-l1-q1",
+      "question_type": "multiple_choice",
+      "question_text": "Which validation checks whether a phone number matches an expected pattern?",
+      "options": {
+        "options": [
+          {
+            "text": "Rule-based validation",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Rule-based validation includes format checking for expected patterns such as phone numbers and email addresses. It checks the value against a defined expectation.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Statistical validation",
+            "is_correct": false,
+            "error_type": "Confuses format checking with pattern analysis",
+            "rationale": "Statistical validation uses outlier detection, distribution analysis, and cross-document checks. It is not the listed method for expected phone-number formats.",
+            "better_fit": "Use this when looking for unusual values or patterns across data.",
+            "feedback": {
+              "intrinsic": "A malformed phone number could remain unnoticed if only broad value patterns were reviewed.",
+              "instructional": "Expected formats are explicit rules, so use rule-based validation."
+            }
+          },
+          {
+            "text": "Field-confidence evaluation",
+            "is_correct": false,
+            "error_type": "Confuses validation rule with confidence scoring",
+            "rationale": "Field confidence evaluates evidence for a predicted field value. It does not itself enforce a phone-number format.",
+            "better_fit": "Use this when judging how reliable an extracted field value appears.",
+            "feedback": {
+              "intrinsic": "A confidently recognized number could still fail the expected phone-number pattern.",
+              "instructional": "Confidence and format compliance are different checks. Use a rule to verify the expected pattern."
+            }
+          },
+          {
+            "text": "Data normalization",
+            "is_correct": false,
+            "error_type": "Confuses checking with formatting",
+            "rationale": "Normalization changes raw values into consistent formats. Format checking verifies whether a value matches an expected pattern.",
+            "better_fit": "Use this when values need consistent representation, such as date or decimal formats.",
+            "feedback": {
+              "intrinsic": "A phone number could be reformatted without confirming that it meets the required pattern.",
+              "instructional": "Use rule-based validation to check the pattern; use normalization to standardize representation."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "data-validation-and-quality-assurance",
+        "item_key": "tables-quality-and-business-integration/data-validation-and-quality-assurance/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. Rule-based validation checks whether a value follows an expected format.",
+      "points": 1
+    },
+    {
+      "import_key": "tables-quality-and-business-integration-l1-q2",
+      "question_type": "multiple_choice",
+      "question_text": "Which targets can schema mapping prepare data for? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Database columns and tables",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Schema mapping can align extracted fields with database columns and tables. This prepares structured data for storage.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "REST API payloads",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Schema mapping can format data for REST API consumption downstream. API payloads are an explicit target.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Message queues",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Schema mapping can prepare structured messages for asynchronous processing. Message queues are therefore a target.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "OCR image cleanup filters",
+            "is_correct": false,
+            "error_type": "Confuses integration with OCR preprocessing",
+            "rationale": "Image cleanup filters belong to preprocessing before text recognition. Schema mapping occurs after fields are extracted and standardized.",
+            "better_fit": "Use this during OCR preprocessing to reduce noise or improve image quality.",
+            "feedback": {
+              "intrinsic": "A later-stage data handoff could be confused with early image preparation.",
+              "instructional": "Schema mapping prepares extracted fields for downstream destinations, not image cleanup."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "business-system-integration",
+        "item_key": "tables-quality-and-business-integration/business-system-integration/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. Schema mapping can prepare structured values for databases, REST APIs, and message queues.",
+      "points": 1
+    },
+    {
+      "import_key": "tables-quality-and-business-integration-l1-q3",
+      "question_type": "true_false",
+      "question_text": "Statistical validation confirms that all mandatory fields are present.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "data-validation-and-quality-assurance",
+        "feedback_for_incorrect": {
+          "intrinsic": "A required value could be overlooked while attention stays on broad data patterns.",
+          "instructional": "Statistical validation uses outliers, distributions, and cross-document consistency. Required-field checking is rule-based validation."
+        },
+        "item_key": "tables-quality-and-business-integration/data-validation-and-quality-assurance/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct. Mandatory-field presence is checked with rules, not statistical patterns.",
+      "points": 1
+    },
+    {
+      "import_key": "tables-quality-and-business-integration-l1-q4",
+      "question_type": "true_false",
+      "question_text": "Schema mapping can rename fields and convert data types for a target system.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "business-system-integration",
+        "feedback_for_incorrect": {
+          "intrinsic": "A destination could receive a field name or value type it cannot use as intended.",
+          "instructional": "Schema mapping can rename fields, convert data types, and apply conditional business logic to match target requirements."
+        },
+        "item_key": "tables-quality-and-business-integration/business-system-integration/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. These transformations align extracted values with the target schema's conventions and data types.",
+      "points": 1
+    },
+    {
+      "import_key": "tables-quality-and-business-integration-l1-q5",
+      "question_type": "multiple_choice",
+      "question_text": "What happens during field detection and candidate identification?",
+      "options": {
+        "options": [
+          {
+            "text": "Possible field values are found",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "This stage identifies likely values in OCR output. Assignment to labeled schema fields happens later.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Values are assigned to schema fields",
+            "is_correct": false,
+            "error_type": "Confuses detection with field mapping",
+            "rationale": "Assigning a value to a labeled schema field is field mapping and association. Detection only finds possible values first.",
+            "better_fit": "Use this when candidate values have already been identified and must be associated with schema fields.",
+            "feedback": {
+              "intrinsic": "A clerk could know a number was found but still not know which business field it belongs in.",
+              "instructional": "Good distinction: detection finds candidates; mapping gives each candidate its labeled destination."
+            }
+          },
+          {
+            "text": "OCR text enters the pipeline",
+            "is_correct": false,
+            "error_type": "Confuses detection with OCR ingestion",
+            "rationale": "OCR output ingestion brings extracted text and its metadata into field extraction. Candidate identification happens after that input is available.",
+            "better_fit": "Use this for the first field-extraction stage, when OCR results are received.",
+            "feedback": {
+              "intrinsic": "The workflow would start at the wrong step and skip identifying likely values.",
+              "instructional": "OCR ingestion supplies the text, position, layout, and confidence information; detection examines that information for candidates."
+            }
+          },
+          {
+            "text": "Dates are converted to one format",
+            "is_correct": false,
+            "error_type": "Confuses detection with normalization",
+            "rationale": "Converting dates to a standard format is date normalization. It occurs after values have been extracted.",
+            "better_fit": "Use this when a raw date needs a consistent ISO format.",
+            "feedback": {
+              "intrinsic": "A date might be neatly formatted before anyone has identified it as the correct date field.",
+              "instructional": "Normalization makes a known value consistent; detection finds possible values."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "field-detection-and-candidates",
+        "item_key": "tables-quality-and-business-integration/field-detection-and-candidates/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. This stage finds likely values before any schema assignment is made.",
+      "points": 1
+    },
+    {
+      "import_key": "tables-quality-and-business-integration-l1-q6",
+      "question_type": "multiple_choice",
+      "question_text": "Which tasks are part of data normalization and standardization? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Convert dates to ISO format",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Date normalization detects date formats and converts them to standardized ISO formats. This makes dates consistent.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Standardize decimal representation",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Currency and numeric processing standardizes decimal point representation across locales. This is a normalization task.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Apply consistent capitalization",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Text standardization includes case normalization for consistent capitalization. It turns raw text into a consistent form.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Check required fields",
+            "is_correct": false,
+            "error_type": "Confuses standardization with rule-based validation",
+            "rationale": "Required-field checking confirms that mandatory fields are present. It validates completeness rather than changing formats.",
+            "better_fit": "Use this when a form must contain required information before it is accepted.",
+            "feedback": {
+              "intrinsic": "Values may look consistent but a required value could still be missing.",
+              "instructional": "Normalization makes values consistent; required-field checking is rule-based validation."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "data-normalization-standardization",
+        "item_key": "tables-quality-and-business-integration/data-normalization-standardization/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. These actions turn raw values into consistent formats.",
+      "points": 1
+    },
+    {
+      "import_key": "tables-quality-and-business-integration-l1-q7",
+      "question_type": "true_false",
+      "question_text": "Field detection assigns each identified value to its final schema field.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "field-detection-and-candidates",
+        "feedback_for_incorrect": {
+          "intrinsic": "A value might be treated as final before its correct field has been established.",
+          "instructional": "Field detection identifies possible values. Field mapping and association assigns those values to schema fields."
+        },
+        "item_key": "tables-quality-and-business-integration/field-detection-and-candidates/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct. Candidate finding comes before association with schema fields.",
+      "points": 1
+    },
+    {
+      "import_key": "tables-quality-and-business-integration-l1-q8",
+      "question_type": "true_false",
+      "question_text": "Date normalization can identify different date formats and convert them to a standard ISO format.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "data-normalization-standardization",
+        "feedback_for_incorrect": {
+          "intrinsic": "The same date could be treated inconsistently when it appears in different formats.",
+          "instructional": "Date normalization includes format detection, ambiguity resolution, and conversion to a standardized ISO format."
+        },
+        "item_key": "tables-quality-and-business-integration/data-normalization-standardization/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. It identifies formats, resolves ambiguity where needed, and then converts the date to ISO form.",
+      "points": 1
+    },
+    {
+      "import_key": "tables-quality-and-business-integration-l1-q9",
+      "question_type": "multiple_choice",
+      "question_text": "Which techniques can detect a table in a document? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Specialized CNN architectures",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Specialized convolutional neural network architectures can recognize table structure. They are listed as a table-detection approach.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Object detection approaches",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Object detection can be adapted to identify table cells. This supports recognizing a table structure.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Graph-based parsing approaches",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Graph-based parsing can model relationships between table cells. It is another way to determine table presence and structure.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Date normalization",
+            "is_correct": false,
+            "error_type": "Confuses table detection with data standardization",
+            "rationale": "Date normalization identifies date formats and converts dates to a standard format. It does not identify table structures.",
+            "better_fit": "Use this after a date has been extracted from any part of the content.",
+            "feedback": {
+              "intrinsic": "A receipt table could remain unrecognized even though its dates were formatted consistently.",
+              "instructional": "Table detection identifies rows, columns, and cells; date normalization standardizes date values."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "table-structured-content",
+        "item_key": "tables-quality-and-business-integration/table-structured-content/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. Each listed technique can help recognize table structure.",
+      "points": 1
+    },
+    {
+      "import_key": "tables-quality-and-business-integration-l1-q10",
+      "question_type": "multiple_choice",
+      "question_text": "What does cross-field validation check?",
+      "options": {
+        "options": [
+          {
+            "text": "Whether related fields agree logically",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Cross-field validation checks relationships among extracted values. A stated example is checking whether line-item subtotals equal an invoice total.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Whether every character has a confidence score",
+            "is_correct": false,
+            "error_type": "Confuses field validation with OCR confidence",
+            "rationale": "OCR confidence concerns certainty about recognized text elements. Cross-field validation compares relationships among extracted fields.",
+            "better_fit": "Use this when evaluating the certainty of text recognition.",
+            "feedback": {
+              "intrinsic": "A clear-looking character could distract from totals that do not agree.",
+              "instructional": "Confidence asks how certain recognition is; cross-field validation asks whether related values make sense together."
+            }
+          },
+          {
+            "text": "Whether dates use one format",
+            "is_correct": false,
+            "error_type": "Confuses validation with normalization",
+            "rationale": "One date format is the goal of date normalization. Cross-field validation checks logical consistency across fields.",
+            "better_fit": "Use this when dates need conversion to a standard ISO form.",
+            "feedback": {
+              "intrinsic": "Dates could look consistent while related amounts still conflict.",
+              "instructional": "Formatting a single value is normalization. Comparing values such as subtotals and totals is cross-field validation."
+            }
+          },
+          {
+            "text": "Whether a field matches a database column",
+            "is_correct": false,
+            "error_type": "Confuses validation with schema mapping",
+            "rationale": "Matching fields to database columns is schema mapping for downstream integration. It does not test whether field values agree with each other.",
+            "better_fit": "Use this when preparing extracted fields for a database.",
+            "feedback": {
+              "intrinsic": "Data could reach the correct column despite an incorrect relationship between its values.",
+              "instructional": "Schema mapping aligns structures; cross-field validation checks whether extracted field relationships are logical."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "field-confidence-and-validation",
+        "item_key": "tables-quality-and-business-integration/field-confidence-and-validation/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. It tests whether related extracted values are logically consistent.",
+      "points": 1
+    },
+    {
+      "import_key": "tables-quality-and-business-integration-l1-q11",
+      "question_type": "true_false",
+      "question_text": "Header detection helps determine what table columns mean.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "table-structured-content",
+        "feedback_for_incorrect": {
+          "intrinsic": "Values in a receipt table could be placed under the wrong field meaning.",
+          "instructional": "Header detection identifies column headers, which tells you what the values in each column represent."
+        },
+        "item_key": "tables-quality-and-business-integration/table-structured-content/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. Column headers provide the meaning needed to map values such as item, price, or quantity.",
+      "points": 1
+    },
+    {
+      "import_key": "tables-quality-and-business-integration-l1-q12",
+      "question_type": "true_false",
+      "question_text": "Cross-field validation checks only whether a date follows the expected format.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "field-confidence-and-validation",
+        "feedback_for_incorrect": {
+          "intrinsic": "A mismatched subtotal and total could be missed by looking only at date format.",
+          "instructional": "Cross-field validation checks logical relationships, such as whether line-item subtotals equal the invoice total. Expected date formats are checked with rule-based validation."
+        },
+        "item_key": "tables-quality-and-business-integration/field-confidence-and-validation/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct. Date-format checking is different from checking relationships among multiple fields.",
+      "points": 1
+    }
+  ],
+  "flashcards": [
+    {
+      "import_key": "tables-quality-and-business-integration-l1-f0",
+      "front": "What is field detection?",
+      "back": "It finds possible field values before schema assignment.",
+      "hint": "Think: find values first."
+    },
+    {
+      "import_key": "tables-quality-and-business-integration-l1-f1",
+      "front": "What does header detection do?",
+      "back": "It identifies column headers to determine field meanings.",
+      "hint": "Think: column labels."
+    },
+    {
+      "import_key": "tables-quality-and-business-integration-l1-f2",
+      "front": "What is cross-field validation?",
+      "back": "It checks whether related extracted values are logically consistent.",
+      "hint": "Think: totals and subtotals."
+    },
+    {
+      "import_key": "tables-quality-and-business-integration-l1-f3",
+      "front": "What is schema mapping?",
+      "back": "It aligns extracted fields with a target system structure.",
+      "hint": "Think: database or API."
+    }
+  ]
+}

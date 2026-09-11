@@ -1,8 +1,10 @@
 # Core dependencies
-# Microsoft Agent Framework (workflows + agents)
-# Note: Agent Framework is currently published as beta pre-releases on PyPI.
-# Pin to a known-good beta to keep installs reproducible.
-agent-framework==1.0.0b251211
+# Microsoft Agent Framework runtime (workflows + agents).
+# The ``agent-framework`` beta meta-package currently requires
+# ``agent-framework-core[all]`` and pulls mutually incompatible optional
+# adapters on Python 3.13.  The course A0-A5 runtime imports only the core
+# workflow API, so pin the compatible core distribution instead.
+agent-framework-core==1.0.0b251211
 
 # Data modeling / validation
 pydantic>=2.7.0

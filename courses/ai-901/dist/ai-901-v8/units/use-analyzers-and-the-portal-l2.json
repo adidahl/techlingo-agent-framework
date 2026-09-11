@@ -1,0 +1,572 @@
+{
+  "import_key": "use-analyzers-and-the-portal-l2",
+  "title": "Use analyzers and the portal · Level 2",
+  "slo": "Choose and test an analyzer for a common extraction task.",
+  "exercises": [
+    {
+      "import_key": "use-analyzers-and-the-portal-l2-q1",
+      "question_type": "multiple_choice",
+      "question_text": "What does text layout information describe?",
+      "options": {
+        "options": [
+          {
+            "text": "How text is arranged on a page",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Text layout describes the arrangement of text on a page. It helps identify where content appears.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "How confident a field value is",
+            "is_correct": false,
+            "error_type": "Confidence confusion",
+            "rationale": "Confidence measures certainty in an extracted value. It does not describe page arrangement.",
+            "better_fit": "Use this when interpreting a confidence score.",
+            "feedback": null
+          },
+          {
+            "text": "Which analyzer was selected",
+            "is_correct": false,
+            "error_type": "Metadata confusion",
+            "rationale": "An analyzer ID identifies the analyzer used. Layout describes text placement.",
+            "better_fit": "Use this when identifying an analyzer ID.",
+            "feedback": null
+          },
+          {
+            "text": "How an audio call was spoken",
+            "is_correct": false,
+            "error_type": "Audio-document confusion",
+            "rationale": "Speech concerns audio analysis. Text layout concerns document pages.",
+            "better_fit": "Use this when discussing an audio recording.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "document-text-and-layout-output",
+        "item_key": "use-analyzers-and-the-portal/document-text-and-layout-output/r1/v2",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. Layout information describes page text arrangement.",
+      "points": 1
+    },
+    {
+      "import_key": "use-analyzers-and-the-portal-l2-q2",
+      "question_type": "true_false",
+      "question_text": "A prebuilt analyzer can be selected when a supplied common scenario matches the required extraction task.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "prebuilt-vs-custom-analyzers",
+        "feedback_for_incorrect": {
+          "intrinsic": "A ready-made option could be overlooked.",
+          "instructional": "Choose prebuilt when its scenario fits; choose custom when tailoring is needed."
+        },
+        "item_key": "use-analyzers-and-the-portal/prebuilt-vs-custom-analyzers/r2/v2",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. Prebuilt analyzers are supplied for common scenarios.",
+      "points": 1
+    },
+    {
+      "import_key": "use-analyzers-and-the-portal-l2-q3",
+      "question_type": "fill_blank",
+      "question_text": "The returned result detail that identifies which analyzer produced an extraction is the ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "The returned result detail that identifies which analyzer produced an extraction is the "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "analyzer ID",
+              "analyzer id"
+            ],
+            "rejected_answers": [
+              "confidence score",
+              "API version",
+              "markdown",
+              "markdown-and-transcript-output",
+              "analyzer-and-schema-reuse"
+            ],
+            "placeholder": "technical term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "confidence score",
+          "API version",
+          "markdown",
+          "markdown-and-transcript-output",
+          "analyzer-and-schema-reuse"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "structured-result-details",
+        "feedback_for_incorrect": {
+          "intrinsic": "The producing analyzer would not be identified.",
+          "instructional": "Use analyzer ID for identity and confidence score for certainty."
+        },
+        "item_key": "use-analyzers-and-the-portal/structured-result-details/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "[\"analyzer ID\",\"analyzer id\"]",
+      "explanation": "An analyzer ID identifies the analyzer that produced an extraction result.",
+      "points": 1
+    },
+    {
+      "import_key": "use-analyzers-and-the-portal-l2-q4",
+      "question_type": "arrange_sentence",
+      "question_text": "Arrange the phrase that distinguishes a custom analyzer.",
+      "options": {
+        "word_bank": [
+          "to your extraction",
+          "A custom analyzer",
+          "requirements and schema",
+          "is tailored"
+        ],
+        "correct_order": [
+          "A custom analyzer",
+          "is tailored",
+          "to your extraction",
+          "requirements and schema"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "prebuilt-vs-custom-analyzers",
+        "feedback_for_incorrect": {
+          "intrinsic": "The custom-versus-prebuilt distinction would be unclear.",
+          "instructional": "Keep the tailoring relationship together in the completed statement."
+        },
+        "item_key": "use-analyzers-and-the-portal/prebuilt-vs-custom-analyzers/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "A custom analyzer is tailored to your extraction requirements and schema",
+      "explanation": "Custom analyzers are tailored to a user's extraction requirements and schema.",
+      "points": 1
+    },
+    {
+      "import_key": "use-analyzers-and-the-portal-l2-q5",
+      "question_type": "multiple_choice",
+      "question_text": "Nora compares results from two configured analyzers and must determine which one produced a particular extraction. Which result detail should she check?",
+      "options": {
+        "options": [
+          {
+            "text": "The analyzer ID",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The analyzer ID identifies the analyzer that produced the result. It directly supports Nora's comparison.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "The confidence score",
+            "is_correct": false,
+            "error_type": "Purpose confusion",
+            "rationale": "Confidence indicates certainty in a field value. It does not identify the producing analyzer.",
+            "better_fit": "Use this when judging certainty in an extracted field.",
+            "feedback": {
+              "intrinsic": "Nora could see certainty without identifying the producer.",
+              "instructional": "Check analyzer ID for source identity."
+            }
+          },
+          {
+            "text": "The API version",
+            "is_correct": false,
+            "error_type": "Metadata confusion",
+            "rationale": "API version identifies an interface version, not the producing analyzer. Multiple analyzers can use one API version.",
+            "better_fit": "Use this when identifying returned API metadata.",
+            "feedback": {
+              "intrinsic": "The interface version would be known, not the analyzer.",
+              "instructional": "Analyzer ID names the producing analyzer."
+            }
+          },
+          {
+            "text": "The markdown output",
+            "is_correct": false,
+            "error_type": "Content-metadata confusion",
+            "rationale": "Markdown can contain returned content but does not identify the analyzer reliably. The analyzer ID is explicit metadata.",
+            "better_fit": "Use this when reviewing returned markdown content.",
+            "feedback": {
+              "intrinsic": "Nora might inspect content without learning its source.",
+              "instructional": "Use analyzer ID to identify the producing analyzer."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "single_choice",
+        "concept_id": "structured-result-details",
+        "item_key": "use-analyzers-and-the-portal/structured-result-details/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. The analyzer ID identifies which analyzer produced the result.",
+      "points": 1
+    },
+    {
+      "import_key": "use-analyzers-and-the-portal-l2-q6",
+      "question_type": "multiple_choice",
+      "question_text": "A clerk must extract fields from standard invoices today. Which choices fit? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Use prebuilt-invoice",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "prebuilt-invoice is supplied for invoices. Standard invoices match its scenario.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Choose a supplied prebuilt analyzer",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A prebuilt analyzer fits a supplied common scenario. Standard invoice extraction is such a scenario.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Create a custom analyzer",
+            "is_correct": false,
+            "error_type": "Unnecessary customization",
+            "rationale": "Custom analyzers are for tailored requirements. The stated task already fits a supplied choice.",
+            "better_fit": "Use this when invoice fields need organization-specific tailoring.",
+            "feedback": {
+              "intrinsic": "Time could be spent designing fields unnecessarily.",
+              "instructional": "Start with prebuilt-invoice when the standard scenario fits."
+            }
+          },
+          {
+            "text": "Use prebuilt-audioSearch",
+            "is_correct": false,
+            "error_type": "Content mismatch",
+            "rationale": "prebuilt-audioSearch is for audio analysis. It does not fit invoice inputs.",
+            "better_fit": "Use this when analyzing an audio file.",
+            "feedback": {
+              "intrinsic": "The selected analyzer would not fit the input.",
+              "instructional": "Match the prebuilt analyzer to the content type."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "multi_choice",
+        "concept_id": "prebuilt-vs-custom-analyzers",
+        "item_key": "use-analyzers-and-the-portal/prebuilt-vs-custom-analyzers/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "[0,1]",
+      "explanation": "Correct. Standard invoices fit prebuilt-invoice.",
+      "points": 1
+    },
+    {
+      "import_key": "use-analyzers-and-the-portal-l2-q7",
+      "question_type": "arrange_sentence",
+      "question_text": "Arrange the portal-testing steps.",
+      "options": {
+        "word_bank": [
+          "Review extracted fields",
+          "Select source file",
+          "View JSON results",
+          "Run analyzer"
+        ],
+        "correct_order": [
+          "Select source file",
+          "Run analyzer",
+          "Review extracted fields",
+          "View JSON results"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "foundry-portal-testing",
+        "feedback_for_incorrect": {
+          "intrinsic": "Results would be reviewed before analysis occurred.",
+          "instructional": "Start with the input, run the analyzer, then inspect outputs."
+        },
+        "item_key": "use-analyzers-and-the-portal/foundry-portal-testing/r3/v2",
+        "rung": 3
+      },
+      "correct_answer": "Select source file Run analyzer Review extracted fields View JSON results",
+      "explanation": "Select a file, run analysis, then review the returned fields and JSON.",
+      "points": 1
+    },
+    {
+      "import_key": "use-analyzers-and-the-portal-l2-q8",
+      "question_type": "fill_blank",
+      "question_text": "Information about how document text is arranged on a page is called text ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "Information about how document text is arranged on a page is called text "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "layout",
+              "layout information",
+              "text layout information"
+            ],
+            "rejected_answers": [
+              "markdown",
+              "confidence score",
+              "schema",
+              "schema-and-schema-based-extraction",
+              "markdown-and-transcript-output"
+            ],
+            "placeholder": "technical term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "markdown",
+          "confidence score",
+          "schema",
+          "schema-and-schema-based-extraction",
+          "markdown-and-transcript-output"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "document-text-and-layout-output",
+        "feedback_for_incorrect": {
+          "intrinsic": "Page arrangement would be confused with another output detail.",
+          "instructional": "Use layout for the arrangement of text on a document page."
+        },
+        "item_key": "use-analyzers-and-the-portal/document-text-and-layout-output/r3/v2",
+        "rung": 3
+      },
+      "correct_answer": "[\"layout\",\"layout information\",\"text layout information\"]",
+      "explanation": "Text layout information concerns how text is arranged on a page.",
+      "points": 1
+    },
+    {
+      "import_key": "use-analyzers-and-the-portal-l2-q9",
+      "question_type": "multiple_choice",
+      "question_text": "Mia wants to verify expected receipt fields before building her application. What should she do first?",
+      "options": {
+        "options": [
+          {
+            "text": "Upload the receipt in the Foundry portal and run the analyzer",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The portal lets Mia test a real receipt and inspect fields before coding. This validates planned extraction.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Poll an API result URL",
+            "is_correct": false,
+            "error_type": "Premature API workflow",
+            "rationale": "Polling happens after an asynchronous API request. Mia needs an initial test before building code.",
+            "better_fit": "Use this when an application awaits an API operation.",
+            "feedback": {
+              "intrinsic": "Mia would need an API request before polling.",
+              "instructional": "Use portal testing before coding."
+            }
+          },
+          {
+            "text": "Read only the analyzer ID",
+            "is_correct": false,
+            "error_type": "Identity-output confusion",
+            "rationale": "An analyzer ID identifies the processor but does not verify fields. A receipt test is required.",
+            "better_fit": "Use this to identify the analyzer that produced a result.",
+            "feedback": {
+              "intrinsic": "Expected fields would remain unverified.",
+              "instructional": "Run the analyzer and inspect returned fields."
+            }
+          },
+          {
+            "text": "Convert the receipt to JSON herself",
+            "is_correct": false,
+            "error_type": "Input-output confusion",
+            "rationale": "The receipt is submitted as content and analysis returns JSON. Conversion does not test the analyzer.",
+            "better_fit": "Use JSON when reviewing returned analysis output.",
+            "feedback": {
+              "intrinsic": "An unnecessary conversion would delay testing.",
+              "instructional": "Upload the receipt directly in the portal."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "single_choice",
+        "concept_id": "foundry-portal-testing",
+        "item_key": "use-analyzers-and-the-portal/foundry-portal-testing/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. Portal testing validates fields before development.",
+      "points": 1
+    },
+    {
+      "import_key": "use-analyzers-and-the-portal-l2-q10",
+      "question_type": "fill_blank",
+      "question_text": "The reusable configuration that specifies which fields an analyzer should extract is a ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "The reusable configuration that specifies which fields an analyzer should extract is a "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "schema"
+            ],
+            "rejected_answers": [
+              "analyzer",
+              "prebuilt analyzer",
+              "custom analyzer",
+              "schema-and-schema-based-extraction",
+              "prebuilt-and-custom-analyzers"
+            ],
+            "placeholder": "technical term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "analyzer",
+          "prebuilt analyzer",
+          "custom analyzer",
+          "schema-and-schema-based-extraction",
+          "prebuilt-and-custom-analyzers"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "analyzer-definition",
+        "feedback_for_incorrect": {
+          "intrinsic": "The requested field structure would remain undefined.",
+          "instructional": "A schema defines fields; an analyzer performs analysis."
+        },
+        "item_key": "use-analyzers-and-the-portal/analyzer-definition/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "schema",
+      "explanation": "A schema specifies fields and structure for extraction.",
+      "points": 1
+    },
+    {
+      "import_key": "use-analyzers-and-the-portal-l2-q11",
+      "question_type": "multiple_choice",
+      "question_text": "Leo is validating a scanned invoice and must confirm both the vendor-address value and its location on the page. Which outputs should he review? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "The mapped Vendor address field",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The mapped field shows the address value associated with its field name. It verifies the field-value pairing.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "The document text",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Document text lets Leo verify the recognized address content. It supports checking the extracted wording.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "The text layout information",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Layout information helps verify where the address appeared. This addresses the location requirement.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "The confidence score alone",
+            "is_correct": false,
+            "error_type": "Insufficient-output choice",
+            "rationale": "Confidence indicates certainty but not location or field mapping. Leo needs document outputs for both checks.",
+            "better_fit": "Use this when assessing certainty in an extracted value.",
+            "feedback": {
+              "intrinsic": "The address location and mapping would remain unverified.",
+              "instructional": "Review mapped fields, document text, and layout information."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "multi_choice",
+        "concept_id": "document-text-and-layout-output",
+        "item_key": "use-analyzers-and-the-portal/document-text-and-layout-output/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. Those outputs connect the address field, value, and page position.",
+      "points": 1
+    },
+    {
+      "import_key": "use-analyzers-and-the-portal-l2-q12",
+      "question_type": "multiple_choice",
+      "question_text": "An expense team receives thousands of receipts and needs the same fields from every one. Which approach should it choose?",
+      "options": {
+        "options": [
+          {
+            "text": "Reuse one configured analyzer and schema",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "One configured analyzer applies the same logic and schema to every receipt. This produces comparable results.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Create a different schema for each receipt",
+            "is_correct": false,
+            "error_type": "Consistency error",
+            "rationale": "The team needs common fields across receipts. Different schemas would make outputs inconsistent.",
+            "better_fit": "Use this when different content types require different fields.",
+            "feedback": {
+              "intrinsic": "Expense values would be harder to compare.",
+              "instructional": "Stable requirements call for one reused analyzer and schema."
+            }
+          },
+          {
+            "text": "Use basic OCR without a schema",
+            "is_correct": false,
+            "error_type": "OCR confusion",
+            "rationale": "OCR can return text without the required named-field structure. The task needs repeatable extraction.",
+            "better_fit": "Use this when only page text is needed.",
+            "feedback": {
+              "intrinsic": "Receipt text may lack consistent expense fields.",
+              "instructional": "Use an analyzer and schema for repeated named-field extraction."
+            }
+          },
+          {
+            "text": "Check confidence before uploading",
+            "is_correct": false,
+            "error_type": "Result-detail confusion",
+            "rationale": "Confidence is returned after a field is extracted. It cannot define the extraction workflow.",
+            "better_fit": "Use this after analysis to assess a returned field.",
+            "feedback": {
+              "intrinsic": "There would be no extracted value to assess.",
+              "instructional": "Confidence is result metadata, not an extraction configuration."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "single_choice",
+        "concept_id": "analyzer-definition",
+        "item_key": "use-analyzers-and-the-portal/analyzer-definition/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. Reuse provides consistent extraction.",
+      "points": 1
+    }
+  ],
+  "flashcards": []
+}

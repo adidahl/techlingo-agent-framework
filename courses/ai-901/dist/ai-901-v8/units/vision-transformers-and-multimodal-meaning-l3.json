@@ -1,0 +1,548 @@
+{
+  "import_key": "vision-transformers-and-multimodal-meaning-l3",
+  "title": "Vision Transformers and Multimodal Meaning · Level 3",
+  "slo": "Explain how image and text information can be connected in a multimodal model.",
+  "exercises": [
+    {
+      "import_key": "vision-transformers-and-multimodal-meaning-l3-q1",
+      "question_type": "multiple_choice",
+      "question_text": "What kind of training data helps combine language and vision encoders?",
+      "options": {
+        "options": [
+          {
+            "text": "Images paired with text descriptions",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Each image is linked to associated language in this training data. These pairs support combining language and vision encoders.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Images with one class label",
+            "is_correct": false,
+            "error_type": "Classification-data confusion",
+            "rationale": "One class label identifies an image category. It does not provide the descriptive language needed for image-text pairing.",
+            "better_fit": "Images with class labels are appropriate for training image classifiers.",
+            "feedback": {
+              "intrinsic": "This supports naming a subject but not linking images to language.",
+              "instructional": "Multimodal training uses images paired with text descriptions."
+            }
+          },
+          {
+            "text": "Images with bounding boxes",
+            "is_correct": false,
+            "error_type": "Detection-data confusion",
+            "rationale": "Bounding boxes identify object locations. They do not pair an image with a written description.",
+            "better_fit": "Images with bounding boxes are appropriate for training object detectors.",
+            "feedback": {
+              "intrinsic": "This identifies where objects are, not how images connect to words.",
+              "instructional": "Paired descriptions provide the language connection."
+            }
+          },
+          {
+            "text": "Images with pixel classes",
+            "is_correct": false,
+            "error_type": "Segmentation-data confusion",
+            "rationale": "Pixel classes mark regions within an image. They do not supply associated textual descriptions.",
+            "better_fit": "Images with pixel classes are appropriate for training semantic-segmentation models.",
+            "feedback": {
+              "intrinsic": "This defines object areas but no descriptive language.",
+              "instructional": "Language-and-vision training requires image-text pairs."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "paired-image-text-training",
+        "item_key": "vision-transformers-and-multimodal-meaning/paired-image-text-training/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Paired images and descriptions enable language and vision encoders to be combined.",
+      "points": 1
+    },
+    {
+      "import_key": "vision-transformers-and-multimodal-meaning-l3-q2",
+      "question_type": "multiple_choice",
+      "question_text": "How can a combined language-and-vision model describe a new image? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Recognize visual features",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The model first identifies visual features in the new image. Those features supply the visual information for interpretation.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Find associated language",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Recognized visual features can be related to language. Associated language supplies words for the description.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Search the shared vector space",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The shared vector space contains related visual and language representations. Searching it supports finding language associated with the image features.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Assign only one class label",
+            "is_correct": false,
+            "error_type": "Classification confusion",
+            "rationale": "A single label supplies only a category name. It does not provide the richer semantic interpretation of a description.",
+            "better_fit": "One class label is appropriate for a simple image-classification task.",
+            "feedback": {
+              "intrinsic": "The image would receive a category rather than a written description.",
+              "instructional": "Description links visual features with associated language in shared space."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "describing-unfamiliar-images",
+        "item_key": "vision-transformers-and-multimodal-meaning/describing-unfamiliar-images/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Description uses visual features, associated language, and shared space.",
+      "points": 1
+    },
+    {
+      "import_key": "vision-transformers-and-multimodal-meaning-l3-q3",
+      "question_type": "true_false",
+      "question_text": "A language vocabulary represents relationships among words, whereas a visual vocabulary represents relationships among visual features.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "language-vocabulary",
+        "feedback_for_incorrect": {
+          "intrinsic": "This would blur the distinction between word and image-feature representations.",
+          "instructional": "Language vocabulary encodes word relationships; visual vocabulary encodes visual-feature relationships."
+        },
+        "item_key": "vision-transformers-and-multimodal-meaning/language-vocabulary/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "The two vocabularies represent different modalities.",
+      "points": 1
+    },
+    {
+      "import_key": "vision-transformers-and-multimodal-meaning-l3-q4",
+      "question_type": "true_false",
+      "question_text": "When hat-like and head-like features occur together, a vision transformer understands hats and heads as humans do.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "visual-context-without-human-understanding",
+        "feedback_for_incorrect": {
+          "intrinsic": "This claims more than the learned visual pattern supports.",
+          "instructional": "The model relates visual characteristics but does not understand objects as people do."
+        },
+        "item_key": "vision-transformers-and-multimodal-meaning/visual-context-without-human-understanding/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "It can infer a visual relationship without human-like understanding.",
+      "points": 1
+    },
+    {
+      "import_key": "vision-transformers-and-multimodal-meaning-l3-q5",
+      "question_type": "multiple_choice",
+      "question_text": "Which features can visual embeddings encode? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Color",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Color is a visual feature in an image. Visual embeddings can encode it alongside other features.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Shape",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Shape is a visual property of image content. Visual embeddings can represent shape-related patterns.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Texture",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Texture describes a visual surface pattern. Visual embeddings can encode texture with other image features.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Word meaning",
+            "is_correct": false,
+            "error_type": "Vocabulary confusion",
+            "rationale": "Word meaning is represented by language embeddings. It is not itself a visual feature encoded by visual embeddings.",
+            "better_fit": "Word meaning is appropriate when working with a language vocabulary.",
+            "feedback": {
+              "intrinsic": "This would shift from image features to text.",
+              "instructional": "Visual embeddings encode image features such as color, shape, contrast, and texture."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "visual-embeddings-and-visual-vocabulary",
+        "item_key": "vision-transformers-and-multimodal-meaning/visual-embeddings-and-visual-vocabulary/r1/v2",
+        "rung": 1
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Visual embeddings can encode multiple visual features.",
+      "points": 1
+    },
+    {
+      "import_key": "vision-transformers-and-multimodal-meaning-l3-q6",
+      "question_type": "fill_blank",
+      "question_text": "The unified representation where language and visual embeddings are related is a ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "The unified representation where language and visual embeddings are related is a "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "shared vector space",
+              "shared space"
+            ],
+            "rejected_answers": [
+              "visual vocabulary",
+              "language vocabulary",
+              "cross-model attention",
+              "attention-and-context",
+              "multimodal-model"
+            ],
+            "placeholder": "technical term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "visual vocabulary",
+          "language vocabulary",
+          "cross-model attention",
+          "attention-and-context",
+          "multimodal-model"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "cross-model-attention-and-shared-space",
+        "feedback_for_incorrect": {
+          "intrinsic": "That choice does not name the common representation.",
+          "instructional": "Use shared vector space for the unified multimodal representation."
+        },
+        "item_key": "vision-transformers-and-multimodal-meaning/cross-model-attention-and-shared-space/r3/v2",
+        "rung": 3
+      },
+      "correct_answer": "[\"shared vector space\",\"shared space\"]",
+      "explanation": "A shared vector space is the unified representation for related language and visual embeddings.",
+      "points": 1
+    },
+    {
+      "import_key": "vision-transformers-and-multimodal-meaning-l3-q7",
+      "question_type": "multiple_choice",
+      "question_text": "A team receives a previously unseen customer photo and needs the model to produce a written scene description. Which capability should it use?",
+      "options": {
+        "options": [
+          {
+            "text": "Describing an unfamiliar image",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Image description connects visual features with associated language. It gives semantic interpretation beyond a single category.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Classifying an image",
+            "is_correct": false,
+            "error_type": "Classification confusion",
+            "rationale": "Classification predicts a main-subject category. That is the narrower capability named in the question.",
+            "better_fit": "Image classification is appropriate when the goal is to identify a fruit type.",
+            "feedback": {
+              "intrinsic": "The result would be only a category name.",
+              "instructional": "Image description provides semantic interpretation beyond one label."
+            }
+          },
+          {
+            "text": "Detecting object regions",
+            "is_correct": false,
+            "error_type": "Detection confusion",
+            "rationale": "Detection identifies locations of objects in an image. It does not itself generate a language description.",
+            "better_fit": "Detecting object regions is appropriate when locating several items in a scene.",
+            "feedback": {
+              "intrinsic": "The result could show locations but not describe the scene.",
+              "instructional": "Description requires language associated with visual features."
+            }
+          },
+          {
+            "text": "Classifying image pixels",
+            "is_correct": false,
+            "error_type": "Segmentation confusion",
+            "rationale": "Pixel classification assigns a class to each image area. It does not produce a written interpretation of the scene.",
+            "better_fit": "Classifying image pixels is appropriate for semantic segmentation.",
+            "feedback": {
+              "intrinsic": "The result could outline objects without explaining them in words.",
+              "instructional": "Semantic interpretation creates an image description."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "describing-unfamiliar-images",
+        "item_key": "vision-transformers-and-multimodal-meaning/describing-unfamiliar-images/r1/v2",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Describing an unfamiliar image goes beyond one label.",
+      "points": 1
+    },
+    {
+      "import_key": "vision-transformers-and-multimodal-meaning-l3-q8",
+      "question_type": "arrange_sentence",
+      "question_text": "Order the pieces to form a correct statement.",
+      "options": {
+        "word_bank": [
+          "A visual vocabulary",
+          "maps relationships",
+          "among visual",
+          "features, while",
+          "a language vocabulary",
+          "maps relationships",
+          "among words"
+        ],
+        "correct_order": [
+          "A visual vocabulary",
+          "maps relationships",
+          "among visual",
+          "features, while",
+          "a language vocabulary",
+          "maps relationships",
+          "among words"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "language-vocabulary",
+        "feedback_for_incorrect": {
+          "intrinsic": "The contrast between the two vocabularies becomes unclear.",
+          "instructional": "State the visual vocabulary's role first, then explain that the language vocabulary maps relationships among words."
+        },
+        "item_key": "vision-transformers-and-multimodal-meaning/language-vocabulary/r3/v2",
+        "rung": 3
+      },
+      "correct_answer": "A visual vocabulary maps relationships among visual features, while a language vocabulary maps relationships among words",
+      "explanation": "A visual vocabulary maps semantic relationships among visual features, while a language vocabulary maps semantic relationships among words.",
+      "points": 1
+    },
+    {
+      "import_key": "vision-transformers-and-multimodal-meaning-l3-q9",
+      "question_type": "arrange_sentence",
+      "question_text": "Reconstruct the statement from the pieces.",
+      "options": {
+        "word_bank": [
+          "Cross-model attention",
+          "relates language",
+          "vision embeddings",
+          "embeddings with",
+          "in shared space"
+        ],
+        "correct_order": [
+          "Cross-model attention",
+          "relates language",
+          "embeddings with",
+          "vision embeddings",
+          "in shared space"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "cross-model-attention-and-shared-space",
+        "feedback_for_incorrect": {
+          "intrinsic": "The sentence obscures which embeddings are connected.",
+          "instructional": "Name the technique, then state the relationship, the two embedding types, and the shared space."
+        },
+        "item_key": "vision-transformers-and-multimodal-meaning/cross-model-attention-and-shared-space/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "Cross-model attention relates language embeddings with vision embeddings in shared space",
+      "explanation": "Cross-model attention relates language embeddings with vision embeddings in shared space.",
+      "points": 1
+    },
+    {
+      "import_key": "vision-transformers-and-multimodal-meaning-l3-q10",
+      "question_type": "multiple_choice",
+      "question_text": "What can paired images and text descriptions enable? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Combine language and vision encoders",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Paired data aligns image information with descriptive language. This supports combining language and vision encoders.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Link language and visual vocabularies",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Descriptions link language representations to image representations. This can connect language and visual vocabularies.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Build a multimodal model",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Combined language and vision encoders form a multimodal model. Paired image-text data helps train that combination.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Replace all visual embeddings",
+            "is_correct": false,
+            "error_type": "Replacement misconception",
+            "rationale": "Paired training links language and visual embeddings. It does not eliminate the visual representations needed for images.",
+            "better_fit": "Visual embeddings remain appropriate for representing features extracted from images.",
+            "feedback": {
+              "intrinsic": "Removing visual embeddings would remove the image-side representation.",
+              "instructional": "Paired training combines and links both embedding types."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "paired-image-text-training",
+        "item_key": "vision-transformers-and-multimodal-meaning/paired-image-text-training/r1/v2",
+        "rung": 1
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Paired data links language and vision rather than replacing either.",
+      "points": 1
+    },
+    {
+      "import_key": "vision-transformers-and-multimodal-meaning-l3-q11",
+      "question_type": "fill_blank",
+      "question_text": "A vision transformer infers relationships among visual ___ rather than understanding objects as humans do.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "A vision transformer infers relationships among visual "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "characteristics",
+              "features"
+            ],
+            "rejected_answers": [
+              "word meanings",
+              "language tokens",
+              "language vocabulary",
+              "semantic-language-model",
+              "visual-embeddings-and-visual-vocabulary"
+            ],
+            "placeholder": "technical term"
+          },
+          {
+            "type": "text",
+            "text": " rather than understanding objects as humans do."
+          }
+        ],
+        "rejected_answers": [
+          "word meanings",
+          "language tokens",
+          "language vocabulary",
+          "semantic-language-model",
+          "visual-embeddings-and-visual-vocabulary"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "visual-context-without-human-understanding",
+        "feedback_for_incorrect": {
+          "intrinsic": "That choice shifts from image patterns to language.",
+          "instructional": "This concept concerns visual characteristics that co-occur in images."
+        },
+        "item_key": "vision-transformers-and-multimodal-meaning/visual-context-without-human-understanding/r3/v2",
+        "rung": 3
+      },
+      "correct_answer": "[\"characteristics\",\"features\"]",
+      "explanation": "The model infers relationships among visual characteristics or features.",
+      "points": 1
+    },
+    {
+      "import_key": "vision-transformers-and-multimodal-meaning-l3-q12",
+      "question_type": "multiple_choice",
+      "question_text": "What do vision transformers create to represent visual features and their relationships?",
+      "options": {
+        "options": [
+          {
+            "text": "Visual embeddings",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Visual embeddings are vectors representing image features. They also capture contextual relationships among those features.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Language tokens",
+            "is_correct": false,
+            "error_type": "Modality confusion",
+            "rationale": "Language tokens are units used to process text. They do not represent visual relationships in an image.",
+            "better_fit": "Language tokens are appropriate when a model processes written words.",
+            "feedback": {
+              "intrinsic": "This would process text rather than image content.",
+              "instructional": "Visual embeddings represent features in image patches."
+            }
+          },
+          {
+            "text": "Image labels",
+            "is_correct": false,
+            "error_type": "Classification confusion",
+            "rationale": "An image label names a predicted category. It does not encode rich relationships among visual features.",
+            "better_fit": "Image labels are appropriate for basic image-classification outputs.",
+            "feedback": {
+              "intrinsic": "This would return a category instead of a feature representation.",
+              "instructional": "Embeddings preserve visual-feature relationships."
+            }
+          },
+          {
+            "text": "Bounding boxes",
+            "is_correct": false,
+            "error_type": "Detection confusion",
+            "rationale": "Bounding boxes locate regions containing objects. They do not encode contextual visual features.",
+            "better_fit": "Bounding boxes are appropriate when locating objects in an image.",
+            "feedback": {
+              "intrinsic": "This would mark locations without representing image features.",
+              "instructional": "Visual embeddings represent features and their relationships."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "visual-embeddings-and-visual-vocabulary",
+        "item_key": "vision-transformers-and-multimodal-meaning/visual-embeddings-and-visual-vocabulary/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Visual embeddings represent visual features and their relationships.",
+      "points": 1
+    }
+  ],
+  "flashcards": []
+}

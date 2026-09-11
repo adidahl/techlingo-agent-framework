@@ -1,0 +1,441 @@
+{
+  "import_key": "protect-personal-information-l1",
+  "title": "Protect personal information · Level 1",
+  "slo": "Identify when Azure Language should detect a language or protect personal information.",
+  "exercises": [
+    {
+      "import_key": "protect-personal-information-l1-q1",
+      "question_type": "multiple_choice",
+      "question_text": "Which statements describe the Azure OpenAI API and Responses API? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Code can communicate with a deployed model",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The Azure OpenAI API lets application code communicate with a deployed Foundry model. It supports model requests and responses.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Requests use an endpoint and API key",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Application code sends requests to an endpoint. An API key proves authorization for those requests.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Responses API handles complete interactions",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The Responses API is a modern unified API for complete language-model interactions. It supports more than a single isolated text operation.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It guarantees fixed structured output",
+            "is_correct": false,
+            "error_type": "Concept confusion",
+            "rationale": "Language-model output can vary because it is generated probabilistically. Purpose-built Azure Language analysis is better for fixed structured values.",
+            "better_fit": "Use this when describing an analyzer that returns consistent structured values.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "azure-openai-api-and-responses-api",
+        "item_key": "protect-personal-information/azure-openai-api-and-responses-api/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. Azure OpenAI connects code to a model, and Responses API supports complete interactions.",
+      "points": 1
+    },
+    {
+      "import_key": "protect-personal-information-l1-q2",
+      "question_type": "multiple_choice",
+      "question_text": "What can PII detection optionally do after finding sensitive details?",
+      "options": {
+        "options": [
+          {
+            "text": "Redact the details",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "PII detection can identify sensitive details and optionally redact them. Redaction masks or removes the details.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Detect the language",
+            "is_correct": false,
+            "error_type": "Concept confusion",
+            "rationale": "Language detection identifies a language and confidence score. It does not mask sensitive information.",
+            "better_fit": "Use this when determining the primary language in text.",
+            "feedback": null
+          },
+          {
+            "text": "Link entities to Wikipedia",
+            "is_correct": false,
+            "error_type": "Concept confusion",
+            "rationale": "Entity linking connects recognized entities to knowledge sources. It does not hide personal details.",
+            "better_fit": "Use this when a recognized entity needs a knowledge-base reference.",
+            "feedback": null
+          },
+          {
+            "text": "Classify sentiment",
+            "is_correct": false,
+            "error_type": "Concept confusion",
+            "rationale": "Sentiment analysis assesses opinion in text. It does not remove private information.",
+            "better_fit": "Use this when determining whether a review is positive, negative, or neutral.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "pii-detection-and-redaction",
+        "item_key": "protect-personal-information/pii-detection-and-redaction/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. Redaction masks or removes the details found.",
+      "points": 1
+    },
+    {
+      "import_key": "protect-personal-information-l1-q3",
+      "question_type": "true_false",
+      "question_text": "The Responses API is best when an app requires fixed, structured, deterministic output.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "azure-openai-api-and-responses-api",
+        "feedback_for_incorrect": {
+          "intrinsic": "A fixed-value workflow could receive varied wording or formatting.",
+          "instructional": "Responses API supports flexible conversational analysis rather than deterministic fixed values."
+        },
+        "item_key": "protect-personal-information/azure-openai-api-and-responses-api/r2/v2",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct. Purpose-built Azure Language analyzers better fit fixed structured output.",
+      "points": 1
+    },
+    {
+      "import_key": "protect-personal-information-l1-q4",
+      "question_type": "true_false",
+      "question_text": "PII detection can identify a phone number as a sensitive personal detail.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "pii-detection-and-redaction",
+        "feedback_for_incorrect": {
+          "intrinsic": "A privacy review could leave a phone number unprotected.",
+          "instructional": "PII detection can identify names, phone numbers, and addresses."
+        },
+        "item_key": "protect-personal-information/pii-detection-and-redaction/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. Phone numbers are sensitive personal details PII detection can identify.",
+      "points": 1
+    },
+    {
+      "import_key": "protect-personal-information-l1-q5",
+      "question_type": "multiple_choice",
+      "question_text": "What is an API key?",
+      "options": {
+        "options": [
+          {
+            "text": "A credential that proves authorization",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "An API key is a credential that proves an application is authorized. It is used with requests to a deployed service or model.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A URL for sending requests",
+            "is_correct": false,
+            "error_type": "Concept confusion",
+            "rationale": "A service URL is an endpoint. An API key proves authorization instead.",
+            "better_fit": "Use this when naming the service address where code sends requests.",
+            "feedback": null
+          },
+          {
+            "text": "A model deployment name",
+            "is_correct": false,
+            "error_type": "Concept confusion",
+            "rationale": "A deployment name selects which deployed model to use. It does not prove authorization.",
+            "better_fit": "Use this when selecting a model deployment for a request.",
+            "feedback": null
+          },
+          {
+            "text": "A client object",
+            "is_correct": false,
+            "error_type": "Concept confusion",
+            "rationale": "A client object is configured with connection information. It is not itself the authorization credential.",
+            "better_fit": "Use this when referring to the configured object that makes API calls.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "endpoint-api-key",
+        "item_key": "protect-personal-information/endpoint-api-key/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. An API key proves permission to use the service.",
+      "points": 1
+    },
+    {
+      "import_key": "protect-personal-information-l1-q6",
+      "question_type": "multiple_choice",
+      "question_text": "Which statements describe a client application? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "It is a program you write",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A client application is a program created by a developer. It connects to a service or model.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It sends requests to a service",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A client application sends requests to a service or model. This initiates automated analysis.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It receives results automatically",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A client application receives results from the service. This supports workflow integration and high-volume processing.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It is a two-letter language identifier",
+            "is_correct": false,
+            "error_type": "Concept confusion",
+            "rationale": "A two-letter language identifier is an ISO 639-1 code. A client application is a program that communicates with a service.",
+            "better_fit": "Use this when naming a language in a compact standard form.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "client-application-api-client-library",
+        "item_key": "protect-personal-information/client-application-api-client-library/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. A client application connects, sends requests, and receives results.",
+      "points": 1
+    },
+    {
+      "import_key": "protect-personal-information-l1-q7",
+      "question_type": "true_false",
+      "question_text": "An API key is the service URL where application code sends requests.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "endpoint-api-key",
+        "feedback_for_incorrect": {
+          "intrinsic": "A request could use the wrong kind of connection detail.",
+          "instructional": "The endpoint is the URL; the API key is the authorization credential."
+        },
+        "item_key": "protect-personal-information/endpoint-api-key/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct. The service URL is the endpoint.",
+      "points": 1
+    },
+    {
+      "import_key": "protect-personal-information-l1-q8",
+      "question_type": "true_false",
+      "question_text": "A client library provides ready-made code that helps an application use an API.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "client-application-api-client-library",
+        "feedback_for_incorrect": {
+          "intrinsic": "A developer could confuse reusable code with communication rules.",
+          "instructional": "An API defines rules; a client library supplies code that helps use those rules."
+        },
+        "item_key": "protect-personal-information/client-application-api-client-library/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. A client library makes using API communication rules easier.",
+      "points": 1
+    },
+    {
+      "import_key": "protect-personal-information-l1-q9",
+      "question_type": "multiple_choice",
+      "question_text": "What does the ISO 639-1 code \"es\" identify?",
+      "options": {
+        "options": [
+          {
+            "text": "Spanish",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "\"es\" is the ISO 639-1 code for Spanish. ISO 639-1 codes use two letters to identify languages.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A confidence score",
+            "is_correct": false,
+            "error_type": "Concept confusion",
+            "rationale": "A confidence score measures certainty in a detection result. It is numeric rather than a two-letter language identifier.",
+            "better_fit": "Use this when naming the numeric certainty value returned with a detected language.",
+            "feedback": null
+          },
+          {
+            "text": "A detected entity",
+            "is_correct": false,
+            "error_type": "Concept confusion",
+            "rationale": "A detected entity is an item such as a person or location mentioned in text. \"es\" identifies a language instead.",
+            "better_fit": "Use this when identifying a person, place, date, or quantity in text.",
+            "feedback": null
+          },
+          {
+            "text": "A redacted value",
+            "is_correct": false,
+            "error_type": "Concept confusion",
+            "rationale": "A redacted value has been masked or removed to protect sensitive information. \"es\" is a visible language identifier.",
+            "better_fit": "Use this when sensitive text has been hidden before sharing.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "iso-code-and-confidence-score",
+        "item_key": "protect-personal-information/iso-code-and-confidence-score/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. \"es\" is the standard two-letter identifier for Spanish.",
+      "points": 1
+    },
+    {
+      "import_key": "protect-personal-information-l1-q10",
+      "question_type": "multiple_choice",
+      "question_text": "Which items can be personally identifiable information (PII)? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "A person's name",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A name is a sensitive personal detail. It can be identified as PII.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A phone number",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A phone number is sensitive personal information. It can be identified as PII.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "An email address",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "An email address is a personal detail that may require protection. It is a kind of PII.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A language code",
+            "is_correct": false,
+            "error_type": "Concept confusion",
+            "rationale": "A language code identifies the language used in text. It is not an identity-related personal detail.",
+            "better_fit": "Use this when recording a message's detected primary language.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "pii-and-phi",
+        "item_key": "protect-personal-information/pii-and-phi/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. Names, phone numbers, and emails can be PII.",
+      "points": 1
+    },
+    {
+      "import_key": "protect-personal-information-l1-q11",
+      "question_type": "true_false",
+      "question_text": "Language detection returns a primary language and a confidence score from 0 to 1.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "iso-code-and-confidence-score",
+        "feedback_for_incorrect": {
+          "intrinsic": "A routing rule would ignore useful certainty information.",
+          "instructional": "Language detection provides the primary language plus a numeric confidence score between 0 and 1."
+        },
+        "item_key": "protect-personal-information/iso-code-and-confidence-score/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. Both the language result and its confidence are returned.",
+      "points": 1
+    },
+    {
+      "import_key": "protect-personal-information-l1-q12",
+      "question_type": "true_false",
+      "question_text": "PHI means any non-health topic found in a document.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "pii-and-phi",
+        "feedback_for_incorrect": {
+          "intrinsic": "Health-related private details could be handled incorrectly.",
+          "instructional": "PHI means personal health information, not an arbitrary non-health topic."
+        },
+        "item_key": "protect-personal-information/pii-and-phi/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct. PHI is personally sensitive health-related information.",
+      "points": 1
+    }
+  ],
+  "flashcards": [
+    {
+      "import_key": "protect-personal-information-l1-f0",
+      "front": "What is an ISO 639-1 code?",
+      "back": "A standard two-letter language identifier, such as es for Spanish.",
+      "hint": "Think: two letters."
+    },
+    {
+      "import_key": "protect-personal-information-l1-f1",
+      "front": "What is PII?",
+      "back": "Sensitive personal information, such as names, phone numbers, emails, or addresses.",
+      "hint": "Think: private identity details."
+    },
+    {
+      "import_key": "protect-personal-information-l1-f2",
+      "front": "What does redaction do?",
+      "back": "It masks or removes sensitive personal details from text.",
+      "hint": "Think: hide sensitive text."
+    },
+    {
+      "import_key": "protect-personal-information-l1-f3",
+      "front": "What is an endpoint?",
+      "back": "The service URL where application code sends authorized API requests.",
+      "hint": "Think: request destination."
+    }
+  ]
+}

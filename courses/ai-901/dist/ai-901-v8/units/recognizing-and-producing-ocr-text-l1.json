@@ -1,0 +1,450 @@
+{
+  "import_key": "recognizing-and-producing-ocr-text-l1",
+  "title": "Recognizing and producing OCR text · Level 1",
+  "slo": "Describe how OCR recognizes characters and produces usable text.",
+  "exercises": [
+    {
+      "import_key": "recognizing-and-producing-ocr-text-l1-q1",
+      "question_type": "multiple_choice",
+      "question_text": "Which methods can context analysis use? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "N-gram probability models",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "N-grams model probable character or word sequences. They use sequence context.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Dictionary correction",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Dictionary correction uses lexicons and edit distance. It can improve a likely word reading.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Transformer language models",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Transformer language models use contextual relationships. They can improve OCR recognition from surrounding language.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Stored character templates",
+            "is_correct": false,
+            "error_type": "Pattern matching confusion",
+            "rationale": "Stored templates support direct visual comparison. Context analysis uses surrounding language.",
+            "better_fit": "This fits pattern matching.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "context-analysis-and-correction",
+        "item_key": "recognizing-and-producing-ocr-text/context-analysis-and-correction/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. These approaches use language context.",
+      "points": 1
+    },
+    {
+      "import_key": "recognizing-and-producing-ocr-text-l1-q2",
+      "question_type": "multiple_choice",
+      "question_text": "What does reading-order determination establish?",
+      "options": {
+        "options": [
+          {
+            "text": "The sequence for reading text",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Reading-order determination establishes the sequence in which content is read. It can follow left-to-right and top-to-bottom conventions.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "The areas that contain text",
+            "is_correct": false,
+            "error_type": "Region detection confusion",
+            "rationale": "Finding text areas does not determine their sequence. Reading order decides which recognized content comes next.",
+            "better_fit": "This fits text region detection, which locates written areas.",
+            "feedback": {
+              "intrinsic": "The areas may be found but read in the wrong order.",
+              "instructional": "Reading order sets sequence; region detection locates text."
+            }
+          },
+          {
+            "text": "The shape of each character",
+            "is_correct": false,
+            "error_type": "Character recognition confusion",
+            "rationale": "Character shape is a visual recognition feature. It does not determine document sequence.",
+            "better_fit": "This fits character recognition feature extraction.",
+            "feedback": {
+              "intrinsic": "Characters may be identified while the output remains scrambled.",
+              "instructional": "Character features identify symbols; reading order sequences them."
+            }
+          },
+          {
+            "text": "The paragraph spacing in output",
+            "is_correct": false,
+            "error_type": "Format preservation confusion",
+            "rationale": "Paragraph spacing is a layout detail. Reading order concerns sequence rather than retained layout.",
+            "better_fit": "This fits format preservation.",
+            "feedback": {
+              "intrinsic": "The sequence may be correct while layout is lost.",
+              "instructional": "Format preservation keeps spacing; reading order sets sequence."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "reading-order-and-region-classification",
+        "item_key": "recognizing-and-producing-ocr-text/reading-order-and-region-classification/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. Reading order establishes text sequence.",
+      "points": 1
+    },
+    {
+      "import_key": "recognizing-and-producing-ocr-text-l1-q3",
+      "question_type": "true_false",
+      "question_text": "Dictionary correction can use lexicon lookup and edit distance to improve OCR results.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "context-analysis-and-correction",
+        "feedback_for_incorrect": {
+          "intrinsic": "A useful correction method is overlooked.",
+          "instructional": "Lexicon lookup and Levenshtein edit distance can identify likely corrections."
+        },
+        "item_key": "recognizing-and-producing-ocr-text/context-analysis-and-correction/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. Dictionary correction can use both lexicons and edit distance.",
+      "points": 1
+    },
+    {
+      "import_key": "recognizing-and-producing-ocr-text-l1-q4",
+      "question_type": "true_false",
+      "question_text": "Region classification identifies the reading sequence of text, such as left-to-right and top-to-bottom.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "reading-order-and-region-classification",
+        "feedback_for_incorrect": {
+          "intrinsic": "Area type and sequence have been confused.",
+          "instructional": "Headers, body text, captions, and tables are region labels."
+        },
+        "item_key": "recognizing-and-producing-ocr-text/reading-order-and-region-classification/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct. Region classification labels area types; reading order sets sequence.",
+      "points": 1
+    },
+    {
+      "import_key": "recognizing-and-producing-ocr-text-l1-q5",
+      "question_type": "multiple_choice",
+      "question_text": "What does pattern matching compare with trained recognition models?",
+      "options": {
+        "options": [
+          {
+            "text": "Extracted character features",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Pattern matching compares extracted visual features with trained models. That comparison supports character recognition.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Nearby words and sentences",
+            "is_correct": false,
+            "error_type": "Context analysis confusion",
+            "rationale": "Nearby wording is used in context analysis. Pattern matching uses extracted character features.",
+            "better_fit": "This fits context analysis.",
+            "feedback": null
+          },
+          {
+            "text": "Document paragraph boundaries",
+            "is_correct": false,
+            "error_type": "Format preservation confusion",
+            "rationale": "Paragraph boundaries concern document layout. They are not the features compared by recognition models.",
+            "better_fit": "This fits format preservation.",
+            "feedback": null
+          },
+          {
+            "text": "Field labels and values",
+            "is_correct": false,
+            "error_type": "Field mapping confusion",
+            "rationale": "Field labels and values serve information extraction. Pattern matching is a character-recognition operation.",
+            "better_fit": "This fits field extraction and mapping.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "character-pattern-matching",
+        "item_key": "recognizing-and-producing-ocr-text/character-pattern-matching/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. Pattern matching compares extracted features with models.",
+      "points": 1
+    },
+    {
+      "import_key": "recognizing-and-producing-ocr-text-l1-q6",
+      "question_type": "multiple_choice",
+      "question_text": "Which features can character recognition examine? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Character shape",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Shape is a visual feature used to identify characters. It helps distinguish one symbol from another.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Character size",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Size can be examined during feature extraction. It helps characterize a visual symbol.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Loops and endpoints",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Loops and endpoints are distinctive structural features. They can help identify characters.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Nearby word meanings",
+            "is_correct": false,
+            "error_type": "Context analysis confusion",
+            "rationale": "Word meanings are contextual clues, not visual character features. Character recognition examines the character's appearance.",
+            "better_fit": "This fits context analysis.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "character-recognition",
+        "item_key": "recognizing-and-producing-ocr-text/character-recognition/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. These are visual character features.",
+      "points": 1
+    },
+    {
+      "import_key": "recognizing-and-producing-ocr-text-l1-q7",
+      "question_type": "true_false",
+      "question_text": "Pattern matching uses surrounding words to correct character recognition errors.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "character-pattern-matching",
+        "feedback_for_incorrect": {
+          "intrinsic": "Two recognition tasks have been combined.",
+          "instructional": "Pattern matching compares features with models; context analysis uses surrounding words."
+        },
+        "item_key": "recognizing-and-producing-ocr-text/character-pattern-matching/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct. Surrounding words are used in context analysis.",
+      "points": 1
+    },
+    {
+      "import_key": "recognizing-and-producing-ocr-text-l1-q8",
+      "question_type": "true_false",
+      "question_text": "Character recognition and classification identifies individual characters in OCR.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "character-recognition",
+        "feedback_for_incorrect": {
+          "intrinsic": "The individual-character stage is misidentified.",
+          "instructional": "Character recognition uses visual features to identify characters."
+        },
+        "item_key": "recognizing-and-producing-ocr-text/character-recognition/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. It identifies individual letters, digits, and symbols.",
+      "points": 1
+    },
+    {
+      "import_key": "recognizing-and-producing-ocr-text-l1-q9",
+      "question_type": "multiple_choice",
+      "question_text": "Which tasks are part of OCR output generation and post-processing? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Assembling characters into words",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Text compilation assembles characters into words and sentences. This creates usable OCR text.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Retaining line breaks and spacing",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Format preservation retains line breaks and spacing. This maintains document structure.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Recording text positions in the image",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Coordinate mapping records original-image positions. It preserves location information for each text element.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Mapping text to invoice fields",
+            "is_correct": false,
+            "error_type": "Field extraction confusion",
+            "rationale": "Invoice-field mapping assigns business meaning to values. It is distinct from producing usable OCR output.",
+            "better_fit": "This fits field extraction and mapping.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "ocr-output-post-processing",
+        "item_key": "recognizing-and-producing-ocr-text/ocr-output-post-processing/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. These tasks create and preserve usable OCR output.",
+      "points": 1
+    },
+    {
+      "import_key": "recognizing-and-producing-ocr-text-l1-q10",
+      "question_type": "multiple_choice",
+      "question_text": "What does OCR confidence scoring assign to a recognized character?",
+      "options": {
+        "options": [
+          {
+            "text": "A probability of correct identity",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Confidence scoring assigns a probability for character identity. It expresses how certain the system is.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A label for document region",
+            "is_correct": false,
+            "error_type": "Region classification confusion",
+            "rationale": "Region labels identify areas such as headers or tables. They do not express certainty about a character.",
+            "better_fit": "This fits region classification.",
+            "feedback": null
+          },
+          {
+            "text": "A target business field",
+            "is_correct": false,
+            "error_type": "Field mapping confusion",
+            "rationale": "Business fields organize extracted values. Confidence scoring applies to a recognized character.",
+            "better_fit": "This fits field extraction and mapping.",
+            "feedback": null
+          },
+          {
+            "text": "A required date format",
+            "is_correct": false,
+            "error_type": "Normalization confusion",
+            "rationale": "Date formatting standardizes values after extraction. It does not represent recognition uncertainty.",
+            "better_fit": "This fits data normalization.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "ocr-confidence-scoring",
+        "item_key": "recognizing-and-producing-ocr-text/ocr-confidence-scoring/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. It provides a probability for character identity.",
+      "points": 1
+    },
+    {
+      "import_key": "recognizing-and-producing-ocr-text-l1-q11",
+      "question_type": "true_false",
+      "question_text": "Coordinate mapping records the original-image position of each text element.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "ocr-output-post-processing",
+        "feedback_for_incorrect": {
+          "intrinsic": "The link to the source image location is lost.",
+          "instructional": "Coordinate mapping records where each text element appeared in the image."
+        },
+        "item_key": "recognizing-and-producing-ocr-text/ocr-output-post-processing/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. It retains each recognized element's original location.",
+      "points": 1
+    },
+    {
+      "import_key": "recognizing-and-producing-ocr-text-l1-q12",
+      "question_type": "true_false",
+      "question_text": "OCR confidence scoring assigns a probability to an entire business field after field mapping.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "ocr-confidence-scoring",
+        "feedback_for_incorrect": {
+          "intrinsic": "Character certainty has been confused with field-level evaluation.",
+          "instructional": "A character confidence score measures certainty about that character's identity."
+        },
+        "item_key": "recognizing-and-producing-ocr-text/ocr-confidence-scoring/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct. OCR confidence scoring applies to recognized characters.",
+      "points": 1
+    }
+  ],
+  "flashcards": [
+    {
+      "import_key": "recognizing-and-producing-ocr-text-l1-f0",
+      "front": "What is reading-order determination?",
+      "back": "It sets the sequence for reading document text.",
+      "hint": "Think of text sequence."
+    },
+    {
+      "import_key": "recognizing-and-producing-ocr-text-l1-f1",
+      "front": "What does character recognition identify?",
+      "back": "It identifies individual characters from visual features.",
+      "hint": "Think of letters and symbols."
+    },
+    {
+      "import_key": "recognizing-and-producing-ocr-text-l1-f2",
+      "front": "What does pattern matching compare?",
+      "back": "It compares character features with trained recognition models.",
+      "hint": "Think of model comparison."
+    },
+    {
+      "import_key": "recognizing-and-producing-ocr-text-l1-f3",
+      "front": "What is OCR confidence scoring?",
+      "back": "It assigns a probability to each recognized character.",
+      "hint": "Think of certainty."
+    }
+  ]
+}

@@ -1,0 +1,477 @@
+{
+  "import_key": "deploy-and-test-a-model-l1",
+  "title": "Deploy and test a model · Level 1",
+  "slo": "Configure a deployed model and test it in the Foundry playground.",
+  "exercises": [
+    {
+      "import_key": "deploy-and-test-a-model-l1-q1",
+      "question_type": "multiple_choice",
+      "question_text": "What does temperature control? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Creative variation in responses",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Temperature controls creative variation in responses. It balances variation against repeatability.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Repeatability of responses",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Temperature also affects response repeatability. It controls the balance between repeatability and variation.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Maximum response length",
+            "is_correct": false,
+            "error_type": "Length confusion",
+            "rationale": "Max output tokens caps response length. Temperature controls variation and repeatability instead.",
+            "better_fit": "Use this when setting a firm response-length cap.",
+            "feedback": {
+              "intrinsic": "Replies may vary differently but remain equally long.",
+              "instructional": "Use temperature for variation and max output tokens for length."
+            }
+          },
+          {
+            "text": "Assistant role and guardrails",
+            "is_correct": false,
+            "error_type": "Instruction confusion",
+            "rationale": "Role and guardrails come from system instructions. Temperature does not define those rules.",
+            "better_fit": "Use this when setting behavior, tone, tools, or guardrails.",
+            "feedback": {
+              "intrinsic": "Variation may change without adding role guidance.",
+              "instructional": "Use instructions for behavior and temperature for variation."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "temperature",
+        "item_key": "deploy-and-test-a-model/temperature/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "[0,1]",
+      "explanation": "Correct. Temperature balances variation with repeatability.",
+      "points": 1
+    },
+    {
+      "import_key": "deploy-and-test-a-model-l1-q2",
+      "question_type": "multiple_choice",
+      "question_text": "What does deployment type determine?",
+      "options": {
+        "options": [
+          {
+            "text": "Where and how inference is processed",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Deployment type determines where and how inference is processed. It is connected to throughput and data-processing requirements.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "The selected model release",
+            "is_correct": false,
+            "error_type": "Version confusion",
+            "rationale": "A model version identifies a particular release. It does not define the processing arrangement.",
+            "better_fit": "Use this when identifying a specific release of a selected model.",
+            "feedback": {
+              "intrinsic": "The processing decision would remain unresolved.",
+              "instructional": "Use deployment type for inference processing and version for release identity."
+            }
+          },
+          {
+            "text": "The response-length cap",
+            "is_correct": false,
+            "error_type": "Output-limit confusion",
+            "rationale": "Max output tokens caps response length. Deployment type concerns processing instead.",
+            "better_fit": "Use this when setting a firm maximum response length.",
+            "feedback": {
+              "intrinsic": "Replies may change length while processing needs remain unmet.",
+              "instructional": "Max output tokens controls length; deployment type controls processing."
+            }
+          },
+          {
+            "text": "Creative variation in replies",
+            "is_correct": false,
+            "error_type": "Temperature confusion",
+            "rationale": "Temperature controls variation and repeatability. It does not select an inference arrangement.",
+            "better_fit": "Use this when adjusting creativity versus repeatability.",
+            "feedback": {
+              "intrinsic": "Reply style may change without resolving deployment requirements.",
+              "instructional": "Temperature affects variation; deployment type affects inference processing."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "deployment-type",
+        "item_key": "deploy-and-test-a-model/deployment-type/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. Deployment type determines where and how inference is processed.",
+      "points": 1
+    },
+    {
+      "import_key": "deploy-and-test-a-model-l1-q3",
+      "question_type": "true_false",
+      "question_text": "Temperature controls the balance between creative variation and more repeatable responses.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "temperature",
+        "feedback_for_incorrect": {
+          "intrinsic": "A length or capacity setting might be changed for a consistency problem.",
+          "instructional": "Temperature affects variation versus repeatability; it does not set length or capacity."
+        },
+        "item_key": "deploy-and-test-a-model/temperature/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. Temperature adjusts that balance.",
+      "points": 1
+    },
+    {
+      "import_key": "deploy-and-test-a-model-l1-q4",
+      "question_type": "true_false",
+      "question_text": "A model version determines where and how inference is processed.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "deployment-type",
+        "feedback_for_incorrect": {
+          "intrinsic": "The release label would be mistaken for a processing decision.",
+          "instructional": "Model version identifies the release, while deployment type determines where and how inference runs."
+        },
+        "item_key": "deploy-and-test-a-model/deployment-type/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct. A version identifies a release; deployment type controls processing.",
+      "points": 1
+    },
+    {
+      "import_key": "deploy-and-test-a-model-l1-q5",
+      "question_type": "multiple_choice",
+      "question_text": "Which can a system prompt set? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "The assistant's behavior",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A system prompt can set the assistant's behavior. It establishes how the assistant should operate.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "The assistant's tone",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A system prompt can define tone. Tone guides how responses are expressed.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Available tools and guardrails",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A system prompt can establish tools and guardrails. These guide capabilities and boundaries.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "The response-length cap",
+            "is_correct": false,
+            "error_type": "Length confusion",
+            "rationale": "Max output tokens sets the response-length cap. A system prompt instead sets behavior-related guidance.",
+            "better_fit": "Use this when setting a firm maximum response length.",
+            "feedback": {
+              "intrinsic": "Behavior may be specified while replies remain longer than intended.",
+              "instructional": "Use max output tokens for length and a system prompt for behavior guidance."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "system-and-user-prompts",
+        "item_key": "deploy-and-test-a-model/system-and-user-prompts/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. A system prompt can set behavior, tone, tools, and guardrails.",
+      "points": 1
+    },
+    {
+      "import_key": "deploy-and-test-a-model-l1-q6",
+      "question_type": "multiple_choice",
+      "question_text": "Which statements about token and request limits are correct? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "TPM limits token traffic per minute",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "TPM is an allocation and rate limit for token traffic per minute. It measures token capacity over time.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "RPM limits requests per minute",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "RPM limits how many requests can be handled per minute. It counts requests rather than tokens.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Temperature limits requests per minute",
+            "is_correct": false,
+            "error_type": "RPM confusion",
+            "rationale": "Temperature controls response variation. RPM controls request count per minute.",
+            "better_fit": "Use temperature when adjusting creativity or repeatability.",
+            "feedback": {
+              "intrinsic": "Busy-period request limits would remain unchanged.",
+              "instructional": "Use RPM for request count and temperature for variation."
+            }
+          },
+          {
+            "text": "Model version limits token traffic",
+            "is_correct": false,
+            "error_type": "TPM confusion",
+            "rationale": "Model version identifies a release. TPM limits token traffic per minute.",
+            "better_fit": "Use model version when selecting a particular release.",
+            "feedback": {
+              "intrinsic": "Release identity would be confused with traffic capacity.",
+              "instructional": "TPM is the token-traffic limit, not a version label."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "tpm-rpm-and-throttling",
+        "item_key": "deploy-and-test-a-model/tpm-rpm-and-throttling/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "[0,1]",
+      "explanation": "Correct. TPM concerns token traffic and RPM concerns request count.",
+      "points": 1
+    },
+    {
+      "import_key": "deploy-and-test-a-model-l1-q7",
+      "question_type": "true_false",
+      "question_text": "A user prompt is the end user's request or question.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "system-and-user-prompts",
+        "feedback_for_incorrect": {
+          "intrinsic": "The user's request could be confused with behavior guidance.",
+          "instructional": "A user prompt states the request; a system prompt guides the assistant's behavior."
+        },
+        "item_key": "deploy-and-test-a-model/system-and-user-prompts/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. A user prompt contains what the end user asks for.",
+      "points": 1
+    },
+    {
+      "import_key": "deploy-and-test-a-model-l1-q8",
+      "question_type": "multiple_choice",
+      "question_text": "What is the Foundry playground?",
+      "options": {
+        "options": [
+          {
+            "text": "A portal interface for deployed models",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The playground is a portal interface for interacting with a deployed model. It supports prompt testing and settings capture.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A catalog for discovering models",
+            "is_correct": false,
+            "error_type": "Catalog confusion",
+            "rationale": "A model catalog is for discovering and comparing models. The playground is for interacting with a deployed model.",
+            "better_fit": "Use this when searching for and comparing available models.",
+            "feedback": {
+              "intrinsic": "A developer may search instead of test a deployment.",
+              "instructional": "Use the playground for interactive testing and the catalog for discovery."
+            }
+          },
+          {
+            "text": "An API for code calls",
+            "is_correct": false,
+            "error_type": "API confusion",
+            "rationale": "An API lets application code call a deployment. The playground is an interactive portal interface.",
+            "better_fit": "Use this when implementing programmatic model calls.",
+            "feedback": {
+              "intrinsic": "Coding could begin before settings are tested.",
+              "instructional": "Use the playground to test first, then use an API in code."
+            }
+          },
+          {
+            "text": "A lightweight chat application",
+            "is_correct": false,
+            "error_type": "Client confusion",
+            "rationale": "A chat client is an application that sends and displays messages. The playground is the portal testing workspace.",
+            "better_fit": "Use this when describing a small app for model conversations.",
+            "feedback": {
+              "intrinsic": "A client could be built before the approach is validated.",
+              "instructional": "The playground is for testing a deployed model interactively."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "foundry-playground",
+        "item_key": "deploy-and-test-a-model/foundry-playground/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. The playground is the portal interface for a deployed model.",
+      "points": 1
+    },
+    {
+      "import_key": "deploy-and-test-a-model-l1-q9",
+      "question_type": "true_false",
+      "question_text": "Higher TPM allocation increases a deployment's capacity for token traffic per minute.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "tpm-rpm-and-throttling",
+        "feedback_for_incorrect": {
+          "intrinsic": "The available capacity would be underestimated.",
+          "instructional": "TPM is token-traffic capacity per minute; raising it increases capacity."
+        },
+        "item_key": "deploy-and-test-a-model/tpm-rpm-and-throttling/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. Higher TPM increases token-traffic capacity.",
+      "points": 1
+    },
+    {
+      "import_key": "deploy-and-test-a-model-l1-q10",
+      "question_type": "multiple_choice",
+      "question_text": "Which effects can max output tokens have? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "It caps response length",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Max output tokens directly caps response length. This is its primary function.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It affects token consumption",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The setting affects how many output tokens a response can consume. Larger limits can use more token capacity.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It can affect throttling behavior",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "High output-token limits can contribute to rate-limit pressure. Therefore the setting can affect throttling behavior.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It sets the assistant's role",
+            "is_correct": false,
+            "error_type": "Instruction confusion",
+            "rationale": "Instructions set an assistant's role and behavior. Max output tokens concerns response length.",
+            "better_fit": "Use this when defining behavior, tone, tools, or guardrails.",
+            "feedback": {
+              "intrinsic": "Replies may become shorter without receiving role guidance.",
+              "instructional": "Use instructions for role and max output tokens for length."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "max-output-tokens",
+        "item_key": "deploy-and-test-a-model/max-output-tokens/r1/v2",
+        "rung": 1
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. This setting affects length, token use, and throttling pressure.",
+      "points": 1
+    },
+    {
+      "import_key": "deploy-and-test-a-model-l1-q11",
+      "question_type": "true_false",
+      "question_text": "The Foundry playground is used only after all application code is written.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "foundry-playground",
+        "feedback_for_incorrect": {
+          "intrinsic": "The team could build around untested prompts.",
+          "instructional": "Use the playground to test prompts, compare models, and capture settings before writing code."
+        },
+        "item_key": "deploy-and-test-a-model/foundry-playground/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct. It helps test prompts and settings before coding.",
+      "points": 1
+    },
+    {
+      "import_key": "deploy-and-test-a-model-l1-q12",
+      "question_type": "true_false",
+      "question_text": "Max output tokens sets the assistant's behavior, tone, tools, and guardrails.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "max-output-tokens",
+        "feedback_for_incorrect": {
+          "intrinsic": "A team could adjust length when it intended to define behavior.",
+          "instructional": "Use system instructions for behavior, tone, tools, and guardrails; use max output tokens for response length."
+        },
+        "item_key": "deploy-and-test-a-model/max-output-tokens/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct. Instructions set those elements; max output tokens caps length.",
+      "points": 1
+    }
+  ],
+  "flashcards": [
+    {
+      "import_key": "deploy-and-test-a-model-l1-f0",
+      "front": "What does deployment type determine?",
+      "back": "Where and how inference is processed.",
+      "hint": "Think processing location and method."
+    },
+    {
+      "import_key": "deploy-and-test-a-model-l1-f1",
+      "front": "What is TPM?",
+      "back": "A token-traffic allocation and rate limit per minute.",
+      "hint": "It measures token capacity."
+    },
+    {
+      "import_key": "deploy-and-test-a-model-l1-f2",
+      "front": "What does temperature control?",
+      "back": "The balance between creative variation and repeatable responses.",
+      "hint": "Think creativity versus consistency."
+    },
+    {
+      "import_key": "deploy-and-test-a-model-l1-f3",
+      "front": "What are system instructions?",
+      "back": "Instructions that set an assistant's behavior and role.",
+      "hint": "They guide the assistant."
+    }
+  ]
+}

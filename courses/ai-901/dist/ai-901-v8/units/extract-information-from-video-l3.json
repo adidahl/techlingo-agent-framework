@@ -1,0 +1,535 @@
+{
+  "import_key": "extract-information-from-video-l3",
+  "title": "Extract information from video · Level 3",
+  "slo": "Describe the information a video analyzer can extract from a meeting.",
+  "exercises": [
+    {
+      "import_key": "extract-information-from-video-l3-q1",
+      "question_type": "multiple_choice",
+      "question_text": "What can downstream systems do with structured media results? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Store the results",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "This is correct. Structured results can be stored for later use.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Search the results",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "This is correct. Structured results can be searched.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Use results for automation",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "This is correct. Structured results can be passed to downstream automation.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Replace the original recording",
+            "is_correct": false,
+            "error_type": "Confuses extracted results with source media",
+            "rationale": "This is incorrect. Structured results are extracted information and do not replace the original recording.",
+            "better_fit": "Use this idea only when discussing a separate meeting record, not extracted results.",
+            "feedback": {
+              "intrinsic": "Important context from the original recording could be lost.",
+              "instructional": "Use structured results to store, search, analyze, and automate information."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "downstream-use-of-media-results",
+        "item_key": "extract-information-from-video/downstream-use-of-media-results/r1/v2",
+        "rung": 1
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct—structured results can support storage, search, and automation.",
+      "points": 1
+    },
+    {
+      "import_key": "extract-information-from-video-l3-q2",
+      "question_type": "true_false",
+      "question_text": "The conference-room image returned three attendees in total.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "meeting-image-attendance-schema",
+        "feedback_for_incorrect": {
+          "intrinsic": "One attendee would be omitted from the meeting count.",
+          "instructional": "Three is the remote count; one in-person attendee makes four total."
+        },
+        "item_key": "extract-information-from-video/meeting-image-attendance-schema/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct—the total was four, not three.",
+      "points": 1
+    },
+    {
+      "import_key": "extract-information-from-video-l3-q3",
+      "question_type": "multiple_choice",
+      "question_text": "What can video analysis extract from a recorded meeting?",
+      "options": {
+        "options": [
+          {
+            "text": "Attendance and assigned actions",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "This is correct. Video meeting analysis can extract attendance and assigned actions.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Only printed document text",
+            "is_correct": false,
+            "error_type": "Confuses video analysis with document OCR",
+            "rationale": "This is incorrect. Printed text is associated with OCR for documents and images, not the full range of meeting-video insights.",
+            "better_fit": "Use this for a scanned page or receipt image when the goal is to read printed text.",
+            "feedback": {
+              "intrinsic": "The coordinator would miss attendance and follow-up actions.",
+              "instructional": "Video analysis can capture meeting details beyond printed text."
+            }
+          },
+          {
+            "text": "Only a caller's callback number",
+            "is_correct": false,
+            "error_type": "Confuses video analysis with voicemail extraction",
+            "rationale": "This is incorrect. A callback number is a call-detail field and does not represent the range of meeting details available from video.",
+            "better_fit": "Use this for a voicemail schema that extracts contact details.",
+            "feedback": {
+              "intrinsic": "The meeting review would focus on one call detail.",
+              "instructional": "Callback numbers fit calls; video can also provide attendance and actions."
+            }
+          },
+          {
+            "text": "Only invoice totals and tax",
+            "is_correct": false,
+            "error_type": "Confuses video analysis with invoice extraction",
+            "rationale": "This is incorrect. Totals and tax are invoice fields, not meeting details extracted from video.",
+            "better_fit": "Use this when analyzing an invoice for billing amounts.",
+            "feedback": {
+              "intrinsic": "The meeting record would not identify attendees or actions.",
+              "instructional": "Invoice fields belong to invoice analysis; video can capture meeting information."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "video-information-extraction",
+        "item_key": "extract-information-from-video/video-information-extraction/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct—video analysis can reveal attendance and assigned actions.",
+      "points": 1
+    },
+    {
+      "import_key": "extract-information-from-video-l3-q4",
+      "question_type": "true_false",
+      "question_text": "prebuilt-audioSearch is the prebuilt analyzer selected for video input.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "prebuilt-video-analyzer",
+        "feedback_for_incorrect": {
+          "intrinsic": "A recorded video conference would be treated as the wrong media type.",
+          "instructional": "For video input, select prebuilt-videoSearch rather than an audio analyzer."
+        },
+        "item_key": "extract-information-from-video/prebuilt-video-analyzer/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct—an audio analyzer is not selected for video input.",
+      "points": 1
+    },
+    {
+      "import_key": "extract-information-from-video-l3-q5",
+      "question_type": "fill_blank",
+      "question_text": "The conference-room camera image identified the location as ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "The conference-room camera image identified the location as "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "Conference room",
+              "conference room"
+            ],
+            "rejected_answers": [
+              "recorded meeting",
+              "voicemail",
+              "video-meeting-schema",
+              "voicemail-schema-and-results"
+            ],
+            "placeholder": "location"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "recorded meeting",
+          "voicemail",
+          "video-meeting-schema",
+          "voicemail-schema-and-results"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "meeting-image-attendance-schema",
+        "feedback_for_incorrect": {
+          "intrinsic": "The location field would not describe the place shown by the camera.",
+          "instructional": "Conference room is the returned location; a voicemail or recording is not a location."
+        },
+        "item_key": "extract-information-from-video/meeting-image-attendance-schema/r3/v2",
+        "rung": 3
+      },
+      "correct_answer": "[\"Conference room\",\"conference room\"]",
+      "explanation": "Location is a defined field for the camera image. The returned location value is Conference room.",
+      "points": 1
+    },
+    {
+      "import_key": "extract-information-from-video-l3-q6",
+      "question_type": "multiple_choice",
+      "question_text": "A meeting-services lead must select an analyzer for recorded video conferences and deliver structured meeting details to a reporting system. Which decisions best fit? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Use prebuilt-videoSearch",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "This is correct. It is the prebuilt analyzer selected for video input.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Extract video-related structured information",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "This is correct. The stated reporting need requires structured information from the conference video.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Use an audio analyzer",
+            "is_correct": false,
+            "error_type": "Confuses video input with audio input",
+            "rationale": "This is incorrect. An audio analyzer is intended for audio input, while the input here is recorded video.",
+            "better_fit": "Use an audio analyzer for a call recording or another audio file.",
+            "feedback": {
+              "intrinsic": "The lead would choose an analyzer that does not match the conference video.",
+              "instructional": "Match the analyzer to the input type: recorded video uses prebuilt-videoSearch."
+            }
+          },
+          {
+            "text": "Use an invoice analyzer",
+            "is_correct": false,
+            "error_type": "Confuses meeting video with invoice documents",
+            "rationale": "This is incorrect. An invoice analyzer extracts invoice-oriented fields, not meeting details from a video conference.",
+            "better_fit": "Use an invoice analyzer for invoices containing billing fields such as tax and total.",
+            "feedback": {
+              "intrinsic": "The requested meeting details would be replaced by invoice-oriented fields.",
+              "instructional": "Choose prebuilt-videoSearch for recorded video conferences."
+            }
+          }
+        ],
+        "blooms_level": "Analyzing/Evaluating",
+        "original_question_type": "multi_choice",
+        "concept_id": "prebuilt-video-analyzer",
+        "item_key": "extract-information-from-video/prebuilt-video-analyzer/r5/v1",
+        "rung": 5
+      },
+      "correct_answer": "[0,1]",
+      "explanation": "Correct—the video analyzer is the appropriate decision for video input and structured meeting details.",
+      "points": 1
+    },
+    {
+      "import_key": "extract-information-from-video-l3-q7",
+      "question_type": "arrange_sentence",
+      "question_text": "Arrange the parts to form the correct statement.",
+      "options": {
+        "word_bank": [
+          "three remote attendees",
+          "The image returned",
+          "and four total.",
+          "one in-person attendee"
+        ],
+        "correct_order": [
+          "The image returned",
+          "one in-person attendee",
+          "three remote attendees",
+          "and four total."
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "meeting-image-attendance-schema",
+        "feedback_for_incorrect": {
+          "intrinsic": "The counts would be difficult to interpret.",
+          "instructional": "Start with the image result, then state the in-person count, remote count, and total."
+        },
+        "item_key": "extract-information-from-video/meeting-image-attendance-schema/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "The image returned one in-person attendee three remote attendees and four total.",
+      "explanation": "The result identifies the image report, then gives the in-person count, remote count, and total. This order makes the attendance breakdown clear.",
+      "points": 1
+    },
+    {
+      "import_key": "extract-information-from-video-l3-q8",
+      "question_type": "multiple_choice",
+      "question_text": "What format makes media analysis results predictable for later systems?",
+      "options": {
+        "options": [
+          {
+            "text": "JSON results",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "This is correct. Predictable JSON results make extracted information easier for later systems to use.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A scanned page image",
+            "is_correct": false,
+            "error_type": "Confuses structured results with input content",
+            "rationale": "This is incorrect. A scanned page image is source content, not a predictable structured result format.",
+            "better_fit": "Use this as input when analyzing a document or image.",
+            "feedback": {
+              "intrinsic": "Later work would still require extracting the information from the image.",
+              "instructional": "JSON results organize extracted fields for later use."
+            }
+          },
+          {
+            "text": "An unprocessed recording",
+            "is_correct": false,
+            "error_type": "Confuses source media with analysis output",
+            "rationale": "This is incorrect. An unprocessed recording is source media and has not been transformed into structured results.",
+            "better_fit": "Use this as input for audio or video analysis.",
+            "feedback": {
+              "intrinsic": "The meeting details would remain locked in the recording.",
+              "instructional": "Analysis produces structured JSON results from the recording."
+            }
+          },
+          {
+            "text": "A manual paper note",
+            "is_correct": false,
+            "error_type": "Confuses structured output with manual processing",
+            "rationale": "This is incorrect. A paper note is not a predictable structured format for system use.",
+            "better_fit": "Use this for an informal human reminder, not for structured extracted results.",
+            "feedback": {
+              "intrinsic": "Searching and automating meeting details would be harder.",
+              "instructional": "JSON supports storage, search, and automation."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "downstream-use-of-media-results",
+        "item_key": "extract-information-from-video/downstream-use-of-media-results/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct—predictable JSON results are easier for later systems to use.",
+      "points": 1
+    },
+    {
+      "import_key": "extract-information-from-video-l3-q9",
+      "question_type": "multiple_choice",
+      "question_text": "Which fields can capture changes during a video meeting? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Attendance at time intervals",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "This is correct. Time intervals show attendance as it changes during the recording.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Who spoke",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "This is correct. A video schema can include details of who spoke.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "What each person said",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "This is correct. A video schema can include what each speaker said.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "One still-image location",
+            "is_correct": false,
+            "error_type": "Confuses video-over-time fields with an image field",
+            "rationale": "This is incorrect. A still-image location describes one camera image and does not capture activity over a recording.",
+            "better_fit": "Use this when analyzing a single conference-room camera image.",
+            "feedback": {
+              "intrinsic": "Changes in attendance and speaking would be missed.",
+              "instructional": "Video fields can follow attendance and speakers over time."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "video-meeting-schema",
+        "item_key": "extract-information-from-video/video-meeting-schema/r1/v2",
+        "rung": 1
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct—these fields can capture changing meeting activity.",
+      "points": 1
+    },
+    {
+      "import_key": "extract-information-from-video-l3-q10",
+      "question_type": "fill_blank",
+      "question_text": "Predictable ___ results make later business processes easier.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "Predictable "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "JSON",
+              "JSON results"
+            ],
+            "rejected_answers": [
+              "OCR",
+              "transcript",
+              "schema",
+              "structured-machine-readable-data",
+              "analyzer-and-schema-reuse"
+            ],
+            "placeholder": "data format"
+          },
+          {
+            "type": "text",
+            "text": " results make later business processes easier."
+          }
+        ],
+        "rejected_answers": [
+          "OCR",
+          "transcript",
+          "schema",
+          "structured-machine-readable-data",
+          "analyzer-and-schema-reuse"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "downstream-use-of-media-results",
+        "feedback_for_incorrect": {
+          "intrinsic": "The extracted details would be less ready for automation.",
+          "instructional": "Use JSON for the structured result format; OCR, transcripts, and schemas serve different roles."
+        },
+        "item_key": "extract-information-from-video/downstream-use-of-media-results/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "[\"JSON\",\"JSON results\"]",
+      "explanation": "JSON is a structured text format for storing and exchanging data. Predictable JSON results make extracted fields easier to use in later processes.",
+      "points": 1
+    },
+    {
+      "import_key": "extract-information-from-video-l3-q11",
+      "question_type": "arrange_sentence",
+      "question_text": "Order the pieces to form the correct statement.",
+      "options": {
+        "word_bank": [
+          "who spoke",
+          "A video schema",
+          "during the meeting.",
+          "can record"
+        ],
+        "correct_order": [
+          "A video schema",
+          "can record",
+          "who spoke",
+          "during the meeting."
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "video-meeting-schema",
+        "feedback_for_incorrect": {
+          "intrinsic": "The speaker field would be described unclearly.",
+          "instructional": "Begin with the schema, then state that it can record who spoke during the meeting."
+        },
+        "item_key": "extract-information-from-video/video-meeting-schema/r3/v2",
+        "rung": 3
+      },
+      "correct_answer": "A video schema can record who spoke during the meeting.",
+      "explanation": "A video schema can record who spoke during the meeting, illustrating that video analysis can capture speaker information.",
+      "points": 1
+    },
+    {
+      "import_key": "extract-information-from-video-l3-q12",
+      "question_type": "multiple_choice",
+      "question_text": "Which information can video analysis unlock? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Meeting location",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "This is correct. Video and meeting-image analysis can identify a meeting location.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "People who spoke",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "This is correct. A video meeting schema can include who spoke.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Discussion summary",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "This is correct. A video recording schema can include a discussion summary.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Only editable printed text",
+            "is_correct": false,
+            "error_type": "Confuses video analysis with OCR",
+            "rationale": "This is incorrect. OCR produces editable printed text, while video analysis can provide broader meeting information.",
+            "better_fit": "Use this for OCR on a scanned document or receipt.",
+            "feedback": {
+              "intrinsic": "Important speaker and action details would be left out.",
+              "instructional": "OCR reads printed text; video analysis extracts meeting insights."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "video-information-extraction",
+        "item_key": "extract-information-from-video/video-information-extraction/r1/v2",
+        "rung": 1
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct—video analysis can extract location, speakers, and a discussion summary.",
+      "points": 1
+    }
+  ],
+  "flashcards": []
+}

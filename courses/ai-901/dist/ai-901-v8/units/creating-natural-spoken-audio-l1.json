@@ -1,0 +1,456 @@
+{
+  "import_key": "creating-natural-spoken-audio-l1",
+  "title": "Creating natural spoken audio · Level 1",
+  "slo": "Describe the stages that convert written text into natural-sounding speech.",
+  "exercises": [
+    {
+      "import_key": "creating-natural-spoken-audio-l1-q1",
+      "question_type": "multiple_choice",
+      "question_text": "What can text normalization expand before speech is generated? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Abbreviations",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Text normalization expands abbreviations into pronounceable words. “Dr.” can become “Doctor.”",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Dates",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Dates can be converted into spoken forms during normalization. This prevents unnatural readings of date characters.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Symbols",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Normalization handles symbols such as “$” and “@.” It changes them into spoken forms.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Audio waveforms",
+            "is_correct": false,
+            "error_type": "Confuses text preparation with audio generation",
+            "rationale": "Audio waveforms are generated later in speech synthesis. Text normalization works with written input.",
+            "better_fit": "Use waveform generation after phonemes and prosody have produced acoustic features.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "text-normalization",
+        "item_key": "creating-natural-spoken-audio/text-normalization/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. These written forms are expanded so they can be pronounced naturally.",
+      "points": 1
+    },
+    {
+      "import_key": "creating-natural-spoken-audio-l1-q2",
+      "question_type": "multiple_choice",
+      "question_text": "Which stage changes raw recognized text into easier-to-read text?",
+      "options": {
+        "options": [
+          {
+            "text": "Post-processing",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Post-processing refines decoded recognition output for people to read. It can add capitalization, punctuation, and number formatting.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Text normalization",
+            "is_correct": false,
+            "error_type": "Confuses recognition cleanup with TTS input preparation",
+            "rationale": "Text normalization prepares written input before it is spoken. It does not clean a completed transcription.",
+            "better_fit": "Use text normalization when abbreviations, dates, symbols, or numbers need pronounceable spoken forms.",
+            "feedback": null
+          },
+          {
+            "text": "Beam search decoding",
+            "is_correct": false,
+            "error_type": "Confuses selecting words with formatting output",
+            "rationale": "Beam search chooses a likely word sequence from competing possibilities. It occurs before readable formatting is added.",
+            "better_fit": "Use beam search when selecting the best transcription hypothesis.",
+            "feedback": null
+          },
+          {
+            "text": "Phoneme prediction",
+            "is_correct": false,
+            "error_type": "Confuses sound prediction with text cleanup",
+            "rationale": "Phoneme prediction concerns speech sounds from audio features. It is not a cleanup step for recognized words.",
+            "better_fit": "Use phoneme prediction during acoustic modeling of spoken audio.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "post-processing-and-confidence",
+        "item_key": "creating-natural-spoken-audio/post-processing-and-confidence/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. Post-processing improves decoded recognition output with readable formatting.",
+      "points": 1
+    },
+    {
+      "import_key": "creating-natural-spoken-audio-l1-q3",
+      "question_type": "true_false",
+      "question_text": "Text normalization cleans up decoded speech-recognition text after transcription.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "text-normalization",
+        "feedback_for_incorrect": {
+          "intrinsic": "A finished transcript could be sent to the wrong stage for readable cleanup.",
+          "instructional": "Text normalization expands input for speech synthesis; post-processing formats decoded output."
+        },
+        "item_key": "creating-natural-spoken-audio/text-normalization/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct. Cleanup after recognition is post-processing, while text normalization prepares writing before speech.",
+      "points": 1
+    },
+    {
+      "import_key": "creating-natural-spoken-audio-l1-q4",
+      "question_type": "true_false",
+      "question_text": "Confidence scoring can flag low-confidence words for human review.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "post-processing-and-confidence",
+        "feedback_for_incorrect": {
+          "intrinsic": "An uncertain clinical word could be missed during review.",
+          "instructional": "Confidence scoring identifies words the recognition result is less certain about so a person can check them."
+        },
+        "item_key": "creating-natural-spoken-audio/post-processing-and-confidence/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. Confidence scoring estimates certainty and can highlight words needing review.",
+      "points": 1
+    },
+    {
+      "import_key": "creating-natural-spoken-audio-l1-q5",
+      "question_type": "multiple_choice",
+      "question_text": "What converts a mel-spectrogram into a raw audio waveform?",
+      "options": {
+        "options": [
+          {
+            "text": "A neural vocoder",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A neural vocoder converts mel-spectrograms into raw audio waveforms. This is the waveform-generation stage.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A text normalizer",
+            "is_correct": false,
+            "error_type": "Confuses text preparation with waveform creation",
+            "rationale": "A text normalizer expands written forms before pronunciation is determined. It does not generate audio samples.",
+            "better_fit": "Use text normalization to prepare abbreviations, numbers, dates, and symbols.",
+            "feedback": null
+          },
+          {
+            "text": "A language model",
+            "is_correct": false,
+            "error_type": "Confuses word prediction with audio generation",
+            "rationale": "A language model helps predict word sequences in recognition. It does not convert mel-spectrograms into audio.",
+            "better_fit": "Use a language model to guide likely recognition word sequences.",
+            "feedback": null
+          },
+          {
+            "text": "An acoustic microphone",
+            "is_correct": false,
+            "error_type": "Confuses audio capture with synthesis",
+            "rationale": "A microphone captures sound for recognition. It does not create speech from a mel-spectrogram.",
+            "better_fit": "Use a microphone when capturing incoming spoken sound.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "speech-synthesis-waveform-generation",
+        "item_key": "creating-natural-spoken-audio/speech-synthesis-waveform-generation/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. A neural vocoder turns a mel-spectrogram into audible waveform audio.",
+      "points": 1
+    },
+    {
+      "import_key": "creating-natural-spoken-audio-l1-q6",
+      "question_type": "multiple_choice",
+      "question_text": "Which elements are part of prosody? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Pitch contours",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Pitch contours are rising and falling pitch patterns. They contribute to speech expression.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Pauses",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Pauses separate phrases and aid comprehension. They are a prosody element.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Stress patterns",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Stress patterns indicate which syllables or words receive emphasis. They shape delivery.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Word-level timestamps",
+            "is_correct": false,
+            "error_type": "Confuses delivery patterns with recognition metadata",
+            "rationale": "Word timestamps identify when recognized words occurred. They are not vocal delivery patterns.",
+            "better_fit": "Use word-level timestamps to locate words in a recognition transcription.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "prosody-generation",
+        "item_key": "creating-natural-spoken-audio/prosody-generation/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. These features shape rhythm and expression.",
+      "points": 1
+    },
+    {
+      "import_key": "creating-natural-spoken-audio-l1-q7",
+      "question_type": "true_false",
+      "question_text": "A mel-spectrogram represents sound frequencies over time.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "speech-synthesis-waveform-generation",
+        "feedback_for_incorrect": {
+          "intrinsic": "The acoustic representation could be confused with the final sound heard by a listener.",
+          "instructional": "A neural vocoder converts a mel-spectrogram into raw waveform audio."
+        },
+        "item_key": "creating-natural-spoken-audio/speech-synthesis-waveform-generation/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. A mel-spectrogram is an acoustic representation of changing frequencies over time.",
+      "points": 1
+    },
+    {
+      "import_key": "creating-natural-spoken-audio-l1-q8",
+      "question_type": "multiple_choice",
+      "question_text": "What does G2P convert?",
+      "options": {
+        "options": [
+          {
+            "text": "Letters into phonemes",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "G2P means grapheme-to-phoneme conversion. It maps written letters to pronunciation sounds.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Phonemes into waveforms",
+            "is_correct": false,
+            "error_type": "Confuses G2P with waveform generation",
+            "rationale": "A neural vocoder converts mel-spectrograms into waveforms. G2P provides phonemes earlier.",
+            "better_fit": "Use a neural vocoder to create raw audio waveforms from mel-spectrograms.",
+            "feedback": null
+          },
+          {
+            "text": "Audio into text",
+            "is_correct": false,
+            "error_type": "Confuses G2P with speech recognition",
+            "rationale": "Audio-to-text is speech recognition. G2P maps spelling to sounds for synthesis.",
+            "better_fit": "Use speech recognition to transcribe spoken audio into written words.",
+            "feedback": null
+          },
+          {
+            "text": "Text into formatted dates",
+            "is_correct": false,
+            "error_type": "Confuses G2P with text normalization",
+            "rationale": "Formatting dates into spoken forms is text normalization. G2P maps the resulting letters into phonemes.",
+            "better_fit": "Use text normalization to expand dates, numbers, symbols, and abbreviations.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "linguistic-analysis-g2p",
+        "item_key": "creating-natural-spoken-audio/linguistic-analysis-g2p/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. G2P maps graphemes to phonemes.",
+      "points": 1
+    },
+    {
+      "import_key": "creating-natural-spoken-audio-l1-q9",
+      "question_type": "true_false",
+      "question_text": "Prosody generation converts mel-spectrograms directly into raw audio waveforms.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "prosody-generation",
+        "feedback_for_incorrect": {
+          "intrinsic": "Audio-making work would be assigned to the stage that should shape expression.",
+          "instructional": "Prosody predicts pitch, duration, and energy; vocoding converts mel-spectrograms to waveforms."
+        },
+        "item_key": "creating-natural-spoken-audio/prosody-generation/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct. Prosody predicts delivery details, while a neural vocoder converts mel-spectrograms into waveforms.",
+      "points": 1
+    },
+    {
+      "import_key": "creating-natural-spoken-audio-l1-q10",
+      "question_type": "arrange_sentence",
+      "question_text": "Order the pieces correctly.",
+      "options": {
+        "word_bank": [
+          "into “Doctor”",
+          "Text normalization",
+          "before speech generation",
+          "expands “Dr.”"
+        ],
+        "correct_order": [
+          "Text normalization",
+          "expands “Dr.”",
+          "into “Doctor”",
+          "before speech generation"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "text-normalization",
+        "feedback_for_incorrect": {
+          "intrinsic": "The phrase would not clearly connect abbreviation expansion to speech preparation.",
+          "instructional": "Name the preparation stage first, then show the abbreviation becoming a speakable word."
+        },
+        "item_key": "creating-natural-spoken-audio/text-normalization/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "Text normalization expands “Dr.” into “Doctor” before speech generation",
+      "explanation": "An abbreviation is expanded before pronunciation can be determined naturally.",
+      "points": 1
+    },
+    {
+      "import_key": "creating-natural-spoken-audio-l1-q11",
+      "question_type": "fill_blank",
+      "question_text": "Changing spoken “three p m” into “3 PM” is called ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "Changing spoken “three p m” into “3 PM” is called "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "inverse text normalization"
+            ],
+            "rejected_answers": [
+              "text normalization",
+              "beam search decoding",
+              "phoneme probabilities",
+              "text-normalization",
+              "beam-search-decoding",
+              "phoneme-probabilities"
+            ],
+            "placeholder": "technical term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "text normalization",
+          "beam search decoding",
+          "phoneme probabilities",
+          "text-normalization",
+          "beam-search-decoding",
+          "phoneme-probabilities"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "post-processing-and-confidence",
+        "feedback_for_incorrect": {
+          "intrinsic": "The time would remain in a spoken-word form in the written record.",
+          "instructional": "Inverse text normalization moves spoken forms back to formatted writing after recognition."
+        },
+        "item_key": "creating-natural-spoken-audio/post-processing-and-confidence/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "inverse text normalization",
+      "explanation": "Inverse text normalization converts spoken forms in recognition output into conventional written forms.",
+      "points": 1
+    },
+    {
+      "import_key": "creating-natural-spoken-audio-l1-q12",
+      "question_type": "true_false",
+      "question_text": "A lexicon is a pronunciation dictionary used during linguistic analysis.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "linguistic-analysis-g2p",
+        "feedback_for_incorrect": {
+          "intrinsic": "A familiar word’s pronunciation could be treated as if no reference existed.",
+          "instructional": "A lexicon stores word pronunciations for linguistic analysis."
+        },
+        "item_key": "creating-natural-spoken-audio/linguistic-analysis-g2p/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. Linguistic analysis uses lexicons to look up pronunciations.",
+      "points": 1
+    }
+  ],
+  "flashcards": [
+    {
+      "import_key": "creating-natural-spoken-audio-l1-f0",
+      "front": "What is text normalization?",
+      "back": "It expands written forms into pronounceable spoken forms.",
+      "hint": "Think: prepare text before speech."
+    },
+    {
+      "import_key": "creating-natural-spoken-audio-l1-f1",
+      "front": "What does G2P map?",
+      "back": "It maps letters, called graphemes, to phonemes, or speech sounds.",
+      "hint": "G means grapheme; P means phoneme."
+    },
+    {
+      "import_key": "creating-natural-spoken-audio-l1-f2",
+      "front": "What is prosody?",
+      "back": "Prosody is speech rhythm, stress, timing, and intonation.",
+      "hint": "It controls how speech is delivered."
+    },
+    {
+      "import_key": "creating-natural-spoken-audio-l1-f3",
+      "front": "What does a neural vocoder create?",
+      "back": "It converts mel-spectrograms into raw audio waveforms.",
+      "hint": "It produces the final audio."
+    }
+  ]
+}

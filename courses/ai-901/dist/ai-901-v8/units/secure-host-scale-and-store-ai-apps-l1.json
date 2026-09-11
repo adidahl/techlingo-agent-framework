@@ -1,0 +1,477 @@
+{
+  "import_key": "secure-host-scale-and-store-ai-apps-l1",
+  "title": "Secure, host, scale, and store AI apps · Level 1",
+  "slo": "Choose Azure approaches for protecting, running, scaling, and storing AI application data.",
+  "exercises": [
+    {
+      "import_key": "secure-host-scale-and-store-ai-apps-l1-q1",
+      "question_type": "multiple_choice",
+      "question_text": "Which Azure services are storage options for application information? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Azure SQL Database",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Azure SQL Database is a storage option for mission-critical workloads. It provides a persistent place for application information.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Azure Cosmos DB",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Azure Cosmos DB is a storage option for real-time globally distributed data. It persistently saves application information.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Azure Database for PostgreSQL",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Azure Database for PostgreSQL is an option for intelligent, scalable solutions. It can persistently save, organize, and retrieve information.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Azure Kubernetes Service",
+            "is_correct": false,
+            "error_type": "Confuses container management with data storage",
+            "rationale": "AKS orchestrates many containerized workloads. It is not listed as a persistent storage option for application information.",
+            "better_fit": "Use AKS when a team needs to manage many containerized workloads together.",
+            "feedback": {
+              "intrinsic": "Application information would still need a persistent storage choice.",
+              "instructional": "AKS manages containers. Use the database services for persistent storage."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "azure-storage-options",
+        "item_key": "secure-host-scale-and-store-ai-apps/azure-storage-options/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. Azure SQL Database, Azure Cosmos DB, and Azure Database for PostgreSQL are persistent storage options.",
+      "points": 1
+    },
+    {
+      "import_key": "secure-host-scale-and-store-ai-apps-l1-q2",
+      "question_type": "multiple_choice",
+      "question_text": "What is a container in an application environment?",
+      "options": {
+        "options": [
+          {
+            "text": "A package holding code and supporting components",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A container holds the code and supporting components needed to run. It packages what the workload needs.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A copy of an app running now",
+            "is_correct": false,
+            "error_type": "Confuses a container with an instance",
+            "rationale": "A running copy of an application is an instance. A container instead holds the app's code and supporting components.",
+            "better_fit": "Use instance when describing one of several copies of an app running at the same time.",
+            "feedback": {
+              "intrinsic": "The team could confuse the packaged workload with the number of running copies.",
+              "instructional": "A container packages what runs; an instance is a running copy."
+            }
+          },
+          {
+            "text": "Extra CPU and memory",
+            "is_correct": false,
+            "error_type": "Confuses a container with vertical scaling",
+            "rationale": "Extra CPU or memory describes scale up. It does not describe the package holding code and components.",
+            "better_fit": "Use this when increasing resources on one existing instance.",
+            "feedback": {
+              "intrinsic": "The team might change capacity instead of identifying the workload package.",
+              "instructional": "Scale up adds CPU or memory. A container holds code and supporting components."
+            }
+          },
+          {
+            "text": "A cloud billing container",
+            "is_correct": false,
+            "error_type": "Confuses a container with a subscription",
+            "rationale": "A subscription is a billing container for cloud resources. A container is used to package application code and supporting components.",
+            "better_fit": "Use subscription when describing billing, quotas, and access boundaries for Azure resources.",
+            "feedback": {
+              "intrinsic": "Billing would be mixed up with how the workload is packaged.",
+              "instructional": "Subscriptions organize billing; containers package workloads."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "hosts-containers-aks-and-app-service",
+        "item_key": "secure-host-scale-and-store-ai-apps/hosts-containers-aks-and-app-service/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. A container packages an application's code and supporting components so it can run.",
+      "points": 1
+    },
+    {
+      "import_key": "secure-host-scale-and-store-ai-apps-l1-q3",
+      "question_type": "true_false",
+      "question_text": "Azure Cosmos DB supports real-time, globally distributed data.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "azure-storage-options",
+        "feedback_for_incorrect": {
+          "intrinsic": "A global real-time requirement could be matched with the wrong storage option.",
+          "instructional": "Azure Cosmos DB supports real-time globally distributed data."
+        },
+        "item_key": "secure-host-scale-and-store-ai-apps/azure-storage-options/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. Azure Cosmos DB is intended for real-time data distributed across global locations.",
+      "points": 1
+    },
+    {
+      "import_key": "secure-host-scale-and-store-ai-apps-l1-q4",
+      "question_type": "true_false",
+      "question_text": "Azure Kubernetes Service orchestrates many containerized workloads.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "hosts-containers-aks-and-app-service",
+        "feedback_for_incorrect": {
+          "intrinsic": "Many packaged workloads would lack the service chosen to manage them together.",
+          "instructional": "AKS is designed to orchestrate large numbers of containers."
+        },
+        "item_key": "secure-host-scale-and-store-ai-apps/hosts-containers-aks-and-app-service/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. AKS orchestrates, meaning it manages, many containerized workloads.",
+      "points": 1
+    },
+    {
+      "import_key": "secure-host-scale-and-store-ai-apps-l1-q5",
+      "question_type": "multiple_choice",
+      "question_text": "What type of data helps keep a user's experience continuous?",
+      "options": {
+        "options": [
+          {
+            "text": "Application state",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Application state supports user-specific continuity. It keeps information needed to continue a user's experience.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Training data",
+            "is_correct": false,
+            "error_type": "Confuses user continuity with teaching model patterns",
+            "rationale": "Training data teaches patterns to a model. It is not the data used to preserve one user's continuity.",
+            "better_fit": "Use training data when teaching a model to recognize patterns.",
+            "feedback": {
+              "intrinsic": "The app might retain model-learning material instead of the user's progress.",
+              "instructional": "Application state supports continuity; training data teaches patterns."
+            }
+          },
+          {
+            "text": "Model output data",
+            "is_correct": false,
+            "error_type": "Confuses generated results with user continuity",
+            "rationale": "Model output data is the generated response or prediction. It is not specifically the data that preserves a user's ongoing experience.",
+            "better_fit": "Use model output data when keeping generated responses or predictions.",
+            "feedback": {
+              "intrinsic": "The app could save a response without remembering where the user left off.",
+              "instructional": "For user continuity, keep application state."
+            }
+          },
+          {
+            "text": "Security and access data",
+            "is_correct": false,
+            "error_type": "Confuses continuity data with authentication data",
+            "rationale": "Security and access data supports safe authentication and authorization. It does not maintain user-specific continuity.",
+            "better_fit": "Use security and access data when handling authentication and authorization.",
+            "feedback": {
+              "intrinsic": "The user's access could be checked, but their current progress might be lost.",
+              "instructional": "Security data protects access; application state remembers user continuity."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "ai-application-data",
+        "item_key": "secure-host-scale-and-store-ai-apps/ai-application-data/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. Application state keeps the information needed to continue a user's experience.",
+      "points": 1
+    },
+    {
+      "import_key": "secure-host-scale-and-store-ai-apps-l1-q6",
+      "question_type": "multiple_choice",
+      "question_text": "Which items are secrets that should stay hidden? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "An API key",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "An API key is a sensitive value that authenticates a request to an endpoint. Because it grants access, it must stay hidden.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A database connection string",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A database connection string can grant access to a database. It is therefore a secret that should be stored securely.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "An OAuth token",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "An OAuth token is listed as a sensitive value that grants access. It should be kept hidden like other secrets.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A resource group",
+            "is_correct": false,
+            "error_type": "Confuses a management container with a secret",
+            "rationale": "A resource group holds related Azure resources for joint management. It is not a value that grants access.",
+            "better_fit": "Use a resource group to organize related resources and apply management settings together.",
+            "feedback": {
+              "intrinsic": "Treating it as a secret would not protect any access value.",
+              "instructional": "A secret grants access, while a resource group organizes related resources."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "secrets-key-vault-managed-identity",
+        "item_key": "secure-host-scale-and-store-ai-apps/secrets-key-vault-managed-identity/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. API keys, connection strings, and OAuth tokens can grant access, so they must remain hidden.",
+      "points": 1
+    },
+    {
+      "import_key": "secure-host-scale-and-store-ai-apps-l1-q7",
+      "question_type": "true_false",
+      "question_text": "Training data is the real-time input that a user gives an AI application.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "ai-application-data",
+        "feedback_for_incorrect": {
+          "intrinsic": "The app's current request data would be confused with the data used to teach patterns.",
+          "instructional": "Training data teaches patterns. Inference input data is real-time input from a user or another service."
+        },
+        "item_key": "secure-host-scale-and-store-ai-apps/ai-application-data/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct. Real-time user or service input is inference input data, not training data.",
+      "points": 1
+    },
+    {
+      "import_key": "secure-host-scale-and-store-ai-apps-l1-q8",
+      "question_type": "true_false",
+      "question_text": "Azure Key Vault is mainly used to store secrets directly in application code.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "secrets-key-vault-managed-identity",
+        "feedback_for_incorrect": {
+          "intrinsic": "A copied secret could be exposed wherever the code is shared.",
+          "instructional": "Store secrets in Azure Key Vault, not directly in application code or GitHub."
+        },
+        "item_key": "secure-host-scale-and-store-ai-apps/secrets-key-vault-managed-identity/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct. Key Vault keeps secrets separate from code and GitHub.",
+      "points": 1
+    },
+    {
+      "import_key": "secure-host-scale-and-store-ai-apps-l1-q9",
+      "question_type": "multiple_choice",
+      "question_text": "Which service ensures that only authorized people and services can access AI resources?",
+      "options": {
+        "options": [
+          {
+            "text": "Azure Entra ID",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Azure Entra ID manages identity and access. It ensures that only authorized people and services can access resources.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Azure Key Vault",
+            "is_correct": false,
+            "error_type": "Confuses identity access with secret storage",
+            "rationale": "Key Vault stores sensitive values such as keys and passwords. It does not decide which people and services may access resources.",
+            "better_fit": "Use Key Vault when an app needs a protected place for a secret, such as an API key.",
+            "feedback": {
+              "intrinsic": "Choosing this would leave the access question unanswered.",
+              "instructional": "Key Vault protects secrets; Entra ID handles authorized access."
+            }
+          },
+          {
+            "text": "A model endpoint",
+            "is_correct": false,
+            "error_type": "Confuses a service entry point with identity control",
+            "rationale": "An endpoint is the address where an application sends requests. It is not the identity service that manages who is allowed in.",
+            "better_fit": "Use an endpoint when client code needs to send a request to a deployed model.",
+            "feedback": {
+              "intrinsic": "The team would know where to send a request, but not who may use the resource.",
+              "instructional": "An endpoint is an entry point; Entra ID manages authorized access."
+            }
+          },
+          {
+            "text": "A managed identity",
+            "is_correct": false,
+            "error_type": "Confuses an app identity with the identity service",
+            "rationale": "A managed identity lets an application securely retrieve a secret at runtime. It is not the broad service for controlling access by people and roles.",
+            "better_fit": "Use a managed identity when an application needs to retrieve a Key Vault secret securely.",
+            "feedback": {
+              "intrinsic": "The app could retrieve its secret, while staff permissions would still need to be set.",
+              "instructional": "Managed identity helps an app authenticate; Entra ID manages access for people and services."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "entra-id-and-rbac",
+        "item_key": "secure-host-scale-and-store-ai-apps/entra-id-and-rbac/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. Azure Entra ID manages identity so authorized people and services can access resources.",
+      "points": 1
+    },
+    {
+      "import_key": "secure-host-scale-and-store-ai-apps-l1-q10",
+      "question_type": "multiple_choice",
+      "question_text": "Which statements describe scaling? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "It adjusts compute capacity",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Scaling adjusts the amount of compute capacity an application uses. This can happen automatically or manually.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It can add or remove instances",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Scaling often adds or removes instances. Instances are copies of an application running at the same time.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It can be automatic or manual",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Scaling can be adjusted automatically or manually. Azure can respond to CPU use, request volume, or custom metrics.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It stores application secrets",
+            "is_correct": false,
+            "error_type": "Confuses scaling with secret management",
+            "rationale": "Scaling changes compute capacity. Secrets are stored in Azure Key Vault.",
+            "better_fit": "Use Key Vault when sensitive values such as API keys must stay hidden.",
+            "feedback": {
+              "intrinsic": "The app's capacity would not change, and the secret would need separate protection.",
+              "instructional": "Scaling adjusts running capacity. Key Vault handles secret storage."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "scaling-and-instances",
+        "item_key": "secure-host-scale-and-store-ai-apps/scaling-and-instances/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. Scaling changes compute capacity and can add or remove instances automatically or manually.",
+      "points": 1
+    },
+    {
+      "import_key": "secure-host-scale-and-store-ai-apps-l1-q11",
+      "question_type": "true_false",
+      "question_text": "RBAC limits access to model deployments, resources, and data according to assigned roles.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "entra-id-and-rbac",
+        "feedback_for_incorrect": {
+          "intrinsic": "A person could receive access that does not match their job.",
+          "instructional": "RBAC means role-based access control. It limits access according to assigned roles."
+        },
+        "item_key": "secure-host-scale-and-store-ai-apps/entra-id-and-rbac/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. RBAC uses assigned roles to limit access to deployments, resources, and data.",
+      "points": 1
+    },
+    {
+      "import_key": "secure-host-scale-and-store-ai-apps-l1-q12",
+      "question_type": "true_false",
+      "question_text": "Scale out increases CPU or memory on one existing instance.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "scaling-and-instances",
+        "feedback_for_incorrect": {
+          "intrinsic": "The team might add the wrong kind of capacity during busy periods.",
+          "instructional": "Scale out adds instances. Scale up increases CPU or memory on an existing instance."
+        },
+        "item_key": "secure-host-scale-and-store-ai-apps/scaling-and-instances/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct. Increasing CPU or memory on one existing instance is scale up.",
+      "points": 1
+    }
+  ],
+  "flashcards": [
+    {
+      "import_key": "secure-host-scale-and-store-ai-apps-l1-f0",
+      "front": "What does RBAC limit?",
+      "back": "Access to resources, data, and model deployments by assigned role.",
+      "hint": "Think roles."
+    },
+    {
+      "import_key": "secure-host-scale-and-store-ai-apps-l1-f1",
+      "front": "Where should app secrets be stored?",
+      "back": "Store secrets in Azure Key Vault, not code or GitHub.",
+      "hint": "Secret storage."
+    },
+    {
+      "import_key": "secure-host-scale-and-store-ai-apps-l1-f2",
+      "front": "What does scale out do?",
+      "back": "It adds more application instances.",
+      "hint": "Out means more copies."
+    },
+    {
+      "import_key": "secure-host-scale-and-store-ai-apps-l1-f3",
+      "front": "What supports user continuity?",
+      "back": "Application state supports user-specific continuity.",
+      "hint": "Remember a user's progress."
+    }
+  ]
+}

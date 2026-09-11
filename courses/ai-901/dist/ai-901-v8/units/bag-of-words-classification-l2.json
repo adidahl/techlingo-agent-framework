@@ -1,0 +1,557 @@
+{
+  "import_key": "bag-of-words-classification-l2",
+  "title": "Bag-of-Words Classification · Level 2",
+  "slo": "Choose bag-of-words and Naive Bayes for simple word-frequency classification tasks.",
+  "exercises": [
+    {
+      "import_key": "bag-of-words-classification-l2-q1",
+      "question_type": "multiple_choice",
+      "question_text": "Which facts describe bag-of-words? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "It represents word frequencies",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Correct. Word frequencies are bag-of-words features.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It ignores word order",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Correct. This representation discards word order and grammar.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It records grammar rules",
+            "is_correct": false,
+            "error_type": "Confuses word counts with grammatical analysis",
+            "rationale": "Bag-of-words does not preserve grammar. It represents occurrences or frequencies.",
+            "better_fit": "POS tagging fits tasks that need grammatical categories.",
+            "feedback": null
+          },
+          {
+            "text": "It learns semantic relationships",
+            "is_correct": false,
+            "error_type": "Confuses bag-of-words with semantic models",
+            "rationale": "Learned semantic relationships belong to semantic models. Bag-of-words uses word counts.",
+            "better_fit": "Semantic models fit comparisons based on meaning.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "bag-of-words-feature-extraction",
+        "item_key": "bag-of-words-classification/bag-of-words-feature-extraction/r1/v2",
+        "rung": 1
+      },
+      "correct_answer": "[0,1]",
+      "explanation": "Correct—bag-of-words uses word frequencies and ignores order.",
+      "points": 1
+    },
+    {
+      "import_key": "bag-of-words-classification-l2-q2",
+      "question_type": "true_false",
+      "question_text": "Semantic models represent text only with word counts and do not use learned vectors.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "statistical-vs-semantic-text-representation",
+        "feedback_for_incorrect": {
+          "intrinsic": "Similar customer concerns using different words may not be grouped by meaning.",
+          "instructional": "Semantic models use learned vectors; bag-of-words uses word counts."
+        },
+        "item_key": "bag-of-words-classification/statistical-vs-semantic-text-representation/r2/v2",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct—semantic models use learned vectors to represent meaning.",
+      "points": 1
+    },
+    {
+      "import_key": "bag-of-words-classification-l2-q3",
+      "question_type": "arrange_sentence",
+      "question_text": "Arrange the parts to form the correct statement.",
+      "options": {
+        "word_bank": [
+          "when its word patterns",
+          "A trained classifier",
+          "are common in spam",
+          "flags a message"
+        ],
+        "correct_order": [
+          "A trained classifier",
+          "flags a message",
+          "when its word patterns",
+          "are common in spam"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "bag-of-words-spam-filtering",
+        "feedback_for_incorrect": {
+          "intrinsic": "The decision rule would be unclear.",
+          "instructional": "Start with the classifier, then its action, then the supporting condition."
+        },
+        "item_key": "bag-of-words-classification/bag-of-words-spam-filtering/r3/v2",
+        "rung": 3
+      },
+      "correct_answer": "A trained classifier flags a message when its word patterns are common in spam",
+      "explanation": "A trained classifier flags a message when its patterns are common in spam.",
+      "points": 1
+    },
+    {
+      "import_key": "bag-of-words-classification-l2-q4",
+      "question_type": "fill_blank",
+      "question_text": "A method that represents text by word occurrences or frequencies while ignoring order is called ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "A method that represents text by word occurrences or frequencies while ignoring order is called "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "bag-of-words",
+              "bag of words"
+            ],
+            "rejected_answers": [
+              "TF-IDF",
+              "semantic language models",
+              "n-gram extraction",
+              "semantic-language-models",
+              "ngram-extraction"
+            ],
+            "placeholder": "technical term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "TF-IDF",
+          "semantic language models",
+          "n-gram extraction",
+          "semantic-language-models",
+          "ngram-extraction"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "bag-of-words-feature-extraction",
+        "feedback_for_incorrect": {
+          "intrinsic": "The chosen method would focus on rarity, meaning, or phrases instead of word counts.",
+          "instructional": "Use bag-of-words for an occurrence- or frequency-based representation."
+        },
+        "item_key": "bag-of-words-classification/bag-of-words-feature-extraction/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "[\"bag-of-words\",\"bag of words\"]",
+      "explanation": "Bag-of-words turns words into count-based features and discards grammar and order.",
+      "points": 1
+    },
+    {
+      "import_key": "bag-of-words-classification-l2-q5",
+      "question_type": "multiple_choice",
+      "question_text": "An email administrator sees messages with phrases occurring more often in past spam. What should the trained bag-of-words classifier do?",
+      "options": {
+        "options": [
+          {
+            "text": "Flag them as potential spam",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Correct. Spam-associated patterns can support a potential-spam flag.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Give them a positive label",
+            "is_correct": false,
+            "error_type": "Confuses spam filtering with sentiment",
+            "rationale": "A positive label describes emotional tone. The evidence concerns spam patterns.",
+            "better_fit": "Use a positive label for sentiment classification.",
+            "feedback": {
+              "intrinsic": "Potentially unwanted mail could be treated as favorable feedback.",
+              "instructional": "Spam filtering uses spam and not-spam labels, not positive and negative labels."
+            }
+          },
+          {
+            "text": "Rank their rarest terms",
+            "is_correct": false,
+            "error_type": "Confuses spam filtering with TF-IDF",
+            "rationale": "Rarest-term ranking is associated with TF-IDF. The task is to classify messages.",
+            "better_fit": "Use TF-IDF when identifying distinguishing terms is the goal.",
+            "feedback": {
+              "intrinsic": "The administrator would receive term scores without a routing decision.",
+              "instructional": "A spam classifier flags likely spam; TF-IDF measures term relevance."
+            }
+          },
+          {
+            "text": "Create a summary",
+            "is_correct": false,
+            "error_type": "Confuses classification with summarization",
+            "rationale": "A summary shortens a message. The requested result is a spam decision.",
+            "better_fit": "Use summarization when concise content is needed.",
+            "feedback": {
+              "intrinsic": "The message could be shorter but remain unrouted.",
+              "instructional": "Spam filtering classifies messages as spam or not spam."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "single_choice",
+        "concept_id": "bag-of-words-spam-filtering",
+        "item_key": "bag-of-words-classification/bag-of-words-spam-filtering/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "0",
+      "explanation": "Correct—past spam patterns can lead to a potential-spam flag.",
+      "points": 1
+    },
+    {
+      "import_key": "bag-of-words-classification-l2-q6",
+      "question_type": "multiple_choice",
+      "question_text": "A support analyst must sort tickets by topic. The system needs word frequencies, not word order. Which representation should the analyst choose?",
+      "options": {
+        "options": [
+          {
+            "text": "Bag-of-words word frequencies",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Correct. The task explicitly needs word frequencies and not order.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "TF-IDF relevance scores",
+            "is_correct": false,
+            "error_type": "Confuses counts with TF-IDF",
+            "rationale": "TF-IDF emphasizes terms frequent in one item but rare across a collection. The stated need is a simple frequency representation.",
+            "better_fit": "Use TF-IDF to identify terms that distinguish one item from others.",
+            "feedback": {
+              "intrinsic": "Topic sorting could be shaped by collection-wide rarity rather than the requested counts.",
+              "instructional": "Bag-of-words directly represents word occurrences or frequencies."
+            }
+          },
+          {
+            "text": "Semantic token vectors",
+            "is_correct": false,
+            "error_type": "Confuses counts with semantic representations",
+            "rationale": "Semantic vectors represent learned meaning. The task says word frequencies are sufficient.",
+            "better_fit": "Use semantic vectors when similar meaning must be found across different wording.",
+            "feedback": {
+              "intrinsic": "The analyst would add meaning-based comparison when a count-based rule is needed.",
+              "instructional": "Choose bag-of-words when counts rather than semantic relationships are needed."
+            }
+          },
+          {
+            "text": "N-gram phrase extraction",
+            "is_correct": false,
+            "error_type": "Confuses word counts with phrases",
+            "rationale": "N-gram extraction finds multi-word phrases. The task asks for word frequencies without needing phrase groups.",
+            "better_fit": "Use n-grams when repeated phrases are important.",
+            "feedback": {
+              "intrinsic": "Topics could be represented as phrases instead of the requested word counts.",
+              "instructional": "Bag-of-words records words and their frequencies; n-grams focus on sequences."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "single_choice",
+        "concept_id": "bag-of-words-feature-extraction",
+        "item_key": "bag-of-words-classification/bag-of-words-feature-extraction/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "0",
+      "explanation": "Correct—bag-of-words fits simple classification based on word frequencies.",
+      "points": 1
+    },
+    {
+      "import_key": "bag-of-words-classification-l2-q7",
+      "question_type": "arrange_sentence",
+      "question_text": "Reconstruct the statement from the pieces.",
+      "options": {
+        "word_bank": [
+          "while semantic models",
+          "Bag-of-words uses",
+          "use learned vectors",
+          "word counts"
+        ],
+        "correct_order": [
+          "Bag-of-words uses",
+          "word counts",
+          "while semantic models",
+          "use learned vectors"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "statistical-vs-semantic-text-representation",
+        "feedback_for_incorrect": {
+          "intrinsic": "The comparison would not clearly assign each representation its method.",
+          "instructional": "State bag-of-words first, then contrast it with semantic models using “while.”"
+        },
+        "item_key": "bag-of-words-classification/statistical-vs-semantic-text-representation/r3/v2",
+        "rung": 3
+      },
+      "correct_answer": "Bag-of-words uses word counts while semantic models use learned vectors",
+      "explanation": "The order creates a direct contrast: bag-of-words uses counts, while semantic models use learned vectors.",
+      "points": 1
+    },
+    {
+      "import_key": "bag-of-words-classification-l2-q8",
+      "question_type": "fill_blank",
+      "question_text": "A probabilistic classifier that applies Bayes' theorem to word-frequency patterns is ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "A probabilistic classifier that applies Bayes' theorem to word-frequency patterns is "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "Naive Bayes",
+              "naive bayes"
+            ],
+            "rejected_answers": [
+              "bag-of-words",
+              "sentiment analysis",
+              "document vector classification",
+              "bag-of-words-feature-extraction",
+              "classification-sentiment-summarization",
+              "document-vector-classification"
+            ],
+            "placeholder": "classifier name"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "bag-of-words",
+          "sentiment analysis",
+          "document vector classification",
+          "bag-of-words-feature-extraction",
+          "classification-sentiment-summarization",
+          "document-vector-classification"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "naive-bayes-bayes-theorem",
+        "feedback_for_incorrect": {
+          "intrinsic": "The selected label would name features or an outcome instead of a classifier.",
+          "instructional": "Bag-of-words provides counts; Naive Bayes is the probability-based classifier."
+        },
+        "item_key": "bag-of-words-classification/naive-bayes-bayes-theorem/r3/v2",
+        "rung": 3
+      },
+      "correct_answer": "[\"Naive Bayes\",\"naive bayes\"]",
+      "explanation": "Naive Bayes applies Bayes’ theorem to word-frequency patterns to estimate a probable class.",
+      "points": 1
+    },
+    {
+      "import_key": "bag-of-words-classification-l2-q9",
+      "question_type": "multiple_choice",
+      "question_text": "A documentation analyst must compare support tickets by meaning even when customers use different words for similar problems. Which representation should the analyst choose?",
+      "options": {
+        "options": [
+          {
+            "text": "Semantic model vectors",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Correct. Learned vectors support comparisons based on semantic relationships across different wording.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Bag-of-words counts",
+            "is_correct": false,
+            "error_type": "Confuses semantic relationships with frequencies",
+            "rationale": "Bag-of-words records word frequencies and does not directly represent learned meaning. Different wording may yield different counts.",
+            "better_fit": "Use bag-of-words for simple classification from word counts.",
+            "feedback": {
+              "intrinsic": "Similar issues could be separated because customers chose different words.",
+              "instructional": "For comparisons by meaning across varied wording, use semantic model vectors."
+            }
+          },
+          {
+            "text": "TF-IDF term scores",
+            "is_correct": false,
+            "error_type": "Confuses semantic comparison with term relevance",
+            "rationale": "TF-IDF identifies terms relevant to an item compared with a collection. It does not create learned semantic representations.",
+            "better_fit": "Use TF-IDF to identify terms that distinguish an item.",
+            "feedback": {
+              "intrinsic": "Distinctive terms could be found without connecting similar tickets.",
+              "instructional": "Semantic vectors are designed for meaning-based comparisons."
+            }
+          },
+          {
+            "text": "N-gram extraction",
+            "is_correct": false,
+            "error_type": "Confuses meaning representation with phrase extraction",
+            "rationale": "N-grams find multi-word phrases. Exact phrases do not compare varied wording by meaning.",
+            "better_fit": "Use n-grams when recurring phrases are the focus.",
+            "feedback": {
+              "intrinsic": "Tickets using different phrases for the same issue could remain apart.",
+              "instructional": "Use semantic vectors when the requirement is shared meaning despite different wording."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "single_choice",
+        "concept_id": "statistical-vs-semantic-text-representation",
+        "item_key": "bag-of-words-classification/statistical-vs-semantic-text-representation/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "0",
+      "explanation": "Correct—semantic vectors support comparisons based on meaning.",
+      "points": 1
+    },
+    {
+      "import_key": "bag-of-words-classification-l2-q10",
+      "question_type": "arrange_sentence",
+      "question_text": "Order the pieces to form the correct statement.",
+      "options": {
+        "word_bank": [
+          "word order",
+          "Bag-of-words sentiment features",
+          "or grammar",
+          "do not preserve"
+        ],
+        "correct_order": [
+          "Bag-of-words sentiment features",
+          "do not preserve",
+          "word order",
+          "or grammar"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "bag-of-words-sentiment",
+        "feedback_for_incorrect": {
+          "intrinsic": "The limitation of the feature representation would be unclear.",
+          "instructional": "Begin with the features, then state that they do not preserve order or grammar."
+        },
+        "item_key": "bag-of-words-classification/bag-of-words-sentiment/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "Bag-of-words sentiment features do not preserve word order or grammar",
+      "explanation": "Bag-of-words sentiment features are count-based, so they do not preserve word order or grammar.",
+      "points": 1
+    },
+    {
+      "import_key": "bag-of-words-classification-l2-q11",
+      "question_type": "multiple_choice",
+      "question_text": "A mail-system engineer has word counts for emails and must label each spam or not spam. Which actions fit? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Use Naive Bayes to estimate classes",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Correct. Naive Bayes estimates probable classes from word-frequency patterns.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Use the word counts as features",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Correct. Bag-of-words word counts can be classifier features.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Preserve grammar as the feature",
+            "is_correct": false,
+            "error_type": "Confuses counts with grammar",
+            "rationale": "Bag-of-words features are occurrences or frequencies. Grammar and order are ignored.",
+            "better_fit": "POS tagging fits tasks that need grammatical categories.",
+            "feedback": {
+              "intrinsic": "Mail labels would rely on information outside the stated word-count features.",
+              "instructional": "For bag-of-words classification, use word counts rather than grammar."
+            }
+          },
+          {
+            "text": "Generate an email summary",
+            "is_correct": false,
+            "error_type": "Confuses classification with summarization",
+            "rationale": "The required outcome is spam or not spam. A summary is not a class label.",
+            "better_fit": "Use summarization when the goal is to reduce content.",
+            "feedback": {
+              "intrinsic": "Each email could be shortened without receiving a spam label.",
+              "instructional": "Classification assigns categories; summarization produces a concise version."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "multi_choice",
+        "concept_id": "naive-bayes-bayes-theorem",
+        "item_key": "bag-of-words-classification/naive-bayes-bayes-theorem/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "[0,1]",
+      "explanation": "Correct—word counts can be features, and Naive Bayes can estimate the classes.",
+      "points": 1
+    },
+    {
+      "import_key": "bag-of-words-classification-l2-q12",
+      "question_type": "multiple_choice",
+      "question_text": "A customer-feedback analyst must label short social-media posts by emotional tone using word frequencies. Which results fit this task? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "A positive label",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Correct. Positive is an emotional-tone label.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A negative label",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Correct. Negative is an emotional-tone label.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A spam label",
+            "is_correct": false,
+            "error_type": "Confuses sentiment with spam filtering",
+            "rationale": "A spam label classifies email as spam or not spam. This task asks for emotional tone.",
+            "better_fit": "Use a spam label when filtering email.",
+            "feedback": {
+              "intrinsic": "A customer opinion could be treated as unwanted mail.",
+              "instructional": "Sentiment analysis uses positive or negative labels; spam filtering uses spam or not spam."
+            }
+          },
+          {
+            "text": "A summary paragraph",
+            "is_correct": false,
+            "error_type": "Confuses classification with summarization",
+            "rationale": "A summary paragraph reduces content. The task requires an emotional-tone label.",
+            "better_fit": "Use a summary paragraph when concise key points are needed.",
+            "feedback": {
+              "intrinsic": "The analyst could receive shorter posts without knowing their tone.",
+              "instructional": "Sentiment analysis is classification, so its result is a tone label."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "multi_choice",
+        "concept_id": "bag-of-words-sentiment",
+        "item_key": "bag-of-words-classification/bag-of-words-sentiment/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "[0,1]",
+      "explanation": "Correct—positive and negative are sentiment labels.",
+      "points": 1
+    }
+  ],
+  "flashcards": []
+}

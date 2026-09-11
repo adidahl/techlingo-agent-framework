@@ -1,0 +1,606 @@
+{
+  "import_key": "build-document-extraction-in-code-l2",
+  "title": "Build document extraction in code · Level 2",
+  "slo": "Describe how a client application submits and receives document analysis results.",
+  "exercises": [
+    {
+      "import_key": "build-document-extraction-in-code-l2-q1",
+      "question_type": "multiple_choice",
+      "question_text": "Which method starts an analysis in the Python SDK?",
+      "options": {
+        "options": [
+          {
+            "text": "begin_analyze",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "begin_analyze starts the long-running analysis. It returns a poller for the operation.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "poller.result",
+            "is_correct": false,
+            "error_type": "Confuses waiting for completion with starting analysis",
+            "rationale": "poller.result() waits for the started operation to complete. It does not begin a new request.",
+            "better_fit": "Use it after begin_analyze when waiting for completion.",
+            "feedback": {
+              "intrinsic": "There would be no started operation for the poller to wait on.",
+              "instructional": "Start with begin_analyze, then call poller.result() to wait."
+            }
+          },
+          {
+            "text": "AzureKeyCredential",
+            "is_correct": false,
+            "error_type": "Confuses authentication with analysis start",
+            "rationale": "AzureKeyCredential is used for key-based access. It does not start analysis.",
+            "better_fit": "Use it when creating a client with an API key.",
+            "feedback": {
+              "intrinsic": "The client could authenticate but would not begin processing the invoice.",
+              "instructional": "Authentication and starting analysis are separate: use begin_analyze to start."
+            }
+          },
+          {
+            "text": "ContentUnderstandingClient",
+            "is_correct": false,
+            "error_type": "Confuses client creation with analysis start",
+            "rationale": "ContentUnderstandingClient creates the client used to make requests. The method on that client starts analysis.",
+            "better_fit": "Use it before analysis when creating the client.",
+            "feedback": {
+              "intrinsic": "The app would be ready to request work but would not have requested it.",
+              "instructional": "Create the client first, then call begin_analyze."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "python-sdk-analysis",
+        "item_key": "build-document-extraction-in-code/python-sdk-analysis/r1/v2",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. begin_analyze starts the long-running analysis and returns its poller.",
+      "points": 1
+    },
+    {
+      "import_key": "build-document-extraction-in-code-l2-q2",
+      "question_type": "multiple_choice",
+      "question_text": "Which statements describe a client application? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "It runs on a user's device.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A client application runs on a user's device. It is the part users interact with.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It requests a service over a network.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A client requests data or actions from another service over a network. It receives a structured response.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It performs the intensive analysis work.",
+            "is_correct": false,
+            "error_type": "Confuses client work with server work",
+            "rationale": "The server performs the intensive analysis work behind the scenes. The client requests that work.",
+            "better_fit": "This describes the server's role after receiving the request.",
+            "feedback": {
+              "intrinsic": "The roles would be reversed, making it unclear where the analysis happens.",
+              "instructional": "The client requests analysis; the server does the intensive work."
+            }
+          },
+          {
+            "text": "It replaces the analyzer schema.",
+            "is_correct": false,
+            "error_type": "Confuses application role with analyzer configuration",
+            "rationale": "A schema defines the fields and structure to extract. A client application does not replace that definition.",
+            "better_fit": "A schema is used when defining what information an analyzer should extract.",
+            "feedback": {
+              "intrinsic": "The app would still lack a defined set of fields to return.",
+              "instructional": "The client sends the request, while the analyzer uses its schema."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "content-understanding-api-client",
+        "item_key": "build-document-extraction-in-code/content-understanding-api-client/r1/v2",
+        "rung": 1
+      },
+      "correct_answer": "[0,1]",
+      "explanation": "Correct. A client runs on a user's device and requests work over a network; the server does the intensive work.",
+      "points": 1
+    },
+    {
+      "import_key": "build-document-extraction-in-code-l2-q3",
+      "question_type": "fill_blank",
+      "question_text": "For key-based access, the Python client uses ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "For key-based access, the Python client uses "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "AzureKeyCredential"
+            ],
+            "rejected_answers": [
+              "ContentUnderstandingClient",
+              "begin_analyze",
+              "content-understanding-api-and-client",
+              "python-sdk-analysis"
+            ],
+            "placeholder": "class name"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "ContentUnderstandingClient",
+          "begin_analyze",
+          "content-understanding-api-and-client",
+          "python-sdk-analysis"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "endpoint-and-authentication",
+        "feedback_for_incorrect": {
+          "intrinsic": "The code would name a client or starting method instead of the item used with the key.",
+          "instructional": "Use AzureKeyCredential for key-based access. The client and begin_analyze have different roles."
+        },
+        "item_key": "build-document-extraction-in-code/endpoint-and-authentication/r3/v2",
+        "rung": 3
+      },
+      "correct_answer": "AzureKeyCredential",
+      "explanation": "AzureKeyCredential supplies key-based access for the client. ContentUnderstandingClient creates the client, and begin_analyze starts analysis.",
+      "points": 1
+    },
+    {
+      "import_key": "build-document-extraction-in-code-l2-q4",
+      "question_type": "arrange_sentence",
+      "question_text": "Arrange the parts to form the correct statement.",
+      "options": {
+        "word_bank": [
+          "from a server",
+          "The client",
+          "over a network",
+          "requests analysis"
+        ],
+        "correct_order": [
+          "The client",
+          "requests analysis",
+          "from a server",
+          "over a network"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "content-understanding-api-client",
+        "feedback_for_incorrect": {
+          "intrinsic": "The roles or connection details would be hard to follow.",
+          "instructional": "Start with who acts, then what it requests, then where the request goes and how."
+        },
+        "item_key": "build-document-extraction-in-code/content-understanding-api-client/r3/v2",
+        "rung": 3
+      },
+      "correct_answer": "The client requests analysis from a server over a network",
+      "explanation": "The client is the requester, and the server provides the intensive analysis. The network connects the request to the server.",
+      "points": 1
+    },
+    {
+      "import_key": "build-document-extraction-in-code-l2-q5",
+      "question_type": "multiple_choice",
+      "question_text": "A developer is building an app to extract fields from invoice PDFs. Which connection details can the app use? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "The Foundry resource endpoint",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The endpoint is needed because it is the service address. The app contacts that address.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "An API key",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "An API key is an authentication option. It can provide key-based access.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Microsoft Entra ID",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Microsoft Entra ID is another authentication option. It can be used instead of an API key.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "The invoice confidence value",
+            "is_correct": false,
+            "error_type": "Confuses returned field metadata with connection requirements",
+            "rationale": "A confidence value is returned with extracted field data. It is not an endpoint or authentication method.",
+            "better_fit": "Use it when reviewing the returned extraction result.",
+            "feedback": {
+              "intrinsic": "The app could not connect securely using a confidence value.",
+              "instructional": "Use the endpoint plus an API key or Microsoft Entra ID."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "multi_choice",
+        "concept_id": "endpoint-and-authentication",
+        "item_key": "build-document-extraction-in-code/endpoint-and-authentication/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. The app needs the endpoint and an authentication method; either an API key or Microsoft Entra ID can authenticate access.",
+      "points": 1
+    },
+    {
+      "import_key": "build-document-extraction-in-code-l2-q6",
+      "question_type": "multiple_choice",
+      "question_text": "An expense-claim team wants its desktop app to send scanned receipts for analysis automatically. What should the app use?",
+      "options": {
+        "options": [
+          {
+            "text": "The Content Understanding API",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The API supports programmatic submission from an application. That fits automatic receipt processing.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "The Foundry portal interface",
+            "is_correct": false,
+            "error_type": "Confuses portal testing with coded integration",
+            "rationale": "The portal supports visual testing and uploads. It does not provide the application's coded submission path.",
+            "better_fit": "Use it to validate an analyzer with sample material before automation.",
+            "feedback": {
+              "intrinsic": "Staff would still need to upload receipts manually.",
+              "instructional": "An app that sends receipts automatically should use the API."
+            }
+          },
+          {
+            "text": "An OCR result",
+            "is_correct": false,
+            "error_type": "Confuses analysis output with an integration method",
+            "rationale": "OCR helps recognize text during analysis. A result is not how an application submits content.",
+            "better_fit": "OCR fits recognizing printed text in a scanned receipt.",
+            "feedback": {
+              "intrinsic": "The app would have no request method for sending the receipt.",
+              "instructional": "Choose the API for submission; OCR is part of analyzing content."
+            }
+          },
+          {
+            "text": "A JSON response",
+            "is_correct": false,
+            "error_type": "Confuses returned data with a request mechanism",
+            "rationale": "JSON is structured data returned after processing. It does not initiate analysis.",
+            "better_fit": "Use it when handling returned fields in later work.",
+            "feedback": {
+              "intrinsic": "The app would be waiting for a response without having sent a request.",
+              "instructional": "The API starts the request; JSON can hold the returned result."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "single_choice",
+        "concept_id": "content-understanding-api-client",
+        "item_key": "build-document-extraction-in-code/content-understanding-api-client/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. The API is the programmatic route for an application to submit receipts.",
+      "points": 1
+    },
+    {
+      "import_key": "build-document-extraction-in-code-l2-q7",
+      "question_type": "fill_blank",
+      "question_text": "Repeatedly checking a long-running analysis job is called ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "Repeatedly checking a long-running analysis job is called "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "polling",
+              "poll"
+            ],
+            "rejected_answers": [
+              "transcription",
+              "OCR",
+              "python-sdk-analysis",
+              "analyzer-and-schema-reuse"
+            ],
+            "placeholder": "term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "transcription",
+          "OCR",
+          "python-sdk-analysis",
+          "analyzer-and-schema-reuse"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "asynchronous-analysis",
+        "feedback_for_incorrect": {
+          "intrinsic": "The response would describe content analysis, not the repeated completion check.",
+          "instructional": "Use polling or poll. Transcription and OCR are different kinds of analysis."
+        },
+        "item_key": "build-document-extraction-in-code/asynchronous-analysis/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "[\"polling\",\"poll\"]",
+      "explanation": "Polling is the repeated check used while an asynchronous job is running. Transcription and OCR analyze content rather than check job completion.",
+      "points": 1
+    },
+    {
+      "import_key": "build-document-extraction-in-code-l2-q8",
+      "question_type": "arrange_sentence",
+      "question_text": "Reconstruct the statement from the pieces.",
+      "options": {
+        "word_bank": [
+          "Get the poller",
+          "Create the client",
+          "Call poller.result",
+          "Call begin_analyze"
+        ],
+        "correct_order": [
+          "Create the client",
+          "Call begin_analyze",
+          "Get the poller",
+          "Call poller.result"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "python-sdk-analysis",
+        "feedback_for_incorrect": {
+          "intrinsic": "The code would try to use a client or poller before it exists.",
+          "instructional": "Create the client first, start analysis next, receive the poller, and then wait for its result."
+        },
+        "item_key": "build-document-extraction-in-code/python-sdk-analysis/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "Create the client Call begin_analyze Get the poller Call poller.result",
+      "explanation": "A client must exist before it can start analysis. Starting analysis returns a poller, and that poller is then used to wait for completion.",
+      "points": 1
+    },
+    {
+      "import_key": "build-document-extraction-in-code-l2-q9",
+      "question_type": "multiple_choice",
+      "question_text": "A company submits a scanned receipt for an expense claim, but the analysis is still running. What should its app do next?",
+      "options": {
+        "options": [
+          {
+            "text": "Poll the job until it succeeds.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The analysis is asynchronous and still running. Polling repeatedly checks it until it succeeds.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Submit the same receipt again.",
+            "is_correct": false,
+            "error_type": "Confuses polling with starting a new analysis",
+            "rationale": "Submitting again starts another analysis request. It does not check the job already running.",
+            "better_fit": "Submit content when starting analysis for the first time.",
+            "feedback": {
+              "intrinsic": "The team could create duplicate work on the same receipt.",
+              "instructional": "Keep checking the existing job until it succeeds."
+            }
+          },
+          {
+            "text": "Replace the analyzer schema.",
+            "is_correct": false,
+            "error_type": "Confuses job status with analyzer design",
+            "rationale": "A schema defines fields and structure. It does not complete a job already in progress.",
+            "better_fit": "Change a schema when the needed extracted fields or structure changes.",
+            "feedback": {
+              "intrinsic": "The original receipt job would still be running.",
+              "instructional": "Use polling for a running job; schema design is a separate activity."
+            }
+          },
+          {
+            "text": "Read fields immediately.",
+            "is_correct": false,
+            "error_type": "Confuses completed output with an unfinished job",
+            "rationale": "Fields are read from completed structured results. A running job is not ready to provide its final result.",
+            "better_fit": "Read fields after the job succeeds.",
+            "feedback": {
+              "intrinsic": "The expense team could act before the receipt values are ready.",
+              "instructional": "Poll first, then read the completed fields."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "single_choice",
+        "concept_id": "asynchronous-analysis",
+        "item_key": "build-document-extraction-in-code/asynchronous-analysis/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. Since the job is still running, the app should poll it until it succeeds.",
+      "points": 1
+    },
+    {
+      "import_key": "build-document-extraction-in-code-l2-q10",
+      "question_type": "fill_blank",
+      "question_text": "After invoice analysis completes, each content item can provide markdown and ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "After invoice analysis completes, each content item can provide markdown and "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "fields"
+            ],
+            "rejected_answers": [
+              "analyzerResults",
+              "Operation-Location URL",
+              "prebuilt-audio-sdk-flow",
+              "prebuilt-and-custom-analyzers"
+            ],
+            "placeholder": "term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "analyzerResults",
+          "Operation-Location URL",
+          "prebuilt-audio-sdk-flow",
+          "prebuilt-and-custom-analyzers"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "prebuilt-invoice-sdk-flow",
+        "feedback_for_incorrect": {
+          "intrinsic": "The response would point to job-checking information instead of the invoice values available after completion.",
+          "instructional": "Use fields for structured extracted values. Polling locations are used while waiting for the job."
+        },
+        "item_key": "build-document-extraction-in-code/prebuilt-invoice-sdk-flow/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "fields",
+      "explanation": "Completed content items can include markdown and extracted fields. analyzerResults and the Operation-Location URL are used to check an asynchronous operation rather than hold the content-item values.",
+      "points": 1
+    },
+    {
+      "import_key": "build-document-extraction-in-code-l2-q11",
+      "question_type": "multiple_choice",
+      "question_text": "A developer is coding an invoice-PDF extraction app with an API key. Which actions should the code take to start analysis and later receive its result? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Create ContentUnderstandingClient.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The code creates ContentUnderstandingClient with an endpoint and credential. That client is used to begin analysis.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Use AzureKeyCredential for the key.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "AzureKeyCredential supports key-based access. It is supplied when creating the client.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Call begin_analyze.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "begin_analyze starts the long-running analysis. It returns a poller that can later provide the result.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Read portal layout information.",
+            "is_correct": false,
+            "error_type": "Confuses SDK workflow with portal output",
+            "rationale": "Portal layout information is part of visual portal use. It is not required to start or receive a result in Python code.",
+            "better_fit": "Use it when inspecting a document through the portal interface.",
+            "feedback": {
+              "intrinsic": "The developer would spend time reviewing a portal display without advancing the coded request.",
+              "instructional": "For this code flow, create the client, authenticate with the key, and call begin_analyze."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "multi_choice",
+        "concept_id": "python-sdk-analysis",
+        "item_key": "build-document-extraction-in-code/python-sdk-analysis/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. These steps create and authenticate the client, then start the operation that later returns the result.",
+      "points": 1
+    },
+    {
+      "import_key": "build-document-extraction-in-code-l2-q12",
+      "question_type": "multiple_choice",
+      "question_text": "Luis needs to extract CustomerName and InvoiceDate from an invoice PDF at a web address. Which analyzer should his Python app choose?",
+      "options": {
+        "options": [
+          {
+            "text": "prebuilt-invoice",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The task is to analyze an invoice PDF and extract invoice fields. prebuilt-invoice is the matching prebuilt analyzer.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "prebuilt-audioSearch",
+            "is_correct": false,
+            "error_type": "Confuses document invoices with audio",
+            "rationale": "prebuilt-audioSearch is for audio files. Luis has an invoice PDF, not audio.",
+            "better_fit": "Use it for recorded calls or other audio content.",
+            "feedback": {
+              "intrinsic": "Luis would choose analysis for audio instead of obtaining the requested invoice fields.",
+              "instructional": "Choose prebuilt-invoice when the input is an invoice PDF."
+            }
+          },
+          {
+            "text": "prebuilt-videoSearch",
+            "is_correct": false,
+            "error_type": "Confuses document invoices with video",
+            "rationale": "prebuilt-videoSearch is for video analysis. It does not match an invoice PDF.",
+            "better_fit": "Use it when analyzing recorded meetings or other video files.",
+            "feedback": {
+              "intrinsic": "The invoice would be sent to analysis intended for a different kind of content.",
+              "instructional": "Match invoice PDFs with prebuilt-invoice."
+            }
+          },
+          {
+            "text": "A custom audio analyzer",
+            "is_correct": false,
+            "error_type": "Confuses invoice task with audio analyzer selection",
+            "rationale": "A custom audio analyzer is tailored to audio needs. Luis needs the prebuilt analyzer for invoices.",
+            "better_fit": "Use a custom analyzer when a tailored audio schema is needed.",
+            "feedback": {
+              "intrinsic": "Luis would move away from the available invoice-focused choice for the task.",
+              "instructional": "The prebuilt invoice analyzer directly fits invoice field extraction."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "single_choice",
+        "concept_id": "prebuilt-invoice-sdk-flow",
+        "item_key": "build-document-extraction-in-code/prebuilt-invoice-sdk-flow/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. prebuilt-invoice fits extracting CustomerName and InvoiceDate from an invoice PDF.",
+      "points": 1
+    }
+  ],
+  "flashcards": []
+}

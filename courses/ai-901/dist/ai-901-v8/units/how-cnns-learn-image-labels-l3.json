@@ -1,0 +1,503 @@
+{
+  "import_key": "how-cnns-learn-image-labels-l3",
+  "title": "How CNNs Learn Image Labels · Level 3",
+  "slo": "Describe how a CNN learns to classify a new image.",
+  "exercises": [
+    {
+      "import_key": "how-cnns-learn-image-labels-l3-q1",
+      "question_type": "multiple_choice",
+      "question_text": "Which statements about image classes and target outputs are correct?",
+      "options": {
+        "options": [
+          {
+            "text": "A class is a possible category",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "This is correct because a class is one possible category the model can predict. Apple, banana, and orange can each be classes.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Apple can be class 0",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "This is correct because class indices can assign apple to position 0. That position then corresponds to apple in outputs.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Orange can be class 2",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "This is correct because orange may be assigned class 2. Its target therefore uses the final position.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A target output is an image's filter kernel",
+            "is_correct": false,
+            "error_type": "Confuses target with kernel",
+            "rationale": "A filter kernel is a weighted array used to extract features. A target output represents the desired class pattern for a known image.",
+            "better_fit": "This would fit naming the weighted array applied during convolution.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "class-and-target-output",
+        "item_key": "how-cnns-learn-image-labels/class-and-target-output/r1/v2",
+        "rung": 1
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. Classes are possible categories, and known classes have corresponding target outputs.",
+      "points": 1
+    },
+    {
+      "import_key": "how-cnns-learn-image-labels-l3-q2",
+      "question_type": "multiple_choice",
+      "question_text": "What does softmax produce for image classes?",
+      "options": {
+        "options": [
+          {
+            "text": "One probability for each possible class",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "This is correct because softmax converts class scores into probabilities. Each possible class receives one probability value.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "One filter kernel for each image",
+            "is_correct": false,
+            "error_type": "Confuses output with filtering",
+            "rationale": "Filter kernels are weighted arrays used during feature extraction. Softmax instead acts on class scores at the output stage.",
+            "better_fit": "This would fit discussing weights used by convolutional filters.",
+            "feedback": null
+          },
+          {
+            "text": "One known label for each training image",
+            "is_correct": false,
+            "error_type": "Confuses prediction with label",
+            "rationale": "Known labels are supplied with training images. Softmax produces predicted probabilities rather than known labels.",
+            "better_fit": "This would fit describing labeled training data.",
+            "feedback": null
+          },
+          {
+            "text": "One loss value for each pixel",
+            "is_correct": false,
+            "error_type": "Confuses softmax with loss",
+            "rationale": "Loss measures prediction difference from actual labels, whereas softmax produces class probabilities. It is not a pixel-level loss calculation.",
+            "better_fit": "This would fit neither stage; loss is calculated from predictions and actual labels.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "fully-connected-network-and-softmax",
+        "item_key": "how-cnns-learn-image-labels/fully-connected-network-and-softmax/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. Softmax converts class scores into a probability for every possible class.",
+      "points": 1
+    },
+    {
+      "import_key": "how-cnns-learn-image-labels-l3-q3",
+      "question_type": "true_false",
+      "question_text": "CNN training changes weights to increase the loss between predictions and actual labels.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "loss-weights-and-epochs",
+        "feedback_for_incorrect": {
+          "intrinsic": "Predictions would move farther from actual categories instead of becoming more accurate.",
+          "instructional": "Loss measures prediction difference, and training adjusts weights to reduce that difference."
+        },
+        "item_key": "how-cnns-learn-image-labels/loss-weights-and-epochs/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct. Training changes weights to reduce loss.",
+      "points": 1
+    },
+    {
+      "import_key": "how-cnns-learn-image-labels-l3-q4",
+      "question_type": "multiple_choice",
+      "question_text": "For apple 0, banana 1, and orange 2, which description identifies the banana target output?",
+      "options": {
+        "options": [
+          {
+            "text": "It has 1.0 in the middle position and 0.0 elsewhere",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "This is correct because banana is class 1, the middle position. A target places 1.0 at the known class position.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It has 1.0 in the first position and 0.0 elsewhere",
+            "is_correct": false,
+            "error_type": "Selects apple target",
+            "rationale": "The first position represents class 0, apple. It would mark the image as apple rather than banana.",
+            "better_fit": "This would fit an apple image target.",
+            "feedback": null
+          },
+          {
+            "text": "It has 1.0 in the final position and 0.0 elsewhere",
+            "is_correct": false,
+            "error_type": "Selects orange target",
+            "rationale": "The final position represents class 2, orange. It would mark the image as orange rather than banana.",
+            "better_fit": "This would fit an orange image target.",
+            "feedback": null
+          },
+          {
+            "text": "It gives nonzero probabilities to all three classes",
+            "is_correct": false,
+            "error_type": "Confuses target with prediction",
+            "rationale": "A probability distribution is a model prediction rather than the known target. A known banana target uses 1.0 only at banana's class position.",
+            "better_fit": "This would fit a softmax prediction over three classes.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "class-and-target-output",
+        "item_key": "how-cnns-learn-image-labels/class-and-target-output/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. Banana is class 1, so its target has 1.0 in the middle position.",
+      "points": 1
+    },
+    {
+      "import_key": "how-cnns-learn-image-labels-l3-q5",
+      "question_type": "multiple_choice",
+      "question_text": "Which statements describe deep learning or CNNs?",
+      "options": {
+        "options": [
+          {
+            "text": "Deep learning uses neural networks with multiple layers",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "This is correct because multiple neural-network layers characterize deep learning. Those layers can learn increasingly useful patterns.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "CNN filters extract numeric image features",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "This is correct because CNN filters produce numeric representations of visual patterns. These features help distinguish image classes.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A CNN can predict labels for new images",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "This is correct because the model learns patterns from training examples. It then applies learned patterns to new images.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A CNN manually assigns known labels to training images",
+            "is_correct": false,
+            "error_type": "Confuses model with labeling process",
+            "rationale": "Known labels are prepared for training images rather than manually assigned by the CNN. The model learns by comparing predictions with those labels.",
+            "better_fit": "This would fit the work of a person preparing labeled training data.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "machine-learning-deep-learning-and-cnn",
+        "item_key": "how-cnns-learn-image-labels/machine-learning-deep-learning-and-cnn/r1/v2",
+        "rung": 1
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. Deep learning uses multilayer networks, and CNNs use filters before predicting labels.",
+      "points": 1
+    },
+    {
+      "import_key": "how-cnns-learn-image-labels-l3-q6",
+      "question_type": "fill_blank",
+      "question_text": "The measure of difference between predicted class scores and actual labels is called ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "The measure of difference between predicted class scores and actual labels is called "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "loss"
+            ],
+            "rejected_answers": [
+              "softmax",
+              "feature map",
+              "class",
+              "training-data-and-labels",
+              "fully-connected-network-and-softmax"
+            ],
+            "placeholder": "technical term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "softmax",
+          "feature map",
+          "class",
+          "training-data-and-labels",
+          "fully-connected-network-and-softmax"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "loss-weights-and-epochs",
+        "feedback_for_incorrect": {
+          "intrinsic": "The training loop would name a different component instead of its prediction-difference measure.",
+          "instructional": "Softmax creates probabilities, feature maps represent extracted features, and classes are categories. Loss measures prediction difference."
+        },
+        "item_key": "how-cnns-learn-image-labels/loss-weights-and-epochs/r3/v2",
+        "rung": 3
+      },
+      "correct_answer": "loss",
+      "explanation": "Loss measures the difference between predicted class scores and actual labels and guides weight changes.",
+      "points": 1
+    },
+    {
+      "import_key": "how-cnns-learn-image-labels-l3-q7",
+      "question_type": "true_false",
+      "question_text": "A machine learning model learns patterns from training data to make predictions for new data.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "machine-learning-deep-learning-and-cnn",
+        "feedback_for_incorrect": {
+          "intrinsic": "Without learned patterns, a new fruit image could not be classified from prior examples.",
+          "instructional": "Machine learning learns from training data and applies learned patterns to new data."
+        },
+        "item_key": "how-cnns-learn-image-labels/machine-learning-deep-learning-and-cnn/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. Training data provides patterns that support predictions for new data.",
+      "points": 1
+    },
+    {
+      "import_key": "how-cnns-learn-image-labels-l3-q8",
+      "question_type": "arrange_sentence",
+      "question_text": "Arrange the path from flattened features to class probabilities.",
+      "options": {
+        "word_bank": [
+          "class scores are produced",
+          "Flattened values enter",
+          "softmax gives probabilities",
+          "the connected network"
+        ],
+        "correct_order": [
+          "Flattened values enter",
+          "the connected network",
+          "class scores are produced",
+          "softmax gives probabilities"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "fully-connected-network-and-softmax",
+        "feedback_for_incorrect": {
+          "intrinsic": "The probability result would appear before the values needed to produce it.",
+          "instructional": "The correct sequence is network input, class scores, then softmax probabilities."
+        },
+        "item_key": "how-cnns-learn-image-labels/fully-connected-network-and-softmax/r3/v2",
+        "rung": 3
+      },
+      "correct_answer": "Flattened values enter the connected network class scores are produced softmax gives probabilities",
+      "explanation": "Flattened values enter the fully connected network, which produces scores before softmax gives probabilities.",
+      "points": 1
+    },
+    {
+      "import_key": "how-cnns-learn-image-labels-l3-q9",
+      "question_type": "multiple_choice",
+      "question_text": "Which actions are part of CNN feature extraction?",
+      "options": {
+        "options": [
+          {
+            "text": "Filters create numeric feature maps",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "This is correct because filters create numeric arrays called feature maps. The maps represent extracted visual features.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Pooling downsizes feature maps",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "This is correct because pooling reduces the size of feature maps. It can emphasize key visual features.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Flattening creates one one-dimensional feature array",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "This is correct because flattening converts feature-map values into one array. That array can be passed to a fully connected network.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Softmax creates feature maps",
+            "is_correct": false,
+            "error_type": "Confuses output with extraction",
+            "rationale": "Softmax creates class probabilities, not feature maps. Filters create feature maps earlier in the CNN.",
+            "better_fit": "This would fit converting class scores into probabilities.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "cnn-feature-extraction",
+        "item_key": "how-cnns-learn-image-labels/cnn-feature-extraction/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. Filters create maps, pooling can downsize them, and flattening prepares values for the network.",
+      "points": 1
+    },
+    {
+      "import_key": "how-cnns-learn-image-labels-l3-q10",
+      "question_type": "multiple_choice",
+      "question_text": "What is a label in a fruit image model?",
+      "options": {
+        "options": [
+          {
+            "text": "A text category for an image",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "This is correct because a label names an image category, such as apple or banana. It can be known during training or predicted later.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A numeric filter weight",
+            "is_correct": false,
+            "error_type": "Confuses labels with weights",
+            "rationale": "Weights are adjustable numeric parameters in filters and networks. A label names the image category instead.",
+            "better_fit": "This would fit a parameter changed during training.",
+            "feedback": null
+          },
+          {
+            "text": "A probability for a possible class",
+            "is_correct": false,
+            "error_type": "Confuses labels with probabilities",
+            "rationale": "A probability expresses the model's confidence in a possible class. A label is the category name itself.",
+            "better_fit": "This would fit a softmax output value.",
+            "feedback": null
+          },
+          {
+            "text": "A numeric feature map",
+            "is_correct": false,
+            "error_type": "Confuses labels with features",
+            "rationale": "A feature map is a numeric array created by CNN filters. A label is a category name, not extracted visual data.",
+            "better_fit": "This would fit the numeric output of a CNN filter.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "training-data-and-labels",
+        "item_key": "how-cnns-learn-image-labels/training-data-and-labels/r1/v2",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. A label names an image category.",
+      "points": 1
+    },
+    {
+      "import_key": "how-cnns-learn-image-labels-l3-q11",
+      "question_type": "fill_blank",
+      "question_text": "Arrays of numeric values created by CNN filters are called ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "Arrays of numeric values created by CNN filters are called "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "feature maps",
+              "feature map"
+            ],
+            "rejected_answers": [
+              "class scores",
+              "filter kernels",
+              "softmax",
+              "fully-connected-network-and-softmax",
+              "filter-kernels-and-convolution"
+            ],
+            "placeholder": "technical term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "class scores",
+          "filter kernels",
+          "softmax",
+          "fully-connected-network-and-softmax",
+          "filter-kernels-and-convolution"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "cnn-feature-extraction",
+        "feedback_for_incorrect": {
+          "intrinsic": "The filter output would be assigned the name of a different CNN component.",
+          "instructional": "A filter kernel is applied to an image, while the resulting numeric array is a feature map."
+        },
+        "item_key": "how-cnns-learn-image-labels/cnn-feature-extraction/r3/v2",
+        "rung": 3
+      },
+      "correct_answer": "[\"feature maps\",\"feature map\"]",
+      "explanation": "Filters extract visual features as numeric arrays called feature maps.",
+      "points": 1
+    },
+    {
+      "import_key": "how-cnns-learn-image-labels-l3-q12",
+      "question_type": "arrange_sentence",
+      "question_text": "Arrange these training-preparation steps in order.",
+      "options": {
+        "word_bank": [
+          "Feed images to network",
+          "Collect fruit images",
+          "Learn from examples",
+          "Add known labels"
+        ],
+        "correct_order": [
+          "Collect fruit images",
+          "Add known labels",
+          "Feed images to network",
+          "Learn from examples"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "training-data-and-labels",
+        "feedback_for_incorrect": {
+          "intrinsic": "The network would be asked to learn before it had labeled examples.",
+          "instructional": "Collect images first, label them, feed them to the network, and then let the network learn."
+        },
+        "item_key": "how-cnns-learn-image-labels/training-data-and-labels/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "Collect fruit images Add known labels Feed images to network Learn from examples",
+      "explanation": "Images need known labels before the network can learn from the examples.",
+      "points": 1
+    }
+  ],
+  "flashcards": []
+}

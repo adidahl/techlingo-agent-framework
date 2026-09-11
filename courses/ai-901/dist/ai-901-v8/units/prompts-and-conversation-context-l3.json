@@ -1,0 +1,470 @@
+{
+  "import_key": "prompts-and-conversation-context-l3",
+  "title": "Prompts and Conversation Context · Level 3",
+  "slo": "Distinguish prompt types and explain how a model continues a conversation.",
+  "exercises": [
+    {
+      "import_key": "prompts-and-conversation-context-l3-q1",
+      "question_type": "multiple_choice",
+      "question_text": "What is prompt engineering?",
+      "options": {
+        "options": [
+          {
+            "text": "Designing prompts for better responses",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Prompt engineering is the practice of designing prompts to improve responses. Both the model and the prompt affect quality.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Retrieving documents for prompts",
+            "is_correct": false,
+            "error_type": "Confuses prompting with RAG",
+            "rationale": "Retrieval augmented generation adds retrieved information to a prompt. It is not the general practice of designing prompts.",
+            "better_fit": "It fits RAG.",
+            "feedback": null
+          },
+          {
+            "text": "Setting an app's behavior rules",
+            "is_correct": false,
+            "error_type": "Confuses prompting with system guidance",
+            "rationale": "Behavior rules are set with a system prompt. Prompt engineering improves prompt wording and structure.",
+            "better_fit": "It fits a system prompt.",
+            "feedback": null
+          },
+          {
+            "text": "Predicting the next token",
+            "is_correct": false,
+            "error_type": "Confuses design with decoding",
+            "rationale": "Next-token prediction is how a decoder generates a completion. It is not how a person designs a prompt.",
+            "better_fit": "It fits next-token prediction.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "prompt-engineering",
+        "item_key": "prompts-and-conversation-context/prompt-engineering/r1/v2",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. Prompt engineering designs prompts for better results.",
+      "points": 1
+    },
+    {
+      "import_key": "prompts-and-conversation-context-l3-q2",
+      "question_type": "multiple_choice",
+      "question_text": "Which can be set by a system prompt? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "A cheerful response tone",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Tone is part of the broad guidance a system prompt can establish. It can apply across responses.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A rule the model must follow",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Constraints are rules for model behavior. A system prompt can set them.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A specific request for a summary",
+            "is_correct": false,
+            "error_type": "Confuses request with guidance",
+            "rationale": "A summary request asks for one particular response. That is a user-prompt function.",
+            "better_fit": "It fits a user prompt.",
+            "feedback": null
+          },
+          {
+            "text": "Earlier messages in a chat",
+            "is_correct": false,
+            "error_type": "Confuses guidance with history",
+            "rationale": "Earlier messages are conversation history. They provide context, not behavior rules.",
+            "better_fit": "It fits conversation history.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "system-prompt",
+        "item_key": "prompts-and-conversation-context/system-prompt/r1/v2",
+        "rung": 1
+      },
+      "correct_answer": "[0,1]",
+      "explanation": "Correct. System prompts can set tone and constraints.",
+      "points": 1
+    },
+    {
+      "import_key": "prompts-and-conversation-context-l3-q3",
+      "question_type": "true_false",
+      "question_text": "Response quality depends on both the language model and the prompts submitted to it.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "prompt-engineering",
+        "feedback_for_incorrect": {
+          "intrinsic": "A vague prompt may still yield an unhelpful result.",
+          "instructional": "Response quality depends on both the model and the submitted prompt."
+        },
+        "item_key": "prompts-and-conversation-context/prompt-engineering/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. Better prompt design can improve a capable model's results.",
+      "points": 1
+    },
+    {
+      "import_key": "prompts-and-conversation-context-l3-q4",
+      "question_type": "true_false",
+      "question_text": "A system prompt is normally the human user's specific question for the model.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "system-prompt",
+        "feedback_for_incorrect": {
+          "intrinsic": "Broad rules and one-time requests would be confused.",
+          "instructional": "System prompts set behavior; user prompts ask for specific responses."
+        },
+        "item_key": "prompts-and-conversation-context/system-prompt/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct. A specific human question is a user prompt.",
+      "points": 1
+    },
+    {
+      "import_key": "prompts-and-conversation-context-l3-q5",
+      "question_type": "multiple_choice",
+      "question_text": "What gives a follow-up question context from an earlier chat?",
+      "options": {
+        "options": [
+          {
+            "text": "Conversation history",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Conversation history includes earlier prompts and responses with later prompts. It gives follow-up questions ongoing context.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A system prompt",
+            "is_correct": false,
+            "error_type": "Confuses context with guidance",
+            "rationale": "A system prompt sets behavior, tone, and constraints. It does not carry prior-chat details.",
+            "better_fit": "It fits overall behavior guidance.",
+            "feedback": null
+          },
+          {
+            "text": "A user prompt",
+            "is_correct": false,
+            "error_type": "Confuses request with context",
+            "rationale": "A user prompt is the new question or instruction. It does not itself preserve prior discussion.",
+            "better_fit": "It fits asking the follow-up question.",
+            "feedback": null
+          },
+          {
+            "text": "Masked attention",
+            "is_correct": false,
+            "error_type": "Confuses context with training",
+            "rationale": "Masked attention is a decoder-training technique. It does not preserve chat messages.",
+            "better_fit": "It fits decoder training.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "conversation-history",
+        "item_key": "prompts-and-conversation-context/conversation-history/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. Conversation history provides prior context.",
+      "points": 1
+    },
+    {
+      "import_key": "prompts-and-conversation-context-l3-q6",
+      "question_type": "multiple_choice",
+      "question_text": "Which statements describe masked attention? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "It ignores tokens after the current token",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Masked attention hides tokens after the current position. This keeps predictions based on earlier tokens.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It is used while training the decoder",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Masked attention is used during decoder training on complete sequences. The known next token can then be used for comparison.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It sets response tone and constraints",
+            "is_correct": false,
+            "error_type": "Confuses attention with prompting",
+            "rationale": "Tone and constraints are response guidance. Masked attention is a decoder-training technique.",
+            "better_fit": "This describes a system prompt.",
+            "feedback": null
+          },
+          {
+            "text": "It retrieves company documents",
+            "is_correct": false,
+            "error_type": "Confuses attention with RAG",
+            "rationale": "Retrieval adds information to a prompt. Masked attention hides future tokens during training.",
+            "better_fit": "This describes retrieval augmented generation.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "masked-attention",
+        "item_key": "prompts-and-conversation-context/masked-attention/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "[0,1]",
+      "explanation": "Correct. Masked attention hides later tokens during decoder training.",
+      "points": 1
+    },
+    {
+      "import_key": "prompts-and-conversation-context-l3-q7",
+      "question_type": "arrange_sentence",
+      "question_text": "Arrange the conversation-context process.",
+      "options": {
+        "word_bank": [
+          "Include earlier context",
+          "Discuss a topic",
+          "Answer stays relevant",
+          "Ask a follow-up"
+        ],
+        "correct_order": [
+          "Discuss a topic",
+          "Ask a follow-up",
+          "Include earlier context",
+          "Answer stays relevant"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "conversation-history",
+        "feedback_for_incorrect": {
+          "intrinsic": "The follow-up may be answered without its needed topic.",
+          "instructional": "First discuss a topic, then ask a follow-up and include the earlier context."
+        },
+        "item_key": "prompts-and-conversation-context/conversation-history/r3/v2",
+        "rung": 3
+      },
+      "correct_answer": "Discuss a topic Ask a follow-up Include earlier context Answer stays relevant",
+      "explanation": "An earlier discussion gives a follow-up its context when that context is included.",
+      "points": 1
+    },
+    {
+      "import_key": "prompts-and-conversation-context-l3-q8",
+      "question_type": "fill_blank",
+      "question_text": "After comparing a prediction with the known next token, training adjusts the model's ___ to reduce error over later iterations.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "After comparing a prediction with the known next token, training adjusts the model's "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "learned weights",
+              "weights"
+            ],
+            "rejected_answers": [
+              "masked attention",
+              "attention",
+              "next-token prediction",
+              "next-token-prediction"
+            ],
+            "placeholder": "technical term"
+          },
+          {
+            "type": "text",
+            "text": " to reduce error over later iterations."
+          }
+        ],
+        "rejected_answers": [
+          "masked attention",
+          "attention",
+          "next-token prediction",
+          "next-token-prediction"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "masked-attention",
+        "feedback_for_incorrect": {
+          "intrinsic": "The sentence would not identify what training changes to improve future predictions.",
+          "instructional": "Training updates learned weights after measuring prediction error."
+        },
+        "item_key": "prompts-and-conversation-context/masked-attention/r3/v2",
+        "rung": 3
+      },
+      "correct_answer": "[\"learned weights\",\"weights\"]",
+      "explanation": "Masked-attention training compares predictions with known targets and adjusts learned weights to reduce error.",
+      "points": 1
+    },
+    {
+      "import_key": "prompts-and-conversation-context-l3-q9",
+      "question_type": "fill_blank",
+      "question_text": "The decoder repeatedly selects the most probable next ___ in a sequence.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "The decoder repeatedly selects the most probable next "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "token",
+              "tokens"
+            ],
+            "rejected_answers": [
+              "masked attention",
+              "attention",
+              "predictive-text-completions",
+              "masked-attention"
+            ],
+            "placeholder": "technical term"
+          },
+          {
+            "type": "text",
+            "text": " in a sequence."
+          }
+        ],
+        "rejected_answers": [
+          "masked attention",
+          "attention",
+          "predictive-text-completions",
+          "masked-attention"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "next-token-prediction",
+        "feedback_for_incorrect": {
+          "intrinsic": "The missing term would not name the item added to the sequence.",
+          "instructional": "A token is the unit predicted next."
+        },
+        "item_key": "prompts-and-conversation-context/next-token-prediction/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "[\"token\",\"tokens\"]",
+      "explanation": "A decoder builds a completion by predicting one token at a time.",
+      "points": 1
+    },
+    {
+      "import_key": "prompts-and-conversation-context-l3-q10",
+      "question_type": "multiple_choice",
+      "question_text": "What is a user prompt?",
+      "options": {
+        "options": [
+          {
+            "text": "A specific question or instruction",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A user prompt asks for a response to a particular question or instruction. It is input to the model.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Overall behavior set by an app",
+            "is_correct": false,
+            "error_type": "Confuses prompt types",
+            "rationale": "Overall behavior is broad guidance. A user prompt instead asks for a particular response.",
+            "better_fit": "It fits a system prompt.",
+            "feedback": null
+          },
+          {
+            "text": "A record of earlier messages",
+            "is_correct": false,
+            "error_type": "Confuses request with history",
+            "rationale": "A record of earlier messages is conversation history. It provides context for later prompts.",
+            "better_fit": "It fits conversation history.",
+            "feedback": null
+          },
+          {
+            "text": "A predicted next token",
+            "is_correct": false,
+            "error_type": "Confuses input with output",
+            "rationale": "A predicted token is generated in a completion. A user prompt is model input.",
+            "better_fit": "It fits next-token prediction.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "user-prompt",
+        "item_key": "prompts-and-conversation-context/user-prompt/r1/v2",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. A user prompt is a specific request.",
+      "points": 1
+    },
+    {
+      "import_key": "prompts-and-conversation-context-l3-q11",
+      "question_type": "arrange_sentence",
+      "question_text": "Arrange the steps of next-token prediction.",
+      "options": {
+        "word_bank": [
+          "Use expanded sequence",
+          "Predict a token",
+          "Stop at sequence end",
+          "Add it to sequence"
+        ],
+        "correct_order": [
+          "Predict a token",
+          "Add it to sequence",
+          "Use expanded sequence",
+          "Stop at sequence end"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "next-token-prediction",
+        "feedback_for_incorrect": {
+          "intrinsic": "The next prediction would lack the newly generated context.",
+          "instructional": "Predict, add the token, then use the expanded sequence until an end is predicted."
+        },
+        "item_key": "prompts-and-conversation-context/next-token-prediction/r3/v2",
+        "rung": 3
+      },
+      "correct_answer": "Predict a token Add it to sequence Use expanded sequence Stop at sequence end",
+      "explanation": "The predicted token is added to the sequence, which becomes context for the next prediction.",
+      "points": 1
+    },
+    {
+      "import_key": "prompts-and-conversation-context-l3-q12",
+      "question_type": "true_false",
+      "question_text": "A person or an application can create a user prompt.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "user-prompt",
+        "feedback_for_incorrect": {
+          "intrinsic": "Valid application-created requests would be overlooked.",
+          "instructional": "User prompts may be created by a person or by an application."
+        },
+        "item_key": "prompts-and-conversation-context/user-prompt/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. An application can generate a user prompt on a person's behalf.",
+      "points": 1
+    }
+  ],
+  "flashcards": []
+}

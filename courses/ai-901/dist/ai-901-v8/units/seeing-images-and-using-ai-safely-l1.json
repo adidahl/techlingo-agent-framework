@@ -1,0 +1,486 @@
+{
+  "import_key": "seeing-images-and-using-ai-safely-l1",
+  "title": "Seeing images and using AI safely · Level 1",
+  "slo": "Distinguish major computer-vision tasks and explain the purpose of AI guardrails.",
+  "exercises": [
+    {
+      "import_key": "seeing-images-and-using-ai-safely-l1-q1",
+      "question_type": "multiple_choice",
+      "question_text": "Which statements describe semantic segmentation? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "It identifies pixels belonging to an object.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Semantic segmentation identifies the individual pixels belonging to an object. This gives pixel-level detail.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It extends object detection beyond a box.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Semantic segmentation is an advanced form of object detection. It goes beyond a box by identifying object pixels.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It predicts one subject label only.",
+            "is_correct": false,
+            "error_type": "Classification confusion",
+            "rationale": "One main-subject label describes image classification. Segmentation produces pixel-level object information.",
+            "better_fit": "Use it when one image category is sufficient.",
+            "feedback": {
+              "intrinsic": "This would discard the needed pixel detail.",
+              "instructional": "Semantic segmentation identifies object pixels."
+            }
+          },
+          {
+            "text": "It only draws a box around an object.",
+            "is_correct": false,
+            "error_type": "Detection confusion",
+            "rationale": "A box is associated with basic object detection. Semantic segmentation identifies pixels rather than only a box.",
+            "better_fit": "Use it when an object's location is sufficient.",
+            "feedback": {
+              "intrinsic": "This would lose the precise boundary.",
+              "instructional": "Segmentation goes beyond a location box."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "semantic-segmentation",
+        "item_key": "seeing-images-and-using-ai-safely/semantic-segmentation/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "[0,1]",
+      "explanation": "Correct—semantic segmentation provides pixel-level object detail.",
+      "points": 1
+    },
+    {
+      "import_key": "seeing-images-and-using-ai-safely-l1-q2",
+      "question_type": "multiple_choice",
+      "question_text": "What area of AI analyzes photos, videos, and live camera feeds?",
+      "options": {
+        "options": [
+          {
+            "text": "Computer vision",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Computer vision is the broad AI area for analyzing visual input. That input includes photos, videos, and live camera feeds.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Information extraction",
+            "is_correct": false,
+            "error_type": "Visual-analysis confusion",
+            "rationale": "Information extraction finds specific details in content rather than broadly analyzing visual input. It does not name the overall AI area for images and video.",
+            "better_fit": "Use it when extracting fields such as receipt totals or serial numbers.",
+            "feedback": {
+              "intrinsic": "This would focus on isolated details rather than visual analysis.",
+              "instructional": "Computer vision is the broad area for analyzing visual input."
+            }
+          },
+          {
+            "text": "Multi-modal model",
+            "is_correct": false,
+            "error_type": "Model-type confusion",
+            "rationale": "A multi-modal model is a particular model type that combines visual features with text. It is not the broad area that includes all visual analysis.",
+            "better_fit": "Use it when image features and related text must produce a detailed description.",
+            "feedback": {
+              "intrinsic": "This would name a narrower model type.",
+              "instructional": "Computer vision is the broader visual-analysis field."
+            }
+          },
+          {
+            "text": "Image classification",
+            "is_correct": false,
+            "error_type": "Task-versus-field confusion",
+            "rationale": "Image classification is one task within computer vision. It predicts a main-subject label instead of naming the whole field.",
+            "better_fit": "Use it when an image needs one main-subject label.",
+            "feedback": {
+              "intrinsic": "This would narrow the goal to labeling.",
+              "instructional": "Image classification is a computer-vision task."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "computer-vision-definition",
+        "item_key": "seeing-images-and-using-ai-safely/computer-vision-definition/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct—computer vision analyzes visual input.",
+      "points": 1
+    },
+    {
+      "import_key": "seeing-images-and-using-ai-safely-l1-q3",
+      "question_type": "true_false",
+      "question_text": "Semantic segmentation identifies the individual pixels that belong to an object.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "semantic-segmentation",
+        "feedback_for_incorrect": {
+          "intrinsic": "Choosing false would remove the key pixel-level distinction.",
+          "instructional": "Semantic segmentation identifies individual object pixels."
+        },
+        "item_key": "seeing-images-and-using-ai-safely/semantic-segmentation/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct—pixel-level identification is its defining feature.",
+      "points": 1
+    },
+    {
+      "import_key": "seeing-images-and-using-ai-safely-l1-q4",
+      "question_type": "true_false",
+      "question_text": "Computer vision analyzes only written text and not visual input.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "computer-vision-definition",
+        "feedback_for_incorrect": {
+          "intrinsic": "Choosing true would route a visual task to language analysis.",
+          "instructional": "Computer vision analyzes photos, videos, and camera feeds."
+        },
+        "item_key": "seeing-images-and-using-ai-safely/computer-vision-definition/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct—computer vision works with visual input.",
+      "points": 1
+    },
+    {
+      "import_key": "seeing-images-and-using-ai-safely-l1-q5",
+      "question_type": "multiple_choice",
+      "question_text": "Which statements describe image classification? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "It trains on images labeled by main subject.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Image classification uses training images labeled with their main subject. Those labels provide the categories it learns.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It predicts a subject label for a new image.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Its output is the most appropriate main-subject label for an unlabeled image. This is the central classification task.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It locates specific objects.",
+            "is_correct": false,
+            "error_type": "Detection confusion",
+            "rationale": "Locating objects describes object detection. Classification provides a label rather than object locations.",
+            "better_fit": "Use this when the image must show where objects appear.",
+            "feedback": {
+              "intrinsic": "This would replace labeling with location finding.",
+              "instructional": "Classification answers the main subject; detection answers where objects are."
+            }
+          },
+          {
+            "text": "It identifies object pixels.",
+            "is_correct": false,
+            "error_type": "Segmentation confusion",
+            "rationale": "Identifying individual pixels describes semantic segmentation. Classification does not produce pixel-level boundaries.",
+            "better_fit": "Use this when exact object boundaries are required.",
+            "feedback": {
+              "intrinsic": "This would demand more detail than a subject label.",
+              "instructional": "Semantic segmentation, not classification, identifies pixels."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "image-classification",
+        "item_key": "seeing-images-and-using-ai-safely/image-classification/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "[0,1]",
+      "explanation": "Correct—classification learns subject labels and predicts one for a new image.",
+      "points": 1
+    },
+    {
+      "import_key": "seeing-images-and-using-ai-safely-l1-q6",
+      "question_type": "multiple_choice",
+      "question_text": "What combines visual features with text descriptions to generate comprehensive image descriptions?",
+      "options": {
+        "options": [
+          {
+            "text": "A multi-modal model",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A multi-modal model combines visual features with associated text descriptions. It can generate comprehensive descriptions of images.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Image classification",
+            "is_correct": false,
+            "error_type": "Label-versus-description confusion",
+            "rationale": "Image classification produces a main-subject label. It does not combine visual features with text for a comprehensive description.",
+            "better_fit": "Use it when one image label is needed.",
+            "feedback": {
+              "intrinsic": "The photo would receive only a label.",
+              "instructional": "Detailed image descriptions call for a multi-modal model."
+            }
+          },
+          {
+            "text": "Object detection",
+            "is_correct": false,
+            "error_type": "Location-versus-description confusion",
+            "rationale": "Object detection identifies object locations. It does not generate comprehensive image descriptions.",
+            "better_fit": "Use it when object positions are needed.",
+            "feedback": {
+              "intrinsic": "Locations would not provide the requested description.",
+              "instructional": "Multi-modal models support comprehensive descriptions."
+            }
+          },
+          {
+            "text": "Computer vision",
+            "is_correct": false,
+            "error_type": "Field-versus-model confusion",
+            "rationale": "Computer vision is the broad area of visual analysis. The question asks for the specific model type that joins visual and textual information.",
+            "better_fit": "Use it when naming the broad visual-analysis field.",
+            "feedback": {
+              "intrinsic": "This would not identify the required model type.",
+              "instructional": "A multi-modal model is the specific answer."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "multimodal-vision",
+        "item_key": "seeing-images-and-using-ai-safely/multimodal-vision/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct—a multi-modal model joins visual and textual information.",
+      "points": 1
+    },
+    {
+      "import_key": "seeing-images-and-using-ai-safely-l1-q7",
+      "question_type": "true_false",
+      "question_text": "Image classification learns from images labeled with their main subject.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "image-classification",
+        "feedback_for_incorrect": {
+          "intrinsic": "Choosing false removes the labels needed to connect images to subjects.",
+          "instructional": "Image classification trains on images labeled by main subject."
+        },
+        "item_key": "seeing-images-and-using-ai-safely/image-classification/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct—main-subject labels are used in training.",
+      "points": 1
+    },
+    {
+      "import_key": "seeing-images-and-using-ai-safely-l1-q8",
+      "question_type": "true_false",
+      "question_text": "A multi-modal model identifies only the location of specific objects in an image.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "multimodal-vision",
+        "feedback_for_incorrect": {
+          "intrinsic": "Choosing true would limit a description model to locations.",
+          "instructional": "Multi-modal models combine visual features with text descriptions."
+        },
+        "item_key": "seeing-images-and-using-ai-safely/multimodal-vision/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct—that narrow location task is object detection.",
+      "points": 1
+    },
+    {
+      "import_key": "seeing-images-and-using-ai-safely-l1-q9",
+      "question_type": "multiple_choice",
+      "question_text": "Which computer-vision task identifies where specific objects appear in an image?",
+      "options": {
+        "options": [
+          {
+            "text": "Object detection",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Object detection identifies specific objects and their locations in an image. Location is its defining output.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Image classification",
+            "is_correct": false,
+            "error_type": "Label-versus-location confusion",
+            "rationale": "Image classification predicts a main-subject label. It does not show object positions.",
+            "better_fit": "Use it when one main image label is needed.",
+            "feedback": {
+              "intrinsic": "The image would be labeled but object positions would be absent.",
+              "instructional": "Object detection is for locations."
+            }
+          },
+          {
+            "text": "Semantic segmentation",
+            "is_correct": false,
+            "error_type": "Pixel-versus-location confusion",
+            "rationale": "Semantic segmentation identifies individual object pixels. It is more detailed than merely locating an object.",
+            "better_fit": "Use it when exact pixels belonging to an object are needed.",
+            "feedback": {
+              "intrinsic": "This would request pixel boundaries rather than locations.",
+              "instructional": "Object detection identifies locations."
+            }
+          },
+          {
+            "text": "Multi-modal model",
+            "is_correct": false,
+            "error_type": "Description-versus-location confusion",
+            "rationale": "A multi-modal model produces comprehensive descriptions using visual features and text. It is not defined by object positions.",
+            "better_fit": "Use it for detailed written image descriptions.",
+            "feedback": {
+              "intrinsic": "The output could be descriptive without locating objects.",
+              "instructional": "Choose object detection when location is essential."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "object-detection",
+        "item_key": "seeing-images-and-using-ai-safely/object-detection/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct—object detection identifies object locations.",
+      "points": 1
+    },
+    {
+      "import_key": "seeing-images-and-using-ai-safely-l1-q10",
+      "question_type": "multiple_choice",
+      "question_text": "Which statements describe responsible AI? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "It uses guardrails to reduce harmful risks.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Responsible AI uses guardrails to reduce the risk of harmful, illegal, or offensive content and actions. Risk reduction is central to the concept.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It considers risks through operation.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Responsible AI must be considered from conception through operation. It is not a one-time implementation step.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It relies only on content filters.",
+            "is_correct": false,
+            "error_type": "Single-safeguard confusion",
+            "rationale": "Content filters are one safeguard, not the whole responsible-AI approach. Broader guardrails are needed throughout the lifecycle.",
+            "better_fit": "Use content filters when naming one safeguard for harmful content.",
+            "feedback": {
+              "intrinsic": "Important risks could remain unaddressed.",
+              "instructional": "Responsible AI requires more than content filters alone."
+            }
+          },
+          {
+            "text": "It removes the need for governance.",
+            "is_correct": false,
+            "error_type": "Accountability confusion",
+            "rationale": "Responsible AI requires accountability for how systems are designed and operated. Guardrails do not remove governance needs.",
+            "better_fit": "There is no responsible-AI situation where governance is unnecessary.",
+            "feedback": {
+              "intrinsic": "Responsibilities would be left unmanaged.",
+              "instructional": "Responsible AI includes accountable, lifecycle-wide practice."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "responsible-ai-guardrails",
+        "item_key": "seeing-images-and-using-ai-safely/responsible-ai-guardrails/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "[0,1]",
+      "explanation": "Correct—responsible AI uses guardrails throughout the lifecycle.",
+      "points": 1
+    },
+    {
+      "import_key": "seeing-images-and-using-ai-safely-l1-q11",
+      "question_type": "true_false",
+      "question_text": "Object detection predicts one main subject label for an image.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "object-detection",
+        "feedback_for_incorrect": {
+          "intrinsic": "Choosing true would replace locations with one broad label.",
+          "instructional": "Object detection identifies locations of specific objects."
+        },
+        "item_key": "seeing-images-and-using-ai-safely/object-detection/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct—that is image classification.",
+      "points": 1
+    },
+    {
+      "import_key": "seeing-images-and-using-ai-safely-l1-q12",
+      "question_type": "true_false",
+      "question_text": "Content filters are one safeguard for reducing harmful content generation.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "responsible-ai-guardrails",
+        "feedback_for_incorrect": {
+          "intrinsic": "Choosing false omits a useful safeguard.",
+          "instructional": "Content filters are one part of responsible AI."
+        },
+        "item_key": "seeing-images-and-using-ai-safely/responsible-ai-guardrails/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct—content filters can reduce harmful generated content.",
+      "points": 1
+    }
+  ],
+  "flashcards": [
+    {
+      "import_key": "seeing-images-and-using-ai-safely-l1-f0",
+      "front": "What is computer vision?",
+      "back": "AI that analyzes photos, videos, and live camera feeds.",
+      "hint": "Think visual input."
+    },
+    {
+      "import_key": "seeing-images-and-using-ai-safely-l1-f1",
+      "front": "What does image classification predict?",
+      "back": "The most appropriate main-subject label for an image.",
+      "hint": "One subject label."
+    },
+    {
+      "import_key": "seeing-images-and-using-ai-safely-l1-f2",
+      "front": "What does object detection find?",
+      "back": "The locations of specific objects in an image.",
+      "hint": "Think where."
+    },
+    {
+      "import_key": "seeing-images-and-using-ai-safely-l1-f3",
+      "front": "What is semantic segmentation?",
+      "back": "Vision that identifies the individual pixels belonging to an object.",
+      "hint": "Think pixels."
+    }
+  ]
+}

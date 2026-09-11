@@ -1,0 +1,540 @@
+{
+  "import_key": "recognizing-words-from-speech-l3",
+  "title": "Recognizing words from speech · Level 3",
+  "slo": "Explain how speech recognition selects readable text from audio.",
+  "exercises": [
+    {
+      "import_key": "recognizing-words-from-speech-l3-q1",
+      "question_type": "multiple_choice",
+      "question_text": "Which values could appear in a phoneme probability distribution? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "80% for /æ/",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A phoneme can receive an 80% likelihood for a frame. This is one value in a probability distribution.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "15% for /ɛ/",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A second phoneme can receive a lower likelihood. Multiple likelihoods express uncertainty about the sound.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "5% for other phonemes",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Remaining possible phonemes can share a smaller likelihood. Together, the likelihoods form the distribution.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "100% for final text",
+            "is_correct": false,
+            "error_type": "Confuses phoneme probabilities with decoded text",
+            "rationale": "A probability distribution is over phonemes for an audio frame, not final text. Decoding chooses a full text hypothesis later.",
+            "better_fit": "Final text fits decoding, after acoustic and language predictions are considered.",
+            "feedback": {
+              "intrinsic": "One frame could be mistaken for a completed transcription.",
+              "instructional": "Keep frame-level phoneme likelihoods separate from the later text-decoding result."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "phoneme-probability-output",
+        "item_key": "recognizing-words-from-speech/phoneme-probability-output/r1/v2",
+        "rung": 1
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. Different phonemes can receive different likelihoods for the same audio frame.",
+      "points": 1
+    },
+    {
+      "import_key": "recognizing-words-from-speech-l3-q2",
+      "question_type": "multiple_choice",
+      "question_text": "What is domain adaptation for a language model?",
+      "options": {
+        "options": [
+          {
+            "text": "Customize vocabulary for a field",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Domain adaptation adds specialized vocabulary and patterns for a field. Medical or legal terminology can then be recognized more accurately.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Record audio at 16 kHz",
+            "is_correct": false,
+            "error_type": "Confuses language adaptation with audio capture",
+            "rationale": "Sampling at 16 kHz is part of capturing analog audio digitally. It does not customize vocabulary or language patterns.",
+            "better_fit": "Recording at 16 kHz fits audio capture for speech recognition.",
+            "feedback": {
+              "intrinsic": "A vocabulary gap could remain even when audio is sampled clearly.",
+              "instructional": "Domain adaptation changes specialized language knowledge, not the recording rate."
+            }
+          },
+          {
+            "text": "Predict phonemes from MFCCs",
+            "is_correct": false,
+            "error_type": "Confuses language modeling with acoustic modeling",
+            "rationale": "Predicting phonemes from MFCC features is acoustic modeling. Domain adaptation changes a language model's specialized vocabulary and patterns.",
+            "better_fit": "Phoneme prediction from MFCCs fits acoustic modeling.",
+            "feedback": {
+              "intrinsic": "Specialized words could still be missed because the wrong stage was changed.",
+              "instructional": "Use domain adaptation for medical or legal word patterns; acoustic modeling handles sound features."
+            }
+          },
+          {
+            "text": "Format numbers in final text",
+            "is_correct": false,
+            "error_type": "Confuses domain adaptation with post-processing",
+            "rationale": "Formatting numbers is a post-processing task after decoding. Domain adaptation improves word-sequence selection for a specialized field.",
+            "better_fit": "Number formatting fits post-processing.",
+            "feedback": {
+              "intrinsic": "The transcript could look polished while specialized terms remain incorrectly chosen.",
+              "instructional": "Domain adaptation improves the language model's vocabulary and patterns, not final formatting."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "language-model-and-domain-adaptation",
+        "item_key": "recognizing-words-from-speech/language-model-and-domain-adaptation/r1/v2",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. Domain adaptation customizes a language model with vocabulary and patterns for a specialized field.",
+      "points": 1
+    },
+    {
+      "import_key": "recognizing-words-from-speech-l3-q3",
+      "question_type": "true_false",
+      "question_text": "An acoustic transformer can use surrounding frames to help resolve an unclear phoneme.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "transformer-acoustic-prediction",
+        "feedback_for_incorrect": {
+          "intrinsic": "An unclear sound would be judged without helpful nearby audio context.",
+          "instructional": "Attention allows an acoustic transformer to examine surrounding frames and resolve ambiguity."
+        },
+        "item_key": "recognizing-words-from-speech/transformer-acoustic-prediction/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. Attention uses surrounding frames as context when a phoneme is unclear.",
+      "points": 1
+    },
+    {
+      "import_key": "recognizing-words-from-speech-l3-q4",
+      "question_type": "true_false",
+      "question_text": "A language model can use context to choose “weather” instead of “whether” in a sentence.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "language-model-and-domain-adaptation",
+        "feedback_for_incorrect": {
+          "intrinsic": "A sentence could keep a word that sounds right but does not fit its meaning.",
+          "instructional": "Language models use context, vocabulary, and grammar to resolve words such as “weather” and “whether.”"
+        },
+        "item_key": "recognizing-words-from-speech/language-model-and-domain-adaptation/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. Context helps select the word sequence that best fits the sentence.",
+      "points": 1
+    },
+    {
+      "import_key": "recognizing-words-from-speech-l3-q5",
+      "question_type": "multiple_choice",
+      "question_text": "What does an acoustic model connect to phonemes?",
+      "options": {
+        "options": [
+          {
+            "text": "Audio features",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Audio features describe important characteristics of speech sounds. An acoustic model learns how those features relate to likely phonemes.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Word grammar",
+            "is_correct": false,
+            "error_type": "Confuses acoustic modeling with language modeling",
+            "rationale": "Grammar helps choose sensible word sequences, not identify speech sounds. Audio features are the input used for phoneme prediction.",
+            "better_fit": "Grammar belongs in language modeling, where it helps resolve possible word sequences.",
+            "feedback": {
+              "intrinsic": "A spoken sound could be matched using sentence rules instead of its sound pattern.",
+              "instructional": "Keep the stages separate: acoustic modeling links audio features to phonemes; language modeling uses grammar."
+            }
+          },
+          {
+            "text": "Written letters",
+            "is_correct": false,
+            "error_type": "Confuses phoneme recognition with grapheme-to-phoneme conversion",
+            "rationale": "Written letters are not the audio features used in recognition. Letters are mapped to phonemes during grapheme-to-phoneme conversion for speech synthesis.",
+            "better_fit": "Written letters fit G2P conversion, which prepares text for speech synthesis.",
+            "feedback": {
+              "intrinsic": "The spoken input would be treated as if it were already written down.",
+              "instructional": "An acoustic model starts with audio features and predicts phonemes from them."
+            }
+          },
+          {
+            "text": "Final punctuation",
+            "is_correct": false,
+            "error_type": "Confuses acoustic modeling with post-processing",
+            "rationale": "Punctuation is added after words have been selected and decoded. Acoustic modeling happens earlier and predicts phoneme likelihoods.",
+            "better_fit": "Final punctuation fits post-processing, which improves transcript readability.",
+            "feedback": {
+              "intrinsic": "The transcription could be cleaned up before its sounds have been recognized.",
+              "instructional": "First predict phonemes from audio features; punctuation can be restored later."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "acoustic-model-and-phonemes",
+        "item_key": "recognizing-words-from-speech/acoustic-model-and-phonemes/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. Audio features are the compact sound information an acoustic model uses to predict phonemes.",
+      "points": 1
+    },
+    {
+      "import_key": "recognizing-words-from-speech-l3-q6",
+      "question_type": "multiple_choice",
+      "question_text": "Which actions are part of beam search? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Keep strong candidates",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Beam search keeps top-scoring partial transcriptions. These are its strong candidates.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Extend each hypothesis",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "At each step, beam search extends candidate hypotheses with likely next words. This explores possible continuations.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Remove weaker paths",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Low-scoring paths are pruned as decoding continues. This leaves room for stronger candidates.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Create MFCC features",
+            "is_correct": false,
+            "error_type": "Confuses decoding with pre-processing",
+            "rationale": "MFCC feature extraction occurs during pre-processing before acoustic modeling. Beam search occurs later during decoding.",
+            "better_fit": "Creating MFCC features fits pre-processing.",
+            "feedback": {
+              "intrinsic": "The word-search step could be confused with preparing audio features.",
+              "instructional": "Beam search extends and prunes text hypotheses; pre-processing creates MFCC features earlier."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "beam-search-decoding",
+        "item_key": "recognizing-words-from-speech/beam-search-decoding/r1/v2",
+        "rung": 1
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. Beam search extends strong hypotheses and prunes weaker paths.",
+      "points": 1
+    },
+    {
+      "import_key": "recognizing-words-from-speech-l3-q7",
+      "question_type": "fill_blank",
+      "question_text": "A transformer’s ___ examines surrounding frames to resolve ambiguity.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "A transformer’s "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "attention mechanism",
+              "attention"
+            ],
+            "rejected_answers": [
+              "language model",
+              "beam search",
+              "vocoder",
+              "transformer-prosody-prediction",
+              "acoustic-model-and-phonemes"
+            ],
+            "placeholder": "technical term"
+          },
+          {
+            "type": "text",
+            "text": " examines surrounding frames to resolve ambiguity."
+          }
+        ],
+        "rejected_answers": [
+          "language model",
+          "beam search",
+          "vocoder",
+          "transformer-prosody-prediction",
+          "acoustic-model-and-phonemes"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "transformer-acoustic-prediction",
+        "feedback_for_incorrect": {
+          "intrinsic": "The sentence would assign the context-checking job to a different stage.",
+          "instructional": "Use “attention” or “attention mechanism.” A language model chooses word sequences, beam search decodes candidates, and a vocoder generates audio."
+        },
+        "item_key": "recognizing-words-from-speech/transformer-acoustic-prediction/r3/v2",
+        "rung": 3
+      },
+      "correct_answer": "[\"attention mechanism\",\"attention\"]",
+      "explanation": "Attention examines surrounding frames so the transformer can use context. That context helps distinguish unclear phonemes.",
+      "points": 1
+    },
+    {
+      "import_key": "recognizing-words-from-speech-l3-q8",
+      "question_type": "arrange_sentence",
+      "question_text": "Order the pieces correctly.",
+      "options": {
+        "word_bank": [
+          "distribution over",
+          "Each audio frame",
+          "phonemes",
+          "gets a probability"
+        ],
+        "correct_order": [
+          "Each audio frame",
+          "gets a probability",
+          "distribution over",
+          "phonemes"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "phoneme-probability-output",
+        "feedback_for_incorrect": {
+          "intrinsic": "The sentence would no longer show what receives the likelihoods or what they describe.",
+          "instructional": "Start with the audio frame, then connect its probability distribution to phonemes."
+        },
+        "item_key": "recognizing-words-from-speech/phoneme-probability-output/r3/v2",
+        "rung": 3
+      },
+      "correct_answer": "Each audio frame gets a probability distribution over phonemes",
+      "explanation": "The output belongs to each audio frame and covers possible phonemes. This preserves the idea that acoustic predictions are frame-level likelihoods.",
+      "points": 1
+    },
+    {
+      "import_key": "recognizing-words-from-speech-l3-q9",
+      "question_type": "multiple_choice",
+      "question_text": "Which statements describe phonemes? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "They are smallest sound units",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A phoneme is a smallest unit of sound. These units help distinguish one word from another.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "They distinguish words",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Phonemes are sound units that distinguish words. For instance, “cat” has three phonemes.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "They are language-specific",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Phonemes depend on the language. An English phoneme model needs retraining to recognize Mandarin tones.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "They are final text corrections",
+            "is_correct": false,
+            "error_type": "Confuses phonemes with post-processing",
+            "rationale": "Phonemes are speech sounds, not edits to written output. Capitalization and punctuation are examples of later cleanup.",
+            "better_fit": "Final text corrections fit post-processing after decoding.",
+            "feedback": {
+              "intrinsic": "A sound unit would be mistaken for a readability edit.",
+              "instructional": "Think of phonemes as the small spoken sounds that acoustic modeling predicts."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "acoustic-model-and-phonemes",
+        "item_key": "recognizing-words-from-speech/acoustic-model-and-phonemes/r1/v2",
+        "rung": 1
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. Phonemes are language-specific sound units that can distinguish words.",
+      "points": 1
+    },
+    {
+      "import_key": "recognizing-words-from-speech-l3-q10",
+      "question_type": "multiple_choice",
+      "question_text": "What does beam search keep while decoding?",
+      "options": {
+        "options": [
+          {
+            "text": "Top partial transcriptions",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Beam search maintains a shortlist of the strongest partial transcriptions. It extends those candidates as more audio is processed.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "All possible transcriptions",
+            "is_correct": false,
+            "error_type": "Mistakes beam search for exhaustive search",
+            "rationale": "Beam search prunes low-scoring paths instead of keeping every possibility. Its shortlist makes decoding manageable.",
+            "better_fit": "Keeping all possibilities would describe exhaustive search, not beam search.",
+            "feedback": {
+              "intrinsic": "Decoding could become needlessly slow by carrying weak candidates forward.",
+              "instructional": "Beam search keeps only top-scoring partial transcriptions and removes weaker paths."
+            }
+          },
+          {
+            "text": "Only phoneme labels",
+            "is_correct": false,
+            "error_type": "Confuses decoding with acoustic modeling",
+            "rationale": "Phoneme probabilities come from acoustic modeling. Beam search uses acoustic and language predictions to choose text candidates.",
+            "better_fit": "Phoneme labels fit acoustic modeling at the frame level.",
+            "feedback": {
+              "intrinsic": "The process could stop at sounds rather than comparing possible words.",
+              "instructional": "Decoding works with partial transcriptions, not only phoneme labels."
+            }
+          },
+          {
+            "text": "Only formatted sentences",
+            "is_correct": false,
+            "error_type": "Confuses decoding with post-processing",
+            "rationale": "Formatting is applied after decoding produces raw text. Beam search handles partial hypotheses while selecting words.",
+            "better_fit": "Formatted sentences fit post-processing.",
+            "feedback": {
+              "intrinsic": "Readability edits could be attempted before the strongest word sequence is chosen.",
+              "instructional": "Beam search selects strong partial transcriptions; formatting follows later."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "beam-search-decoding",
+        "item_key": "recognizing-words-from-speech/beam-search-decoding/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. Beam search keeps a shortlist of top partial transcriptions during decoding.",
+      "points": 1
+    },
+    {
+      "import_key": "recognizing-words-from-speech-l3-q11",
+      "question_type": "arrange_sentence",
+      "question_text": "Put the pieces in the correct order.",
+      "options": {
+        "word_bank": [
+          "to predict likely",
+          "An acoustic model",
+          "phonemes",
+          "uses audio features"
+        ],
+        "correct_order": [
+          "An acoustic model",
+          "uses audio features",
+          "to predict likely",
+          "phonemes"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "acoustic-model-and-phonemes",
+        "feedback_for_incorrect": {
+          "intrinsic": "The sentence would blur what the model receives and what it produces.",
+          "instructional": "Put the input first after the model: audio features lead to likely phoneme predictions."
+        },
+        "item_key": "recognizing-words-from-speech/acoustic-model-and-phonemes/r3/v2",
+        "rung": 3
+      },
+      "correct_answer": "An acoustic model uses audio features to predict likely phonemes",
+      "explanation": "The model needs audio features as its input before it can predict likely phonemes. This describes the sound-to-phoneme relationship it learns.",
+      "points": 1
+    },
+    {
+      "import_key": "recognizing-words-from-speech-l3-q12",
+      "question_type": "fill_blank",
+      "question_text": "The decoding method that keeps a shortlist of top candidates is ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "The decoding method that keeps a shortlist of top candidates is "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "beam search",
+              "beam-search"
+            ],
+            "rejected_answers": [
+              "language modeling",
+              "acoustic modeling",
+              "post-processing",
+              "language-model-and-domain-adaptation",
+              "post-processing-and-confidence"
+            ],
+            "placeholder": "technical term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "language modeling",
+          "acoustic modeling",
+          "post-processing",
+          "language-model-and-domain-adaptation",
+          "post-processing-and-confidence"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "beam-search-decoding",
+        "feedback_for_incorrect": {
+          "intrinsic": "The shortlist step would be confused with sound prediction, word guidance, or text cleanup.",
+          "instructional": "Use “beam search.” Acoustic modeling predicts phoneme likelihoods, language modeling guides word sequences, and post-processing refines output."
+        },
+        "item_key": "recognizing-words-from-speech/beam-search-decoding/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "[\"beam search\",\"beam-search\"]",
+      "explanation": "Beam search maintains a shortlist of top partial transcriptions while decoding. It extends candidates and prunes weaker paths.",
+      "points": 1
+    }
+  ],
+  "flashcards": []
+}

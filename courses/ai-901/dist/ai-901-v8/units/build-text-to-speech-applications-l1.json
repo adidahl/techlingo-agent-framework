@@ -1,0 +1,454 @@
+{
+  "import_key": "build-text-to-speech-applications-l1",
+  "title": "Build text-to-speech applications · Level 1",
+  "slo": "Identify the SDK objects and flow used to turn written text into audio.",
+  "exercises": [
+    {
+      "import_key": "build-text-to-speech-applications-l1-q1",
+      "question_type": "multiple_choice",
+      "question_text": "Which statements correctly describe text-to-speech placement? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "A desktop app can play speech immediately",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A desktop app is a client application. Client apps can synthesize and play speech right away.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A mobile app can play speech immediately",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Mobile apps are client applications. They can provide immediate spoken output.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A backend service can create audio for later",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A backend can generate audio files in advance. Those files can be played later.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A backend service requires microphone input",
+            "is_correct": false,
+            "error_type": "Confuses TTS with recognition",
+            "rationale": "TTS starts with written text, not required microphone input. A backend can generate files directly from text.",
+            "better_fit": "Use microphone input for speech-to-text transcription.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "tts-client-or-backend-choice",
+        "item_key": "build-text-to-speech-applications/tts-client-or-backend-choice/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. Clients support immediate playback, while backends can prepare audio for later.",
+      "points": 1
+    },
+    {
+      "import_key": "build-text-to-speech-applications-l1-q2",
+      "question_type": "multiple_choice",
+      "question_text": "Which statements describe AudioOutputConfig? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "It can configure the default speaker output",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "AudioOutputConfig can be configured for speaker output. This identifies where synthesized audio is played.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It specifies an output destination for synthesized audio",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Its role is to direct synthesized audio to a destination. It works with audio that has been generated.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It converts spoken audio into text",
+            "is_correct": false,
+            "error_type": "Confuses output configuration with recognition",
+            "rationale": "Transcribing spoken audio is speech recognition. AudioOutputConfig concerns synthesized audio output.",
+            "better_fit": "Use SpeechRecognizer for a speech-to-text task.",
+            "feedback": null
+          },
+          {
+            "text": "It can direct synthesized audio to a file",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "An output configuration can specify a saved audio destination. This supports later playback.",
+            "better_fit": null,
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "speech-synthesizer-output-config",
+        "item_key": "build-text-to-speech-applications/speech-synthesizer-output-config/r1/v2",
+        "rung": 1
+      },
+      "correct_answer": "[0,1,3]",
+      "explanation": "Correct. AudioOutputConfig specifies the destination of synthesized audio.",
+      "points": 1
+    },
+    {
+      "import_key": "build-text-to-speech-applications-l1-q3",
+      "question_type": "true_false",
+      "question_text": "A client application can turn text into speech and play it immediately.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "tts-client-or-backend-choice",
+        "feedback_for_incorrect": {
+          "intrinsic": "An immediate response would be assigned away from the user-facing app.",
+          "instructional": "Client apps can synthesize and play speech immediately."
+        },
+        "item_key": "build-text-to-speech-applications/tts-client-or-backend-choice/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. Immediate playback is a client-app use case.",
+      "points": 1
+    },
+    {
+      "import_key": "build-text-to-speech-applications-l1-q4",
+      "question_type": "true_false",
+      "question_text": "AudioOutputConfig specifies where synthesized audio is played or saved.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "speech-synthesizer-output-config",
+        "feedback_for_incorrect": {
+          "intrinsic": "Generated audio could lack the intended destination.",
+          "instructional": "SpeechSynthesizer creates audio; AudioOutputConfig specifies where it goes."
+        },
+        "item_key": "build-text-to-speech-applications/speech-synthesizer-output-config/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. It controls the destination of generated audio.",
+      "points": 1
+    },
+    {
+      "import_key": "build-text-to-speech-applications-l1-q5",
+      "question_type": "multiple_choice",
+      "question_text": "What does the Azure Text-to-Speech SDK help an app do?",
+      "options": {
+        "options": [
+          {
+            "text": "Turn written text into spoken audio",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Text-to-speech accepts written input and produces audio. The SDK supports this conversion.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Turn spoken audio into written text",
+            "is_correct": false,
+            "error_type": "Confuses synthesis with recognition",
+            "rationale": "This reverses the TTS input and output. It describes speech recognition.",
+            "better_fit": "Use this for transcribing recorded or microphone speech.",
+            "feedback": null
+          },
+          {
+            "text": "Recognize speech from a microphone",
+            "is_correct": false,
+            "error_type": "Confuses synthesis with recognition",
+            "rationale": "Recognition listens to spoken input. TTS speaks supplied text.",
+            "better_fit": "Use this when an app must understand a user's spoken request.",
+            "feedback": null
+          },
+          {
+            "text": "Configure the destination of existing audio",
+            "is_correct": false,
+            "error_type": "Confuses synthesis with output configuration",
+            "rationale": "Choosing an audio destination does not generate speech. TTS creates audio from text.",
+            "better_fit": "Use AudioOutputConfig after synthesis to select playback or a file.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "azure-speech-tts-sdk",
+        "item_key": "build-text-to-speech-applications/azure-speech-tts-sdk/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. The SDK changes written input into spoken audio.",
+      "points": 1
+    },
+    {
+      "import_key": "build-text-to-speech-applications-l1-q6",
+      "question_type": "multiple_choice",
+      "question_text": "What happens after cloud neural models generate audio?",
+      "options": {
+        "options": [
+          {
+            "text": "The app receives the audio",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The generated result is returned to the application. The application can then use the audio.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "The app captures microphone input",
+            "is_correct": false,
+            "error_type": "Confuses TTS with STT",
+            "rationale": "Microphone capture starts a recognition flow. It is not the next TTS step after generation.",
+            "better_fit": "Use this when transcribing spoken input.",
+            "feedback": null
+          },
+          {
+            "text": "The app maps sounds to words",
+            "is_correct": false,
+            "error_type": "Confuses synthesis with recognition",
+            "rationale": "Sound-to-word mapping is speech recognition. TTS returns generated audio from text.",
+            "better_fit": "Use this when converting speech into a transcript.",
+            "feedback": null
+          },
+          {
+            "text": "The app sends its endpoint and key again",
+            "is_correct": false,
+            "error_type": "Confuses initialization with returned output",
+            "rationale": "Endpoint and authentication establish the SDK before synthesis. The generated audio is returned after cloud processing.",
+            "better_fit": "Use this during SDK initialization before sending text.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "tts-application-processing-flow",
+        "item_key": "build-text-to-speech-applications/tts-application-processing-flow/r1/v2",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. The application receives the generated audio.",
+      "points": 1
+    },
+    {
+      "import_key": "build-text-to-speech-applications-l1-q7",
+      "question_type": "true_false",
+      "question_text": "The Azure Text-to-Speech SDK mainly converts microphone audio into written text.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "azure-speech-tts-sdk",
+        "feedback_for_incorrect": {
+          "intrinsic": "The app would listen when it needs to speak.",
+          "instructional": "Text-to-speech converts written words into audio."
+        },
+        "item_key": "build-text-to-speech-applications/azure-speech-tts-sdk/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct. That is speech-to-text.",
+      "points": 1
+    },
+    {
+      "import_key": "build-text-to-speech-applications-l1-q8",
+      "question_type": "multiple_choice",
+      "question_text": "Which actions occur in the Python text-to-speech sample? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Read text from the console",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The sample reads written input from the console. That input is synthesized.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Synthesize text asynchronously",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The sample calls an asynchronous synthesis method. It then obtains the synthesis result.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Report completion or cancellation",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The result is checked for completion or cancellation. Error details can be reported for error cancellation.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Start continuous recognition",
+            "is_correct": false,
+            "error_type": "Confuses TTS with recognition",
+            "rationale": "Continuous recognition is for ongoing speech-to-text. The sample synthesizes written console input.",
+            "better_fit": "Use this for continuous microphone transcription.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "tts-python-examples",
+        "item_key": "build-text-to-speech-applications/tts-python-examples/r1/v2",
+        "rung": 1
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. The sample reads console text, synthesizes it asynchronously, and checks the result.",
+      "points": 1
+    },
+    {
+      "import_key": "build-text-to-speech-applications-l1-q9",
+      "question_type": "true_false",
+      "question_text": "In a text-to-speech flow, the app receives text results after Azure Speech analyzes microphone audio.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "tts-application-processing-flow",
+        "feedback_for_incorrect": {
+          "intrinsic": "Written input would be handled as microphone audio.",
+          "instructional": "TTS sends text and receives generated audio."
+        },
+        "item_key": "build-text-to-speech-applications/tts-application-processing-flow/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct. That describes speech-to-text.",
+      "points": 1
+    },
+    {
+      "import_key": "build-text-to-speech-applications-l1-q10",
+      "question_type": "arrange_sentence",
+      "question_text": "Reconstruct the statement.",
+      "options": {
+        "word_bank": [
+          "for later",
+          "A backend service",
+          "audio playback",
+          "can generate files"
+        ],
+        "correct_order": [
+          "A backend service",
+          "can generate files",
+          "for later",
+          "audio playback"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "tts-client-or-backend-choice",
+        "feedback_for_incorrect": {
+          "intrinsic": "The backend's purpose becomes unclear.",
+          "instructional": "Link the backend to file generation, then to later playback."
+        },
+        "item_key": "build-text-to-speech-applications/tts-client-or-backend-choice/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "A backend service can generate files for later audio playback",
+      "explanation": "Backend services can prepare audio files for later playback.",
+      "points": 1
+    },
+    {
+      "import_key": "build-text-to-speech-applications-l1-q11",
+      "question_type": "fill_blank",
+      "question_text": "To specify the destination of synthesized audio, use ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "To specify the destination of synthesized audio, use "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "AudioOutputConfig"
+            ],
+            "rejected_answers": [
+              "SpeechSynthesizer",
+              "SpeechRecognizer",
+              "SpeechConfig",
+              "stt-recognition-objects",
+              "azure-speech-tts-sdk"
+            ],
+            "placeholder": "SDK object"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "SpeechSynthesizer",
+          "SpeechRecognizer",
+          "SpeechConfig",
+          "stt-recognition-objects",
+          "azure-speech-tts-sdk"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "speech-synthesizer-output-config",
+        "feedback_for_incorrect": {
+          "intrinsic": "The audio destination would not be configured.",
+          "instructional": "SpeechSynthesizer creates audio; AudioOutputConfig directs it."
+        },
+        "item_key": "build-text-to-speech-applications/speech-synthesizer-output-config/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "AudioOutputConfig",
+      "explanation": "AudioOutputConfig specifies where synthesized audio is played or saved.",
+      "points": 1
+    },
+    {
+      "import_key": "build-text-to-speech-applications-l1-q12",
+      "question_type": "true_false",
+      "question_text": "The Python sample can report cancellation and show error details when an error occurs.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "tts-python-examples",
+        "feedback_for_incorrect": {
+          "intrinsic": "A failed request could end without diagnostic information.",
+          "instructional": "The synthesis result can report cancellation and its error details."
+        },
+        "item_key": "build-text-to-speech-applications/tts-python-examples/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. The sample inspects cancellation details for errors.",
+      "points": 1
+    }
+  ],
+  "flashcards": [
+    {
+      "import_key": "build-text-to-speech-applications-l1-f0",
+      "front": "What does SpeechSynthesizer do?",
+      "back": "It converts written text into synthesized audio.",
+      "hint": "Text becomes sound."
+    },
+    {
+      "import_key": "build-text-to-speech-applications-l1-f1",
+      "front": "What does AudioOutputConfig choose?",
+      "back": "It specifies where synthesized audio is played or saved.",
+      "hint": "Audio destination."
+    },
+    {
+      "import_key": "build-text-to-speech-applications-l1-f2",
+      "front": "When should you use a backend service?",
+      "back": "Use it to generate audio files for later playback.",
+      "hint": "Think: later, not immediate."
+    },
+    {
+      "import_key": "build-text-to-speech-applications-l1-f3",
+      "front": "What starts the TTS flow?",
+      "back": "Initialize the Speech SDK with an endpoint and authentication.",
+      "hint": "Connect securely first."
+    }
+  ]
+}

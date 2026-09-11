@@ -1,0 +1,596 @@
+{
+  "import_key": "call-models-and-build-agents-l2",
+  "title": "Call models and build agents · Level 2",
+  "slo": "Distinguish a model from an agent and identify how an application calls each one.",
+  "exercises": [
+    {
+      "import_key": "call-models-and-build-agents-l2-q1",
+      "question_type": "arrange_sentence",
+      "question_text": "Reconstruct the statement from the pieces.",
+      "options": {
+        "word_bank": [
+          "The Foundry SDK",
+          "provides a Project client",
+          "and an OpenAI client",
+          "for Foundry operations",
+          "for model calls"
+        ],
+        "correct_order": [
+          "The Foundry SDK",
+          "provides a Project client",
+          "for Foundry operations",
+          "and an OpenAI client",
+          "for model calls"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "foundry-sdk",
+        "feedback_for_incorrect": {
+          "intrinsic": "The clients would be paired with the wrong jobs.",
+          "instructional": "Keep each client immediately beside the purpose it serves."
+        },
+        "item_key": "call-models-and-build-agents/foundry-sdk/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "The Foundry SDK provides a Project client for Foundry operations and an OpenAI client for model calls",
+      "explanation": "The Project client is for Foundry operations, while the OpenAI-compatible client is for model calls.",
+      "points": 1
+    },
+    {
+      "import_key": "call-models-and-build-agents-l2-q2",
+      "question_type": "fill_blank",
+      "question_text": "A packaged, task-oriented worker built on a model is an ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "A packaged, task-oriented worker built on a model is an "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "agent"
+            ],
+            "rejected_answers": [
+              "model",
+              "tool",
+              "Responses API",
+              "agent-components-and-capabilities",
+              "responses-api-and-lightweight-client",
+              "foundry-tool"
+            ],
+            "placeholder": "term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "model",
+          "tool",
+          "Responses API",
+          "agent-components-and-capabilities",
+          "responses-api-and-lightweight-client",
+          "foundry-tool"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "model-versus-agent",
+        "feedback_for_incorrect": {
+          "intrinsic": "The selected term would identify only a component rather than the reusable worker.",
+          "instructional": "Use “agent” for the packaged worker built on a model."
+        },
+        "item_key": "call-models-and-build-agents/model-versus-agent/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "agent",
+      "explanation": "An agent packages a model into reusable, task-oriented behavior.",
+      "points": 1
+    },
+    {
+      "import_key": "call-models-and-build-agents-l2-q3",
+      "question_type": "multiple_choice",
+      "question_text": "A developer tested customer-support prompts in the playground and is moving the chat into an app. Which items should the developer reuse? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "System prompts",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A tested system prompt defines a working behavior configuration. Reusing it helps preserve that behavior in the application.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "User prompts",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Tested user prompts capture effective request patterns. They can be reused in application code.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Parameter values",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Parameter values affect generation behavior. Tested values can be carried from the playground into code.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Model benchmark scores only",
+            "is_correct": false,
+            "error_type": "Confuses evaluation results with runtime settings",
+            "rationale": "Benchmark scores compare models but do not reproduce the working prompt configuration. The tested prompts and parameter values do.",
+            "better_fit": "Use benchmark scores when selecting among candidate models.",
+            "feedback": {
+              "intrinsic": "The app could lose the configuration that made its responses work.",
+              "instructional": "Reuse tested prompts and parameters to preserve the working setup."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "multi_choice",
+        "concept_id": "foundry-sdk",
+        "item_key": "call-models-and-build-agents/foundry-sdk/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. Carry the tested prompts and parameter values into the app.",
+      "points": 1
+    },
+    {
+      "import_key": "call-models-and-build-agents-l2-q4",
+      "question_type": "multiple_choice",
+      "question_text": "A customer-support manager needs the same assistant behavior in the company website and support bot. The assistant must follow one consistent workflow. What should the manager create?",
+      "options": {
+        "options": [
+          {
+            "text": "An agent with reusable behavior",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "An agent packages consistent workflow-like behavior for reuse across applications. That meets the website and support-bot requirement.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A direct model prompt",
+            "is_correct": false,
+            "error_type": "Confuses reusable workflow with one-off inference",
+            "rationale": "A direct prompt supports a single inference request. It does not package consistent behavior for reuse.",
+            "better_fit": "Use a direct model prompt for a one-off inference task.",
+            "feedback": {
+              "intrinsic": "The two experiences could drift into different behaviors.",
+              "instructional": "Use an agent when a workflow must remain consistent across applications."
+            }
+          },
+          {
+            "text": "A benchmark comparison",
+            "is_correct": false,
+            "error_type": "Confuses selection with workflow design",
+            "rationale": "Benchmarks compare model performance. They do not define a reusable support workflow.",
+            "better_fit": "Use benchmarks while evaluating candidate models.",
+            "feedback": {
+              "intrinsic": "The manager would have selection information but no shared behavior.",
+              "instructional": "An agent packages how the chosen model should behave."
+            }
+          },
+          {
+            "text": "A token allocation",
+            "is_correct": false,
+            "error_type": "Confuses capacity with behavior",
+            "rationale": "Token allocation controls capacity and rate limits. It does not create a consistent support workflow.",
+            "better_fit": "Use token allocation when planning deployment throughput.",
+            "feedback": {
+              "intrinsic": "Capacity could change while the website and bot still lack shared behavior.",
+              "instructional": "Choose an agent for reusable behavior across experiences."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "single_choice",
+        "concept_id": "model-versus-agent",
+        "item_key": "call-models-and-build-agents/model-versus-agent/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. An agent can package one workflow for both experiences.",
+      "points": 1
+    },
+    {
+      "import_key": "call-models-and-build-agents-l2-q5",
+      "question_type": "fill_blank",
+      "question_text": "A small application that collects input, calls a remote service, and displays results is a ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "A small application that collects input, calls a remote service, and displays results is a "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "lightweight chat client"
+            ],
+            "rejected_answers": [
+              "Responses API",
+              "Project API",
+              "Foundry SDK",
+              "agent",
+              "foundry-sdk",
+              "foundry-playground",
+              "project-api-and-agent-client"
+            ],
+            "placeholder": "technical term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "Responses API",
+          "Project API",
+          "Foundry SDK",
+          "agent",
+          "foundry-sdk",
+          "foundry-playground",
+          "project-api-and-agent-client"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "responses-api-and-lightweight-client",
+        "feedback_for_incorrect": {
+          "intrinsic": "The term would fail to identify the small client application being described.",
+          "instructional": "Use “lightweight chat client,” which describes the application rather than the API it calls."
+        },
+        "item_key": "call-models-and-build-agents/responses-api-and-lightweight-client/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "lightweight chat client",
+      "explanation": "A lightweight chat client has a focused role: gather input, call a remote service, and display the result without heavy local complexity.",
+      "points": 1
+    },
+    {
+      "import_key": "call-models-and-build-agents-l2-q6",
+      "question_type": "arrange_sentence",
+      "question_text": "Arrange the parts to form the correct statement.",
+      "options": {
+        "word_bank": [
+          "A Foundry agent",
+          "contains a model",
+          "and tools",
+          "instructions for behavior",
+          "for actions"
+        ],
+        "correct_order": [
+          "A Foundry agent",
+          "contains a model",
+          "instructions for behavior",
+          "and tools",
+          "for actions"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "agent",
+        "feedback_for_incorrect": {
+          "intrinsic": "The components would not be clearly connected to their roles.",
+          "instructional": "Build the sentence from the agent to its model, instructions, and tools."
+        },
+        "item_key": "call-models-and-build-agents/agent/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "A Foundry agent contains a model instructions for behavior and tools for actions",
+      "explanation": "A Foundry agent combines a model, instructions that define behavior, and tools that provide actions.",
+      "points": 1
+    },
+    {
+      "import_key": "call-models-and-build-agents-l2-q7",
+      "question_type": "multiple_choice",
+      "question_text": "A developer is building a simple command-line tool for a marketing team. It sends a product-description request to a deployed model and prints the reply. What should the developer build?",
+      "options": {
+        "options": [
+          {
+            "text": "A lightweight chat client using Responses API",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A small command-line application can collect a request, call a deployed model, and print the reply. That is the role of a lightweight chat client using the Responses API.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "An agent called through Project API",
+            "is_correct": false,
+            "error_type": "Confuses direct model calls with agent calls",
+            "rationale": "The scenario only requires direct model inference. An existing packaged agent is not required.",
+            "better_fit": "Choose this when the application must call a saved agent with reusable behavior.",
+            "feedback": {
+              "intrinsic": "The developer would add unnecessary saved-agent setup.",
+              "instructional": "For a direct model request in a small CLI, use a lightweight client and the Responses API."
+            }
+          },
+          {
+            "text": "A model benchmark comparison",
+            "is_correct": false,
+            "error_type": "Confuses evaluation with implementation",
+            "rationale": "Benchmarking compares candidate models. It does not build the command-line application that sends requests.",
+            "better_fit": "Use a benchmark comparison while selecting a suitable model.",
+            "feedback": {
+              "intrinsic": "The team would have comparison data but no working client.",
+              "instructional": "The required application is a lightweight client that calls the deployment."
+            }
+          },
+          {
+            "text": "A Foundry Tool Catalog entry",
+            "is_correct": false,
+            "error_type": "Confuses an app with tool management",
+            "rationale": "A Tool Catalog entry manages a callable capability. It is not the client application described.",
+            "better_fit": "Use the Tool Catalog to discover and manage tools for an agent.",
+            "feedback": {
+              "intrinsic": "The request would still lack an application that sends it to the model.",
+              "instructional": "Build the lightweight client and call the deployment through the Responses API."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "single_choice",
+        "concept_id": "responses-api-and-lightweight-client",
+        "item_key": "call-models-and-build-agents/responses-api-and-lightweight-client/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. This is a direct model call in a small client application.",
+      "points": 1
+    },
+    {
+      "import_key": "call-models-and-build-agents-l2-q8",
+      "question_type": "multiple_choice",
+      "question_text": "A training-platform designer is building an assistant that creates custom quizzes and study guides. The assistant must reason, follow a tutoring style, and take needed actions. Which choices help make it an agent? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Choose a model for reasoning",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A model provides the agent's reasoning capability. It supports generating the requested learning content.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Write instructions for a helpful tutoring style",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Instructions define role, style, constraints, and output rules. They can establish the desired tutoring style.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Add tools for needed actions",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Tools let the agent act through external systems when needed. They are a core agent component.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Remove all output rules",
+            "is_correct": false,
+            "error_type": "Confuses instructions with unconstrained behavior",
+            "rationale": "Output rules are part of instructions and support consistent behavior. Removing them undermines the requested tutoring style.",
+            "better_fit": "No stated agent-design goal requires removing output rules.",
+            "feedback": {
+              "intrinsic": "Learners could receive inconsistent quizzes and study guides.",
+              "instructional": "Keep instructions that define tutoring style and output requirements."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "multi_choice",
+        "concept_id": "agent",
+        "item_key": "call-models-and-build-agents/agent/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. Reasoning, instructions, and tools package the assistant as an agent.",
+      "points": 1
+    },
+    {
+      "import_key": "call-models-and-build-agents-l2-q9",
+      "question_type": "fill_blank",
+      "question_text": "Retrieval-augmented generation (RAG) retrieves external content to ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "Retrieval-augmented generation (RAG) retrieves external content to "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "ground a response",
+              "ground responses"
+            ],
+            "rejected_answers": [
+              "call an external tool",
+              "score model safety",
+              "deploy a model",
+              "foundry-tool",
+              "agent-components-and-capabilities",
+              "evaluator-and-safety-evaluator"
+            ],
+            "placeholder": "technical phrase"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "call an external tool",
+          "score model safety",
+          "deploy a model",
+          "foundry-tool",
+          "agent-components-and-capabilities",
+          "evaluator-and-safety-evaluator"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "tools-and-knowledge",
+        "feedback_for_incorrect": {
+          "intrinsic": "The response would lack the purpose of the retrieved context.",
+          "instructional": "RAG retrieves knowledge to ground a response, not to perform an external action."
+        },
+        "item_key": "call-models-and-build-agents/tools-and-knowledge/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "[\"ground a response\",\"ground responses\"]",
+      "explanation": "RAG retrieves relevant knowledge as context so that it grounds a response.",
+      "points": 1
+    },
+    {
+      "import_key": "call-models-and-build-agents-l2-q10",
+      "question_type": "arrange_sentence",
+      "question_text": "Arrange the following steps for calling an existing agent.",
+      "options": {
+        "word_bank": [
+          "Authenticate AIProjectClient",
+          "retrieve agent by name",
+          "send agent_reference",
+          "get OpenAI client",
+          "print output_text"
+        ],
+        "correct_order": [
+          "Authenticate AIProjectClient",
+          "retrieve agent by name",
+          "get OpenAI client",
+          "send agent_reference",
+          "print output_text"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "project-api-and-agent-client",
+        "feedback_for_incorrect": {
+          "intrinsic": "The request could be prepared before the client identifies the agent.",
+          "instructional": "Authenticate first, identify the saved agent, then direct the request and read its output."
+        },
+        "item_key": "call-models-and-build-agents/project-api-and-agent-client/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "Authenticate AIProjectClient retrieve agent by name get OpenAI client send agent_reference print output_text",
+      "explanation": "Authenticate the project client, retrieve the agent, obtain an OpenAI client, target the agent with agent_reference, and then print the output.",
+      "points": 1
+    },
+    {
+      "import_key": "call-models-and-build-agents-l2-q11",
+      "question_type": "multiple_choice",
+      "question_text": "A human-resources employee asks an assistant about an internal policy PDF. The assistant must retrieve the relevant policy text and cite its source. What should the team add?",
+      "options": {
+        "options": [
+          {
+            "text": "Knowledge with RAG retrieval",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Knowledge can include internal PDFs and RAG retrieves relevant content. This grounds the answer and supports citations.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A tool that updates systems",
+            "is_correct": false,
+            "error_type": "Confuses retrieval with action",
+            "rationale": "Updating a system is an external action. The request instead needs policy context and a citation.",
+            "better_fit": "Use an update tool when the assistant must change an external system.",
+            "feedback": {
+              "intrinsic": "The employee could trigger a change without receiving the policy information.",
+              "instructional": "Use knowledge with RAG to retrieve and cite relevant PDF content."
+            }
+          },
+          {
+            "text": "A safety evaluator",
+            "is_correct": false,
+            "error_type": "Confuses retrieval with output scoring",
+            "rationale": "A safety evaluator assesses output for issues. It does not retrieve policy text as context.",
+            "better_fit": "Use a safety evaluator to measure responsible output concerns.",
+            "feedback": {
+              "intrinsic": "The answer could be scored but still lack the requested policy passage.",
+              "instructional": "Use knowledge retrieval when a document must ground the answer."
+            }
+          },
+          {
+            "text": "A direct model deployment",
+            "is_correct": false,
+            "error_type": "Confuses model serving with retrieval",
+            "rationale": "A deployment exposes a model through an endpoint. It does not by itself retrieve or cite internal documents.",
+            "better_fit": "Use a deployment when making a selected model available to applications.",
+            "feedback": {
+              "intrinsic": "The assistant could generate an answer without the required policy context.",
+              "instructional": "Add knowledge and RAG for grounded, citable document answers."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "single_choice",
+        "concept_id": "tools-and-knowledge",
+        "item_key": "call-models-and-build-agents/tools-and-knowledge/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. Knowledge with RAG retrieves the PDF content and grounds the response.",
+      "points": 1
+    },
+    {
+      "import_key": "call-models-and-build-agents-l2-q12",
+      "question_type": "multiple_choice",
+      "question_text": "A customer-support developer is adding an existing Foundry agent to the company support bot. The bot must send requests to that saved agent. Which steps belong in the client application? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Connect with AIProjectClient",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "AIProjectClient connects the application to the Foundry project. It is authenticated in the stated client pattern.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Retrieve the agent by name",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Retrieving the agent identifies the saved worker to use. It prepares the application to target that agent.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Use agent_reference in extra_body",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "agent_reference directs the Responses API request to the existing agent. It is included in extra_body.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Use only a model deployment name",
+            "is_correct": false,
+            "error_type": "Confuses direct model calls with agent calls",
+            "rationale": "A deployment name alone is used for direct model calls. Calling a saved agent requires the project pattern and agent_reference.",
+            "better_fit": "Use only a deployment name for a direct model call without an existing agent.",
+            "feedback": {
+              "intrinsic": "The bot would bypass the saved agent and its packaged behavior.",
+              "instructional": "Connect to the project, retrieve the agent, and target it with agent_reference."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "multi_choice",
+        "concept_id": "project-api-and-agent-client",
+        "item_key": "call-models-and-build-agents/project-api-and-agent-client/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. These steps connect the application and direct requests to the existing agent.",
+      "points": 1
+    }
+  ],
+  "flashcards": []
+}

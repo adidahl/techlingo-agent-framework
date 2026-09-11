@@ -1,0 +1,580 @@
+{
+  "import_key": "tables-quality-and-business-integration-l2",
+  "title": "Tables, quality, and business integration · Level 2",
+  "slo": "Validate extracted data and prepare it for a business system.",
+  "exercises": [
+    {
+      "import_key": "tables-quality-and-business-integration-l2-q1",
+      "question_type": "arrange_sentence",
+      "question_text": "Arrange the following table-processing steps in order.",
+      "options": {
+        "word_bank": [
+          "Associate rows and columns",
+          "Detect the table",
+          "Map cells to fields",
+          "Identify column headers"
+        ],
+        "correct_order": [
+          "Detect the table",
+          "Identify column headers",
+          "Associate rows and columns",
+          "Map cells to fields"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "table-structured-content",
+        "feedback_for_incorrect": {
+          "intrinsic": "Line-item values could be mapped before their table structure and column meaning are clear.",
+          "instructional": "Start by detecting the table, then use headers and row-column relationships to make reliable field mappings."
+        },
+        "item_key": "tables-quality-and-business-integration/table-structured-content/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "Detect the table Identify column headers Associate rows and columns Map cells to fields",
+      "explanation": "The table structure and header meanings must be known before cell relationships can be used to map values to fields.",
+      "points": 1
+    },
+    {
+      "import_key": "tables-quality-and-business-integration-l2-q2",
+      "question_type": "fill_blank",
+      "question_text": "Finding possible values before assigning them to schema fields is field ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "Finding possible values before assigning them to schema fields is field "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "detection",
+              "field detection and candidate identification"
+            ],
+            "rejected_answers": [
+              "field mapping and association",
+              "OCR output ingestion",
+              "field-mapping-and-association",
+              "ocr-output-ingestion"
+            ],
+            "placeholder": "technical term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "field mapping and association",
+          "OCR output ingestion",
+          "field-mapping-and-association",
+          "ocr-output-ingestion"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "field-detection-and-candidates",
+        "feedback_for_incorrect": {
+          "intrinsic": "The work would be placed at the wrong point in the extraction flow.",
+          "instructional": "Field mapping assigns candidates, while OCR output ingestion supplies the input. Use field detection for finding possible values."
+        },
+        "item_key": "tables-quality-and-business-integration/field-detection-and-candidates/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "[\"detection\",\"field detection and candidate identification\"]",
+      "explanation": "Candidate identification occurs before association because a value must first be found before it can be labeled for a schema.",
+      "points": 1
+    },
+    {
+      "import_key": "tables-quality-and-business-integration-l2-q3",
+      "question_type": "multiple_choice",
+      "question_text": "A receipt-processing clerk needs to extract purchased items, quantities, and prices from a receipt table. Which actions should the extraction solution use? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Detect the table structure",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The table must be identified before its cells can be processed. This establishes the structured area containing line items.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Identify column headers",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Headers identify what columns mean, such as item, quantity, and price. Their meaning guides the field assignment.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Use row-column association",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Row-column association maps cells to specific field schemas. It connects each line-item value to the right meaning.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Convert dates to ISO format",
+            "is_correct": false,
+            "error_type": "Confuses table extraction with normalization",
+            "rationale": "ISO conversion standardizes dates, not item-table cells. It is unrelated to identifying item, quantity, and price columns.",
+            "better_fit": "Use this when an extracted date needs a consistent date format.",
+            "feedback": {
+              "intrinsic": "The clerk could receive tidy dates while the purchased items and prices remain unassigned.",
+              "instructional": "For line-item tables, focus on structure, headers, and row-column association."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "multi_choice",
+        "concept_id": "table-structured-content",
+        "item_key": "tables-quality-and-business-integration/table-structured-content/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. Those actions establish table structure and connect each line-item value to the right field.",
+      "points": 1
+    },
+    {
+      "import_key": "tables-quality-and-business-integration-l2-q4",
+      "question_type": "multiple_choice",
+      "question_text": "An accounts-payable analyst receives invoices from many vendors, each with a different layout. Before invoice numbers can be assigned to fields, what approach should the analyst choose to find the possible invoice numbers?",
+      "options": {
+        "options": [
+          {
+            "text": "Machine learning-based detection",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Machine learning can learn relationships from a corpus of example documents. It is suited to varied layouts rather than fixed positions.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Field mapping and association",
+            "is_correct": false,
+            "error_type": "Confuses candidate finding with assignment",
+            "rationale": "Field mapping associates already identified candidates with schema fields. The invoice number must be found before it can be assigned.",
+            "better_fit": "Use this after likely invoice-number values have been detected.",
+            "feedback": {
+              "intrinsic": "An analyst could try to label a value before identifying the right candidate across vendor layouts.",
+              "instructional": "First choose a detection approach for varied layouts; then map the selected value to its field."
+            }
+          },
+          {
+            "text": "OCR output ingestion",
+            "is_correct": false,
+            "error_type": "Confuses input receipt with candidate finding",
+            "rationale": "Ingestion receives OCR text, positions, confidence scores, and layout information. It does not determine which text is an invoice number.",
+            "better_fit": "Use this when starting field extraction with OCR results.",
+            "feedback": {
+              "intrinsic": "The invoices would enter the workflow, but invoice-number candidates would remain unidentified.",
+              "instructional": "Ingestion provides material for analysis. Detection finds the likely field values in it."
+            }
+          },
+          {
+            "text": "Date normalization",
+            "is_correct": false,
+            "error_type": "Confuses field finding with formatting",
+            "rationale": "Date normalization standardizes date values. It does not locate invoice numbers.",
+            "better_fit": "Use this after a date value has been extracted and needs a consistent format.",
+            "feedback": {
+              "intrinsic": "Time could be spent formatting dates while the invoice number is still unknown.",
+              "instructional": "Match the action to the value: detection finds invoice-number candidates; normalization formats dates."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "single_choice",
+        "concept_id": "field-detection-and-candidates",
+        "item_key": "tables-quality-and-business-integration/field-detection-and-candidates/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. Learned contextual relationships help identify fields across many layouts.",
+      "points": 1
+    },
+    {
+      "import_key": "tables-quality-and-business-integration-l2-q5",
+      "question_type": "arrange_sentence",
+      "question_text": "Arrange the following date-normalization steps in order.",
+      "options": {
+        "word_bank": [
+          "Resolve ambiguity",
+          "Read the raw date",
+          "Convert to ISO",
+          "Detect its format"
+        ],
+        "correct_order": [
+          "Read the raw date",
+          "Detect its format",
+          "Resolve ambiguity",
+          "Convert to ISO"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "data-normalization-standardization",
+        "feedback_for_incorrect": {
+          "intrinsic": "An unclear date could be converted using the wrong interpretation.",
+          "instructional": "Read the value, detect its format, resolve any ambiguity, then standardize it as ISO."
+        },
+        "item_key": "tables-quality-and-business-integration/data-normalization-standardization/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "Read the raw date Detect its format Resolve ambiguity Convert to ISO",
+      "explanation": "A raw date must be interpreted first: identify its format and settle any ambiguity before converting it to the standard ISO representation.",
+      "points": 1
+    },
+    {
+      "import_key": "tables-quality-and-business-integration-l2-q6",
+      "question_type": "fill_blank",
+      "question_text": "Finding an unusually high or low extracted value is ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "Finding an unusually high or low extracted value is "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "outlier detection"
+            ],
+            "rejected_answers": [
+              "cross-field validation",
+              "data normalization and standardization",
+              "field-confidence-and-validation",
+              "data-normalization-and-standardization"
+            ],
+            "placeholder": "technical term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "cross-field validation",
+          "data normalization and standardization",
+          "field-confidence-and-validation",
+          "data-normalization-and-standardization"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "data-validation-and-quality-assurance",
+        "feedback_for_incorrect": {
+          "intrinsic": "An unusually large or small value could remain unflagged for review.",
+          "instructional": "Cross-field validation compares related values, while normalization standardizes formats. Use outlier detection for unusual highs or lows."
+        },
+        "item_key": "tables-quality-and-business-integration/data-validation-and-quality-assurance/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "outlier detection",
+      "explanation": "An outlier is a value that is unusually high or low compared with expected patterns, which may indicate an extraction error.",
+      "points": 1
+    },
+    {
+      "import_key": "tables-quality-and-business-integration-l2-q7",
+      "question_type": "multiple_choice",
+      "question_text": "A receipt-processing specialist receives amounts written as “1,234.50” and “1.234,50” with different currency symbols. Which actions should the specialist's system use to prepare the values consistently? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Recognize currency symbols",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Currency processing handles different currency symbols. Recognizing them supports consistent numeric handling.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Standardize decimal notation",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Decimal normalization standardizes decimal point representation across locales. This addresses the different notations shown.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Handle thousand separators",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Currency and numeric processing handles thousand separators. This is needed to interpret both displayed amounts consistently.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Check mandatory fields",
+            "is_correct": false,
+            "error_type": "Confuses numeric standardization with validation",
+            "rationale": "Required-field checking verifies that mandatory data is present. It does not reconcile currency symbols, decimal notation, or separators.",
+            "better_fit": "Use this when confirming that a required value has been supplied.",
+            "feedback": {
+              "intrinsic": "An amount could be present but still be interpreted inconsistently.",
+              "instructional": "This situation needs numeric standardization: recognize symbols and handle decimal and thousand separators."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "multi_choice",
+        "concept_id": "data-normalization-standardization",
+        "item_key": "tables-quality-and-business-integration/data-normalization-standardization/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. These actions make differently written currency values consistent.",
+      "points": 1
+    },
+    {
+      "import_key": "tables-quality-and-business-integration-l2-q8",
+      "question_type": "multiple_choice",
+      "question_text": "An insurance-claims clerk processes forms that must include an email address before submission. What should the system use to enforce this requirement?",
+      "options": {
+        "options": [
+          {
+            "text": "Required field checking",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Required-field checking confirms that mandatory fields are present. An email address required before submission is exactly this kind of rule.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Distribution analysis",
+            "is_correct": false,
+            "error_type": "Confuses a mandatory rule with statistical patterns",
+            "rationale": "Distribution analysis compares values against historical patterns. It does not enforce whether one required field is present.",
+            "better_fit": "Use this when comparing extracted values with broader historical distributions.",
+            "feedback": {
+              "intrinsic": "A form missing its email address could still look typical in a broad pattern review.",
+              "instructional": "Presence of a mandatory field is an explicit rule, so use required-field checking."
+            }
+          },
+          {
+            "text": "Cross-field validation",
+            "is_correct": false,
+            "error_type": "Confuses field presence with field relationships",
+            "rationale": "Cross-field validation tests logical relationships among fields. It does not check whether a single required field exists.",
+            "better_fit": "Use this when related values, such as subtotals and a total, must agree.",
+            "feedback": {
+              "intrinsic": "A missing email address could be missed because there is no relationship to compare.",
+              "instructional": "This is a completeness requirement, not a relationship check. Use required-field checking."
+            }
+          },
+          {
+            "text": "Date normalization",
+            "is_correct": false,
+            "error_type": "Confuses validation with format conversion",
+            "rationale": "Date normalization standardizes date formats. It does not verify email-address presence.",
+            "better_fit": "Use this when dates need conversion to a consistent ISO format.",
+            "feedback": {
+              "intrinsic": "Dates could be standardized while a required email address remains absent.",
+              "instructional": "Choose validation that checks mandatory fields, rather than formatting unrelated values."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "single_choice",
+        "concept_id": "data-validation-and-quality-assurance",
+        "item_key": "tables-quality-and-business-integration/data-validation-and-quality-assurance/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. Required-field checking confirms that the mandatory email address is present.",
+      "points": 1
+    },
+    {
+      "import_key": "tables-quality-and-business-integration-l2-q9",
+      "question_type": "fill_blank",
+      "question_text": "Checking whether line-item subtotals equal an invoice total is ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "Checking whether line-item subtotals equal an invoice total is "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "cross-field validation"
+            ],
+            "rejected_answers": [
+              "OCR confidence scoring",
+              "rule-based validation",
+              "statistical validation",
+              "ocr-confidence-scoring",
+              "rule-based-validation",
+              "statistical-validation"
+            ],
+            "placeholder": "technical term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "OCR confidence scoring",
+          "rule-based validation",
+          "statistical validation",
+          "ocr-confidence-scoring",
+          "rule-based-validation",
+          "statistical-validation"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "field-confidence-and-validation",
+        "feedback_for_incorrect": {
+          "intrinsic": "An incorrect total could pass review even though its line items do not add up.",
+          "instructional": "OCR confidence measures recognition certainty, rule-based validation checks rules, and statistical validation finds unusual patterns. Use cross-field validation for relationships between fields."
+        },
+        "item_key": "tables-quality-and-business-integration/field-confidence-and-validation/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "cross-field validation",
+      "explanation": "This check compares related values from multiple fields to confirm that their relationship is logically consistent.",
+      "points": 1
+    },
+    {
+      "import_key": "tables-quality-and-business-integration-l2-q10",
+      "question_type": "arrange_sentence",
+      "question_text": "Arrange the following business-integration steps in order.",
+      "options": {
+        "word_bank": [
+          "Map target schema",
+          "Extracted fields arrive",
+          "Send downstream data",
+          "Standardize the values"
+        ],
+        "correct_order": [
+          "Extracted fields arrive",
+          "Standardize the values",
+          "Map target schema",
+          "Send downstream data"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "business-system-integration",
+        "feedback_for_incorrect": {
+          "intrinsic": "A downstream destination could receive raw or mismatched values.",
+          "instructional": "First obtain extracted fields, standardize them, map them to the target schema, and then send the prepared data."
+        },
+        "item_key": "tables-quality-and-business-integration/business-system-integration/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "Extracted fields arrive Standardize the values Map target schema Send downstream data",
+      "explanation": "Values must first be available and consistent, then aligned with the destination schema before they can be sent onward.",
+      "points": 1
+    },
+    {
+      "import_key": "tables-quality-and-business-integration-l2-q11",
+      "question_type": "multiple_choice",
+      "question_text": "A finance clerk processes a receipt. Its extracted line items add to $45, but its extracted total is $54. What check should the clerk's system perform?",
+      "options": {
+        "options": [
+          {
+            "text": "Cross-field validation",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The line-item sum and total are related fields. Cross-field validation checks whether they agree logically.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "OCR confidence scoring",
+            "is_correct": false,
+            "error_type": "Confuses field relationships with character certainty",
+            "rationale": "OCR confidence estimates certainty in text recognition. It does not compare the arithmetic relationship between totals and line items.",
+            "better_fit": "Use this when deciding how certain a recognized character or text element is.",
+            "feedback": {
+              "intrinsic": "Each number might be recognized with confidence while the receipt total is still inconsistent.",
+              "instructional": "Here the issue is the relationship between two extracted values, so use cross-field validation."
+            }
+          },
+          {
+            "text": "Date normalization",
+            "is_correct": false,
+            "error_type": "Confuses relationship checking with formatting",
+            "rationale": "Date normalization standardizes date formats. No date-format issue is involved in the conflicting amounts.",
+            "better_fit": "Use this when dates such as MM/DD/YYYY and DD-MM-YYYY need a standard format.",
+            "feedback": {
+              "intrinsic": "The total mismatch would remain after dates were formatted.",
+              "instructional": "Choose a check that compares the related monetary fields, not one that reformats dates."
+            }
+          },
+          {
+            "text": "Outlier detection",
+            "is_correct": false,
+            "error_type": "Confuses internal field consistency with statistical validation",
+            "rationale": "Outlier detection flags unusually high or low values compared with patterns. It does not specifically test whether this receipt's line items equal its total.",
+            "better_fit": "Use this to identify values that are unusually high or low.",
+            "feedback": {
+              "intrinsic": "A total might not be unusual overall but can still disagree with its own line items.",
+              "instructional": "Use cross-field validation for a direct relationship within one receipt."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "single_choice",
+        "concept_id": "field-confidence-and-validation",
+        "item_key": "tables-quality-and-business-integration/field-confidence-and-validation/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. The check compares related receipt fields to find the inconsistency.",
+      "points": 1
+    },
+    {
+      "import_key": "tables-quality-and-business-integration-l2-q12",
+      "question_type": "multiple_choice",
+      "question_text": "A medical-records coordinator sends extracted patient information to a downstream system. The target system uses a different field name for a medical record number and requires it as a number. Which integration actions should the coordinator apply? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Rename the extracted field",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Field renaming maps an extracted name to the target convention. This addresses the different field name.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Convert the data type",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Data type conversion ensures a value matches the type expected by the target. This addresses the numeric requirement.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Apply conditional business logic",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Conditional logic is a schema-mapping transformation that can apply business rules for transformation and derivation. It can be part of preparing data for the target.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Detect text regions",
+            "is_correct": false,
+            "error_type": "Confuses integration with OCR layout detection",
+            "rationale": "Text-region detection identifies areas containing text during OCR. The patient fields have already been extracted and are now being prepared for a target.",
+            "better_fit": "Use this earlier when locating text areas in an image before character recognition.",
+            "feedback": {
+              "intrinsic": "The coordinator could revisit image analysis instead of making the existing patient data fit its destination.",
+              "instructional": "At this stage, use schema-mapping transformations such as renaming and type conversion, not OCR layout detection."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "multi_choice",
+        "concept_id": "business-system-integration",
+        "item_key": "tables-quality-and-business-integration/business-system-integration/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. Renaming and type conversion align the medical record number with the target requirements; conditional logic can apply applicable business rules.",
+      "points": 1
+    }
+  ],
+  "flashcards": []
+}

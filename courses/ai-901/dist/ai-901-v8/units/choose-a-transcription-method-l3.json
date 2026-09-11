@@ -1,0 +1,535 @@
+{
+  "import_key": "choose-a-transcription-method-l3",
+  "title": "Choose a transcription method · Level 3",
+  "slo": "Choose real-time or batch transcription for a workplace audio task.",
+  "exercises": [
+    {
+      "import_key": "choose-a-transcription-method-l3-q1",
+      "question_type": "multiple_choice",
+      "question_text": "How are batch transcription jobs scheduled?",
+      "options": {
+        "options": [
+          {
+            "text": "On a best-effort basis",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Batch jobs use a best-effort schedule. They commonly begin within minutes, but no running time is guaranteed.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "At a guaranteed start time",
+            "is_correct": false,
+            "error_type": "Confuses best-effort scheduling with guaranteed timing",
+            "rationale": "Batch job timing is not guaranteed. A job may begin within minutes but does not change to running at a promised time.",
+            "better_fit": "A guaranteed time would fit a situation where timing is explicitly promised.",
+            "feedback": {
+              "intrinsic": "A deadline could be set based on a time that is not promised.",
+              "instructional": "Treat batch timing as best-effort rather than guaranteed."
+            }
+          },
+          {
+            "text": "Only while a person speaks",
+            "is_correct": false,
+            "error_type": "Confuses batch jobs with real-time transcription",
+            "rationale": "Transcription during speech is real-time transcription. Batch jobs process stored recordings later.",
+            "better_fit": "Use real-time transcription while a person is speaking.",
+            "feedback": {
+              "intrinsic": "The team could select a batch job for a live need.",
+              "instructional": "Live incoming audio and scheduled batch work are different methods."
+            }
+          },
+          {
+            "text": "Only after text is spoken",
+            "is_correct": false,
+            "error_type": "Confuses transcription with speech synthesis",
+            "rationale": "Speech synthesis turns text into audible speech. Batch transcription turns stored audio into text.",
+            "better_fit": "Use speech synthesis after text is available and needs to be spoken aloud.",
+            "feedback": {
+              "intrinsic": "The schedule question would be confused with creating audio from text.",
+              "instructional": "Batch transcription concerns recorded audio and later text results."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "batch-job-scheduling",
+        "item_key": "choose-a-transcription-method/batch-job-scheduling/r1/v2",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. Batch jobs use best-effort scheduling, so their exact running time is not guaranteed.",
+      "points": 1
+    },
+    {
+      "import_key": "choose-a-transcription-method-l3-q2",
+      "question_type": "multiple_choice",
+      "question_text": "Which statements about a SAS URI are correct? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "SAS means shared access signature",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "SAS is the abbreviation for shared access signature. A SAS URI can be used for stored audio.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It can point to audio in storage",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A SAS URI can identify audio files in storage. Batch transcription can use that URI.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Batch transcription can use it",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Batch transcription can point to stored audio with a SAS URI. This fits recordings held in storage.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It is a live audio stream",
+            "is_correct": false,
+            "error_type": "Confuses a storage URI with incoming audio",
+            "rationale": "A SAS URI points to audio files in storage. A live stream is incoming audio used for real-time transcription.",
+            "better_fit": "Use a live audio stream when a person is speaking and text is needed as they speak.",
+            "feedback": {
+              "intrinsic": "The recording location would be confused with audio arriving now.",
+              "instructional": "A URI identifies stored audio; it is not the audio stream itself."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "sas-uri",
+        "item_key": "choose-a-transcription-method/sas-uri/r1/v2",
+        "rung": 1
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. SAS stands for shared access signature, and its URI can identify stored audio for batch transcription.",
+      "points": 1
+    },
+    {
+      "import_key": "choose-a-transcription-method-l3-q3",
+      "question_type": "true_false",
+      "question_text": "Real-time transcription can be used when someone is speaking during a presentation.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "real-time-transcription",
+        "feedback_for_incorrect": {
+          "intrinsic": "Captions would arrive too late for people following the presentation.",
+          "instructional": "Real-time transcription is intended for incoming speech, including presentations and demonstrations."
+        },
+        "item_key": "choose-a-transcription-method/real-time-transcription/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. A presentation is a live-speaking situation, so text can be returned as the person speaks.",
+      "points": 1
+    },
+    {
+      "import_key": "choose-a-transcription-method-l3-q4",
+      "question_type": "multiple_choice",
+      "question_text": "What transcription method is designed for stored audio recordings?",
+      "options": {
+        "options": [
+          {
+            "text": "Batch transcription",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Batch transcription processes stored recordings. Its results are returned asynchronously.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Real-time transcription",
+            "is_correct": false,
+            "error_type": "Confuses stored recordings with incoming speech",
+            "rationale": "Real-time transcription is for incoming audio while someone speaks. Stored recordings fit batch transcription.",
+            "better_fit": "Use real-time transcription for a presentation, demonstration, or other live-speaking situation.",
+            "feedback": {
+              "intrinsic": "The team would treat an existing recording like live speech.",
+              "instructional": "Match stored audio with batch transcription."
+            }
+          },
+          {
+            "text": "Speech synthesis",
+            "is_correct": false,
+            "error_type": "Confuses audio-to-text with text-to-audio",
+            "rationale": "Speech synthesis makes audio from text. It does not transcribe an audio recording.",
+            "better_fit": "Use speech synthesis to read text aloud or create an audio file from text.",
+            "feedback": {
+              "intrinsic": "The recording would remain without a written transcript.",
+              "instructional": "Transcription converts audio to text; synthesis moves in the other direction."
+            }
+          },
+          {
+            "text": "Voice Live",
+            "is_correct": false,
+            "error_type": "Confuses transcription with voice conversation",
+            "rationale": "Voice Live supports real-time spoken conversations. It is not the batch workflow for stored recordings.",
+            "better_fit": "Use Voice Live for a conversational voice experience with spoken responses.",
+            "feedback": {
+              "intrinsic": "The stored recordings would not be queued for the needed transcription task.",
+              "instructional": "For recorded audio that can be processed later, choose batch transcription."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "batch-transcription",
+        "item_key": "choose-a-transcription-method/batch-transcription/r1/v2",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. Batch transcription is designed to process recordings that are already stored.",
+      "points": 1
+    },
+    {
+      "import_key": "choose-a-transcription-method-l3-q5",
+      "question_type": "true_false",
+      "question_text": "A shared access signature (SAS) URI is a storage pointer, not a transcription method.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "sas-uri",
+        "feedback_for_incorrect": {
+          "intrinsic": "The task could assign transcription work to a URI that only identifies stored audio.",
+          "instructional": "A SAS URI points batch transcription to stored audio, while the transcription service performs the conversion."
+        },
+        "item_key": "choose-a-transcription-method/sas-uri/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. A SAS URI identifies audio in storage for batch transcription; it does not perform transcription.",
+      "points": 1
+    },
+    {
+      "import_key": "choose-a-transcription-method-l3-q6",
+      "question_type": "arrange_sentence",
+      "question_text": "Order the process description correctly.",
+      "options": {
+        "word_bank": [
+          "for live transcription",
+          "An application",
+          "then receives text",
+          "streams incoming audio"
+        ],
+        "correct_order": [
+          "An application",
+          "streams incoming audio",
+          "for live transcription",
+          "then receives text"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "real-time-transcription",
+        "feedback_for_incorrect": {
+          "intrinsic": "The processing flow is no longer clear.",
+          "instructional": "Start with the application, then its streamed input, the live context, and the returned text."
+        },
+        "item_key": "choose-a-transcription-method/real-time-transcription/r3/v2",
+        "rung": 3
+      },
+      "correct_answer": "An application streams incoming audio for live transcription then receives text",
+      "explanation": "Real-time transcription begins with incoming audio being streamed, then returns text while the audio is live. This emphasizes the application flow rather than merely naming the method.",
+      "points": 1
+    },
+    {
+      "import_key": "choose-a-transcription-method-l3-q7",
+      "question_type": "fill_blank",
+      "question_text": "___ processes stored audio asynchronously.",
+      "options": {
+        "parts": [
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "Batch transcription",
+              "batch transcription"
+            ],
+            "rejected_answers": [
+              "Real-time transcription",
+              "real time transcription",
+              "realtime-transcription",
+              "transcription-method-choice"
+            ],
+            "placeholder": "transcription method"
+          },
+          {
+            "type": "text",
+            "text": " processes stored audio asynchronously."
+          }
+        ],
+        "rejected_answers": [
+          "Real-time transcription",
+          "real time transcription",
+          "realtime-transcription",
+          "transcription-method-choice"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "batch-transcription",
+        "feedback_for_incorrect": {
+          "intrinsic": "The stored recording would be treated as if it required live text.",
+          "instructional": "Real-time transcription is for incoming speech; batch transcription fits stored audio and later results."
+        },
+        "item_key": "choose-a-transcription-method/batch-transcription/r3/v2",
+        "rung": 3
+      },
+      "correct_answer": "[\"Batch transcription\",\"batch transcription\"]",
+      "explanation": "Stored audio does not need to be transcribed as it arrives. Batch transcription processes those recordings and returns results after submission.",
+      "points": 1
+    },
+    {
+      "import_key": "choose-a-transcription-method-l3-q8",
+      "question_type": "multiple_choice",
+      "question_text": "A video platform needs captions during a live stream. Which choices support the right method? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Choose real-time transcription",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A live stream has incoming speech. Real-time transcription returns text as people speak.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Listen to incoming audio",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Real-time transcription needs incoming audio from a microphone or another input source. A live stream provides that audio.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Receive text as people speak",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Live captions require text during the speech. Real-time transcription returns transcribed text from incoming audio.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Schedule a batch job later",
+            "is_correct": false,
+            "error_type": "Confuses immediate captions with asynchronous batch processing",
+            "rationale": "A batch job handles stored recordings and returns results asynchronously. Later scheduling cannot provide captions during the live stream.",
+            "better_fit": "Schedule a batch job to process a saved recording after the stream ends.",
+            "feedback": {
+              "intrinsic": "Viewers would miss captions while watching the live stream.",
+              "instructional": "Immediate captions require real-time transcription, not later batch processing."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "multi_choice",
+        "concept_id": "transcription-method-choice",
+        "item_key": "choose-a-transcription-method/transcription-method-choice/r4/v2",
+        "rung": 4
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. Live captions require incoming audio to be transcribed and returned while people speak.",
+      "points": 1
+    },
+    {
+      "import_key": "choose-a-transcription-method-l3-q9",
+      "question_type": "arrange_sentence",
+      "question_text": "Reconstruct the statement from the pieces.",
+      "options": {
+        "word_bank": [
+          "and returns",
+          "Batch transcription",
+          "results later",
+          "processes stored recordings"
+        ],
+        "correct_order": [
+          "Batch transcription",
+          "processes stored recordings",
+          "and returns",
+          "results later"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "batch-transcription",
+        "feedback_for_incorrect": {
+          "intrinsic": "The sentence no longer clearly connects stored audio with later results.",
+          "instructional": "Place the method first, then its input, followed by the timing of its result."
+        },
+        "item_key": "choose-a-transcription-method/batch-transcription/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "Batch transcription processes stored recordings and returns results later",
+      "explanation": "The sentence names the method, identifies stored recordings as its input, and states that results arrive later. Those details define batch transcription.",
+      "points": 1
+    },
+    {
+      "import_key": "choose-a-transcription-method-l3-q10",
+      "question_type": "multiple_choice",
+      "question_text": "A customer support lead needs transcripts for a caller who is speaking now and for stored calls from last month. For the live caller, which choice is best?",
+      "options": {
+        "options": [
+          {
+            "text": "Real-time transcription",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The caller is speaking now, so the audio is incoming. Real-time transcription provides text as the call happens.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Batch transcription",
+            "is_correct": false,
+            "error_type": "Confuses live calls with stored recordings",
+            "rationale": "Batch transcription is appropriate for the calls stored from last month. It is not the right choice for the caller speaking now.",
+            "better_fit": "Use batch transcription for the stored calls from last month when results can arrive later.",
+            "feedback": {
+              "intrinsic": "The lead would not get a transcript during the live caller’s conversation.",
+              "instructional": "Choose based on audio timing: live callers need real-time transcription."
+            }
+          },
+          {
+            "text": "A SAS URI",
+            "is_correct": false,
+            "error_type": "Confuses a storage pointer with a transcription method",
+            "rationale": "A SAS URI can point batch transcription to audio files in storage. It does not transcribe the live caller.",
+            "better_fit": "Use a SAS URI when locating stored calls for batch transcription.",
+            "feedback": {
+              "intrinsic": "The live conversation would still have no transcription method selected.",
+              "instructional": "A SAS URI identifies stored audio; it is not a choice for live transcription."
+            }
+          },
+          {
+            "text": "Text-to-speech",
+            "is_correct": false,
+            "error_type": "Confuses creating transcripts with generating spoken audio",
+            "rationale": "Text-to-speech converts response text into spoken audio. The lead needs speech from the caller converted into text.",
+            "better_fit": "Use text-to-speech when written content needs to be played as audio.",
+            "feedback": {
+              "intrinsic": "The caller’s words would not be captured as a transcript.",
+              "instructional": "For a transcript, choose speech-to-text through real-time transcription."
+            }
+          }
+        ],
+        "blooms_level": "Analyzing/Evaluating",
+        "original_question_type": "single_choice",
+        "concept_id": "transcription-method-choice",
+        "item_key": "choose-a-transcription-method/transcription-method-choice/r5/v1",
+        "rung": 5
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. The caller is speaking live, so real-time transcription is the best choice.",
+      "points": 1
+    },
+    {
+      "import_key": "choose-a-transcription-method-l3-q11",
+      "question_type": "fill_blank",
+      "question_text": "A shared access signature is also called a ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "A shared access signature is also called a "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "SAS URI",
+              "sas uri",
+              "Shared access signature URI"
+            ],
+            "rejected_answers": [
+              "Batch transcription",
+              "endpoint",
+              "speech key",
+              "batch-transcription",
+              "endpoint-and-authentication"
+            ],
+            "placeholder": "term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "Batch transcription",
+          "endpoint",
+          "speech key",
+          "batch-transcription",
+          "endpoint-and-authentication"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "sas-uri",
+        "feedback_for_incorrect": {
+          "intrinsic": "The stored audio would not be identified by the correct URI term.",
+          "instructional": "The storage pointer is a SAS URI; a batch method processes recordings, while endpoints and keys support connection and authentication."
+        },
+        "item_key": "choose-a-transcription-method/sas-uri/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "[\"SAS URI\",\"sas uri\",\"Shared access signature URI\"]",
+      "explanation": "SAS is the abbreviation for shared access signature, and the URI can point batch transcription to stored audio. Batch transcription, endpoints, and keys have different roles.",
+      "points": 1
+    },
+    {
+      "import_key": "choose-a-transcription-method-l3-q12",
+      "question_type": "multiple_choice",
+      "question_text": "Which statements describe batch job scheduling? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Jobs use a best-effort schedule",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Batch jobs are scheduled on a best-effort basis. Their start timing is not guaranteed.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Jobs commonly start within minutes",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A batch job normally starts within minutes after the request. This is common timing, not a promise.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Start time is not guaranteed",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "There is no guaranteed time when the job changes to running. Best-effort scheduling allows that uncertainty.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Text returns during live speech",
+            "is_correct": false,
+            "error_type": "Confuses batch scheduling with real-time transcription",
+            "rationale": "Text during live speech describes real-time transcription. Batch jobs process stored recordings on a best-effort schedule.",
+            "better_fit": "Expect text during speech when using real-time transcription.",
+            "feedback": {
+              "intrinsic": "A producer could promise live results that a batch job does not provide.",
+              "instructional": "Batch scheduling concerns later processing, not transcription while someone speaks."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "batch-job-scheduling",
+        "item_key": "choose-a-transcription-method/batch-job-scheduling/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. Batch jobs are best-effort: they commonly start within minutes, but the running time is not guaranteed.",
+      "points": 1
+    }
+  ],
+  "flashcards": []
+}

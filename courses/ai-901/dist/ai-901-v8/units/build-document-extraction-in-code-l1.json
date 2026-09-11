@@ -1,0 +1,488 @@
+{
+  "import_key": "build-document-extraction-in-code-l1",
+  "title": "Build document extraction in code · Level 1",
+  "slo": "Describe how a client application submits and receives document analysis results.",
+  "exercises": [
+    {
+      "import_key": "build-document-extraction-in-code-l1-q1",
+      "question_type": "multiple_choice",
+      "question_text": "Which analyzer ID is used for a prebuilt invoice analyzer?",
+      "options": {
+        "options": [
+          {
+            "text": "prebuilt-invoice",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "prebuilt-invoice is the analyzer ID for invoice analysis. It is selected before submitting invoice content.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "prebuilt-audioSearch",
+            "is_correct": false,
+            "error_type": "Confuses invoice analysis with audio analysis",
+            "rationale": "prebuilt-audioSearch is identified for audio analysis. It is not the invoice analyzer ID.",
+            "better_fit": "Use it when analyzing an audio file.",
+            "feedback": {
+              "intrinsic": "Invoice fields such as CustomerName and InvoiceDate would not be requested with the intended invoice analyzer.",
+              "instructional": "Match the analyzer to the content: use prebuilt-invoice for invoices."
+            }
+          },
+          {
+            "text": "prebuilt-videoSearch",
+            "is_correct": false,
+            "error_type": "Confuses invoice analysis with video analysis",
+            "rationale": "prebuilt-videoSearch is a prebuilt analyzer for video. An invoice PDF is document content.",
+            "better_fit": "Use it when analyzing video content.",
+            "feedback": {
+              "intrinsic": "The app would choose analysis intended for a different content type.",
+              "instructional": "For invoice PDFs, select prebuilt-invoice."
+            }
+          },
+          {
+            "text": "prebuilt-imageSearch",
+            "is_correct": false,
+            "error_type": "Confuses invoice analysis with image search",
+            "rationale": "prebuilt-imageSearch is a distinct prebuilt analyzer. The invoice workflow specifically selects prebuilt-invoice.",
+            "better_fit": "Use it when the task calls for the prebuilt image search analyzer.",
+            "feedback": {
+              "intrinsic": "The needed invoice-focused fields would not be requested through the intended analyzer.",
+              "instructional": "Use the analyzer ID named for the invoice task: prebuilt-invoice."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "prebuilt-invoice-sdk-flow",
+        "item_key": "build-document-extraction-in-code/prebuilt-invoice-sdk-flow/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. prebuilt-invoice is the prebuilt analyzer ID for invoice extraction.",
+      "points": 1
+    },
+    {
+      "import_key": "build-document-extraction-in-code-l1-q2",
+      "question_type": "multiple_choice",
+      "question_text": "Which facts describe the Azure Content Understanding Python SDK? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Its package is azure-ai-contentunderstanding.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The Python package is installed with this name. It provides the Python SDK.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It uses ContentUnderstandingClient.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "ContentUnderstandingClient is created with an endpoint and credential. It is used to begin analysis.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It uses AzureKeyCredential for keys.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "AzureKeyCredential provides key-based access. It is passed as the client's credential.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It requires the Foundry portal.",
+            "is_correct": false,
+            "error_type": "Confuses SDK code with portal use",
+            "rationale": "The SDK supports client application code. The portal is a separate visual way to test analysis.",
+            "better_fit": "Use the portal when validating analyzer output visually.",
+            "feedback": {
+              "intrinsic": "The developer would be sent to a manual testing path instead of the code path.",
+              "instructional": "The SDK works in code; the portal is optional for visual testing."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "python-sdk-analysis",
+        "item_key": "build-document-extraction-in-code/python-sdk-analysis/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. The package, ContentUnderstandingClient, and AzureKeyCredential are all part of the Python code flow.",
+      "points": 1
+    },
+    {
+      "import_key": "build-document-extraction-in-code-l1-q3",
+      "question_type": "true_false",
+      "question_text": "To analyze an invoice from a URL, inputs can include the invoice PDF URL.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "prebuilt-invoice-sdk-flow",
+        "feedback_for_incorrect": {
+          "intrinsic": "The app would have no invoice content address to submit for this flow.",
+          "instructional": "For an invoice at a web address, place its PDF URL in inputs."
+        },
+        "item_key": "build-document-extraction-in-code/prebuilt-invoice-sdk-flow/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. The inputs list can include the invoice PDF URL for analysis.",
+      "points": 1
+    },
+    {
+      "import_key": "build-document-extraction-in-code-l1-q4",
+      "question_type": "true_false",
+      "question_text": "In the Python SDK, poller.result() starts a new analysis request.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "python-sdk-analysis",
+        "feedback_for_incorrect": {
+          "intrinsic": "The code would try to wait before starting an analysis.",
+          "instructional": "Call begin_analyze first. Then use poller.result() while the SDK handles polling."
+        },
+        "item_key": "build-document-extraction-in-code/python-sdk-analysis/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct. begin_analyze starts analysis; poller.result() waits for the operation to finish.",
+      "points": 1
+    },
+    {
+      "import_key": "build-document-extraction-in-code-l1-q5",
+      "question_type": "multiple_choice",
+      "question_text": "What does a client need to connect securely to a Foundry resource? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "The Foundry resource endpoint",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The endpoint is the service address the client contacts. The client needs that address to reach the resource.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "An API key or Microsoft Entra ID",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Authentication can use an API key or Microsoft Entra ID. It proves access when contacting the resource.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "An invoice number",
+            "is_correct": false,
+            "error_type": "Confuses extracted field data with connection setup",
+            "rationale": "An invoice number is a field that may be extracted from an invoice. It is not a connection detail.",
+            "better_fit": "Use it as returned invoice information after analysis.",
+            "feedback": {
+              "intrinsic": "The client would still not know the service address or how to prove access.",
+              "instructional": "Connection setup needs the endpoint and authentication, not an extracted invoice value."
+            }
+          },
+          {
+            "text": "A confidence score",
+            "is_correct": false,
+            "error_type": "Confuses analysis output with authentication",
+            "rationale": "A confidence score can appear with an extracted field in returned results. It is not used to authenticate a client.",
+            "better_fit": "Use it when reviewing how confidently a field was extracted.",
+            "feedback": {
+              "intrinsic": "The client could review a result later but could not authenticate first.",
+              "instructional": "Use an API key or Microsoft Entra ID for authentication."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "endpoint-and-authentication",
+        "item_key": "build-document-extraction-in-code/endpoint-and-authentication/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "[0,1]",
+      "explanation": "Correct. The endpoint identifies where to connect, and an API key or Microsoft Entra ID provides authentication.",
+      "points": 1
+    },
+    {
+      "import_key": "build-document-extraction-in-code-l1-q6",
+      "question_type": "multiple_choice",
+      "question_text": "What lets a client application submit content for analysis in code?",
+      "options": {
+        "options": [
+          {
+            "text": "Content Understanding API",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "This is the interface a client application uses to submit content programmatically. It requests analysis from a server.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Foundry portal visual interface",
+            "is_correct": false,
+            "error_type": "Confuses programmatic API use with portal testing",
+            "rationale": "The portal is a visual place to test analysis and review results. It is not the coded interface an application uses to submit requests.",
+            "better_fit": "Use it when you want to try analysis visually before automating it in code.",
+            "feedback": {
+              "intrinsic": "The receipt would need to be uploaded by hand instead of being sent by the app.",
+              "instructional": "For coded submission, choose the API. The portal is useful for visual testing."
+            }
+          },
+          {
+            "text": "Basic OCR text extraction",
+            "is_correct": false,
+            "error_type": "Confuses an analysis method with the API",
+            "rationale": "OCR reads printed text from images. It is part of analysis, not the interface for sending a request.",
+            "better_fit": "Use OCR when the goal is to recognize text in a scanned image.",
+            "feedback": {
+              "intrinsic": "You would name a way to read text, but not a way for the app to send the request.",
+              "instructional": "Keep the roles separate: the API submits content, while OCR helps analyze it."
+            }
+          },
+          {
+            "text": "JSON structured output",
+            "is_correct": false,
+            "error_type": "Confuses returned data with the request interface",
+            "rationale": "JSON is a format for returned structured data. It comes after analysis rather than submitting the content.",
+            "better_fit": "Use JSON when storing, searching, or passing returned structured results onward.",
+            "feedback": {
+              "intrinsic": "You would be looking at the response format instead of the way to make the request.",
+              "instructional": "The API sends the request; JSON can carry the structured result back."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "content-understanding-api-client",
+        "item_key": "build-document-extraction-in-code/content-understanding-api-client/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. The API lets a client application submit content programmatically for analysis.",
+      "points": 1
+    },
+    {
+      "import_key": "build-document-extraction-in-code-l1-q7",
+      "question_type": "true_false",
+      "question_text": "A Foundry resource endpoint is the API key used to prove access.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "endpoint-and-authentication",
+        "feedback_for_incorrect": {
+          "intrinsic": "The client would mix up where to connect with how to authenticate.",
+          "instructional": "Use the endpoint as the service address. Use an API key or Microsoft Entra ID for authentication."
+        },
+        "item_key": "build-document-extraction-in-code/endpoint-and-authentication/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct. The endpoint is an address, while an API key is one way to prove access.",
+      "points": 1
+    },
+    {
+      "import_key": "build-document-extraction-in-code-l1-q8",
+      "question_type": "true_false",
+      "question_text": "A client application can use the Content Understanding API to request analysis from a server.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "content-understanding-api-client",
+        "feedback_for_incorrect": {
+          "intrinsic": "The client would have no way to request the analysis from the server.",
+          "instructional": "A client application uses the API to request services over a network."
+        },
+        "item_key": "build-document-extraction-in-code/content-understanding-api-client/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. The client uses the API to request analysis, while the server performs the intensive work.",
+      "points": 1
+    },
+    {
+      "import_key": "build-document-extraction-in-code-l1-q9",
+      "question_type": "multiple_choice",
+      "question_text": "What does asynchronous analysis mean?",
+      "options": {
+        "options": [
+          {
+            "text": "The result arrives later when ready.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Asynchronous analysis returns its result later when the job is ready. The request starts before completion.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "The result is returned before analysis starts.",
+            "is_correct": false,
+            "error_type": "Confuses job start with job completion",
+            "rationale": "Analysis must start before it can finish. An asynchronous result arrives later, not before the request.",
+            "better_fit": "This would not fit any analysis flow described here.",
+            "feedback": {
+              "intrinsic": "There would be no completed work to return.",
+              "instructional": "Asynchronous means the result is received later when the analysis is ready."
+            }
+          },
+          {
+            "text": "The client never receives a result.",
+            "is_correct": false,
+            "error_type": "Confuses delayed results with no results",
+            "rationale": "Asynchronous work delays the result; it does not remove it. The application checks until the job succeeds.",
+            "better_fit": "This might describe an unfinished or failed situation, not asynchronous completion.",
+            "feedback": {
+              "intrinsic": "The application would stop before reading the completed fields.",
+              "instructional": "Keep checking the job until it succeeds, then receive the result."
+            }
+          },
+          {
+            "text": "The analyzer skips the schema.",
+            "is_correct": false,
+            "error_type": "Confuses operation timing with analyzer behavior",
+            "rationale": "A schema defines fields and structure for analysis. Asynchronous describes when the result becomes available.",
+            "better_fit": "Schema selection matters when defining what an analyzer should extract.",
+            "feedback": {
+              "intrinsic": "The timing of the job would still be unanswered.",
+              "instructional": "Asynchronous refers to delayed completion, not to whether a schema is used."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "asynchronous-analysis",
+        "item_key": "build-document-extraction-in-code/asynchronous-analysis/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. Asynchronous analysis starts now and returns the result later when it is ready.",
+      "points": 1
+    },
+    {
+      "import_key": "build-document-extraction-in-code-l1-q10",
+      "question_type": "arrange_sentence",
+      "question_text": "Order the pieces correctly.",
+      "options": {
+        "word_bank": [
+          "of the service",
+          "An endpoint",
+          "a client contacts",
+          "is the address"
+        ],
+        "correct_order": [
+          "An endpoint",
+          "is the address",
+          "of the service",
+          "a client contacts"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "endpoint-and-authentication",
+        "feedback_for_incorrect": {
+          "intrinsic": "The definition would no longer clearly say what an endpoint identifies.",
+          "instructional": "Begin with endpoint, then define it as an address and connect it to the service the client contacts."
+        },
+        "item_key": "build-document-extraction-in-code/endpoint-and-authentication/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "An endpoint is the address of the service a client contacts",
+      "explanation": "An endpoint identifies the address a client uses to contact a service. The phrase must connect the address to the service being contacted.",
+      "points": 1
+    },
+    {
+      "import_key": "build-document-extraction-in-code-l1-q11",
+      "question_type": "fill_blank",
+      "question_text": "A software interface used to submit content programmatically is the Content Understanding ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "A software interface used to submit content programmatically is the Content Understanding "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "API"
+            ],
+            "rejected_answers": [
+              "Python SDK",
+              "Foundry portal",
+              "foundry-portal-testing",
+              "python-sdk-analysis"
+            ],
+            "placeholder": "term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "Python SDK",
+          "Foundry portal",
+          "foundry-portal-testing",
+          "python-sdk-analysis"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "content-understanding-api-client",
+        "feedback_for_incorrect": {
+          "intrinsic": "The sentence would name a related item, but not the interface used for programmatic requests.",
+          "instructional": "Use API here. The Python SDK helps write code, and the Foundry portal is for visual testing."
+        },
+        "item_key": "build-document-extraction-in-code/content-understanding-api-client/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "API",
+      "explanation": "An API is the interface used by an application to request analysis programmatically. The SDK provides code support for using that interface, while the portal supports visual testing.",
+      "points": 1
+    },
+    {
+      "import_key": "build-document-extraction-in-code-l1-q12",
+      "question_type": "true_false",
+      "question_text": "An asynchronous analysis job is a long-running operation that an application checks repeatedly until it succeeds.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "asynchronous-analysis",
+        "feedback_for_incorrect": {
+          "intrinsic": "The app could stop while the analysis is still running.",
+          "instructional": "Because the result arrives later, poll the job until it succeeds."
+        },
+        "item_key": "build-document-extraction-in-code/asynchronous-analysis/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. This is a long-running operation, and repeatedly checking it is called polling.",
+      "points": 1
+    }
+  ],
+  "flashcards": [
+    {
+      "import_key": "build-document-extraction-in-code-l1-f0",
+      "front": "What does the API enable?",
+      "back": "It lets a client submit content programmatically for analysis.",
+      "hint": "Think coded requests."
+    },
+    {
+      "import_key": "build-document-extraction-in-code-l1-f1",
+      "front": "What is an endpoint?",
+      "back": "It is the service address a client contacts.",
+      "hint": "Think service address."
+    },
+    {
+      "import_key": "build-document-extraction-in-code-l1-f2",
+      "front": "What is polling?",
+      "back": "Repeatedly checking an asynchronous job until it succeeds.",
+      "hint": "Think repeated status checks."
+    },
+    {
+      "import_key": "build-document-extraction-in-code-l1-f3",
+      "front": "What starts SDK analysis?",
+      "back": "begin_analyze starts the long-running analysis.",
+      "hint": "Think start method."
+    }
+  ]
+}

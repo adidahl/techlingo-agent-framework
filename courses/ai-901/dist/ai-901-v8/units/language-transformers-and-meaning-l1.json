@@ -1,0 +1,477 @@
+{
+  "import_key": "language-transformers-and-meaning-l1",
+  "title": "Language Transformers and Meaning · Level 1",
+  "slo": "Explain how a language transformer represents relationships among words.",
+  "exercises": [
+    {
+      "import_key": "language-transformers-and-meaning-l1-q1",
+      "question_type": "multiple_choice",
+      "question_text": "What does attention use to assign a token representation?",
+      "options": {
+        "options": [
+          {
+            "text": "Its relationships to other tokens in context",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Attention considers how a token relates to other tokens in context. Those relationships shape its representation.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Its pixel color values",
+            "is_correct": false,
+            "error_type": "Visual input confusion",
+            "rationale": "Pixel values belong to image data. Language attention uses relationships among tokens.",
+            "better_fit": "Pixel values are relevant when processing image patches.",
+            "feedback": {
+              "intrinsic": "Word context would be ignored.",
+              "instructional": "Attention uses token relationships, not pixels."
+            }
+          },
+          {
+            "text": "Its fixed position alone",
+            "is_correct": false,
+            "error_type": "Context omission",
+            "rationale": "Position can contribute information, but attention is defined here by relationships among tokens. Position alone cannot capture contextual meaning.",
+            "better_fit": "Position information can help a model distinguish ordering in a sequence.",
+            "feedback": {
+              "intrinsic": "The representation would omit surrounding-word relationships.",
+              "instructional": "Attention depends on context between tokens."
+            }
+          },
+          {
+            "text": "Its translation output",
+            "is_correct": false,
+            "error_type": "Task-result confusion",
+            "rationale": "Translation is an NLP task that a model may support. It is not the mechanism attention uses to assign representations.",
+            "better_fit": "Translation is a downstream language task for a semantic language model.",
+            "feedback": {
+              "intrinsic": "A task outcome would replace the contextual mechanism.",
+              "instructional": "Attention uses relations among tokens."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "attention-and-context-2",
+        "item_key": "language-transformers-and-meaning/attention-and-context-2/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. Attention relies on contextual token relationships.",
+      "points": 1
+    },
+    {
+      "import_key": "language-transformers-and-meaning-l1-q2",
+      "question_type": "multiple_choice",
+      "question_text": "What can a semantic language model support? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Text analysis",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Semantic language models support text analysis. They represent relationships among language tokens.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Translation",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Translation is an NLP task. Semantic token relationships can support translation.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Language generation",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Language generation is an NLP task supported by semantic language models. Represented token relationships help produce meaningful language.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Pixel-by-pixel object classification",
+            "is_correct": false,
+            "error_type": "Segmentation confusion",
+            "rationale": "Pixel classification is an image-processing task. A semantic language model works with language tokens and their relationships.",
+            "better_fit": "Use this for semantic segmentation of an image.",
+            "feedback": {
+              "intrinsic": "The task would shift from language to pixels.",
+              "instructional": "Semantic language models support language tasks."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "semantic-language-model-uses",
+        "item_key": "language-transformers-and-meaning/semantic-language-model-uses/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. These are language tasks supported by semantic language models.",
+      "points": 1
+    },
+    {
+      "import_key": "language-transformers-and-meaning-l1-q3",
+      "question_type": "true_false",
+      "question_text": "Tokens used in similar contexts receive more closely aligned embedding vectors than unrelated words.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "attention-and-context-2",
+        "feedback_for_incorrect": {
+          "intrinsic": "This misses the role of contextual similarity.",
+          "instructional": "Similar contexts produce more closely aligned embedding vectors."
+        },
+        "item_key": "language-transformers-and-meaning/attention-and-context-2/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. Contextual similarity aligns embeddings.",
+      "points": 1
+    },
+    {
+      "import_key": "language-transformers-and-meaning-l1-q4",
+      "question_type": "true_false",
+      "question_text": "A semantic language model represents token relationships by assigning pixel values to words.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "semantic-language-model-uses",
+        "feedback_for_incorrect": {
+          "intrinsic": "This treats language as image data.",
+          "instructional": "Semantic language models represent token relationships with embeddings."
+        },
+        "item_key": "language-transformers-and-meaning/semantic-language-model-uses/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct. It uses embedding relationships, not pixel values.",
+      "points": 1
+    },
+    {
+      "import_key": "language-transformers-and-meaning-l1-q5",
+      "question_type": "multiple_choice",
+      "question_text": "What produces transformer encoder vectors with many dimensions?",
+      "options": {
+        "options": [
+          {
+            "text": "Complex linear-algebra calculations",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Transformer encoders create high-dimensional vectors through complex linear-algebra calculations. The dimensions encode contextual relationships.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Bounding-box calculations",
+            "is_correct": false,
+            "error_type": "Object detection confusion",
+            "rationale": "Bounding boxes locate objects in images. They do not create transformer encoder embeddings.",
+            "better_fit": "Use bounding-box calculations for object detection.",
+            "feedback": {
+              "intrinsic": "Vector creation would be confused with object localization.",
+              "instructional": "Encoder vectors arise from linear-algebra calculations."
+            }
+          },
+          {
+            "text": "Image-patch extraction",
+            "is_correct": false,
+            "error_type": "Input processing confusion",
+            "rationale": "Patch extraction prepares image portions for a vision transformer. It is not the calculation that creates encoder-vector dimensions.",
+            "better_fit": "Use patch extraction when converting an image into ViT inputs.",
+            "feedback": {
+              "intrinsic": "An input-preparation step would replace vector computation.",
+              "instructional": "High-dimensional encoder vectors come from linear algebra."
+            }
+          },
+          {
+            "text": "Tokenization alone",
+            "is_correct": false,
+            "error_type": "Pipeline confusion",
+            "rationale": "Tokenization identifies language units. It does not perform the complex calculations that create high-dimensional encoder vectors.",
+            "better_fit": "Use tokenization to prepare text for language-model processing.",
+            "feedback": {
+              "intrinsic": "The embedding calculation would be omitted.",
+              "instructional": "Tokens become encoder vectors through linear-algebra calculations."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "high-dimensional-transformer-embeddings",
+        "item_key": "language-transformers-and-meaning/high-dimensional-transformer-embeddings/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. Encoder embeddings are produced through complex linear algebra.",
+      "points": 1
+    },
+    {
+      "import_key": "language-transformers-and-meaning-l1-q6",
+      "question_type": "multiple_choice",
+      "question_text": "Which statements about tokens and vectors are correct? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "A token can be a word or phrase.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A token is a language unit such as a word or phrase. A language model represents these units.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A vector is an ordered numeric array.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A vector contains ordered numeric values. It represents an item in multidimensional space.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "An embedding can represent semantic attributes.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "An embedding is a vector representing semantic attributes. It can represent a token or a visual patch.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A token is a portion of image pixel values.",
+            "is_correct": false,
+            "error_type": "Image patch confusion",
+            "rationale": "A token is a language unit. A portion of image pixels is an image patch.",
+            "better_fit": "This describes an image patch used by a vision transformer.",
+            "feedback": {
+              "intrinsic": "A language unit would be confused with visual input.",
+              "instructional": "Separate tokens from image patches."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "tokens-vectors-and-embeddings",
+        "item_key": "language-transformers-and-meaning/tokens-vectors-and-embeddings/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. Tokens are units, while vectors and embeddings are numeric representations.",
+      "points": 1
+    },
+    {
+      "import_key": "language-transformers-and-meaning-l1-q7",
+      "question_type": "true_false",
+      "question_text": "Transformer encoder vectors have many dimensions that encode complex contextual relationships.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "high-dimensional-transformer-embeddings",
+        "feedback_for_incorrect": {
+          "intrinsic": "This underestimates encoder representations.",
+          "instructional": "Transformer encoder vectors are high-dimensional and contextual."
+        },
+        "item_key": "language-transformers-and-meaning/high-dimensional-transformer-embeddings/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. Many dimensions encode complex contextual relationships.",
+      "points": 1
+    },
+    {
+      "import_key": "language-transformers-and-meaning-l1-q8",
+      "question_type": "true_false",
+      "question_text": "A vector is a single language word represented by a model.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "tokens-vectors-and-embeddings",
+        "feedback_for_incorrect": {
+          "intrinsic": "This mixes a token with its representation.",
+          "instructional": "Vectors are ordered numeric arrays."
+        },
+        "item_key": "language-transformers-and-meaning/tokens-vectors-and-embeddings/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct. A word is a token, while a vector is numeric.",
+      "points": 1
+    },
+    {
+      "import_key": "language-transformers-and-meaning-l1-q9",
+      "question_type": "multiple_choice",
+      "question_text": "Which statements describe a vision transformer? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "It is trained on many images.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A vision transformer is trained on image data. It applies the transformer approach to images.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It extracts image patches.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A ViT extracts image patches from an image. Each patch contains a portion of pixel values.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It converts patches into linear vectors.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A vision transformer converts image patches into linear vectors. These vectors are then processed using the transformer approach.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It uses text tokens instead of image patches.",
+            "is_correct": false,
+            "error_type": "Language transformer confusion",
+            "rationale": "Text tokens are language-model inputs. A ViT begins with image patches from visual data.",
+            "better_fit": "This fits a language transformer processing written text.",
+            "feedback": {
+              "intrinsic": "Image structure would be lost.",
+              "instructional": "Vision transformers use patches, not text tokens."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "image-patches-and-vision-transformers",
+        "item_key": "language-transformers-and-meaning/image-patches-and-vision-transformers/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. ViTs process images as patches converted into vectors.",
+      "points": 1
+    },
+    {
+      "import_key": "language-transformers-and-meaning-l1-q10",
+      "question_type": "multiple_choice",
+      "question_text": "What does NLP stand for?",
+      "options": {
+        "options": [
+          {
+            "text": "Natural language processing",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "NLP stands for natural language processing. It is the AI discipline for processing and modeling language.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Neural language prediction",
+            "is_correct": false,
+            "error_type": "Term confusion",
+            "rationale": "This is not the expansion of NLP. Prediction can be a language-model task, but NLP is the broader discipline.",
+            "better_fit": "This phrase could loosely describe a model that predicts upcoming words.",
+            "feedback": {
+              "intrinsic": "The term would be expanded incorrectly.",
+              "instructional": "NLP means natural language processing."
+            }
+          },
+          {
+            "text": "Neural location processing",
+            "is_correct": false,
+            "error_type": "Domain confusion",
+            "rationale": "This phrase refers to neither the standard acronym nor language processing. NLP concerns language rather than spatial locations.",
+            "better_fit": "It might describe a hypothetical system for spatial-location data.",
+            "feedback": {
+              "intrinsic": "A language discipline would be mislabeled as a spatial task.",
+              "instructional": "NLP is about natural language."
+            }
+          },
+          {
+            "text": "Numeric language protocol",
+            "is_correct": false,
+            "error_type": "Term confusion",
+            "rationale": "This is not the established meaning of NLP. NLP is an AI field, not a communication protocol.",
+            "better_fit": "A protocol could govern data exchange between software systems.",
+            "feedback": {
+              "intrinsic": "The discipline would be confused with a technical standard.",
+              "instructional": "Recall the full term: natural language processing."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "nlp-and-transformers",
+        "item_key": "language-transformers-and-meaning/nlp-and-transformers/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. NLP focuses on language.",
+      "points": 1
+    },
+    {
+      "import_key": "language-transformers-and-meaning-l1-q11",
+      "question_type": "true_false",
+      "question_text": "A vision transformer applies the transformer approach to text tokens instead of image patches.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "image-patches-and-vision-transformers",
+        "feedback_for_incorrect": {
+          "intrinsic": "This routes images through language units.",
+          "instructional": "A ViT applies transformers to image patches, not text tokens."
+        },
+        "item_key": "language-transformers-and-meaning/image-patches-and-vision-transformers/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct. A vision transformer uses image patches.",
+      "points": 1
+    },
+    {
+      "import_key": "language-transformers-and-meaning-l1-q12",
+      "question_type": "true_false",
+      "question_text": "NLP is an AI discipline focused on processing and modeling language.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "nlp-and-transformers",
+        "feedback_for_incorrect": {
+          "intrinsic": "This would misclassify language work.",
+          "instructional": "NLP processes and models natural language."
+        },
+        "item_key": "language-transformers-and-meaning/nlp-and-transformers/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. That is the focus of NLP.",
+      "points": 1
+    }
+  ],
+  "flashcards": [
+    {
+      "import_key": "language-transformers-and-meaning-l1-f0",
+      "front": "What does NLP focus on?",
+      "back": "Processing and modeling language.",
+      "hint": "Language."
+    },
+    {
+      "import_key": "language-transformers-and-meaning-l1-f1",
+      "front": "What is a token?",
+      "back": "A word, phrase, or other language unit.",
+      "hint": "Language unit."
+    },
+    {
+      "import_key": "language-transformers-and-meaning-l1-f2",
+      "front": "What does attention consider?",
+      "back": "Relationships among tokens in context.",
+      "hint": "Context."
+    },
+    {
+      "import_key": "language-transformers-and-meaning-l1-f3",
+      "front": "What is an image patch?",
+      "back": "A portion of an image containing pixel values.",
+      "hint": "Image portion."
+    }
+  ]
+}

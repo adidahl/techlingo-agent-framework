@@ -1,0 +1,539 @@
+{
+  "import_key": "responsible-ai-principles-l3",
+  "title": "Responsible AI principles · Level 3",
+  "slo": "Match a responsible AI principle to an appropriate workplace safeguard.",
+  "exercises": [
+    {
+      "import_key": "responsible-ai-principles-l3-q1",
+      "question_type": "multiple_choice",
+      "question_text": "A warehouse supervisor is setting rules for a robot that identifies boxes before moving them. Its confidence is low for one box. Choose all safe actions.",
+      "options": {
+        "options": [
+          {
+            "text": "Avoid moving the object",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Low confidence means the identification may be wrong. Avoiding action reduces physical risk.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Use a set confidence threshold",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A threshold defines when identification is reliable enough for action. It helps prevent action when confidence is too low.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Use demographic data for decisions",
+            "is_correct": false,
+            "error_type": "Confuses safety control with fairness",
+            "rationale": "Demographic data relates to fairness concerns. It does not make box movement safer.",
+            "better_fit": "Use fairness checks when reviewing demographic discrimination.",
+            "feedback": {
+              "intrinsic": "The robot could still move the wrong box.",
+              "instructional": "For low confidence, use a threshold and pause action."
+            }
+          },
+          {
+            "text": "Keep all face images forever",
+            "is_correct": false,
+            "error_type": "Confuses safety control with privacy and security",
+            "rationale": "Keeping temporary personal images creates privacy risk. It does not reduce uncertain object identification.",
+            "better_fit": "This is not appropriate; delete temporary images when no longer needed.",
+            "feedback": {
+              "intrinsic": "Privacy risk increases and the box-identification risk remains.",
+              "instructional": "Protecting images is separate from safety controls for uncertain identification."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "multi_choice",
+        "concept_id": "reliability-and-safety",
+        "item_key": "responsible-ai-principles/reliability-and-safety/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "[0,1]",
+      "explanation": "Correct. A threshold and no action below it reduce the risk of a mistaken movement.",
+      "points": 1
+    },
+    {
+      "import_key": "responsible-ai-principles-l3-q2",
+      "question_type": "fill_blank",
+      "question_text": "The principle is ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "The principle is "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "Privacy and security"
+            ],
+            "rejected_answers": [
+              "PII redaction",
+              "Fairness",
+              "pii-redaction"
+            ],
+            "placeholder": "principle"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "PII redaction",
+          "Fairness",
+          "pii-redaction"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "privacy-and-security",
+        "feedback_for_incorrect": {
+          "intrinsic": "Personal or organizational details could be left insufficiently protected.",
+          "instructional": "Use Privacy and security for the broad duty to safeguard data and private details."
+        },
+        "item_key": "responsible-ai-principles/privacy-and-security/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "Privacy and security",
+      "explanation": "Privacy and security covers securing training data and preventing private details from being revealed. PII redaction is one text-analysis technique, while fairness concerns bias.",
+      "points": 1
+    },
+    {
+      "import_key": "responsible-ai-principles-l3-q3",
+      "question_type": "multiple_choice",
+      "question_text": "A delivery robot sometimes mistakes objects near people. The safety lead must reduce the chance of harm. Choose all safeguards that best address this risk.",
+      "options": {
+        "options": [
+          {
+            "text": "Set a minimum confidence level",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A minimum level sets a clear condition for reliable identification. It limits risky action when certainty is too low.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Do not act below that level",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Pausing below the threshold prevents action based on uncertain identification. This directly reduces the chance of harm.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Publish details about model training",
+            "is_correct": false,
+            "error_type": "Confuses reliability and safety with transparency",
+            "rationale": "Publishing details helps people understand use and limitations. It does not directly prevent a risky physical action.",
+            "better_fit": "Use this when users need information about how a service works.",
+            "feedback": {
+              "intrinsic": "People near the robot may still face risk.",
+              "instructional": "Transparency informs people; confidence limits directly improve safety."
+            }
+          },
+          {
+            "text": "Remove bias from admissions data",
+            "is_correct": false,
+            "error_type": "Confuses reliability and safety with fairness",
+            "rationale": "Admissions bias is a fairness issue. It does not address object mistakes near people.",
+            "better_fit": "Use this when reviewing admissions decisions for discrimination.",
+            "feedback": {
+              "intrinsic": "The immediate physical risk remains.",
+              "instructional": "Focus on confidence and avoiding action when identification is uncertain."
+            }
+          }
+        ],
+        "blooms_level": "Analyzing/Evaluating",
+        "original_question_type": "multi_choice",
+        "concept_id": "reliability-and-safety",
+        "item_key": "responsible-ai-principles/reliability-and-safety/r5/v1",
+        "rung": 5
+      },
+      "correct_answer": "[0,1]",
+      "explanation": "Correct. Confidence-based limits directly reduce unsafe action around people.",
+      "points": 1
+    },
+    {
+      "import_key": "responsible-ai-principles-l3-q4",
+      "question_type": "multiple_choice",
+      "question_text": "A secure-entry team is reviewing how it handles facial images. Which plan best protects those images?",
+      "options": {
+        "options": [
+          {
+            "text": "Delete images when unneeded and limit access",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Deletion limits unnecessary retention. Access limits prevent people without a need from viewing personal images.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Use captions for spoken interaction",
+            "is_correct": false,
+            "error_type": "Confuses privacy and security with inclusiveness",
+            "rationale": "Captions improve access for people with hearing impairments. They do not protect facial images.",
+            "better_fit": "Use this for a speech-based service that needs accessible responses.",
+            "feedback": {
+              "intrinsic": "Facial images may remain available to people who do not need them.",
+              "instructional": "Protect images by limiting access and deleting them when no longer needed."
+            }
+          },
+          {
+            "text": "Test outputs for demographic bias",
+            "is_correct": false,
+            "error_type": "Confuses privacy and security with fairness",
+            "rationale": "Bias testing addresses discriminatory outputs. It does not control image retention or access.",
+            "better_fit": "Use this when checking decisions for discrimination.",
+            "feedback": {
+              "intrinsic": "Private facial images could still be exposed.",
+              "instructional": "Fairness and privacy address different risks; this situation requires data protection."
+            }
+          },
+          {
+            "text": "Disclose that an AI system is used",
+            "is_correct": false,
+            "error_type": "Confuses privacy and security with transparency",
+            "rationale": "Disclosure informs users about use. It does not secure stored facial images.",
+            "better_fit": "Use this when making use and limitations clear to users.",
+            "feedback": {
+              "intrinsic": "Images may remain accessible or retained unnecessarily.",
+              "instructional": "Transparency does not replace access controls and deletion."
+            }
+          }
+        ],
+        "blooms_level": "Analyzing/Evaluating",
+        "original_question_type": "single_choice",
+        "concept_id": "privacy-and-security",
+        "item_key": "responsible-ai-principles/privacy-and-security/r5/v1",
+        "rung": 5
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. Deletion and access limits protect personal facial images.",
+      "points": 1
+    },
+    {
+      "import_key": "responsible-ai-principles-l3-q5",
+      "question_type": "arrange_sentence",
+      "question_text": "Reconstruct the statement from the pieces.",
+      "options": {
+        "word_bank": [
+          "with hearing impairments",
+          "Text captions",
+          "use speech-based AI",
+          "help users"
+        ],
+        "correct_order": [
+          "Text captions",
+          "help users",
+          "with hearing impairments",
+          "use speech-based AI"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "inclusiveness",
+        "feedback_for_incorrect": {
+          "intrinsic": "The accessibility connection may be hard to understand.",
+          "instructional": "Place the captions first, then the users they help and the spoken service they can use."
+        },
+        "item_key": "responsible-ai-principles/inclusiveness/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "Text captions help users with hearing impairments use speech-based AI",
+      "explanation": "The order begins with the access feature, then identifies who it helps and what it makes usable. This shows how captions prevent exclusion from spoken interaction.",
+      "points": 1
+    },
+    {
+      "import_key": "responsible-ai-principles-l3-q6",
+      "question_type": "fill_blank",
+      "question_text": "The principle is ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "The principle is "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "Fairness"
+            ],
+            "rejected_answers": [
+              "Inclusiveness",
+              "Privacy and security",
+              "privacy-and-security"
+            ],
+            "placeholder": "principle"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "Inclusiveness",
+          "Privacy and security",
+          "privacy-and-security"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "fairness",
+        "feedback_for_incorrect": {
+          "intrinsic": "The safeguard would not directly address unfair decisions.",
+          "instructional": "Use Fairness for bias and discrimination; use the other terms for access or information protection."
+        },
+        "item_key": "responsible-ai-principles/fairness/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "Fairness",
+      "explanation": "Fairness addresses how decisions affect people by reducing bias and discrimination. Inclusiveness concerns access, while privacy and security concerns protecting information.",
+      "points": 1
+    },
+    {
+      "import_key": "responsible-ai-principles-l3-q7",
+      "question_type": "multiple_choice",
+      "question_text": "An accessibility lead is improving a voice assistant after employees with hearing impairments report an access problem. Choose all actions that best solve it.",
+      "options": {
+        "options": [
+          {
+            "text": "Add text captions",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Text captions give an alternate way to receive spoken results. They directly address the reported access problem.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Design to avoid excluding users",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The reported problem is exclusion. Designing around that goal supports inclusiveness.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Disclose the system's limitations",
+            "is_correct": false,
+            "error_type": "Confuses inclusiveness with transparency",
+            "rationale": "Disclosure may inform employees about a limitation. It does not make the spoken response accessible.",
+            "better_fit": "Use this when people need to be told about limitations.",
+            "feedback": {
+              "intrinsic": "Employees may know about the barrier but still be unable to use the service.",
+              "instructional": "Transparency explains; captions provide access."
+            }
+          },
+          {
+            "text": "Test demographic outcomes for bias",
+            "is_correct": false,
+            "error_type": "Confuses inclusiveness with fairness",
+            "rationale": "Bias testing addresses discriminatory decisions. It does not solve this hearing-access barrier.",
+            "better_fit": "Use this when checking outcomes for discrimination.",
+            "feedback": {
+              "intrinsic": "The reported access problem could continue.",
+              "instructional": "Focus on a text alternative so hearing-impaired employees are not excluded."
+            }
+          }
+        ],
+        "blooms_level": "Analyzing/Evaluating",
+        "original_question_type": "multi_choice",
+        "concept_id": "inclusiveness",
+        "item_key": "responsible-ai-principles/inclusiveness/r5/v1",
+        "rung": 5
+      },
+      "correct_answer": "[0,1]",
+      "explanation": "Correct. Captions and a design that avoids exclusion directly improve access.",
+      "points": 1
+    },
+    {
+      "import_key": "responsible-ai-principles-l3-q8",
+      "question_type": "multiple_choice",
+      "question_text": "A hiring manager finds that an AI tool rejects qualified applicants from one demographic group. What should the manager prioritize?",
+      "options": {
+        "options": [
+          {
+            "text": "Reduce bias in data and test the system's outputs",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The pattern shows possible discriminatory output. Reducing bias and testing results directly address that risk.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Provide captions for spoken answers",
+            "is_correct": false,
+            "error_type": "Confuses fairness with inclusiveness",
+            "rationale": "Captions improve access for people with hearing impairments. They do not correct discriminatory hiring results.",
+            "better_fit": "Use this for spoken responses that need an accessible alternative.",
+            "feedback": {
+              "intrinsic": "Qualified applicants may continue to be rejected unfairly.",
+              "instructional": "This problem is about bias, so focus on fairness."
+            }
+          },
+          {
+            "text": "Restrict access to private records",
+            "is_correct": false,
+            "error_type": "Confuses fairness with privacy and security",
+            "rationale": "Access controls protect private information. They do not directly correct unfair output patterns.",
+            "better_fit": "Use this when private records must be protected.",
+            "feedback": {
+              "intrinsic": "Records may be secure while unfair rejections continue.",
+              "instructional": "Privacy protection is important, but fairness addresses discriminatory outcomes."
+            }
+          },
+          {
+            "text": "Describe the system's limitations",
+            "is_correct": false,
+            "error_type": "Confuses fairness with transparency",
+            "rationale": "Describing limitations informs users. It does not correct bias in outcomes.",
+            "better_fit": "Use this when people need to understand possible limitations.",
+            "feedback": {
+              "intrinsic": "The unfair pattern could continue after it is explained.",
+              "instructional": "Transparency explains limits; fairness requires reducing bias."
+            }
+          }
+        ],
+        "blooms_level": "Analyzing/Evaluating",
+        "original_question_type": "single_choice",
+        "concept_id": "fairness",
+        "item_key": "responsible-ai-principles/fairness/r5/v1",
+        "rung": 5
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. The hiring pattern calls for bias reduction and testing for fair outcomes.",
+      "points": 1
+    },
+    {
+      "import_key": "responsible-ai-principles-l3-q9",
+      "question_type": "true_false",
+      "question_text": "Accountability means individual users, not the organizations that distribute AI, are responsible for AI actions.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "accountability",
+        "feedback_for_incorrect": {
+          "intrinsic": "Responsibility could be shifted away from the people and organizations that develop and distribute the service.",
+          "instructional": "Accountability requires those people and organizations to take responsibility and apply governance."
+        },
+        "item_key": "responsible-ai-principles/accountability/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct. Developers and distributing organizations are responsible for their actions.",
+      "points": 1
+    },
+    {
+      "import_key": "responsible-ai-principles-l3-q10",
+      "question_type": "true_false",
+      "question_text": "A bank using AI for loan approval should disclose that it uses AI.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "transparency-and-disclosure",
+        "feedback_for_incorrect": {
+          "intrinsic": "Applicants may be unaware of an important part of the decision process.",
+          "instructional": "Transparency requires making users aware of use and possible limitations."
+        },
+        "item_key": "responsible-ai-principles/transparency-and-disclosure/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. Disclosure makes applicants aware that loan approval uses a model.",
+      "points": 1
+    },
+    {
+      "import_key": "responsible-ai-principles-l3-q11",
+      "question_type": "arrange_sentence",
+      "question_text": "Put the pieces in the correct order.",
+      "options": {
+        "word_bank": [
+          "governance frameworks",
+          "Organizations",
+          "for responsible AI",
+          "define and apply"
+        ],
+        "correct_order": [
+          "Organizations",
+          "define and apply",
+          "governance frameworks",
+          "for responsible AI"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "accountability",
+        "feedback_for_incorrect": {
+          "intrinsic": "It may be unclear who is responsible for applying governance.",
+          "instructional": "Begin with organizations, then their governance action and its responsible purpose."
+        },
+        "item_key": "responsible-ai-principles/accountability/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "Organizations define and apply governance frameworks for responsible AI",
+      "explanation": "The order identifies who is responsible, the action they take, and its purpose. Governance frameworks help organizations apply responsible principles.",
+      "points": 1
+    },
+    {
+      "import_key": "responsible-ai-principles-l3-q12",
+      "question_type": "multiple_choice",
+      "question_text": "A lender wants to explain its AI loan decisions while keeping confidential information private. Which approach best fits?",
+      "options": {
+        "options": [
+          {
+            "text": "Describe AI use and relevant training-data features",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "This provides meaningful information about the decision process. It can do so without revealing confidential information.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Create a governance framework",
+            "is_correct": false,
+            "error_type": "Confuses transparency with accountability",
+            "rationale": "Governance frameworks support accountability. They do not by themselves explain decisions to applicants.",
+            "better_fit": "Use this when organizing responsibility for responsible practice.",
+            "feedback": {
+              "intrinsic": "Applicants may still receive no explanation of the decision process.",
+              "instructional": "Governance is accountability; this situation needs transparent communication."
+            }
+          },
+          {
+            "text": "Give all staff access to training data",
+            "is_correct": false,
+            "error_type": "Confuses transparency with privacy and security",
+            "rationale": "Broad access can expose confidential information. Transparency does not require revealing protected data to everyone.",
+            "better_fit": "This is not appropriate; access should be limited to people who need it.",
+            "feedback": {
+              "intrinsic": "Confidential information could be exposed to people without a need to view it.",
+              "instructional": "Explain relevant features without opening confidential data broadly."
+            }
+          },
+          {
+            "text": "Test the system for demographic bias",
+            "is_correct": false,
+            "error_type": "Confuses transparency with fairness",
+            "rationale": "Testing demographic bias supports fairness. It does not explain how loan decisions are made.",
+            "better_fit": "Use this when reviewing outcomes for discrimination.",
+            "feedback": {
+              "intrinsic": "Applicants may still not understand the decision process.",
+              "instructional": "Fairness checks bias; transparency communicates use and limitations."
+            }
+          }
+        ],
+        "blooms_level": "Analyzing/Evaluating",
+        "original_question_type": "single_choice",
+        "concept_id": "transparency-and-disclosure",
+        "item_key": "responsible-ai-principles/transparency-and-disclosure/r5/v1",
+        "rung": 5
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. This approach informs applicants while protecting confidential information.",
+      "points": 1
+    }
+  ],
+  "flashcards": []
+}

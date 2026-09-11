@@ -1,0 +1,496 @@
+{
+  "import_key": "tokens-and-text-preparation-l1",
+  "title": "Tokens and Text Preparation · Level 1",
+  "slo": "Prepare text for analysis by using tokenization and common preprocessing methods.",
+  "exercises": [
+    {
+      "import_key": "tokens-and-text-preparation-l1-q1",
+      "question_type": "multiple_choice",
+      "question_text": "What is a corpus in NLP?",
+      "options": {
+        "options": [
+          {
+            "text": "A body of text for analysis",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A corpus is the body of language content being analyzed. It is the starting collection before it is broken into tokens.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A group of normalized words",
+            "is_correct": false,
+            "error_type": "Confuses corpus with normalization output",
+            "rationale": "Normalization can change punctuation or letter case before tokens are generated. It does not define the full body of content being analyzed.",
+            "better_fit": "This fits when describing content after surface differences have been standardized.",
+            "feedback": {
+              "intrinsic": "You would mistake a preparation result for the full collection of content.",
+              "instructional": "A corpus is the whole body of content; normalization is only one possible preparation step."
+            }
+          },
+          {
+            "text": "A sequence of grouped terms",
+            "is_correct": false,
+            "error_type": "Confuses corpus with an n-gram",
+            "rationale": "A sequence of terms treated as one group is an n-gram. A corpus can contain many such sequences.",
+            "better_fit": "This fits when naming a phrase such as a two-word bigram or three-word trigram.",
+            "feedback": {
+              "intrinsic": "You would label one small phrase as though it were the entire collection.",
+              "instructional": "An n-gram is a grouped sequence of terms, while a corpus is the body of content under analysis."
+            }
+          },
+          {
+            "text": "A grammatical label for a word",
+            "is_correct": false,
+            "error_type": "Confuses corpus with POS tagging",
+            "rationale": "A grammatical label such as noun or verb comes from POS tagging. It describes an individual token, not the collection being analyzed.",
+            "better_fit": "This fits when identifying a token’s grammatical category.",
+            "feedback": {
+              "intrinsic": "You would focus on one token’s grammar instead of the collection to prepare.",
+              "instructional": "POS tagging labels tokens; a corpus is the body of content containing those tokens."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "corpus-token-tokenization",
+        "item_key": "tokens-and-text-preparation/corpus-token-tokenization/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. A corpus is the body of content selected for analysis.",
+      "points": 1
+    },
+    {
+      "import_key": "tokens-and-text-preparation-l1-q2",
+      "question_type": "multiple_choice",
+      "question_text": "Which statements about n-grams are correct? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "A unigram has one word",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A unigram is a one-word phrase treated as a group. It is the one-term form of an n-gram.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A bigram has two words",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A bigram is a sequence of two terms treated as a group. Multi-term groups can preserve phrase meaning.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A trigram has two words",
+            "is_correct": false,
+            "error_type": "Confuses bigrams with trigrams",
+            "rationale": "A trigram has three words. A two-word sequence is a bigram.",
+            "better_fit": "This fits if “trigram” is replaced with “bigram.”",
+            "feedback": {
+              "intrinsic": "You would assign the wrong group size to a phrase.",
+              "instructional": "Remember the counts: unigram is one, bigram is two, and trigram is three."
+            }
+          },
+          {
+            "text": "An n-gram removes word endings",
+            "is_correct": false,
+            "error_type": "Confuses n-grams with stemming",
+            "rationale": "Removing endings such as “ing” and “ed” is stemming. An n-gram groups a sequence of terms.",
+            "better_fit": "This fits when describing stemming.",
+            "feedback": {
+              "intrinsic": "You would change word forms instead of preserving a meaningful sequence.",
+              "instructional": "N-grams group terms; stemming strips endings to consolidate related forms."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "ngram-extraction",
+        "item_key": "tokens-and-text-preparation/ngram-extraction/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "[0,1]",
+      "explanation": "Correct. N-grams are grouped sequences, and their names indicate the number of terms.",
+      "points": 1
+    },
+    {
+      "import_key": "tokens-and-text-preparation-l1-q3",
+      "question_type": "true_false",
+      "question_text": "Tokenization can create tokens from whole words, partial words, or combinations of words and punctuation.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "corpus-token-tokenization",
+        "feedback_for_incorrect": {
+          "intrinsic": "Treating tokens as words only can miss how punctuation and word parts are represented.",
+          "instructional": "Tokenization can produce whole words, partial words, or combinations of words and punctuation."
+        },
+        "item_key": "tokens-and-text-preparation/corpus-token-tokenization/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. Tokens are not limited to whole words.",
+      "points": 1
+    },
+    {
+      "import_key": "tokens-and-text-preparation-l1-q4",
+      "question_type": "true_false",
+      "question_text": "A bigram is a sequence of three terms treated as a group.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "ngram-extraction",
+        "feedback_for_incorrect": {
+          "intrinsic": "Using three terms would place the phrase in the wrong n-gram category.",
+          "instructional": "A unigram has one word, a bigram has two, and a trigram has three."
+        },
+        "item_key": "tokens-and-text-preparation/ngram-extraction/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct. A bigram has two terms.",
+      "points": 1
+    },
+    {
+      "import_key": "tokens-and-text-preparation-l1-q5",
+      "question_type": "multiple_choice",
+      "question_text": "Which method strips endings such as “ing” and “ed” to group related forms?",
+      "options": {
+        "options": [
+          {
+            "text": "Stemming",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Stemming strips endings such as “s,” “ing,” and “ed.” It consolidates related forms under a shared root.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Lemmatization",
+            "is_correct": false,
+            "error_type": "Confuses stemming with lemmatization",
+            "rationale": "Lemmatization uses linguistic rules and vocabulary to return a valid dictionary base form. It does more than simply chop endings.",
+            "better_fit": "This fits when a valid lemma such as “run” is needed.",
+            "feedback": {
+              "intrinsic": "You might expect a valid dictionary form when only ending stripping is being described.",
+              "instructional": "Stemming strips endings; lemmatization uses rules and vocabulary to produce a valid word."
+            }
+          },
+          {
+            "text": "Text normalization",
+            "is_correct": false,
+            "error_type": "Confuses stemming with normalization",
+            "rationale": "Normalization can lowercase words or remove punctuation. It does not strip endings to group related forms.",
+            "better_fit": "This fits when standardizing case or punctuation before token generation.",
+            "feedback": {
+              "intrinsic": "Related forms could remain separate during counting.",
+              "instructional": "Use stemming to consolidate endings such as “ing” and “ed”; normalization handles surface differences."
+            }
+          },
+          {
+            "text": "POS tagging",
+            "is_correct": false,
+            "error_type": "Confuses stemming with grammatical tagging",
+            "rationale": "POS tagging labels a token as a noun, verb, adjective, or adverb. It does not alter word endings.",
+            "better_fit": "This fits when grammatical categories are required.",
+            "feedback": {
+              "intrinsic": "You would add grammar labels without grouping the related word forms.",
+              "instructional": "POS tagging classifies grammar; stemming strips endings."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "stemming-lemmatization-pos",
+        "item_key": "tokens-and-text-preparation/stemming-lemmatization-pos/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. Stemming groups related forms by stripping endings.",
+      "points": 1
+    },
+    {
+      "import_key": "tokens-and-text-preparation-l1-q6",
+      "question_type": "multiple_choice",
+      "question_text": "Which actions are text normalization? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Remove punctuation",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Removing punctuation is a surface-form standardization. It can help analysis based purely on word frequency.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Change words to lowercase",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Changing case standardizes surface differences before token generation. This can improve frequency-based analysis.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Exclude words like “the”",
+            "is_correct": false,
+            "error_type": "Confuses normalization with stop word removal",
+            "rationale": "Excluding common words is stop word removal. Normalization instead standardizes features such as punctuation and capitalization.",
+            "better_fit": "This fits when low-meaning common words should be removed to reveal content words.",
+            "feedback": {
+              "intrinsic": "You would remove words rather than standardize their surface form.",
+              "instructional": "Stop word removal excludes words like “the”; normalization can lowercase words or remove punctuation."
+            }
+          },
+          {
+            "text": "Use grammar rules for base forms",
+            "is_correct": false,
+            "error_type": "Confuses normalization with lemmatization",
+            "rationale": "Using linguistic rules and vocabulary to produce a valid base form is lemmatization. Normalization does not perform that dictionary-form reduction.",
+            "better_fit": "This fits when a valid lemma such as “run” is required.",
+            "feedback": {
+              "intrinsic": "You would change word forms when the task only calls for surface standardization.",
+              "instructional": "Lemmatization uses rules and vocabulary; normalization handles case and punctuation."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "normalization-tradeoff",
+        "item_key": "tokens-and-text-preparation/normalization-tradeoff/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "[0,1]",
+      "explanation": "Correct. Both actions standardize surface differences before token generation.",
+      "points": 1
+    },
+    {
+      "import_key": "tokens-and-text-preparation-l1-q7",
+      "question_type": "true_false",
+      "question_text": "POS tagging can label a token as a noun, verb, adjective, or adverb by using the token and its context.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "stemming-lemmatization-pos",
+        "feedback_for_incorrect": {
+          "intrinsic": "Ignoring context can lead to the wrong grammatical category for a token.",
+          "instructional": "POS tagging labels tokens as noun, verb, adjective, or adverb and uses both the token and its sentence context."
+        },
+        "item_key": "tokens-and-text-preparation/stemming-lemmatization-pos/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. POS tagging assigns grammatical categories using the token and its context.",
+      "points": 1
+    },
+    {
+      "import_key": "tokens-and-text-preparation-l1-q8",
+      "question_type": "multiple_choice",
+      "question_text": "Which word is a common stop word?",
+      "options": {
+        "options": [
+          {
+            "text": "the",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "“The” is a common word that helps people read but often adds little semantic meaning. It is a standard stop-word example.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "artificial intelligence",
+            "is_correct": false,
+            "error_type": "Confuses stop words with n-grams",
+            "rationale": "This is a two-term phrase that can be treated as a bigram. It is not a common low-meaning word.",
+            "better_fit": "This fits when identifying a meaningful two-word n-gram.",
+            "feedback": {
+              "intrinsic": "You would remove a phrase that may identify a main topic.",
+              "instructional": "Stop words are common words such as “the,” “a,” and “it,” not meaningful multi-term phrases."
+            }
+          },
+          {
+            "text": "running",
+            "is_correct": false,
+            "error_type": "Confuses stop words with a word form",
+            "rationale": "“Running” is a word form that can be reduced to “run” by lemmatization. It is not identified as a common stop word.",
+            "better_fit": "This fits when discussing a word that lemmatization can reduce to a valid base form.",
+            "feedback": {
+              "intrinsic": "You could remove a content word instead of preparing its form.",
+              "instructional": "Stop word removal targets common low-meaning words; “running” is used to illustrate lemmatization."
+            }
+          },
+          {
+            "text": "banks.",
+            "is_correct": false,
+            "error_type": "Confuses stop words with punctuation-sensitive token",
+            "rationale": "“Banks.” may differ from “banks” because the period signals sentence position. It is not a listed common stop word.",
+            "better_fit": "This fits when preserving punctuation-sensitive meaning is important.",
+            "feedback": {
+              "intrinsic": "You would discard a token whose punctuation may carry useful meaning.",
+              "instructional": "Stop words are common readability words; punctuation-sensitive terms can need to be retained."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "stop-word-removal",
+        "item_key": "tokens-and-text-preparation/stop-word-removal/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. “The” often adds little semantic meaning and may be excluded.",
+      "points": 1
+    },
+    {
+      "import_key": "tokens-and-text-preparation-l1-q9",
+      "question_type": "true_false",
+      "question_text": "Text normalization uses linguistic rules and vocabulary to return valid dictionary forms.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "normalization-tradeoff",
+        "feedback_for_incorrect": {
+          "intrinsic": "Choosing true would substitute base-form reduction for surface standardization.",
+          "instructional": "Lemmatization uses linguistic rules and vocabulary to return a valid dictionary form. Normalization can lowercase words or remove punctuation."
+        },
+        "item_key": "tokens-and-text-preparation/normalization-tradeoff/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct. That process is lemmatization, not normalization.",
+      "points": 1
+    },
+    {
+      "import_key": "tokens-and-text-preparation-l1-q10",
+      "question_type": "true_false",
+      "question_text": "Stop word removal changes every word to lowercase before analysis.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "stop-word-removal",
+        "feedback_for_incorrect": {
+          "intrinsic": "Choosing true would use the wrong preparation method for common-word removal.",
+          "instructional": "Stop word removal excludes words such as “the,” “a,” and “it.” Changing case is text normalization."
+        },
+        "item_key": "tokens-and-text-preparation/stop-word-removal/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct. Lowercasing is a normalization action.",
+      "points": 1
+    },
+    {
+      "import_key": "tokens-and-text-preparation-l1-q11",
+      "question_type": "arrange_sentence",
+      "question_text": "Arrange the parts to form the correct statement.",
+      "options": {
+        "word_bank": [
+          "before",
+          "Text normalization",
+          "tokens are generated",
+          "can remove punctuation"
+        ],
+        "correct_order": [
+          "Text normalization",
+          "can remove punctuation",
+          "before",
+          "tokens are generated"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "normalization-tradeoff",
+        "feedback_for_incorrect": {
+          "intrinsic": "The timing of the preparation action is no longer clear.",
+          "instructional": "Name normalization, state its action, then show that it can happen before tokens are generated."
+        },
+        "item_key": "tokens-and-text-preparation/normalization-tradeoff/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "Text normalization can remove punctuation before tokens are generated",
+      "explanation": "Normalization is a preparation choice that can occur before token generation, so the timing phrase follows the action.",
+      "points": 1
+    },
+    {
+      "import_key": "tokens-and-text-preparation-l1-q12",
+      "question_type": "fill_blank",
+      "question_text": "Words such as “the,” “a,” and “it” are often called ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "Words such as “the,” “a,” and “it” are often called "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "stop words",
+              "stop word"
+            ],
+            "rejected_answers": [
+              "n-grams",
+              "tokens",
+              "lemmas",
+              "text-normalization-tradeoff",
+              "ngram-extraction",
+              "frequency-analysis"
+            ],
+            "placeholder": "technical term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "n-grams",
+          "tokens",
+          "lemmas",
+          "text-normalization-tradeoff",
+          "ngram-extraction",
+          "frequency-analysis"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "stop-word-removal",
+        "feedback_for_incorrect": {
+          "intrinsic": "The label would confuse common low-meaning words with units, phrases, or dictionary base forms.",
+          "instructional": "Tokens are units, n-grams are term sequences, and lemmas are valid base forms. “The,” “a,” and “it” are stop words."
+        },
+        "item_key": "tokens-and-text-preparation/stop-word-removal/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "[\"stop words\",\"stop word\"]",
+      "explanation": "These common readability words often add little semantic meaning, so they may be excluded to highlight content words.",
+      "points": 1
+    }
+  ],
+  "flashcards": [
+    {
+      "import_key": "tokens-and-text-preparation-l1-f0",
+      "front": "What is tokenization?",
+      "back": "It breaks a corpus into tokens.",
+      "hint": "Think: split text."
+    },
+    {
+      "import_key": "tokens-and-text-preparation-l1-f1",
+      "front": "What is text normalization?",
+      "back": "It standardizes text, such as lowercase words or removed punctuation.",
+      "hint": "Think: standardize surface form."
+    },
+    {
+      "import_key": "tokens-and-text-preparation-l1-f2",
+      "front": "What are stop words?",
+      "back": "Common words that often add little semantic meaning.",
+      "hint": "Examples include “the” and “it.”"
+    },
+    {
+      "import_key": "tokens-and-text-preparation-l1-f3",
+      "front": "What is a bigram?",
+      "back": "A two-word sequence treated as a group.",
+      "hint": "“Bi” means two."
+    }
+  ]
+}

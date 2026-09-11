@@ -1,0 +1,589 @@
+{
+  "import_key": "tokens-vectors-and-transformers-l2",
+  "title": "Tokens, Vectors, and Transformers · Level 2",
+  "slo": "Explain how text is prepared and represented for a transformer model.",
+  "exercises": [
+    {
+      "import_key": "tokens-vectors-and-transformers-l2-q1",
+      "question_type": "multiple_choice",
+      "question_text": "In a vocabulary, what does a token ID identify?",
+      "options": {
+        "options": [
+          {
+            "text": "One distinct token",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "An ID is assigned to a distinct vocabulary token. Each occurrence of that token uses the same ID.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "One sentence position",
+            "is_correct": false,
+            "error_type": "Confuses identity with position",
+            "rationale": "A token can appear at multiple positions. Its ID remains associated with its vocabulary identity.",
+            "better_fit": "Use positional encoding for a token occurrence's location.",
+            "feedback": null
+          },
+          {
+            "text": "One vector dimension",
+            "is_correct": false,
+            "error_type": "Confuses ID with dimension",
+            "rationale": "A dimension is one value inside a vector. A token ID identifies a vocabulary entry.",
+            "better_fit": "Use this for an individual numeric value in a vector.",
+            "feedback": null
+          },
+          {
+            "text": "One decoder prediction",
+            "is_correct": false,
+            "error_type": "Confuses ID with prediction",
+            "rationale": "A decoder prediction selects a likely token. An ID labels tokens available in the vocabulary.",
+            "better_fit": "Use this for the likely next token selected by a decoder.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "token-ids-and-repeated-tokens",
+        "item_key": "tokens-vectors-and-transformers/token-ids-and-repeated-tokens/r1/v2",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. A token ID identifies one distinct vocabulary token.",
+      "points": 1
+    },
+    {
+      "import_key": "tokens-vectors-and-transformers-l2-q2",
+      "question_type": "arrange_sentence",
+      "question_text": "Reconstruct the preparation sequence.",
+      "options": {
+        "word_bank": [
+          "then send tokens",
+          "Assign random vectors",
+          "into the transformer",
+          "add positional encoding"
+        ],
+        "correct_order": [
+          "Assign random vectors",
+          "add positional encoding",
+          "then send tokens",
+          "into the transformer"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "initial-vectors-and-position",
+        "feedback_for_incorrect": {
+          "intrinsic": "The preparation sequence would be out of order.",
+          "instructional": "Assign vectors first, add position information, then send the prepared tokens onward."
+        },
+        "item_key": "tokens-vectors-and-transformers/initial-vectors-and-position/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "Assign random vectors add positional encoding then send tokens into the transformer",
+      "explanation": "Initial representations are assigned, order information is added, and the prepared representations are sent to the transformer.",
+      "points": 1
+    },
+    {
+      "import_key": "tokens-vectors-and-transformers-l2-q3",
+      "question_type": "fill_blank",
+      "question_text": "The model architecture with an encoder block and decoder layer is a ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "The model architecture with an encoder block and decoder layer is a "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "transformer",
+              "transformer model"
+            ],
+            "rejected_answers": [
+              "token vector",
+              "embedding",
+              "encoder",
+              "decoder",
+              "encoder-block",
+              "decoder-layer",
+              "llm-and-slm"
+            ],
+            "placeholder": "technical term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "token vector",
+          "embedding",
+          "encoder",
+          "decoder",
+          "encoder-block",
+          "decoder-layer",
+          "llm-and-slm"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "transformer-model",
+        "feedback_for_incorrect": {
+          "intrinsic": "The answer would name a component or representation rather than the architecture.",
+          "instructional": "The full architecture containing encoder and decoder parts is a transformer."
+        },
+        "item_key": "tokens-vectors-and-transformers/transformer-model/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "[\"transformer\",\"transformer model\"]",
+      "explanation": "A transformer contains encoder and decoder components and processes token representations.",
+      "points": 1
+    },
+    {
+      "import_key": "tokens-vectors-and-transformers-l2-q4",
+      "question_type": "multiple_choice",
+      "question_text": "A developer prepares a sentence containing two occurrences of \"a\" and must preserve their different locations. Which choices should the developer make? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Reuse the same token ID for both",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Both occurrences are the same vocabulary token. They therefore use the same assigned ID.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Give each occurrence a different position",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The occurrences appear at different places in the sequence. Their positional information must differ.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Apply positional encoding to each occurrence",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Each occurrence needs order information. Positional encoding provides this information.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Create a new vocabulary token for the second occurrence",
+            "is_correct": false,
+            "error_type": "Confuses repetition with a new token",
+            "rationale": "A repeated occurrence is not a distinct vocabulary entry. It should reuse the known token ID.",
+            "better_fit": "Use this only when the vocabulary gains a genuinely distinct token.",
+            "feedback": {
+              "intrinsic": "The vocabulary would grow without a new token being introduced.",
+              "instructional": "Reuse the ID and use different positional encodings for the occurrences."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "multi_choice",
+        "concept_id": "initial-vectors-and-position",
+        "item_key": "tokens-vectors-and-transformers/initial-vectors-and-position/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. Identity stays the same while positional information changes.",
+      "points": 1
+    },
+    {
+      "import_key": "tokens-vectors-and-transformers-l2-q5",
+      "question_type": "fill_blank",
+      "question_text": "In the word \"unlikely,\" the piece \"un\" can be a ___ token.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "In the word \"unlikely,\" the piece \"un\" can be a "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "sub-word",
+              "subword"
+            ],
+            "rejected_answers": [
+              "token ID",
+              "token vector",
+              "embedding",
+              "positional encoding",
+              "vocabulary-and-training-data",
+              "token-vector"
+            ],
+            "placeholder": "technical term"
+          },
+          {
+            "type": "text",
+            "text": " token."
+          }
+        ],
+        "rejected_answers": [
+          "token ID",
+          "token vector",
+          "embedding",
+          "positional encoding",
+          "vocabulary-and-training-data",
+          "token-vector"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "tokenization",
+        "feedback_for_incorrect": {
+          "intrinsic": "The answer would not name the kind of token represented by \"un.\"",
+          "instructional": "A sub-word is a token that represents part of a word."
+        },
+        "item_key": "tokens-vectors-and-transformers/tokenization/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "[\"sub-word\",\"subword\"]",
+      "explanation": "Tokenization can break language into sub-word pieces, not only complete words.",
+      "points": 1
+    },
+    {
+      "import_key": "tokens-vectors-and-transformers-l2-q6",
+      "question_type": "multiple_choice",
+      "question_text": "A developer needs an architecture that turns token representations into contextual embeddings and then chooses the most probable next token. Which architecture should the developer choose?",
+      "options": {
+        "options": [
+          {
+            "text": "A transformer model",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A transformer creates embeddings and predicts likely next tokens. Its encoder and decoder support these tasks.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A tokenization process",
+            "is_correct": false,
+            "error_type": "Confuses preparation with architecture",
+            "rationale": "Tokenization splits text and assigns IDs. It does not create contextual embeddings or predict continuations.",
+            "better_fit": "Use this to prepare the input before model processing.",
+            "feedback": {
+              "intrinsic": "The text would be prepared but no prediction architecture would be selected.",
+              "instructional": "Tokenization prepares tokens; a transformer creates embeddings and predicts tokens."
+            }
+          },
+          {
+            "text": "Positional encoding",
+            "is_correct": false,
+            "error_type": "Confuses order signal with architecture",
+            "rationale": "Positional encoding supplies location information. It is not an encoder-decoder architecture.",
+            "better_fit": "Use this alongside token representations when order matters.",
+            "feedback": {
+              "intrinsic": "Order would be available but the stated processing system would be absent.",
+              "instructional": "Position conveys order; a transformer performs embedding and prediction work."
+            }
+          },
+          {
+            "text": "A system prompt",
+            "is_correct": false,
+            "error_type": "Confuses instructions with architecture",
+            "rationale": "A system prompt guides behavior and constraints. It does not transform vectors or make next-token predictions.",
+            "better_fit": "Use this to specify response behavior or tone.",
+            "feedback": {
+              "intrinsic": "Instructions alone would not provide the requested model computation.",
+              "instructional": "Prompts guide behavior; transformer architecture processes and predicts tokens."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "single_choice",
+        "concept_id": "transformer-model",
+        "item_key": "tokens-vectors-and-transformers/transformer-model/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. A transformer supplies both contextual representation and next-token prediction.",
+      "points": 1
+    },
+    {
+      "import_key": "tokens-vectors-and-transformers-l2-q7",
+      "question_type": "arrange_sentence",
+      "question_text": "Put the processing steps in order.",
+      "options": {
+        "word_bank": [
+          "then decoder predicts",
+          "Encoder creates embeddings",
+          "the next token",
+          "decoder uses embeddings"
+        ],
+        "correct_order": [
+          "Encoder creates embeddings",
+          "decoder uses embeddings",
+          "then decoder predicts",
+          "the next token"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "encoder-and-decoder",
+        "feedback_for_incorrect": {
+          "intrinsic": "Prediction would incorrectly precede the representations it requires.",
+          "instructional": "Place encoder work first, then decoder use of embeddings, then prediction."
+        },
+        "item_key": "tokens-vectors-and-transformers/encoder-and-decoder/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "Encoder creates embeddings decoder uses embeddings then decoder predicts the next token",
+      "explanation": "Embeddings are created before the decoder uses them, and that use supports next-token prediction.",
+      "points": 1
+    },
+    {
+      "import_key": "tokens-vectors-and-transformers-l2-q8",
+      "question_type": "arrange_sentence",
+      "question_text": "Arrange the parts to form a correct statement.",
+      "options": {
+        "word_bank": [
+          "its assigned",
+          "A repeated token",
+          "token ID",
+          "keeps"
+        ],
+        "correct_order": [
+          "A repeated token",
+          "keeps",
+          "its assigned",
+          "token ID"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "token-ids-and-repeated-tokens",
+        "feedback_for_incorrect": {
+          "intrinsic": "The rule for repeated vocabulary items would be unclear.",
+          "instructional": "State the repeated token first, then that it retains its assigned ID."
+        },
+        "item_key": "tokens-vectors-and-transformers/token-ids-and-repeated-tokens/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "A repeated token keeps its assigned token ID",
+      "explanation": "A token's identifier is reused whenever that vocabulary token appears.",
+      "points": 1
+    },
+    {
+      "import_key": "tokens-vectors-and-transformers-l2-q9",
+      "question_type": "multiple_choice",
+      "question_text": "A developer must split an incoming sentence into words, punctuation, and common character pieces before the model processes it. Which method should the developer choose?",
+      "options": {
+        "options": [
+          {
+            "text": "Tokenization",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Tokenization splits language into usable tokens. It is the required preparation step.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Positional encoding",
+            "is_correct": false,
+            "error_type": "Confuses splitting with order",
+            "rationale": "Positional encoding records where tokens occur. It does not create the token pieces.",
+            "better_fit": "Use this after tokens are identified to represent sequence order.",
+            "feedback": {
+              "intrinsic": "The developer would have locations without first defining the pieces.",
+              "instructional": "Choose tokenization to split the text; use positional encoding for order."
+            }
+          },
+          {
+            "text": "Embedding creation",
+            "is_correct": false,
+            "error_type": "Confuses preparation with contextual representation",
+            "rationale": "Embeddings are created from token representations in context. They do not perform the initial split.",
+            "better_fit": "Use this when an encoder creates contextual vectors.",
+            "feedback": {
+              "intrinsic": "Processing would start before the input was divided into tokens.",
+              "instructional": "Tokenization comes before embedding creation."
+            }
+          },
+          {
+            "text": "Next-token prediction",
+            "is_correct": false,
+            "error_type": "Confuses input preparation with output generation",
+            "rationale": "Prediction chooses a likely continuation. It does not prepare the supplied sentence.",
+            "better_fit": "Use this when generating a response token.",
+            "feedback": {
+              "intrinsic": "The workflow would jump to generation too early.",
+              "instructional": "Prepare input with tokenization before predicting output."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "single_choice",
+        "concept_id": "tokenization",
+        "item_key": "tokens-vectors-and-transformers/tokenization/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. Tokenization produces the token pieces needed for later processing.",
+      "points": 1
+    },
+    {
+      "import_key": "tokens-vectors-and-transformers-l2-q10",
+      "question_type": "fill_blank",
+      "question_text": "The individual numeric values in a vector are called ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "The individual numeric values in a vector are called "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "dimensions",
+              "dimension"
+            ],
+            "rejected_answers": [
+              "token IDs",
+              "positions",
+              "embeddings",
+              "positional encoding",
+              "embedding",
+              "positional-encoding"
+            ],
+            "placeholder": "technical term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "token IDs",
+          "positions",
+          "embeddings",
+          "positional encoding",
+          "embedding",
+          "positional-encoding"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "token-vector",
+        "feedback_for_incorrect": {
+          "intrinsic": "The chosen term would not name one numeric element of a vector.",
+          "instructional": "Token IDs identify tokens and embeddings are contextual vectors; individual values are dimensions."
+        },
+        "item_key": "tokens-vectors-and-transformers/token-vector/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "[\"dimensions\",\"dimension\"]",
+      "explanation": "A vector is made of numeric elements, each called a dimension.",
+      "points": 1
+    },
+    {
+      "import_key": "tokens-vectors-and-transformers-l2-q11",
+      "question_type": "multiple_choice",
+      "question_text": "A developer already has embeddings for a prompt and must predict its next most probable token. Which decoder capabilities should the developer use? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "The prepared embeddings",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The decoder uses encoder-created embeddings. They provide contextual representations for prediction.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Attention",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The decoder uses attention while predicting. Attention helps it consider relevant sequence context.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A feed-forward neural network",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The decoder uses a feed-forward neural network. It contributes to choosing a probable candidate.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "New token IDs for each word",
+            "is_correct": false,
+            "error_type": "Confuses decoding with vocabulary assignment",
+            "rationale": "Token IDs are assigned during tokenization. The decoder predicts using embeddings, attention, and a feed-forward network.",
+            "better_fit": "Use this only when assigning IDs to distinct vocabulary tokens.",
+            "feedback": {
+              "intrinsic": "Vocabulary identities would be changed instead of using prediction components.",
+              "instructional": "For prediction, use embeddings, attention, and a feed-forward neural network; do not assign new IDs."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "multi_choice",
+        "concept_id": "encoder-and-decoder",
+        "item_key": "tokens-vectors-and-transformers/encoder-and-decoder/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. The decoder uses embeddings, attention, and a feed-forward neural network to predict the next token.",
+      "points": 1
+    },
+    {
+      "import_key": "tokens-vectors-and-transformers-l2-q12",
+      "question_type": "multiple_choice",
+      "question_text": "A developer represents the token \"heard\" as [2, 15, 1] to encode language and meaning attributes. What should the developer call this representation?",
+      "options": {
+        "options": [
+          {
+            "text": "A token vector",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The representation is an array of numeric values. Such an array can encode token attributes.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A token ID",
+            "is_correct": false,
+            "error_type": "Confuses array with ID",
+            "rationale": "A token ID is one integer for a vocabulary entry. The displayed representation has several numeric values.",
+            "better_fit": "Use this for the single integer assigned to \"heard\" in the vocabulary.",
+            "feedback": {
+              "intrinsic": "The array's dimensions would be reduced to one identifier.",
+              "instructional": "An array such as [2, 15, 1] is a token vector, not a token ID."
+            }
+          },
+          {
+            "text": "A positional encoding",
+            "is_correct": false,
+            "error_type": "Confuses attributes with location",
+            "rationale": "Positional encoding represents sequence location. The array in this scenario represents token attributes.",
+            "better_fit": "Use this to indicate where \"heard\" occurs in the sentence.",
+            "feedback": {
+              "intrinsic": "The token's representation would be confused with its location.",
+              "instructional": "Position shows order; a token vector encodes attributes."
+            }
+          },
+          {
+            "text": "A completion",
+            "is_correct": false,
+            "error_type": "Confuses representation with generated text",
+            "rationale": "A completion is generated language. A numeric array is a representation used by the model.",
+            "better_fit": "Use this for text produced after next-token prediction.",
+            "feedback": {
+              "intrinsic": "Numeric data would incorrectly be treated as generated language.",
+              "instructional": "Vectors represent tokens; completions are generated sequences."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "single_choice",
+        "concept_id": "token-vector",
+        "item_key": "tokens-vectors-and-transformers/token-vector/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. The numeric array is a token vector.",
+      "points": 1
+    }
+  ],
+  "flashcards": []
+}

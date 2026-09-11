@@ -1,0 +1,1475 @@
+{
+  "schema_version": "exercise-bank-v1",
+  "lesson": "analyze-sentiment-and-choose-predictable-tools",
+  "module": "9-get-started-with-text-analysis-in-azure",
+  "items": [
+    {
+      "item_key": "analyze-sentiment-and-choose-predictable-tools/sentiment-opinion-mining/r1/v1",
+      "concept_id": "sentiment-opinion-mining",
+      "rung": 1,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "single_choice",
+        "prompt": "What does sentiment analysis classify?",
+        "concept_id": "sentiment-opinion-mining",
+        "options": [
+          {
+            "text": "Whether text is positive, negative, or neutral",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Sentiment analysis classifies expressed feeling. Its categories are positive, negative, and neutral.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "The main phrases in text",
+            "is_correct": false,
+            "error_type": "Confuses sentiment with key phrase extraction",
+            "rationale": "Key phrases identify topics rather than feeling. They do not assign a sentiment category.",
+            "better_fit": "Use key phrase extraction to identify major topics or concepts.",
+            "feedback": {
+              "intrinsic": "Topics may be found, but feeling remains unknown.",
+              "instructional": "Sentiment analysis classifies expressed feeling."
+            }
+          },
+          {
+            "text": "People, places, and dates in text",
+            "is_correct": false,
+            "error_type": "Confuses sentiment with entity recognition",
+            "rationale": "These are named entities. They do not reveal whether an opinion is favorable.",
+            "better_fit": "Use entity recognition to identify named people, places, dates, or quantities.",
+            "feedback": {
+              "intrinsic": "Named items may be found without a sentiment result.",
+              "instructional": "Entity recognition and sentiment analysis answer different questions."
+            }
+          },
+          {
+            "text": "A text's primary language",
+            "is_correct": false,
+            "error_type": "Confuses sentiment with language detection",
+            "rationale": "Primary language is a language-detection result. It does not classify attitude.",
+            "better_fit": "Use language detection to identify language for multilingual routing.",
+            "feedback": {
+              "intrinsic": "The text could be routed but not sorted by satisfaction.",
+              "instructional": "Sentiment analysis classifies positive, negative, or neutral feeling."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. Sentiment analysis identifies the expressed feeling."
+      },
+      "payload_hash": "cd5a9f63e0db014e91d34051cca601bbbe6804a9ef5bfc018d7be083d02aa046",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "8f78119975e8831c999691da33ad83b6005101bd6189763dca095b0c2c474d85",
+      "telemetry": {}
+    },
+    {
+      "item_key": "analyze-sentiment-and-choose-predictable-tools/sentiment-opinion-mining/r1/v2",
+      "concept_id": "sentiment-opinion-mining",
+      "rung": 1,
+      "variant": 2,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "multi_choice",
+        "prompt": "Which sources can contain opinions suitable for sentiment analysis? Select all that apply.",
+        "concept_id": "sentiment-opinion-mining",
+        "options": [
+          {
+            "text": "Customer reviews",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Reviews often state satisfaction or dissatisfaction. Their sentiment can be classified.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Social media posts",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Social posts often express reactions and views. They can be analyzed for sentiment.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Discussion forum messages",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Forum messages can express opinions about experiences. Sentiment analysis can classify those opinions.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A model deployment name",
+            "is_correct": false,
+            "error_type": "Confuses configuration with text source",
+            "rationale": "A deployment name is a configuration value. It does not express an opinion.",
+            "better_fit": "Use a deployment name when selecting a deployed model for an application.",
+            "feedback": {
+              "intrinsic": "No opinion would be available to classify.",
+              "instructional": "Sentiment analysis needs text that can express a view."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. These sources can contain opinions and reactions."
+      },
+      "payload_hash": "0b28265d98bae2771400b76b5c1236bc1fee762afe6dd67cf16570e723ababe1",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "8f78119975e8831c999691da33ad83b6005101bd6189763dca095b0c2c474d85",
+      "telemetry": {}
+    },
+    {
+      "item_key": "analyze-sentiment-and-choose-predictable-tools/sentiment-opinion-mining/r2/v1",
+      "concept_id": "sentiment-opinion-mining",
+      "rung": 2,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "true_false",
+        "prompt": "Decide whether this statement is true or false.",
+        "concept_id": "sentiment-opinion-mining",
+        "statement": "A text can express an opinion even when its overall sentiment is neutral.",
+        "correct_answer": true,
+        "feedback_for_correct": "Correct. Opinion and sentiment are related but are not identical ideas.",
+        "feedback_for_incorrect": {
+          "intrinsic": "Neutral feedback could be discarded even though it contains a view.",
+          "instructional": "Opinion mining identifies expressed views, while sentiment analysis classifies their polarity."
+        }
+      },
+      "payload_hash": "753fe9ec5f090f36e0dcce82dc7f4af5fe6299a7970f6ddb2187fea5121f97ac",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "8f78119975e8831c999691da33ad83b6005101bd6189763dca095b0c2c474d85",
+      "telemetry": {}
+    },
+    {
+      "item_key": "analyze-sentiment-and-choose-predictable-tools/sentiment-opinion-mining/r3/v1",
+      "concept_id": "sentiment-opinion-mining",
+      "rung": 3,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "fill_gaps",
+        "prompt": "Complete the statement.",
+        "concept_id": "sentiment-opinion-mining",
+        "parts": [
+          {
+            "type": "text",
+            "text": "The process of identifying opinions expressed in text is called "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "opinion mining"
+            ],
+            "rejected_answers": [
+              "sentiment analysis",
+              "key phrase extraction",
+              "entity recognition",
+              "language detection",
+              "key-phrase-extraction",
+              "entity-recognition",
+              "azure-language-tools"
+            ],
+            "placeholder": "technical term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "explanation": "Opinion mining identifies opinions expressed in text. Sentiment analysis instead classifies the feeling or polarity.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The text-analysis task would be mislabeled.",
+          "instructional": "Use opinion mining for identifying expressed opinions."
+        }
+      },
+      "payload_hash": "f387e1abc96af9e1eb161d536ba35386c21ab982cd8155ee490553cc71142a10",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "8f78119975e8831c999691da33ad83b6005101bd6189763dca095b0c2c474d85",
+      "telemetry": {}
+    },
+    {
+      "item_key": "analyze-sentiment-and-choose-predictable-tools/sentiment-opinion-mining/r4/v1",
+      "concept_id": "sentiment-opinion-mining",
+      "rung": 4,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Applying",
+        "question_type": "single_choice",
+        "prompt": "A restaurant manager wants to sort reviews as positive, negative, or neutral before the team reads them. Which analysis should the manager use?",
+        "concept_id": "sentiment-opinion-mining",
+        "options": [
+          {
+            "text": "Sentiment analysis",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The requested groups are sentiment categories. Sentiment analysis produces those classifications.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Key phrase extraction",
+            "is_correct": false,
+            "error_type": "Confuses feelings with topics",
+            "rationale": "Key phrase extraction identifies main concepts. It does not classify feeling.",
+            "better_fit": "Use key phrase extraction when the manager needs topics such as food or service.",
+            "feedback": {
+              "intrinsic": "Topics may be identified without satisfaction levels.",
+              "instructional": "Use sentiment analysis to sort by feeling."
+            }
+          },
+          {
+            "text": "Entity recognition",
+            "is_correct": false,
+            "error_type": "Confuses feelings with entities",
+            "rationale": "Entity recognition finds named items. It does not produce a sentiment category.",
+            "better_fit": "Use entity recognition when names, places, dates, or quantities matter.",
+            "feedback": {
+              "intrinsic": "A name may be found without a satisfaction result.",
+              "instructional": "Sentiment analysis classifies opinion polarity."
+            }
+          },
+          {
+            "text": "Language detection",
+            "is_correct": false,
+            "error_type": "Confuses language with sentiment",
+            "rationale": "Language detection identifies language information. It does not determine whether a review is favorable.",
+            "better_fit": "Use language detection to route text by language.",
+            "feedback": {
+              "intrinsic": "Reviews could be routed but remain unsorted by satisfaction.",
+              "instructional": "Choose sentiment analysis for positive, negative, or neutral classification."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. Those requested groups are sentiment categories."
+      },
+      "payload_hash": "415b7491d541194fff71fd5d7239c6bd152f07de0a8dc9410cb87140e96f0e54",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "8f78119975e8831c999691da33ad83b6005101bd6189763dca095b0c2c474d85",
+      "telemetry": {}
+    },
+    {
+      "item_key": "analyze-sentiment-and-choose-predictable-tools/prompt-specificity/r1/v1",
+      "concept_id": "prompt-specificity",
+      "rung": 1,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "multi_choice",
+        "prompt": "What can a more specific sentiment prompt request? Select all that apply.",
+        "concept_id": "prompt-specificity",
+        "options": [
+          {
+            "text": "An overall sentiment result",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A prompt can request one result for a whole review. This provides an overall view.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A sentence-by-sentence breakdown",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A specific prompt can request sentiment for every sentence. This provides more detail.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "More structured details",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Specific requests generally guide more structured responses. The requested format influences the response.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "The same wording every call",
+            "is_correct": false,
+            "error_type": "Confuses specificity with deterministic output",
+            "rationale": "Specificity guides detail but does not guarantee identical wording. Generated responses can still vary.",
+            "better_fit": "Use Azure Language tools when consistent structured values are required.",
+            "feedback": {
+              "intrinsic": "Repeated results may still use different wording.",
+              "instructional": "Specificity improves detail; it does not guarantee determinism."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. Specific prompts can request overall or detailed sentiment."
+      },
+      "payload_hash": "988bbdd23249c636f6f671802605858adfdf3b2057f37eb8fee5724b2546b5f1",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "8f78119975e8831c999691da33ad83b6005101bd6189763dca095b0c2c474d85",
+      "telemetry": {}
+    },
+    {
+      "item_key": "analyze-sentiment-and-choose-predictable-tools/prompt-specificity/r2/v1",
+      "concept_id": "prompt-specificity",
+      "rung": 2,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "true_false",
+        "prompt": "Is the following statement accurate?",
+        "concept_id": "prompt-specificity",
+        "statement": "A more specific prompt generally produces a less detailed sentiment response.",
+        "correct_answer": false,
+        "feedback_for_correct": "Correct. Specific prompts generally produce more structured and detailed responses.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The response may be too broad for the intended task.",
+          "instructional": "Ask directly for the detail and structure you need."
+        }
+      },
+      "payload_hash": "8e5ceabffb73ef63d6e699744eb4bdabf23708aeb22b498690d28be5dd79e276",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "8f78119975e8831c999691da33ad83b6005101bd6189763dca095b0c2c474d85",
+      "telemetry": {}
+    },
+    {
+      "item_key": "analyze-sentiment-and-choose-predictable-tools/prompt-specificity/r3/v1",
+      "concept_id": "prompt-specificity",
+      "rung": 3,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "rearrange",
+        "prompt": "Put the pieces in the correct order.",
+        "concept_id": "prompt-specificity",
+        "word_bank": [
+          "more structured",
+          "More specific prompts",
+          "and detailed responses",
+          "generally produce"
+        ],
+        "correct_order": [
+          "More specific prompts",
+          "generally produce",
+          "more structured",
+          "and detailed responses"
+        ],
+        "interchangeable_groups": [],
+        "explanation": "Specific prompts are the cause; structured and detailed responses are the result.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The cause-and-effect relationship becomes unclear.",
+          "instructional": "Start with the prompt, then state its result."
+        }
+      },
+      "payload_hash": "6751f294f698bb6d6c494fc265bee0ff97b2e940b035743f78a8a96c262563d4",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "8f78119975e8831c999691da33ad83b6005101bd6189763dca095b0c2c474d85",
+      "telemetry": {}
+    },
+    {
+      "item_key": "analyze-sentiment-and-choose-predictable-tools/prompt-specificity/r4/v1",
+      "concept_id": "prompt-specificity",
+      "rung": 4,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Applying",
+        "question_type": "multi_choice",
+        "prompt": "A restaurant owner needs sentence-by-sentence sentiment analysis of a customer comment. Which prompts support that decision? Select all that apply.",
+        "concept_id": "prompt-specificity",
+        "options": [
+          {
+            "text": "Give sentiment for each sentence",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "This explicitly requests a sentence-level breakdown. It directly meets the need.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Explain each sentiment result",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Explanations add useful detail for each result. They help identify what was liked or disliked.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Return a structured sentence-by-sentence format",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "This requests both structure and sentence-level detail. It guides the output toward the owner's goal.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Return the same wording every time",
+            "is_correct": false,
+            "error_type": "Confuses prompt detail with determinism",
+            "rationale": "Identical wording is not required for sentence-level insight. Prompted model output can still vary.",
+            "better_fit": "Use deterministic analysis when repeated fixed values are essential.",
+            "feedback": {
+              "intrinsic": "The request could prioritize repeatable wording over useful detail.",
+              "instructional": "Request the desired sentence-level format explicitly."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. These prompts specify detailed sentence-level analysis."
+      },
+      "payload_hash": "f14bda89eec1c62c6870470b319d2b334dd9f5123882a308b85f6192bdc53b7a",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "8f78119975e8831c999691da33ad83b6005101bd6189763dca095b0c2c474d85",
+      "telemetry": {}
+    },
+    {
+      "item_key": "analyze-sentiment-and-choose-predictable-tools/azure-language-tools/r1/v1",
+      "concept_id": "azure-language-tools",
+      "rung": 1,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "single_choice",
+        "prompt": "What are Azure Language in Foundry tools?",
+        "concept_id": "azure-language-tools",
+        "options": [
+          {
+            "text": "Purpose-built analyzers for text tasks",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Azure Language provides analyzers designed for particular text tasks. They return structured results.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "One model for many prompt tasks",
+            "is_correct": false,
+            "error_type": "Confuses specialized tools with general-purpose models",
+            "rationale": "General-purpose models handle broad prompt-based tasks. Azure Language uses task-specific analyzers.",
+            "better_fit": "Choose a general-purpose model for flexible prompt-driven analysis.",
+            "feedback": {
+              "intrinsic": "A specialized task could be treated as open-ended generation.",
+              "instructional": "Azure Language provides purpose-built analyzers."
+            }
+          },
+          {
+            "text": "An API for complete model interactions",
+            "is_correct": false,
+            "error_type": "Confuses service with API",
+            "rationale": "An API is an interface for interactions. It is not the specialized analyzer service.",
+            "better_fit": "Use an API to send requests to a deployed model.",
+            "feedback": {
+              "intrinsic": "A connection method may be selected instead of an analysis capability.",
+              "instructional": "Analyzers perform the text-analysis task."
+            }
+          },
+          {
+            "text": "A Python client library",
+            "is_correct": false,
+            "error_type": "Confuses service with SDK",
+            "rationale": "An SDK helps application code call a service. It is not the underlying analysis capability.",
+            "better_fit": "Use an SDK when implementing service calls in code.",
+            "feedback": {
+              "intrinsic": "Implementation access may be confused with the service.",
+              "instructional": "The analyzer is the capability; an SDK is a coding tool."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. Azure Language provides specialized text analyzers."
+      },
+      "payload_hash": "1e3456974a1247f7f516fa27ac7f439b70e1a323ee7e92dcf726b0c645268278",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "8f78119975e8831c999691da33ad83b6005101bd6189763dca095b0c2c474d85",
+      "telemetry": {}
+    },
+    {
+      "item_key": "analyze-sentiment-and-choose-predictable-tools/azure-language-tools/r2/v1",
+      "concept_id": "azure-language-tools",
+      "rung": 2,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "true_false",
+        "prompt": "Evaluate this statement.",
+        "concept_id": "azure-language-tools",
+        "statement": "Azure Language analyzers use statistical techniques to return structured, deterministic output.",
+        "correct_answer": true,
+        "feedback_for_correct": "Correct. This makes the analyzers useful where consistent results matter.",
+        "feedback_for_incorrect": {
+          "intrinsic": "A workflow may be designed for flexible wording when it needs reliable values.",
+          "instructional": "Azure Language analyzers provide structured, deterministic results."
+        }
+      },
+      "payload_hash": "c92557983f7bef6155bd25726deee2d18470d796aa286608b805bddd56eb7aca",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "8f78119975e8831c999691da33ad83b6005101bd6189763dca095b0c2c474d85",
+      "telemetry": {}
+    },
+    {
+      "item_key": "analyze-sentiment-and-choose-predictable-tools/azure-language-tools/r3/v1",
+      "concept_id": "azure-language-tools",
+      "rung": 3,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "fill_gaps",
+        "prompt": "Complete the statement.",
+        "concept_id": "azure-language-tools",
+        "parts": [
+          {
+            "type": "text",
+            "text": "Azure Language in Foundry tools is an "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "NLP",
+              "natural language processing"
+            ],
+            "rejected_answers": [
+              "API",
+              "SDK",
+              "general-purpose model",
+              "general-purpose-models",
+              "responses-api",
+              "azure-language-sdk"
+            ],
+            "placeholder": "technical term"
+          },
+          {
+            "type": "text",
+            "text": " service for text analysis."
+          }
+        ],
+        "explanation": "Azure Language is an NLP service with purpose-built analyzers for text-analysis tasks.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The service could be mistaken for a connection method or a model.",
+          "instructional": "NLP means natural language processing."
+        }
+      },
+      "payload_hash": "ae054ab38c0c31474bdb752c373241de2d476c695857ecf80b4f545095c97a85",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "8f78119975e8831c999691da33ad83b6005101bd6189763dca095b0c2c474d85",
+      "telemetry": {}
+    },
+    {
+      "item_key": "analyze-sentiment-and-choose-predictable-tools/azure-language-tools/r4/v1",
+      "concept_id": "azure-language-tools",
+      "rung": 4,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Applying",
+        "question_type": "single_choice",
+        "prompt": "A bank's automated workflow must run the same text check and receive consistent structured results. Which approach should the team choose?",
+        "concept_id": "azure-language-tools",
+        "options": [
+          {
+            "text": "Azure Language in Foundry tools",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Azure Language analyzers return structured, deterministic output. That fits a consistency-focused pipeline.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A general-purpose AI model",
+            "is_correct": false,
+            "error_type": "Confuses flexible generation with predictable analysis",
+            "rationale": "General-purpose output can vary in wording or format. This does not best meet the consistency requirement.",
+            "better_fit": "Use a general-purpose model for flexible tasks such as summarization.",
+            "feedback": {
+              "intrinsic": "Equivalent checks may be returned differently.",
+              "instructional": "Choose Azure Language analyzers for repeatable structured analysis."
+            }
+          },
+          {
+            "text": "The Responses API",
+            "is_correct": false,
+            "error_type": "Confuses API with analyzer",
+            "rationale": "An API provides a way to interact with a model. It does not itself provide the specialized analyzer.",
+            "better_fit": "Use an API when an application needs to submit requests.",
+            "feedback": {
+              "intrinsic": "The team may choose an interface without the needed analysis.",
+              "instructional": "Select the analyzer capability, not merely an interface."
+            }
+          },
+          {
+            "text": "The Azure Language SDK",
+            "is_correct": false,
+            "error_type": "Confuses client library with service",
+            "rationale": "The SDK helps developers call a service. It is not the service decision that produces results.",
+            "better_fit": "Use the SDK when coding calls to Azure Language.",
+            "feedback": {
+              "intrinsic": "The team may focus on code access rather than analysis.",
+              "instructional": "Select Azure Language, then use an SDK if coding is needed."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. Azure Language analyzers suit consistent automated analysis."
+      },
+      "payload_hash": "3166577a0a5f2ac9b688ca3fb7dba499347c3c3aeca19075b852717c605394a4",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "8f78119975e8831c999691da33ad83b6005101bd6189763dca095b0c2c474d85",
+      "telemetry": {}
+    },
+    {
+      "item_key": "analyze-sentiment-and-choose-predictable-tools/azure-language-tools/r5/v1",
+      "concept_id": "azure-language-tools",
+      "rung": 5,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Analyzing/Evaluating",
+        "question_type": "single_choice",
+        "prompt": "A support-ticket router needs reliable structured language results and does not need conversation or flexible wording. Which choice best fits?",
+        "concept_id": "azure-language-tools",
+        "options": [
+          {
+            "text": "Azure Language in Foundry tools",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Azure Language offers purpose-built language analyzers. Their structured results suit reliable routing.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A general-purpose AI model",
+            "is_correct": false,
+            "error_type": "Confuses flexible analysis with deterministic analysis",
+            "rationale": "A general-purpose model can analyze text but may vary in output. The scenario prioritizes predictable structured results.",
+            "better_fit": "Choose a general-purpose model for conversational or flexible prompt-based analysis.",
+            "feedback": {
+              "intrinsic": "Similar tickets may be described differently across requests.",
+              "instructional": "Use a specialized analyzer when reliable structure is the priority."
+            }
+          },
+          {
+            "text": "The Responses API",
+            "is_correct": false,
+            "error_type": "Confuses API with capability",
+            "rationale": "The API enables model interactions. It does not replace language-analysis capability.",
+            "better_fit": "Use an API when an application needs to prompt a deployed model.",
+            "feedback": {
+              "intrinsic": "The router may have an interface but not the intended analyzer.",
+              "instructional": "Separate the request interface from the analysis capability."
+            }
+          },
+          {
+            "text": "The Azure Language SDK",
+            "is_correct": false,
+            "error_type": "Confuses SDK with capability",
+            "rationale": "The SDK is a code library for calling Azure Language. It is not the analyzer choice requested.",
+            "better_fit": "Use the SDK when implementing an application call to Azure Language.",
+            "feedback": {
+              "intrinsic": "The plan may name a library instead of the service.",
+              "instructional": "The service provides results; the SDK helps call it."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. Azure Language provides predictable structured analysis for routing."
+      },
+      "payload_hash": "6bd7e0874a3cdf4d4c277c6cdaea3cfcf54ecc6c79a5682fb97a7cd5f95895a3",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "8f78119975e8831c999691da33ad83b6005101bd6189763dca095b0c2c474d85",
+      "telemetry": {}
+    },
+    {
+      "item_key": "analyze-sentiment-and-choose-predictable-tools/deterministic-output/r1/v1",
+      "concept_id": "deterministic-output",
+      "rung": 1,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "multi_choice",
+        "prompt": "Which phrases describe deterministic output? Select all that apply.",
+        "concept_id": "deterministic-output",
+        "options": [
+          {
+            "text": "Structured output",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Deterministic output is structured. Its values are returned in a predictable form.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Predictable output",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Predictability is a defining feature of deterministic output. Equivalent requests remain consistent.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Consistent equivalent requests",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Equivalent analysis requests receive consistent results. This supports reliable workflows.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Flexible generated wording",
+            "is_correct": false,
+            "error_type": "Confuses deterministic output with generation",
+            "rationale": "Flexible wording can vary between calls. That contrasts with deterministic results.",
+            "better_fit": "Use flexible generated wording for open-ended prompt-based analysis.",
+            "feedback": {
+              "intrinsic": "Equivalent checks could differ in phrasing.",
+              "instructional": "Deterministic output emphasizes consistent structured values."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. Deterministic output is structured, predictable, and consistent."
+      },
+      "payload_hash": "f0dae2428a0e6e7ed510ba2e6b57eb82f6a4c4dbb889956da68d4e08af3c811b",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "8f78119975e8831c999691da33ad83b6005101bd6189763dca095b0c2c474d85",
+      "telemetry": {}
+    },
+    {
+      "item_key": "analyze-sentiment-and-choose-predictable-tools/deterministic-output/r2/v1",
+      "concept_id": "deterministic-output",
+      "rung": 2,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "true_false",
+        "prompt": "True or false?",
+        "concept_id": "deterministic-output",
+        "statement": "Deterministic output means equivalent analysis requests can return flexible generated wording.",
+        "correct_answer": false,
+        "feedback_for_correct": "Correct. Flexible wording can vary, unlike deterministic output.",
+        "feedback_for_incorrect": {
+          "intrinsic": "Repeated checks could appear different.",
+          "instructional": "Deterministic output provides consistent structured results."
+        }
+      },
+      "payload_hash": "54d1dadff2609f0f4b92edc582a1a76d0b64c491ac7728dbecd57ef161f5bd2e",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "8f78119975e8831c999691da33ad83b6005101bd6189763dca095b0c2c474d85",
+      "telemetry": {}
+    },
+    {
+      "item_key": "analyze-sentiment-and-choose-predictable-tools/deterministic-output/r3/v1",
+      "concept_id": "deterministic-output",
+      "rung": 3,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "rearrange",
+        "prompt": "Arrange the parts to form the correct statement.",
+        "concept_id": "deterministic-output",
+        "word_bank": [
+          "for equivalent",
+          "Deterministic output",
+          "analysis requests",
+          "remains consistent"
+        ],
+        "correct_order": [
+          "Deterministic output",
+          "remains consistent",
+          "for equivalent",
+          "analysis requests"
+        ],
+        "interchangeable_groups": [],
+        "explanation": "Deterministic output remains consistent when analysis requests are equivalent.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The defining relationship is lost.",
+          "instructional": "State that deterministic output remains consistent for equivalent requests."
+        }
+      },
+      "payload_hash": "92b9f4b59fffc98a27fc807d749438ff113b8892577bf901215fbe142acfbb40",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "8f78119975e8831c999691da33ad83b6005101bd6189763dca095b0c2c474d85",
+      "telemetry": {}
+    },
+    {
+      "item_key": "analyze-sentiment-and-choose-predictable-tools/deterministic-output/r3/v2",
+      "concept_id": "deterministic-output",
+      "rung": 3,
+      "variant": 2,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "fill_gaps",
+        "prompt": "Complete the statement.",
+        "concept_id": "deterministic-output",
+        "parts": [
+          {
+            "type": "text",
+            "text": "Structured, predictable results that stay consistent for equivalent requests are called "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "deterministic output"
+            ],
+            "rejected_answers": [
+              "probabilistic generation",
+              "general-purpose AI models",
+              "Azure Language tools",
+              "probabilistic-generation",
+              "general-purpose-models",
+              "azure-language-tools"
+            ],
+            "placeholder": "technical term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "explanation": "Deterministic output is structured, predictable, and consistent for equivalent requests.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The result style could be confused with a service or generation behavior.",
+          "instructional": "The term for consistent structured results is deterministic output."
+        }
+      },
+      "payload_hash": "342fb5b15d3c10d97e9b7ebf3558a29a39c317387f0a99ac656b8384e99f5cd2",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "8f78119975e8831c999691da33ad83b6005101bd6189763dca095b0c2c474d85",
+      "telemetry": {}
+    },
+    {
+      "item_key": "analyze-sentiment-and-choose-predictable-tools/deterministic-output/r4/v1",
+      "concept_id": "deterministic-output",
+      "rung": 4,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Applying",
+        "question_type": "multi_choice",
+        "prompt": "A financial document system needs reliable values from repeated text checks. Which choices support that decision? Select all that apply.",
+        "concept_id": "deterministic-output",
+        "options": [
+          {
+            "text": "Use structured results",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Structured results support reliable values in automated workflows. They are part of deterministic output.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Use predictable results",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Predictable results help equivalent checks remain consistent. This meets the requirement for reliable values.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Use Azure Language tools",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Azure Language analyzers return structured deterministic output. They suit consistency-focused pipelines.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Expect flexible wording",
+            "is_correct": false,
+            "error_type": "Confuses reliability with variation",
+            "rationale": "Flexible wording can vary between calls. The system needs stable values instead.",
+            "better_fit": "Use flexible wording for an open-ended task where variation is acceptable.",
+            "feedback": {
+              "intrinsic": "Equivalent checks could be harder to compare.",
+              "instructional": "Reliable values require structured, predictable output."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. These choices support consistent repeated checks."
+      },
+      "payload_hash": "19ee5b35bfa4746077f60b82b0ae296ea9e2252b1457f970c9e727ea966c4d09",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "8f78119975e8831c999691da33ad83b6005101bd6189763dca095b0c2c474d85",
+      "telemetry": {}
+    },
+    {
+      "item_key": "analyze-sentiment-and-choose-predictable-tools/deterministic-output/r5/v1",
+      "concept_id": "deterministic-output",
+      "rung": 5,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Analyzing/Evaluating",
+        "question_type": "multi_choice",
+        "prompt": "A compliance team compares equivalent regulatory-document checks every day and must avoid changes in returned values. Which choices fit? Select all that apply.",
+        "concept_id": "deterministic-output",
+        "options": [
+          {
+            "text": "Choose deterministic output",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Deterministic output remains consistent for equivalent requests. It directly meets the requirement.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Use Azure Language tools",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Azure Language analyzers provide structured deterministic output. They suit consistent automated pipelines.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Require structured results",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Structured results are characteristic of deterministic output. They support predictable returned values.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Use flexible generated wording",
+            "is_correct": false,
+            "error_type": "Confuses deterministic output with generation",
+            "rationale": "Flexible generated wording may vary for equivalent requests. That conflicts with avoiding changes.",
+            "better_fit": "Use flexible wording when a task does not require fixed structured values.",
+            "feedback": {
+              "intrinsic": "The team could find differences in equivalent daily checks.",
+              "instructional": "Choose deterministic structured analysis when values must remain consistent."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. The requirement points to deterministic structured analysis."
+      },
+      "payload_hash": "3f3888a39244a52bd7b17d8694521d71993f3978f053c86c1a4a71da9d9d45b5",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "8f78119975e8831c999691da33ad83b6005101bd6189763dca095b0c2c474d85",
+      "telemetry": {}
+    },
+    {
+      "item_key": "analyze-sentiment-and-choose-predictable-tools/foundry-portal-and-ai-services-tab/r1/v1",
+      "concept_id": "foundry-portal-and-ai-services-tab",
+      "rung": 1,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "single_choice",
+        "prompt": "What is the Foundry portal?",
+        "concept_id": "foundry-portal-and-ai-services-tab",
+        "options": [
+          {
+            "text": "A web place to build, test, and deploy AI apps",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The Foundry portal is web-based. It supports building, testing, and deploying AI applications.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A model that answers natural-language prompts",
+            "is_correct": false,
+            "error_type": "Confuses portal with model",
+            "rationale": "A model answers prompts. The portal is an environment for building and testing applications.",
+            "better_fit": "Choose a general-purpose model when prompt-based language analysis is needed.",
+            "feedback": {
+              "intrinsic": "The environment could be mistaken for the model itself.",
+              "instructional": "The portal hosts development work; a model performs analysis."
+            }
+          },
+          {
+            "text": "A workspace inside a resource",
+            "is_correct": false,
+            "error_type": "Confuses portal with project",
+            "rationale": "A Foundry project is a workspace within a resource. The portal is the broader web environment.",
+            "better_fit": "Use a Foundry project to organize work within a resource.",
+            "feedback": {
+              "intrinsic": "A workspace may be confused with the broader portal.",
+              "instructional": "Projects are accessed through the portal."
+            }
+          },
+          {
+            "text": "A service for fixed language results",
+            "is_correct": false,
+            "error_type": "Confuses portal with Azure Language",
+            "rationale": "Azure Language provides specialized analyzers. The portal is where services can be tested.",
+            "better_fit": "Choose Azure Language for text analysis needing deterministic results.",
+            "feedback": {
+              "intrinsic": "A service capability could be confused with its environment.",
+              "instructional": "The portal provides access; Azure Language performs analysis."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. The Foundry portal supports building, testing, and deploying AI applications."
+      },
+      "payload_hash": "33c8ff1df0d5fe79716ffbcac742fd0575639c3aab8794101d3a5beb0246dfba",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "8f78119975e8831c999691da33ad83b6005101bd6189763dca095b0c2c474d85",
+      "telemetry": {}
+    },
+    {
+      "item_key": "analyze-sentiment-and-choose-predictable-tools/foundry-portal-and-ai-services-tab/r1/v2",
+      "concept_id": "foundry-portal-and-ai-services-tab",
+      "rung": 1,
+      "variant": 2,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "multi_choice",
+        "prompt": "Which navigation steps lead to selected AI services in the new Foundry portal? Select all that apply.",
+        "concept_id": "foundry-portal-and-ai-services-tab",
+        "options": [
+          {
+            "text": "Open Build",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Build is the first area in the navigation path. It leads toward selected services.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Choose Models",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Models follows Build in the path. It contains the AI services tab.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Open the AI services tab",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The AI services tab is where selected services can be tested. It completes the path.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Open the model deployment name",
+            "is_correct": false,
+            "error_type": "Confuses navigation with configuration",
+            "rationale": "A deployment name identifies a deployed model. It is not a navigation step to services.",
+            "better_fit": "Use a deployment name when specifying a deployed model for an application.",
+            "feedback": {
+              "intrinsic": "A configuration value may be selected instead of the testing area.",
+              "instructional": "Follow Build, then Models, then the AI services tab."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. The route is Build, Models, then AI services."
+      },
+      "payload_hash": "403e36e9b293c655b6ea377af8292a4acf1296307a15f64cf89a0ca76c453b8d",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "8f78119975e8831c999691da33ad83b6005101bd6189763dca095b0c2c474d85",
+      "telemetry": {}
+    },
+    {
+      "item_key": "analyze-sentiment-and-choose-predictable-tools/foundry-portal-and-ai-services-tab/r2/v1",
+      "concept_id": "foundry-portal-and-ai-services-tab",
+      "rung": 2,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "true_false",
+        "prompt": "Decide whether this statement is true or false.",
+        "concept_id": "foundry-portal-and-ai-services-tab",
+        "statement": "The Foundry portal has both a classic UI and a new UI.",
+        "correct_answer": true,
+        "feedback_for_correct": "Correct. Both interfaces exist.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The described navigation may be hard to match to the available interface.",
+          "instructional": "The portal includes a classic UI and a new UI."
+        }
+      },
+      "payload_hash": "0670c7c08dec44cc1bef26d256969e4a9969b9721dcea456af20b0a4733ff27d",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "8f78119975e8831c999691da33ad83b6005101bd6189763dca095b0c2c474d85",
+      "telemetry": {}
+    },
+    {
+      "item_key": "analyze-sentiment-and-choose-predictable-tools/foundry-portal-and-ai-services-tab/r3/v1",
+      "concept_id": "foundry-portal-and-ai-services-tab",
+      "rung": 3,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "fill_gaps",
+        "prompt": "Complete the navigation statement.",
+        "concept_id": "foundry-portal-and-ai-services-tab",
+        "parts": [
+          {
+            "type": "text",
+            "text": "In the new Foundry portal, go to Build, then Models, then the "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "AI services tab",
+              "AI services"
+            ],
+            "rejected_answers": [
+              "chat playground",
+              "model catalog",
+              "Foundry project",
+              "chat-playground",
+              "foundry-resource-and-project"
+            ],
+            "placeholder": "tab name"
+          },
+          {
+            "type": "text",
+            "text": " to find selected services for testing."
+          }
+        ],
+        "explanation": "The navigation path for testing selected services ends at the AI services tab.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The developer may not reach the selected services.",
+          "instructional": "After Build and Models, open the AI services tab."
+        }
+      },
+      "payload_hash": "5a9aa851c7c641a93cc1ee7eb20ecc8429b777bb1669d7497df2ba4dc6265e8d",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "8f78119975e8831c999691da33ad83b6005101bd6189763dca095b0c2c474d85",
+      "telemetry": {}
+    },
+    {
+      "item_key": "analyze-sentiment-and-choose-predictable-tools/foundry-portal-and-ai-services-tab/r4/v1",
+      "concept_id": "foundry-portal-and-ai-services-tab",
+      "rung": 4,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Applying",
+        "question_type": "single_choice",
+        "prompt": "A developer wants to test Azure Language in the new Foundry portal. After opening Build and Models, where should the developer go next?",
+        "concept_id": "foundry-portal-and-ai-services-tab",
+        "options": [
+          {
+            "text": "The AI services tab",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The AI services tab contains selected services available for testing. It follows Build and Models.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "The model catalog",
+            "is_correct": false,
+            "error_type": "Confuses service testing with model browsing",
+            "rationale": "The model catalog is for browsing models. The scenario asks to test an Azure Language service.",
+            "better_fit": "Use the model catalog when browsing models for deployment.",
+            "feedback": {
+              "intrinsic": "The developer may browse models rather than test the service.",
+              "instructional": "For selected service testing, open the AI services tab."
+            }
+          },
+          {
+            "text": "A Foundry project",
+            "is_correct": false,
+            "error_type": "Confuses navigation with workspace",
+            "rationale": "A project is a workspace within a resource. It is not the next destination in this path.",
+            "better_fit": "Use a Foundry project to organize application work.",
+            "feedback": {
+              "intrinsic": "The developer may enter a workspace without locating the service.",
+              "instructional": "The next navigation destination is the AI services tab."
+            }
+          },
+          {
+            "text": "The deployment name",
+            "is_correct": false,
+            "error_type": "Confuses configuration with navigation",
+            "rationale": "A deployment name identifies a deployed model. It is not a portal destination for service testing.",
+            "better_fit": "Use a deployment name when configuring an application model call.",
+            "feedback": {
+              "intrinsic": "The developer may look for configuration rather than the testing area.",
+              "instructional": "A deployment name is not the next portal step."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. Open the AI services tab next."
+      },
+      "payload_hash": "2ff7e602c0da7dd5b85acc77ab13e841208165f9b4b637efc956215fdc01f0a0",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "8f78119975e8831c999691da33ad83b6005101bd6189763dca095b0c2c474d85",
+      "telemetry": {}
+    },
+    {
+      "item_key": "analyze-sentiment-and-choose-predictable-tools/language-detection/r1/v1",
+      "concept_id": "language-detection",
+      "rung": 1,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "multi_choice",
+        "prompt": "What can language detection identify? Select all that apply.",
+        "concept_id": "language-detection",
+        "options": [
+          {
+            "text": "A text's primary language",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Language detection identifies the primary language. This supports multilingual routing.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A regional dialect",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Language detection can identify language and dialect. Dialect information can support appropriate handling.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A confidence score",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Language detection returns a confidence score. It indicates confidence in the language result.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Personal details to redact",
+            "is_correct": false,
+            "error_type": "Confuses language detection with PII detection",
+            "rationale": "PII detection identifies personal details for redaction. Language detection identifies language information instead.",
+            "better_fit": "Use PII detection when personal details need identification or redaction.",
+            "feedback": {
+              "intrinsic": "Sensitive details may remain unaddressed.",
+              "instructional": "Language detection returns language, dialect, and confidence."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. It returns language, dialect, and confidence information."
+      },
+      "payload_hash": "5a5c972b82ea01bbc93b67854b27040c376ac061dff4ecfa31a2a7a89e7cbc6d",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "8f78119975e8831c999691da33ad83b6005101bd6189763dca095b0c2c474d85",
+      "telemetry": {}
+    },
+    {
+      "item_key": "analyze-sentiment-and-choose-predictable-tools/language-detection/r2/v1",
+      "concept_id": "language-detection",
+      "rung": 2,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "true_false",
+        "prompt": "Is the following statement accurate?",
+        "concept_id": "language-detection",
+        "statement": "Language detection identifies personal details such as phone numbers and street addresses.",
+        "correct_answer": false,
+        "feedback_for_correct": "Correct. PII detection handles personal details.",
+        "feedback_for_incorrect": {
+          "intrinsic": "Sensitive details may be left in place.",
+          "instructional": "Language detection returns language details; PII detection identifies personal information."
+        }
+      },
+      "payload_hash": "b7dac0cae683a73c04821abe2ecafa2f680b30b7fac9beb96117a21dd92f0b6f",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "8f78119975e8831c999691da33ad83b6005101bd6189763dca095b0c2c474d85",
+      "telemetry": {}
+    },
+    {
+      "item_key": "analyze-sentiment-and-choose-predictable-tools/language-detection/r3/v1",
+      "concept_id": "language-detection",
+      "rung": 3,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "rearrange",
+        "prompt": "Order the pieces correctly.",
+        "concept_id": "language-detection",
+        "word_bank": [
+          "primary language",
+          "Language detection",
+          "and confidence score",
+          "identifies a text's"
+        ],
+        "correct_order": [
+          "Language detection",
+          "identifies a text's",
+          "primary language",
+          "and confidence score"
+        ],
+        "interchangeable_groups": [],
+        "explanation": "Language detection identifies a primary language and returns a confidence score.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The capability and its results are not clearly connected.",
+          "instructional": "Start with language detection, then state what it identifies."
+        }
+      },
+      "payload_hash": "5794efdc9b927de55c07bbfc9f2a73eeb1f2a08bb84c886a34e94f3875d02ce9",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "8f78119975e8831c999691da33ad83b6005101bd6189763dca095b0c2c474d85",
+      "telemetry": {}
+    },
+    {
+      "item_key": "analyze-sentiment-and-choose-predictable-tools/language-detection/r4/v1",
+      "concept_id": "language-detection",
+      "rung": 4,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Applying",
+        "question_type": "multi_choice",
+        "prompt": "A support team must route multilingual customer messages to the right process. Which language-detection results help the team decide? Select all that apply.",
+        "concept_id": "language-detection",
+        "options": [
+          {
+            "text": "The primary language",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The primary language helps choose an appropriate process. Language detection provides this result.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "The regional dialect",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Dialect information can help tailor language handling. It is part of language-detection information.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "The confidence score",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Confidence helps assess reliability of the language result. It can inform routing decisions.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A redacted text version",
+            "is_correct": false,
+            "error_type": "Confuses language detection with PII detection",
+            "rationale": "Redacted text is a PII-detection result. It does not identify the language needed for routing.",
+            "better_fit": "Use PII detection when personal details must be redacted.",
+            "feedback": {
+              "intrinsic": "The team may protect details but still lack routing information.",
+              "instructional": "Route by using language, dialect, and confidence."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. These language results support appropriate routing."
+      },
+      "payload_hash": "7cb2502cf6764c2f708ef2d53a2e701950df95e761155b8db12c32a74d54ecd6",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "8f78119975e8831c999691da33ad83b6005101bd6189763dca095b0c2c474d85",
+      "telemetry": {}
+    },
+    {
+      "item_key": "analyze-sentiment-and-choose-predictable-tools/language-detection/r5/v1",
+      "concept_id": "language-detection",
+      "rung": 5,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Analyzing/Evaluating",
+        "question_type": "multi_choice",
+        "prompt": "A support-desk agent receives “¡Hola! Me llamo Josefina y vivo en Madrid, España.” and must route it using a reliable language result. Which conclusions fit? Select all that apply.",
+        "concept_id": "language-detection",
+        "options": [
+          {
+            "text": "The language is Spanish",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Language detection identifies this text as Spanish. That result can be used for routing.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "The ISO 639-1 code is es",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The language result uses the ISO 639-1 code es. This is a structured language value.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "The confidence score is 1.00",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The stated language-detection result has confidence 1.00. Confidence accompanies the language result.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "The task is PII detection",
+            "is_correct": false,
+            "error_type": "Confuses language routing with PII detection",
+            "rationale": "The scenario asks for routing by language. PII detection identifies personal details rather than primary language.",
+            "better_fit": "Use PII detection when sensitive details must be identified or redacted.",
+            "feedback": {
+              "intrinsic": "The message may not reach the appropriate language process.",
+              "instructional": "Choose language detection for reliable language routing."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. The result is Spanish, code es, with confidence 1.00."
+      },
+      "payload_hash": "d49be021f391200d4c1ba5e4728283d2c3d2969a30316d061d67f96886ef4ec2",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "8f78119975e8831c999691da33ad83b6005101bd6189763dca095b0c2c474d85",
+      "telemetry": {}
+    }
+  ],
+  "flashcards": [
+    {
+      "front": "What does sentiment analysis classify?",
+      "back": "Text as positive, negative, or neutral.",
+      "hint": "Think of the overall feeling."
+    },
+    {
+      "front": "What improves sentiment response detail?",
+      "back": "A more specific prompt.",
+      "hint": "Ask clearly for the output you need."
+    },
+    {
+      "front": "What is deterministic output?",
+      "back": "Structured, predictable, consistent results for equivalent requests.",
+      "hint": "Useful when reliable values matter."
+    },
+    {
+      "front": "What does language detection return?",
+      "back": "Primary language, dialect, and confidence score.",
+      "hint": "It helps route multilingual documents."
+    }
+  ]
+}

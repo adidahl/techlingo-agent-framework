@@ -1,0 +1,540 @@
+{
+  "import_key": "organize-and-manage-azure-l3",
+  "title": "Organize and manage Azure · Level 3",
+  "slo": "Explain how Azure organizes resources and how they can be managed.",
+  "exercises": [
+    {
+      "import_key": "organize-and-manage-azure-l3-q1",
+      "question_type": "multiple_choice",
+      "question_text": "What is an Azure tenant?",
+      "options": {
+        "options": [
+          {
+            "text": "An organization's identity and management space",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A tenant is the organization-level space for identity and access management. It contains users, groups, identities, and access policies.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A billing container for Azure use",
+            "is_correct": false,
+            "error_type": "Confuses tenant with subscription",
+            "rationale": "A subscription connects Azure use to payment or credits. It is not the organization identity space.",
+            "better_fit": "Use this for payment, credits, quotas, or cost boundaries.",
+            "feedback": {
+              "intrinsic": "Billing controls would be sought in the wrong place.",
+              "instructional": "A tenant manages identity; a subscription manages billing boundaries."
+            }
+          },
+          {
+            "text": "A container for related resources",
+            "is_correct": false,
+            "error_type": "Confuses tenant with resource group",
+            "rationale": "A resource group holds related Azure resources for joint management. It is not an organization-wide identity boundary.",
+            "better_fit": "Use this when related resources need shared management.",
+            "feedback": {
+              "intrinsic": "The organization boundary would be confused with a project grouping.",
+              "instructional": "A tenant holds identities; a resource group holds related resources."
+            }
+          },
+          {
+            "text": "An individual Azure service object",
+            "is_correct": false,
+            "error_type": "Confuses tenant with resource",
+            "rationale": "A resource is one service or object, such as a database. A tenant is a broader identity and management space.",
+            "better_fit": "Use this for one created item such as a storage account.",
+            "feedback": {
+              "intrinsic": "The whole organization space would be treated as one item.",
+              "instructional": "A tenant contains identity details; a resource is an individual Azure item."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "azure-tenant",
+        "item_key": "organize-and-manage-azure/azure-tenant/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. A tenant is the separate organization space for identity and access management.",
+      "points": 1
+    },
+    {
+      "import_key": "organize-and-manage-azure-l3-q2",
+      "question_type": "multiple_choice",
+      "question_text": "Which statements describe an Azure subscription? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "It connects usage to payment or credits",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A subscription ties Azure usage to payment or credits. It is a billing container.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It sets cost boundaries",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Subscriptions establish cost boundaries for Azure use. This supports cost control.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It sets quota boundaries",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Subscriptions set quota boundaries as well as cost boundaries. Quotas limit use within the container.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It contains users and groups",
+            "is_correct": false,
+            "error_type": "Confuses subscription with tenant",
+            "rationale": "Users and groups belong to the tenant's identity space. A subscription is a billing container.",
+            "better_fit": "Use this when describing an Azure tenant.",
+            "feedback": {
+              "intrinsic": "Identity details would be managed where billing is expected.",
+              "instructional": "Use a tenant for users and groups and a subscription for billing boundaries."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "azure-subscription",
+        "item_key": "organize-and-manage-azure/azure-subscription/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. A subscription connects usage to payment or credits and sets boundaries.",
+      "points": 1
+    },
+    {
+      "import_key": "organize-and-manage-azure-l3-q3",
+      "question_type": "true_false",
+      "question_text": "Microsoft creates a tenant when an organization signs up for Azure or Microsoft 365.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "azure-tenant",
+        "feedback_for_incorrect": {
+          "intrinsic": "A team might search for an unnecessary separate setup step.",
+          "instructional": "Microsoft creates the tenant when an organization signs up for Azure or Microsoft 365."
+        },
+        "item_key": "organize-and-manage-azure/azure-tenant/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. Sign-up creates the organization's dedicated cloud identity space.",
+      "points": 1
+    },
+    {
+      "import_key": "organize-and-manage-azure-l3-q4",
+      "question_type": "true_false",
+      "question_text": "An Azure subscription is a folder-like container for related Azure resources that are managed together.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "azure-subscription",
+        "feedback_for_incorrect": {
+          "intrinsic": "Related-resource organization would be confused with billing management.",
+          "instructional": "A subscription sets billing, quota, and access boundaries; a resource group organizes related resources."
+        },
+        "item_key": "organize-and-manage-azure/azure-subscription/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct. A resource group, not a subscription, is the folder-like container for related resources.",
+      "points": 1
+    },
+    {
+      "import_key": "organize-and-manage-azure-l3-q5",
+      "question_type": "arrange_sentence",
+      "question_text": "Arrange the parts to form the correct statement.",
+      "options": {
+        "word_bank": [
+          "when configuring",
+          "Permissions and security",
+          "a resource",
+          "are chosen"
+        ],
+        "correct_order": [
+          "Permissions and security",
+          "are chosen",
+          "when configuring",
+          "a resource"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "region-and-performance-tier",
+        "feedback_for_incorrect": {
+          "intrinsic": "The configuration relationship becomes unclear.",
+          "instructional": "State the settings first, then say they are chosen during resource configuration."
+        },
+        "item_key": "organize-and-manage-azure/region-and-performance-tier/r3/v2",
+        "rung": 3
+      },
+      "correct_answer": "Permissions and security are chosen when configuring a resource",
+      "explanation": "Permissions and security are choices made while configuring a resource.",
+      "points": 1
+    },
+    {
+      "import_key": "organize-and-manage-azure-l3-q6",
+      "question_type": "fill_blank",
+      "question_text": "The centralized web UI for creating and managing Azure resources is the Azure ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "The centralized web UI for creating and managing Azure resources is the Azure "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "portal",
+              "Azure portal"
+            ],
+            "rejected_answers": [
+              "resource group",
+              "Foundry portal",
+              "subscription",
+              "resource-group",
+              "foundry-portal"
+            ],
+            "placeholder": "term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "resource group",
+          "Foundry portal",
+          "subscription",
+          "resource-group",
+          "foundry-portal"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "azure-portal-and-automation",
+        "feedback_for_incorrect": {
+          "intrinsic": "A container or specialized interface would be selected instead.",
+          "instructional": "Use Azure portal for broad Azure web management."
+        },
+        "item_key": "organize-and-manage-azure/azure-portal-and-automation/r3/v2",
+        "rung": 3
+      },
+      "correct_answer": "[\"portal\",\"Azure portal\"]",
+      "explanation": "Azure portal is the centralized web interface for creating, configuring, monitoring, and managing Azure resources.",
+      "points": 1
+    },
+    {
+      "import_key": "organize-and-manage-azure-l3-q7",
+      "question_type": "multiple_choice",
+      "question_text": "A retail developer is configuring a new Azure resource. Which choices are resource configuration settings? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Region",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Region is selected when configuring a resource. It identifies deployment location.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Performance tier",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Performance tier is a resource setting. It is associated with cost and performance.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Permissions and security",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Permissions and security are chosen during resource configuration. They control access and protection.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Tenant users and groups",
+            "is_correct": false,
+            "error_type": "Confuses settings with tenant contents",
+            "rationale": "Users and groups are tenant identity objects. They are not settings for one resource.",
+            "better_fit": "Use this when describing an Azure tenant's contents.",
+            "feedback": {
+              "intrinsic": "Attention would shift from resource settings to organization identities.",
+              "instructional": "Configure region, tier, permissions, and security on the resource; users and groups belong to the tenant."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "multi_choice",
+        "concept_id": "region-and-performance-tier",
+        "item_key": "organize-and-manage-azure/region-and-performance-tier/r4/v2",
+        "rung": 4
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. These choices configure location, performance, and protection.",
+      "points": 1
+    },
+    {
+      "import_key": "organize-and-manage-azure-l3-q8",
+      "question_type": "multiple_choice",
+      "question_text": "An administrator sees reports that an intelligent tutoring resource may be slow and needs to check its health and current usage. Where should they start?",
+      "options": {
+        "options": [
+          {
+            "text": "Azure portal",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Azure portal can monitor a resource's usage, performance, and health. It is the appropriate web interface for this decision.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A resource group",
+            "is_correct": false,
+            "error_type": "Confuses interface with container",
+            "rationale": "A resource group organizes related resources. It is not the web interface for viewing health and usage.",
+            "better_fit": "Use this when grouping related resources or applying group policies.",
+            "feedback": {
+              "intrinsic": "A grouping would be identified but monitoring would remain undone.",
+              "instructional": "Start in Azure portal for monitoring; use resource groups for organization."
+            }
+          },
+          {
+            "text": "An Azure subscription",
+            "is_correct": false,
+            "error_type": "Confuses interface with billing",
+            "rationale": "A subscription is a billing container. It is not the centralized web interface for resource health.",
+            "better_fit": "Use this for billing, credits, quotas, or access boundaries.",
+            "feedback": {
+              "intrinsic": "The administrator could focus on billing while health remains unchecked.",
+              "instructional": "Use Azure portal for health and usage monitoring."
+            }
+          },
+          {
+            "text": "Foundry portal",
+            "is_correct": false,
+            "error_type": "Confuses Azure-wide portal with Foundry interface",
+            "rationale": "Foundry portal is specialized for Foundry work. Azure portal is the stated interface for general Azure resource monitoring.",
+            "better_fit": "Use this when working with Foundry models, agents, or assets.",
+            "feedback": {
+              "intrinsic": "A specialized workspace could be opened instead of general monitoring.",
+              "instructional": "For Azure resource health and usage, begin in Azure portal."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "single_choice",
+        "concept_id": "azure-portal-and-automation",
+        "item_key": "organize-and-manage-azure/azure-portal-and-automation/r4/v2",
+        "rung": 4
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. Azure portal provides resource monitoring.",
+      "points": 1
+    },
+    {
+      "import_key": "organize-and-manage-azure-l3-q9",
+      "question_type": "arrange_sentence",
+      "question_text": "Put the pieces in the correct order.",
+      "options": {
+        "word_bank": [
+          "service or object",
+          "An Azure resource",
+          "such as a database",
+          "is an individual"
+        ],
+        "correct_order": [
+          "An Azure resource",
+          "is an individual",
+          "service or object",
+          "such as a database"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "azure-resource",
+        "feedback_for_incorrect": {
+          "intrinsic": "The difference between an item and a container becomes unclear.",
+          "instructional": "Name the resource, identify it as individual, then add an example."
+        },
+        "item_key": "organize-and-manage-azure/azure-resource/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "An Azure resource is an individual service or object such as a database",
+      "explanation": "An Azure resource is one individual service or object, such as a database.",
+      "points": 1
+    },
+    {
+      "import_key": "organize-and-manage-azure-l3-q10",
+      "question_type": "multiple_choice",
+      "question_text": "A manufacturer is expanding a predictive-maintenance solution to several environments and needs repeatable deployment, clearer governance, and cost control. Which choices best support that goal? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Use scripts or templates for deployment",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Scripts and templates create resources repeatedly across environments. They reduce manual errors and improve reliability.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Organize related assets in resource groups",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Resource groups organize related assets for joint management. They support policies, monitoring, and governance.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Use subscriptions for cost boundaries",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Subscriptions set cost, quota, and access-control boundaries. They support cost control.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Use one resource as the folder",
+            "is_correct": false,
+            "error_type": "Confuses resource with resource group",
+            "rationale": "A resource is an individual service or object. It is not the folder-like container for related assets.",
+            "better_fit": "Use this when referring to one created item such as a database.",
+            "feedback": {
+              "intrinsic": "Related assets would lack the intended shared-management container.",
+              "instructional": "Use a resource group as the folder-like container and a resource as an individual item."
+            }
+          }
+        ],
+        "blooms_level": "Analyzing/Evaluating",
+        "original_question_type": "multi_choice",
+        "concept_id": "azure-portal-and-automation",
+        "item_key": "organize-and-manage-azure/azure-portal-and-automation/r5/v1",
+        "rung": 5
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. Automation supports repeatability, resource groups support governance, and subscriptions support cost control.",
+      "points": 1
+    },
+    {
+      "import_key": "organize-and-manage-azure-l3-q11",
+      "question_type": "multiple_choice",
+      "question_text": "A finance team must reduce an existing fraud-detection resource's cost while preserving an acceptable level of performance. Which decision best fits?",
+      "options": {
+        "options": [
+          {
+            "text": "Choose a performance tier",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Performance tier is the setting associated with both cost and performance. It directly fits the stated trade-off.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Move it to a resource group",
+            "is_correct": false,
+            "error_type": "Confuses setting with container",
+            "rationale": "A resource group organizes related resources for management. It does not set the resource's cost-performance balance.",
+            "better_fit": "Use this when organizing related resources for shared management.",
+            "feedback": {
+              "intrinsic": "Resources could be reorganized without solving the trade-off.",
+              "instructional": "Use performance tier when weighing cost and performance."
+            }
+          },
+          {
+            "text": "Create another subscription",
+            "is_correct": false,
+            "error_type": "Confuses setting with billing container",
+            "rationale": "A subscription provides billing, quota, and access boundaries. It is not the resource's performance setting.",
+            "better_fit": "Use this when a separate billing or quota boundary is needed.",
+            "feedback": {
+              "intrinsic": "A new billing container would not adjust resource performance.",
+              "instructional": "Performance tier is the setting related to cost and performance."
+            }
+          },
+          {
+            "text": "Change its resource type",
+            "is_correct": false,
+            "error_type": "Confuses setting with resource behavior",
+            "rationale": "Resource type defines behavior and capabilities. The decision concerns an existing resource's cost-performance trade-off.",
+            "better_fit": "Use this when the kind of Azure resource must change.",
+            "feedback": {
+              "intrinsic": "The resource itself could change without addressing its tier.",
+              "instructional": "Choose a performance tier for the cost-performance decision."
+            }
+          }
+        ],
+        "blooms_level": "Analyzing/Evaluating",
+        "original_question_type": "single_choice",
+        "concept_id": "region-and-performance-tier",
+        "item_key": "organize-and-manage-azure/region-and-performance-tier/r5/v1",
+        "rung": 5
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. Performance tier fits the cost and performance trade-off.",
+      "points": 1
+    },
+    {
+      "import_key": "organize-and-manage-azure-l3-q12",
+      "question_type": "fill_blank",
+      "question_text": "A resource group can help automate Azure ___ for related resources.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "A resource group can help automate Azure "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "deployments",
+              "deployment"
+            ],
+            "rejected_answers": [
+              "subscriptions",
+              "tenants",
+              "resources",
+              "azure-subscription",
+              "azure-resource"
+            ],
+            "placeholder": "term"
+          },
+          {
+            "type": "text",
+            "text": " for related resources."
+          }
+        ],
+        "rejected_answers": [
+          "subscriptions",
+          "tenants",
+          "resources",
+          "azure-subscription",
+          "azure-resource"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "azure-resource-group",
+        "feedback_for_incorrect": {
+          "intrinsic": "A resource-group capability would be mislabeled.",
+          "instructional": "Use deployments for the repeatable provisioning activity resource groups can support."
+        },
+        "item_key": "organize-and-manage-azure/azure-resource-group/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "[\"deployments\",\"deployment\"]",
+      "explanation": "Resource groups help automate deployments in addition to organizing related resources.",
+      "points": 1
+    }
+  ],
+  "flashcards": []
+}

@@ -1,0 +1,1047 @@
+{
+  "import_key": "2-introduction-to-generative-ai-and-agents-checkpoint",
+  "title": "2. Introduction to generative AI and agents · Checkpoint",
+  "slo": "Review the key concepts of 2. Introduction to generative AI and agents.",
+  "exercises": [
+    {
+      "import_key": "2-introduction-to-generative-ai-and-agents-checkpoint-q1",
+      "question_type": "multiple_choice",
+      "question_text": "A manager needs an executive summary of generative-AI adoption, but the first result is too broad. Which changes should the manager make? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Name the executive audience",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Naming the audience adds context that shapes the summary. It makes the request more specific.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Request six bullet points",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Requesting a format clarifies how the result should be structured. It makes the output more usable.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Ask only \"Tell me about AI\"",
+            "is_correct": false,
+            "error_type": "Uses a vague prompt",
+            "rationale": "This request omits the specific topic, audience, and format. It is unlikely to produce a focused executive summary.",
+            "better_fit": "It fits a broad casual conversation starter.",
+            "feedback": {
+              "intrinsic": "The manager may receive a general answer unrelated to the briefing.",
+              "instructional": "Specify the topic, audience, and desired structure."
+            }
+          },
+          {
+            "text": "Remove the desired format",
+            "is_correct": false,
+            "error_type": "Omits structure",
+            "rationale": "Removing a format makes the desired output less clear. Structure requests often make a response easier to use.",
+            "better_fit": "It fits a situation with no required response structure.",
+            "feedback": {
+              "intrinsic": "The response may be difficult to use in the briefing.",
+              "instructional": "Keep the requested structure to clarify the goal."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "multi_choice",
+        "concept_id": "prompt-engineering",
+        "item_key": "prompts-and-conversation-context/prompt-engineering/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "[0,1]",
+      "explanation": "Correct. Audience and format make the prompt more focused.",
+      "points": 1
+    },
+    {
+      "import_key": "2-introduction-to-generative-ai-and-agents-checkpoint-q2",
+      "question_type": "multiple_choice",
+      "question_text": "A developer needs a model to recognize that \"cats chase mice\" conveys an idea about animals and behavior. Which relationship should the developer use?",
+      "options": {
+        "options": [
+          {
+            "text": "A semantic relationship",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The connection among cats, mice, and chasing concerns concepts and meanings. That makes it semantic.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A linguistic relationship",
+            "is_correct": false,
+            "error_type": "Structure-versus-meaning confusion",
+            "rationale": "Linguistic relationships concern sentence structure. The decision depends on animal-behavior meaning.",
+            "better_fit": "A linguistic relationship fits deciding grammatical word order.",
+            "feedback": {
+              "intrinsic": "The model would focus on grammar while missing the idea.",
+              "instructional": "Use semantic relationships when meaning and concepts decide the answer."
+            }
+          },
+          {
+            "text": "A token identifier",
+            "is_correct": false,
+            "error_type": "Token-ID confusion",
+            "rationale": "A token ID labels a language unit. It does not represent the animal-behavior concept.",
+            "better_fit": "A token ID fits referring to a vocabulary item.",
+            "feedback": {
+              "intrinsic": "A numeric label would be treated as conceptual knowledge.",
+              "instructional": "Token IDs identify units; semantic relationships capture meaning."
+            }
+          },
+          {
+            "text": "A positional encoding",
+            "is_correct": false,
+            "error_type": "Position-versus-meaning confusion",
+            "rationale": "Positional encoding indicates sequence order. It does not supply the underlying concept.",
+            "better_fit": "Positional encoding fits deciding where a token occurs.",
+            "feedback": {
+              "intrinsic": "Order information would be mistaken for meaning.",
+              "instructional": "The needed clue is meaning, so use a semantic relationship."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "single_choice",
+        "concept_id": "linguistic-and-semantic-relationships",
+        "item_key": "what-generative-ai-does/linguistic-and-semantic-relationships/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. The relationship depends on meanings and concepts.",
+      "points": 1
+    },
+    {
+      "import_key": "2-introduction-to-generative-ai-and-agents-checkpoint-q3",
+      "question_type": "arrange_sentence",
+      "question_text": "Put the pieces in the correct order.",
+      "options": {
+        "word_bank": [
+          "of text used",
+          "Training data",
+          "to learn patterns",
+          "is a large body"
+        ],
+        "correct_order": [
+          "Training data",
+          "is a large body",
+          "of text used",
+          "to learn patterns"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "vocabulary-and-training-data",
+        "feedback_for_incorrect": {
+          "intrinsic": "The definition would not connect the text collection to learning.",
+          "instructional": "Start with training data, then describe it as text used to learn patterns."
+        },
+        "item_key": "what-generative-ai-does/vocabulary-and-training-data/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "Training data is a large body of text used to learn patterns",
+      "explanation": "Training data is a large body of text used to learn patterns and build vocabulary.",
+      "points": 1
+    },
+    {
+      "import_key": "2-introduction-to-generative-ai-and-agents-checkpoint-q4",
+      "question_type": "multiple_choice",
+      "question_text": "An expenses assistant must determine how nearby words change the meaning of “claim” in a policy question. Which technique should its model use?",
+      "options": {
+        "options": [
+          {
+            "text": "Attention",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Attention weighs nearby words to interpret the current token. That directly addresses the meaning-in-context decision.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Masked attention",
+            "is_correct": false,
+            "error_type": "Confuses context weighting with masking",
+            "rationale": "Masked attention prevents access to later positions. The scenario instead requires weighing contextual influence.",
+            "better_fit": "Use this for autoregressive prediction that cannot view future tokens.",
+            "feedback": {
+              "intrinsic": "Future-token restrictions were chosen instead of contextual interpretation.",
+              "instructional": "Attention identifies which nearby words influence a word’s meaning."
+            }
+          },
+          {
+            "text": "Multi-head attention",
+            "is_correct": false,
+            "error_type": "Confuses core technique with parallel variant",
+            "rationale": "Multi-head attention adds parallel processing. The stated decision is about the core act of contextual weighting.",
+            "better_fit": "Use this when simultaneous examination of vector elements is required.",
+            "feedback": {
+              "intrinsic": "A parallel variant was selected when contextual weighting is the need.",
+              "instructional": "Choose attention for using nearby words as meaning clues."
+            }
+          },
+          {
+            "text": "Positional encoding",
+            "is_correct": false,
+            "error_type": "Confuses influence with position",
+            "rationale": "Positional encoding represents sequence location. It does not determine which words exert more influence.",
+            "better_fit": "Use this when token order or location is the requirement.",
+            "feedback": {
+              "intrinsic": "Position is represented, but contextual influence is not weighed.",
+              "instructional": "Attention weighs influence; positional encoding represents location."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "single_choice",
+        "concept_id": "attention",
+        "item_key": "how-attention-creates-meaningful-embeddings/attention/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. Attention lets the model use nearby words as contextual clues.",
+      "points": 1
+    },
+    {
+      "import_key": "2-introduction-to-generative-ai-and-agents-checkpoint-q5",
+      "question_type": "fill_blank",
+      "question_text": "As it processes more text, the model ___ which tokens commonly occur together.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "As it processes more text, the model "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "iteratively learns",
+              "learns iteratively"
+            ],
+            "rejected_answers": [
+              "assigns token IDs",
+              "uses masked attention",
+              "attention",
+              "embedding-and-context"
+            ],
+            "placeholder": "technical phrase"
+          },
+          {
+            "type": "text",
+            "text": " which tokens commonly occur together."
+          }
+        ],
+        "rejected_answers": [
+          "assigns token IDs",
+          "uses masked attention",
+          "attention",
+          "embedding-and-context"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "learning-context-patterns",
+        "feedback_for_incorrect": {
+          "intrinsic": "The phrase does not describe repeated pattern learning.",
+          "instructional": "Use iteratively learns to describe how repeated text exposure teaches co-occurrence patterns."
+        },
+        "item_key": "how-attention-creates-meaningful-embeddings/learning-context-patterns/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "[\"iteratively learns\",\"learns iteratively\"]",
+      "explanation": "The model iteratively learns contextual patterns from repeated exposure to text.",
+      "points": 1
+    },
+    {
+      "import_key": "2-introduction-to-generative-ai-and-agents-checkpoint-q6",
+      "question_type": "true_false",
+      "question_text": "If \"a\" appears twice, both occurrences use the same token ID.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "token-ids-and-repeated-tokens",
+        "feedback_for_incorrect": {
+          "intrinsic": "A repeated token would incorrectly become a new vocabulary entry.",
+          "instructional": "IDs identify token identity, while positional encoding distinguishes occurrences."
+        },
+        "item_key": "tokens-vectors-and-transformers/token-ids-and-repeated-tokens/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. Repeating a vocabulary token does not create another ID.",
+      "points": 1
+    },
+    {
+      "import_key": "2-introduction-to-generative-ai-and-agents-checkpoint-q7",
+      "question_type": "multiple_choice",
+      "question_text": "A developer diagnoses poor prediction of the final sound word in “I heard a dog bark.” Which contextual roles should receive higher attention weight? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "The verb indicating perception",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The perception verb narrows the likely final word toward a sound. It supplies useful contextual evidence.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "The noun naming the animal",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The animal noun narrows the likely sound to bark. It is highly predictive in this scenario.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "The sentence subject pronoun",
+            "is_correct": false,
+            "error_type": "Chooses a weak context clue",
+            "rationale": "The pronoun offers little predictive information about bark. It is less useful than the perception verb and animal noun.",
+            "better_fit": "Use this when locating the grammatical subject.",
+            "feedback": {
+              "intrinsic": "The model continues to rely on a weak clue.",
+              "instructional": "Prioritize the perception verb and animal noun because they predict bark."
+            }
+          },
+          {
+            "text": "The indefinite article",
+            "is_correct": false,
+            "error_type": "Chooses a weak context clue",
+            "rationale": "The article is grammatical but weakly informative about bark. It identifies neither a sound nor its source.",
+            "better_fit": "Use this when identifying a determiner.",
+            "feedback": {
+              "intrinsic": "A low-information word receives importance without improving prediction.",
+              "instructional": "Attention should favor the words supplying semantic clues about the sound."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "multi_choice",
+        "concept_id": "attention-weight-example",
+        "item_key": "how-attention-creates-meaningful-embeddings/attention-weight-example/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "[0,1]",
+      "explanation": "Correct. The perception verb and animal noun supply the strongest contextual evidence.",
+      "points": 1
+    },
+    {
+      "import_key": "2-introduction-to-generative-ai-and-agents-checkpoint-q8",
+      "question_type": "arrange_sentence",
+      "question_text": "Reconstruct the statement about how embeddings are formed.",
+      "options": {
+        "word_bank": [
+          "in training",
+          "Embeddings are formed",
+          "data",
+          "from contexts"
+        ],
+        "correct_order": [
+          "Embeddings are formed",
+          "from contexts",
+          "in training",
+          "data"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "embedding",
+        "feedback_for_incorrect": {
+          "intrinsic": "The source of embedding information is not stated coherently.",
+          "instructional": "Begin with embeddings, then identify contexts in training data as their source."
+        },
+        "item_key": "how-attention-creates-meaningful-embeddings/embedding/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "Embeddings are formed from contexts in training data",
+      "explanation": "Embeddings are formed from the contexts in training data, which differs from merely defining what an embedding is.",
+      "points": 1
+    },
+    {
+      "import_key": "2-introduction-to-generative-ai-and-agents-checkpoint-q9",
+      "question_type": "arrange_sentence",
+      "question_text": "Put the processing steps in order.",
+      "options": {
+        "word_bank": [
+          "then decoder predicts",
+          "Encoder creates embeddings",
+          "the next token",
+          "decoder uses embeddings"
+        ],
+        "correct_order": [
+          "Encoder creates embeddings",
+          "decoder uses embeddings",
+          "then decoder predicts",
+          "the next token"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "encoder-and-decoder",
+        "feedback_for_incorrect": {
+          "intrinsic": "Prediction would incorrectly precede the representations it requires.",
+          "instructional": "Place encoder work first, then decoder use of embeddings, then prediction."
+        },
+        "item_key": "tokens-vectors-and-transformers/encoder-and-decoder/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "Encoder creates embeddings decoder uses embeddings then decoder predicts the next token",
+      "explanation": "Embeddings are created before the decoder uses them, and that use supports next-token prediction.",
+      "points": 1
+    },
+    {
+      "import_key": "2-introduction-to-generative-ai-and-agents-checkpoint-q10",
+      "question_type": "multiple_choice",
+      "question_text": "A writer asks an AI assistant to continue \"When my dog was a ...\". Which next token should the assistant choose?",
+      "options": {
+        "options": [
+          {
+            "text": "puppy",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "\"Puppy\" naturally continues a phrase about a dog when it was young. It is more probable in this context than the alternatives.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "cat",
+            "is_correct": false,
+            "error_type": "Ignores context",
+            "rationale": "A cat is an animal, but it does not naturally describe the dog in this phrase. It is less probable given the preceding words.",
+            "better_fit": "It could fit a sentence about a different animal.",
+            "feedback": {
+              "intrinsic": "The sentence shifts away from the dog's earlier life.",
+              "instructional": "Choose the token most supported by the preceding sequence."
+            }
+          },
+          {
+            "text": "skateboard",
+            "is_correct": false,
+            "error_type": "Ignores context",
+            "rationale": "This word does not fit the meaning established by the phrase. It is much less probable than a word about a young dog.",
+            "better_fit": "It could fit a sentence about an object or activity.",
+            "feedback": {
+              "intrinsic": "The continuation becomes unrelated to the dog.",
+              "instructional": "Next-token prediction favors continuations that fit context."
+            }
+          },
+          {
+            "text": "system prompt",
+            "is_correct": false,
+            "error_type": "Confuses a token with guidance",
+            "rationale": "A system prompt is broad response guidance, not a token completing this sentence. It cannot serve as the likely continuation here.",
+            "better_fit": "It would fit an application's behavior rule.",
+            "feedback": {
+              "intrinsic": "The writer receives guidance instead of a completion.",
+              "instructional": "The model must choose a token that continues the sequence."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "single_choice",
+        "concept_id": "next-token-prediction",
+        "item_key": "prompts-and-conversation-context/next-token-prediction/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. \"Puppy\" is the most likely continuation.",
+      "points": 1
+    },
+    {
+      "import_key": "2-introduction-to-generative-ai-and-agents-checkpoint-q11",
+      "question_type": "fill_blank",
+      "question_text": "The model architecture with an encoder block and decoder layer is a ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "The model architecture with an encoder block and decoder layer is a "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "transformer",
+              "transformer model"
+            ],
+            "rejected_answers": [
+              "token vector",
+              "embedding",
+              "encoder",
+              "decoder",
+              "encoder-block",
+              "decoder-layer",
+              "llm-and-slm"
+            ],
+            "placeholder": "technical term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "token vector",
+          "embedding",
+          "encoder",
+          "decoder",
+          "encoder-block",
+          "decoder-layer",
+          "llm-and-slm"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "transformer-model",
+        "feedback_for_incorrect": {
+          "intrinsic": "The answer would name a component or representation rather than the architecture.",
+          "instructional": "The full architecture containing encoder and decoder parts is a transformer."
+        },
+        "item_key": "tokens-vectors-and-transformers/transformer-model/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "[\"transformer\",\"transformer model\"]",
+      "explanation": "A transformer contains encoder and decoder components and processes token representations.",
+      "points": 1
+    },
+    {
+      "import_key": "2-introduction-to-generative-ai-and-agents-checkpoint-q12",
+      "question_type": "fill_blank",
+      "question_text": "In the word \"unlikely,\" the piece \"un\" can be a ___ token.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "In the word \"unlikely,\" the piece \"un\" can be a "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "sub-word",
+              "subword"
+            ],
+            "rejected_answers": [
+              "token ID",
+              "token vector",
+              "embedding",
+              "positional encoding",
+              "vocabulary-and-training-data",
+              "token-vector"
+            ],
+            "placeholder": "technical term"
+          },
+          {
+            "type": "text",
+            "text": " token."
+          }
+        ],
+        "rejected_answers": [
+          "token ID",
+          "token vector",
+          "embedding",
+          "positional encoding",
+          "vocabulary-and-training-data",
+          "token-vector"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "tokenization",
+        "feedback_for_incorrect": {
+          "intrinsic": "The answer would not name the kind of token represented by \"un.\"",
+          "instructional": "A sub-word is a token that represents part of a word."
+        },
+        "item_key": "tokens-vectors-and-transformers/tokenization/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "[\"sub-word\",\"subword\"]",
+      "explanation": "Tokenization can break language into sub-word pieces, not only complete words.",
+      "points": 1
+    },
+    {
+      "import_key": "2-introduction-to-generative-ai-and-agents-checkpoint-q13",
+      "question_type": "multiple_choice",
+      "question_text": "A developer prepares a sentence containing two occurrences of \"a\" and must preserve their different locations. Which choices should the developer make? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Reuse the same token ID for both",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Both occurrences are the same vocabulary token. They therefore use the same assigned ID.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Give each occurrence a different position",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The occurrences appear at different places in the sequence. Their positional information must differ.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Apply positional encoding to each occurrence",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Each occurrence needs order information. Positional encoding provides this information.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Create a new vocabulary token for the second occurrence",
+            "is_correct": false,
+            "error_type": "Confuses repetition with a new token",
+            "rationale": "A repeated occurrence is not a distinct vocabulary entry. It should reuse the known token ID.",
+            "better_fit": "Use this only when the vocabulary gains a genuinely distinct token.",
+            "feedback": {
+              "intrinsic": "The vocabulary would grow without a new token being introduced.",
+              "instructional": "Reuse the ID and use different positional encodings for the occurrences."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "multi_choice",
+        "concept_id": "initial-vectors-and-position",
+        "item_key": "tokens-vectors-and-transformers/initial-vectors-and-position/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. Identity stays the same while positional information changes.",
+      "points": 1
+    },
+    {
+      "import_key": "2-introduction-to-generative-ai-and-agents-checkpoint-q14",
+      "question_type": "arrange_sentence",
+      "question_text": "Arrange the steps for generating a completion.",
+      "options": {
+        "word_bank": [
+          "add it to sequence",
+          "Start with a prompt",
+          "predict the next token",
+          "predict a likely token"
+        ],
+        "correct_order": [
+          "Start with a prompt",
+          "predict a likely token",
+          "add it to sequence",
+          "predict the next token"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "predictive-text-completions",
+        "feedback_for_incorrect": {
+          "intrinsic": "The next prediction would lack generated context.",
+          "instructional": "Begin with the prompt, predict one token, add it, then predict again."
+        },
+        "item_key": "what-generative-ai-does/predictive-text-completions/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "Start with a prompt predict a likely token add it to sequence predict the next token",
+      "explanation": "The prompt starts the sequence. A likely token is predicted, added, then supports the next prediction.",
+      "points": 1
+    },
+    {
+      "import_key": "2-introduction-to-generative-ai-and-agents-checkpoint-q15",
+      "question_type": "arrange_sentence",
+      "question_text": "Reconstruct the definition.",
+      "options": {
+        "word_bank": [
+          "a specific",
+          "A user prompt",
+          "response or instruction",
+          "asks for"
+        ],
+        "correct_order": [
+          "A user prompt",
+          "asks for",
+          "a specific",
+          "response or instruction"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "user-prompt",
+        "feedback_for_incorrect": {
+          "intrinsic": "The definition would blur a request with general guidance.",
+          "instructional": "Start with the prompt type, then state that it asks for a specific response or instruction."
+        },
+        "item_key": "prompts-and-conversation-context/user-prompt/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "A user prompt asks for a specific response or instruction",
+      "explanation": "A user prompt requests a particular response or instruction, unlike broad system guidance.",
+      "points": 1
+    },
+    {
+      "import_key": "2-introduction-to-generative-ai-and-agents-checkpoint-q16",
+      "question_type": "multiple_choice",
+      "question_text": "An executive first discusses adopting generative AI, then asks, \"What are common privacy-related risks?\" What should the app include so the assistant understands the topic?",
+      "options": {
+        "options": [
+          {
+            "text": "A summary of earlier messages",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A summary of earlier prompts and responses supplies the topic for the follow-up. It connects privacy risks to generative-AI adoption.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Only the new question",
+            "is_correct": false,
+            "error_type": "Omits context",
+            "rationale": "The new question does not name what the privacy risks concern. It needs the earlier topic for proper interpretation.",
+            "better_fit": "It fits a question that states its topic explicitly.",
+            "feedback": {
+              "intrinsic": "The assistant may answer about privacy generally.",
+              "instructional": "Include conversation history when a follow-up depends on an earlier topic."
+            }
+          },
+          {
+            "text": "A new system tone rule",
+            "is_correct": false,
+            "error_type": "Confuses guidance with context",
+            "rationale": "A tone rule changes how the response sounds. It does not identify the prior topic.",
+            "better_fit": "It fits setting response behavior.",
+            "feedback": {
+              "intrinsic": "The reply may have the right style but miss the context.",
+              "instructional": "Use conversation history to preserve the earlier topic."
+            }
+          },
+          {
+            "text": "A predicted next token",
+            "is_correct": false,
+            "error_type": "Confuses context with decoding",
+            "rationale": "A predicted token is generated during a completion. It is not a record of prior conversation.",
+            "better_fit": "It fits next-token prediction.",
+            "feedback": {
+              "intrinsic": "The assistant still lacks the earlier discussion.",
+              "instructional": "Earlier prompts and responses provide context; predicted tokens are generated afterward."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "single_choice",
+        "concept_id": "conversation-history",
+        "item_key": "prompts-and-conversation-context/conversation-history/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. Summarized earlier messages provide the needed context.",
+      "points": 1
+    },
+    {
+      "import_key": "2-introduction-to-generative-ai-and-agents-checkpoint-q17",
+      "question_type": "fill_blank",
+      "question_text": "The technology category that creates new content such as poetry, prose, and code is ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "The technology category that creates new content such as poetry, prose, and code is "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "generative AI"
+            ],
+            "rejected_answers": [
+              "AI agent",
+              "ai-agent"
+            ],
+            "placeholder": "technical term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "AI agent",
+          "ai-agent"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "generative-ai-new-content",
+        "feedback_for_incorrect": {
+          "intrinsic": "The answer would name task automation rather than content creation.",
+          "instructional": "Use generative AI for systems that create new prose, poetry, code, and similar content."
+        },
+        "item_key": "what-generative-ai-does/generative-ai-new-content/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "generative AI",
+      "explanation": "Generative AI is the term for AI that creates original human-like content.",
+      "points": 1
+    },
+    {
+      "import_key": "2-introduction-to-generative-ai-and-agents-checkpoint-q18",
+      "question_type": "fill_blank",
+      "question_text": "A ___ can require a model to respond in a friendly tone.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "A "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "system prompt"
+            ],
+            "rejected_answers": [
+              "user prompt",
+              "agent instructions",
+              "user-prompt",
+              "agent-instructions"
+            ],
+            "placeholder": "prompt type"
+          },
+          {
+            "type": "text",
+            "text": " can require a model to respond in a friendly tone."
+          }
+        ],
+        "rejected_answers": [
+          "user prompt",
+          "agent instructions",
+          "user-prompt",
+          "agent-instructions"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "system-prompt",
+        "feedback_for_incorrect": {
+          "intrinsic": "The term would not name the source of ongoing tone guidance.",
+          "instructional": "Use \"system prompt\" for behavior, tone, and constraints."
+        },
+        "item_key": "prompts-and-conversation-context/system-prompt/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "system prompt",
+      "explanation": "Friendly tone is broad guidance, so it belongs in a system prompt.",
+      "points": 1
+    },
+    {
+      "import_key": "2-introduction-to-generative-ai-and-agents-checkpoint-q19",
+      "question_type": "multiple_choice",
+      "question_text": "A team trains a decoder on complete sentences. Which actions let it learn to predict the next token without leaking future words? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Hide tokens after the current position",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "This prevents future words from influencing the current prediction. It is the masking step used in decoder training.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Compare the prediction with the known next token",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The complete training sequence supplies the known target token. Comparing prediction and target supports error reduction.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Use later tokens to make the prediction",
+            "is_correct": false,
+            "error_type": "Reverses masking",
+            "rationale": "Later tokens must be hidden for the current prediction. Using them leaks future information.",
+            "better_fit": "It would fit a task that is not causal next-token prediction.",
+            "feedback": {
+              "intrinsic": "The model gets an unfair hint from the future.",
+              "instructional": "Masked attention requires predictions to use earlier tokens only."
+            }
+          },
+          {
+            "text": "Set a cheerful response style",
+            "is_correct": false,
+            "error_type": "Confuses training with system guidance",
+            "rationale": "A style rule affects response tone, not how training hides future tokens. It does not address prediction leakage.",
+            "better_fit": "This would fit a system prompt.",
+            "feedback": {
+              "intrinsic": "The team sets style but does not prevent leakage.",
+              "instructional": "Use masking for training mechanics and a system prompt for tone."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "multi_choice",
+        "concept_id": "masked-attention",
+        "item_key": "prompts-and-conversation-context/masked-attention/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "[0,1]",
+      "explanation": "Correct. Mask future tokens and compare predictions with known targets.",
+      "points": 1
+    },
+    {
+      "import_key": "2-introduction-to-generative-ai-and-agents-checkpoint-q20",
+      "question_type": "true_false",
+      "question_text": "Multi-head attention examines token-vector elements one at a time instead of in parallel.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "multi-head-attention",
+        "feedback_for_incorrect": {
+          "intrinsic": "The efficiency benefit has been reversed.",
+          "instructional": "Multi-head attention processes different vector elements in parallel."
+        },
+        "item_key": "how-attention-creates-meaningful-embeddings/multi-head-attention/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct. Multi-head attention examines elements in parallel.",
+      "points": 1
+    },
+    {
+      "import_key": "2-introduction-to-generative-ai-and-agents-checkpoint-q21",
+      "question_type": "multiple_choice",
+      "question_text": "A developer represents the token \"heard\" as [2, 15, 1] to encode language and meaning attributes. What should the developer call this representation?",
+      "options": {
+        "options": [
+          {
+            "text": "A token vector",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The representation is an array of numeric values. Such an array can encode token attributes.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A token ID",
+            "is_correct": false,
+            "error_type": "Confuses array with ID",
+            "rationale": "A token ID is one integer for a vocabulary entry. The displayed representation has several numeric values.",
+            "better_fit": "Use this for the single integer assigned to \"heard\" in the vocabulary.",
+            "feedback": {
+              "intrinsic": "The array's dimensions would be reduced to one identifier.",
+              "instructional": "An array such as [2, 15, 1] is a token vector, not a token ID."
+            }
+          },
+          {
+            "text": "A positional encoding",
+            "is_correct": false,
+            "error_type": "Confuses attributes with location",
+            "rationale": "Positional encoding represents sequence location. The array in this scenario represents token attributes.",
+            "better_fit": "Use this to indicate where \"heard\" occurs in the sentence.",
+            "feedback": {
+              "intrinsic": "The token's representation would be confused with its location.",
+              "instructional": "Position shows order; a token vector encodes attributes."
+            }
+          },
+          {
+            "text": "A completion",
+            "is_correct": false,
+            "error_type": "Confuses representation with generated text",
+            "rationale": "A completion is generated language. A numeric array is a representation used by the model.",
+            "better_fit": "Use this for text produced after next-token prediction.",
+            "feedback": {
+              "intrinsic": "Numeric data would incorrectly be treated as generated language.",
+              "instructional": "Vectors represent tokens; completions are generated sequences."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "single_choice",
+        "concept_id": "token-vector",
+        "item_key": "tokens-vectors-and-transformers/token-vector/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. The numeric array is a token vector.",
+      "points": 1
+    },
+    {
+      "import_key": "2-introduction-to-generative-ai-and-agents-checkpoint-q22",
+      "question_type": "true_false",
+      "question_text": "A completion is the question, command, or comment a person gives to an LLM.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "prompt-and-completion",
+        "feedback_for_incorrect": {
+          "intrinsic": "The input and output would be reversed.",
+          "instructional": "A prompt is supplied to the LLM, and a completion is generated in response."
+        },
+        "item_key": "what-generative-ai-does/prompt-and-completion/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct. That input is a prompt; a completion is generated output.",
+      "points": 1
+    },
+    {
+      "import_key": "2-introduction-to-generative-ai-and-agents-checkpoint-q23",
+      "question_type": "multiple_choice",
+      "question_text": "An expenses assistant must interpret an employee's question and write a relevant reply. Which language-model capabilities should the developer rely on? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Reason over natural-language input",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The employee's question must be interpreted as language input. Reasoning supports an appropriate reply.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Use relationships between words and phrases",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Learned relationships help the model interpret wording and meaning. They support relevant output.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Generate a meaningful response",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The intended result is a written response addressing the question. Generating a meaningful response is a language-model capability.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Assign every token a new ID",
+            "is_correct": false,
+            "error_type": "Vocabulary-building confusion",
+            "rationale": "Assigning IDs concerns vocabulary representation, not answering this question. The assistant should use existing learned relationships.",
+            "better_fit": "Token IDs fit identifying tokenized vocabulary units.",
+            "feedback": {
+              "intrinsic": "The developer would relabel units instead of answering.",
+              "instructional": "Use learned language relationships to interpret the request and generate a reply."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "multi_choice",
+        "concept_id": "llm-and-slm-difference",
+        "item_key": "what-generative-ai-does/llm-and-slm-difference/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. The model must understand language and generate a relevant response.",
+      "points": 1
+    },
+    {
+      "import_key": "2-introduction-to-generative-ai-and-agents-checkpoint-q24",
+      "question_type": "true_false",
+      "question_text": "Tokens used in similar contexts tend to have vectors pointing in similar directions.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "vector-space-and-cosine-similarity",
+        "feedback_for_incorrect": {
+          "intrinsic": "Related token use is treated as unrelated in vector space.",
+          "instructional": "Similar contexts tend to produce similar vector directions, which cosine similarity can compare."
+        },
+        "item_key": "how-attention-creates-meaningful-embeddings/vector-space-and-cosine-similarity/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. Similar contextual use tends to produce similar vector directions.",
+      "points": 1
+    }
+  ],
+  "flashcards": []
+}

@@ -1,0 +1,474 @@
+{
+  "import_key": "use-azure-language-with-agents-l1",
+  "title": "Use Azure Language with agents · Level 1",
+  "slo": "Explain how an AI agent can use Azure Language through MCP for consistent analysis.",
+  "exercises": [
+    {
+      "import_key": "use-azure-language-with-agents-l1-q1",
+      "question_type": "multiple_choice",
+      "question_text": "Which statements describe AzureKeyCredential and TextAnalyticsClient? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "AzureKeyCredential supplies an API key",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "AzureKeyCredential provides API-key credentials for authenticated Azure SDK access. It supplies the key when creating the client.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "TextAnalyticsClient is an Azure Language client",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "TextAnalyticsClient is the Python client for Azure Language text analysis. Its methods call Azure Language capabilities.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "TextAnalyticsClient is a deployed model name",
+            "is_correct": false,
+            "error_type": "Confuses client object with model deployment",
+            "rationale": "TextAnalyticsClient is a client class used for Azure Language analysis. A deployment name identifies a deployed general-purpose model.",
+            "better_fit": "Choose this description for the name assigned to a deployed general-purpose model.",
+            "feedback": {
+              "intrinsic": "A developer would look for a model deployment instead of creating the Azure Language client needed to make requests.",
+              "instructional": "TextAnalyticsClient is the client; a deployment name identifies a deployed general-purpose model."
+            }
+          },
+          {
+            "text": "AzureKeyCredential detects the language",
+            "is_correct": false,
+            "error_type": "Confuses credential with analysis method",
+            "rationale": "AzureKeyCredential supplies an API key for authenticated access. It does not perform any text analysis.",
+            "better_fit": "Choose this for detect_language(), which detects language details.",
+            "feedback": {
+              "intrinsic": "The application would have credentials but would not make a language-detection request.",
+              "instructional": "Use AzureKeyCredential for access and detect_language() for language analysis."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "azure-key-credential-and-text-client",
+        "item_key": "use-azure-language-with-agents/azure-key-credential-and-text-client/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "[0,1]",
+      "explanation": "Correct. AzureKeyCredential provides access credentials, and TextAnalyticsClient calls Azure Language capabilities.",
+      "points": 1
+    },
+    {
+      "import_key": "use-azure-language-with-agents-l1-q2",
+      "question_type": "multiple_choice",
+      "question_text": "What is the Azure Language SDK?",
+      "options": {
+        "options": [
+          {
+            "text": "A client library for Azure Language features",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "This is ready-made developer code for adding Azure Language capabilities to an application. It supports features such as language detection and PII redaction.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A library for deployed OpenAI models",
+            "is_correct": false,
+            "error_type": "Confuses Azure Language SDK with OpenAI Python library",
+            "rationale": "This describes the OpenAI Python library, which interacts with OpenAI models and services. It is not the Azure Language client library.",
+            "better_fit": "Choose this when Python code must interact with OpenAI models and services.",
+            "feedback": {
+              "intrinsic": "Choosing this would focus the developer on model access instead of the purpose-built language features needed.",
+              "instructional": "Keep the libraries separate: Azure Language SDK is for Azure Language capabilities, while the OpenAI Python library connects to OpenAI models."
+            }
+          },
+          {
+            "text": "A general-purpose language model",
+            "is_correct": false,
+            "error_type": "Confuses SDK with a model",
+            "rationale": "A general-purpose model follows prompts and can handle many language tasks. An SDK is ready-made code used to call capabilities from an application.",
+            "better_fit": "Choose this for flexible, prompt-based analysis such as summarizing or answering questions.",
+            "feedback": {
+              "intrinsic": "This choice would not identify the code library needed to add language detection or PII redaction.",
+              "instructional": "A model analyzes language; the Azure Language SDK is the client library that lets an application use Azure Language features."
+            }
+          },
+          {
+            "text": "A Foundry portal user interface",
+            "is_correct": false,
+            "error_type": "Confuses client library with portal",
+            "rationale": "The portal is a web interface for building, testing, and deploying applications. The SDK is used in application code.",
+            "better_fit": "Choose this when referring to the web interface used to build, test, and deploy applications.",
+            "feedback": {
+              "intrinsic": "This would send someone to a browser interface when the task calls for code integration.",
+              "instructional": "Use the portal to explore and manage work; use the Azure Language SDK inside an application."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "azure-language-sdk",
+        "item_key": "use-azure-language-with-agents/azure-language-sdk/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. The Azure Language SDK is a client library that adds Azure Language capabilities to applications.",
+      "points": 1
+    },
+    {
+      "import_key": "use-azure-language-with-agents-l1-q3",
+      "question_type": "true_false",
+      "question_text": "TextAnalyticsClient can be created with an endpoint and AzureKeyCredential(key).",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "azure-key-credential-and-text-client",
+        "feedback_for_incorrect": {
+          "intrinsic": "Without both parts, the client configuration described here is incomplete.",
+          "instructional": "Create TextAnalyticsClient with the endpoint and AzureKeyCredential(key)."
+        },
+        "item_key": "use-azure-language-with-agents/azure-key-credential-and-text-client/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. The client is configured with the Azure Language endpoint and an API-key credential.",
+      "points": 1
+    },
+    {
+      "import_key": "use-azure-language-with-agents-l1-q4",
+      "question_type": "true_false",
+      "question_text": "The Azure Language SDK can add language detection and PII redaction to an application.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "azure-language-sdk",
+        "feedback_for_incorrect": {
+          "intrinsic": "That choice would overlook two key capabilities available through the library.",
+          "instructional": "The Azure Language SDK supports language detection and PII detection with redaction."
+        },
+        "item_key": "use-azure-language-with-agents/azure-language-sdk/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. These are Azure Language capabilities that the SDK can add to an application.",
+      "points": 1
+    },
+    {
+      "import_key": "use-azure-language-with-agents-l1-q5",
+      "question_type": "multiple_choice",
+      "question_text": "An AI agent is connected to an Azure Language MCP server to analyze customer feedback. Which statements correctly describe this connection? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "The agent can be the MCP client",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "An AI agent, or the host application running it, can be the MCP client. The client sends requests and receives responses.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "The client sends requests and receives responses",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Sending requests and receiving responses is the client's role. This can be the agent or host application.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "The server exposes tools or data",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The MCP server exposes capabilities, data, or actions. It runs the requested capability and returns a structured result.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "The client must expose server tools",
+            "is_correct": false,
+            "error_type": "Reverses MCP client and server roles",
+            "rationale": "The server exposes capabilities for the client to discover and invoke. The client sends requests rather than exposing the server's capabilities.",
+            "better_fit": "Choose this description for the MCP server, which exposes tools, data, or actions.",
+            "feedback": {
+              "intrinsic": "Reversing the roles would make it unclear where the agent should send its request.",
+              "instructional": "Remember the direction: client requests; server exposes capabilities and returns structured results."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "mcp-client-server-and-azure-language-server",
+        "item_key": "use-azure-language-with-agents/mcp-client-server-and-azure-language-server/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. In MCP, the client requests capabilities and the server exposes them and returns structured results.",
+      "points": 1
+    },
+    {
+      "import_key": "use-azure-language-with-agents-l1-q6",
+      "question_type": "multiple_choice",
+      "question_text": "What can recognize_pii_entities() return? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Redacted version of the text",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The result contains a redacted version of the input. This supports sharing content after personal details are hidden.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Detected entity text",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Each detected entity includes its text. This lets code report what was found.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Entity category and confidence",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Each entity includes a category and confidence score. These details describe the detected personal information.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Primary language ISO code",
+            "is_correct": false,
+            "error_type": "Confuses PII detection with language detection",
+            "rationale": "A primary language ISO code comes from language detection. PII detection instead returns redacted text and entity details.",
+            "better_fit": "Choose this for detect_language(), which returns the ISO 639-1 code.",
+            "feedback": {
+              "intrinsic": "This would confuse a privacy result with a value used to identify and route languages.",
+              "instructional": "Use recognize_pii_entities() for redaction and entity details; use detect_language() for the primary-language ISO code."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "recognize-pii-entities-method",
+        "item_key": "use-azure-language-with-agents/recognize-pii-entities-method/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. PII detection returns redacted content and details about the personal entities it finds.",
+      "points": 1
+    },
+    {
+      "import_key": "use-azure-language-with-agents-l1-q7",
+      "question_type": "true_false",
+      "question_text": "The managed Azure Language MCP server exposes Azure Language features through MCP.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "mcp-client-server-and-azure-language-server",
+        "feedback_for_incorrect": {
+          "intrinsic": "Choosing false would miss how an agent reaches managed Azure Language capabilities through MCP.",
+          "instructional": "The managed Azure Language MCP server exposes Azure Language features, including named entity recognition, sentiment analysis, and language detection."
+        },
+        "item_key": "use-azure-language-with-agents/mcp-client-server-and-azure-language-server/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. It bridges an agent to Azure Language capabilities through the MCP standard.",
+      "points": 1
+    },
+    {
+      "import_key": "use-azure-language-with-agents-l1-q8",
+      "question_type": "multiple_choice",
+      "question_text": "What is MCP?",
+      "options": {
+        "options": [
+          {
+            "text": "An open standard for agent tool connections",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "MCP defines a standard way for agents to connect to external capabilities and data sources. It avoids custom integration code for every service.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A Python library for Azure Language",
+            "is_correct": false,
+            "error_type": "Confuses protocol with SDK",
+            "rationale": "The Azure Language SDK is a Python client library. MCP is an open connection standard for agents and external capabilities.",
+            "better_fit": "Choose this description for the Azure Language SDK.",
+            "feedback": {
+              "intrinsic": "This would lead someone to look for application code instead of a standard connection approach for agents.",
+              "instructional": "MCP is a protocol, while the Azure Language SDK is a client library."
+            }
+          },
+          {
+            "text": "A client object for text analysis",
+            "is_correct": false,
+            "error_type": "Confuses protocol with client object",
+            "rationale": "A client object is a specific object created to call a service. MCP defines how clients and servers communicate.",
+            "better_fit": "Choose this for TextAnalyticsClient, the Azure Language Python client.",
+            "feedback": {
+              "intrinsic": "The roles in a client-server connection would remain unclear.",
+              "instructional": "MCP is the shared protocol; TextAnalyticsClient is a client used for Azure Language analysis."
+            }
+          },
+          {
+            "text": "A model deployment name",
+            "is_correct": false,
+            "error_type": "Confuses protocol with model deployment",
+            "rationale": "A deployment name identifies a deployed general-purpose model. MCP is unrelated to naming a model deployment.",
+            "better_fit": "Choose this when referring to the name assigned during deployment of a general-purpose model.",
+            "feedback": {
+              "intrinsic": "The team would name a model rather than establish the shared connection approach it needs.",
+              "instructional": "MCP connects agents with external capabilities; a deployment name identifies a deployed model."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "ai-agents-and-mcp",
+        "item_key": "use-azure-language-with-agents/ai-agents-and-mcp/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. MCP is an open standard that lets agents connect to external capabilities and data sources.",
+      "points": 1
+    },
+    {
+      "import_key": "use-azure-language-with-agents-l1-q9",
+      "question_type": "true_false",
+      "question_text": "recognize_pii_entities() identifies personal details and can return redacted text.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "recognize-pii-entities-method",
+        "feedback_for_incorrect": {
+          "intrinsic": "Choosing false would leave out the method's key privacy purpose.",
+          "instructional": "recognize_pii_entities() identifies personal details and returns redacted text plus information about detected entities."
+        },
+        "item_key": "use-azure-language-with-agents/recognize-pii-entities-method/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. The method identifies PII and provides a redacted result along with entity details.",
+      "points": 1
+    },
+    {
+      "import_key": "use-azure-language-with-agents-l1-q10",
+      "question_type": "multiple_choice",
+      "question_text": "What does detect_language() return for a text string? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Detected language name",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The result includes the primary language name. Code can read it from primary_language.name.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "ISO 639-1 code",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The result includes the language's ISO 639-1 code. Code can read it from primary_language.iso6391_name.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Confidence score from 0 to 1",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The result includes a confidence score between 0 and 1. This shows confidence in the detected language.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Redacted text",
+            "is_correct": false,
+            "error_type": "Confuses language detection with PII detection",
+            "rationale": "Redacted text is returned by PII detection. Language detection returns language details and confidence instead.",
+            "better_fit": "Choose this for recognize_pii_entities(), which returns a redacted version of the input.",
+            "feedback": {
+              "intrinsic": "Selecting this would mix privacy output with language-routing output.",
+              "instructional": "Keep the methods distinct: detect_language() returns language details; recognize_pii_entities() returns redacted text."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "detect-language-method",
+        "item_key": "use-azure-language-with-agents/detect-language-method/r1/v2",
+        "rung": 1
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. The method returns a language name, ISO 639-1 code, and confidence score.",
+      "points": 1
+    },
+    {
+      "import_key": "use-azure-language-with-agents-l1-q11",
+      "question_type": "true_false",
+      "question_text": "MCP requires custom integration code for every external service an agent uses.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "ai-agents-and-mcp",
+        "feedback_for_incorrect": {
+          "intrinsic": "That approach would recreate the per-service work MCP is intended to avoid.",
+          "instructional": "MCP acts like a universal adapter: an agent can connect to an MCP server that exposes capabilities in a standard way."
+        },
+        "item_key": "use-azure-language-with-agents/ai-agents-and-mcp/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct. MCP provides a standard connection approach instead of custom integration for every service.",
+      "points": 1
+    },
+    {
+      "import_key": "use-azure-language-with-agents-l1-q12",
+      "question_type": "true_false",
+      "question_text": "detect_language() returns redacted text and PII entity categories.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "detect-language-method",
+        "feedback_for_incorrect": {
+          "intrinsic": "This would mix the results used for privacy handling with the results used for language routing.",
+          "instructional": "detect_language() returns language name, ISO 639-1 code, and confidence score. recognize_pii_entities() returns redacted text and PII details."
+        },
+        "item_key": "use-azure-language-with-agents/detect-language-method/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct. Those results belong to PII detection, not language detection.",
+      "points": 1
+    }
+  ],
+  "flashcards": [
+    {
+      "import_key": "use-azure-language-with-agents-l1-f0",
+      "front": "What is Azure Language SDK?",
+      "back": "A client library that adds Azure Language NLP features to applications.",
+      "hint": "Think: application library."
+    },
+    {
+      "import_key": "use-azure-language-with-agents-l1-f1",
+      "front": "What supplies an API key?",
+      "back": "AzureKeyCredential supplies an API key for authenticated Azure SDK access.",
+      "hint": "Think: credential object."
+    },
+    {
+      "import_key": "use-azure-language-with-agents-l1-f2",
+      "front": "What does detect_language() return?",
+      "back": "Language name, ISO 639-1 code, and confidence score.",
+      "hint": "Think: language details."
+    },
+    {
+      "import_key": "use-azure-language-with-agents-l1-f3",
+      "front": "What is an MCP server?",
+      "back": "A service that exposes tools, data, or actions to an MCP client.",
+      "hint": "Think: server exposes capabilities."
+    }
+  ]
+}

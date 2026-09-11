@@ -1,0 +1,1055 @@
+{
+  "import_key": "3-introduction-to-natural-language-processing-concepts-checkpoint",
+  "title": "3. Introduction to natural language processing concepts · Checkpoint",
+  "slo": "Review the key concepts of 3. Introduction to natural language processing concepts.",
+  "exercises": [
+    {
+      "import_key": "3-introduction-to-natural-language-processing-concepts-checkpoint-q1",
+      "question_type": "multiple_choice",
+      "question_text": "Which statements describe Term Frequency (TF)? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "It counts a term in one document",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "This is the definition of TF. It is a within-item count.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Six uses give TF of 6",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "TF equals the number of appearances. Six appearances therefore give 6.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It is part of TF-IDF",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "TF is multiplied by IDF to calculate TF-IDF. It is one component of the score.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It measures documents containing a term",
+            "is_correct": false,
+            "error_type": "Confuses TF with document frequency",
+            "rationale": "The number of items containing a term is df(t). TF counts appearances in one item.",
+            "better_fit": "Choose this when defining df(t) in the IDF formula.",
+            "feedback": {
+              "intrinsic": "You would use a collection count where an item count is needed.",
+              "instructional": "Keep the scopes separate: TF is within one item, while df(t) counts items containing a term."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "term-frequency",
+        "item_key": "counting-important-terms/term-frequency/r1/v2",
+        "rung": 1
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. TF is a within-item count and one part of TF-IDF.",
+      "points": 1
+    },
+    {
+      "import_key": "3-introduction-to-natural-language-processing-concepts-checkpoint-q2",
+      "question_type": "multiple_choice",
+      "question_text": "A customer-service lead has many free-form customer comments and needs useful insights to improve service. Which approach should the lead choose?",
+      "options": {
+        "options": [
+          {
+            "text": "Text analysis",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The comments are unstructured text requiring useful insights. Text analysis is the broad approach for this goal.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Bag-of-words only",
+            "is_correct": false,
+            "error_type": "Confuses a technique with the task",
+            "rationale": "Bag-of-words can create frequency features. It does not describe the full insight-seeking approach.",
+            "better_fit": "Use this when preparing frequency-based features for a classifier.",
+            "feedback": {
+              "intrinsic": "The comments could be reduced to counts without addressing the full insight need.",
+              "instructional": "Bag-of-words is one possible technique within text analysis."
+            }
+          },
+          {
+            "text": "A semantic language model only",
+            "is_correct": false,
+            "error_type": "Confuses a model type with the task",
+            "rationale": "A semantic model can support meaning-based analysis. It is not the overall workplace task being selected.",
+            "better_fit": "Use this when semantic similarity is the specific focus.",
+            "feedback": {
+              "intrinsic": "The lead would name a possible method rather than the needed work.",
+              "instructional": "Text analysis describes extracting insights; a semantic model may be one tool."
+            }
+          },
+          {
+            "text": "A fixed spreadsheet structure",
+            "is_correct": false,
+            "error_type": "Confuses unstructured with structured data",
+            "rationale": "Free-form comments lack fixed fields. A spreadsheet alone does not analyze their language.",
+            "better_fit": "Use this when information already arrives in defined fields.",
+            "feedback": {
+              "intrinsic": "Important wording in comments could remain unanalyzed.",
+              "instructional": "Free-form comments need language analysis to yield insights."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "single_choice",
+        "concept_id": "ai-nlp-text-analysis",
+        "item_key": "text-analysis-basics/ai-nlp-text-analysis/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. Text analysis can turn free-form comments into insights for service decisions.",
+      "points": 1
+    },
+    {
+      "import_key": "3-introduction-to-natural-language-processing-concepts-checkpoint-q3",
+      "question_type": "arrange_sentence",
+      "question_text": "Order the pieces correctly.",
+      "options": {
+        "word_bank": [
+          "a sequence",
+          "An n-gram",
+          "of terms",
+          "is"
+        ],
+        "correct_order": [
+          "An n-gram",
+          "is",
+          "a sequence",
+          "of terms"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "ngram-extraction",
+        "feedback_for_incorrect": {
+          "intrinsic": "The definition no longer clearly identifies what an n-gram groups.",
+          "instructional": "Start with the term, then link it to “a sequence” and finish with what the sequence contains."
+        },
+        "item_key": "tokens-and-text-preparation/ngram-extraction/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "An n-gram is a sequence of terms",
+      "explanation": "The definition links the name n-gram to its core idea: a sequence of terms treated together.",
+      "points": 1
+    },
+    {
+      "import_key": "3-introduction-to-natural-language-processing-concepts-checkpoint-q4",
+      "question_type": "multiple_choice",
+      "question_text": "A service manager receives hundreds of free-form support tickets and must decide how to improve service. Which actions fit? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Analyze the ticket text for useful insights",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The free-form tickets can be analyzed to find patterns and insights. Those findings can guide improvement.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Use findings to support service decisions",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Using findings to guide decisions creates actionable intelligence. This directly addresses the manager's need.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Treat tickets as unstructured text",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Free-form support tickets can lack a fixed structure. Treating them as unstructured text enables language analysis.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Assume every ticket has fixed fields",
+            "is_correct": false,
+            "error_type": "Confuses unstructured text with fixed fields",
+            "rationale": "Free-form tickets are not guaranteed to use defined fields. Their written detail may contain the useful evidence.",
+            "better_fit": "Use this only when every record follows a fixed-field schema.",
+            "feedback": {
+              "intrinsic": "Valuable details outside fixed fields could be ignored.",
+              "instructional": "Free-form tickets are unstructured text and should be analyzed as language."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "multi_choice",
+        "concept_id": "unstructured-text-actionable-intelligence",
+        "item_key": "text-analysis-basics/unstructured-text-actionable-intelligence/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. The tickets can be analyzed as unstructured text to support service decisions.",
+      "points": 1
+    },
+    {
+      "import_key": "3-introduction-to-natural-language-processing-concepts-checkpoint-q5",
+      "question_type": "fill_blank",
+      "question_text": "Reducing a multi-page document to a short paragraph while retaining salient points is text ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "Reducing a multi-page document to a short paragraph while retaining salient points is text "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "summarization",
+              "summary"
+            ],
+            "rejected_answers": [
+              "classification",
+              "sentiment analysis",
+              "entity detection",
+              "language-keyterm-entity-detection",
+              "pii-detection-redaction",
+              "extractive-abstractive-summarization"
+            ],
+            "placeholder": "term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "classification",
+          "sentiment analysis",
+          "entity detection",
+          "language-keyterm-entity-detection",
+          "pii-detection-redaction",
+          "extractive-abstractive-summarization"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "classification-sentiment-summary",
+        "feedback_for_incorrect": {
+          "intrinsic": "You would seek a label or named item when the need is a shorter version with key points.",
+          "instructional": "Use summarization for shortening while retaining important points."
+        },
+        "item_key": "text-analysis-basics/classification-sentiment-summary/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "[\"summarization\",\"summary\"]",
+      "explanation": "Summarization reduces language volume while retaining salient points.",
+      "points": 1
+    },
+    {
+      "import_key": "3-introduction-to-natural-language-processing-concepts-checkpoint-q6",
+      "question_type": "true_false",
+      "question_text": "POS tagging can label a token as a noun, verb, adjective, or adverb by using the token and its context.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "stemming-lemmatization-pos",
+        "feedback_for_incorrect": {
+          "intrinsic": "Ignoring context can lead to the wrong grammatical category for a token.",
+          "instructional": "POS tagging labels tokens as noun, verb, adjective, or adverb and uses both the token and its sentence context."
+        },
+        "item_key": "tokens-and-text-preparation/stemming-lemmatization-pos/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. POS tagging assigns grammatical categories using the token and its context.",
+      "points": 1
+    },
+    {
+      "import_key": "3-introduction-to-natural-language-processing-concepts-checkpoint-q7",
+      "question_type": "multiple_choice",
+      "question_text": "A manager has converged TextRank scores for a report and must create a brief using only original report sentences. What should the system do next?",
+      "options": {
+        "options": [
+          {
+            "text": "Select the highest-ranked sentences",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Selecting top-ranked original sentences produces an extractive summary. It preserves the report's wording.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Generate new sentences from the themes",
+            "is_correct": false,
+            "error_type": "Confuses extractive selection with abstractive generation",
+            "rationale": "New sentences would be abstractive output. The requirement is to use only original report sentences.",
+            "better_fit": "This fits a brief where paraphrased language is permitted.",
+            "feedback": {
+              "intrinsic": "The brief could include wording absent from the report.",
+              "instructional": "Select top-ranked originals when the output must remain extractive."
+            }
+          },
+          {
+            "text": "Rank nearby words as keywords",
+            "is_correct": false,
+            "error_type": "Confuses sentence summarization with keyword extraction",
+            "rationale": "Keyword extraction returns important terms rather than summary sentences. The manager needs a sentence-based brief.",
+            "better_fit": "This fits a task requesting topic terms from the report.",
+            "feedback": {
+              "intrinsic": "The result would be keywords, not a usable sentence brief.",
+              "instructional": "Use top-ranked sentences for TextRank summarization."
+            }
+          },
+          {
+            "text": "Recalculate edge weights after selection",
+            "is_correct": false,
+            "error_type": "Confuses graph setup with summary selection",
+            "rationale": "The scores have already converged, so the ranking decision is ready. Recalculating weights does not satisfy the brief requirement.",
+            "better_fit": "This fits revising a graph when the similarity method changes.",
+            "feedback": {
+              "intrinsic": "The system would delay the required sentence selection.",
+              "instructional": "After convergence, select the highest-ranked sentences."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "single_choice",
+        "concept_id": "textrank-ranking-process-2",
+        "item_key": "textrank-summaries-and-keywords/textrank-ranking-process-2/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. Select the highest-ranked original sentences.",
+      "points": 1
+    },
+    {
+      "import_key": "3-introduction-to-natural-language-processing-concepts-checkpoint-q8",
+      "question_type": "fill_blank",
+      "question_text": "Counting occurrences of normalized tokens to infer a document's topic is ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "Counting occurrences of normalized tokens to infer a document's topic is "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "frequency analysis"
+            ],
+            "rejected_answers": [
+              "TF-IDF",
+              "term frequency",
+              "inverse document frequency",
+              "bag-of-words",
+              "keyterm-extraction-semantic"
+            ],
+            "placeholder": "technical term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "TF-IDF",
+          "term frequency",
+          "inverse document frequency",
+          "bag-of-words",
+          "keyterm-extraction-semantic"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "frequency-analysis",
+        "feedback_for_incorrect": {
+          "intrinsic": "The chosen label would make the counting task unclear.",
+          "instructional": "Use frequency analysis for overall normalized-token counts. TF is one count, IDF measures rarity, and TF-IDF combines both."
+        },
+        "item_key": "counting-important-terms/frequency-analysis/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "frequency analysis",
+      "explanation": "This method uses normalized token counts to indicate a subject. TF, IDF, and TF-IDF measure narrower or combined aspects.",
+      "points": 1
+    },
+    {
+      "import_key": "3-introduction-to-natural-language-processing-concepts-checkpoint-q9",
+      "question_type": "true_false",
+      "question_text": "Tokenization can create tokens from whole words, partial words, or combinations of words and punctuation.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "corpus-token-tokenization",
+        "feedback_for_incorrect": {
+          "intrinsic": "Treating tokens as words only can miss how punctuation and word parts are represented.",
+          "instructional": "Tokenization can produce whole words, partial words, or combinations of words and punctuation."
+        },
+        "item_key": "tokens-and-text-preparation/corpus-token-tokenization/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. Tokens are not limited to whole words.",
+      "points": 1
+    },
+    {
+      "import_key": "3-introduction-to-natural-language-processing-concepts-checkpoint-q10",
+      "question_type": "multiple_choice",
+      "question_text": "A customer-insights manager must decide how to label feedback as positive or negative from word-frequency features. Which choices fit? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Use bag-of-words as features",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Correct. Bag-of-words provides numerical word-frequency features.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Use a classifier for probabilities",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Correct. A classifier can estimate probabilities and assign sentiment labels.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Choose spam filtering labels",
+            "is_correct": false,
+            "error_type": "Confuses sentiment with spam labels",
+            "rationale": "Spam filtering labels email as spam or not spam. The required labels are positive and negative.",
+            "better_fit": "Use spam filtering labels for email classification.",
+            "feedback": {
+              "intrinsic": "Comments could be routed as mail categories instead of categorized by tone.",
+              "instructional": "Sentiment analysis uses positive or negative labels."
+            }
+          },
+          {
+            "text": "Rank terms with TF-IDF",
+            "is_correct": false,
+            "error_type": "Confuses sentiment classification with term scoring",
+            "rationale": "TF-IDF identifies distinctive terms but does not assign emotional-tone labels. The task requires classification.",
+            "better_fit": "Use TF-IDF when identifying distinguishing terms is the aim.",
+            "feedback": {
+              "intrinsic": "The manager could obtain term scores without the requested labels.",
+              "instructional": "Use bag-of-words features with a classifier for sentiment classification."
+            }
+          }
+        ],
+        "blooms_level": "Analyzing/Evaluating",
+        "original_question_type": "multi_choice",
+        "concept_id": "bag-of-words-sentiment",
+        "item_key": "bag-of-words-classification/bag-of-words-sentiment/r5/v1",
+        "rung": 5
+      },
+      "correct_answer": "[0,1]",
+      "explanation": "Correct—features plus a classifier can provide positive or negative labels.",
+      "points": 1
+    },
+    {
+      "import_key": "3-introduction-to-natural-language-processing-concepts-checkpoint-q11",
+      "question_type": "multiple_choice",
+      "question_text": "A documentation analyst reviews many Microsoft AI-agent articles. The articles share words such as “AI,” “Microsoft,” and “agent,” but the analyst must identify each article's specific topic. Which approach fits best?",
+      "options": {
+        "options": [
+          {
+            "text": "Use TF-IDF scores",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "TF-IDF discounts widely shared terms through IDF. It highlights terms frequent in one item but relatively rare in others.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Use raw frequency analysis",
+            "is_correct": false,
+            "error_type": "Confuses shared frequency with document-specific relevance",
+            "rationale": "Raw frequency can show broad themes but shared words do not separate individual topics. It lacks the rarity component.",
+            "better_fit": "Choose this for a quick clue from one item.",
+            "feedback": {
+              "intrinsic": "The review would keep surfacing the same shared words.",
+              "instructional": "When many items share terms, use TF-IDF to give more weight to distinctive terms."
+            }
+          },
+          {
+            "text": "Use Term Frequency only",
+            "is_correct": false,
+            "error_type": "Ignores collection-wide rarity",
+            "rationale": "TF counts occurrences in one item only. It cannot reduce the weight of terms shared across the collection.",
+            "better_fit": "Choose this when only within-item appearances matter.",
+            "feedback": {
+              "intrinsic": "A heavily repeated shared word could look more distinctive than it is.",
+              "instructional": "TF-IDF adds IDF so common collection-wide terms receive less weight."
+            }
+          },
+          {
+            "text": "Use IDF only",
+            "is_correct": false,
+            "error_type": "Ignores within-document frequency",
+            "rationale": "IDF measures rarity across the collection. It does not show how often a rare term appears in the individual item.",
+            "better_fit": "Choose this when measuring rarity alone.",
+            "feedback": {
+              "intrinsic": "A rare term could be emphasized even if it barely appears in the item.",
+              "instructional": "TF-IDF combines IDF with TF, so it reflects both rarity and local frequency."
+            }
+          }
+        ],
+        "blooms_level": "Analyzing/Evaluating",
+        "original_question_type": "single_choice",
+        "concept_id": "tf-idf",
+        "item_key": "counting-important-terms/tf-idf/r5/v1",
+        "rung": 5
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. TF-IDF combines local frequency with collection-wide rarity to identify specific topics.",
+      "points": 1
+    },
+    {
+      "import_key": "3-introduction-to-natural-language-processing-concepts-checkpoint-q12",
+      "question_type": "arrange_sentence",
+      "question_text": "Arrange the parts to form the correct statement.",
+      "options": {
+        "word_bank": [
+          "one document",
+          "Terms common in many documents",
+          "from another",
+          "do not distinguish"
+        ],
+        "correct_order": [
+          "Terms common in many documents",
+          "do not distinguish",
+          "one document",
+          "from another"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "frequency-across-corpus-limitation",
+        "feedback_for_incorrect": {
+          "intrinsic": "The comparison claim would be unclear to a colleague.",
+          "instructional": "Place the shared terms first, followed by what they cannot do, then the two items being compared."
+        },
+        "item_key": "counting-important-terms/frequency-across-corpus-limitation/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "Terms common in many documents do not distinguish one document from another",
+      "explanation": "The sentence first identifies the shared terms, then explains their limitation: they cannot separate individual topics.",
+      "points": 1
+    },
+    {
+      "import_key": "3-introduction-to-natural-language-processing-concepts-checkpoint-q13",
+      "question_type": "arrange_sentence",
+      "question_text": "Put the graph description in order.",
+      "options": {
+        "word_bank": [
+          "Each connection",
+          "Each sentence",
+          "is an edge",
+          "is a node"
+        ],
+        "correct_order": [
+          "Each sentence",
+          "is a node",
+          "Each connection",
+          "is an edge"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "textrank-nodes-edges-similarity",
+        "feedback_for_incorrect": {
+          "intrinsic": "The graph roles would be reversed or unclear.",
+          "instructional": "State the role of each sentence first, then the role of each connection."
+        },
+        "item_key": "textrank-summaries-and-keywords/textrank-nodes-edges-similarity/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "Each sentence is a node Each connection is an edge",
+      "explanation": "Sentence units are nodes, while their relationships are edges.",
+      "points": 1
+    },
+    {
+      "import_key": "3-introduction-to-natural-language-processing-concepts-checkpoint-q14",
+      "question_type": "fill_blank",
+      "question_text": "Models that represent meaning with vectors learned from language use are ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "Models that represent meaning with vectors learned from language use are "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "semantic models",
+              "semantic language models"
+            ],
+            "rejected_answers": [
+              "bag-of-words",
+              "TF-IDF",
+              "n-gram extraction",
+              "bag-of-words-feature-extraction",
+              "semantic-language-models"
+            ],
+            "placeholder": "model type"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "bag-of-words",
+          "TF-IDF",
+          "n-gram extraction",
+          "bag-of-words-feature-extraction",
+          "semantic-language-models"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "statistical-vs-semantic-text-representation",
+        "feedback_for_incorrect": {
+          "intrinsic": "The selected approach would count words, score relevance, or find phrases instead of representing meaning.",
+          "instructional": "Semantic models use learned vectors; bag-of-words uses counts."
+        },
+        "item_key": "bag-of-words-classification/statistical-vs-semantic-text-representation/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "[\"semantic models\",\"semantic language models\"]",
+      "explanation": "Semantic models use learned vectors to represent meaning and relationships.",
+      "points": 1
+    },
+    {
+      "import_key": "3-introduction-to-natural-language-processing-concepts-checkpoint-q15",
+      "question_type": "fill_blank",
+      "question_text": "A method that represents text by word occurrences or frequencies while ignoring order is called ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "A method that represents text by word occurrences or frequencies while ignoring order is called "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "bag-of-words",
+              "bag of words"
+            ],
+            "rejected_answers": [
+              "TF-IDF",
+              "semantic language models",
+              "n-gram extraction",
+              "semantic-language-models",
+              "ngram-extraction"
+            ],
+            "placeholder": "technical term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "TF-IDF",
+          "semantic language models",
+          "n-gram extraction",
+          "semantic-language-models",
+          "ngram-extraction"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "bag-of-words-feature-extraction",
+        "feedback_for_incorrect": {
+          "intrinsic": "The chosen method would focus on rarity, meaning, or phrases instead of word counts.",
+          "instructional": "Use bag-of-words for an occurrence- or frequency-based representation."
+        },
+        "item_key": "bag-of-words-classification/bag-of-words-feature-extraction/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "[\"bag-of-words\",\"bag of words\"]",
+      "explanation": "Bag-of-words turns words into count-based features and discards grammar and order.",
+      "points": 1
+    },
+    {
+      "import_key": "3-introduction-to-natural-language-processing-concepts-checkpoint-q16",
+      "question_type": "multiple_choice",
+      "question_text": "A legal analyst must choose a method for a contract brief where every output sentence must come verbatim from the contract. Which decisions best satisfy that constraint? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Use extractive summarization.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Extractive summarization selects source sentences rather than generating them. It therefore preserves verbatim wording.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Use TextRank to rank source sentences before selecting them.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "TextRank can rank the importance of source sentences. Selecting its top sentences remains an extractive process.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Check that each selected sentence appears in the contract.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "This validation directly tests the verbatim constraint. It helps ensure no generated wording enters the brief.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Use abstractive summarization to paraphrase obligations.",
+            "is_correct": false,
+            "error_type": "Confuses generated language with source selection",
+            "rationale": "Abstractive summarization generates language that may not appear in the contract. That conflicts with the verbatim requirement.",
+            "better_fit": "This fits a reader-friendly explanation where paraphrasing is allowed.",
+            "feedback": {
+              "intrinsic": "The brief could contain sentences not found in the contract.",
+              "instructional": "A verbatim constraint requires extractive sentence selection."
+            }
+          }
+        ],
+        "blooms_level": "Analyzing/Evaluating",
+        "original_question_type": "multi_choice",
+        "concept_id": "extractive-vs-abstractive-summarization",
+        "item_key": "textrank-summaries-and-keywords/extractive-vs-abstractive-summarization/r5/v1",
+        "rung": 5
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. The constraint favors extractive sentence selection and source verification.",
+      "points": 1
+    },
+    {
+      "import_key": "3-introduction-to-natural-language-processing-concepts-checkpoint-q17",
+      "question_type": "multiple_choice",
+      "question_text": "A security analyst must choose a method to label emails. Phrases such as “miracle cure” occurred more often in past spam than regular email. Which text-analysis task best fits this scenario?",
+      "options": {
+        "options": [
+          {
+            "text": "Bag-of-words spam classification",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Correct. The task labels email from word-frequency patterns associated with spam.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Naive Bayes as a classifier",
+            "is_correct": false,
+            "error_type": "Confuses use case with algorithm",
+            "rationale": "Naive Bayes can implement this task but names an algorithm rather than the requested spam-filtering approach. The decision concerns the use case.",
+            "better_fit": "Use Naive Bayes when selecting a probability-based classifier for features.",
+            "feedback": {
+              "intrinsic": "The analyst may name an algorithm without identifying the email-labeling use case.",
+              "instructional": "Spam filtering is the classification task; Naive Bayes is one possible classifier."
+            }
+          },
+          {
+            "text": "Sentiment classification",
+            "is_correct": false,
+            "error_type": "Confuses spam with emotional tone",
+            "rationale": "Sentiment classification labels emotional tone. The required labels are spam and not spam.",
+            "better_fit": "Use sentiment classification for positive or negative feedback.",
+            "feedback": {
+              "intrinsic": "Risky mail could be sorted by mood instead of routed appropriately.",
+              "instructional": "Spam filtering uses spam and not-spam categories."
+            }
+          },
+          {
+            "text": "TF-IDF term scoring",
+            "is_correct": false,
+            "error_type": "Confuses classification with term scoring",
+            "rationale": "TF-IDF scores term relevance but does not itself label email. The task requires a spam decision.",
+            "better_fit": "Use TF-IDF to find distinctive terms in a collection.",
+            "feedback": {
+              "intrinsic": "The analyst could identify phrases but still lack an email classification.",
+              "instructional": "Choose spam classification when the goal is assigning spam labels from learned patterns."
+            }
+          }
+        ],
+        "blooms_level": "Analyzing/Evaluating",
+        "original_question_type": "single_choice",
+        "concept_id": "bag-of-words-spam-filtering",
+        "item_key": "bag-of-words-classification/bag-of-words-spam-filtering/r5/v1",
+        "rung": 5
+      },
+      "correct_answer": "0",
+      "explanation": "Correct—the decision is to classify email as spam from word-frequency patterns.",
+      "points": 1
+    },
+    {
+      "import_key": "3-introduction-to-natural-language-processing-concepts-checkpoint-q18",
+      "question_type": "arrange_sentence",
+      "question_text": "Order the pieces correctly.",
+      "options": {
+        "word_bank": [
+          "A home address",
+          "can be",
+          "in a",
+          "PII",
+          "support ticket"
+        ],
+        "correct_order": [
+          "A home address",
+          "can be",
+          "PII",
+          "in a",
+          "support ticket"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "pii-detection",
+        "feedback_for_incorrect": {
+          "intrinsic": "The statement no longer clearly identifies the address as potentially sensitive information.",
+          "instructional": "Start with the detail, then state that it can be PII in the specified context."
+        },
+        "item_key": "text-analysis-basics/pii-detection/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "A home address can be PII in a support ticket",
+      "explanation": "A home address is a sensitive personal detail that can be PII when it appears in a support ticket.",
+      "points": 1
+    },
+    {
+      "import_key": "3-introduction-to-natural-language-processing-concepts-checkpoint-q19",
+      "question_type": "multiple_choice",
+      "question_text": "A social-media analyst sees important terms hidden among short customer posts. Which approach should the analyst choose to make key words stand out?",
+      "options": {
+        "options": [
+          {
+            "text": "Exclude words like “the” and “it”",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Words like “the” and “it” are common stop words. Excluding them can make key content words more visible.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Remove all punctuation",
+            "is_correct": false,
+            "error_type": "Confuses stop word removal with normalization",
+            "rationale": "Removing punctuation is normalization. It does not specifically remove common low-meaning words.",
+            "better_fit": "This fits when punctuation details are not needed for frequency-based analysis.",
+            "feedback": {
+              "intrinsic": "Important terms may remain buried under frequent common words.",
+              "instructional": "Use stop word removal when common words, rather than punctuation, are hiding key terms."
+            }
+          },
+          {
+            "text": "Join “natural language” as a phrase",
+            "is_correct": false,
+            "error_type": "Confuses stop word removal with n-grams",
+            "rationale": "Joining a phrase is n-gram extraction. It can preserve phrase meaning but does not remove stop words.",
+            "better_fit": "This fits when the meaning of a multi-term phrase should remain grouped.",
+            "feedback": {
+              "intrinsic": "Common readability words would still compete with key terms.",
+              "instructional": "N-grams group terms; stop word removal excludes words like “the” and “it.”"
+            }
+          },
+          {
+            "text": "Rank terms by document frequency",
+            "is_correct": false,
+            "error_type": "Confuses preprocessing with frequency analysis",
+            "rationale": "Frequency analysis counts how often terms appear. It does not exclude common readability words before comparison.",
+            "better_fit": "This fits when identifying the most commonly used normalized terms.",
+            "feedback": {
+              "intrinsic": "The ranking may still give attention to common low-meaning words.",
+              "instructional": "First exclude stop words when the aim is to make key content words stand out."
+            }
+          }
+        ],
+        "blooms_level": "Analyzing/Evaluating",
+        "original_question_type": "single_choice",
+        "concept_id": "stop-word-removal",
+        "item_key": "tokens-and-text-preparation/stop-word-removal/r5/v1",
+        "rung": 5
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. Excluding these common words can reveal the terms carrying the main topics.",
+      "points": 1
+    },
+    {
+      "import_key": "3-introduction-to-natural-language-processing-concepts-checkpoint-q20",
+      "question_type": "multiple_choice",
+      "question_text": "A contract analyst must distinguish the person “Mr Banks” from common-noun “banks.” Which choices should the analyst make? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Avoid lowercasing all words",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Lowercasing can remove the capitalization distinction between a name and a common noun. That distinction matters for this task.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Preserve useful punctuation",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Punctuation can carry meaning, including whether a word ends a sentence. It should be preserved when that meaning is needed.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Remove stop words first",
+            "is_correct": false,
+            "error_type": "Confuses meaning-preservation with stop word removal",
+            "rationale": "Stop word removal focuses on common low-meaning words. It does not preserve capitalization or punctuation distinctions.",
+            "better_fit": "This fits when important content words need to stand out.",
+            "feedback": {
+              "intrinsic": "The key name-versus-noun distinction could still be lost.",
+              "instructional": "This task needs useful surface details preserved, not merely common words removed."
+            }
+          },
+          {
+            "text": "Strip word endings",
+            "is_correct": false,
+            "error_type": "Confuses normalization tradeoff with stemming",
+            "rationale": "Stripping endings is stemming for grouping related forms. It does not protect capitalization and punctuation meaning.",
+            "better_fit": "This fits when related word forms should be consolidated before counting.",
+            "feedback": {
+              "intrinsic": "You would alter word forms while leaving the needed distinction unresolved.",
+              "instructional": "Stemming groups related forms; avoid normalization choices that erase meaningful case or punctuation here."
+            }
+          }
+        ],
+        "blooms_level": "Analyzing/Evaluating",
+        "original_question_type": "multi_choice",
+        "concept_id": "normalization-tradeoff",
+        "item_key": "tokens-and-text-preparation/normalization-tradeoff/r5/v1",
+        "rung": 5
+      },
+      "correct_answer": "[0,1]",
+      "explanation": "Correct. These choices retain distinctions that normalization could remove.",
+      "points": 1
+    },
+    {
+      "import_key": "3-introduction-to-natural-language-processing-concepts-checkpoint-q21",
+      "question_type": "fill_blank",
+      "question_text": "Finding important words and phrases that reveal topics is called ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "Finding important words and phrases that reveal topics is called "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "key term extraction",
+              "keyword extraction"
+            ],
+            "rejected_answers": [
+              "language detection",
+              "entity detection",
+              "PII detection",
+              "pii-detection-redaction",
+              "text-classification",
+              "named-entity-recognition"
+            ],
+            "placeholder": "term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "language detection",
+          "entity detection",
+          "PII detection",
+          "pii-detection-redaction",
+          "text-classification",
+          "named-entity-recognition"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "language-keyterm-entity-detection",
+        "feedback_for_incorrect": {
+          "intrinsic": "Your choice would identify a language, entity, or private detail instead of topic terms.",
+          "instructional": "Use key term extraction for important topic-revealing words and phrases."
+        },
+        "item_key": "text-analysis-basics/language-keyterm-entity-detection/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "[\"key term extraction\",\"keyword extraction\"]",
+      "explanation": "Key term extraction finds important words and phrases that reveal topics.",
+      "points": 1
+    },
+    {
+      "import_key": "3-introduction-to-natural-language-processing-concepts-checkpoint-q22",
+      "question_type": "true_false",
+      "question_text": "If a term appears in every document, its IDF is zero.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "idf-inverse-document-frequency",
+        "feedback_for_incorrect": {
+          "intrinsic": "A term shared everywhere would be treated as distinctive.",
+          "instructional": "If a term appears in every item, N/df(t) is 1, and log(1) is zero."
+        },
+        "item_key": "counting-important-terms/idf-inverse-document-frequency/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. When df(t) equals N, log(N/N) equals zero.",
+      "points": 1
+    },
+    {
+      "import_key": "3-introduction-to-natural-language-processing-concepts-checkpoint-q23",
+      "question_type": "arrange_sentence",
+      "question_text": "Put the pieces in the correct order.",
+      "options": {
+        "word_bank": [
+          "to estimate",
+          "Naive Bayes",
+          "a probable class",
+          "uses Bayes' theorem"
+        ],
+        "correct_order": [
+          "Naive Bayes",
+          "uses Bayes' theorem",
+          "to estimate",
+          "a probable class"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "naive-bayes-bayes-theorem",
+        "feedback_for_incorrect": {
+          "intrinsic": "The sentence would not clearly connect the classifier, rule, and outcome.",
+          "instructional": "Place the classifier first, then Bayes’ theorem, then the class estimate."
+        },
+        "item_key": "bag-of-words-classification/naive-bayes-bayes-theorem/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "Naive Bayes uses Bayes' theorem to estimate a probable class",
+      "explanation": "Naive Bayes comes first, followed by its principle and the result it estimates.",
+      "points": 1
+    },
+    {
+      "import_key": "3-introduction-to-natural-language-processing-concepts-checkpoint-q24",
+      "question_type": "true_false",
+      "question_text": "TextRank can rank connected sentences or words without labeled training data.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "textrank-graph-based-unsupervised",
+        "feedback_for_incorrect": {
+          "intrinsic": "You would exclude a method that can work without labels.",
+          "instructional": "TextRank ranks connected text units using an unsupervised graph-based approach."
+        },
+        "item_key": "textrank-summaries-and-keywords/textrank-graph-based-unsupervised/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. TextRank is unsupervised.",
+      "points": 1
+    }
+  ],
+  "flashcards": []
+}

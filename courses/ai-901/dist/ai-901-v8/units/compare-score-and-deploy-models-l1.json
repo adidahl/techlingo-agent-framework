@@ -1,0 +1,441 @@
+{
+  "import_key": "compare-score-and-deploy-models-l1",
+  "title": "Compare, score, and deploy models · Level 1",
+  "slo": "Evaluate model outputs and explain what happens when a model is deployed.",
+  "exercises": [
+    {
+      "import_key": "compare-score-and-deploy-models-l1-q1",
+      "question_type": "multiple_choice",
+      "question_text": "Which statements describe benchmark results? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "They show performance on standard datasets.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Benchmark results report performance using standard datasets. Shared datasets support consistent comparisons.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "They make model comparison more consistent.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Common evaluation data gives comparisons a consistent basis. This helps compare candidate models.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "They automatically fix weak responses.",
+            "is_correct": false,
+            "error_type": "Remediation confusion",
+            "rationale": "Benchmarks provide performance evidence. They do not alter or repair responses.",
+            "better_fit": "Use benchmark results to identify performance strengths and weaknesses.",
+            "feedback": null
+          },
+          {
+            "text": "They create production endpoints.",
+            "is_correct": false,
+            "error_type": "Deployment confusion",
+            "rationale": "Endpoints are created through deployment. Benchmarking occurs during evaluation.",
+            "better_fit": "Use deployment to make a model available through an API endpoint.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "benchmark-results",
+        "item_key": "compare-score-and-deploy-models/benchmark-results/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "[0,1]",
+      "explanation": "Correct. Benchmarks provide consistent performance evidence.",
+      "points": 1
+    },
+    {
+      "import_key": "compare-score-and-deploy-models-l1-q2",
+      "question_type": "multiple_choice",
+      "question_text": "What does a model leaderboard do?",
+      "options": {
+        "options": [
+          {
+            "text": "Ranks models by attributes",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A leaderboard ranks models by attributes such as quality, safety, and throughput. It helps identify candidates.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Tests prompts with own data",
+            "is_correct": false,
+            "error_type": "Benchmark-testing confusion",
+            "rationale": "Own-data prompt testing belongs to the benchmark flow. A leaderboard ranks models.",
+            "better_fit": "Use Try with your own data to test prompts.",
+            "feedback": null
+          },
+          {
+            "text": "Measures groundedness of one response",
+            "is_correct": false,
+            "error_type": "Metric confusion",
+            "rationale": "Groundedness is an AI-assisted output-quality metric. It is not the purpose of a leaderboard.",
+            "better_fit": "Use groundedness to judge whether an output is supported by material.",
+            "feedback": null
+          },
+          {
+            "text": "Scans harmful content",
+            "is_correct": false,
+            "error_type": "Safety-evaluation confusion",
+            "rationale": "Safety evaluators scan outputs for harms. A leaderboard ranks models instead.",
+            "better_fit": "Use a safety evaluator to scan output safety.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "model-leaderboard-and-comparison",
+        "item_key": "compare-score-and-deploy-models/model-leaderboard-and-comparison/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. Leaderboards rank models by attributes.",
+      "points": 1
+    },
+    {
+      "import_key": "compare-score-and-deploy-models-l1-q3",
+      "question_type": "true_false",
+      "question_text": "Benchmark scores help compare models by using consistent evaluation criteria.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "benchmark-results",
+        "feedback_for_incorrect": {
+          "intrinsic": "Comparable scores could be misunderstood as unrelated evidence.",
+          "instructional": "Benchmark results use standard datasets to make comparison more consistent."
+        },
+        "item_key": "compare-score-and-deploy-models/benchmark-results/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. Consistent criteria make scores comparable.",
+      "points": 1
+    },
+    {
+      "import_key": "compare-score-and-deploy-models-l1-q4",
+      "question_type": "true_false",
+      "question_text": "Side-by-side model comparison cannot include cost as a comparison attribute.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "model-leaderboard-and-comparison",
+        "feedback_for_incorrect": {
+          "intrinsic": "An important procurement criterion would be excluded unnecessarily.",
+          "instructional": "Side-by-side comparison supports cost along with other selection attributes."
+        },
+        "item_key": "compare-score-and-deploy-models/model-leaderboard-and-comparison/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct. Cost can be compared with quality, security, compliance, and performance.",
+      "points": 1
+    },
+    {
+      "import_key": "compare-score-and-deploy-models-l1-q5",
+      "question_type": "multiple_choice",
+      "question_text": "What is the prebuilt option for a well-defined use case?",
+      "options": {
+        "options": [
+          {
+            "text": "A Foundry tool",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A Foundry tool is a prebuilt option for a clearly defined use case. It can provide predictable performance and built-in compliance.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A model leaderboard",
+            "is_correct": false,
+            "error_type": "Ranking-view confusion",
+            "rationale": "A leaderboard ranks candidate models by attributes. It does not provide a prebuilt task solution.",
+            "better_fit": "Use a leaderboard when ranking models by quality, safety, or throughput.",
+            "feedback": null
+          },
+          {
+            "text": "A safety evaluator",
+            "is_correct": false,
+            "error_type": "Evaluation confusion",
+            "rationale": "A safety evaluator scans outputs for harms. It does not provide the requested task capability.",
+            "better_fit": "Use a safety evaluator to scan generated outputs for safety concerns.",
+            "feedback": null
+          },
+          {
+            "text": "A model comparison",
+            "is_correct": false,
+            "error_type": "Comparison confusion",
+            "rationale": "Comparison weighs attributes across models. It does not replace selection with a prebuilt solution.",
+            "better_fit": "Use comparison when evaluating trade-offs between model candidates.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "foundry-tool",
+        "item_key": "compare-score-and-deploy-models/foundry-tool/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. A Foundry tool is the prebuilt option.",
+      "points": 1
+    },
+    {
+      "import_key": "compare-score-and-deploy-models-l1-q6",
+      "question_type": "multiple_choice",
+      "question_text": "Which are classic NLP metrics? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Accuracy",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Accuracy is a classic NLP metric. It is part of traditional metric-based scoring.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Precision",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Precision is a classic NLP metric. It belongs to traditional NLP evaluation.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Recall",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Recall is a classic NLP metric. It is commonly grouped with accuracy, precision, and F1.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Groundedness",
+            "is_correct": false,
+            "error_type": "AI-assisted-metric confusion",
+            "rationale": "Groundedness is an AI-assisted quality metric. It supports qualitative scoring beyond traditional measures.",
+            "better_fit": "Use groundedness to assess whether output is supported by provided information.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "evaluators-and-metrics",
+        "item_key": "compare-score-and-deploy-models/evaluators-and-metrics/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. Accuracy, precision, and recall are classic NLP metrics.",
+      "points": 1
+    },
+    {
+      "import_key": "compare-score-and-deploy-models-l1-q7",
+      "question_type": "true_false",
+      "question_text": "A Foundry tool requires custom model building before it can be used.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "foundry-tool",
+        "feedback_for_incorrect": {
+          "intrinsic": "Custom-model work would delay the solution.",
+          "instructional": "Foundry tools provide fast time-to-value without custom modeling."
+        },
+        "item_key": "compare-score-and-deploy-models/foundry-tool/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct. Foundry tools use prebuilt models.",
+      "points": 1
+    },
+    {
+      "import_key": "compare-score-and-deploy-models-l1-q8",
+      "question_type": "true_false",
+      "question_text": "AI-assisted metrics can provide qualitative scoring beyond traditional NLP metrics.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "evaluators-and-metrics",
+        "feedback_for_incorrect": {
+          "intrinsic": "Qualitative output concerns could be missed.",
+          "instructional": "Groundedness, relevance, coherence and fluency, and GPT similarity support qualitative scoring."
+        },
+        "item_key": "compare-score-and-deploy-models/evaluators-and-metrics/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. AI-assisted metrics support qualitative judgments.",
+      "points": 1
+    },
+    {
+      "import_key": "compare-score-and-deploy-models-l1-q9",
+      "question_type": "multiple_choice",
+      "question_text": "Which events occur during model deployment? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Compute resources are allocated.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Deployment allocates CPUs, GPUs, memory, networking, and scaling rules. These resources run the model.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A secure API endpoint is created.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Deployment creates a secure endpoint for application calls. This enables production access.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Monitoring and logging are activated.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Deployment activates monitoring and logging for operational information. This includes usage, latency, errors, and costs.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Benchmark scores are repaired.",
+            "is_correct": false,
+            "error_type": "Remediation confusion",
+            "rationale": "Deployment does not repair evaluation results. It prepares a model for production operation.",
+            "better_fit": "Use benchmark results to inspect performance evidence.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "model-deployment",
+        "item_key": "compare-score-and-deploy-models/model-deployment/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. Deployment allocates resources, creates an endpoint, and activates monitoring.",
+      "points": 1
+    },
+    {
+      "import_key": "compare-score-and-deploy-models-l1-q10",
+      "question_type": "multiple_choice",
+      "question_text": "What do Foundry evaluators measure?",
+      "options": {
+        "options": [
+          {
+            "text": "Output quality, safety, and effectiveness",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Foundry evaluators measure quality, safety, and effectiveness of model or agent outputs. The Evaluator Library provides reusable evaluators.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Only token limits",
+            "is_correct": false,
+            "error_type": "Capacity confusion",
+            "rationale": "Token limits concern deployment capacity. Evaluators assess outputs.",
+            "better_fit": "Use capacity settings when configuring deployment throughput.",
+            "feedback": null
+          },
+          {
+            "text": "Only system prompt wording",
+            "is_correct": false,
+            "error_type": "Instruction confusion",
+            "rationale": "System instructions guide behavior before output generation. Evaluators measure resulting outputs.",
+            "better_fit": "Use a system instruction to define behavior and guardrails.",
+            "feedback": null
+          },
+          {
+            "text": "Only catalog filters",
+            "is_correct": false,
+            "error_type": "Discovery confusion",
+            "rationale": "Catalog filters narrow model choices. Evaluators score outputs.",
+            "better_fit": "Use catalog filters when discovering models.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "safety-evaluators",
+        "item_key": "compare-score-and-deploy-models/safety-evaluators/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. Evaluators measure output quality, safety, and effectiveness.",
+      "points": 1
+    },
+    {
+      "import_key": "compare-score-and-deploy-models-l1-q11",
+      "question_type": "true_false",
+      "question_text": "Deploying a model activates monitoring and logging for usage, latency, errors, and costs.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "model-deployment",
+        "feedback_for_incorrect": {
+          "intrinsic": "Important production signals could be omitted from planning.",
+          "instructional": "Deployment activates monitoring and logging for usage, performance, latency, errors, and costs."
+        },
+        "item_key": "compare-score-and-deploy-models/model-deployment/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. Deployment activates operational monitoring and logging.",
+      "points": 1
+    },
+    {
+      "import_key": "compare-score-and-deploy-models-l1-q12",
+      "question_type": "true_false",
+      "question_text": "A safety evaluator automatically resolves harmful content after detecting it.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "safety-evaluators",
+        "feedback_for_incorrect": {
+          "intrinsic": "Detected harmful content could remain unaddressed.",
+          "instructional": "A safety evaluator identifies harms; remediation requires a separate response."
+        },
+        "item_key": "compare-score-and-deploy-models/safety-evaluators/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct. Safety evaluators detect, scan, and score issues rather than resolving them.",
+      "points": 1
+    }
+  ],
+  "flashcards": [
+    {
+      "import_key": "compare-score-and-deploy-models-l1-f0",
+      "front": "What is a Foundry tool?",
+      "back": "A prebuilt model solution for a well-defined use case.",
+      "hint": "Think: predictable and compliant."
+    },
+    {
+      "import_key": "compare-score-and-deploy-models-l1-f1",
+      "front": "What are benchmark results?",
+      "back": "Scores showing model performance on standard datasets.",
+      "hint": "Think: consistent comparison."
+    },
+    {
+      "import_key": "compare-score-and-deploy-models-l1-f2",
+      "front": "What does a leaderboard do?",
+      "back": "It ranks models by attributes such as quality and safety.",
+      "hint": "Think: ranking."
+    },
+    {
+      "import_key": "compare-score-and-deploy-models-l1-f3",
+      "front": "What is model deployment?",
+      "back": "Making a model available through a secure production endpoint.",
+      "hint": "Think: applications can call it."
+    }
+  ]
+}

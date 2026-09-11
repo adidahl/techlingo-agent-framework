@@ -1,0 +1,576 @@
+{
+  "import_key": "extract-information-from-video-l2",
+  "title": "Extract information from video · Level 2",
+  "slo": "Describe the information a video analyzer can extract from a meeting.",
+  "exercises": [
+    {
+      "import_key": "extract-information-from-video-l2-q1",
+      "question_type": "multiple_choice",
+      "question_text": "What total attendee count was returned for the conference-room image?",
+      "options": {
+        "options": [
+          {
+            "text": "4",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "This is correct. One in-person attendee plus three remote attendees gives four total attendees.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "1",
+            "is_correct": false,
+            "error_type": "Confuses total attendees with in-person attendees",
+            "rationale": "This is incorrect. One is the in-person count and omits the remote attendees.",
+            "better_fit": "Use this when asked specifically for the in-person attendee count.",
+            "feedback": {
+              "intrinsic": "The meeting would appear much smaller than the returned total.",
+              "instructional": "Add one in-person attendee and three remote attendees."
+            }
+          },
+          {
+            "text": "3",
+            "is_correct": false,
+            "error_type": "Confuses total attendees with remote attendees",
+            "rationale": "This is incorrect. Three is the remote-attendee count and omits the in-person attendee.",
+            "better_fit": "Use this when asked specifically for the remote attendee count.",
+            "feedback": {
+              "intrinsic": "One attendee would be left out of the count.",
+              "instructional": "The total includes both remote and in-person attendees."
+            }
+          },
+          {
+            "text": "5",
+            "is_correct": false,
+            "error_type": "Incorrect attendance calculation",
+            "rationale": "This is incorrect. The reported parts are one in person and three remote, which total four.",
+            "better_fit": "This would fit only if the separate attendee counts added to five.",
+            "feedback": {
+              "intrinsic": "The attendance record would overcount the meeting.",
+              "instructional": "Use the reported parts: one plus three equals four."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "meeting-image-attendance-schema",
+        "item_key": "extract-information-from-video/meeting-image-attendance-schema/r1/v2",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct—one in-person attendee plus three remote attendees equals four.",
+      "points": 1
+    },
+    {
+      "import_key": "extract-information-from-video-l2-q2",
+      "question_type": "true_false",
+      "question_text": "prebuilt-videoSearch is selected when the input is video.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "prebuilt-video-analyzer",
+        "feedback_for_incorrect": {
+          "intrinsic": "The recorded video would not be matched to its intended analyzer.",
+          "instructional": "Select prebuilt-videoSearch when the input is video."
+        },
+        "item_key": "extract-information-from-video/prebuilt-video-analyzer/r2/v2",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct—the analyzer matches the video input.",
+      "points": 1
+    },
+    {
+      "import_key": "extract-information-from-video-l2-q3",
+      "question_type": "fill_blank",
+      "question_text": "A video meeting schema can record attendance counts at different ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "A video meeting schema can record attendance counts at different "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "time intervals",
+              "intervals"
+            ],
+            "rejected_answers": [
+              "invoice totals",
+              "callback numbers",
+              "meeting-image-attendance-schema",
+              "audio-information-extraction"
+            ],
+            "placeholder": "time-based term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "invoice totals",
+          "callback numbers",
+          "meeting-image-attendance-schema",
+          "audio-information-extraction"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "video-meeting-schema",
+        "feedback_for_incorrect": {
+          "intrinsic": "The results would not show when attendance changed.",
+          "instructional": "Use time intervals for attendance changes over a recording."
+        },
+        "item_key": "extract-information-from-video/video-meeting-schema/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "[\"time intervals\",\"intervals\"]",
+      "explanation": "Attendance can change as a meeting continues. Time intervals allow the schema to record those changes at different points in the video.",
+      "points": 1
+    },
+    {
+      "import_key": "extract-information-from-video-l2-q4",
+      "question_type": "arrange_sentence",
+      "question_text": "Put the pieces in the correct order.",
+      "options": {
+        "word_bank": [
+          "analyzed, and passed",
+          "Structured results can",
+          "to downstream systems.",
+          "be stored, searched,"
+        ],
+        "correct_order": [
+          "Structured results can",
+          "be stored, searched,",
+          "analyzed, and passed",
+          "to downstream systems."
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "downstream-use-of-media-results",
+        "feedback_for_incorrect": {
+          "intrinsic": "A colleague might not understand how the results support later work.",
+          "instructional": "Begin with structured results, then connect their storage, search, analysis, and downstream use."
+        },
+        "item_key": "extract-information-from-video/downstream-use-of-media-results/r3/v2",
+        "rung": 3
+      },
+      "correct_answer": "Structured results can be stored, searched, analyzed, and passed to downstream systems.",
+      "explanation": "Structured results support storage, search, analysis, and downstream use. The order forms one clear statement of these connected uses.",
+      "points": 1
+    },
+    {
+      "import_key": "extract-information-from-video-l2-q5",
+      "question_type": "multiple_choice",
+      "question_text": "A supervisor reviews a recorded meeting because people joined and left during the call. Which field should the supervisor include to see how attendance changed?",
+      "options": {
+        "options": [
+          {
+            "text": "Attendance counts at time intervals",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "This is correct. Counts at time intervals show attendance at different points in the recording.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A single total attendee count",
+            "is_correct": false,
+            "error_type": "Confuses video-over-time tracking with a still-image result",
+            "rationale": "This is incorrect. One total gives a single count and cannot show people joining or leaving over time.",
+            "better_fit": "Use this when one overall count is sufficient for a single image.",
+            "feedback": {
+              "intrinsic": "The supervisor could not see attendance changes.",
+              "instructional": "Use counts at different time intervals when attendance changes over a recording."
+            }
+          },
+          {
+            "text": "Invoice tax amount",
+            "is_correct": false,
+            "error_type": "Confuses video schema with invoice schema",
+            "rationale": "This is incorrect. Tax amount is an invoice field and provides no meeting-attendance information.",
+            "better_fit": "Use this when extracting billing information from an invoice.",
+            "feedback": {
+              "intrinsic": "The review would contain a billing amount instead of attendance history.",
+              "instructional": "Choose the meeting field: attendance counts at time intervals."
+            }
+          },
+          {
+            "text": "Caller email address",
+            "is_correct": false,
+            "error_type": "Confuses video schema with voicemail schema",
+            "rationale": "This is incorrect. A caller email address is a voicemail contact field and does not track meeting attendance.",
+            "better_fit": "Use this for a recorded voice message when extracting contact details.",
+            "feedback": {
+              "intrinsic": "The supervisor would still not know when people joined or left.",
+              "instructional": "Attendance changes require time-based counts, not contact details."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "single_choice",
+        "concept_id": "video-meeting-schema",
+        "item_key": "extract-information-from-video/video-meeting-schema/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "0",
+      "explanation": "Correct—time-interval counts show how attendance changes.",
+      "points": 1
+    },
+    {
+      "import_key": "extract-information-from-video-l2-q6",
+      "question_type": "multiple_choice",
+      "question_text": "A meeting coordinator wants summaries and assigned actions from recorded meetings to trigger later workflow steps. What should the coordinator pass to the workflow system?",
+      "options": {
+        "options": [
+          {
+            "text": "Structured JSON results",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "This is correct. Structured JSON results carry summaries and assigned actions into later automation.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Only the raw video file",
+            "is_correct": false,
+            "error_type": "Confuses source media with extracted output",
+            "rationale": "This is incorrect. The raw video is source content and does not organize summaries and actions into structured fields.",
+            "better_fit": "Use this as the input to video analysis.",
+            "feedback": {
+              "intrinsic": "The workflow would not receive ready-to-use meeting details.",
+              "instructional": "Pass structured JSON results after analysis, not only the source video."
+            }
+          },
+          {
+            "text": "Only a camera image",
+            "is_correct": false,
+            "error_type": "Confuses a source image with structured media results",
+            "rationale": "This is incorrect. A camera image is source content and does not contain the extracted meeting summary and actions.",
+            "better_fit": "Use this to identify location and attendee counts from a conference-room image.",
+            "feedback": {
+              "intrinsic": "The workflow would miss the meeting summary and assigned actions.",
+              "instructional": "Use structured JSON results when later steps need extracted meeting information."
+            }
+          },
+          {
+            "text": "Only an invoice schema",
+            "is_correct": false,
+            "error_type": "Confuses a schema definition with analysis results",
+            "rationale": "This is incorrect. An invoice schema defines potential invoice fields; it is not extracted meeting results.",
+            "better_fit": "Use this when defining fields for invoice analysis.",
+            "feedback": {
+              "intrinsic": "The workflow would receive field definitions instead of meeting outcomes.",
+              "instructional": "A schema describes what to extract; structured JSON results contain the extracted information."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "single_choice",
+        "concept_id": "downstream-use-of-media-results",
+        "item_key": "extract-information-from-video/downstream-use-of-media-results/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "0",
+      "explanation": "Correct—structured JSON results can be passed to downstream systems for automation.",
+      "points": 1
+    },
+    {
+      "import_key": "extract-information-from-video-l2-q7",
+      "question_type": "arrange_sentence",
+      "question_text": "Arrange the parts to form the correct statement.",
+      "options": {
+        "word_bank": [
+          "three remote attendees",
+          "The image returned",
+          "and four total.",
+          "one in-person attendee"
+        ],
+        "correct_order": [
+          "The image returned",
+          "one in-person attendee",
+          "three remote attendees",
+          "and four total."
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "meeting-image-attendance-schema",
+        "feedback_for_incorrect": {
+          "intrinsic": "The counts would be difficult to interpret.",
+          "instructional": "Start with the image result, then state the in-person count, remote count, and total."
+        },
+        "item_key": "extract-information-from-video/meeting-image-attendance-schema/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "The image returned one in-person attendee three remote attendees and four total.",
+      "explanation": "The result identifies the image report, then gives the in-person count, remote count, and total. This order makes the attendance breakdown clear.",
+      "points": 1
+    },
+    {
+      "import_key": "extract-information-from-video-l2-q8",
+      "question_type": "fill_blank",
+      "question_text": "The prebuilt analyzer for video analysis is ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "The prebuilt analyzer for video analysis is "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "prebuilt-videoSearch"
+            ],
+            "rejected_answers": [
+              "prebuilt-audioSearch",
+              "prebuilt-invoice",
+              "prebuilt-imageSearch",
+              "prebuilt-audio-sdk-flow",
+              "prebuilt-invoice-sdk-flow",
+              "prebuilt-and-custom-analyzers"
+            ],
+            "placeholder": "analyzer ID"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "prebuilt-audioSearch",
+          "prebuilt-invoice",
+          "prebuilt-imageSearch",
+          "prebuilt-audio-sdk-flow",
+          "prebuilt-invoice-sdk-flow",
+          "prebuilt-and-custom-analyzers"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "prebuilt-video-analyzer",
+        "feedback_for_incorrect": {
+          "intrinsic": "The video could be sent to an analyzer for a different content type.",
+          "instructional": "Use prebuilt-videoSearch for video input."
+        },
+        "item_key": "extract-information-from-video/prebuilt-video-analyzer/r3/v2",
+        "rung": 3
+      },
+      "correct_answer": "prebuilt-videoSearch",
+      "explanation": "prebuilt-videoSearch is the prebuilt analyzer identifier for video. Its name distinguishes it from audio, image, and invoice analyzers.",
+      "points": 1
+    },
+    {
+      "import_key": "extract-information-from-video-l2-q9",
+      "question_type": "multiple_choice",
+      "question_text": "A facilities manager checks a conference-room camera image after a meeting. Which results should the manager use to understand attendance? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "In-person attendee count",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "This is correct. It shows how many attendees were physically present.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Remote attendee count",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "This is correct. It shows how many attendees joined remotely.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Total attendee count",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "This is correct. It provides the combined attendance count.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Caller email address",
+            "is_correct": false,
+            "error_type": "Confuses meeting-image fields with voicemail fields",
+            "rationale": "This is incorrect. A caller email address is contact information and does not measure meeting attendance.",
+            "better_fit": "Use this for a recorded call when extracting callback contact details.",
+            "feedback": {
+              "intrinsic": "The manager would have contact information but no attendance measure.",
+              "instructional": "Attendance comes from the in-person, remote, and total counts."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "multi_choice",
+        "concept_id": "meeting-image-attendance-schema",
+        "item_key": "extract-information-from-video/meeting-image-attendance-schema/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct—these three fields describe attendance in the image.",
+      "points": 1
+    },
+    {
+      "import_key": "extract-information-from-video-l2-q10",
+      "question_type": "fill_blank",
+      "question_text": "A recorded meeting can be analyzed as ___ content.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "A recorded meeting can be analyzed as "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "video"
+            ],
+            "rejected_answers": [
+              "audio",
+              "document",
+              "image",
+              "audio-information-extraction",
+              "document-and-image-analysis"
+            ],
+            "placeholder": "content type"
+          },
+          {
+            "type": "text",
+            "text": " content."
+          }
+        ],
+        "rejected_answers": [
+          "audio",
+          "document",
+          "image",
+          "audio-information-extraction",
+          "document-and-image-analysis"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "video-information-extraction",
+        "feedback_for_incorrect": {
+          "intrinsic": "The recording would be grouped with the wrong content type.",
+          "instructional": "Choose video for a recorded meeting; audio, documents, and images fit other inputs."
+        },
+        "item_key": "extract-information-from-video/video-information-extraction/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "video",
+      "explanation": "A recorded meeting is video content. Video analysis extracts meeting-related information from that recording.",
+      "points": 1
+    },
+    {
+      "import_key": "extract-information-from-video-l2-q11",
+      "question_type": "multiple_choice",
+      "question_text": "A developer is building an app to analyze a recorded meeting video and return structured information. Which choices fit the task? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Select prebuilt-videoSearch",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "This is correct. prebuilt-videoSearch is the prebuilt analyzer for video input.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Submit the video as input",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "This is correct. The recorded meeting video is the content the analyzer is designed to process.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Extract video-related structured information",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "This is correct. Video analysis produces structured information related to the video.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Select an invoice analyzer",
+            "is_correct": false,
+            "error_type": "Confuses video analysis with invoice analysis",
+            "rationale": "This is incorrect. An invoice analyzer is designed for invoice content and does not match a recorded meeting video.",
+            "better_fit": "Use an invoice analyzer when the input is an invoice and billing fields are needed.",
+            "feedback": {
+              "intrinsic": "The app would be set up for invoice details instead of meeting details.",
+              "instructional": "For recorded video, select prebuilt-videoSearch and submit video input."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "multi_choice",
+        "concept_id": "prebuilt-video-analyzer",
+        "item_key": "extract-information-from-video/prebuilt-video-analyzer/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct—these choices match a video-analysis task.",
+      "points": 1
+    },
+    {
+      "import_key": "extract-information-from-video-l2-q12",
+      "question_type": "multiple_choice",
+      "question_text": "A meeting coordinator has a recorded video conference and needs attendance, speakers, and assigned actions. Which analysis approach should the coordinator choose?",
+      "options": {
+        "options": [
+          {
+            "text": "Analyze the recording as video",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "This is correct. Video analysis is the approach that can extract the requested meeting details from the conference recording.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Extract fields from a scanned invoice",
+            "is_correct": false,
+            "error_type": "Confuses meeting analysis with document extraction",
+            "rationale": "This is incorrect. Invoice extraction provides billing information rather than meeting activity.",
+            "better_fit": "Use this when extracting vendor, tax, totals, and other invoice fields.",
+            "feedback": {
+              "intrinsic": "Leaders would receive billing details instead of meeting details.",
+              "instructional": "Use video analysis when the required information comes from a recorded conference."
+            }
+          },
+          {
+            "text": "Analyze an audio-only voicemail",
+            "is_correct": false,
+            "error_type": "Confuses video analysis with audio extraction",
+            "rationale": "This is incorrect. A voicemail can provide call-related details, but it is not the recorded conference with visual meeting context.",
+            "better_fit": "Use this for a call recording when a transcript, summary, or contact details are needed.",
+            "feedback": {
+              "intrinsic": "Attendance from the conference would remain unknown.",
+              "instructional": "The relevant input is the recorded video conference, not an audio voicemail."
+            }
+          },
+          {
+            "text": "Extract purchase details from a receipt photo",
+            "is_correct": false,
+            "error_type": "Confuses video analysis with image extraction",
+            "rationale": "This is incorrect. A receipt photo contains purchase information and cannot provide meeting participants or actions.",
+            "better_fit": "Use this for expense descriptions and amounts from a receipt image.",
+            "feedback": {
+              "intrinsic": "The coordinator would have receipt details but no meeting outcomes.",
+              "instructional": "Use video analysis for information contained in the meeting."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "single_choice",
+        "concept_id": "video-information-extraction",
+        "item_key": "extract-information-from-video/video-information-extraction/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "0",
+      "explanation": "Correct—analyzing the recording as video meets the stated meeting-information need.",
+      "points": 1
+    }
+  ],
+  "flashcards": []
+}

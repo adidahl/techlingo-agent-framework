@@ -1,0 +1,1004 @@
+{
+  "import_key": "10-get-started-with-speech-in-azure-checkpoint",
+  "title": "10. Get started with speech in Azure · Checkpoint",
+  "slo": "Review the key concepts of 10. Get started with speech in Azure.",
+  "exercises": [
+    {
+      "import_key": "10-get-started-with-speech-in-azure-checkpoint-q1",
+      "question_type": "multiple_choice",
+      "question_text": "What can point batch transcription to audio files in storage?",
+      "options": {
+        "options": [
+          {
+            "text": "A SAS URI",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A shared access signature, or SAS, URI can point batch transcription to stored audio files. It is used with audio in storage.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A SpeechRecognizer",
+            "is_correct": false,
+            "error_type": "Confuses an audio-file URI with a recognition object",
+            "rationale": "A SpeechRecognizer performs transcription in an application. It is not the URI that points batch work to stored audio.",
+            "better_fit": "Use a SpeechRecognizer to perform transcription after configuring audio input.",
+            "feedback": {
+              "intrinsic": "The stored file location would still be missing.",
+              "instructional": "A SAS URI identifies audio in storage for batch transcription."
+            }
+          },
+          {
+            "text": "A Foundry endpoint",
+            "is_correct": false,
+            "error_type": "Confuses storage access with service connection",
+            "rationale": "An endpoint connects an application to Azure Speech. It does not point batch transcription to an audio file in storage.",
+            "better_fit": "Use an endpoint when initializing a connection to Azure Speech.",
+            "feedback": {
+              "intrinsic": "The batch request would not identify the stored recording.",
+              "instructional": "Connection details and a stored-file URI have different roles."
+            }
+          },
+          {
+            "text": "A speech key",
+            "is_correct": false,
+            "error_type": "Confuses storage access with authentication",
+            "rationale": "A speech key is used for authentication. It is not a pointer to stored audio.",
+            "better_fit": "Use a speech key with an endpoint to authenticate a connection.",
+            "feedback": {
+              "intrinsic": "The audio file location would still not be supplied.",
+              "instructional": "Authentication proves access; a SAS URI points to the stored audio."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "sas-uri",
+        "item_key": "choose-a-transcription-method/sas-uri/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. A SAS URI can point batch transcription to audio files in storage.",
+      "points": 1
+    },
+    {
+      "import_key": "10-get-started-with-speech-in-azure-checkpoint-q2",
+      "question_type": "true_false",
+      "question_text": "Synthesized speech is used to convert customer calls into written transcripts.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "speech-synthesis-uses",
+        "feedback_for_incorrect": {
+          "intrinsic": "This would treat a written-record task as though it produced spoken output.",
+          "instructional": "Synthesized speech generates audio; speech recognition converts calls into written transcripts."
+        },
+        "item_key": "understand-text-to-speech/speech-synthesis-uses/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct. Customer-call transcripts use speech recognition.",
+      "points": 1
+    },
+    {
+      "import_key": "10-get-started-with-speech-in-azure-checkpoint-q3",
+      "question_type": "true_false",
+      "question_text": "Speech synthesis generates spoken output from text-based data.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "speech-synthesis-tts",
+        "feedback_for_incorrect": {
+          "intrinsic": "This would incorrectly rule out the capability used to make written content audible.",
+          "instructional": "Speech synthesis, also called text-to-speech, generates spoken output from text-based data."
+        },
+        "item_key": "understand-text-to-speech/speech-synthesis-tts/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. Speech synthesis creates audible speech from text-based data.",
+      "points": 1
+    },
+    {
+      "import_key": "10-get-started-with-speech-in-azure-checkpoint-q4",
+      "question_type": "multiple_choice",
+      "question_text": "A retailer needs spoken product updates in several languages and regional pronunciations. Which Azure Speech voice options can it choose for its Text-to-Speech API solution?",
+      "options": {
+        "options": [
+          {
+            "text": "Predefined voices",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Predefined voices are available through the API. They support multiple languages and regional pronunciation.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Neural voices",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Neural voices are available through the API. They use neural networks for more natural sounding speech.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Custom voices",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Custom voices can be developed and used with the API. They are an available voice option.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Speech-to-text API",
+            "is_correct": false,
+            "error_type": "Confuses transcription with voice choice",
+            "rationale": "Speech-to-text converts spoken audio into text. It is not a voice option for generating product updates.",
+            "better_fit": "Use this when customer speech needs to become written text.",
+            "feedback": {
+              "intrinsic": "The retailer could transcribe speech but could not select a voice for product updates.",
+              "instructional": "Text-to-speech voice options include predefined, neural, and custom voices."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "multi_choice",
+        "concept_id": "azure-speech-tts-api",
+        "item_key": "understand-text-to-speech/azure-speech-tts-api/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. Predefined, neural, and custom voices are available for Text-to-Speech.",
+      "points": 1
+    },
+    {
+      "import_key": "10-get-started-with-speech-in-azure-checkpoint-q5",
+      "question_type": "arrange_sentence",
+      "question_text": "Reconstruct the statement from the pieces.",
+      "options": {
+        "word_bank": [
+          "Learning apps",
+          "listen to students",
+          "then provide",
+          "speak",
+          "pronunciation feedback"
+        ],
+        "correct_order": [
+          "Learning apps",
+          "listen to students",
+          "speak",
+          "then provide",
+          "pronunciation feedback"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "speech-use-cases",
+        "feedback_for_incorrect": {
+          "intrinsic": "The relationship between speech and feedback is unclear.",
+          "instructional": "Place listening to learner speech before the feedback."
+        },
+        "item_key": "understand-speech-recognition/speech-use-cases/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "Learning apps listen to students speak then provide pronunciation feedback",
+      "explanation": "Learning apps listen to learners speaking, then provide pronunciation feedback.",
+      "points": 1
+    },
+    {
+      "import_key": "10-get-started-with-speech-in-azure-checkpoint-q6",
+      "question_type": "true_false",
+      "question_text": "Azure Speech supports both prebuilt and custom Speech service models.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "azure-speech-overview",
+        "feedback_for_incorrect": {
+          "intrinsic": "A team might wrongly assume every model must be built from scratch.",
+          "instructional": "Azure Speech supports both prebuilt and custom models."
+        },
+        "item_key": "understand-speech-recognition/azure-speech-overview/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. Azure Speech supports prebuilt and custom models for speech tasks.",
+      "points": 1
+    },
+    {
+      "import_key": "10-get-started-with-speech-in-azure-checkpoint-q7",
+      "question_type": "multiple_choice",
+      "question_text": "A language-learning app designer wants to hear a practice sentence with a different synthetic voice and a new speed setting. Where should the designer test these changes?",
+      "options": {
+        "options": [
+          {
+            "text": "Text-to-Speech Foundry playground",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "This playground lets users choose a synthetic voice and adjust speed. It then generates audio from text.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Speech-to-Text Foundry playground",
+            "is_correct": false,
+            "error_type": "Confuses text-to-speech with transcription",
+            "rationale": "The Speech-to-Text playground is for testing spoken input and transcription. It does not provide the requested voice and speed controls for generated speech.",
+            "better_fit": "Use this when testing how recorded or microphone audio becomes written text.",
+            "feedback": {
+              "intrinsic": "The designer could test transcription but would not hear the sentence with the requested changes.",
+              "instructional": "Use the Text-to-Speech playground to adjust voice and speed for generated audio."
+            }
+          },
+          {
+            "text": "A batch transcription job",
+            "is_correct": false,
+            "error_type": "Confuses audio generation with transcription",
+            "rationale": "Batch transcription processes stored audio into text. It does not generate speech from a practice sentence.",
+            "better_fit": "Use this for stored recordings that need transcription results.",
+            "feedback": {
+              "intrinsic": "The practice sentence would not be spoken with a new voice or speed.",
+              "instructional": "Batch transcription is audio-to-text work; synthetic voice controls belong in Text-to-Speech."
+            }
+          },
+          {
+            "text": "A SpeechRecognizer object",
+            "is_correct": false,
+            "error_type": "Confuses text-to-speech with recognition SDK objects",
+            "rationale": "A SpeechRecognizer object recognizes spoken audio in application code. It does not generate spoken audio from written text.",
+            "better_fit": "Use this when writing an application that recognizes microphone or audio-file speech.",
+            "feedback": {
+              "intrinsic": "The designer would be set up to listen for speech rather than hear the written sentence.",
+              "instructional": "Use the Text-to-Speech playground for generated speech with adjustable delivery."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "single_choice",
+        "concept_id": "tts-playground-controls",
+        "item_key": "understand-text-to-speech/tts-playground-controls/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. The Text-to-Speech Foundry playground supports synthetic voice and speed changes.",
+      "points": 1
+    },
+    {
+      "import_key": "10-get-started-with-speech-in-azure-checkpoint-q8",
+      "question_type": "fill_blank",
+      "question_text": "Batch transcription returns results ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "Batch transcription returns results "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "asynchronously",
+              "Asynchronously"
+            ],
+            "rejected_answers": [
+              "in real time",
+              "immediately",
+              "live",
+              "real-time transcription",
+              "realtime-transcription",
+              "batch-transcription"
+            ],
+            "placeholder": "timing term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "in real time",
+          "immediately",
+          "live",
+          "real-time transcription",
+          "realtime-transcription",
+          "batch-transcription"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "transcription-method-choice",
+        "feedback_for_incorrect": {
+          "intrinsic": "The result timing would be described incorrectly.",
+          "instructional": "Batch transcription returns results asynchronously; real-time transcription is used when text is needed during live speech."
+        },
+        "item_key": "choose-a-transcription-method/transcription-method-choice/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "[\"asynchronously\",\"Asynchronously\"]",
+      "explanation": "Asynchronously means results arrive after the request is submitted rather than immediately. This timing supports batch processing of stored recordings.",
+      "points": 1
+    },
+    {
+      "import_key": "10-get-started-with-speech-in-azure-checkpoint-q9",
+      "question_type": "true_false",
+      "question_text": "The Speech-to-Text SDK is used only after a completed transcription and cannot send audio.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "speech-sdk-responsibilities",
+        "feedback_for_incorrect": {
+          "intrinsic": "The app would have no way to provide its microphone, file, or stream audio for transcription.",
+          "instructional": "The SDK can capture or send audio securely to Azure Speech, then return transcription in near real time or after processing."
+        },
+        "item_key": "build-speech-to-text-applications/speech-sdk-responsibilities/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct! The SDK can capture or send audio before transcription results are returned.",
+      "points": 1
+    },
+    {
+      "import_key": "10-get-started-with-speech-in-azure-checkpoint-q10",
+      "question_type": "multiple_choice",
+      "question_text": "A customer-support lead needs callers' spoken words turned into text for staff review. Which results show the app is using speech recognition? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "The call becomes a text transcript",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A transcript is spoken audio converted into text. This is a direct recognition result.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Spoken words are detected",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Detecting spoken input is part of speech recognition. It happens before transcription.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "The app interprets the caller's speech",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Recognition interprets spoken input to produce usable data. It does more than store raw audio.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "The app reads a typed reply aloud",
+            "is_correct": false,
+            "error_type": "Confuses STT with TTS",
+            "rationale": "Reading typed text aloud is text-to-speech. It does not show that speech became text.",
+            "better_fit": "This fits a support bot that gives spoken responses from text.",
+            "feedback": {
+              "intrinsic": "Staff would not receive the requested transcript.",
+              "instructional": "Review requires speech to be converted into usable text."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "multi_choice",
+        "concept_id": "speech-recognition-stt",
+        "item_key": "understand-speech-recognition/speech-recognition-stt/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. These outcomes show spoken input becoming usable text.",
+      "points": 1
+    },
+    {
+      "import_key": "10-get-started-with-speech-in-azure-checkpoint-q11",
+      "question_type": "arrange_sentence",
+      "question_text": "Arrange the following steps in speech synthesis.",
+      "options": {
+        "word_bank": [
+          "Create phonemes",
+          "Tokenize the text",
+          "Synthesize audio",
+          "Assign phonetic sounds"
+        ],
+        "correct_order": [
+          "Tokenize the text",
+          "Assign phonetic sounds",
+          "Create phonemes",
+          "Synthesize audio"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "speech-synthesis-process",
+        "feedback_for_incorrect": {
+          "intrinsic": "Putting audio before earlier stages breaks the path from text to spoken output.",
+          "instructional": "Follow the synthesis sequence from text, to sounds, to phonemes, to audio."
+        },
+        "item_key": "understand-text-to-speech/speech-synthesis-process/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "Tokenize the text Assign phonetic sounds Create phonemes Synthesize audio",
+      "explanation": "Speech synthesis starts with text, assigns phonetic sounds, creates phonemes, and then synthesizes audio.",
+      "points": 1
+    },
+    {
+      "import_key": "10-get-started-with-speech-in-azure-checkpoint-q12",
+      "question_type": "fill_blank",
+      "question_text": "After phonemes are mapped to words, the result is recognized ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "After phonemes are mapped to words, the result is recognized "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "text"
+            ],
+            "rejected_answers": [
+              "audio",
+              "phonemes",
+              "speech synthesis",
+              "speech-recognition-stt",
+              "speech-synthesis-process"
+            ],
+            "placeholder": "technical term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "audio",
+          "phonemes",
+          "speech synthesis",
+          "speech-recognition-stt",
+          "speech-synthesis-process"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "acoustic-and-language-models",
+        "feedback_for_incorrect": {
+          "intrinsic": "The answer would name an earlier representation or the wrong output.",
+          "instructional": "The phoneme-to-word stage produces recognized text."
+        },
+        "item_key": "understand-speech-recognition/acoustic-and-language-models/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "text",
+      "explanation": "A language model maps phonemes to words, producing recognized text.",
+      "points": 1
+    },
+    {
+      "import_key": "10-get-started-with-speech-in-azure-checkpoint-q13",
+      "question_type": "multiple_choice",
+      "question_text": "A retail manager wants a shopping assistant that understands spoken order-status questions and says answers aloud. Which capability should the team use?",
+      "options": {
+        "options": [
+          {
+            "text": "AI speech capabilities",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The assistant needs spoken input and spoken output. AI speech capabilities cover both voice needs.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Speech recognition only",
+            "is_correct": false,
+            "error_type": "Input-only solution",
+            "rationale": "Speech recognition can understand the spoken question. It does not by itself create a spoken answer.",
+            "better_fit": "This fits a task that only transcribes spoken customer requests.",
+            "feedback": {
+              "intrinsic": "Customers could ask aloud but would not hear a reply.",
+              "instructional": "The scenario requires both recognition and spoken output."
+            }
+          },
+          {
+            "text": "Speech synthesis only",
+            "is_correct": false,
+            "error_type": "Output-only solution",
+            "rationale": "Speech synthesis can speak an answer aloud. It cannot interpret a spoken question by itself.",
+            "better_fit": "This fits reading already-written order updates aloud.",
+            "feedback": {
+              "intrinsic": "The assistant could speak but not understand the question.",
+              "instructional": "Spoken requests require recognition too."
+            }
+          },
+          {
+            "text": "A text-only interface",
+            "is_correct": false,
+            "error_type": "Typed-interaction mismatch",
+            "rationale": "A text-only interface does not meet the voice requirement. The scenario calls for speaking and hearing.",
+            "better_fit": "This fits a shopping page where users type and read.",
+            "feedback": {
+              "intrinsic": "Customers would need to type and read.",
+              "instructional": "Choose AI speech for two-way voice interaction."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "single_choice",
+        "concept_id": "ai-speech-capabilities",
+        "item_key": "understand-speech-recognition/ai-speech-capabilities/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. The assistant needs spoken input and spoken output.",
+      "points": 1
+    },
+    {
+      "import_key": "10-get-started-with-speech-in-azure-checkpoint-q14",
+      "question_type": "fill_blank",
+      "question_text": "___ handles live incoming speech.",
+      "options": {
+        "parts": [
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "Real-time transcription",
+              "real time transcription"
+            ],
+            "rejected_answers": [
+              "Batch transcription",
+              "batch transcription",
+              "batch-transcription",
+              "transcription-method-choice"
+            ],
+            "placeholder": "transcription method"
+          },
+          {
+            "type": "text",
+            "text": " handles live incoming speech."
+          }
+        ],
+        "rejected_answers": [
+          "Batch transcription",
+          "batch transcription",
+          "batch-transcription",
+          "transcription-method-choice"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "real-time-transcription",
+        "feedback_for_incorrect": {
+          "intrinsic": "The live speaker would not receive text as the speech happens.",
+          "instructional": "Batch transcription is for stored recordings; use real-time transcription for incoming audio."
+        },
+        "item_key": "choose-a-transcription-method/real-time-transcription/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "[\"Real-time transcription\",\"real time transcription\"]",
+      "explanation": "Incoming audio must be handled while it is being spoken. That timing distinguishes real-time transcription from processing recordings later.",
+      "points": 1
+    },
+    {
+      "import_key": "10-get-started-with-speech-in-azure-checkpoint-q15",
+      "question_type": "arrange_sentence",
+      "question_text": "Put the object relationship in order.",
+      "options": {
+        "word_bank": [
+          "AudioOutputConfig chooses",
+          "SpeechSynthesizer creates",
+          "its destination",
+          "synthesized audio"
+        ],
+        "correct_order": [
+          "SpeechSynthesizer creates",
+          "synthesized audio",
+          "AudioOutputConfig chooses",
+          "its destination"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "speech-synthesizer-output-config",
+        "feedback_for_incorrect": {
+          "intrinsic": "The distinct roles of the two objects are reversed or obscured.",
+          "instructional": "First identify what creates audio, then identify what chooses its destination."
+        },
+        "item_key": "build-text-to-speech-applications/speech-synthesizer-output-config/r3/v2",
+        "rung": 3
+      },
+      "correct_answer": "SpeechSynthesizer creates synthesized audio AudioOutputConfig chooses its destination",
+      "explanation": "SpeechSynthesizer creates audio, and AudioOutputConfig determines its destination.",
+      "points": 1
+    },
+    {
+      "import_key": "10-get-started-with-speech-in-azure-checkpoint-q16",
+      "question_type": "multiple_choice",
+      "question_text": "A media platform is setting up live captioning, but its new transcription app cannot connect to Azure Speech. Which setup information should the developer provide? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "The Azure resource endpoint",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The endpoint is the service address required to connect to the Azure resource. The SDK initialization uses this address.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A Foundry resource key",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A resource key authenticates a connection made to the endpoint. It is one supported authentication method.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Microsoft Entra ID authentication",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Microsoft Entra ID is an identity-based authentication alternative to a resource key. It can be used for SDK initialization.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A recognized text event",
+            "is_correct": false,
+            "error_type": "Confuses setup credentials with a result notification",
+            "rationale": "A recognized event returns completed text after recognition. It cannot provide the endpoint or authenticate a connection.",
+            "better_fit": "Choose this when handling completed transcription during recognition.",
+            "feedback": {
+              "intrinsic": "The app would still lack the information needed to connect.",
+              "instructional": "For connection setup, provide the endpoint and one authentication method. A recognized event is a result notification, not setup information."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "multi_choice",
+        "concept_id": "endpoint-and-authentication",
+        "item_key": "build-speech-to-text-applications/endpoint-and-authentication/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct! The app needs the endpoint plus authentication; a resource key and Microsoft Entra ID are supported authentication choices.",
+      "points": 1
+    },
+    {
+      "import_key": "10-get-started-with-speech-in-azure-checkpoint-q17",
+      "question_type": "multiple_choice",
+      "question_text": "A media team submits archived show recordings for batch transcription. Which expectations should the producer set? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "It may start within minutes",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A batch job normally starts within minutes after submission. This is a common expectation, not a guarantee.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Its schedule is best-effort",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Batch jobs are scheduled on a best-effort basis. The exact transition to running is not guaranteed.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Its running time is not guaranteed",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "There is no guaranteed time for a batch job to change to running. The producer should not promise an exact time.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It will transcribe while performers speak",
+            "is_correct": false,
+            "error_type": "Confuses batch work with real-time transcription",
+            "rationale": "Archived shows are stored recordings. Transcription while people speak is a real-time use case.",
+            "better_fit": "Use real-time transcription for a live performance that needs text while it happens.",
+            "feedback": {
+              "intrinsic": "The producer could promise captions during an event that has already been recorded.",
+              "instructional": "Archived recordings fit batch processing, not live incoming transcription."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "multi_choice",
+        "concept_id": "batch-job-scheduling",
+        "item_key": "choose-a-transcription-method/batch-job-scheduling/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. Archived recordings fit batch transcription, whose scheduling is best-effort and not guaranteed.",
+      "points": 1
+    },
+    {
+      "import_key": "10-get-started-with-speech-in-azure-checkpoint-q18",
+      "question_type": "arrange_sentence",
+      "question_text": "Reconstruct the statement from the pieces.",
+      "options": {
+        "word_bank": [
+          "and returns",
+          "Batch transcription",
+          "results later",
+          "processes stored recordings"
+        ],
+        "correct_order": [
+          "Batch transcription",
+          "processes stored recordings",
+          "and returns",
+          "results later"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "batch-transcription",
+        "feedback_for_incorrect": {
+          "intrinsic": "The sentence no longer clearly connects stored audio with later results.",
+          "instructional": "Place the method first, then its input, followed by the timing of its result."
+        },
+        "item_key": "choose-a-transcription-method/batch-transcription/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "Batch transcription processes stored recordings and returns results later",
+      "explanation": "The sentence names the method, identifies stored recordings as its input, and states that results arrive later. Those details define batch transcription.",
+      "points": 1
+    },
+    {
+      "import_key": "10-get-started-with-speech-in-azure-checkpoint-q19",
+      "question_type": "multiple_choice",
+      "question_text": "A retail virtual-assistant app must listen to a customer's spoken request until the customer ends the conversation. Which action should the developer use?",
+      "options": {
+        "options": [
+          {
+            "text": "Start continuous recognition",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Continuous recognition keeps listening until the application stops it. This fits a spoken conversation that continues until the customer finishes.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Handle a recognized event",
+            "is_correct": false,
+            "error_type": "Confuses receiving completed text with keeping audio listening",
+            "rationale": "A recognized event provides completed text. It does not start or keep recognition listening.",
+            "better_fit": "Choose this when the app needs to handle a completed transcription result.",
+            "feedback": {
+              "intrinsic": "The app could receive a result but would not begin ongoing listening.",
+              "instructional": "Use continuous recognition to keep listening. Handle a recognized event when completed text arrives."
+            }
+          },
+          {
+            "text": "Create an AudioConfig",
+            "is_correct": false,
+            "error_type": "Confuses choosing an input source with starting recognition",
+            "rationale": "AudioConfig specifies the microphone or other audio source. It does not begin speech recognition.",
+            "better_fit": "Choose this when setting the audio input source before creating the recognizer.",
+            "feedback": {
+              "intrinsic": "The microphone could be selected, but listening would not start.",
+              "instructional": "AudioConfig identifies where audio comes from. Start continuous recognition to begin and continue listening."
+            }
+          },
+          {
+            "text": "Create a SpeechConfig",
+            "is_correct": false,
+            "error_type": "Confuses connection setup with starting recognition",
+            "rationale": "SpeechConfig supplies endpoint and authentication information. It does not start recognition of the customer's speech.",
+            "better_fit": "Choose this when supplying the Azure Speech connection details.",
+            "feedback": {
+              "intrinsic": "The connection could be configured, but the conversation would not yet be listened to.",
+              "instructional": "SpeechConfig prepares the connection. Start continuous recognition when the app is ready to listen."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "single_choice",
+        "concept_id": "stt-recognition-objects",
+        "item_key": "build-speech-to-text-applications/stt-recognition-objects/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "0",
+      "explanation": "Correct! Continuous recognition keeps listening until the application stops it.",
+      "points": 1
+    },
+    {
+      "import_key": "10-get-started-with-speech-in-azure-checkpoint-q20",
+      "question_type": "multiple_choice",
+      "question_text": "A retailer must generate thousands of announcements overnight for stores to play the next day. Which decisions best fit this situation? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Use a backend service",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A backend can process announcements without immediate user playback. It fits overnight generation for later use.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Generate audio files for later playback",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The stores need reusable audio the next day. Saved files support delayed playback.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Use a client app for immediate playback",
+            "is_correct": false,
+            "error_type": "Chooses immediate-playback architecture",
+            "rationale": "Client apps suit speech that must play immediately. This requirement is batch preparation for later playback.",
+            "better_fit": "Use this when a user needs to hear speech immediately in an app.",
+            "feedback": {
+              "intrinsic": "The announcements would not be prepared as next-day files.",
+              "instructional": "Match later use with a backend that generates audio files."
+            }
+          },
+          {
+            "text": "Use AudioOutputConfig as the main service",
+            "is_correct": false,
+            "error_type": "Confuses an object with architecture",
+            "rationale": "AudioOutputConfig controls an audio destination. It does not decide the client-versus-backend architecture.",
+            "better_fit": "Use this when selecting where synthesized audio is delivered.",
+            "feedback": {
+              "intrinsic": "The overnight generation plan would still be missing.",
+              "instructional": "Choose the backend architecture first; configure output separately."
+            }
+          }
+        ],
+        "blooms_level": "Analyzing/Evaluating",
+        "original_question_type": "multi_choice",
+        "concept_id": "tts-client-or-backend-choice",
+        "item_key": "build-text-to-speech-applications/tts-client-or-backend-choice/r5/v1",
+        "rung": 5
+      },
+      "correct_answer": "[0,1]",
+      "explanation": "Correct. Backend-generated files fit overnight preparation and next-day playback.",
+      "points": 1
+    },
+    {
+      "import_key": "10-get-started-with-speech-in-azure-checkpoint-q21",
+      "question_type": "fill_blank",
+      "question_text": "A set of rules and endpoints that lets one application use another service is an ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "A set of rules and endpoints that lets one application use another service is an "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "API",
+              "Application Programming Interface"
+            ],
+            "rejected_answers": [
+              "endpoint",
+              "resource key",
+              "Speech-to-Text SDK",
+              "azure-speech-stt-api-sdk",
+              "endpoint-and-authentication"
+            ],
+            "placeholder": "technical term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "endpoint",
+          "resource key",
+          "Speech-to-Text SDK",
+          "azure-speech-stt-api-sdk",
+          "endpoint-and-authentication"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "foundry-playground-and-api",
+        "feedback_for_incorrect": {
+          "intrinsic": "The communication role would remain unclear.",
+          "instructional": "Choose API for the rules and endpoints. An endpoint is an address, a resource key is a credential, and the SDK is client-library code."
+        },
+        "item_key": "build-speech-to-text-applications/foundry-playground-and-api/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "[\"API\",\"Application Programming Interface\"]",
+      "explanation": "An API defines how one application can access another application's functions or data. An endpoint is part of an API, while a key authenticates access and an SDK provides ready-made code.",
+      "points": 1
+    },
+    {
+      "import_key": "10-get-started-with-speech-in-azure-checkpoint-q22",
+      "question_type": "fill_blank",
+      "question_text": "The Azure Text-to-Speech SDK can generate natural-sounding audio using ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "The Azure Text-to-Speech SDK can generate natural-sounding audio using "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "neural voices"
+            ],
+            "rejected_answers": [
+              "SpeechRecognizer",
+              "speech-to-text API",
+              "AudioOutputConfig",
+              "azure-speech-stt-api-sdk",
+              "speech-synthesizer-output-config"
+            ],
+            "placeholder": "technical term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "SpeechRecognizer",
+          "speech-to-text API",
+          "AudioOutputConfig",
+          "azure-speech-stt-api-sdk",
+          "speech-synthesizer-output-config"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "azure-speech-tts-sdk",
+        "feedback_for_incorrect": {
+          "intrinsic": "The intended voice technology would not be identified.",
+          "instructional": "Neural voices generate spoken audio from written text."
+        },
+        "item_key": "build-text-to-speech-applications/azure-speech-tts-sdk/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "neural voices",
+      "explanation": "Neural voices produce the synthesized spoken output.",
+      "points": 1
+    },
+    {
+      "import_key": "10-get-started-with-speech-in-azure-checkpoint-q23",
+      "question_type": "arrange_sentence",
+      "question_text": "Order the pieces correctly.",
+      "options": {
+        "word_bank": [
+          "that converts spoken audio",
+          "The Speech-to-Text SDK",
+          "into written text",
+          "is a client library"
+        ],
+        "correct_order": [
+          "The Speech-to-Text SDK",
+          "is a client library",
+          "that converts spoken audio",
+          "into written text"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "azure-speech-stt-api-sdk",
+        "feedback_for_incorrect": {
+          "intrinsic": "The sentence would not clearly connect the library to transcription.",
+          "instructional": "Name the SDK first, identify it as a client library, and then describe its audio-to-text purpose."
+        },
+        "item_key": "build-speech-to-text-applications/azure-speech-stt-api-sdk/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "The Speech-to-Text SDK is a client library that converts spoken audio into written text",
+      "explanation": "The first part names the component, then identifies its type, then states the conversion it supports. This connects the SDK's client-library role to transcription.",
+      "points": 1
+    },
+    {
+      "import_key": "10-get-started-with-speech-in-azure-checkpoint-q24",
+      "question_type": "true_false",
+      "question_text": "In a text-to-speech flow, the app receives text results after Azure Speech analyzes microphone audio.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "tts-application-processing-flow",
+        "feedback_for_incorrect": {
+          "intrinsic": "Written input would be handled as microphone audio.",
+          "instructional": "TTS sends text and receives generated audio."
+        },
+        "item_key": "build-text-to-speech-applications/tts-application-processing-flow/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct. That describes speech-to-text.",
+      "points": 1
+    }
+  ],
+  "flashcards": []
+}

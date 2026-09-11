@@ -48,6 +48,7 @@ from .experience import (
     select_variants,
 )
 from .publication_safety import (
+    PublicationTrace,
     PublicationSafetyError,
     banks_sha256,
     hash_data,
@@ -84,11 +85,6 @@ BUNDLE_SCHEMA = "bundle-v1"
 
 # Fallbacks when compile.yaml carries a partial `recycle:` map (§5.1 defaults).
 DEFAULT_RECYCLE = {"l2": 0.40, "l3": 0.30}
-
-# Final review is one course-wide unit; cap it at ~2 sessions' worth of items
-# so a large course degrades to "the most important concepts" instead of an
-# exam over every concept (checkpoints already cover each module 1-2×/concept).
-FINAL_REVIEW_SESSIONS = 2
 
 # Priority for final-review sampling when depth exists (§5.2: decision/
 # mechanism-weighted). Unknown depth (Phase-1 banks) ranks between mechanism
@@ -303,11 +299,6 @@ def _emit_unit(
         # app-import detail and must never be used as analytics keys — D10).
         question.options["item_key"] = item.item_key
         question.options["rung"] = item.rung
-        question.options["variant"] = item.variant
-        module_key, lesson_key = owners.get(item.item_key, ("", item.item_key.split("/", 1)[0]))
-        question.options["module_key"] = module_key
-        question.options["lesson_key"] = lesson_key
-        question.options["learning_status"] = spec.item_statuses.get(item.item_key, "new")
         questions.append(question)
     flashcards = [
         TLFlashcard(import_key=f"{spec.import_key}-f{i}", front=fc.front, back=fc.back, hint=fc.hint)
@@ -431,6 +422,77 @@ def _pick_recycled_item(
     return min(pick_from, key=score)
 
 
+def _fill_progression_unit(
+    items: list[BankItem],
+    *,
+    active: list[BankItem],
+    seen: set[str],
+    cfg: CompileConfig,
+    scope: str,
+    pos: dict[str, int],
+) -> list[BankItem]:
+    """Use existing bank variants to meet the declared progression budget.
+
+    This is selection, never generation: each addition is an already validated
+    item from the lesson bank, unseen across the path where possible, and no
+    item can occur twice in the same unit.
+    """
+    target = cfg.level_session_size
+    if target is None:
+        return list(items)
+    selected: list[BankItem] = []
+    # When the rung/recycle recipe offers more than the release budget, select
+    # a balanced subset of those intended probes before considering any other
+    # bank variants.  This preserves the authored level recipe without simply
+    # chopping positional items from the end.
+    preferred = list(items)
+    while preferred and len(selected) < target:
+        concept_counts = Counter(item.concept_id for item in selected)
+        mechanic_counts = Counter(item.payload.get("question_type", "unknown") for item in selected)
+        rng = _seeded_rng(cfg.seed, "progression-budget", scope, str(len(selected)))
+        jitter = {item.item_key: rng.random() for item in preferred}
+        candidate = min(
+            preferred,
+            key=lambda item: (
+                item.item_key in seen,
+                concept_counts[item.concept_id],
+                mechanic_counts[item.payload.get("question_type", "unknown")],
+                -item.rung,
+                item.variant,
+                jitter[item.item_key],
+                pos[item.item_key],
+            ),
+        )
+        selected.append(candidate)
+        preferred.remove(candidate)
+    if len(items) >= target:
+        return selected
+    selected_keys = {item.item_key for item in selected}
+    while len(selected) < target:
+        candidates = [item for item in active if item.item_key not in selected_keys]
+        if not candidates:
+            break
+        concept_counts = Counter(item.concept_id for item in selected)
+        mechanic_counts = Counter(item.payload.get("question_type", "unknown") for item in selected)
+        rng = _seeded_rng(cfg.seed, "progression-fill", scope, str(len(selected)))
+        jitter = {item.item_key: rng.random() for item in candidates}
+        candidate = min(
+            candidates,
+            key=lambda item: (
+                item.item_key in seen,
+                concept_counts[item.concept_id],
+                mechanic_counts[item.payload.get("question_type", "unknown")],
+                item.rung,
+                item.variant,
+                jitter[item.item_key],
+                pos[item.item_key],
+            ),
+        )
+        selected.append(candidate)
+        selected_keys.add(candidate.item_key)
+    return selected
+
+
 def _compose_lesson_levels(
     lesson: CurriculumLesson,
     bank: LessonBank,
@@ -499,7 +561,20 @@ def _compose_lesson_levels(
                         )
                     )
 
-        items = sorted(fresh + recycled, key=lambda it: (it.rung, pos[it.item_key]))  # easy -> hard
+        items = _fill_progression_unit(
+            fresh + recycled,
+            active=active,
+            seen=seen,
+            cfg=cfg,
+            scope=f"{lesson.key}-l{n}",
+            pos=pos,
+        )
+        if cfg.level_session_size is not None and len(items) != cfg.level_session_size:
+            notes.append(
+                f"lesson '{lesson.key}': level {n} has only {len(items)} of "
+                f"{cfg.level_session_size} required bank items"
+            )
+        items = sorted(items, key=lambda it: (it.rung, pos[it.item_key]))  # easy -> hard
         if len({it.item_key for it in items}) != len(items):  # invariant: never twice in ONE unit
             raise AssertionError(f"duplicate item within unit {lesson.key}-l{n}")
 
@@ -655,8 +730,11 @@ def _compose_checkpoint(
     cfg: CompileConfig,
     seen: set[str],
 ) -> Optional[_UnitSpec]:
-    """Module checkpoint (`<module-key>-checkpoint`): 1-2 items per concept of
-    the module, grown toward session_size_hint hardest-concepts-first."""
+    """Module checkpoint with the declared fixed review budget.
+
+    A checkpoint remains coverage-aware in its selection order, but its learner
+    session length must be stable for the Admin bundle importer and the runtime.
+    """
     lessons = [((li,), lesson) for li, lesson in enumerate(module.lessons)]
     concept_order, by_concept, pos = _collect_concept_items(lessons, banks)
     if not concept_order:
@@ -672,8 +750,8 @@ def _compose_checkpoint(
         seen,
         cfg,
         f"{module.key}-checkpoint",
-        budget=None,
-        grow_to=cfg.session_size_hint,
+        budget=cfg.review_session_size,
+        grow_to=cfg.review_session_size,
     )
     if not items:
         return None
@@ -696,10 +774,7 @@ def _compose_final_review(
     cfg: CompileConfig,
     seen: set[str],
 ) -> Optional[_UnitSpec]:
-    """Course-wide final review: the same sampler, concepts weighted
-    decision > mechanism > unknown > fact (§5.2; Phase-1 banks with null depth
-    degrade to confusables-count order), capped at ~FINAL_REVIEW_SESSIONS
-    sessions' worth of items."""
+    """Course-wide final review with the declared fixed review budget."""
     lessons = [
         ((mi, li), lesson)
         for mi, module in enumerate(curriculum.modules)
@@ -717,7 +792,7 @@ def _compose_final_review(
         return (_DEPTH_RANK.get(depth, 2), -_confusable_count(concepts_by_id, concept_id), jitter[concept_id])
 
     ranked = sorted(concept_order, key=priority)
-    budget = max(FINAL_REVIEW_SESSIONS * cfg.session_size_hint, 1)
+    budget = cfg.review_session_size
     items = _sample_review(
         ranked,
         ranked,
@@ -1220,6 +1295,43 @@ def next_bundle_version(dist_dir: Path, course_id: str) -> int:
     return max(versions, default=0) + 1
 
 
+def recoverable_bundle_version(
+    ws: Workspace,
+    trace: PublicationTrace,
+    dist_dir: Path,
+    course_id: str,
+) -> int:
+    """Reuse a missing recorded bundle number only for the exact same snapshot.
+
+    ``dist/`` is intentionally git-ignored, so a fresh clone can retain a
+    committed publication receipt while lacking the generated bundle itself.
+    In that case it is safe to reconstruct the recorded version when every
+    content/config hash still matches. Otherwise normal monotonic allocation
+    applies.
+    """
+    next_version = next_bundle_version(dist_dir, course_id)
+    recorded = ws.load_build_state().last_compilation
+    if recorded is None:
+        return next_version
+
+    recorded_dir = dist_dir / f"{course_id}-v{recorded.bundle_version}"
+    expected_path = str(recorded_dir.relative_to(ws.root))
+    exact_snapshot = (
+        recorded.source_set_sha256 == trace.source_set_sha256
+        and recorded.validation_set_sha256 == trace.validation_set_sha256
+        and recorded.workflow_config_sha256 == trace.workflow_config_sha256
+        and recorded.compile_config_sha256 == trace.compile_config_sha256
+        and recorded.bank_sha256 == trace.bank_sha256
+        and recorded.artifact_sha256 == (trace.artifact_sha256 or "")
+        and recorded.course_meta_sha256 == trace.course_meta_sha256
+        and recorded.curriculum_sha256 == trace.curriculum_sha256
+        and recorded.concept_graph_sha256 == trace.concept_graph_sha256
+    )
+    if exact_snapshot and recorded.bundle_path == expected_path and not recorded_dir.exists():
+        return recorded.bundle_version
+    return next_version
+
+
 @dataclass
 class BundleOutput:
     bundle_dir: Path
@@ -1324,7 +1436,7 @@ def write_bundle(
 
         meta = snapshot.meta
         dist_dir = _require_safe_dist_root(ws)
-        version = next_bundle_version(dist_dir, meta.id)
+        version = recoverable_bundle_version(ws, trace, dist_dir, meta.id)
         bundle_dir = _safe_bundle_relative_path(dist_dir, f"{meta.id}-v{version}")
         if bundle_dir.exists():  # defensive; version allocation is lock-protected
             raise PublicationSafetyError([f"bundle target already exists: {bundle_dir.name}"])
@@ -1394,14 +1506,6 @@ def write_bundle(
                 "concepts.json", "concepts", snapshot.tl_course.import_key, registry
             )
 
-            # Exact learner-facing sequence metrics and every item-level path.
-            write_entity(
-                "quality_report.json",
-                "sequence-quality",
-                snapshot.tl_course.import_key,
-                snapshot.sequence_quality.to_dict(),
-            )
-
             # Full exercise bank — Phase 3 runtime session composition reads
             # this; older importers simply ignore it.
             for lesson_key, bank in sorted(snapshot.banks.items()):
@@ -1420,13 +1524,6 @@ def write_bundle(
                     snapshot.tl_course.model_dump(mode="json"),
                 )
 
-            manifest_provenance = trace.as_dict()
-            manifest_provenance["qualitative_gauntlet"] = {
-                "required": qualitative_required,
-                "compiled_artifact_sha256": trace.artifact_sha256,
-                "covered_unit_count": len(gauntlet_record_provenance),
-                "records": gauntlet_record_provenance,
-            }
             manifest = {
                 "schema_version": BUNDLE_SCHEMA,
                 "course": {
@@ -1442,14 +1539,10 @@ def write_bundle(
                     "recycle": snapshot.cfg.recycle,
                     "checkpoints": snapshot.cfg.checkpoints,
                     "final_review": snapshot.cfg.final_review,
+                    "level_session_size": snapshot.cfg.level_session_size or snapshot.cfg.session_size_hint,
                     "session_size_hint": snapshot.cfg.session_size_hint,
                     "seed": snapshot.cfg.seed,
-                    "experience": snapshot.cfg.experience.model_dump(mode="json"),
-                    "sequence_quality": snapshot.cfg.sequence_quality.model_dump(mode="json"),
-                    "gauntlet": snapshot.cfg.gauntlet.model_dump(mode="json"),
                 },
-                "provenance": manifest_provenance,
-                "entities_sha256": hash_data(entities),
                 "entities": entities,
             }
             manifest_path = _safe_bundle_relative_path(staging_dir, "manifest.json")

@@ -1,0 +1,507 @@
+{
+  "import_key": "test-and-code-image-analysis-l3",
+  "title": "Test and code image analysis · Level 3",
+  "slo": "Describe how to send an image and text prompt to a deployed Foundry model.",
+  "exercises": [
+    {
+      "import_key": "test-and-code-image-analysis-l3-q1",
+      "question_type": "multiple_choice",
+      "question_text": "What does tool use allow a model to do?",
+      "options": {
+        "options": [
+          {
+            "text": "Invoke designated tools for a task",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Tool use lets a model invoke designated tools while completing a task. That is its defining capability.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Encode image bytes as Base64",
+            "is_correct": false,
+            "error_type": "Tool-encoding confusion",
+            "rationale": "Base64 is an image-data encoding method. It is not the act of invoking a tool.",
+            "better_fit": "Use Base64 when binary image data must be represented as text.",
+            "feedback": null
+          },
+          {
+            "text": "Set an endpoint URL",
+            "is_correct": false,
+            "error_type": "Tool-endpoint confusion",
+            "rationale": "An endpoint is the destination for a request. It is not a model action through a designated tool.",
+            "better_fit": "Use an endpoint when configuring a Foundry client.",
+            "feedback": null
+          },
+          {
+            "text": "Upload an image in the playground",
+            "is_correct": false,
+            "error_type": "Tool-testing confusion",
+            "rationale": "Uploading an image is a playground testing action. It does not define tool use.",
+            "better_fit": "Use the playground to test a vision deployment interactively.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "structured-output-and-tool-use",
+        "item_key": "test-and-code-image-analysis/structured-output-and-tool-use/r1/v2",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. Tool use invokes designated tools.",
+      "points": 1
+    },
+    {
+      "import_key": "test-and-code-image-analysis-l3-q2",
+      "question_type": "multiple_choice",
+      "question_text": "Which facts describe the OpenAI Responses API in Foundry? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "It supports native image input.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The Responses API supports native multimodal inputs, including images. Images can be included with text.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It is designed for agentic applications.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The API is designed for agentic applications. This is a stated characteristic of the API.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It is only a portal test screen.",
+            "is_correct": false,
+            "error_type": "API-playground confusion",
+            "rationale": "A portal test screen describes the Foundry playground. The Responses API is code-facing.",
+            "better_fit": "Use the Foundry playground for interactive portal testing.",
+            "feedback": null
+          },
+          {
+            "text": "It is an image encoding method.",
+            "is_correct": false,
+            "error_type": "API-encoding confusion",
+            "rationale": "Base64 is an image encoding method. The Responses API accepts requests.",
+            "better_fit": "Use Base64 when converting binary image bytes to ASCII text.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "openai-responses-api",
+        "item_key": "test-and-code-image-analysis/openai-responses-api/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "[0,1]",
+      "explanation": "Correct. The Responses API is agentic and supports image input.",
+      "points": 1
+    },
+    {
+      "import_key": "test-and-code-image-analysis-l3-q3",
+      "question_type": "true_false",
+      "question_text": "The Foundry playground is only for writing application code and cannot test uploaded images.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "foundry-playground",
+        "feedback_for_incorrect": {
+          "intrinsic": "This choice would overlook a useful validation environment.",
+          "instructional": "Users can select a vision-enabled model, attach an image, and test prompts in the playground."
+        },
+        "item_key": "test-and-code-image-analysis/foundry-playground/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct. The playground supports interactive image testing.",
+      "points": 1
+    },
+    {
+      "import_key": "test-and-code-image-analysis-l3-q4",
+      "question_type": "arrange_sentence",
+      "question_text": "Order the pieces to form the correct statement.",
+      "options": {
+        "word_bank": [
+          "Base64-encoded",
+          "Image input can use",
+          "image data.",
+          "a URL or"
+        ],
+        "correct_order": [
+          "Image input can use",
+          "a URL or",
+          "Base64-encoded",
+          "image data."
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "image-input-formats-2",
+        "feedback_for_incorrect": {
+          "intrinsic": "The statement does not clearly identify the two image-input methods.",
+          "instructional": "Begin with image input, then name URL and Base64-encoded image data as the two methods."
+        },
+        "item_key": "test-and-code-image-analysis/image-input-formats-2/r3/v2",
+        "rung": 3
+      },
+      "correct_answer": "Image input can use a URL or Base64-encoded image data.",
+      "explanation": "An image can be supplied either through a web address or through Base64-encoded data.",
+      "points": 1
+    },
+    {
+      "import_key": "test-and-code-image-analysis-l3-q5",
+      "question_type": "fill_blank",
+      "question_text": "The ___ supports structured output, tool use, and large-context multimodal reasoning.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "The "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "GPT-5 series",
+              "GPT-5"
+            ],
+            "rejected_answers": [
+              "GPT-4.1-mini",
+              "vision-enabled GPT model",
+              "foundry-multimodal-models",
+              "vision-enabled-gpt-model"
+            ],
+            "placeholder": "model family"
+          },
+          {
+            "type": "text",
+            "text": " supports structured output, tool use, and large-context multimodal reasoning."
+          }
+        ],
+        "rejected_answers": [
+          "GPT-4.1-mini",
+          "vision-enabled GPT model",
+          "foundry-multimodal-models",
+          "vision-enabled-gpt-model"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "gpt-5-series-models",
+        "feedback_for_incorrect": {
+          "intrinsic": "The entered term does not identify the intended model family.",
+          "instructional": "GPT-5 series is the specific family described."
+        },
+        "item_key": "test-and-code-image-analysis/gpt-5-series-models/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "[\"GPT-5 series\",\"GPT-5\"]",
+      "explanation": "GPT-5 series is the named family with these advanced capabilities.",
+      "points": 1
+    },
+    {
+      "import_key": "test-and-code-image-analysis-l3-q6",
+      "question_type": "multiple_choice",
+      "question_text": "What does MODEL_NAME need to contain in Foundry code?",
+      "options": {
+        "options": [
+          {
+            "text": "The name given to the deployment",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "MODEL_NAME must be the deployment name selected for the model. It is not necessarily the base model name.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "The Foundry resource key",
+            "is_correct": false,
+            "error_type": "Identifier-credential confusion",
+            "rationale": "The resource key authenticates the client. MODEL_NAME identifies the deployment.",
+            "better_fit": "Use the resource key as the API credential.",
+            "feedback": null
+          },
+          {
+            "text": "The endpoint URL",
+            "is_correct": false,
+            "error_type": "Identifier-destination confusion",
+            "rationale": "The endpoint tells the client where to send requests. MODEL_NAME names the deployment.",
+            "better_fit": "Use the endpoint as the client's request URL.",
+            "feedback": null
+          },
+          {
+            "text": "The Base64 image data",
+            "is_correct": false,
+            "error_type": "Identifier-input confusion",
+            "rationale": "Base64 data is image input. MODEL_NAME is the deployment identifier.",
+            "better_fit": "Use Base64 data when embedding an image in JSON.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "foundry-code-connection",
+        "item_key": "test-and-code-image-analysis/foundry-code-connection/r1/v2",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. MODEL_NAME contains the selected deployment name.",
+      "points": 1
+    },
+    {
+      "import_key": "test-and-code-image-analysis-l3-q7",
+      "question_type": "multiple_choice",
+      "question_text": "A clinical team is comparing options for an enterprise agent that must analyze long sets of scans and notes, invoke tools, and return structured findings. Which choice best fits the requirements?",
+      "options": {
+        "options": [
+          {
+            "text": "GPT-5 series",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "GPT-5 series combines multimodal input, large-context reasoning, structured output, and tool use. It best satisfies every stated requirement.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Vision-enabled GPT model",
+            "is_correct": false,
+            "error_type": "Insufficiently-specific capability selection",
+            "rationale": "This broad category indicates visual reasoning but does not identify the advanced enterprise capability set. It is less precise than the GPT-5 family for the stated requirements.",
+            "better_fit": "Use this label when only general visual interpretation is being described.",
+            "feedback": {
+              "intrinsic": "The team could select visual capability without ensuring the full enterprise feature set.",
+              "instructional": "The scenario calls for the specifically described GPT-5 series capabilities."
+            }
+          },
+          {
+            "text": "Foundry playground",
+            "is_correct": false,
+            "error_type": "Environment-model confusion",
+            "rationale": "The playground is for testing a deployed model with images and prompts. It cannot be the model-family decision.",
+            "better_fit": "Use the playground to compare a deployment's behavior before implementation.",
+            "feedback": {
+              "intrinsic": "The team would choose a place to test rather than a model family.",
+              "instructional": "Select GPT-5 series as the model family, then test it in the playground."
+            }
+          },
+          {
+            "text": "OpenAI Responses API",
+            "is_correct": false,
+            "error_type": "Interface-model confusion",
+            "rationale": "The API packages and sends multimodal requests. It does not choose the deployed model's reasoning capabilities.",
+            "better_fit": "Use the Responses API to submit the scans and instructions from code.",
+            "feedback": {
+              "intrinsic": "The clinical team would still lack a model selection.",
+              "instructional": "The API is the connection path; GPT-5 series is the decision that fits the requirements."
+            }
+          }
+        ],
+        "blooms_level": "Analyzing/Evaluating",
+        "original_question_type": "single_choice",
+        "concept_id": "gpt-5-series-models",
+        "item_key": "test-and-code-image-analysis/gpt-5-series-models/r5/v1",
+        "rung": 5
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. GPT-5 series best matches the combined requirements.",
+      "points": 1
+    },
+    {
+      "import_key": "test-and-code-image-analysis-l3-q8",
+      "question_type": "arrange_sentence",
+      "question_text": "Put the testing process in the correct order.",
+      "options": {
+        "word_bank": [
+          "test a prompt",
+          "Select a vision model",
+          "review the response",
+          "attach an image"
+        ],
+        "correct_order": [
+          "Select a vision model",
+          "attach an image",
+          "test a prompt",
+          "review the response"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "foundry-playground",
+        "feedback_for_incorrect": {
+          "intrinsic": "The process would attempt to review a response before creating a test.",
+          "instructional": "Select the model, attach the image, test the prompt, then review the response."
+        },
+        "item_key": "test-and-code-image-analysis/foundry-playground/r3/v2",
+        "rung": 3
+      },
+      "correct_answer": "Select a vision model attach an image test a prompt review the response",
+      "explanation": "A model and image must be in place before testing and reviewing its response.",
+      "points": 1
+    },
+    {
+      "import_key": "test-and-code-image-analysis-l3-q9",
+      "question_type": "fill_blank",
+      "question_text": "An image ___ is a web address supplied to a model so it can access image input.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "An image "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "URL",
+              "image URL"
+            ],
+            "rejected_answers": [
+              "endpoint",
+              "Foundry resource key",
+              "foundry-resource-key"
+            ],
+            "placeholder": "term"
+          },
+          {
+            "type": "text",
+            "text": " is a web address supplied to a model so it can access image input."
+          }
+        ],
+        "rejected_answers": [
+          "endpoint",
+          "Foundry resource key",
+          "foundry-resource-key"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "image-input-formats-2",
+        "feedback_for_incorrect": {
+          "intrinsic": "The entered term does not identify the image's location.",
+          "instructional": "An endpoint is the request destination and a resource key is a credential; an image URL locates the image."
+        },
+        "item_key": "test-and-code-image-analysis/image-input-formats-2/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "[\"URL\",\"image URL\"]",
+      "explanation": "An image URL identifies the web location of the image input.",
+      "points": 1
+    },
+    {
+      "import_key": "test-and-code-image-analysis-l3-q10",
+      "question_type": "multiple_choice",
+      "question_text": "Which statements describe structured output? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "It follows an expected schema.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Structured output follows an expected schema or structure. This makes the response predictable.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It has an organized format.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "An organized expected format is part of the definition. Structured output is not merely free-form text.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It sends an image to a model.",
+            "is_correct": false,
+            "error_type": "Input-output confusion",
+            "rationale": "Sending an image provides model input. Structured output concerns the returned result.",
+            "better_fit": "Use this idea when describing a multimodal request.",
+            "feedback": null
+          },
+          {
+            "text": "It is a deployment name.",
+            "is_correct": false,
+            "error_type": "Identifier-output confusion",
+            "rationale": "A deployment name identifies a deployed model. It does not prescribe response format.",
+            "better_fit": "Use a deployment name in MODEL_NAME.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "structured-output-and-tool-use",
+        "item_key": "test-and-code-image-analysis/structured-output-and-tool-use/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "[0,1]",
+      "explanation": "Correct. Structured output follows an expected organized structure.",
+      "points": 1
+    },
+    {
+      "import_key": "test-and-code-image-analysis-l3-q11",
+      "question_type": "true_false",
+      "question_text": "The OpenAI Python SDK can call OpenAI-compatible APIs, including Foundry deployments.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "foundry-code-connection",
+        "feedback_for_incorrect": {
+          "intrinsic": "This would incorrectly rule out the supported Python library.",
+          "instructional": "The OpenAI Python SDK calls OpenAI-compatible APIs, including Foundry."
+        },
+        "item_key": "test-and-code-image-analysis/foundry-code-connection/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. The SDK can call Foundry deployments.",
+      "points": 1
+    },
+    {
+      "import_key": "test-and-code-image-analysis-l3-q12",
+      "question_type": "multiple_choice",
+      "question_text": "Which API lets one request include text and image input together?",
+      "options": {
+        "options": [
+          {
+            "text": "OpenAI Responses API",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A Responses API request can include text and image input together. The model processes them simultaneously.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Foundry playground",
+            "is_correct": false,
+            "error_type": "API-environment confusion",
+            "rationale": "The playground is an interactive environment. It is not an API for application requests.",
+            "better_fit": "Use the playground to test a deployment before coding.",
+            "feedback": null
+          },
+          {
+            "text": "OpenAI Python SDK",
+            "is_correct": false,
+            "error_type": "Library-API confusion",
+            "rationale": "The SDK is a library used to call APIs. It is not the specific API named in the question.",
+            "better_fit": "Use the SDK to make Responses API calls from Python.",
+            "feedback": null
+          },
+          {
+            "text": "OpenAI Images API",
+            "is_correct": false,
+            "error_type": "Generation-response confusion",
+            "rationale": "The Images API concerns image generation and editing. It is not the stated multimodal response API.",
+            "better_fit": "Use the Images API for image creation or edits.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "openai-responses-api",
+        "item_key": "test-and-code-image-analysis/openai-responses-api/r1/v2",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. The Responses API accepts both inputs in one request.",
+      "points": 1
+    }
+  ],
+  "flashcards": []
+}

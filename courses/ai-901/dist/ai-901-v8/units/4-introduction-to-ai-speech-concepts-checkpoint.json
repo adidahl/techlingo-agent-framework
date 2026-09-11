@@ -1,0 +1,1040 @@
+{
+  "import_key": "4-introduction-to-ai-speech-concepts-checkpoint",
+  "title": "4. Introduction to AI speech concepts · Checkpoint",
+  "slo": "Review the key concepts of 4. Introduction to AI speech concepts.",
+  "exercises": [
+    {
+      "import_key": "4-introduction-to-ai-speech-concepts-checkpoint-q1",
+      "question_type": "multiple_choice",
+      "question_text": "A meeting-captioning developer sees one audio frame scored as 80% /æ/, 15% /ɛ/, and 5% other sounds. What should the developer call this result?",
+      "options": {
+        "options": [
+          {
+            "text": "A phoneme probability distribution",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The scores assign different likelihoods to possible phonemes for one frame. That is a phoneme probability distribution.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A final transcription",
+            "is_correct": false,
+            "error_type": "Confuses frame-level probabilities with decoded text",
+            "rationale": "The scores concern one audio frame and possible sounds. A final transcription is a selected word sequence.",
+            "better_fit": "A final transcription fits the result after decoding.",
+            "feedback": {
+              "intrinsic": "A caption could be treated as complete while its individual sound choices are still uncertain.",
+              "instructional": "These percentages are phoneme likelihoods, not a final text result."
+            }
+          },
+          {
+            "text": "A language rule",
+            "is_correct": false,
+            "error_type": "Confuses acoustic likelihoods with language modeling",
+            "rationale": "Language rules use vocabulary, grammar, and context to guide word sequences. The listed scores come from acoustic modeling of a frame.",
+            "better_fit": "A language rule fits resolving likely word sequences.",
+            "feedback": {
+              "intrinsic": "Sound likelihoods could be mistaken for sentence knowledge.",
+              "instructional": "The percentages describe possible phonemes from audio; language modeling works with word choices."
+            }
+          },
+          {
+            "text": "A confidence timestamp",
+            "is_correct": false,
+            "error_type": "Confuses phoneme probabilities with output metadata",
+            "rationale": "Timestamps and confidence scores are metadata for a final transcription. The values shown are probabilities over phonemes.",
+            "better_fit": "A confidence timestamp fits final transcription metadata.",
+            "feedback": {
+              "intrinsic": "Timing metadata could be mistaken for probabilities of the sounds themselves.",
+              "instructional": "Call this a phoneme probability distribution because it lists likelihoods for several phonemes."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "single_choice",
+        "concept_id": "phoneme-probability-output",
+        "item_key": "recognizing-words-from-speech/phoneme-probability-output/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. The percentages are likelihoods for possible phonemes in one audio frame.",
+      "points": 1
+    },
+    {
+      "import_key": "4-introduction-to-ai-speech-concepts-checkpoint-q2",
+      "question_type": "multiple_choice",
+      "question_text": "A factory supervisor must give workers urgent equipment updates while they keep their eyes on machinery. Which features should the factory use? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Announce system status",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Correct. Spoken status announcements communicate operational information without requiring visual attention.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Speak time-sensitive alerts",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Correct. Synthesis can deliver urgent information when workers cannot safely look away.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Give spoken status updates",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Correct. Spoken updates help workers receive information while focused on machinery.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Transcribe worker conversations",
+            "is_correct": false,
+            "error_type": "Confuses alert output with recognition transcription",
+            "rationale": "Transcription creates written text from conversations. The supervisor needs urgent information announced aloud.",
+            "better_fit": "Use this when spoken conversations need written records or captions.",
+            "feedback": {
+              "intrinsic": "Workers might not hear the urgent equipment update in time.",
+              "instructional": "This need is spoken output for alerts, so use synthesis rather than transcription."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "multi_choice",
+        "concept_id": "synthesis-alert-and-learning-use-cases",
+        "item_key": "choosing-speech-use-cases/synthesis-alert-and-learning-use-cases/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. These spoken features deliver urgent information while workers keep visual attention on machinery.",
+      "points": 1
+    },
+    {
+      "import_key": "4-introduction-to-ai-speech-concepts-checkpoint-q3",
+      "question_type": "fill_blank",
+      "question_text": "The capability that turns written text into natural-sounding spoken audio is ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "The capability that turns written text into natural-sounding spoken audio is "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "speech synthesis",
+              "text-to-speech",
+              "TTS"
+            ],
+            "rejected_answers": [
+              "speech recognition",
+              "neural vocoder",
+              "speech-recognition",
+              "neural-vocoder"
+            ],
+            "placeholder": "technical term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "speech recognition",
+          "neural vocoder",
+          "speech-recognition",
+          "neural-vocoder"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "speech-synthesis-and-text-to-speech",
+        "feedback_for_incorrect": {
+          "intrinsic": "The application would not provide the needed spoken message.",
+          "instructional": "Recognition creates text from speech; synthesis creates audio from text."
+        },
+        "item_key": "speech-capabilities-and-user-benefits/speech-synthesis-and-text-to-speech/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "[\"speech synthesis\",\"text-to-speech\",\"TTS\"]",
+      "explanation": "Speech synthesis, also called TTS, converts written text into natural-sounding spoken audio.",
+      "points": 1
+    },
+    {
+      "import_key": "4-introduction-to-ai-speech-concepts-checkpoint-q4",
+      "question_type": "multiple_choice",
+      "question_text": "A product manager is planning a live voice assistant that must respond during a conversation. Which latency decisions fit this situation? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Require low processing delay",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A live conversation needs low latency. Low processing delay supports a quick response.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Measure input-to-output delay",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Latency is the delay between input and output. Measuring it checks whether the live interaction is responsive.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Treat long delays as a concern",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Long delays disrupt a real-time conversation. They should be treated as a planning concern.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Use batch-delay expectations",
+            "is_correct": false,
+            "error_type": "Confuses real-time needs with batch transcription",
+            "rationale": "Batch transcription can tolerate delay because it is processed later. A live assistant needs a low-delay expectation.",
+            "better_fit": "Use this when transcribing recordings that can be processed later.",
+            "feedback": {
+              "intrinsic": "The conversation may feel interrupted because replies arrive too late.",
+              "instructional": "Use low-latency expectations for real-time interaction, not batch-delay expectations."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "multi_choice",
+        "concept_id": "latency-requirements",
+        "item_key": "planning-a-speech-solution/latency-requirements/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. A live assistant needs low input-to-output delay, and long waits are a concern.",
+      "points": 1
+    },
+    {
+      "import_key": "4-introduction-to-ai-speech-concepts-checkpoint-q5",
+      "question_type": "arrange_sentence",
+      "question_text": "Reconstruct the statement from the pieces.",
+      "options": {
+        "word_bank": [
+          "and regional dialects",
+          "Verify support",
+          "before implementation",
+          "for target languages"
+        ],
+        "correct_order": [
+          "Verify support",
+          "for target languages",
+          "and regional dialects",
+          "before implementation"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "language-and-dialect-support",
+        "feedback_for_incorrect": {
+          "intrinsic": "The team may not clearly see what must be checked before beginning the work.",
+          "instructional": "Start with verification, name both language needs, and end with the timing."
+        },
+        "item_key": "planning-a-speech-solution/language-and-dialect-support/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "Verify support for target languages and regional dialects before implementation",
+      "explanation": "The action is to verify support before work begins. The support must cover both target languages and regional dialects.",
+      "points": 1
+    },
+    {
+      "import_key": "4-introduction-to-ai-speech-concepts-checkpoint-q6",
+      "question_type": "true_false",
+      "question_text": "Speech synthesis is the right capability when an application must convert spoken commands into text.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "speech-implementation-selection",
+        "feedback_for_incorrect": {
+          "intrinsic": "A person could speak a command, but the application would not have the text needed to understand it.",
+          "instructional": "Match recognition to spoken input. Match speech synthesis, also called text-to-speech, to spoken output."
+        },
+        "item_key": "planning-a-speech-solution/speech-implementation-selection/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct. Speech recognition converts spoken commands into text; synthesis creates spoken audio from text.",
+      "points": 1
+    },
+    {
+      "import_key": "4-introduction-to-ai-speech-concepts-checkpoint-q7",
+      "question_type": "multiple_choice",
+      "question_text": "A clinical professional wants to dictate patient notes into electronic health records. Which requirement should the clinical team examine before adding speech?",
+      "options": {
+        "options": [
+          {
+            "text": "How audio is protected and stored",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Patient notes can contain sensitive healthcare information. The team must understand how audio is stored and protected.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "How quickly audio is transcribed",
+            "is_correct": false,
+            "error_type": "Confuses privacy with latency",
+            "rationale": "Transcription speed concerns latency. It does not address how sensitive audio data is handled.",
+            "better_fit": "Use this when setting response-time needs.",
+            "feedback": {
+              "intrinsic": "The notes may arrive quickly while sensitive spoken information is not properly protected.",
+              "instructional": "For patient speech data, examine privacy and compliance, including storage and protection."
+            }
+          },
+          {
+            "text": "How far users stand from microphones",
+            "is_correct": false,
+            "error_type": "Confuses privacy with audio quality",
+            "rationale": "Speaker distance affects recognition accuracy. It does not address safeguarding dictated patient notes.",
+            "better_fit": "Use this when checking audio capture conditions.",
+            "feedback": {
+              "intrinsic": "Clear audio would not by itself protect sensitive patient information.",
+              "instructional": "Audio quality and privacy are both important, but the question asks about handling sensitive data."
+            }
+          },
+          {
+            "text": "How words become phonemes",
+            "is_correct": false,
+            "error_type": "Confuses privacy with linguistic analysis",
+            "rationale": "Mapping words to phonemes is part of linguistic analysis for speech synthesis. It does not answer how patient audio is protected.",
+            "better_fit": "Use this when designing the linguistic-analysis stage of speech synthesis.",
+            "feedback": {
+              "intrinsic": "The team could understand pronunciation details while leaving audio-data protection unresolved.",
+              "instructional": "Focus on processing, storage, and protection when planning privacy and compliance."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "single_choice",
+        "concept_id": "privacy-and-compliance",
+        "item_key": "planning-a-speech-solution/privacy-and-compliance/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. Patient speech data requires careful storage and protection.",
+      "points": 1
+    },
+    {
+      "import_key": "4-introduction-to-ai-speech-concepts-checkpoint-q8",
+      "question_type": "fill_blank",
+      "question_text": "Before recognition, filters can remove hums, clicks, and background ___ that could confuse the model.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "Before recognition, filters can remove hums, clicks, and background "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "noise"
+            ],
+            "rejected_answers": [
+              "latency",
+              "sampling rate",
+              "sampling-rate-trade-off",
+              "latency-requirements"
+            ],
+            "placeholder": "technical term"
+          },
+          {
+            "type": "text",
+            "text": " that could confuse the model."
+          }
+        ],
+        "rejected_answers": [
+          "latency",
+          "sampling rate",
+          "sampling-rate-trade-off",
+          "latency-requirements"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "audio-quality-requirements",
+        "feedback_for_incorrect": {
+          "intrinsic": "The unwanted sound remains in the recording and may make spoken words harder to identify.",
+          "instructional": "Use noise here. Latency is delay, and sampling rate is how often audio is measured each second."
+        },
+        "item_key": "planning-a-speech-solution/audio-quality-requirements/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "noise",
+      "explanation": "Hums and clicks are unwanted sounds, so they are forms of background noise. Filtering them can prevent them from confusing recognition.",
+      "points": 1
+    },
+    {
+      "import_key": "4-introduction-to-ai-speech-concepts-checkpoint-q9",
+      "question_type": "fill_blank",
+      "question_text": "A common speech sampling rate is 16,000 samples per second, also called ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "A common speech sampling rate is 16,000 samples per second, also called "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "16 kHz",
+              "16khz"
+            ],
+            "rejected_answers": [
+              "MFCCs",
+              "mel-spectrogram",
+              "pre-processing-and-mfccs",
+              "speech-synthesis-waveform-generation"
+            ],
+            "placeholder": "rate"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "MFCCs",
+          "mel-spectrogram",
+          "pre-processing-and-mfccs",
+          "speech-synthesis-waveform-generation"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "audio-capture-and-sampling",
+        "feedback_for_incorrect": {
+          "intrinsic": "The recording rate would remain unclear when configuring voice input.",
+          "instructional": "Use 16 kHz for 16,000 measurements per second. MFCCs and mel-spectrograms are audio representations, not sampling rates."
+        },
+        "item_key": "turning-audio-into-speech-features/audio-capture-and-sampling/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "[\"16 kHz\",\"16khz\"]",
+      "explanation": "The prefix kilo means one thousand, so 16,000 measurements each second is 16 kHz. This is a common speech sampling rate.",
+      "points": 1
+    },
+    {
+      "import_key": "4-introduction-to-ai-speech-concepts-checkpoint-q10",
+      "question_type": "multiple_choice",
+      "question_text": "A clinical professional dictates patient notes into an electronic health record, but the transcript often misses medical terms. Which changes should the clinic make to its language model? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Add medical vocabulary",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Medical vocabulary gives the language model specialized terms to select. This improves recognition in the medical domain.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Train on medical patterns",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Domain adaptation includes specialized vocabulary and patterns. Medical patterns make likely sequences more suitable for patient notes.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Use domain adaptation",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Domain adaptation customizes a language model for fields such as medicine. It improves accuracy for specialized terminology.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Increase beam width only",
+            "is_correct": false,
+            "error_type": "Confuses domain knowledge with decoding search",
+            "rationale": "Beam width controls how many partial transcriptions decoding keeps. It does not add missing medical vocabulary or patterns.",
+            "better_fit": "Beam width fits the decoding accuracy-and-latency trade-off.",
+            "feedback": {
+              "intrinsic": "The clinic could search more candidate phrases without teaching the language model the medical terms.",
+              "instructional": "Use domain adaptation to add medical vocabulary and patterns; beam width is a separate decoding setting."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "multi_choice",
+        "concept_id": "language-model-and-domain-adaptation",
+        "item_key": "recognizing-words-from-speech/language-model-and-domain-adaptation/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. Adding medical vocabulary and patterns through domain adaptation improves specialized recognition.",
+      "points": 1
+    },
+    {
+      "import_key": "4-introduction-to-ai-speech-concepts-checkpoint-q11",
+      "question_type": "arrange_sentence",
+      "question_text": "Reconstruct the statement from the pieces.",
+      "options": {
+        "word_bank": [
+          "hands-free operation",
+          "Speech experiences",
+          "and multitasking",
+          "can support"
+        ],
+        "correct_order": [
+          "Speech experiences",
+          "can support",
+          "hands-free operation",
+          "and multitasking"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "speech-user-benefits",
+        "feedback_for_incorrect": {
+          "intrinsic": "The benefit statement becomes unclear.",
+          "instructional": "Start with speech experiences, then state the benefits."
+        },
+        "item_key": "speech-capabilities-and-user-benefits/speech-user-benefits/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "Speech experiences can support hands-free operation and multitasking",
+      "explanation": "Speech experiences can support hands-free work and multitasking.",
+      "points": 1
+    },
+    {
+      "import_key": "4-introduction-to-ai-speech-concepts-checkpoint-q12",
+      "question_type": "arrange_sentence",
+      "question_text": "Order the pieces correctly.",
+      "options": {
+        "word_bank": [
+          "into electronic",
+          "Clinical professionals",
+          "health records",
+          "dictate patient notes"
+        ],
+        "correct_order": [
+          "Clinical professionals",
+          "dictate patient notes",
+          "into electronic",
+          "health records"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "recognition-transcription-and-healthcare-use-cases",
+        "feedback_for_incorrect": {
+          "intrinsic": "It becomes unclear who is documenting and where the notes belong.",
+          "instructional": "Start with the clinicians, then their dictated notes, then the electronic health records."
+        },
+        "item_key": "choosing-speech-use-cases/recognition-transcription-and-healthcare-use-cases/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "Clinical professionals dictate patient notes into electronic health records",
+      "explanation": "The sentence follows the documentation flow: clinicians speak notes, and the notes enter electronic health records. This helps capture details during care.",
+      "points": 1
+    },
+    {
+      "import_key": "4-introduction-to-ai-speech-concepts-checkpoint-q13",
+      "question_type": "multiple_choice",
+      "question_text": "A driver says “call home,” and the vehicle must confirm the action aloud. Which design should the vehicle team choose?",
+      "options": {
+        "options": [
+          {
+            "text": "Use speech recognition and speech synthesis together",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Correct. Recognition captures “call home” as spoken input, and synthesis provides the audible confirmation.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Use only call transcription",
+            "is_correct": false,
+            "error_type": "Confuses two-way interaction with transcription alone",
+            "rationale": "Call transcription can capture the driver’s words as text. It cannot provide the required spoken confirmation.",
+            "better_fit": "Use this when a service center needs searchable written records of customer calls.",
+            "feedback": {
+              "intrinsic": "The driver could speak the command but would not hear confirmation.",
+              "instructional": "A two-way interaction needs recognition for the command and synthesis for the reply."
+            }
+          },
+          {
+            "text": "Use only lesson narration",
+            "is_correct": false,
+            "error_type": "Confuses vehicle interaction with learning synthesis",
+            "rationale": "Lesson narration can speak educational content. It does not recognize the driver’s command or make a responsive confirmation.",
+            "better_fit": "Use this when an educational platform needs narrated course material.",
+            "feedback": {
+              "intrinsic": "The vehicle would not respond appropriately to “call home.”",
+              "instructional": "Narration is one-way audio. The driver needs both spoken input and spoken output."
+            }
+          },
+          {
+            "text": "Use only navigation alerts",
+            "is_correct": false,
+            "error_type": "Confuses confirmations with one-way alerts",
+            "rationale": "Navigation alerts provide one-way spoken directions or updates. They do not capture a driver’s command before responding.",
+            "better_fit": "Use this when the vehicle only needs to announce directions or status information.",
+            "feedback": {
+              "intrinsic": "The driver’s request would not be received as a command.",
+              "instructional": "A confirmation after a spoken request requires recognition plus synthesis."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "single_choice",
+        "concept_id": "synthesis-media-and-combined-use-cases",
+        "item_key": "choosing-speech-use-cases/synthesis-media-and-combined-use-cases/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. The vehicle needs recognition for the spoken command and synthesis for the audible confirmation.",
+      "points": 1
+    },
+    {
+      "import_key": "4-introduction-to-ai-speech-concepts-checkpoint-q14",
+      "question_type": "fill_blank",
+      "question_text": "A service center can use speech recognition to create searchable call ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "A service center can use speech recognition to create searchable call "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "records",
+              "call records"
+            ],
+            "rejected_answers": [
+              "audio",
+              "alerts",
+              "narration",
+              "recognition-transcription-and-healthcare-use-cases",
+              "synthesis-conversational-and-accessibility-use-cases",
+              "combined-voice-experiences"
+            ],
+            "placeholder": "term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "audio",
+          "alerts",
+          "narration",
+          "recognition-transcription-and-healthcare-use-cases",
+          "synthesis-conversational-and-accessibility-use-cases",
+          "combined-voice-experiences"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "recognition-service-and-assistant-use-cases",
+        "feedback_for_incorrect": {
+          "intrinsic": "The service center would not have the written result needed for later search and review.",
+          "instructional": "Audio, alerts, and narration are spoken outputs or source material. Recognition creates searchable call records."
+        },
+        "item_key": "choosing-speech-use-cases/recognition-service-and-assistant-use-cases/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "[\"records\",\"call records\"]",
+      "explanation": "Recognition transcribes spoken calls into written records. Those records can be searched for compliance, training, and agent reference.",
+      "points": 1
+    },
+    {
+      "import_key": "4-introduction-to-ai-speech-concepts-checkpoint-q15",
+      "question_type": "fill_blank",
+      "question_text": "The smallest sound units that distinguish words are called ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "The smallest sound units that distinguish words are called "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "phonemes",
+              "phoneme"
+            ],
+            "rejected_answers": [
+              "language models",
+              "acoustic models",
+              "graphemes",
+              "language-model-and-domain-adaptation",
+              "linguistic-analysis-and-g2p"
+            ],
+            "placeholder": "technical term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "language models",
+          "acoustic models",
+          "graphemes",
+          "language-model-and-domain-adaptation",
+          "linguistic-analysis-and-g2p"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "acoustic-model-and-phonemes",
+        "feedback_for_incorrect": {
+          "intrinsic": "The missing term would name a different part of speech processing.",
+          "instructional": "Use “phonemes,” not a language model, acoustic model, or grapheme. Graphemes are written letters, while phonemes are speech sounds."
+        },
+        "item_key": "recognizing-words-from-speech/acoustic-model-and-phonemes/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "[\"phonemes\",\"phoneme\"]",
+      "explanation": "Phonemes are units of speech sound that distinguish words. Acoustic models predict them from audio features.",
+      "points": 1
+    },
+    {
+      "import_key": "4-introduction-to-ai-speech-concepts-checkpoint-q16",
+      "question_type": "multiple_choice",
+      "question_text": "A developer is preparing recorded speech for a meeting-transcription service. Which actions should they take to build MFCC features? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Use overlapping 20–30 ms frames.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "MFCC extraction begins with overlapping 20–30 millisecond frames. This provides short sections of audio for analysis.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Reveal pitches with a Fourier transform.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A Fourier transform reveals the pitches in each frame by moving to the frequency domain. This is a required MFCC extraction step.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Compute a small set of coefficients.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "MFCC extraction computes a small set of numbers that summarizes each frame's spectral shape. Often, one vector has 13 values.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Generate raw audio with a vocoder.",
+            "is_correct": false,
+            "error_type": "Confuses MFCC extraction with speech synthesis",
+            "rationale": "A vocoder generates waveforms from mel-spectrograms during speech synthesis. It is not used to prepare recorded speech into MFCC features.",
+            "better_fit": "Choose this when generating spoken audio from phonemes and prosody specifications.",
+            "feedback": {
+              "intrinsic": "The meeting recording would be turned toward audio creation instead of transcription preparation.",
+              "instructional": "MFCC work analyzes incoming recorded audio. Vocoding creates audible output in synthesis."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "multi_choice",
+        "concept_id": "mfcc-extraction-process",
+        "item_key": "turning-audio-into-speech-features/mfcc-extraction-process/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. Build MFCC features by framing the audio, revealing its pitches, using Mel mapping, and computing compact coefficients.",
+      "points": 1
+    },
+    {
+      "import_key": "4-introduction-to-ai-speech-concepts-checkpoint-q17",
+      "question_type": "arrange_sentence",
+      "question_text": "Arrange the parts to form the correct statement.",
+      "options": {
+        "word_bank": [
+          "and predicts",
+          "The transformer",
+          "likely phonemes",
+          "processes MFCC vectors"
+        ],
+        "correct_order": [
+          "The transformer",
+          "processes MFCC vectors",
+          "and predicts",
+          "likely phonemes"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "transformer-acoustic-prediction",
+        "feedback_for_incorrect": {
+          "intrinsic": "The sentence would hide the link between the transformer's input and output.",
+          "instructional": "First name the transformer and its MFCC input, then state its phoneme prediction."
+        },
+        "item_key": "recognizing-words-from-speech/transformer-acoustic-prediction/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "The transformer processes MFCC vectors and predicts likely phonemes",
+      "explanation": "MFCC vectors provide compact audio features, and the transformer uses them to predict likely phonemes. The prediction follows processing of those features.",
+      "points": 1
+    },
+    {
+      "import_key": "4-introduction-to-ai-speech-concepts-checkpoint-q18",
+      "question_type": "arrange_sentence",
+      "question_text": "Put the pieces in the correct order.",
+      "options": {
+        "word_bank": [
+          "but require",
+          "Higher sampling rates",
+          "more processing",
+          "capture more detail"
+        ],
+        "correct_order": [
+          "Higher sampling rates",
+          "capture more detail",
+          "but require",
+          "more processing"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "sampling-rate-trade-off",
+        "feedback_for_incorrect": {
+          "intrinsic": "A teammate could miss either the benefit or the cost when choosing a rate.",
+          "instructional": "Start with higher sampling rates, then state their added detail and their added processing requirement."
+        },
+        "item_key": "turning-audio-into-speech-features/sampling-rate-trade-off/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "Higher sampling rates capture more detail but require more processing",
+      "explanation": "The sentence links the benefit of more audio detail to its cost in processing. Both parts are necessary to express the sampling-rate trade-off.",
+      "points": 1
+    },
+    {
+      "import_key": "4-introduction-to-ai-speech-concepts-checkpoint-q19",
+      "question_type": "multiple_choice",
+      "question_text": "An engineer is improving speech recognition for a voice-controlled vehicle. They need to identify the pitches in each short audio frame before Mel mapping. Which step should they choose?",
+      "options": {
+        "options": [
+          {
+            "text": "Apply a Fourier transform",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A Fourier transform reveals the pitches present in each short audio frame. Mel mapping follows this frequency analysis.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Compute final MFCC coefficients",
+            "is_correct": false,
+            "error_type": "Confuses frequency analysis with later coefficient extraction",
+            "rationale": "Coefficient computation comes after frequency analysis and Mel mapping. It cannot identify pitches before those earlier steps.",
+            "better_fit": "Choose this at the end of MFCC extraction after Mel-scale mapping.",
+            "feedback": {
+              "intrinsic": "The engineer would skip the step needed to reveal the frame's pitches.",
+              "instructional": "Use Fourier analysis first. Then map frequencies to the Mel scale and compute coefficients."
+            }
+          },
+          {
+            "text": "Capture microphone samples",
+            "is_correct": false,
+            "error_type": "Confuses frame analysis with audio capture",
+            "rationale": "Microphone capture creates the original digital audio signal. The situation already has short frames and needs frequency analysis.",
+            "better_fit": "Choose this at the start, before audio can be divided into frames.",
+            "feedback": {
+              "intrinsic": "The preparation would repeat the first stage instead of analyzing the available frames.",
+              "instructional": "Capture happens first. Once frames exist, apply a Fourier transform to find their pitches."
+            }
+          },
+          {
+            "text": "Generate a mel-spectrogram waveform",
+            "is_correct": false,
+            "error_type": "Confuses recognition analysis with synthesis representation",
+            "rationale": "A mel-spectrogram is a sound-frequency representation used in speech synthesis before vocoding. It is not a waveform, and this task needs recognition-side Fourier analysis.",
+            "better_fit": "Choose a mel-spectrogram during synthesis when phonemes and prosody are converted toward audio output.",
+            "feedback": {
+              "intrinsic": "The vehicle feature would move toward producing audio instead of identifying incoming speech pitches.",
+              "instructional": "For recognition frames, use a Fourier transform before Mel mapping. Waveforms are generated later in speech synthesis."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "single_choice",
+        "concept_id": "fourier-transform-and-mel-scale",
+        "item_key": "turning-audio-into-speech-features/fourier-transform-and-mel-scale/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. Apply a Fourier transform first to reveal the pitches in each frame, then map frequencies to the Mel scale.",
+      "points": 1
+    },
+    {
+      "import_key": "4-introduction-to-ai-speech-concepts-checkpoint-q20",
+      "question_type": "true_false",
+      "question_text": "Speech synthesis can read articles aloud for a person with dyslexia.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "synthesis-conversational-and-accessibility-use-cases",
+        "feedback_for_incorrect": {
+          "intrinsic": "The person may be left without the useful audio alternative to reading.",
+          "instructional": "Synthesis can read articles and documents aloud for people with reading disabilities or visual impairments."
+        },
+        "item_key": "choosing-speech-use-cases/synthesis-conversational-and-accessibility-use-cases/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. Spoken articles provide an alternative way to consume written content for people with dyslexia.",
+      "points": 1
+    },
+    {
+      "import_key": "4-introduction-to-ai-speech-concepts-checkpoint-q21",
+      "question_type": "multiple_choice",
+      "question_text": "A voice-service team needs callers to speak questions and hear spoken answers. Which plan should the designer choose?",
+      "options": {
+        "options": [
+          {
+            "text": "Use recognition and synthesis",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Recognition converts callers' speech into text. Synthesis speaks the response text aloud.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Use recognition only",
+            "is_correct": false,
+            "error_type": "Missing output",
+            "rationale": "Recognition understands the caller's spoken question. It cannot produce a spoken reply.",
+            "better_fit": "It fits a service that only needs written call records.",
+            "feedback": {
+              "intrinsic": "The caller would not hear an answer.",
+              "instructional": "Two-way voice interaction needs recognition for input and synthesis for output."
+            }
+          },
+          {
+            "text": "Use synthesis only",
+            "is_correct": false,
+            "error_type": "Missing input",
+            "rationale": "Synthesis can speak a prepared response. It cannot understand the caller's question.",
+            "better_fit": "It fits an app that only announces information.",
+            "feedback": {
+              "intrinsic": "The service would not know what the caller asked.",
+              "instructional": "Recognition is needed to process spoken requests."
+            }
+          },
+          {
+            "text": "Use audio capture only",
+            "is_correct": false,
+            "error_type": "Capture confusion",
+            "rationale": "Capture records sound as data. It neither transcribes questions nor speaks answers.",
+            "better_fit": "It fits the input stage before recognition.",
+            "feedback": {
+              "intrinsic": "The call could be recorded without becoming a voice conversation.",
+              "instructional": "Capture is not a replacement for recognition and synthesis."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "single_choice",
+        "concept_id": "speech-capabilities",
+        "item_key": "speech-capabilities-and-user-benefits/speech-capabilities/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. The service needs both speech directions.",
+      "points": 1
+    },
+    {
+      "import_key": "4-introduction-to-ai-speech-concepts-checkpoint-q22",
+      "question_type": "true_false",
+      "question_text": "When speech is available, an application no longer needs text-based input and output alternatives.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "accessibility-and-alternative-methods",
+        "feedback_for_incorrect": {
+          "intrinsic": "This could leave some users without access.",
+          "instructional": "Some users prefer or require non-speech interfaces, so provide text input and output."
+        },
+        "item_key": "speech-capabilities-and-user-benefits/accessibility-and-alternative-methods/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct. Speech does not remove the need for text alternatives.",
+      "points": 1
+    },
+    {
+      "import_key": "4-introduction-to-ai-speech-concepts-checkpoint-q23",
+      "question_type": "multiple_choice",
+      "question_text": "A supervisor needs real-time written call records for quality review. Which components should the team use? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Audio capture",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The call audio must first enter the system. Capture provides the signal recognition analyzes.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Speech recognition",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Recognition converts the captured call into text. That text forms the written record.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Speech-to-text",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Speech-to-text is another name for recognition. It directly supports real-time transcription.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Speech synthesis",
+            "is_correct": false,
+            "error_type": "Output confusion",
+            "rationale": "Synthesis creates spoken audio from text. It does not create the written records requested.",
+            "better_fit": "It fits a phone service that speaks answers.",
+            "feedback": {
+              "intrinsic": "The supervisor would still lack a transcript.",
+              "instructional": "For written call records, capture speech and use recognition."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "multi_choice",
+        "concept_id": "speech-recognition",
+        "item_key": "speech-capabilities-and-user-benefits/speech-recognition/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. Capture supplies audio and recognition produces text.",
+      "points": 1
+    },
+    {
+      "import_key": "4-introduction-to-ai-speech-concepts-checkpoint-q24",
+      "question_type": "true_false",
+      "question_text": "MFCC pre-processing can discard irrelevant information such as absolute volume.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "preprocessing-mfcc",
+        "feedback_for_incorrect": {
+          "intrinsic": "The audio representation could be treated as carrying more irrelevant detail than needed.",
+          "instructional": "Feature preparation makes audio compact by retaining useful speech patterns and discarding details such as absolute volume."
+        },
+        "item_key": "turning-audio-into-speech-features/preprocessing-mfcc/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. MFCC features preserve useful speech characteristics while discarding irrelevant information such as absolute volume.",
+      "points": 1
+    }
+  ],
+  "flashcards": []
+}

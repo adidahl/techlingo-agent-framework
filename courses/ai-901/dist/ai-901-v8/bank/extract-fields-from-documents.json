@@ -1,0 +1,1471 @@
+{
+  "schema_version": "exercise-bank-v1",
+  "lesson": "extract-fields-from-documents",
+  "module": "12-get-started-with-ai-powered-information-extraction",
+  "items": [
+    {
+      "item_key": "extract-fields-from-documents/ocr-basic-limits/r1/v1",
+      "concept_id": "ocr-basic-limits",
+      "rung": 1,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "single_choice",
+        "prompt": "What does basic OCR do?",
+        "concept_id": "ocr-basic-limits",
+        "options": [
+          {
+            "text": "Reads visible text from an image",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Basic OCR reads printed text visible in images. It converts that text into editable and searchable digital text.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Finds relationships between values",
+            "is_correct": false,
+            "error_type": "Confuses OCR with schema-based extraction",
+            "rationale": "Basic OCR recognizes visible text but does not understand relationships between values. Structured fields can preserve relationships such as a price belonging to an item.",
+            "better_fit": "Use this when schema-based extraction keeps related values together in structured fields.",
+            "feedback": {
+              "intrinsic": "A receipt could be readable, but its prices may not stay connected to the right products.",
+              "instructional": "OCR reads text. Use structured fields when the relationship between values matters."
+            }
+          },
+          {
+            "text": "Maps values by their meaning",
+            "is_correct": false,
+            "error_type": "Confuses OCR with semantic extraction",
+            "rationale": "Basic OCR reads what is printed. Mapping a value by meaning is semantic field extraction.",
+            "better_fit": "Use this when different labels, such as Invoice # and Invoice No., represent the same field.",
+            "feedback": {
+              "intrinsic": "A number may be read correctly but not be placed in the intended invoice field.",
+              "instructional": "Meaning-based mapping goes beyond OCR; it identifies what a value represents."
+            }
+          },
+          {
+            "text": "Defines invoice business fields",
+            "is_correct": false,
+            "error_type": "Confuses OCR with a schema",
+            "rationale": "A schema defines the fields to extract and their structure. OCR only reads visible text.",
+            "better_fit": "Use this when deciding which invoice details, such as vendor name and total, must be captured.",
+            "feedback": {
+              "intrinsic": "The receipt words can be captured without identifying which business details are needed.",
+              "instructional": "A schema defines required fields; OCR supplies readable text."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. Basic OCR reads visible printed text in an image and makes it usable as digital text."
+      },
+      "payload_hash": "63fc59e51ad79911c40ab531301fdf05446b2587872516a4dc29bde7a4251091",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "1e778579ac185d5d6eb4a1b22adfa8cb3b6672f1f586af15fc69e33705113bcd",
+      "telemetry": {}
+    },
+    {
+      "item_key": "extract-fields-from-documents/ocr-basic-limits/r1/v2",
+      "concept_id": "ocr-basic-limits",
+      "rung": 1,
+      "variant": 2,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "multi_choice",
+        "prompt": "Which tasks can basic OCR do? Select all that apply.",
+        "concept_id": "ocr-basic-limits",
+        "options": [
+          {
+            "text": "Read text on a scanned page",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "OCR can read printed text from scanned pages. This is its core purpose.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Make receipt text searchable",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "OCR converts visible receipt text into digital text. Digital text can be searched.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Identify a vendor by meaning",
+            "is_correct": false,
+            "error_type": "Confuses OCR with semantic extraction",
+            "rationale": "OCR can read a vendor name, but basic OCR does not understand what the name means. Identifying it as the vendor uses meaning-based extraction.",
+            "better_fit": "Use this when a value must be mapped to a VendorName field even when labels vary.",
+            "feedback": {
+              "intrinsic": "A vendor name may appear in the readable text without being identified as the vendor.",
+              "instructional": "OCR reads words; semantic extraction maps values to fields by meaning."
+            }
+          },
+          {
+            "text": "Link each price to its item",
+            "is_correct": false,
+            "error_type": "Confuses OCR with nested schema fields",
+            "rationale": "Basic OCR does not understand relationships between words or values. Nested item fields preserve the price, quantity, and total for each item.",
+            "better_fit": "Use this when an Items collection must keep each product's details together.",
+            "feedback": {
+              "intrinsic": "A worker could see all the prices but not know which product each one belongs to.",
+              "instructional": "Use a collection with nested fields to preserve item-to-price relationships."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. Basic OCR can read printed text and make that text searchable, but it does not interpret its meaning."
+      },
+      "payload_hash": "5d3e3a70d19cf247c7db97dfd77075be46ab5ed300d517f46be41649f1ec3144",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "1e778579ac185d5d6eb4a1b22adfa8cb3b6672f1f586af15fc69e33705113bcd",
+      "telemetry": {}
+    },
+    {
+      "item_key": "extract-fields-from-documents/ocr-basic-limits/r2/v1",
+      "concept_id": "ocr-basic-limits",
+      "rung": 2,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "true_false",
+        "prompt": "Is the following statement accurate?",
+        "concept_id": "ocr-basic-limits",
+        "statement": "Basic OCR understands the meaning and relationships between words.",
+        "correct_answer": false,
+        "feedback_for_correct": "Correct. Basic OCR recognizes visible text, but it does not understand meaning, context, or relationships.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The words may be readable, yet a price can still remain unlinked to its item.",
+          "instructional": "Basic OCR extracts printed text only. Schema-based extraction handles meaningful fields and relationships."
+        }
+      },
+      "payload_hash": "41da6b94acbcce39d32c31bb1eba77f937a0167992b944f06fccb9e2504a57e8",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "1e778579ac185d5d6eb4a1b22adfa8cb3b6672f1f586af15fc69e33705113bcd",
+      "telemetry": {}
+    },
+    {
+      "item_key": "extract-fields-from-documents/ocr-basic-limits/r3/v1",
+      "concept_id": "ocr-basic-limits",
+      "rung": 3,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "fill_gaps",
+        "prompt": "Complete the sentence with the correct term.",
+        "concept_id": "ocr-basic-limits",
+        "parts": [
+          {
+            "type": "text",
+            "text": "The technology that reads printed text from a scanned receipt is "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "OCR",
+              "optical character recognition"
+            ],
+            "rejected_answers": [
+              "schema-based extraction",
+              "semantic extraction",
+              "schema-based-extraction",
+              "semantic-field-extraction"
+            ],
+            "placeholder": "technical term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "explanation": "OCR is the part that turns visible printed words in an image into editable, searchable digital text. Schema-based and semantic extraction add structure or meaning beyond text reading.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The receipt text would not be identified as readable digital text by that term.",
+          "instructional": "Choose OCR for reading visible printed text. Schema-based extraction defines fields, while semantic extraction maps values by meaning."
+        }
+      },
+      "payload_hash": "ccf62ba0458e38fbc918985355a3b15152fd0dbf25842ae1a470062921b7daa1",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "1e778579ac185d5d6eb4a1b22adfa8cb3b6672f1f586af15fc69e33705113bcd",
+      "telemetry": {}
+    },
+    {
+      "item_key": "extract-fields-from-documents/ocr-basic-limits/r3/v2",
+      "concept_id": "ocr-basic-limits",
+      "rung": 3,
+      "variant": 2,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "rearrange",
+        "prompt": "Put the pieces in the correct order.",
+        "concept_id": "ocr-basic-limits",
+        "word_bank": [
+          "from scanned images",
+          "Basic OCR",
+          "but not meaning",
+          "reads visible text"
+        ],
+        "correct_order": [
+          "Basic OCR",
+          "reads visible text",
+          "from scanned images",
+          "but not meaning"
+        ],
+        "interchangeable_groups": [],
+        "explanation": "The sentence first names the capability, then states what it reads and where. Its final part states OCR's limit: it does not understand meaning.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The key limit of OCR may be separated from the capability it describes.",
+          "instructional": "Put the capability first, followed by what it reads, the image source, and then its limit."
+        }
+      },
+      "payload_hash": "95cb7306d17a38a807367034afdca7f518ef1882532f3c7b6db1d874000d1cb7",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "1e778579ac185d5d6eb4a1b22adfa8cb3b6672f1f586af15fc69e33705113bcd",
+      "telemetry": {}
+    },
+    {
+      "item_key": "extract-fields-from-documents/ocr-basic-limits/r4/v1",
+      "concept_id": "ocr-basic-limits",
+      "rung": 4,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Applying",
+        "question_type": "single_choice",
+        "prompt": "An expense-claim clerk needs to make text in scanned receipts searchable. Which capability should the clerk use?",
+        "concept_id": "ocr-basic-limits",
+        "options": [
+          {
+            "text": "Basic OCR",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Basic OCR reads printed text from scanned receipt images. That text can then be searchable.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Semantic field extraction",
+            "is_correct": false,
+            "error_type": "Chooses meaning mapping instead of text recognition",
+            "rationale": "Semantic extraction maps values to fields by meaning. The stated need is to read receipt text for searching.",
+            "better_fit": "Use this when a value must be placed in a field despite a changed or missing label.",
+            "feedback": {
+              "intrinsic": "The clerk may focus on field meanings before the receipt text has simply been made searchable.",
+              "instructional": "For searchable visible text, start with basic OCR."
+            }
+          },
+          {
+            "text": "An invoice schema",
+            "is_correct": false,
+            "error_type": "Chooses field design instead of text recognition",
+            "rationale": "An invoice schema defines details such as vendor, tax, and total. It does not itself read printed receipt text.",
+            "better_fit": "Use this when the clerk must extract specific invoice fields in a defined structure.",
+            "feedback": {
+              "intrinsic": "The clerk would have a list of fields but not the readable receipt text needed for search.",
+              "instructional": "A schema defines what to capture; OCR reads visible text."
+            }
+          },
+          {
+            "text": "A nested Items field",
+            "is_correct": false,
+            "error_type": "Chooses invoice structure instead of text recognition",
+            "rationale": "Items is a collection that holds several product records. It is not the capability for reading scanned text.",
+            "better_fit": "Use this when each ordered product needs its own description, price, quantity, and line total.",
+            "feedback": {
+              "intrinsic": "Only product details would be organized, while other receipt text might remain unreadable for search.",
+              "instructional": "An Items field organizes line items after relevant values are extracted."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. Basic OCR is suited to reading visible receipt text and making it searchable."
+      },
+      "payload_hash": "ba7981a6dd3a903f02e45f69e852ad80687180d9aa501e82f6408b61bd5e0a31",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "1e778579ac185d5d6eb4a1b22adfa8cb3b6672f1f586af15fc69e33705113bcd",
+      "telemetry": {}
+    },
+    {
+      "item_key": "extract-fields-from-documents/schema-and-schema-based-extraction/r1/v1",
+      "concept_id": "schema-and-schema-based-extraction",
+      "rung": 1,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "multi_choice",
+        "prompt": "What does a schema specify? Select all that apply.",
+        "concept_id": "schema-and-schema-based-extraction",
+        "options": [
+          {
+            "text": "Information to extract",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A schema describes the information that should be extracted. It lists the fields or entities that matter.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "How information is structured",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A schema also defines field structure. It can include nested and collection fields.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Only visible printed words",
+            "is_correct": false,
+            "error_type": "Confuses a schema with basic OCR",
+            "rationale": "Reading visible printed words is basic OCR. A schema specifies meaningful fields and their structure.",
+            "better_fit": "Use this for the text-reading part of processing scanned pages or receipt photos.",
+            "feedback": {
+              "intrinsic": "The needed vendor, total, and item structure would be left unspecified.",
+              "instructional": "A schema is broader than visible words: it names the information to capture and its structure."
+            }
+          },
+          {
+            "text": "A fixed image layout",
+            "is_correct": false,
+            "error_type": "Confuses structure with page layout",
+            "rationale": "A schema describes information and structure, not a fixed page layout. Fields can be extracted even when labels differ or are missing.",
+            "better_fit": "Use a layout description when you only need to describe where text appears on a page.",
+            "feedback": {
+              "intrinsic": "An invoice with changed labels could still contain the right details, but this choice would not describe those details.",
+              "instructional": "Focus on the meaning and structure of required fields, not a fixed arrangement on a page."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. A schema states both the information to extract and how that information is structured."
+      },
+      "payload_hash": "61558ca5e9c3fb704c33ea5015185ec3a5e3fc445babc9a27328f0e311a4ce35",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "1e778579ac185d5d6eb4a1b22adfa8cb3b6672f1f586af15fc69e33705113bcd",
+      "telemetry": {}
+    },
+    {
+      "item_key": "extract-fields-from-documents/schema-and-schema-based-extraction/r1/v2",
+      "concept_id": "schema-and-schema-based-extraction",
+      "rung": 1,
+      "variant": 2,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "single_choice",
+        "prompt": "What is a schema?",
+        "concept_id": "schema-and-schema-based-extraction",
+        "options": [
+          {
+            "text": "A description of fields and structure",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A schema describes the information to extract. It also defines how those fields are structured.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A tool that reads printed text",
+            "is_correct": false,
+            "error_type": "Confuses schema with OCR",
+            "rationale": "OCR reads printed text from images. A schema defines fields and structure.",
+            "better_fit": "Use this for OCR when turning visible text into searchable digital text.",
+            "feedback": {
+              "intrinsic": "Printed words may be read, but the required business fields would not be defined.",
+              "instructional": "Keep the roles separate: OCR reads text, while a schema describes the information to capture."
+            }
+          },
+          {
+            "text": "A number shown on an invoice",
+            "is_correct": false,
+            "error_type": "Confuses field definition with field value",
+            "rationale": "An invoice number is a field value. A schema defines the InvoiceNumber field that can hold that value.",
+            "better_fit": "Use this for a value found in the InvoiceNumber field.",
+            "feedback": {
+              "intrinsic": "A single invoice number would be captured without a clear description of what that number represents.",
+              "instructional": "A schema is the planned field structure, not one value placed into it."
+            }
+          },
+          {
+            "text": "A visible label on a document",
+            "is_correct": false,
+            "error_type": "Confuses schema with document labels",
+            "rationale": "A visible label is wording printed on a page. A schema is the structured definition of the field, and labels can differ or be absent.",
+            "better_fit": "Use this when referring to wording such as Invoice No. or Invoice #.",
+            "feedback": {
+              "intrinsic": "A field could be missed when its printed label changes or is absent.",
+              "instructional": "A schema is not tied to one visible label; it describes the field to be extracted."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. A schema is a description of the fields to extract and their structure."
+      },
+      "payload_hash": "3d79f5bf4edfe85169c4c7a373bafc0bf52c26c4f216353e09e4c56508987485",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "1e778579ac185d5d6eb4a1b22adfa8cb3b6672f1f586af15fc69e33705113bcd",
+      "telemetry": {}
+    },
+    {
+      "item_key": "extract-fields-from-documents/schema-and-schema-based-extraction/r2/v1",
+      "concept_id": "schema-and-schema-based-extraction",
+      "rung": 2,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "true_false",
+        "prompt": "Evaluate this statement.",
+        "concept_id": "schema-and-schema-based-extraction",
+        "statement": "Schema-based extraction can extract business fields, values, entities, and relationships.",
+        "correct_answer": true,
+        "feedback_for_correct": "Correct. Schema-based extraction goes beyond reading text by capturing meaningful fields, values, entities, and relationships.",
+        "feedback_for_incorrect": {
+          "intrinsic": "Important links, such as which price belongs to which item, could be lost.",
+          "instructional": "Schema-based extraction handles structured business information, including relationships between values."
+        }
+      },
+      "payload_hash": "c5943a70c4cfaa6140711fd5d504b00409bb8f6b0bdd489910ad728e29742df0",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "1e778579ac185d5d6eb4a1b22adfa8cb3b6672f1f586af15fc69e33705113bcd",
+      "telemetry": {}
+    },
+    {
+      "item_key": "extract-fields-from-documents/schema-and-schema-based-extraction/r3/v1",
+      "concept_id": "schema-and-schema-based-extraction",
+      "rung": 3,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "rearrange",
+        "prompt": "Arrange the parts to form the correct statement.",
+        "concept_id": "schema-and-schema-based-extraction",
+        "word_bank": [
+          "to extract",
+          "A schema",
+          "and its structure",
+          "describes information"
+        ],
+        "correct_order": [
+          "A schema",
+          "describes information",
+          "to extract",
+          "and its structure"
+        ],
+        "interchangeable_groups": [],
+        "explanation": "The order moves from the schema to its purpose, then completes that purpose with structure. Both what to extract and how to organize it are required parts of a schema.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The definition can blur the difference between required information and its structure.",
+          "instructional": "Begin with the schema, then state the information it describes, its extraction purpose, and its structure."
+        }
+      },
+      "payload_hash": "ebcddb60ed2318d74075e17e500c518666f11e406fce57863a71c55ce8c64652",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "1e778579ac185d5d6eb4a1b22adfa8cb3b6672f1f586af15fc69e33705113bcd",
+      "telemetry": {}
+    },
+    {
+      "item_key": "extract-fields-from-documents/schema-and-schema-based-extraction/r3/v2",
+      "concept_id": "schema-and-schema-based-extraction",
+      "rung": 3,
+      "variant": 2,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "fill_gaps",
+        "prompt": "Type the term that completes this sentence.",
+        "concept_id": "schema-and-schema-based-extraction",
+        "parts": [
+          {
+            "type": "text",
+            "text": "Extracting named business fields and their values uses "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "schema-based extraction",
+              "schema based extraction"
+            ],
+            "rejected_answers": [
+              "OCR",
+              "semantic extraction",
+              "basic-ocr",
+              "analyzer-and-schema-reuse"
+            ],
+            "placeholder": "technical term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "explanation": "Schema-based extraction uses a schema to capture the required fields and values in a defined structure. OCR only reads visible text, while semantic extraction focuses on meaning-based mapping.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The needed business fields may not be captured in a consistent structure.",
+          "instructional": "Use schema-based extraction for named fields and values. OCR reads text, and semantic extraction maps values by meaning."
+        }
+      },
+      "payload_hash": "631de92421ac6002b3c5682b1324bb8cff2dba15696f33542a69ddf16d62304e",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "1e778579ac185d5d6eb4a1b22adfa8cb3b6672f1f586af15fc69e33705113bcd",
+      "telemetry": {}
+    },
+    {
+      "item_key": "extract-fields-from-documents/schema-and-schema-based-extraction/r4/v1",
+      "concept_id": "schema-and-schema-based-extraction",
+      "rung": 4,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Applying",
+        "question_type": "multi_choice",
+        "prompt": "An expense-processing team must capture vendor, customer, and total from every scanned invoice. What should the team define or use? Select all that apply.",
+        "concept_id": "schema-and-schema-based-extraction",
+        "options": [
+          {
+            "text": "A schema with required fields",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The team needs to state which details are required, including vendor, customer, and total. A schema defines those fields and their structure.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Schema-based extraction",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Schema-based extraction captures the defined fields and their values. It goes beyond merely reading the invoice words.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Basic OCR only",
+            "is_correct": false,
+            "error_type": "Chooses text recognition without field structure",
+            "rationale": "Basic OCR can read visible invoice text. It does not understand the business fields or relationships needed by the team.",
+            "better_fit": "Use this when the only goal is to make printed invoice text searchable.",
+            "feedback": {
+              "intrinsic": "The team may receive readable words but still lack separate vendor, customer, and total values.",
+              "instructional": "OCR is useful for text recognition; defined business fields need a schema and schema-based extraction."
+            }
+          },
+          {
+            "text": "An unlabeled text search",
+            "is_correct": false,
+            "error_type": "Confuses searching text with extracting fields",
+            "rationale": "Searching text can find words but does not define which values belong in required fields. The task needs structured vendor, customer, and total values.",
+            "better_fit": "Use this when someone only needs to locate a word or phrase in readable text.",
+            "feedback": {
+              "intrinsic": "Different invoice layouts could make it hard to consistently capture the required details.",
+              "instructional": "A search finds text; a schema-based approach extracts defined fields consistently."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. The team should define the required fields in a schema and use schema-based extraction to capture their values."
+      },
+      "payload_hash": "06a83a674619bac425aafc64ffe1dd5baaa2eb84415a81eaf4a9d9cf309a42c7",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "1e778579ac185d5d6eb4a1b22adfa8cb3b6672f1f586af15fc69e33705113bcd",
+      "telemetry": {}
+    },
+    {
+      "item_key": "extract-fields-from-documents/invoice-schema-example/r1/v1",
+      "concept_id": "invoice-schema-example",
+      "rung": 1,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "single_choice",
+        "prompt": "Which field is commonly included in an invoice schema?",
+        "concept_id": "invoice-schema-example",
+        "options": [
+          {
+            "text": "Invoice total",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Invoice total is one of the common fields in an invoice schema. It represents the final invoice amount.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Call transcript",
+            "is_correct": false,
+            "error_type": "Confuses invoice fields with audio output",
+            "rationale": "A transcript is an output that can come from audio analysis. It is not a common invoice schema field.",
+            "better_fit": "Use this when analyzing a recorded call and reviewing its written transcription.",
+            "feedback": {
+              "intrinsic": "The accounts worker would look for call content instead of the invoice's final amount.",
+              "instructional": "Invoice schemas contain invoice details such as totals, dates, customers, and items."
+            }
+          },
+          {
+            "text": "Remote attendees",
+            "is_correct": false,
+            "error_type": "Confuses invoice fields with meeting fields",
+            "rationale": "Remote attendees can be part of a meeting-image or video schema. They are not invoice details.",
+            "better_fit": "Use this when analyzing attendance in a conference recording or conference-room image.",
+            "feedback": {
+              "intrinsic": "Attendance details would not help an accounts worker determine the amount due.",
+              "instructional": "Choose fields that match the content being processed; invoice schemas focus on invoice information."
+            }
+          },
+          {
+            "text": "Video location",
+            "is_correct": false,
+            "error_type": "Confuses invoice fields with video fields",
+            "rationale": "Location can be extracted from a meeting image or video. It is not a common invoice field.",
+            "better_fit": "Use this when identifying the location shown in meeting media.",
+            "feedback": {
+              "intrinsic": "The worker would capture a meeting detail while the invoice total remains unaddressed.",
+              "instructional": "Invoice schemas include financial and customer details, not meeting-location details."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. Invoice total is a common field in an invoice schema and gives the final amount."
+      },
+      "payload_hash": "589678d265cb8b416c23cb021744b8991c2600c847c4a73a093b5b7d3e6d1510",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "1e778579ac185d5d6eb4a1b22adfa8cb3b6672f1f586af15fc69e33705113bcd",
+      "telemetry": {}
+    },
+    {
+      "item_key": "extract-fields-from-documents/invoice-schema-example/r1/v2",
+      "concept_id": "invoice-schema-example",
+      "rung": 1,
+      "variant": 2,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "multi_choice",
+        "prompt": "Which fields can an invoice schema include? Select all that apply.",
+        "concept_id": "invoice-schema-example",
+        "options": [
+          {
+            "text": "Vendor name",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Vendor name is a common invoice schema field. It identifies the seller named on the invoice.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Invoice date",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Invoice date is a common invoice schema field. It records the date associated with the invoice.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Shipping charge",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Shipping Charge is a listed invoice schema field. It represents the delivery amount.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Caller callback number",
+            "is_correct": false,
+            "error_type": "Confuses invoice fields with audio-call fields",
+            "rationale": "A callback number is useful for a recorded-call schema. It is not listed as an invoice schema field.",
+            "better_fit": "Use this when extracting key details from a voice message or recorded call.",
+            "feedback": {
+              "intrinsic": "The worker could capture phone details while missing financial invoice details.",
+              "instructional": "Match the field to the content: callback numbers belong to calls, while invoices use fields such as shipping charge and total."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. Vendor name, invoice date, and shipping charge are all fields an invoice schema can include."
+      },
+      "payload_hash": "39371246dde385055a87c75ac7284e457500b7277278da7f7e8270680e9df98c",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "1e778579ac185d5d6eb4a1b22adfa8cb3b6672f1f586af15fc69e33705113bcd",
+      "telemetry": {}
+    },
+    {
+      "item_key": "extract-fields-from-documents/invoice-schema-example/r2/v1",
+      "concept_id": "invoice-schema-example",
+      "rung": 2,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "true_false",
+        "prompt": "True or false?",
+        "concept_id": "invoice-schema-example",
+        "statement": "An invoice schema uses a callback number as the invoice total.",
+        "correct_answer": false,
+        "feedback_for_correct": "Correct. Invoice total is a financial field, while a callback number belongs to a recorded-call schema.",
+        "feedback_for_incorrect": {
+          "intrinsic": "A contact phone number could be mistaken for the amount a customer must pay.",
+          "instructional": "Keep fields tied to their purpose: use Invoice total for the final amount and callback number for call follow-up."
+        }
+      },
+      "payload_hash": "4c7d008b2b6a48ae450a55e03a6f0dc053091a1d5b0270432989ea22839db09e",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "1e778579ac185d5d6eb4a1b22adfa8cb3b6672f1f586af15fc69e33705113bcd",
+      "telemetry": {}
+    },
+    {
+      "item_key": "extract-fields-from-documents/invoice-schema-example/r3/v1",
+      "concept_id": "invoice-schema-example",
+      "rung": 3,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "fill_gaps",
+        "prompt": "Which term completes this sentence?",
+        "concept_id": "invoice-schema-example",
+        "parts": [
+          {
+            "type": "text",
+            "text": "The invoice field for the amount charged for delivery is "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "Shipping Charge",
+              "shipping charge"
+            ],
+            "rejected_answers": [
+              "Tax",
+              "Invoice total",
+              "Invoice subtotal",
+              "nested-items-collection",
+              "semantic-field-extraction"
+            ],
+            "placeholder": "field name"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "explanation": "Shipping Charge identifies the delivery cost separately from tax, subtotal, and the final invoice total. These are distinct invoice amounts.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The delivery amount could be added to the wrong financial category.",
+          "instructional": "Use Shipping Charge for delivery. Tax is tax, subtotal is the amount before final charges, and Invoice total is the final amount."
+        }
+      },
+      "payload_hash": "a76437a7e2f92733fc3f8eb2640f27e85bb297219ec5a508da9f322aafa1383b",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "1e778579ac185d5d6eb4a1b22adfa8cb3b6672f1f586af15fc69e33705113bcd",
+      "telemetry": {}
+    },
+    {
+      "item_key": "extract-fields-from-documents/invoice-schema-example/r3/v2",
+      "concept_id": "invoice-schema-example",
+      "rung": 3,
+      "variant": 2,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "rearrange",
+        "prompt": "Order the pieces correctly.",
+        "concept_id": "invoice-schema-example",
+        "word_bank": [
+          "vendor name",
+          "An invoice schema",
+          "and invoice total",
+          "can include"
+        ],
+        "correct_order": [
+          "An invoice schema",
+          "can include",
+          "vendor name",
+          "and invoice total"
+        ],
+        "interchangeable_groups": [],
+        "explanation": "The phrase starts with what is being described, then states its capability, followed by two fields it can contain. Vendor name and invoice total are both valid invoice fields.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The field names may sound disconnected from the invoice structure that contains them.",
+          "instructional": "Start with the invoice schema, state that it can include fields, then name the fields."
+        }
+      },
+      "payload_hash": "51c2a8d21e8d68095077ea7970c26d42b9449185bd2ce850537f28b308d1e686",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "1e778579ac185d5d6eb4a1b22adfa8cb3b6672f1f586af15fc69e33705113bcd",
+      "telemetry": {}
+    },
+    {
+      "item_key": "extract-fields-from-documents/invoice-schema-example/r4/v1",
+      "concept_id": "invoice-schema-example",
+      "rung": 4,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Applying",
+        "question_type": "single_choice",
+        "prompt": "An accounts clerk is processing an invoice and needs the final amount due. Which schema field should the clerk use?",
+        "concept_id": "invoice-schema-example",
+        "options": [
+          {
+            "text": "Invoice total",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Invoice total is the final amount due on the invoice. It is distinct from individual charges and the subtotal.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Invoice subtotal",
+            "is_correct": false,
+            "error_type": "Confuses subtotal with final total",
+            "rationale": "Invoice subtotal is a separate invoice field. The final amount due is identified by Invoice total.",
+            "better_fit": "Use this when the clerk needs the subtotal rather than the final amount.",
+            "feedback": {
+              "intrinsic": "The clerk could report an amount before all final charges are included.",
+              "instructional": "Choose Invoice total when the need is the final amount due."
+            }
+          },
+          {
+            "text": "Tax",
+            "is_correct": false,
+            "error_type": "Confuses one charge with final total",
+            "rationale": "Tax is one component of invoice charges. It is not the invoice's final total.",
+            "better_fit": "Use this when the clerk specifically needs the tax amount.",
+            "feedback": {
+              "intrinsic": "The clerk would report only one charge instead of the complete amount due.",
+              "instructional": "Tax and Invoice total are separate fields; the total is the final amount."
+            }
+          },
+          {
+            "text": "Shipping Charge",
+            "is_correct": false,
+            "error_type": "Confuses delivery charge with final total",
+            "rationale": "Shipping Charge is the amount charged for delivery. It is not the complete invoice total.",
+            "better_fit": "Use this when the clerk needs the delivery cost.",
+            "feedback": {
+              "intrinsic": "The clerk would report the delivery fee rather than the full amount due.",
+              "instructional": "Use Shipping Charge only for delivery; use Invoice total for the final amount."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. Invoice total is the field for the final amount due."
+      },
+      "payload_hash": "10f944f87437610bd509b36ae8c5d58a6565bc7ebee234afe66a40412aec3698",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "1e778579ac185d5d6eb4a1b22adfa8cb3b6672f1f586af15fc69e33705113bcd",
+      "telemetry": {}
+    },
+    {
+      "item_key": "extract-fields-from-documents/nested-items-collection/r1/v1",
+      "concept_id": "nested-items-collection",
+      "rung": 1,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "multi_choice",
+        "prompt": "Which statements describe the Items field? Select all that apply.",
+        "concept_id": "nested-items-collection",
+        "options": [
+          {
+            "text": "It is a collection",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Items is a collection field. A collection holds multiple records.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It can hold multiple item records",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Items can hold records for several ordered products. Each record can contain its own nested values.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It is one flat text value",
+            "is_correct": false,
+            "error_type": "Confuses a collection with flat text",
+            "rationale": "Items is a collection, not one flat value. It holds multiple structured item records.",
+            "better_fit": "Use this when a field holds one simple text value rather than several records.",
+            "feedback": {
+              "intrinsic": "Details for a bike, helmet, and shirt could be merged together and lose their connections.",
+              "instructional": "A collection keeps multiple item records separate, with nested details for each one."
+            }
+          },
+          {
+            "text": "It is the invoice total",
+            "is_correct": false,
+            "error_type": "Confuses line items with invoice summary fields",
+            "rationale": "Items holds the individual ordered products. Invoice total is a separate summary field for the final amount.",
+            "better_fit": "Use this when the required value is the invoice's final amount due.",
+            "feedback": {
+              "intrinsic": "The clerk could treat the list of products as if it were one final financial amount.",
+              "instructional": "Items describes individual purchases; Invoice total summarizes the invoice amount."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. Items is a collection that can hold multiple separate item records."
+      },
+      "payload_hash": "bfbc80070814b1f400c03406f7e2c1fdac381564462b14fc1ad8924dc4bcf158",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "1e778579ac185d5d6eb4a1b22adfa8cb3b6672f1f586af15fc69e33705113bcd",
+      "telemetry": {}
+    },
+    {
+      "item_key": "extract-fields-from-documents/nested-items-collection/r1/v2",
+      "concept_id": "nested-items-collection",
+      "rung": 1,
+      "variant": 2,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "single_choice",
+        "prompt": "What is a nested field?",
+        "concept_id": "nested-items-collection",
+        "options": [
+          {
+            "text": "A structured field inside another field",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A nested field is structured data contained inside another field. For an item, unit price and quantity can be nested inside its record.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A single visible word in an image",
+            "is_correct": false,
+            "error_type": "Confuses nested fields with OCR text",
+            "rationale": "A visible word is text that OCR can read. A nested field is a structural part of a larger field.",
+            "better_fit": "Use this when referring to one piece of printed text visible in a scanned image.",
+            "feedback": {
+              "intrinsic": "A worker could read a word but lose the structure that connects it to the correct item.",
+              "instructional": "Nested fields describe organized values inside another field, not merely visible words."
+            }
+          },
+          {
+            "text": "A total for the whole invoice",
+            "is_correct": false,
+            "error_type": "Confuses nested fields with summary fields",
+            "rationale": "Invoice total is a summary field for the whole invoice. A nested field is contained within a larger structured field.",
+            "better_fit": "Use this when the required value is the final amount due for the whole invoice.",
+            "feedback": {
+              "intrinsic": "A whole-invoice amount could be confused with a detail belonging to one product.",
+              "instructional": "Nested fields belong within a parent record, such as an item's unit price or quantity."
+            }
+          },
+          {
+            "text": "A different label for a field",
+            "is_correct": false,
+            "error_type": "Confuses nesting with semantic labels",
+            "rationale": "Different labels can map to the same field through semantic extraction. Nesting describes containment and structure, not changed labels.",
+            "better_fit": "Use this when Invoice No. and Invoice # refer to the same invoice-number concept.",
+            "feedback": {
+              "intrinsic": "The learner could mistake label variation for the structure that keeps item details together.",
+              "instructional": "Different labels concern meaning-based mapping; nested fields concern parent-and-child structure."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. A nested field is structured information contained inside another field."
+      },
+      "payload_hash": "e785d52f29194383741e8b55b158d618db6fc15d4feb4049e09d27b483d047f6",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "1e778579ac185d5d6eb4a1b22adfa8cb3b6672f1f586af15fc69e33705113bcd",
+      "telemetry": {}
+    },
+    {
+      "item_key": "extract-fields-from-documents/nested-items-collection/r2/v1",
+      "concept_id": "nested-items-collection",
+      "rung": 2,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "true_false",
+        "prompt": "Decide whether this statement is true or false.",
+        "concept_id": "nested-items-collection",
+        "statement": "Each record in an invoice Items collection can contain nested description, unit price, quantity, and line total fields.",
+        "correct_answer": true,
+        "feedback_for_correct": "Correct. Each item record can keep its description, unit price, quantity, and line total together.",
+        "feedback_for_incorrect": {
+          "intrinsic": "A bike's price or quantity could become mixed with a helmet's or shirt's details.",
+          "instructional": "Items is a collection of records, and each record has its own nested product details."
+        }
+      },
+      "payload_hash": "ca8fa07ca9353e5bf65706934e460b9629c29f01a37d16ddb01da92b49e1a357",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "1e778579ac185d5d6eb4a1b22adfa8cb3b6672f1f586af15fc69e33705113bcd",
+      "telemetry": {}
+    },
+    {
+      "item_key": "extract-fields-from-documents/nested-items-collection/r3/v1",
+      "concept_id": "nested-items-collection",
+      "rung": 3,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "rearrange",
+        "prompt": "Reconstruct the statement from the pieces.",
+        "concept_id": "nested-items-collection",
+        "word_bank": [
+          "of item records",
+          "Items is",
+          "with nested fields",
+          "a collection"
+        ],
+        "correct_order": [
+          "Items is",
+          "a collection",
+          "of item records",
+          "with nested fields"
+        ],
+        "interchangeable_groups": [],
+        "explanation": "The order identifies Items first, then explains that it contains multiple records and that those records contain nested fields. This structure preserves each item's related values.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The idea that nested details belong to individual item records may become unclear.",
+          "instructional": "Name Items, identify it as a collection, then state that it contains item records with nested fields."
+        }
+      },
+      "payload_hash": "c3434def6f460dc735060d4e00bd6d8fb3e0a555f36aa2610491f64d697cd550",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "1e778579ac185d5d6eb4a1b22adfa8cb3b6672f1f586af15fc69e33705113bcd",
+      "telemetry": {}
+    },
+    {
+      "item_key": "extract-fields-from-documents/nested-items-collection/r3/v2",
+      "concept_id": "nested-items-collection",
+      "rung": 3,
+      "variant": 2,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "fill_gaps",
+        "prompt": "Fill in the missing term.",
+        "concept_id": "nested-items-collection",
+        "parts": [
+          {
+            "type": "text",
+            "text": "On an invoice, the field that holds several ordered products is the "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "Items",
+              "items"
+            ],
+            "rejected_answers": [
+              "Invoice total",
+              "Vendor name",
+              "OCR",
+              "invoice-schema-fields",
+              "basic-ocr"
+            ],
+            "placeholder": "field name"
+          },
+          {
+            "type": "text",
+            "text": " collection."
+          }
+        ],
+        "explanation": "Items is a collection because it holds multiple ordered-product records. Invoice total and Vendor name are single invoice fields, while OCR reads visible text.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The individual products could be placed outside the field that keeps their separate details together.",
+          "instructional": "Choose Items for several ordered products. It is the collection of line-item records."
+        }
+      },
+      "payload_hash": "7eb3db416c01e7d8910079ceabde0373fec23e8305ee71871725005628a9ee70",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "1e778579ac185d5d6eb4a1b22adfa8cb3b6672f1f586af15fc69e33705113bcd",
+      "telemetry": {}
+    },
+    {
+      "item_key": "extract-fields-from-documents/nested-items-collection/r4/v1",
+      "concept_id": "nested-items-collection",
+      "rung": 4,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Applying",
+        "question_type": "multi_choice",
+        "prompt": "A buyer's invoice lists a bike, a helmet, and a shirt. The accounts worker must keep each product's details connected. What should the Items structure preserve for each product? Select all that apply.",
+        "concept_id": "nested-items-collection",
+        "options": [
+          {
+            "text": "Its unit price",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Each item record can include its own unit price. This keeps the price connected to the correct product.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Its quantity ordered",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Each item record can include its own quantity ordered. The quantity stays associated with that product.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Its line item total",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Each item record can include its own line item total. This preserves the amount for that individual item.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "One shared product description",
+            "is_correct": false,
+            "error_type": "Confuses separate item records with one flat field",
+            "rationale": "Each item record has its own item description. One shared description would not distinguish the bike, helmet, and shirt.",
+            "better_fit": "Use one shared value only when the same single value truly applies to the whole invoice.",
+            "feedback": {
+              "intrinsic": "The worker could no longer tell which price, quantity, and total belong to each product.",
+              "instructional": "Keep a separate record for every product, including that product's own description and nested values."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. Each item record preserves its own unit price, quantity ordered, and line item total."
+      },
+      "payload_hash": "da1798e0fa97e92ac29b1774ae210084820668f8a54b5b3cf9b1b9b46f31a6c2",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "1e778579ac185d5d6eb4a1b22adfa8cb3b6672f1f586af15fc69e33705113bcd",
+      "telemetry": {}
+    },
+    {
+      "item_key": "extract-fields-from-documents/semantic-field-extraction/r1/v1",
+      "concept_id": "semantic-field-extraction",
+      "rung": 1,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "single_choice",
+        "prompt": "What does semantic field extraction use to map a value?",
+        "concept_id": "semantic-field-extraction",
+        "options": [
+          {
+            "text": "The value's meaning",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Semantic field extraction maps a value based on what it represents. It does not require one exact visible label.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "An exact visible label",
+            "is_correct": false,
+            "error_type": "Confuses semantic mapping with label matching",
+            "rationale": "Semantic extraction can work when labels differ or are missing. It uses the value's meaning rather than exact label matching.",
+            "better_fit": "Use this when a process requires one exact printed label and does not need meaning-based mapping.",
+            "feedback": {
+              "intrinsic": "An invoice marked Invoice # could be missed when the expected label is Invoice No.",
+              "instructional": "Semantic extraction recognizes that different labels can represent the same invoice-number field."
+            }
+          },
+          {
+            "text": "Only printed text order",
+            "is_correct": false,
+            "error_type": "Confuses semantic extraction with OCR",
+            "rationale": "Printed text order does not by itself establish meaning. Semantic extraction maps values to fields by what they represent.",
+            "better_fit": "Use this when considering the visible order of words read from an image.",
+            "feedback": {
+              "intrinsic": "A number might be read in order but still be assigned to the wrong field.",
+              "instructional": "Meaning-based mapping identifies the invoice-number concept, not just the order of printed words."
+            }
+          },
+          {
+            "text": "Only a flat text field",
+            "is_correct": false,
+            "error_type": "Confuses semantic mapping with flat extraction",
+            "rationale": "Semantic mapping can place values in schema fields with defined structure. It is not limited to a flat text field.",
+            "better_fit": "Use this when a required value is intentionally stored as one simple text field.",
+            "feedback": {
+              "intrinsic": "Important structured details could be treated as unconnected text.",
+              "instructional": "Semantic extraction maps meaningful values to the fields defined by a schema."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. Semantic field extraction maps values by their meaning, even when visible labels differ or are missing."
+      },
+      "payload_hash": "fe3b248a70e0bdd8c68942c0be370e14fec3d94260f38eb9241be278e8909215",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "1e778579ac185d5d6eb4a1b22adfa8cb3b6672f1f586af15fc69e33705113bcd",
+      "telemetry": {}
+    },
+    {
+      "item_key": "extract-fields-from-documents/semantic-field-extraction/r1/v2",
+      "concept_id": "semantic-field-extraction",
+      "rung": 1,
+      "variant": 2,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "multi_choice",
+        "prompt": "Which labels can map to the InvoiceNumber field by meaning? Select all that apply.",
+        "concept_id": "semantic-field-extraction",
+        "options": [
+          {
+            "text": "Invoice No.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Invoice No. can represent the invoice-number concept. It can map to the InvoiceNumber field by meaning.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Invoice #",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Invoice # can represent the invoice-number concept. Semantic extraction can map it to InvoiceNumber.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "An unlabeled invoice number",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A number can map to InvoiceNumber even without a visible label when it represents that concept. Semantic extraction does not require a label.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A customer name",
+            "is_correct": false,
+            "error_type": "Confuses invoice number with customer field",
+            "rationale": "A customer name represents the customer, not an invoice number. It should not map to InvoiceNumber.",
+            "better_fit": "Use this when mapping a person's or organization's name to CustomerName.",
+            "feedback": {
+              "intrinsic": "A customer's identity could be placed where the invoice reference number should be.",
+              "instructional": "Map values by their meaning: customer names belong in a customer field, while invoice references belong in InvoiceNumber."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. Invoice No., Invoice #, and an unlabeled invoice number can all represent the InvoiceNumber concept."
+      },
+      "payload_hash": "f28ce4d3e11795da0d43ab5e6a5699440d1ec097b1be03640fa72bdd808f9158",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "1e778579ac185d5d6eb4a1b22adfa8cb3b6672f1f586af15fc69e33705113bcd",
+      "telemetry": {}
+    },
+    {
+      "item_key": "extract-fields-from-documents/semantic-field-extraction/r2/v1",
+      "concept_id": "semantic-field-extraction",
+      "rung": 2,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "true_false",
+        "prompt": "Is the following statement accurate?",
+        "concept_id": "semantic-field-extraction",
+        "statement": "Semantic field extraction requires every value to have the exact same visible label.",
+        "correct_answer": false,
+        "feedback_for_correct": "Correct. Semantic extraction maps values by meaning, so labels can differ or be missing.",
+        "feedback_for_incorrect": {
+          "intrinsic": "Invoices using Invoice # instead of Invoice No. could fail to place their number in the intended field.",
+          "instructional": "Exact visible labels are not required. Semantic field extraction identifies the invoice-number concept by meaning."
+        }
+      },
+      "payload_hash": "196119a90ace0635b5983d35451b25a2890365ee41553a5fe89788ec36624f8d",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "1e778579ac185d5d6eb4a1b22adfa8cb3b6672f1f586af15fc69e33705113bcd",
+      "telemetry": {}
+    },
+    {
+      "item_key": "extract-fields-from-documents/semantic-field-extraction/r3/v1",
+      "concept_id": "semantic-field-extraction",
+      "rung": 3,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "fill_gaps",
+        "prompt": "Complete the sentence with the correct term.",
+        "concept_id": "semantic-field-extraction",
+        "parts": [
+          {
+            "type": "text",
+            "text": "Mapping Invoice # to InvoiceNumber by meaning is called "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "semantic extraction",
+              "semantic field extraction"
+            ],
+            "rejected_answers": [
+              "OCR",
+              "schema-based extraction",
+              "basic-ocr",
+              "schema-and-schema-based-extraction"
+            ],
+            "placeholder": "technical term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "explanation": "Semantic field extraction maps a value to a schema field by what the value represents. OCR reads visible text, while schema-based extraction is the broader approach for extracting defined fields and structure.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The invoice number may be readable but not recognized as belonging in InvoiceNumber when the label changes.",
+          "instructional": "Choose semantic extraction for meaning-based mapping. OCR reads text, and schema-based extraction defines the broader field-and-structure approach."
+        }
+      },
+      "payload_hash": "7cebf7307891b1d892528ddffcec1afc8da028cdbdd009b169640a56c3054800",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "1e778579ac185d5d6eb4a1b22adfa8cb3b6672f1f586af15fc69e33705113bcd",
+      "telemetry": {}
+    },
+    {
+      "item_key": "extract-fields-from-documents/semantic-field-extraction/r3/v2",
+      "concept_id": "semantic-field-extraction",
+      "rung": 3,
+      "variant": 2,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "rearrange",
+        "prompt": "Put the pieces in the correct order.",
+        "concept_id": "semantic-field-extraction",
+        "word_bank": [
+          "by meaning",
+          "Semantic extraction",
+          "to schema fields",
+          "maps values"
+        ],
+        "correct_order": [
+          "Semantic extraction",
+          "maps values",
+          "by meaning",
+          "to schema fields"
+        ],
+        "interchangeable_groups": [],
+        "explanation": "The sequence states the method, its action, the basis for that action, and where the value is placed. Meaning is what allows labels to differ or be absent.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The reason a changed label can still map to the intended field may become unclear.",
+          "instructional": "Begin with semantic extraction, then state that it maps values by meaning to schema fields."
+        }
+      },
+      "payload_hash": "a0841b65a05dfc0bf2b6bfcbc392074bd18ec518a43e288a65036821c5f50aa7",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "1e778579ac185d5d6eb4a1b22adfa8cb3b6672f1f586af15fc69e33705113bcd",
+      "telemetry": {}
+    },
+    {
+      "item_key": "extract-fields-from-documents/semantic-field-extraction/r4/v1",
+      "concept_id": "semantic-field-extraction",
+      "rung": 4,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Applying",
+        "question_type": "single_choice",
+        "prompt": "An invoice processor receives an invoice labeled “Invoice #” and must place its number in the InvoiceNumber field. Which approach should the processor use?",
+        "concept_id": "semantic-field-extraction",
+        "options": [
+          {
+            "text": "Semantic field extraction",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Semantic field extraction recognizes that Invoice # represents the invoice-number concept. It can therefore map the value to InvoiceNumber.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Basic OCR only",
+            "is_correct": false,
+            "error_type": "Chooses text reading without meaning mapping",
+            "rationale": "Basic OCR can read Invoice # and its number. It does not map the number to InvoiceNumber by meaning.",
+            "better_fit": "Use this when the goal is only to turn visible printed text into searchable digital text.",
+            "feedback": {
+              "intrinsic": "The label and number may be readable, but the number could remain unassigned to the intended field.",
+              "instructional": "OCR reads the words; semantic field extraction recognizes what the number represents."
+            }
+          },
+          {
+            "text": "A flat text field",
+            "is_correct": false,
+            "error_type": "Chooses unstructured text instead of semantic mapping",
+            "rationale": "A flat text field does not explain how Invoice # maps to the InvoiceNumber concept. The task requires meaning-based field mapping.",
+            "better_fit": "Use this when only one simple text value is needed without a structured mapping decision.",
+            "feedback": {
+              "intrinsic": "The number could be stored as plain text without being identified as the invoice number.",
+              "instructional": "Use semantic extraction to map the value to the correct schema field by meaning."
+            }
+          },
+          {
+            "text": "An Items collection",
+            "is_correct": false,
+            "error_type": "Chooses line-item structure instead of field mapping",
+            "rationale": "An Items collection stores multiple product records and their nested details. It does not map an invoice reference number to InvoiceNumber.",
+            "better_fit": "Use this when processing several ordered products with separate prices, quantities, and line totals.",
+            "feedback": {
+              "intrinsic": "The invoice reference could be treated like a product detail instead of a header field.",
+              "instructional": "Items organizes line items; semantic extraction maps the invoice number to its proper field."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. Semantic field extraction recognizes that Invoice # and InvoiceNumber refer to the same invoice-number concept."
+      },
+      "payload_hash": "0904cb78c76744390a4497883d1a538c0401d74af6ae16c65ebdfc72e5b45f75",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "1e778579ac185d5d6eb4a1b22adfa8cb3b6672f1f586af15fc69e33705113bcd",
+      "telemetry": {}
+    }
+  ],
+  "flashcards": [
+    {
+      "front": "What does basic OCR do?",
+      "back": "It reads visible text from images into searchable digital text.",
+      "hint": "Think scanned receipts."
+    },
+    {
+      "front": "What is a schema?",
+      "back": "It defines information to extract and how to structure it.",
+      "hint": "Think required fields."
+    },
+    {
+      "front": "What is an Items collection?",
+      "back": "A field holding multiple invoice item records.",
+      "hint": "Think several products."
+    },
+    {
+      "front": "What is semantic extraction?",
+      "back": "It maps values to fields by meaning, not exact labels.",
+      "hint": "Think Invoice #."
+    }
+  ]
+}

@@ -1,0 +1,581 @@
+{
+  "import_key": "recognizing-and-producing-ocr-text-l2",
+  "title": "Recognizing and producing OCR text · Level 2",
+  "slo": "Describe how OCR recognizes characters and produces usable text.",
+  "exercises": [
+    {
+      "import_key": "recognizing-and-producing-ocr-text-l2-q1",
+      "question_type": "arrange_sentence",
+      "question_text": "Reconstruct the statement.",
+      "options": {
+        "word_bank": [
+          "into complete words",
+          "Text compilation",
+          "and sentences",
+          "assembles recognized characters"
+        ],
+        "correct_order": [
+          "Text compilation",
+          "assembles recognized characters",
+          "into complete words",
+          "and sentences"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "ocr-output-post-processing",
+        "feedback_for_incorrect": {
+          "intrinsic": "The transformation is unclear.",
+          "instructional": "Start with text compilation, then state what it assembles."
+        },
+        "item_key": "recognizing-and-producing-ocr-text/ocr-output-post-processing/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "Text compilation assembles recognized characters into complete words and sentences",
+      "explanation": "Text compilation transforms individual recognitions into usable language.",
+      "points": 1
+    },
+    {
+      "import_key": "recognizing-and-producing-ocr-text-l2-q2",
+      "question_type": "fill_blank",
+      "question_text": "The direct pattern-matching method that compares a character with stored reference patterns is ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "The direct pattern-matching method that compares a character with stored reference patterns is "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "stored-template correlation",
+              "template correlation"
+            ],
+            "rejected_answers": [
+              "context analysis",
+              "feature extraction",
+              "softmax",
+              "character-recognition-and-classification",
+              "context-analysis"
+            ],
+            "placeholder": "technical term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "context analysis",
+          "feature extraction",
+          "softmax",
+          "character-recognition-and-classification",
+          "context-analysis"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "character-pattern-matching",
+        "feedback_for_incorrect": {
+          "intrinsic": "The specific comparison method is not identified.",
+          "instructional": "Template correlation is a direct pattern-matching method, whereas context analysis uses nearby text."
+        },
+        "item_key": "recognizing-and-producing-ocr-text/character-pattern-matching/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "[\"stored-template correlation\",\"template correlation\"]",
+      "explanation": "Stored-template correlation directly compares character patterns with stored templates. This differs from the broader process of pattern matching.",
+      "points": 1
+    },
+    {
+      "import_key": "recognizing-and-producing-ocr-text-l2-q3",
+      "question_type": "multiple_choice",
+      "question_text": "A health-records manager needs searchable text from scanned records while retaining paragraphs, line breaks, and every text element's original-image location. Which post-processing tasks should be used? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Text compilation",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Text compilation assembles recognized characters into words and sentences. This makes the output searchable and usable.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Format preservation",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Format preservation retains paragraphs and line breaks. It satisfies the layout requirement.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Coordinate mapping",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Coordinate mapping records original-image positions. It satisfies the location requirement.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "OCR output ingestion",
+            "is_correct": false,
+            "error_type": "Ingestion versus post-processing",
+            "rationale": "OCR output ingestion receives results for later extraction workflows. It does not assemble text or retain the specified layout and locations.",
+            "better_fit": "Use this when beginning field extraction from OCR results.",
+            "feedback": {
+              "intrinsic": "The requested usable text, layout, and locations are not produced.",
+              "instructional": "Use compilation, format preservation, and coordinate mapping for these requirements."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "multi_choice",
+        "concept_id": "ocr-output-post-processing",
+        "item_key": "recognizing-and-producing-ocr-text/ocr-output-post-processing/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. These tasks produce searchable text while retaining structure and locations.",
+      "points": 1
+    },
+    {
+      "import_key": "recognizing-and-producing-ocr-text-l2-q4",
+      "question_type": "multiple_choice",
+      "question_text": "A legal operations specialist scans contracts in several fonts. The system must compare each character's features with models trained on fonts and writing styles. Which method should be used?",
+      "options": {
+        "options": [
+          {
+            "text": "Pattern matching",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The task is to compare character features with trained models. Pattern matching supports recognition across fonts and writing styles.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Context analysis",
+            "is_correct": false,
+            "error_type": "Context versus model comparison",
+            "rationale": "Context analysis uses surrounding characters and words. It does not perform the requested comparison with trained models.",
+            "better_fit": "Use this when nearby wording helps choose a likely reading.",
+            "feedback": {
+              "intrinsic": "Font comparisons are not made.",
+              "instructional": "Comparing visual features with trained models is pattern matching."
+            }
+          },
+          {
+            "text": "Feature extraction",
+            "is_correct": false,
+            "error_type": "Extraction versus comparison",
+            "rationale": "Feature extraction gathers visual clues such as shape and size. The scenario requires comparing those clues to models.",
+            "better_fit": "Use this when first deriving shape, loop, or endpoint features.",
+            "feedback": {
+              "intrinsic": "Features may be gathered but not classified.",
+              "instructional": "Feature extraction supplies clues; pattern matching compares them."
+            }
+          },
+          {
+            "text": "Quality validation",
+            "is_correct": false,
+            "error_type": "Validation versus recognition",
+            "rationale": "Quality validation checks produced results for possible errors. It does not recognize characters through model comparison.",
+            "better_fit": "Use this when checking output with spelling or grammar rules.",
+            "feedback": {
+              "intrinsic": "The necessary recognition comparison is skipped.",
+              "instructional": "Use pattern matching during character recognition."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "single_choice",
+        "concept_id": "character-pattern-matching",
+        "item_key": "recognizing-and-producing-ocr-text/character-pattern-matching/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. Pattern matching compares features with trained models.",
+      "points": 1
+    },
+    {
+      "import_key": "recognizing-and-producing-ocr-text-l2-q5",
+      "question_type": "arrange_sentence",
+      "question_text": "Arrange the parts to form a statement.",
+      "options": {
+        "word_bank": [
+          "shape, size,",
+          "Feature extraction",
+          "and distinctive features",
+          "examines a character's"
+        ],
+        "correct_order": [
+          "Feature extraction",
+          "examines a character's",
+          "shape, size,",
+          "and distinctive features"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "character-recognition",
+        "feedback_for_incorrect": {
+          "intrinsic": "The task and its inputs are disconnected.",
+          "instructional": "Start with feature extraction, then name the features it examines."
+        },
+        "item_key": "recognizing-and-producing-ocr-text/character-recognition/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "Feature extraction examines a character's shape, size, and distinctive features",
+      "explanation": "Feature extraction examines visual clues before classification.",
+      "points": 1
+    },
+    {
+      "import_key": "recognizing-and-producing-ocr-text-l2-q6",
+      "question_type": "fill_blank",
+      "question_text": "The OCR task that labels an area as a header, body text, caption, or table is ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "The OCR task that labels an area as a header, body text, caption, or table is "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "region classification"
+            ],
+            "rejected_answers": [
+              "text region detection",
+              "format preservation",
+              "text-region-detection",
+              "format-preservation"
+            ],
+            "placeholder": "technical term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "text region detection",
+          "format preservation",
+          "text-region-detection",
+          "format-preservation"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "reading-order-and-region-classification",
+        "feedback_for_incorrect": {
+          "intrinsic": "The area type remains unspecified.",
+          "instructional": "Region detection finds areas; region classification labels their roles."
+        },
+        "item_key": "recognizing-and-producing-ocr-text/reading-order-and-region-classification/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "region classification",
+      "explanation": "Region classification assigns a role to a document area.",
+      "points": 1
+    },
+    {
+      "import_key": "recognizing-and-producing-ocr-text-l2-q7",
+      "question_type": "multiple_choice",
+      "question_text": "A clinic scans record numbers where “O” and “0” look alike. Which character details should its OCR system use to distinguish them? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Shape features",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Shape is a visual feature used in character recognition. It can distinguish similar-looking symbols.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Loops and intersections",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Loops and intersections are structural character features. They can support symbol identification.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Size features",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Size is a valid feature for character classification. It provides an additional visual clue.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Nearby word meanings",
+            "is_correct": false,
+            "error_type": "Context rather than visual features",
+            "rationale": "Nearby word meanings are used in context analysis. The decision asks for visible properties of the two characters.",
+            "better_fit": "Use this when surrounding text can resolve a likely word reading.",
+            "feedback": {
+              "intrinsic": "Visual differences may be ignored.",
+              "instructional": "Use shape and structural features for appearance-based discrimination."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "multi_choice",
+        "concept_id": "character-recognition",
+        "item_key": "recognizing-and-producing-ocr-text/character-recognition/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. These are visual details used for character classification.",
+      "points": 1
+    },
+    {
+      "import_key": "recognizing-and-producing-ocr-text-l2-q8",
+      "question_type": "multiple_choice",
+      "question_text": "A finance analyst scans a two-column statement. OCR recognizes the words but reads across columns instead of down the first column. What should the analyst improve?",
+      "options": {
+        "options": [
+          {
+            "text": "Reading-order determination",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The words are already recognized, but their sequence is wrong. Reading-order determination selects the intended column sequence.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Text region detection",
+            "is_correct": false,
+            "error_type": "Detection versus sequencing",
+            "rationale": "Text region detection finds written areas. The scenario already has recognized content and needs ordering.",
+            "better_fit": "Use this when written areas have not been located.",
+            "feedback": {
+              "intrinsic": "Both columns may still be read in the wrong sequence.",
+              "instructional": "Improve reading order when the issue is which column is read first."
+            }
+          },
+          {
+            "text": "Character recognition",
+            "is_correct": false,
+            "error_type": "Identity versus sequence",
+            "rationale": "Character recognition identifies symbols and letters. The scenario says those words have already been recognized.",
+            "better_fit": "Use this when characters themselves are misidentified.",
+            "feedback": {
+              "intrinsic": "The column sequence remains wrong.",
+              "instructional": "Recognition identifies characters; reading order sequences them."
+            }
+          },
+          {
+            "text": "Format preservation",
+            "is_correct": false,
+            "error_type": "Layout versus sequence",
+            "rationale": "Format preservation retains line breaks and spacing. It does not decide the order in which columns are read.",
+            "better_fit": "Use this when output layout details are missing.",
+            "feedback": {
+              "intrinsic": "The visual layout may improve without fixing the reading sequence.",
+              "instructional": "This decision requires reading-order determination."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "single_choice",
+        "concept_id": "reading-order-and-region-classification",
+        "item_key": "recognizing-and-producing-ocr-text/reading-order-and-region-classification/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. The issue is the sequence of already recognized text.",
+      "points": 1
+    },
+    {
+      "import_key": "recognizing-and-producing-ocr-text-l2-q9",
+      "question_type": "arrange_sentence",
+      "question_text": "Order the pieces correctly.",
+      "options": {
+        "word_bank": [
+          "to improve",
+          "Context analysis",
+          "recognition accuracy",
+          "uses nearby words"
+        ],
+        "correct_order": [
+          "Context analysis",
+          "uses nearby words",
+          "to improve",
+          "recognition accuracy"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "context-analysis-and-correction",
+        "feedback_for_incorrect": {
+          "intrinsic": "The relationship is unclear.",
+          "instructional": "Context analysis uses nearby words to improve accuracy."
+        },
+        "item_key": "recognizing-and-producing-ocr-text/context-analysis-and-correction/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "Context analysis uses nearby words to improve recognition accuracy",
+      "explanation": "The sentence names the task, its input, and its purpose.",
+      "points": 1
+    },
+    {
+      "import_key": "recognizing-and-producing-ocr-text-l2-q10",
+      "question_type": "fill_blank",
+      "question_text": "A neural network can use a ___ layer to convert final outputs into probabilities.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "A neural network can use a "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "softmax",
+              "softmax layer"
+            ],
+            "rejected_answers": [
+              "N-gram",
+              "R-tree",
+              "template",
+              "field-confidence-and-validation",
+              "quality-validation"
+            ],
+            "placeholder": "technical term"
+          },
+          {
+            "type": "text",
+            "text": " layer to convert final outputs into probabilities."
+          }
+        ],
+        "rejected_answers": [
+          "N-gram",
+          "R-tree",
+          "template",
+          "field-confidence-and-validation",
+          "quality-validation"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "ocr-confidence-scoring",
+        "feedback_for_incorrect": {
+          "intrinsic": "The outputs are not converted into probabilities.",
+          "instructional": "Softmax produces probability distributions for confidence scoring."
+        },
+        "item_key": "recognizing-and-producing-ocr-text/ocr-confidence-scoring/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "[\"softmax\",\"softmax layer\"]",
+      "explanation": "A softmax layer converts final neural-network outputs into probabilities.",
+      "points": 1
+    },
+    {
+      "import_key": "recognizing-and-producing-ocr-text-l2-q11",
+      "question_type": "multiple_choice",
+      "question_text": "A receipt processor reads “TOTAL” as “T0TAL.” The clerk wants to use surrounding text to improve the result. Which approaches fit? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Dictionary-based correction",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Dictionary correction can identify a likely valid word. It uses lexical knowledge and edit distance.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "N-gram language model",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "N-grams use probabilities of character sequences. They are a context-analysis approach.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Transformer language model",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Transformers use contextual relationships among words. They can improve a likely OCR reading.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Template correlation",
+            "is_correct": false,
+            "error_type": "Visual comparison versus context",
+            "rationale": "Template correlation compares visual features with stored patterns. The scenario specifically requires surrounding-text evidence.",
+            "better_fit": "Use this when comparing a character image directly with templates.",
+            "feedback": {
+              "intrinsic": "Surrounding wording is not used to resolve the error.",
+              "instructional": "Dictionary, N-gram, and transformer methods use context."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "multi_choice",
+        "concept_id": "context-analysis-and-correction",
+        "item_key": "recognizing-and-producing-ocr-text/context-analysis-and-correction/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. These approaches use contextual language evidence.",
+      "points": 1
+    },
+    {
+      "import_key": "recognizing-and-producing-ocr-text-l2-q12",
+      "question_type": "multiple_choice",
+      "question_text": "A tax-document processor reads a scanned character as “8.” A reviewer needs a number showing how certain OCR is about that character. What should the system provide?",
+      "options": {
+        "options": [
+          {
+            "text": "A character confidence score",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A character confidence score is a probability expressing certainty about the recognized “8.” This exactly matches the reviewer’s need.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A field confidence score",
+            "is_correct": false,
+            "error_type": "Character versus field confidence",
+            "rationale": "Field confidence concerns an extracted value as a whole. The decision concerns one recognized character.",
+            "better_fit": "Use this when evaluating confidence in an extracted field value.",
+            "feedback": {
+              "intrinsic": "The reviewer lacks certainty for the individual character.",
+              "instructional": "OCR confidence scoring applies at the recognized-character level."
+            }
+          },
+          {
+            "text": "A reading-order result",
+            "is_correct": false,
+            "error_type": "Sequence versus certainty",
+            "rationale": "Reading order establishes sequence among content. It does not show certainty about the “8.”",
+            "better_fit": "Use this when determining what content is read next.",
+            "feedback": {
+              "intrinsic": "The character’s reliability remains unknown.",
+              "instructional": "A confidence score, not reading order, expresses certainty."
+            }
+          },
+          {
+            "text": "A format-preservation result",
+            "is_correct": false,
+            "error_type": "Layout versus certainty",
+            "rationale": "Format preservation retains layout structure. It does not give a probability for a character reading.",
+            "better_fit": "Use this when retaining line breaks, paragraphs, and spacing.",
+            "feedback": {
+              "intrinsic": "Layout may be retained without assessing the “8.”",
+              "instructional": "Use character confidence scoring for recognition certainty."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "single_choice",
+        "concept_id": "ocr-confidence-scoring",
+        "item_key": "recognizing-and-producing-ocr-text/ocr-confidence-scoring/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. A character confidence score provides the required probability.",
+      "points": 1
+    }
+  ],
+  "flashcards": []
+}

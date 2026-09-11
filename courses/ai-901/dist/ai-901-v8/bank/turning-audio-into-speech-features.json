@@ -1,0 +1,1462 @@
+{
+  "schema_version": "exercise-bank-v1",
+  "lesson": "turning-audio-into-speech-features",
+  "module": "4-introduction-to-ai-speech-concepts",
+  "items": [
+    {
+      "item_key": "turning-audio-into-speech-features/audio-capture-and-sampling/r1/v1",
+      "concept_id": "audio-capture-and-sampling",
+      "rung": 1,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "single_choice",
+        "prompt": "What converts sound waves into a digital signal first?",
+        "concept_id": "audio-capture-and-sampling",
+        "options": [
+          {
+            "text": "A microphone",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A microphone begins audio capture by converting analog sound waves into a digital signal. Those numeric measurements are needed before later recognition stages.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "An MFCC extractor",
+            "is_correct": false,
+            "error_type": "Confuses audio capture with feature extraction",
+            "rationale": "MFCC extraction works on audio that has already been captured digitally. It creates compact features rather than converting sound waves.",
+            "better_fit": "Choose this after audio capture when raw waveforms need compact speech features.",
+            "feedback": {
+              "intrinsic": "The spoken command would have no digital audio available to prepare.",
+              "instructional": "Start with the microphone. MFCCs come later and summarize captured audio."
+            }
+          },
+          {
+            "text": "An acoustic model",
+            "is_correct": false,
+            "error_type": "Confuses capture with phoneme prediction",
+            "rationale": "An acoustic model uses feature vectors to predict likely phonemes. It does not capture sound from the speaker.",
+            "better_fit": "Choose this after MFCC features are available and phoneme probabilities are needed.",
+            "feedback": {
+              "intrinsic": "There would be no prepared audio for predicting the sounds in the command.",
+              "instructional": "Capture audio first, then prepare features before predicting phonemes."
+            }
+          },
+          {
+            "text": "A neural vocoder",
+            "is_correct": false,
+            "error_type": "Confuses recognition input with synthesis output",
+            "rationale": "A neural vocoder converts mel-spectrograms into audio waveforms during speech synthesis. It does not turn incoming sound into digital measurements.",
+            "better_fit": "Choose this when written text is being turned into spoken audio.",
+            "feedback": {
+              "intrinsic": "This would create speech output instead of recording the user's voice.",
+              "instructional": "A vocoder belongs to text-to-speech. Recognition starts with a microphone."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. A microphone starts audio capture by turning sound waves into numeric digital measurements."
+      },
+      "payload_hash": "eda5dae9c5caff20609f24356972c1f868c77aace4c13b51d41dcfd644adaa1a",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "3e473e1597e55d94be084b7ef2a67c31d8d44a550976b2272833afa921d83500",
+      "telemetry": {}
+    },
+    {
+      "item_key": "turning-audio-into-speech-features/audio-capture-and-sampling/r1/v2",
+      "concept_id": "audio-capture-and-sampling",
+      "rung": 1,
+      "variant": 2,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "multi_choice",
+        "prompt": "Which statements describe audio capture? Select all that apply.",
+        "concept_id": "audio-capture-and-sampling",
+        "options": [
+          {
+            "text": "It is the first recognition stage.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Audio capture is the first stage in recognition. It supplies the raw digital signal used by the stages that follow.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It converts analog sound to digital measurements.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The microphone changes analog sound waves into a digital signal. Each sampled measurement is stored as a numeric value.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It predicts phonemes from features.",
+            "is_correct": false,
+            "error_type": "Confuses capture with acoustic modeling",
+            "rationale": "Predicting phonemes is acoustic modeling. Audio capture only creates the digital signal.",
+            "better_fit": "Choose this for the stage that uses MFCC feature vectors to estimate phoneme probabilities.",
+            "feedback": {
+              "intrinsic": "A call recording would be mislabeled before its sounds could be identified.",
+              "instructional": "Keep capture and prediction separate: capture digitizes sound; acoustic modeling predicts phonemes."
+            }
+          },
+          {
+            "text": "It creates audio from written text.",
+            "is_correct": false,
+            "error_type": "Confuses recognition with speech synthesis",
+            "rationale": "Creating audio from written text is speech synthesis. Audio capture moves in the opposite direction, from sound to digital measurements.",
+            "better_fit": "Choose this for speech synthesis, such as reading a notification aloud.",
+            "feedback": {
+              "intrinsic": "The work would focus on speaking a message instead of collecting what the caller said.",
+              "instructional": "Audio capture begins with spoken sound, not written text."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. Audio capture is the first stage and turns analog sound into numeric digital measurements."
+      },
+      "payload_hash": "84f372273f60af57c745faa767fe471542e71f3d624ccbd16bb8df6166578d80",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "3e473e1597e55d94be084b7ef2a67c31d8d44a550976b2272833afa921d83500",
+      "telemetry": {}
+    },
+    {
+      "item_key": "turning-audio-into-speech-features/audio-capture-and-sampling/r2/v1",
+      "concept_id": "audio-capture-and-sampling",
+      "rung": 2,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "true_false",
+        "prompt": "Evaluate this statement.",
+        "concept_id": "audio-capture-and-sampling",
+        "statement": "Sampling rate is the number of audio measurements taken each second.",
+        "correct_answer": true,
+        "feedback_for_correct": "Correct. Sampling rate tells how many numeric audio measurements are taken each second.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The recording settings would be described incorrectly, making rate choices harder to compare.",
+          "instructional": "Sampling rate counts the measurements taken each second, such as 16,000 per second for 16 kHz."
+        }
+      },
+      "payload_hash": "810d7e8ed211d1f1062434b8fc92786dd1ed78d9403e871b510e0e1a964493a2",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "3e473e1597e55d94be084b7ef2a67c31d8d44a550976b2272833afa921d83500",
+      "telemetry": {}
+    },
+    {
+      "item_key": "turning-audio-into-speech-features/audio-capture-and-sampling/r3/v1",
+      "concept_id": "audio-capture-and-sampling",
+      "rung": 3,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "fill_gaps",
+        "prompt": "A common speech sampling rate is 16,000 samples per second, also called _____.",
+        "concept_id": "audio-capture-and-sampling",
+        "parts": [
+          {
+            "type": "text",
+            "text": "A common speech sampling rate is 16,000 samples per second, also called "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "16 kHz",
+              "16khz"
+            ],
+            "rejected_answers": [
+              "MFCCs",
+              "mel-spectrogram",
+              "pre-processing-and-mfccs",
+              "speech-synthesis-waveform-generation"
+            ],
+            "placeholder": "rate"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "explanation": "The prefix kilo means one thousand, so 16,000 measurements each second is 16 kHz. This is a common speech sampling rate.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The recording rate would remain unclear when configuring voice input.",
+          "instructional": "Use 16 kHz for 16,000 measurements per second. MFCCs and mel-spectrograms are audio representations, not sampling rates."
+        }
+      },
+      "payload_hash": "4a850baec5b4ea6e3b2082c6773543ea8f13ed4334c4a2a1adf02b694c972d62",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "3e473e1597e55d94be084b7ef2a67c31d8d44a550976b2272833afa921d83500",
+      "telemetry": {}
+    },
+    {
+      "item_key": "turning-audio-into-speech-features/audio-capture-and-sampling/r3/v2",
+      "concept_id": "audio-capture-and-sampling",
+      "rung": 3,
+      "variant": 2,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "rearrange",
+        "prompt": "Reconstruct the statement from the pieces.",
+        "concept_id": "audio-capture-and-sampling",
+        "word_bank": [
+          "measurements",
+          "Sampling rate",
+          "per second",
+          "counts audio"
+        ],
+        "correct_order": [
+          "Sampling rate",
+          "counts audio",
+          "measurements",
+          "per second"
+        ],
+        "interchangeable_groups": [],
+        "explanation": "Sampling rate names how many audio measurements are taken in one second. It is measured in hertz, often kilohertz for speech.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The definition of a recording setting would be unclear.",
+          "instructional": "Start with sampling rate, then state that it counts audio measurements per second."
+        }
+      },
+      "payload_hash": "bd48b9eef74562a68992dfdb749ed2d06e1b937b7a026b77d74daea0e42bb53f",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "3e473e1597e55d94be084b7ef2a67c31d8d44a550976b2272833afa921d83500",
+      "telemetry": {}
+    },
+    {
+      "item_key": "turning-audio-into-speech-features/audio-capture-and-sampling/r4/v1",
+      "concept_id": "audio-capture-and-sampling",
+      "rung": 4,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Applying",
+        "question_type": "single_choice",
+        "prompt": "A voice assistant cannot recognize a user's command because the team has not yet created a digital audio signal. What should the developer do first?",
+        "concept_id": "audio-capture-and-sampling",
+        "options": [
+          {
+            "text": "Capture microphone sound as digital measurements",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Recognition needs a digital signal before it can prepare features or predict sounds. A microphone provides that signal by sampling sound waves into numeric measurements.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Create MFCC feature vectors",
+            "is_correct": false,
+            "error_type": "Confuses capture with pre-processing",
+            "rationale": "MFCC vectors are made from captured digital audio. Without a digital signal, there is no waveform to transform into features.",
+            "better_fit": "Choose this after microphone capture when raw audio needs compact speech features.",
+            "feedback": {
+              "intrinsic": "The team could not create features because there is no recorded digital waveform.",
+              "instructional": "MFCC preparation follows capture. First collect microphone sound as numeric measurements."
+            }
+          },
+          {
+            "text": "Predict likely phonemes",
+            "is_correct": false,
+            "error_type": "Confuses capture with acoustic modeling",
+            "rationale": "Phoneme prediction requires prepared feature vectors. It cannot begin before audio has been captured and prepared.",
+            "better_fit": "Choose this after feature extraction when identifying likely speech sounds.",
+            "feedback": {
+              "intrinsic": "The command's sound units could not be estimated from missing audio.",
+              "instructional": "First capture the voice, then prepare features, then predict phonemes."
+            }
+          },
+          {
+            "text": "Generate a spoken waveform",
+            "is_correct": false,
+            "error_type": "Confuses recognition with synthesis",
+            "rationale": "Generating a waveform is part of speech synthesis from text. The situation requires recognizing incoming speech.",
+            "better_fit": "Choose this when the assistant needs to speak a response aloud.",
+            "feedback": {
+              "intrinsic": "The assistant would produce audio instead of receiving the user's command.",
+              "instructional": "Incoming voice recognition starts with microphone capture; waveform generation is for spoken output."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. The first need is microphone capture, which creates the numeric digital audio signal."
+      },
+      "payload_hash": "9b2c7be574098f3bf4ad0895dae7de68e44db5cbf17b5652aa8d2e513c1fde0f",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "3e473e1597e55d94be084b7ef2a67c31d8d44a550976b2272833afa921d83500",
+      "telemetry": {}
+    },
+    {
+      "item_key": "turning-audio-into-speech-features/sampling-rate-trade-off/r1/v1",
+      "concept_id": "sampling-rate-trade-off",
+      "rung": 1,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "multi_choice",
+        "prompt": "Which facts about sampling rates are correct? Select all that apply.",
+        "concept_id": "sampling-rate-trade-off",
+        "options": [
+          {
+            "text": "Higher rates capture more detail.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A higher sampling rate takes more measurements each second. This captures more audio detail.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Higher rates need more processing.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "More measurements create more information to process. Higher rates therefore require more processing.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "44.1 kHz is a typical music rate.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "44.1 kHz is a higher rate commonly used for music. It captures more detail than common speech rates.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Higher rates remove all background noise.",
+            "is_correct": false,
+            "error_type": "Confuses sampling detail with filtering",
+            "rationale": "Higher sampling rates capture more detail, but they do not remove all noise. Filters may reduce hums, clicks, or background noise.",
+            "better_fit": "Choose noise filtering when unwanted recorded sound needs to be reduced.",
+            "feedback": {
+              "intrinsic": "A noisy call could still be hard to recognize despite using a higher rate.",
+              "instructional": "Rate affects captured detail and processing needs; filtering addresses unwanted sound."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. Higher rates capture more detail and require more processing; 44.1 kHz is a typical music rate."
+      },
+      "payload_hash": "8084039b79d57722fd4f57eedfd965cb8ca03980d865050b4443e1678b8b85f3",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "3e473e1597e55d94be084b7ef2a67c31d8d44a550976b2272833afa921d83500",
+      "telemetry": {}
+    },
+    {
+      "item_key": "turning-audio-into-speech-features/sampling-rate-trade-off/r1/v2",
+      "concept_id": "sampling-rate-trade-off",
+      "rung": 1,
+      "variant": 2,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "single_choice",
+        "prompt": "What range commonly balances clarity and efficiency for speech recognition?",
+        "concept_id": "sampling-rate-trade-off",
+        "options": [
+          {
+            "text": "About 8 kHz to 16 kHz",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Speech recognition commonly balances clarity and efficiency at about 8–16 kHz. This range needs less processing than a higher music rate while retaining useful speech clarity.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "About 20 ms to 30 ms",
+            "is_correct": false,
+            "error_type": "Confuses sampling rate with frame duration",
+            "rationale": "20–30 milliseconds describes the length of an MFCC audio frame. It is a duration, not a number of samples per second.",
+            "better_fit": "Choose this when describing how audio is divided during MFCC extraction.",
+            "feedback": {
+              "intrinsic": "The team would set a frame length when it needed to choose a recording rate.",
+              "instructional": "kHz measures samples per second. Milliseconds measure the duration of one audio frame."
+            }
+          },
+          {
+            "text": "About 13 coefficients",
+            "is_correct": false,
+            "error_type": "Confuses rate with MFCC vector size",
+            "rationale": "Thirteen is a common number of values in one MFCC feature vector. It does not describe sampling rate.",
+            "better_fit": "Choose this when describing the usual size of one MFCC vector for a frame.",
+            "feedback": {
+              "intrinsic": "The recording would have no meaningful rate setting from this number.",
+              "instructional": "A sampling rate is measured in kHz; coefficients summarize an already prepared frame."
+            }
+          },
+          {
+            "text": "About 44.1 kHz only",
+            "is_correct": false,
+            "error_type": "Confuses music detail with common speech balance",
+            "rationale": "44.1 kHz captures more detail and is typical for music. It also requires more processing than the common speech balance.",
+            "better_fit": "Choose this when extra music detail is needed.",
+            "feedback": {
+              "intrinsic": "A basic voice-command feature could use more processing than necessary.",
+              "instructional": "For common speech recognition, about 8–16 kHz balances clarity and efficiency."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. Speech commonly uses about 8–16 kHz to balance clarity with efficient processing."
+      },
+      "payload_hash": "fc5467cc3c54a6b42e8cada677bc66b3d3306e960d2f607e98f02238ea54fea8",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "3e473e1597e55d94be084b7ef2a67c31d8d44a550976b2272833afa921d83500",
+      "telemetry": {}
+    },
+    {
+      "item_key": "turning-audio-into-speech-features/sampling-rate-trade-off/r2/v1",
+      "concept_id": "sampling-rate-trade-off",
+      "rung": 2,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "true_false",
+        "prompt": "True or false?",
+        "concept_id": "sampling-rate-trade-off",
+        "statement": "A higher sampling rate captures more detail while requiring less processing.",
+        "correct_answer": false,
+        "feedback_for_correct": "Correct. Higher sampling rates provide more detail, and that extra detail requires more processing.",
+        "feedback_for_incorrect": {
+          "intrinsic": "A team might underestimate the processing needed for higher-quality audio.",
+          "instructional": "The trade-off goes together: more samples per second capture more detail and create more processing work."
+        }
+      },
+      "payload_hash": "89ffcf380abc8266332259b81e28d77e0713ff24d0245b151d5038b6a7d94082",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "3e473e1597e55d94be084b7ef2a67c31d8d44a550976b2272833afa921d83500",
+      "telemetry": {}
+    },
+    {
+      "item_key": "turning-audio-into-speech-features/sampling-rate-trade-off/r3/v1",
+      "concept_id": "sampling-rate-trade-off",
+      "rung": 3,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "rearrange",
+        "prompt": "Put the pieces in the correct order.",
+        "concept_id": "sampling-rate-trade-off",
+        "word_bank": [
+          "but require",
+          "Higher sampling rates",
+          "more processing",
+          "capture more detail"
+        ],
+        "correct_order": [
+          "Higher sampling rates",
+          "capture more detail",
+          "but require",
+          "more processing"
+        ],
+        "interchangeable_groups": [],
+        "explanation": "The sentence links the benefit of more audio detail to its cost in processing. Both parts are necessary to express the sampling-rate trade-off.",
+        "feedback_for_incorrect": {
+          "intrinsic": "A teammate could miss either the benefit or the cost when choosing a rate.",
+          "instructional": "Start with higher sampling rates, then state their added detail and their added processing requirement."
+        }
+      },
+      "payload_hash": "1d324eadbbf17f89ae1fdfcbebdb0906d894395c9a8239c986242b82953027db",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "3e473e1597e55d94be084b7ef2a67c31d8d44a550976b2272833afa921d83500",
+      "telemetry": {}
+    },
+    {
+      "item_key": "turning-audio-into-speech-features/sampling-rate-trade-off/r3/v2",
+      "concept_id": "sampling-rate-trade-off",
+      "rung": 3,
+      "variant": 2,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "fill_gaps",
+        "prompt": "A rate of 44.1 kHz captures more detail but needs more _____.",
+        "concept_id": "sampling-rate-trade-off",
+        "parts": [
+          {
+            "type": "text",
+            "text": "A rate of 44.1 kHz captures more detail but needs more "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "processing"
+            ],
+            "rejected_answers": [
+              "sampling",
+              "normalization",
+              "latency",
+              "audio-quality-requirements",
+              "latency-requirements"
+            ],
+            "placeholder": "term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "explanation": "A higher rate produces more measurements and therefore more information to handle. That is why it requires more processing.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The trade-off would be incomplete when planning audio capture.",
+          "instructional": "The added detail requires processing. Sampling names the measurement process, and latency is a timing expectation."
+        }
+      },
+      "payload_hash": "244c80c37e8fdc69a70c430ff553f90aa28ca606e4fd6972dce28f0b34352760",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "3e473e1597e55d94be084b7ef2a67c31d8d44a550976b2272833afa921d83500",
+      "telemetry": {}
+    },
+    {
+      "item_key": "turning-audio-into-speech-features/sampling-rate-trade-off/r4/v1",
+      "concept_id": "sampling-rate-trade-off",
+      "rung": 4,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Applying",
+        "question_type": "multi_choice",
+        "prompt": "A team is adding speech recognition to a hands-free voice-command assistant and must balance clarity with efficient processing. Which choices fit? Select all that apply.",
+        "concept_id": "sampling-rate-trade-off",
+        "options": [
+          {
+            "text": "Use a speech rate around 8–16 kHz.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "About 8–16 kHz commonly balances clarity and efficiency for speech recognition. It fits a hands-free voice-command use case.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Expect higher rates to need more processing.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Higher rates create more audio detail. That additional detail requires more processing.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Use 44.1 kHz when extra music detail is needed.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "44.1 kHz is a higher rate commonly used for music. It is suitable when extra detail is needed and added processing is acceptable.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Assume rate removes microphone noise.",
+            "is_correct": false,
+            "error_type": "Confuses sampling rate with noise reduction",
+            "rationale": "Sampling rate changes how often audio is measured, not whether microphone noise disappears. Background noise and microphone quality affect accuracy directly.",
+            "better_fit": "Choose noise reduction when applying filters to remove hums, clicks, or background noise.",
+            "feedback": {
+              "intrinsic": "Voice commands may remain unclear in a noisy room.",
+              "instructional": "Do not rely on rate to solve noise. Rate balances detail and processing; filtering addresses unwanted sound."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. The common speech range balances clarity and efficiency, while higher rates bring both more detail and more processing."
+      },
+      "payload_hash": "42f7fe119d86b36c904918397538d212f921a33276ba3c8cef550f8f11ba4909",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "3e473e1597e55d94be084b7ef2a67c31d8d44a550976b2272833afa921d83500",
+      "telemetry": {}
+    },
+    {
+      "item_key": "turning-audio-into-speech-features/preprocessing-mfcc/r1/v1",
+      "concept_id": "preprocessing-mfcc",
+      "rung": 1,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "single_choice",
+        "prompt": "What does pre-processing do to raw audio?",
+        "concept_id": "preprocessing-mfcc",
+        "options": [
+          {
+            "text": "Creates compact speech features",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Pre-processing transforms raw waveforms into compact features for efficient pattern recognition. These features preserve useful speech characteristics while discarding irrelevant detail.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Captures sound with a microphone",
+            "is_correct": false,
+            "error_type": "Confuses pre-processing with audio capture",
+            "rationale": "A microphone captures sound and converts it into a digital signal. Pre-processing begins after audio is already available digitally.",
+            "better_fit": "Choose this for the first stage, audio capture.",
+            "feedback": {
+              "intrinsic": "The raw recording would remain unprepared for efficient pattern recognition.",
+              "instructional": "Capture comes first. Pre-processing then changes the raw waveform into compact features."
+            }
+          },
+          {
+            "text": "Predicts phoneme probabilities",
+            "is_correct": false,
+            "error_type": "Confuses features with acoustic modeling",
+            "rationale": "Acoustic modeling predicts phoneme probabilities from feature vectors. Pre-processing creates the feature vectors used in that later stage.",
+            "better_fit": "Choose this for acoustic modeling after MFCC features have been extracted.",
+            "feedback": {
+              "intrinsic": "The recognition path would skip the compact representation needed before sound prediction.",
+              "instructional": "Pre-processing prepares features; acoustic modeling uses them to predict phonemes."
+            }
+          },
+          {
+            "text": "Generates a final audio waveform",
+            "is_correct": false,
+            "error_type": "Confuses recognition with synthesis",
+            "rationale": "Generating a final waveform is speech synthesis. Pre-processing is part of recognition and transforms incoming audio.",
+            "better_fit": "Choose this during speech synthesis after phonemes and prosody specifications are available.",
+            "feedback": {
+              "intrinsic": "The work would produce spoken output instead of preparing a recording for transcription.",
+              "instructional": "Raw incoming audio is prepared with features; final waveforms are generated for text-to-speech."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. Pre-processing makes raw audio compact while keeping the speech characteristics needed for recognition."
+      },
+      "payload_hash": "72d5c494fbb3b8f8bd39c061d7687c03afbd32335bdc43ded466b19dc64eff25",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "3e473e1597e55d94be084b7ef2a67c31d8d44a550976b2272833afa921d83500",
+      "telemetry": {}
+    },
+    {
+      "item_key": "turning-audio-into-speech-features/preprocessing-mfcc/r1/v2",
+      "concept_id": "preprocessing-mfcc",
+      "rung": 1,
+      "variant": 2,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "multi_choice",
+        "prompt": "Which statements about MFCCs are correct? Select all that apply.",
+        "concept_id": "preprocessing-mfcc",
+        "options": [
+          {
+            "text": "They are a common speech feature representation.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "MFCCs are a common feature extraction representation in speech recognition. They provide compact vectors for later acoustic modeling.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "They emphasize hearing-important frequencies.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "MFCCs use the Mel scale to emphasize frequency ranges important to human hearing. Less important ranges are compressed.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "They summarize spectral shape.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "MFCC coefficients summarize the spectral shape of each short audio frame. A small set of values represents useful sound characteristics.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "They are final spoken audio samples.",
+            "is_correct": false,
+            "error_type": "Confuses MFCCs with waveform output",
+            "rationale": "MFCCs are feature values derived from captured audio. Final spoken audio is a waveform produced during synthesis.",
+            "better_fit": "Choose this for raw audio waveform values created during speech synthesis.",
+            "feedback": {
+              "intrinsic": "A learner might treat compact features as audio that a listener could hear.",
+              "instructional": "MFCCs describe short frames for recognition. They are not the final audible waveform."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. MFCCs are compact speech features that reflect hearing-important frequencies and spectral shape."
+      },
+      "payload_hash": "ab4e45128ef42fd093b2fd6196b07d4dce2e594744b7e28e5e5fc73f1657e9a3",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "3e473e1597e55d94be084b7ef2a67c31d8d44a550976b2272833afa921d83500",
+      "telemetry": {}
+    },
+    {
+      "item_key": "turning-audio-into-speech-features/preprocessing-mfcc/r2/v1",
+      "concept_id": "preprocessing-mfcc",
+      "rung": 2,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "true_false",
+        "prompt": "Decide whether this statement is true or false.",
+        "concept_id": "preprocessing-mfcc",
+        "statement": "MFCC pre-processing can discard irrelevant information such as absolute volume.",
+        "correct_answer": true,
+        "feedback_for_correct": "Correct. MFCC features preserve useful speech characteristics while discarding irrelevant information such as absolute volume.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The audio representation could be treated as carrying more irrelevant detail than needed.",
+          "instructional": "Feature preparation makes audio compact by retaining useful speech patterns and discarding details such as absolute volume."
+        }
+      },
+      "payload_hash": "9ce4424b30c4a1ab0950b95b991775295e61aeb58fcf1018c5d66187f86054a1",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "3e473e1597e55d94be084b7ef2a67c31d8d44a550976b2272833afa921d83500",
+      "telemetry": {}
+    },
+    {
+      "item_key": "turning-audio-into-speech-features/preprocessing-mfcc/r3/v1",
+      "concept_id": "preprocessing-mfcc",
+      "rung": 3,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "fill_gaps",
+        "prompt": "A common compact speech feature representation is _____.",
+        "concept_id": "preprocessing-mfcc",
+        "parts": [
+          {
+            "type": "text",
+            "text": "A common compact speech feature representation is "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "MFCCs",
+              "MFCC"
+            ],
+            "rejected_answers": [
+              "mel-spectrogram",
+              "phonemes",
+              "16 kHz",
+              "audio-capture-and-sampling",
+              "acoustic-model-and-phonemes"
+            ],
+            "placeholder": "technical term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "explanation": "MFCCs summarize the spectral shape of short audio frames in a compact form. They become the input for acoustic modeling.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The next recognition stage would be described with the wrong kind of information.",
+          "instructional": "MFCCs are compact recognition features. A mel-spectrogram is used in synthesis, phonemes are speech sounds, and 16 kHz is a sampling rate."
+        }
+      },
+      "payload_hash": "32063abadf218e632a580f91baa2d2d4b68fc26caa1b406162909199b894303c",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "3e473e1597e55d94be084b7ef2a67c31d8d44a550976b2272833afa921d83500",
+      "telemetry": {}
+    },
+    {
+      "item_key": "turning-audio-into-speech-features/preprocessing-mfcc/r3/v2",
+      "concept_id": "preprocessing-mfcc",
+      "rung": 3,
+      "variant": 2,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "rearrange",
+        "prompt": "Arrange the parts to form the correct statement.",
+        "concept_id": "preprocessing-mfcc",
+        "word_bank": [
+          "of short frames",
+          "MFCCs summarize",
+          "for recognition",
+          "spectral shape"
+        ],
+        "correct_order": [
+          "MFCCs summarize",
+          "spectral shape",
+          "of short frames",
+          "for recognition"
+        ],
+        "interchangeable_groups": [],
+        "explanation": "MFCCs provide a compact summary of the spectral shape within short audio frames. This representation supports efficient speech recognition.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The purpose of MFCC features would be described unclearly.",
+          "instructional": "Begin with MFCCs, then state that they summarize spectral shape of short frames for recognition."
+        }
+      },
+      "payload_hash": "ddd2f68c8c01495035c93d35ed0bf3646ee8a6fe39722967b74b127edd3ff225",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "3e473e1597e55d94be084b7ef2a67c31d8d44a550976b2272833afa921d83500",
+      "telemetry": {}
+    },
+    {
+      "item_key": "turning-audio-into-speech-features/preprocessing-mfcc/r4/v1",
+      "concept_id": "preprocessing-mfcc",
+      "rung": 4,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Applying",
+        "question_type": "single_choice",
+        "prompt": "A service center wants to transcribe customer calls, but its recognition system is slowed by raw audio data. What should the engineer use next?",
+        "concept_id": "preprocessing-mfcc",
+        "options": [
+          {
+            "text": "MFCC pre-processing",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "MFCC pre-processing changes raw audio into a compact representation. This makes the information more efficient for pattern recognition while retaining useful speech characteristics.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A higher sampling rate",
+            "is_correct": false,
+            "error_type": "Confuses feature extraction with sampling-rate choice",
+            "rationale": "A higher rate captures more detail but requires more processing. It does not make raw audio compact.",
+            "better_fit": "Choose this when deciding how much recording detail is needed, especially for music.",
+            "feedback": {
+              "intrinsic": "The call data could become even more demanding to process.",
+              "instructional": "For compact recognition input, use MFCC pre-processing rather than increasing the sampling rate."
+            }
+          },
+          {
+            "text": "A phoneme prediction model",
+            "is_correct": false,
+            "error_type": "Confuses feature preparation with acoustic modeling",
+            "rationale": "A phoneme prediction model needs feature vectors as input. It does not replace the feature-preparation step.",
+            "better_fit": "Choose this after MFCC extraction to estimate which phoneme occurs at each moment.",
+            "feedback": {
+              "intrinsic": "The model would still face unprepared raw audio rather than compact features.",
+              "instructional": "Prepare MFCC features first; acoustic modeling then predicts phoneme probabilities from them."
+            }
+          },
+          {
+            "text": "A neural vocoder",
+            "is_correct": false,
+            "error_type": "Confuses recognition preparation with synthesis",
+            "rationale": "A neural vocoder converts mel-spectrograms into audio waveforms for speech synthesis. Call transcription needs speech recognition preparation instead.",
+            "better_fit": "Choose this when generating spoken audio from text.",
+            "feedback": {
+              "intrinsic": "The service center would generate audio rather than make call transcription more efficient.",
+              "instructional": "Use MFCC pre-processing for incoming calls. Vocoding belongs to spoken output."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. MFCC pre-processing creates compact features that are more efficient for recognition than raw audio."
+      },
+      "payload_hash": "7d3b14b60fec74db4699fc499b0920d51403f12d7330e6574393b9191f7afef8",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "3e473e1597e55d94be084b7ef2a67c31d8d44a550976b2272833afa921d83500",
+      "telemetry": {}
+    },
+    {
+      "item_key": "turning-audio-into-speech-features/mfcc-extraction-process/r1/v1",
+      "concept_id": "mfcc-extraction-process",
+      "rung": 1,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "multi_choice",
+        "prompt": "Which steps are part of MFCC extraction? Select all that apply.",
+        "concept_id": "mfcc-extraction-process",
+        "options": [
+          {
+            "text": "Split audio into overlapping frames.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "MFCC extraction divides audio into overlapping 20–30 millisecond frames. Each frame is analyzed separately.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Apply a Fourier transform.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A Fourier transform changes each frame into frequency information. It reveals which pitches are present.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Map frequencies to the Mel scale.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "After frequency analysis, frequencies are mapped to the Mel scale. This reflects human hearing sensitivity.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Decode the best word sequence.",
+            "is_correct": false,
+            "error_type": "Confuses MFCC extraction with decoding",
+            "rationale": "Decoding searches for the best transcription from acoustic and language predictions. It happens after feature extraction.",
+            "better_fit": "Choose this near the end of recognition when selecting the most likely word sequence.",
+            "feedback": {
+              "intrinsic": "Feature preparation would be skipped before the words could be chosen.",
+              "instructional": "MFCC extraction prepares sound features. Decoding later selects the best text hypothesis."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. MFCC extraction uses overlapping frames, Fourier analysis, Mel mapping, and coefficient computation."
+      },
+      "payload_hash": "b671c8a98c804cc1ff7287006b9d29ee8e49908c8efc6924b94b96206141d8c2",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "3e473e1597e55d94be084b7ef2a67c31d8d44a550976b2272833afa921d83500",
+      "telemetry": {}
+    },
+    {
+      "item_key": "turning-audio-into-speech-features/mfcc-extraction-process/r1/v2",
+      "concept_id": "mfcc-extraction-process",
+      "rung": 1,
+      "variant": 2,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "single_choice",
+        "prompt": "How long is an MFCC audio frame commonly?",
+        "concept_id": "mfcc-extraction-process",
+        "options": [
+          {
+            "text": "About 20–30 milliseconds",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "MFCC extraction splits audio into overlapping windows of about 20–30 milliseconds. These short frames are the units used for frequency analysis.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "About 8–16 kilohertz",
+            "is_correct": false,
+            "error_type": "Confuses frame duration with sampling rate",
+            "rationale": "8–16 kHz is a common speech sampling-rate range. It measures samples per second rather than frame length.",
+            "better_fit": "Choose this when choosing a common speech sampling rate.",
+            "feedback": {
+              "intrinsic": "The frame duration would be confused with the rate used to record audio.",
+              "instructional": "Milliseconds describe frame length. Kilohertz describes how many samples are taken each second."
+            }
+          },
+          {
+            "text": "About 13 seconds",
+            "is_correct": false,
+            "error_type": "Confuses coefficient count with time",
+            "rationale": "Thirteen is a common number of coefficients in one MFCC vector. It is not a duration, and MFCC frames are measured in milliseconds.",
+            "better_fit": "Choose 13 when describing coefficient values in one feature vector.",
+            "feedback": {
+              "intrinsic": "Audio would be grouped into frames far longer than intended.",
+              "instructional": "One frame is about 20–30 milliseconds; one vector often has 13 coefficient values."
+            }
+          },
+          {
+            "text": "About 44.1 milliseconds",
+            "is_correct": false,
+            "error_type": "Confuses music sampling rate with frame duration",
+            "rationale": "44.1 kHz is a music sampling rate, not a 44.1-millisecond frame duration. MFCC frames are commonly about 20–30 milliseconds.",
+            "better_fit": "Choose 44.1 kHz when discussing higher-detail music capture.",
+            "feedback": {
+              "intrinsic": "The timing of feature extraction would be based on a different measurement.",
+              "instructional": "Do not mix kilohertz with milliseconds. MFCC frames use short 20–30 ms windows."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. MFCC extraction commonly analyzes overlapping audio frames of about 20–30 milliseconds."
+      },
+      "payload_hash": "4fd13a0369c2dd2bf33c1958fc4602415224d2fe5b67b8dbf19a25eee66ab12e",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "3e473e1597e55d94be084b7ef2a67c31d8d44a550976b2272833afa921d83500",
+      "telemetry": {}
+    },
+    {
+      "item_key": "turning-audio-into-speech-features/mfcc-extraction-process/r2/v1",
+      "concept_id": "mfcc-extraction-process",
+      "rung": 2,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "true_false",
+        "prompt": "Is the following statement accurate?",
+        "concept_id": "mfcc-extraction-process",
+        "statement": "An MFCC feature vector often contains 13 coefficient values for more than one time frame.",
+        "correct_answer": false,
+        "feedback_for_correct": "Correct. One MFCC vector commonly contains 13 coefficient values for one time frame.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The relationship between frames and their feature vectors would be mixed up.",
+          "instructional": "Audio produces a sequence of vectors. Each vector represents one frame and often has 13 coefficient values."
+        }
+      },
+      "payload_hash": "31b8da231e45c44d235f9ced70e95f29b8841534af763a99f9fd342131ac0898",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "3e473e1597e55d94be084b7ef2a67c31d8d44a550976b2272833afa921d83500",
+      "telemetry": {}
+    },
+    {
+      "item_key": "turning-audio-into-speech-features/mfcc-extraction-process/r3/v1",
+      "concept_id": "mfcc-extraction-process",
+      "rung": 3,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "rearrange",
+        "prompt": "Order the pieces correctly.",
+        "concept_id": "mfcc-extraction-process",
+        "word_bank": [
+          "map to Mel scale",
+          "Split into frames",
+          "compute coefficients",
+          "apply Fourier transform"
+        ],
+        "correct_order": [
+          "Split into frames",
+          "apply Fourier transform",
+          "map to Mel scale",
+          "compute coefficients"
+        ],
+        "interchangeable_groups": [],
+        "explanation": "Frames must exist before their frequencies can be analyzed. Frequency information is then mapped to the Mel scale before compact coefficients are computed.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The feature preparation steps would not produce the intended compact representation.",
+          "instructional": "First make short frames, then reveal pitches, adjust them for human hearing, and compute the coefficients."
+        }
+      },
+      "payload_hash": "b07c317f9fad74678586012a6751f6f4900d121bbc3567d0198c0d19cfb874b5",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "3e473e1597e55d94be084b7ef2a67c31d8d44a550976b2272833afa921d83500",
+      "telemetry": {}
+    },
+    {
+      "item_key": "turning-audio-into-speech-features/mfcc-extraction-process/r3/v2",
+      "concept_id": "mfcc-extraction-process",
+      "rung": 3,
+      "variant": 2,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "fill_gaps",
+        "prompt": "MFCC extraction divides a recording into _____ frames so adjacent frames share some audio.",
+        "concept_id": "mfcc-extraction-process",
+        "parts": [
+          {
+            "type": "text",
+            "text": "MFCC extraction divides a recording into "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "overlapping"
+            ],
+            "rejected_answers": [
+              "independent",
+              "nonoverlapping",
+              "Mel",
+              "Fourier",
+              "pre-processing-and-mfccs",
+              "fourier-transform-and-mel-scale"
+            ],
+            "placeholder": "technical term"
+          },
+          {
+            "type": "text",
+            "text": " frames so adjacent frames share some audio."
+          }
+        ],
+        "explanation": "MFCC extraction uses overlapping frames, meaning adjacent frames share some audio samples. The frames are then analyzed as short time segments.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The framing method for feature extraction would be stated incorrectly.",
+          "instructional": "Use overlapping. MFCC extraction analyzes overlapping short frames rather than completely separate frames."
+        }
+      },
+      "payload_hash": "1bc878baf07017d973b8c3d362c13b63fedd6746542cf9ee09ad2ce574015c55",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "3e473e1597e55d94be084b7ef2a67c31d8d44a550976b2272833afa921d83500",
+      "telemetry": {}
+    },
+    {
+      "item_key": "turning-audio-into-speech-features/mfcc-extraction-process/r4/v1",
+      "concept_id": "mfcc-extraction-process",
+      "rung": 4,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Applying",
+        "question_type": "multi_choice",
+        "prompt": "A developer is preparing recorded speech for a meeting-transcription service. Which actions should they take to build MFCC features? Select all that apply.",
+        "concept_id": "mfcc-extraction-process",
+        "options": [
+          {
+            "text": "Use overlapping 20–30 ms frames.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "MFCC extraction begins with overlapping 20–30 millisecond frames. This provides short sections of audio for analysis.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Reveal pitches with a Fourier transform.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A Fourier transform reveals the pitches in each frame by moving to the frequency domain. This is a required MFCC extraction step.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Compute a small set of coefficients.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "MFCC extraction computes a small set of numbers that summarizes each frame's spectral shape. Often, one vector has 13 values.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Generate raw audio with a vocoder.",
+            "is_correct": false,
+            "error_type": "Confuses MFCC extraction with speech synthesis",
+            "rationale": "A vocoder generates waveforms from mel-spectrograms during speech synthesis. It is not used to prepare recorded speech into MFCC features.",
+            "better_fit": "Choose this when generating spoken audio from phonemes and prosody specifications.",
+            "feedback": {
+              "intrinsic": "The meeting recording would be turned toward audio creation instead of transcription preparation.",
+              "instructional": "MFCC work analyzes incoming recorded audio. Vocoding creates audible output in synthesis."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. Build MFCC features by framing the audio, revealing its pitches, using Mel mapping, and computing compact coefficients."
+      },
+      "payload_hash": "c2d66230e943447af07472d20bdf9c8860100ebf31dcd216077b11927bf9f7ff",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "3e473e1597e55d94be084b7ef2a67c31d8d44a550976b2272833afa921d83500",
+      "telemetry": {}
+    },
+    {
+      "item_key": "turning-audio-into-speech-features/fourier-transform-and-mel-scale/r1/v1",
+      "concept_id": "fourier-transform-and-mel-scale",
+      "rung": 1,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "single_choice",
+        "prompt": "What does a Fourier transform reveal in an audio frame?",
+        "concept_id": "fourier-transform-and-mel-scale",
+        "options": [
+          {
+            "text": "The pitches that are present",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A Fourier transform changes an audio frame from the time domain to the frequency domain. This reveals which pitches are present in that frame.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "The final written words",
+            "is_correct": false,
+            "error_type": "Confuses frequency analysis with transcription",
+            "rationale": "Written words are selected later during decoding. Fourier analysis reveals frequency content, not a transcription.",
+            "better_fit": "Choose this for decoding, which selects the best word sequence.",
+            "feedback": {
+              "intrinsic": "The team would mistake sound-frequency information for a finished transcript.",
+              "instructional": "Fourier analysis identifies pitches. Decoding combines later predictions to select words."
+            }
+          },
+          {
+            "text": "The microphone distance",
+            "is_correct": false,
+            "error_type": "Confuses audio conditions with frequency analysis",
+            "rationale": "Distance from the speaker affects downstream accuracy, but a Fourier transform does not identify microphone distance. It reveals pitches in an audio frame.",
+            "better_fit": "Choose microphone distance when evaluating audio-quality conditions that affect recognition accuracy.",
+            "feedback": {
+              "intrinsic": "A recording issue could be confused with the analysis performed on its frames.",
+              "instructional": "Keep audio conditions separate from frequency analysis. Fourier transforms reveal pitches."
+            }
+          },
+          {
+            "text": "The final audio waveform",
+            "is_correct": false,
+            "error_type": "Confuses analysis with speech synthesis",
+            "rationale": "The final audio waveform is generated during speech synthesis by a neural vocoder. A Fourier transform analyzes an existing frame rather than generating audio.",
+            "better_fit": "Choose this for the output of speech synthesis after vocoding.",
+            "feedback": {
+              "intrinsic": "The analysis step would be mistaken for the stage that creates spoken output.",
+              "instructional": "Fourier transforms inspect frequency content; neural vocoders generate audio waveforms."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. A Fourier transform reveals the pitches present by changing a frame into frequency information."
+      },
+      "payload_hash": "907d29340c8db6be738a2ea4333bf3971f137519a1708a43685466b1e94ef19d",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "3e473e1597e55d94be084b7ef2a67c31d8d44a550976b2272833afa921d83500",
+      "telemetry": {}
+    },
+    {
+      "item_key": "turning-audio-into-speech-features/fourier-transform-and-mel-scale/r1/v2",
+      "concept_id": "fourier-transform-and-mel-scale",
+      "rung": 1,
+      "variant": 2,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "multi_choice",
+        "prompt": "Which statements describe the Mel scale? Select all that apply.",
+        "concept_id": "fourier-transform-and-mel-scale",
+        "options": [
+          {
+            "text": "It adjusts frequency bins for human hearing.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The Mel scale adjusts frequency bins to match human hearing sensitivity. This makes the representation emphasize perceptually important frequency ranges.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It reflects stronger low-pitch distinction.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "People distinguish low pitches better than high pitches. The Mel scale reflects this difference in hearing sensitivity.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It is used after frequency analysis.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "MFCC extraction first applies a Fourier transform to reveal frequencies. It then maps those frequency bins to the Mel scale.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It converts text into phonemes.",
+            "is_correct": false,
+            "error_type": "Confuses Mel mapping with linguistic analysis",
+            "rationale": "Text-to-phoneme conversion occurs during linguistic analysis in speech synthesis. Mel mapping adjusts frequencies from an audio frame during recognition feature extraction.",
+            "better_fit": "Choose this for linguistic analysis, which maps written letters and words to phonemes.",
+            "feedback": {
+              "intrinsic": "Written pronunciation work would be confused with audio feature preparation.",
+              "instructional": "The Mel scale works with frequencies from audio. Linguistic analysis works with written text and phonemes."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. The Mel scale follows frequency analysis and adjusts frequency bins to reflect human hearing, especially finer low-pitch distinction."
+      },
+      "payload_hash": "246a0fb74ebdcacc478279bd03dc3fe05f95e47dd5468a6a189648cbc5934e65",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "3e473e1597e55d94be084b7ef2a67c31d8d44a550976b2272833afa921d83500",
+      "telemetry": {}
+    },
+    {
+      "item_key": "turning-audio-into-speech-features/fourier-transform-and-mel-scale/r2/v1",
+      "concept_id": "fourier-transform-and-mel-scale",
+      "rung": 2,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "true_false",
+        "prompt": "Evaluate this statement.",
+        "concept_id": "fourier-transform-and-mel-scale",
+        "statement": "The Mel scale reflects that people distinguish low pitches better than high pitches.",
+        "correct_answer": true,
+        "feedback_for_correct": "Correct. The Mel scale is designed around human hearing sensitivity, including finer distinction among low pitches.",
+        "feedback_for_incorrect": {
+          "intrinsic": "Frequency bins would be treated as equally important to hearing when they are not.",
+          "instructional": "The Mel scale adjusts frequencies because people distinguish low pitches better than high pitches."
+        }
+      },
+      "payload_hash": "7ceb4b80e8d5ebbbd951dc079b33ca1abcbb4e311734d09838bbfed694ee857a",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "3e473e1597e55d94be084b7ef2a67c31d8d44a550976b2272833afa921d83500",
+      "telemetry": {}
+    },
+    {
+      "item_key": "turning-audio-into-speech-features/fourier-transform-and-mel-scale/r3/v1",
+      "concept_id": "fourier-transform-and-mel-scale",
+      "rung": 3,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "fill_gaps",
+        "prompt": "A _____ changes an audio frame from the time domain to the frequency domain.",
+        "concept_id": "fourier-transform-and-mel-scale",
+        "parts": [
+          {
+            "type": "text",
+            "text": "A "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "Fourier transform",
+              "Fourier Transform"
+            ],
+            "rejected_answers": [
+              "Mel scale",
+              "MFCCs",
+              "mel-spectrogram",
+              "mfcc-extraction-process"
+            ],
+            "placeholder": "technical term"
+          },
+          {
+            "type": "text",
+            "text": " changes an audio frame from the time domain to the frequency domain."
+          }
+        ],
+        "explanation": "The Fourier transform exposes the pitches in a short audio frame by expressing it in the frequency domain. Mel mapping comes after that conversion.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The frequency-analysis step would be missing from feature preparation.",
+          "instructional": "Use a Fourier transform for time-to-frequency conversion. The Mel scale adjusts resulting frequencies, while MFCCs are compact coefficients."
+        }
+      },
+      "payload_hash": "0ccf5efc1779ceb569300d487eae1d704ee099280d64467f14d4dcd88de5c1d2",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "3e473e1597e55d94be084b7ef2a67c31d8d44a550976b2272833afa921d83500",
+      "telemetry": {}
+    },
+    {
+      "item_key": "turning-audio-into-speech-features/fourier-transform-and-mel-scale/r3/v2",
+      "concept_id": "fourier-transform-and-mel-scale",
+      "rung": 3,
+      "variant": 2,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "rearrange",
+        "prompt": "Reconstruct the statement from the pieces.",
+        "concept_id": "fourier-transform-and-mel-scale",
+        "word_bank": [
+          "to reflect",
+          "The Mel scale",
+          "human hearing sensitivity",
+          "adjusts frequency bins"
+        ],
+        "correct_order": [
+          "The Mel scale",
+          "adjusts frequency bins",
+          "to reflect",
+          "human hearing sensitivity"
+        ],
+        "interchangeable_groups": [],
+        "explanation": "The order identifies the Mel scale, its action on frequency bins, and the reason for that action. It aligns audio features with human hearing sensitivity.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The purpose of Mel mapping could be unclear when explaining MFCC preparation.",
+          "instructional": "Name the Mel scale first, then state that it adjusts frequency bins to reflect human hearing sensitivity."
+        }
+      },
+      "payload_hash": "80912e5cd0e6b222a4261ffd29b7a0becf8aa040f32137a236411d4281442ee2",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "3e473e1597e55d94be084b7ef2a67c31d8d44a550976b2272833afa921d83500",
+      "telemetry": {}
+    },
+    {
+      "item_key": "turning-audio-into-speech-features/fourier-transform-and-mel-scale/r4/v1",
+      "concept_id": "fourier-transform-and-mel-scale",
+      "rung": 4,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Applying",
+        "question_type": "single_choice",
+        "prompt": "An engineer is improving speech recognition for a voice-controlled vehicle. They need to identify the pitches in each short audio frame before Mel mapping. Which step should they choose?",
+        "concept_id": "fourier-transform-and-mel-scale",
+        "options": [
+          {
+            "text": "Apply a Fourier transform",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A Fourier transform reveals the pitches present in each short audio frame. Mel mapping follows this frequency analysis.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Compute final MFCC coefficients",
+            "is_correct": false,
+            "error_type": "Confuses frequency analysis with later coefficient extraction",
+            "rationale": "Coefficient computation comes after frequency analysis and Mel mapping. It cannot identify pitches before those earlier steps.",
+            "better_fit": "Choose this at the end of MFCC extraction after Mel-scale mapping.",
+            "feedback": {
+              "intrinsic": "The engineer would skip the step needed to reveal the frame's pitches.",
+              "instructional": "Use Fourier analysis first. Then map frequencies to the Mel scale and compute coefficients."
+            }
+          },
+          {
+            "text": "Capture microphone samples",
+            "is_correct": false,
+            "error_type": "Confuses frame analysis with audio capture",
+            "rationale": "Microphone capture creates the original digital audio signal. The situation already has short frames and needs frequency analysis.",
+            "better_fit": "Choose this at the start, before audio can be divided into frames.",
+            "feedback": {
+              "intrinsic": "The preparation would repeat the first stage instead of analyzing the available frames.",
+              "instructional": "Capture happens first. Once frames exist, apply a Fourier transform to find their pitches."
+            }
+          },
+          {
+            "text": "Generate a mel-spectrogram waveform",
+            "is_correct": false,
+            "error_type": "Confuses recognition analysis with synthesis representation",
+            "rationale": "A mel-spectrogram is a sound-frequency representation used in speech synthesis before vocoding. It is not a waveform, and this task needs recognition-side Fourier analysis.",
+            "better_fit": "Choose a mel-spectrogram during synthesis when phonemes and prosody are converted toward audio output.",
+            "feedback": {
+              "intrinsic": "The vehicle feature would move toward producing audio instead of identifying incoming speech pitches.",
+              "instructional": "For recognition frames, use a Fourier transform before Mel mapping. Waveforms are generated later in speech synthesis."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. Apply a Fourier transform first to reveal the pitches in each frame, then map frequencies to the Mel scale."
+      },
+      "payload_hash": "92f14abb4d45289972bf79320d2bf87e7204558dacba9572ab0eb6cea59b2deb",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "3e473e1597e55d94be084b7ef2a67c31d8d44a550976b2272833afa921d83500",
+      "telemetry": {}
+    }
+  ],
+  "flashcards": [
+    {
+      "front": "What is audio capture?",
+      "back": "A microphone converts analog sound waves into digital numeric measurements.",
+      "hint": "First recognition stage"
+    },
+    {
+      "front": "What is sampling rate?",
+      "back": "The number of audio measurements taken each second.",
+      "hint": "Measured in kHz"
+    },
+    {
+      "front": "What are MFCCs?",
+      "back": "Compact features that summarize useful speech sound characteristics.",
+      "hint": "Speech feature representation"
+    },
+    {
+      "front": "What does the Mel scale do?",
+      "back": "It adjusts frequencies to reflect human hearing sensitivity.",
+      "hint": "Low pitches matter more"
+    }
+  ]
+}

@@ -1,0 +1,487 @@
+{
+  "import_key": "build-speech-to-text-applications-l1",
+  "title": "Build speech-to-text applications · Level 1",
+  "slo": "Identify the Azure Speech components needed to transcribe microphone or file audio.",
+  "exercises": [
+    {
+      "import_key": "build-speech-to-text-applications-l1-q1",
+      "question_type": "multiple_choice",
+      "question_text": "What can the Speech-to-Text API process into text? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Voice from a microphone",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The API can process voice input from a microphone. Spoken audio is converted into text.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Voice in an audio file",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The API can process voice from an audio file. The file's spoken content becomes text.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Spoken audio input",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Speech-to-text works from spoken audio input. A microphone and an audio file are two possible sources.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Written text into audio",
+            "is_correct": false,
+            "error_type": "Confuses speech-to-text with text-to-speech",
+            "rationale": "Converting written text into audio is speech synthesis. Speech-to-text converts spoken audio into written text.",
+            "better_fit": "Choose this for text-to-speech, which vocalizes text.",
+            "feedback": {
+              "intrinsic": "The app would produce audio instead of the needed transcript.",
+              "instructional": "Match the direction carefully: speech-to-text is audio to text, while text-to-speech is text to audio."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "azure-speech-stt-api-sdk",
+        "item_key": "build-speech-to-text-applications/azure-speech-stt-api-sdk/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct! The Speech-to-Text API turns spoken microphone or file audio into text.",
+      "points": 1
+    },
+    {
+      "import_key": "build-speech-to-text-applications-l1-q2",
+      "question_type": "multiple_choice",
+      "question_text": "Which task does the Speech-to-Text SDK handle?",
+      "options": {
+        "options": [
+          {
+            "text": "Send audio securely to Azure Speech",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The SDK can securely send microphone, file, or stream audio to Azure Speech. It handles underlying communication so developers can focus on application logic.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Choose a synthetic speaking voice",
+            "is_correct": false,
+            "error_type": "Confuses Speech-to-Text with Text-to-Speech",
+            "rationale": "Choosing a voice is part of speech synthesis. The Speech-to-Text SDK handles audio input and transcription communication.",
+            "better_fit": "Choose this for a text-to-speech application configuring spoken output.",
+            "feedback": {
+              "intrinsic": "The app would focus on spoken output instead of sending input audio for transcription.",
+              "instructional": "Speech-to-text starts with spoken audio. Synthetic voices are used when written text must become audio."
+            }
+          },
+          {
+            "text": "Make agent response decisions",
+            "is_correct": false,
+            "error_type": "Confuses SDK with agent logic",
+            "rationale": "An agent or application logic decides what response to make. The SDK handles communication tasks such as networking and audio streaming.",
+            "better_fit": "Choose this for the reasoning or application-logic stage of a conversational agent.",
+            "feedback": {
+              "intrinsic": "The response decision would be assigned to the connection layer.",
+              "instructional": "The SDK is the bridge to Azure Speech. Response decisions belong to an agent or application logic."
+            }
+          },
+          {
+            "text": "Create a Foundry resource",
+            "is_correct": false,
+            "error_type": "Confuses SDK responsibilities with resource setup",
+            "rationale": "A Foundry resource is created as setup before an application connects. The SDK uses its endpoint and authentication information after that setup.",
+            "better_fit": "Choose this when preparing the Azure resource needed for an application connection.",
+            "feedback": {
+              "intrinsic": "The app would still need code to send audio and receive transcription.",
+              "instructional": "Creating the resource is setup. The SDK handles the connection, audio transfer, and returned transcription."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "speech-sdk-responsibilities",
+        "item_key": "build-speech-to-text-applications/speech-sdk-responsibilities/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct! The SDK securely sends audio to Azure Speech and handles related communication work.",
+      "points": 1
+    },
+    {
+      "import_key": "build-speech-to-text-applications-l1-q3",
+      "question_type": "true_false",
+      "question_text": "A client library is ready-made code that helps an application communicate with a service or API.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "azure-speech-stt-api-sdk",
+        "feedback_for_incorrect": {
+          "intrinsic": "The application would be missing the role of the SDK.",
+          "instructional": "The Speech-to-Text SDK is a client library. It gives developers ready-made code for communicating with Azure Speech."
+        },
+        "item_key": "build-speech-to-text-applications/azure-speech-stt-api-sdk/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct! A client library provides ready-made code for communicating with a service or API.",
+      "points": 1
+    },
+    {
+      "import_key": "build-speech-to-text-applications-l1-q4",
+      "question_type": "multiple_choice",
+      "question_text": "Which items can initialize the Speech SDK for an Azure Speech connection? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "A resource endpoint",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "An endpoint is the service address used to connect to an Azure resource. It is provided when the Speech SDK is initialized.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A Foundry resource key",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A Foundry resource key is a credential used with the endpoint. It authenticates the connection to Azure Speech.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Microsoft Entra ID",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Microsoft Entra ID is an alternative identity-based authentication method. It can be used when initializing the Speech SDK.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A recognized event",
+            "is_correct": false,
+            "error_type": "Confuses authentication setup with transcription results",
+            "rationale": "A recognized event returns completed transcription text. It does not provide an endpoint or authenticate a connection.",
+            "better_fit": "Choose this when responding to completed text during speech recognition.",
+            "feedback": {
+              "intrinsic": "The connection could not be initialized from a transcription result.",
+              "instructional": "Initialize with a service endpoint and authentication, such as a key or Microsoft Entra ID. Recognized is an event after recognition occurs."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "endpoint-and-authentication",
+        "item_key": "build-speech-to-text-applications/endpoint-and-authentication/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct! An Azure Speech connection needs an endpoint and authentication through a key or Microsoft Entra ID.",
+      "points": 1
+    },
+    {
+      "import_key": "build-speech-to-text-applications-l1-q5",
+      "question_type": "true_false",
+      "question_text": "The Speech-to-Text SDK is used only after a completed transcription and cannot send audio.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "speech-sdk-responsibilities",
+        "feedback_for_incorrect": {
+          "intrinsic": "The app would have no way to provide its microphone, file, or stream audio for transcription.",
+          "instructional": "The SDK can capture or send audio securely to Azure Speech, then return transcription in near real time or after processing."
+        },
+        "item_key": "build-speech-to-text-applications/speech-sdk-responsibilities/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct! The SDK can capture or send audio before transcription results are returned.",
+      "points": 1
+    },
+    {
+      "import_key": "build-speech-to-text-applications-l1-q6",
+      "question_type": "true_false",
+      "question_text": "Microsoft Entra ID can be used as an identity-based alternative to a resource key when initializing the Speech SDK.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "endpoint-and-authentication",
+        "feedback_for_incorrect": {
+          "intrinsic": "A valid authentication choice would be overlooked during connection setup.",
+          "instructional": "The Speech SDK needs an endpoint and authentication. That authentication can use a resource key or Microsoft Entra ID."
+        },
+        "item_key": "build-speech-to-text-applications/endpoint-and-authentication/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct! Microsoft Entra ID is an identity-based alternative to a resource key for authentication.",
+      "points": 1
+    },
+    {
+      "import_key": "build-speech-to-text-applications-l1-q7",
+      "question_type": "fill_blank",
+      "question_text": "The Speech-to-Text SDK acts as a bridge between application code and ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "The Speech-to-Text SDK acts as a bridge between application code and "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "Azure Speech"
+            ],
+            "rejected_answers": [
+              "SpeechRecognizer",
+              "Microsoft Foundry playground",
+              "SpeechConfig",
+              "stt-recognition-objects",
+              "realtime-transcription"
+            ],
+            "placeholder": "service name"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "SpeechRecognizer",
+          "Microsoft Foundry playground",
+          "SpeechConfig",
+          "stt-recognition-objects",
+          "realtime-transcription"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "speech-sdk-responsibilities",
+        "feedback_for_incorrect": {
+          "intrinsic": "The bridge would be aimed at an object or testing area instead of the speech service.",
+          "instructional": "The SDK bridges an application to Azure Speech. SpeechRecognizer performs transcription, SpeechConfig holds connection details, and the playground is a place to try capabilities."
+        },
+        "item_key": "build-speech-to-text-applications/speech-sdk-responsibilities/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "Azure Speech",
+      "explanation": "The SDK connects application code to the Azure Speech service so audio can be sent and transcription can be returned. SpeechRecognizer and SpeechConfig are code objects, while the playground is for experimentation.",
+      "points": 1
+    },
+    {
+      "import_key": "build-speech-to-text-applications-l1-q8",
+      "question_type": "arrange_sentence",
+      "question_text": "Arrange the following connection setup steps.",
+      "options": {
+        "word_bank": [
+          "initialize the Speech SDK",
+          "Provide the endpoint",
+          "connect to Azure Speech",
+          "provide authentication"
+        ],
+        "correct_order": [
+          "Provide the endpoint",
+          "provide authentication",
+          "initialize the Speech SDK",
+          "connect to Azure Speech"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "endpoint-and-authentication",
+        "feedback_for_incorrect": {
+          "intrinsic": "The connection could be attempted before its address or authorization was available.",
+          "instructional": "Provide the endpoint and authentication first. Then initialize the SDK so it can connect to Azure Speech."
+        },
+        "item_key": "build-speech-to-text-applications/endpoint-and-authentication/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "Provide the endpoint provide authentication initialize the Speech SDK connect to Azure Speech",
+      "explanation": "The application supplies the service address and authorization details to initialize the SDK. With those details in place, it can connect to Azure Speech.",
+      "points": 1
+    },
+    {
+      "import_key": "build-speech-to-text-applications-l1-q9",
+      "question_type": "multiple_choice",
+      "question_text": "What is Microsoft Foundry?",
+      "options": {
+        "options": [
+          {
+            "text": "A platform for building AI apps and agents",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Microsoft Foundry brings models, services, data, and related resources together. Developers use it to build, test, and deploy applications and agents.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A library that converts audio to text",
+            "is_correct": false,
+            "error_type": "Confuses Foundry with the Speech-to-Text SDK",
+            "rationale": "A client library contains ready-made code for an application. Microsoft Foundry is the broader platform where developers work with resources and services.",
+            "better_fit": "Choose this for the Speech-to-Text SDK, which helps an application convert spoken audio into written text.",
+            "feedback": {
+              "intrinsic": "You would look for transcription code in the wrong place.",
+              "instructional": "Keep the levels separate: Foundry is the platform, while the SDK is ready-made code used in an application."
+            }
+          },
+          {
+            "text": "A service address for an Azure resource",
+            "is_correct": false,
+            "error_type": "Confuses Foundry with an endpoint",
+            "rationale": "A service address is called an endpoint. Foundry is a platform, not the address used to reach one resource.",
+            "better_fit": "Choose this when defining an endpoint for an Azure Speech connection.",
+            "feedback": {
+              "intrinsic": "The connection details would still be missing.",
+              "instructional": "An endpoint tells the application where to connect; Foundry provides the place to build and test work."
+            }
+          },
+          {
+            "text": "A credential for signing in to Azure Speech",
+            "is_correct": false,
+            "error_type": "Confuses Foundry with authentication",
+            "rationale": "A credential proves that a connection is authorized. A Foundry resource key is a credential, but Foundry itself is not.",
+            "better_fit": "Choose this for a Foundry resource key used to authenticate to Azure Speech.",
+            "feedback": {
+              "intrinsic": "You would confuse a platform with the credential needed for access.",
+              "instructional": "A key authenticates a connection. Microsoft Foundry brings services and resources together."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "foundry-playground-and-api",
+        "item_key": "build-speech-to-text-applications/foundry-playground-and-api/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct! Microsoft Foundry is a platform for building, testing, and deploying applications and agents.",
+      "points": 1
+    },
+    {
+      "import_key": "build-speech-to-text-applications-l1-q10",
+      "question_type": "multiple_choice",
+      "question_text": "Which object performs speech transcription?",
+      "options": {
+        "options": [
+          {
+            "text": "SpeechRecognizer",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "SpeechRecognizer performs transcription of spoken audio into text. It uses the speech and audio configuration supplied to it.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "SpeechConfig",
+            "is_correct": false,
+            "error_type": "Confuses connection configuration with transcription",
+            "rationale": "SpeechConfig supplies endpoint and authentication information. It does not perform the transcription itself.",
+            "better_fit": "Choose this when configuring the endpoint and authentication for Azure Speech.",
+            "feedback": {
+              "intrinsic": "The app would be configured but would not yet have an object to transcribe audio.",
+              "instructional": "SpeechConfig holds connection details. SpeechRecognizer performs the actual transcription."
+            }
+          },
+          {
+            "text": "AudioConfig",
+            "is_correct": false,
+            "error_type": "Confuses audio-source configuration with transcription",
+            "rationale": "AudioConfig specifies an audio input or output source. It does not convert spoken audio into text.",
+            "better_fit": "Choose this when selecting a microphone or another audio source.",
+            "feedback": {
+              "intrinsic": "The app could identify its audio source but would not transcribe it.",
+              "instructional": "AudioConfig says where audio comes from. SpeechRecognizer is the object that transcribes it."
+            }
+          },
+          {
+            "text": "SpeechSynthesizer",
+            "is_correct": false,
+            "error_type": "Confuses transcription with speech synthesis",
+            "rationale": "SpeechSynthesizer converts written text into spoken audio. Transcription requires spoken audio to become text.",
+            "better_fit": "Choose this for a text-to-speech application that generates audio output.",
+            "feedback": {
+              "intrinsic": "The application would generate speech instead of creating a transcript.",
+              "instructional": "SpeechRecognizer handles speech-to-text. SpeechSynthesizer is for text-to-speech."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "stt-recognition-objects",
+        "item_key": "build-speech-to-text-applications/stt-recognition-objects/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct! SpeechRecognizer is the object that performs speech transcription.",
+      "points": 1
+    },
+    {
+      "import_key": "build-speech-to-text-applications-l1-q11",
+      "question_type": "true_false",
+      "question_text": "An API is a credential used to authenticate to an Azure resource.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "foundry-playground-and-api",
+        "feedback_for_incorrect": {
+          "intrinsic": "The connection setup would mix up its interface and its credential.",
+          "instructional": "An API is a set of rules and endpoints for using another application's functions or data. A resource key is the credential used to authenticate."
+        },
+        "item_key": "build-speech-to-text-applications/foundry-playground-and-api/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct! An API supports communication between applications; a credential authenticates access.",
+      "points": 1
+    },
+    {
+      "import_key": "build-speech-to-text-applications-l1-q12",
+      "question_type": "true_false",
+      "question_text": "The Speech-to-Text SDK can receive transcribed text in near real time or after processing completes.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "stt-recognition-objects",
+        "feedback_for_incorrect": {
+          "intrinsic": "The application would miss one of the SDK's supported ways to receive transcription results.",
+          "instructional": "The SDK can receive transcribed text in near real time or after processing completes."
+        },
+        "item_key": "build-speech-to-text-applications/stt-recognition-objects/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct! The Speech-to-Text SDK can return transcribed text in near real time or after processing completes.",
+      "points": 1
+    }
+  ],
+  "flashcards": [
+    {
+      "import_key": "build-speech-to-text-applications-l1-f0",
+      "front": "What is an API?",
+      "back": "Rules and endpoints that let one application use another service.",
+      "hint": "Think software communication."
+    },
+    {
+      "import_key": "build-speech-to-text-applications-l1-f1",
+      "front": "What is the Speech-to-Text SDK?",
+      "back": "A client library that converts spoken audio into written text.",
+      "hint": "Ready-made application code."
+    },
+    {
+      "import_key": "build-speech-to-text-applications-l1-f2",
+      "front": "What does an endpoint do?",
+      "back": "It is the service address used to connect to an Azure resource.",
+      "hint": "Think service address."
+    },
+    {
+      "import_key": "build-speech-to-text-applications-l1-f3",
+      "front": "What does SpeechRecognizer do?",
+      "back": "It performs transcription of spoken audio into text.",
+      "hint": "It recognizes speech."
+    }
+  ]
+}

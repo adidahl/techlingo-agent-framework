@@ -1,0 +1,1010 @@
+{
+  "import_key": "11-get-started-with-computer-vision-in-azure-checkpoint",
+  "title": "11. Get started with computer vision in Azure · Checkpoint",
+  "slo": "Review the key concepts of 11. Get started with computer vision in Azure.",
+  "exercises": [
+    {
+      "import_key": "11-get-started-with-computer-vision-in-azure-checkpoint-q1",
+      "question_type": "multiple_choice",
+      "question_text": "What does an image-analysis app need when using the OpenAI Python SDK? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "A Foundry resource",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The resource hosts the deployment and provides an endpoint. It is part of the required setup.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A vision-capable model deployment",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Image analysis needs a deployment that accepts visual input. Its name is passed as MODEL_NAME.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A resource key and endpoint",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The key authenticates the client and the endpoint locates the resource. Both are connection details.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A completed video file",
+            "is_correct": false,
+            "error_type": "Confuses image-analysis setup with video output",
+            "rationale": "A completed video file is not an image-analysis requirement. Image analysis sends an image and receives text.",
+            "better_fit": "Use a completed video file after a video-generation job finishes.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "image-analysis-deployment-requirements",
+        "item_key": "build-an-image-analysis-app/image-analysis-deployment-requirements/r1/v2",
+        "rung": 1
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. These details connect the client to a vision-capable deployment.",
+      "points": 1
+    },
+    {
+      "import_key": "11-get-started-with-computer-vision-in-azure-checkpoint-q2",
+      "question_type": "true_false",
+      "question_text": "A learning tool can use visual input to explain diagrams or charts in plain language.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "ai-applications-and-agents",
+        "feedback_for_incorrect": {
+          "intrinsic": "A useful learning workflow would be overlooked.",
+          "instructional": "Visual input can help a learning tool explain diagrams and charts."
+        },
+        "item_key": "use-multimodal-models-for-images/ai-applications-and-agents/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. This is a useful image-understanding application.",
+      "points": 1
+    },
+    {
+      "import_key": "11-get-started-with-computer-vision-in-azure-checkpoint-q3",
+      "question_type": "true_false",
+      "question_text": "An image-analysis app must poll a job until it is complete before receiving its text response.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "image-analysis-code-flow",
+        "feedback_for_incorrect": {
+          "intrinsic": "The app could delay a photo answer by following an unnecessary video process.",
+          "instructional": "Image analysis sends text and image content and receives a natural-language response."
+        },
+        "item_key": "build-an-image-analysis-app/image-analysis-code-flow/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct. Polling is for asynchronous video generation, not this image-analysis flow.",
+      "points": 1
+    },
+    {
+      "import_key": "11-get-started-with-computer-vision-in-azure-checkpoint-q4",
+      "question_type": "multiple_choice",
+      "question_text": "A shelf-monitoring developer receives a shelf photo and asks, “Which products are out of stock?” Which request design should the developer choose?",
+      "options": {
+        "options": [
+          {
+            "text": "One message with input_text and input_image",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The question is text and the shelf photo is image content. Sending both together supports an answer based on both.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "One message with input_text only",
+            "is_correct": false,
+            "error_type": "Omits visual input",
+            "rationale": "Text alone cannot show which shelf spaces are empty. The photo supplies the needed visual evidence.",
+            "better_fit": "Use text only when the answer does not depend on a picture.",
+            "feedback": {
+              "intrinsic": "The response could not inspect the shelf.",
+              "instructional": "Include the written question and shelf image in the same message."
+            }
+          },
+          {
+            "text": "An image-generation tool call",
+            "is_correct": false,
+            "error_type": "Confuses analysis with generation",
+            "rationale": "Image generation creates imagery from a description. The task is to inspect an existing shelf photo.",
+            "better_fit": "Use image generation to create a new shelf illustration.",
+            "feedback": {
+              "intrinsic": "The developer would create an image instead of analyzing the shelf.",
+              "instructional": "Send the supplied photo as input_image with the question."
+            }
+          },
+          {
+            "text": "A video render job",
+            "is_correct": false,
+            "error_type": "Confuses image analysis with video generation",
+            "rationale": "A video job produces video output. This task needs a text answer about one image.",
+            "better_fit": "Use a video job when creating a video clip.",
+            "feedback": {
+              "intrinsic": "The store would wait for unrelated video output.",
+              "instructional": "Use a multimodal image request for a photo question."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "single_choice",
+        "concept_id": "multimodal-python-request",
+        "item_key": "build-an-image-analysis-app/multimodal-python-request/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. The model needs both the photo and written question.",
+      "points": 1
+    },
+    {
+      "import_key": "11-get-started-with-computer-vision-in-azure-checkpoint-q5",
+      "question_type": "fill_blank",
+      "question_text": "Using cameras to detect out-of-stock products on store shelves is retail shelf ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "Using cameras to detect out-of-stock products on store shelves is retail shelf "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "monitoring"
+            ],
+            "rejected_answers": [
+              "manufacturing defect detection",
+              "medical imaging analysis",
+              "autonomous vehicle vision",
+              "manufacturing-defect-detection",
+              "medical-imaging-analysis",
+              "autonomous-vehicle-vision"
+            ],
+            "placeholder": "technical term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "manufacturing defect detection",
+          "medical imaging analysis",
+          "autonomous vehicle vision",
+          "manufacturing-defect-detection",
+          "medical-imaging-analysis",
+          "autonomous-vehicle-vision"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "retail-shelf-monitoring",
+        "feedback_for_incorrect": {
+          "intrinsic": "The inventory task would be mislabeled.",
+          "instructional": "Use retail shelf monitoring for camera-based store shelf checks."
+        },
+        "item_key": "understand-computer-vision-at-work/retail-shelf-monitoring/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "monitoring",
+      "explanation": "Retail shelf monitoring uses cameras to check stock and placement.",
+      "points": 1
+    },
+    {
+      "import_key": "11-get-started-with-computer-vision-in-azure-checkpoint-q6",
+      "question_type": "true_false",
+      "question_text": "Microsoft Foundry is only a playground for testing models.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "foundry-purpose-and-requirements",
+        "feedback_for_incorrect": {
+          "intrinsic": "This narrows a platform to one testing activity.",
+          "instructional": "Foundry supports enterprise AI operations and application development."
+        },
+        "item_key": "use-multimodal-models-for-images/foundry-purpose-and-requirements/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct. The playground is only one part of Foundry.",
+      "points": 1
+    },
+    {
+      "import_key": "11-get-started-with-computer-vision-in-azure-checkpoint-q7",
+      "question_type": "multiple_choice",
+      "question_text": "A support app analyzes customer photos, must return a fixed form, and must call approved actions. Which capabilities should the product team select? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Structured output",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A fixed response form requires an expected organized structure. Structured output provides this.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Tool use",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Calling approved actions requires invoking designated tools. Tool use provides that capability.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Base64 encoding",
+            "is_correct": false,
+            "error_type": "Encoding-capability confusion",
+            "rationale": "Base64 can prepare image bytes for transport. It does not enforce response form or invoke actions.",
+            "better_fit": "Use Base64 when raw binary image data must be embedded in JSON.",
+            "feedback": {
+              "intrinsic": "The image may be transportable, but the fixed form and actions are still missing.",
+              "instructional": "Structured output solves the format need, and tool use solves the action need."
+            }
+          },
+          {
+            "text": "Foundry endpoint",
+            "is_correct": false,
+            "error_type": "Connection-capability confusion",
+            "rationale": "An endpoint tells code where to send a request. It does not govern response organization or model actions.",
+            "better_fit": "Use an endpoint while configuring the client's request destination.",
+            "feedback": {
+              "intrinsic": "The app could reach a service without meeting the product requirements.",
+              "instructional": "An endpoint connects code; structured output and tool use provide the stated behavior."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "multi_choice",
+        "concept_id": "structured-output-and-tool-use",
+        "item_key": "test-and-code-image-analysis/structured-output-and-tool-use/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "[0,1]",
+      "explanation": "Correct. These capabilities address the fixed-form and approved-action requirements.",
+      "points": 1
+    },
+    {
+      "import_key": "11-get-started-with-computer-vision-in-azure-checkpoint-q8",
+      "question_type": "arrange_sentence",
+      "question_text": "Arrange the steps for turning an uploaded diagram into an explanation.",
+      "options": {
+        "word_bank": [
+          "Send both to model",
+          "Upload a diagram",
+          "Receive plain-language explanation",
+          "Add an explanation request"
+        ],
+        "correct_order": [
+          "Upload a diagram",
+          "Add an explanation request",
+          "Send both to model",
+          "Receive plain-language explanation"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "learning-diagram-app",
+        "feedback_for_incorrect": {
+          "intrinsic": "The app could attempt to respond before it has the diagram and requested task.",
+          "instructional": "First gather the diagram and request, send them to the model, then receive the explanation."
+        },
+        "item_key": "build-an-image-analysis-app/learning-diagram-app/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "Upload a diagram Add an explanation request Send both to model Receive plain-language explanation",
+      "explanation": "The learner supplies the diagram and explanation request before the multimodal model can return a plain-language explanation.",
+      "points": 1
+    },
+    {
+      "import_key": "11-get-started-with-computer-vision-in-azure-checkpoint-q9",
+      "question_type": "true_false",
+      "question_text": "The Foundry playground is only for writing application code and cannot test uploaded images.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "foundry-playground",
+        "feedback_for_incorrect": {
+          "intrinsic": "This choice would overlook a useful validation environment.",
+          "instructional": "Users can select a vision-enabled model, attach an image, and test prompts in the playground."
+        },
+        "item_key": "test-and-code-image-analysis/foundry-playground/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct. The playground supports interactive image testing.",
+      "points": 1
+    },
+    {
+      "import_key": "11-get-started-with-computer-vision-in-azure-checkpoint-q10",
+      "question_type": "multiple_choice",
+      "question_text": "A support lead receives damaged-product photos and needs the app to inspect each photo and reply in plain language. Which model should the lead choose?",
+      "options": {
+        "options": [
+          {
+            "text": "A vision-enabled GPT model",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The task needs photo understanding and a language response. A vision-enabled GPT model provides both.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "An image generation model",
+            "is_correct": false,
+            "error_type": "Confuses analysis with creation",
+            "rationale": "Image generation creates or edits visual output. The lead needs an explanation of an existing photo.",
+            "better_fit": "Use this when the goal is to generate or edit an image.",
+            "feedback": {
+              "intrinsic": "The customer could receive a new image instead of a damage explanation.",
+              "instructional": "Choose GPT with vision for visual understanding followed by a written reply."
+            }
+          },
+          {
+            "text": "An object detection model",
+            "is_correct": false,
+            "error_type": "Too narrow",
+            "rationale": "Object detection can identify objects but may not explain visible damage. The task needs broad visual reasoning and language.",
+            "better_fit": "Use this when only object identification is required.",
+            "feedback": {
+              "intrinsic": "The reply could identify an object without explaining the damage.",
+              "instructional": "A vision-enabled GPT model better fits general visual inspection and natural-language responses."
+            }
+          },
+          {
+            "text": "A text-only language model",
+            "is_correct": false,
+            "error_type": "Cannot inspect the photo",
+            "rationale": "A text-only model cannot directly use the damaged-product photos as evidence. The task requires visual understanding before producing a reply.",
+            "better_fit": "Use this when all relevant information is already available as text.",
+            "feedback": {
+              "intrinsic": "The app would lack the visual evidence needed to assess the damage.",
+              "instructional": "Choose a vision-enabled GPT model when the response depends on inspecting images."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "single_choice",
+        "concept_id": "vision-enabled-gpt-model",
+        "item_key": "use-multimodal-models-for-images/vision-enabled-gpt-model/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. GPT with vision fits image inspection plus a written response.",
+      "points": 1
+    },
+    {
+      "import_key": "11-get-started-with-computer-vision-in-azure-checkpoint-q11",
+      "question_type": "fill_blank",
+      "question_text": "Inspecting assembly-line products for surface defects is manufacturing defect ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "Inspecting assembly-line products for surface defects is manufacturing defect "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "detection"
+            ],
+            "rejected_answers": [
+              "medical imaging analysis",
+              "retail shelf monitoring",
+              "autonomous vehicle vision",
+              "medical-imaging-analysis",
+              "retail-shelf-monitoring",
+              "autonomous-vehicle-vision"
+            ],
+            "placeholder": "technical term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "medical imaging analysis",
+          "retail shelf monitoring",
+          "autonomous vehicle vision",
+          "medical-imaging-analysis",
+          "retail-shelf-monitoring",
+          "autonomous-vehicle-vision"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "manufacturing-vision-example",
+        "feedback_for_incorrect": {
+          "intrinsic": "The factory task would be assigned to the wrong use case.",
+          "instructional": "Use this term for visual quality checks on manufactured products."
+        },
+        "item_key": "understand-computer-vision-at-work/manufacturing-vision-example/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "detection",
+      "explanation": "Manufacturing defect detection inspects assembly-line products for defects.",
+      "points": 1
+    },
+    {
+      "import_key": "11-get-started-with-computer-vision-in-azure-checkpoint-q12",
+      "question_type": "arrange_sentence",
+      "question_text": "Order the pieces correctly.",
+      "options": {
+        "word_bank": [
+          "GPT-4.1-mini",
+          "processes text",
+          "together",
+          "and images",
+          "as a multimodal model"
+        ],
+        "correct_order": [
+          "GPT-4.1-mini",
+          "processes text",
+          "and images",
+          "together",
+          "as a multimodal model"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "foundry-multimodal-models",
+        "feedback_for_incorrect": {
+          "intrinsic": "The model capability is expressed unclearly.",
+          "instructional": "Name the model, its inputs, their combined processing, and its category."
+        },
+        "item_key": "use-multimodal-models-for-images/foundry-multimodal-models/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "GPT-4.1-mini processes text and images together as a multimodal model",
+      "explanation": "GPT-4.1-mini processes text and images together because it is multimodal.",
+      "points": 1
+    },
+    {
+      "import_key": "11-get-started-with-computer-vision-in-azure-checkpoint-q13",
+      "question_type": "multiple_choice",
+      "question_text": "A factory inspector must locate every screw in a product photo and inspect each screw area closely. Which capabilities should the system use? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Object detection to locate each screw",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "This is correct. Detection identifies screws and their locations.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Image segmentation to inspect object areas",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "This is correct. Segmentation supports detailed analysis of image areas.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Image generation to create screws",
+            "is_correct": false,
+            "error_type": "Analysis versus generation",
+            "rationale": "This is incorrect. Creating screws does not inspect the photographed product.",
+            "better_fit": "Image generation fits creating or editing visual content.",
+            "feedback": {
+              "intrinsic": "Missing or damaged screws could remain undetected.",
+              "instructional": "Use detection for locations and segmentation for detailed areas."
+            }
+          },
+          {
+            "text": "Retail shelf monitoring to count stock",
+            "is_correct": false,
+            "error_type": "Domain confusion",
+            "rationale": "This is incorrect. Shelf monitoring concerns store inventory, not product-part inspection.",
+            "better_fit": "Retail shelf monitoring fits cameras observing store shelves.",
+            "feedback": {
+              "intrinsic": "The product photo would not receive the needed inspection.",
+              "instructional": "This decision requires image-analysis capabilities for the screws themselves."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "multi_choice",
+        "concept_id": "object-detection-and-image-segmentation",
+        "item_key": "understand-computer-vision-at-work/object-detection-and-image-segmentation/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "[0,1]",
+      "explanation": "Correct—detection locates screws and segmentation supports close inspection.",
+      "points": 1
+    },
+    {
+      "import_key": "11-get-started-with-computer-vision-in-azure-checkpoint-q14",
+      "question_type": "fill_blank",
+      "question_text": "Use a ___ to analyze a customer's submitted photo.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "Use a "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "vision-enabled model",
+              "vision enabled model"
+            ],
+            "rejected_answers": [
+              "image generation model",
+              "video generation model",
+              "safari-animal-app",
+              "learning-diagram-app"
+            ],
+            "placeholder": "model type"
+          },
+          {
+            "type": "text",
+            "text": " to analyze a customer's submitted photo."
+          }
+        ],
+        "rejected_answers": [
+          "image generation model",
+          "video generation model",
+          "safari-animal-app",
+          "learning-diagram-app"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "customer-photo-support-app",
+        "feedback_for_incorrect": {
+          "intrinsic": "The customer could receive new media instead of help interpreting the photo.",
+          "instructional": "Choose a vision-enabled model for analyzing a submitted picture."
+        },
+        "item_key": "build-an-image-analysis-app/customer-photo-support-app/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "[\"vision-enabled model\",\"vision enabled model\"]",
+      "explanation": "A vision-enabled model analyzes supplied visual input and responds using text instructions.",
+      "points": 1
+    },
+    {
+      "import_key": "11-get-started-with-computer-vision-in-azure-checkpoint-q15",
+      "question_type": "arrange_sentence",
+      "question_text": "Reconstruct the statement.",
+      "options": {
+        "word_bank": [
+          "A multimodal model",
+          "can work with",
+          "data type",
+          "more than one",
+          "at the same time"
+        ],
+        "correct_order": [
+          "A multimodal model",
+          "can work with",
+          "more than one",
+          "data type",
+          "at the same time"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "multimodal-model-basics",
+        "feedback_for_incorrect": {
+          "intrinsic": "The definition becomes unclear.",
+          "instructional": "Place the model, action, scope, and timing in that order."
+        },
+        "item_key": "use-multimodal-models-for-images/multimodal-model-basics/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "A multimodal model can work with more than one data type at the same time",
+      "explanation": "The sentence defines multimodal capability as working with more than one data type simultaneously.",
+      "points": 1
+    },
+    {
+      "import_key": "11-get-started-with-computer-vision-in-azure-checkpoint-q16",
+      "question_type": "multiple_choice",
+      "question_text": "A support app receives customer photos and must identify visible objects before routing each case. Which capability should its designer choose?",
+      "options": {
+        "options": [
+          {
+            "text": "Computer vision",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "This is correct. It can identify objects in the submitted photos.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Image generation",
+            "is_correct": false,
+            "error_type": "Analysis versus generation",
+            "rationale": "This is incorrect. It creates images instead of identifying objects in a photo.",
+            "better_fit": "Use image generation when the app must create a new visual from a prompt.",
+            "feedback": {
+              "intrinsic": "The submitted photo would remain unanalyzed.",
+              "instructional": "The decision requires understanding an existing image, which is computer vision."
+            }
+          },
+          {
+            "text": "Video generation",
+            "is_correct": false,
+            "error_type": "Output confusion",
+            "rationale": "This is incorrect. Generating video does not inspect a supplied photo.",
+            "better_fit": "Use video generation when creating a video from instructions.",
+            "feedback": {
+              "intrinsic": "The visible object would not be identified.",
+              "instructional": "Choose a visual-analysis capability for object identification in photos."
+            }
+          },
+          {
+            "text": "Text-only processing",
+            "is_correct": false,
+            "error_type": "Ignores visual input",
+            "rationale": "This is incorrect. The required evidence is in the customer photo.",
+            "better_fit": "Text-only processing fits a request containing only written information.",
+            "feedback": {
+              "intrinsic": "Visible details would be missed.",
+              "instructional": "Choose computer vision when the needed information is in an image."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "single_choice",
+        "concept_id": "computer-vision-and-ai-models",
+        "item_key": "understand-computer-vision-at-work/computer-vision-and-ai-models/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "0",
+      "explanation": "Correct—computer vision can automate object identification in photos.",
+      "points": 1
+    },
+    {
+      "import_key": "11-get-started-with-computer-vision-in-azure-checkpoint-q17",
+      "question_type": "fill_blank",
+      "question_text": "An image ___ is a web address supplied to a model so it can access image input.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "An image "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "URL",
+              "image URL"
+            ],
+            "rejected_answers": [
+              "endpoint",
+              "Foundry resource key",
+              "foundry-resource-key"
+            ],
+            "placeholder": "term"
+          },
+          {
+            "type": "text",
+            "text": " is a web address supplied to a model so it can access image input."
+          }
+        ],
+        "rejected_answers": [
+          "endpoint",
+          "Foundry resource key",
+          "foundry-resource-key"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "image-input-formats-2",
+        "feedback_for_incorrect": {
+          "intrinsic": "The entered term does not identify the image's location.",
+          "instructional": "An endpoint is the request destination and a resource key is a credential; an image URL locates the image."
+        },
+        "item_key": "test-and-code-image-analysis/image-input-formats-2/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "[\"URL\",\"image URL\"]",
+      "explanation": "An image URL identifies the web location of the image input.",
+      "points": 1
+    },
+    {
+      "import_key": "11-get-started-with-computer-vision-in-azure-checkpoint-q18",
+      "question_type": "arrange_sentence",
+      "question_text": "Arrange the parts to form the correct statement.",
+      "options": {
+        "word_bank": [
+          "for agentic",
+          "The Responses API",
+          "applications.",
+          "is designed"
+        ],
+        "correct_order": [
+          "The Responses API",
+          "is designed",
+          "for agentic",
+          "applications."
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "openai-responses-api",
+        "feedback_for_incorrect": {
+          "intrinsic": "The ordered pieces do not state the API's purpose clearly.",
+          "instructional": "Start with the API name, then state that it is designed for agentic applications."
+        },
+        "item_key": "test-and-code-image-analysis/openai-responses-api/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "The Responses API is designed for agentic applications.",
+      "explanation": "This sentence states the API's intended application type rather than its input format.",
+      "points": 1
+    },
+    {
+      "import_key": "11-get-started-with-computer-vision-in-azure-checkpoint-q19",
+      "question_type": "multiple_choice",
+      "question_text": "A tourism product manager must choose features for travelers who upload Safari photos and ask which animal they see. Which features best fit? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Accept an uploaded animal photograph",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The photograph is the visual evidence to interpret. It is essential for identifying the animal.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Combine the photo with a user question",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The question supplies the traveler's intent. Combining it with the photo forms a multimodal request.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Return output based on both inputs",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The response should reflect the photo and the user's question. This satisfies the traveler need.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Focus on customer support photos",
+            "is_correct": false,
+            "error_type": "Confuses Safari identification with customer support",
+            "rationale": "Customer support photos address service issues. Travelers need animal identification from Safari photos.",
+            "better_fit": "Choose this for a support app that analyzes customer-submitted issue photos.",
+            "feedback": {
+              "intrinsic": "Travelers would receive a support-focused experience.",
+              "instructional": "Choose features for Safari photos and questions about the animal shown."
+            }
+          }
+        ],
+        "blooms_level": "Analyzing/Evaluating",
+        "original_question_type": "multi_choice",
+        "concept_id": "safari-animal-app",
+        "item_key": "build-an-image-analysis-app/safari-animal-app/r5/v1",
+        "rung": 5
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. These features support photo-and-question animal identification.",
+      "points": 1
+    },
+    {
+      "import_key": "11-get-started-with-computer-vision-in-azure-checkpoint-q20",
+      "question_type": "multiple_choice",
+      "question_text": "A clinical team is comparing options for an enterprise agent that must analyze long sets of scans and notes, invoke tools, and return structured findings. Which choice best fits the requirements?",
+      "options": {
+        "options": [
+          {
+            "text": "GPT-5 series",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "GPT-5 series combines multimodal input, large-context reasoning, structured output, and tool use. It best satisfies every stated requirement.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Vision-enabled GPT model",
+            "is_correct": false,
+            "error_type": "Insufficiently-specific capability selection",
+            "rationale": "This broad category indicates visual reasoning but does not identify the advanced enterprise capability set. It is less precise than the GPT-5 family for the stated requirements.",
+            "better_fit": "Use this label when only general visual interpretation is being described.",
+            "feedback": {
+              "intrinsic": "The team could select visual capability without ensuring the full enterprise feature set.",
+              "instructional": "The scenario calls for the specifically described GPT-5 series capabilities."
+            }
+          },
+          {
+            "text": "Foundry playground",
+            "is_correct": false,
+            "error_type": "Environment-model confusion",
+            "rationale": "The playground is for testing a deployed model with images and prompts. It cannot be the model-family decision.",
+            "better_fit": "Use the playground to compare a deployment's behavior before implementation.",
+            "feedback": {
+              "intrinsic": "The team would choose a place to test rather than a model family.",
+              "instructional": "Select GPT-5 series as the model family, then test it in the playground."
+            }
+          },
+          {
+            "text": "OpenAI Responses API",
+            "is_correct": false,
+            "error_type": "Interface-model confusion",
+            "rationale": "The API packages and sends multimodal requests. It does not choose the deployed model's reasoning capabilities.",
+            "better_fit": "Use the Responses API to submit the scans and instructions from code.",
+            "feedback": {
+              "intrinsic": "The clinical team would still lack a model selection.",
+              "instructional": "The API is the connection path; GPT-5 series is the decision that fits the requirements."
+            }
+          }
+        ],
+        "blooms_level": "Analyzing/Evaluating",
+        "original_question_type": "single_choice",
+        "concept_id": "gpt-5-series-models",
+        "item_key": "test-and-code-image-analysis/gpt-5-series-models/r5/v1",
+        "rung": 5
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. GPT-5 series best matches the combined requirements.",
+      "points": 1
+    },
+    {
+      "import_key": "11-get-started-with-computer-vision-in-azure-checkpoint-q21",
+      "question_type": "fill_blank",
+      "question_text": "Models that accept text and images together can reduce the need for separate ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "Models that accept text and images together can reduce the need for separate "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "vision pipelines",
+              "vision pipeline"
+            ],
+            "rejected_answers": [
+              "object detection",
+              "image segmentation",
+              "multimodal model",
+              "visual reasoning",
+              "object-detection-and-segmentation",
+              "multimodal-model"
+            ],
+            "placeholder": "workflow component"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "object detection",
+          "image segmentation",
+          "multimodal model",
+          "visual reasoning",
+          "object-detection-and-segmentation",
+          "multimodal-model"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "visual-reasoning-and-pipelines",
+        "feedback_for_incorrect": {
+          "intrinsic": "The workflow benefit would be named incorrectly.",
+          "instructional": "The removed separate component is the vision pipeline."
+        },
+        "item_key": "use-multimodal-models-for-images/visual-reasoning-and-pipelines/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "[\"vision pipelines\",\"vision pipeline\"]",
+      "explanation": "Combined text-and-image models can reduce the need for separate vision pipelines.",
+      "points": 1
+    },
+    {
+      "import_key": "11-get-started-with-computer-vision-in-azure-checkpoint-q22",
+      "question_type": "multiple_choice",
+      "question_text": "A transport team must choose a vision solution for safe decisions in changing road environments. Which reasons support autonomous vehicle vision? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "It recognizes lane markings",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "This is correct. Lane markings help a vehicle navigate its road position.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It recognizes pedestrians and vehicles",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "This is correct. Recognizing road users supports safer driving decisions.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It recognizes road signs",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "This is correct. Road signs provide navigation-relevant visual information.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It finds missing assembly components",
+            "is_correct": false,
+            "error_type": "Domain confusion",
+            "rationale": "This is incorrect. Missing-component inspection is a manufacturing quality-control task.",
+            "better_fit": "Manufacturing defect detection fits products moving along an assembly line.",
+            "feedback": {
+              "intrinsic": "The selected solution would not address road-safety decisions.",
+              "instructional": "Choose capabilities that interpret road conditions and road users."
+            }
+          }
+        ],
+        "blooms_level": "Analyzing/Evaluating",
+        "original_question_type": "multi_choice",
+        "concept_id": "autonomous-vehicle-vision",
+        "item_key": "understand-computer-vision-at-work/autonomous-vehicle-vision/r5/v1",
+        "rung": 5
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct—these capabilities directly support safe navigation decisions.",
+      "points": 1
+    },
+    {
+      "import_key": "11-get-started-with-computer-vision-in-azure-checkpoint-q23",
+      "question_type": "arrange_sentence",
+      "question_text": "Arrange the parts to form the correct statement.",
+      "options": {
+        "word_bank": [
+          "analyze X-rays, MRIs,",
+          "Computer vision",
+          "and CT scans.",
+          "can help radiologists"
+        ],
+        "correct_order": [
+          "Computer vision",
+          "can help radiologists",
+          "analyze X-rays, MRIs,",
+          "and CT scans."
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "medical-vision-example",
+        "feedback_for_incorrect": {
+          "intrinsic": "The relationship between the tool and scan review becomes unclear.",
+          "instructional": "Name the capability first, then who it helps, followed by the scan types."
+        },
+        "item_key": "understand-computer-vision-at-work/medical-vision-example/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "Computer vision can help radiologists analyze X-rays, MRIs, and CT scans.",
+      "explanation": "Computer vision assists radiologists with analysis of medical scans.",
+      "points": 1
+    },
+    {
+      "import_key": "11-get-started-with-computer-vision-in-azure-checkpoint-q24",
+      "question_type": "true_false",
+      "question_text": "The OpenAI Python SDK can call OpenAI-compatible APIs, including Foundry deployments.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "foundry-code-connection",
+        "feedback_for_incorrect": {
+          "intrinsic": "This would incorrectly rule out the supported Python library.",
+          "instructional": "The OpenAI Python SDK calls OpenAI-compatible APIs, including Foundry."
+        },
+        "item_key": "test-and-code-image-analysis/foundry-code-connection/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. The SDK can call Foundry deployments.",
+      "points": 1
+    }
+  ],
+  "flashcards": []
+}

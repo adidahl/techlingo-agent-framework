@@ -1,0 +1,555 @@
+{
+  "import_key": "build-an-image-analysis-app-l2",
+  "title": "Build an image-analysis app · Level 2",
+  "slo": "Identify the parts of an image-analysis request in a Python application.",
+  "exercises": [
+    {
+      "import_key": "build-an-image-analysis-app-l2-q1",
+      "question_type": "multiple_choice",
+      "question_text": "What does an image-analysis app need when using the OpenAI Python SDK? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "A Foundry resource",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The resource hosts the deployment and provides an endpoint. It is part of the required setup.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A vision-capable model deployment",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Image analysis needs a deployment that accepts visual input. Its name is passed as MODEL_NAME.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A resource key and endpoint",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The key authenticates the client and the endpoint locates the resource. Both are connection details.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A completed video file",
+            "is_correct": false,
+            "error_type": "Confuses image-analysis setup with video output",
+            "rationale": "A completed video file is not an image-analysis requirement. Image analysis sends an image and receives text.",
+            "better_fit": "Use a completed video file after a video-generation job finishes.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "image-analysis-deployment-requirements",
+        "item_key": "build-an-image-analysis-app/image-analysis-deployment-requirements/r1/v2",
+        "rung": 1
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. These details connect the client to a vision-capable deployment.",
+      "points": 1
+    },
+    {
+      "import_key": "build-an-image-analysis-app-l2-q2",
+      "question_type": "true_false",
+      "question_text": "A learning diagram app is designed to identify animals in uploaded Safari photographs.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "learning-diagram-app",
+        "feedback_for_incorrect": {
+          "intrinsic": "Students needing chart help would receive a wildlife-focused feature.",
+          "instructional": "A learning diagram app explains diagrams or charts in plain language."
+        },
+        "item_key": "build-an-image-analysis-app/learning-diagram-app/r2/v2",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct. Safari identification and diagram explanation are different uses of visual input.",
+      "points": 1
+    },
+    {
+      "import_key": "build-an-image-analysis-app-l2-q3",
+      "question_type": "fill_blank",
+      "question_text": "Use a ___ to analyze a customer's submitted photo.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "Use a "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "vision-enabled model",
+              "vision enabled model"
+            ],
+            "rejected_answers": [
+              "image generation model",
+              "video generation model",
+              "safari-animal-app",
+              "learning-diagram-app"
+            ],
+            "placeholder": "model type"
+          },
+          {
+            "type": "text",
+            "text": " to analyze a customer's submitted photo."
+          }
+        ],
+        "rejected_answers": [
+          "image generation model",
+          "video generation model",
+          "safari-animal-app",
+          "learning-diagram-app"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "customer-photo-support-app",
+        "feedback_for_incorrect": {
+          "intrinsic": "The customer could receive new media instead of help interpreting the photo.",
+          "instructional": "Choose a vision-enabled model for analyzing a submitted picture."
+        },
+        "item_key": "build-an-image-analysis-app/customer-photo-support-app/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "[\"vision-enabled model\",\"vision enabled model\"]",
+      "explanation": "A vision-enabled model analyzes supplied visual input and responds using text instructions.",
+      "points": 1
+    },
+    {
+      "import_key": "build-an-image-analysis-app-l2-q4",
+      "question_type": "multiple_choice",
+      "question_text": "A teacher has a confusing sales chart and wants learners to understand it. Which choices should the teacher use in the app? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Use a multimodal model",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A multimodal model can interpret visual content and text. It can explain the chart in natural language.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Provide the chart as visual content",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The chart is the material to interpret. The app needs it to explain what learners see.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Ask for a plain-language explanation",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "This directs the model to produce learner-friendly output. It matches the app's purpose.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Generate a replacement chart image",
+            "is_correct": false,
+            "error_type": "Confuses explanation with generation",
+            "rationale": "A replacement image does not explain the existing chart. The teacher needs the original chart interpreted.",
+            "better_fit": "Use image generation when a new chart image is required.",
+            "feedback": {
+              "intrinsic": "Learners may receive a new picture without understanding their chart.",
+              "instructional": "Provide the existing chart and request a plain-language explanation."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "multi_choice",
+        "concept_id": "learning-diagram-app",
+        "item_key": "build-an-image-analysis-app/learning-diagram-app/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. These choices explain the existing chart clearly.",
+      "points": 1
+    },
+    {
+      "import_key": "build-an-image-analysis-app-l2-q5",
+      "question_type": "arrange_sentence",
+      "question_text": "Arrange the steps for the image-analysis code flow.",
+      "options": {
+        "word_bank": [
+          "Send text and image",
+          "Create the OpenAI client",
+          "Receive text response",
+          "Use a vision deployment"
+        ],
+        "correct_order": [
+          "Create the OpenAI client",
+          "Use a vision deployment",
+          "Send text and image",
+          "Receive text response"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "image-analysis-code-flow",
+        "feedback_for_incorrect": {
+          "intrinsic": "The app could send content before its client or deployment is ready.",
+          "instructional": "Create the client, use the vision deployment, send inputs, then read the response."
+        },
+        "item_key": "build-an-image-analysis-app/image-analysis-code-flow/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "Create the OpenAI client Use a vision deployment Send text and image Receive text response",
+      "explanation": "Prepare the client and vision deployment before sending both inputs, then receive the text response.",
+      "points": 1
+    },
+    {
+      "import_key": "build-an-image-analysis-app-l2-q6",
+      "question_type": "multiple_choice",
+      "question_text": "A support agent receives a customer's photo of a damaged product and their help request. What should the app send to the model?",
+      "options": {
+        "options": [
+          {
+            "text": "The photo with text instructions",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The photo shows the damage and the help request supplies context. A vision-enabled model can use both.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A Safari photo with a question",
+            "is_correct": false,
+            "error_type": "Confuses support with Safari identification",
+            "rationale": "A Safari photo supports animal identification. The scenario concerns a damaged customer product.",
+            "better_fit": "Use this when identifying an animal in a Safari photo.",
+            "feedback": {
+              "intrinsic": "The damage report would be replaced by an unrelated wildlife task.",
+              "instructional": "Send the customer's product photo and help request together."
+            }
+          },
+          {
+            "text": "A diagram with a lesson request",
+            "is_correct": false,
+            "error_type": "Confuses support with diagram explanation",
+            "rationale": "A diagram and lesson request fit a learning app. They do not address product damage.",
+            "better_fit": "Use this to explain a diagram or chart in plain language.",
+            "feedback": {
+              "intrinsic": "The model would lack the product photo.",
+              "instructional": "Match the inputs to the support case: product photo plus help instructions."
+            }
+          },
+          {
+            "text": "A text prompt without the photo",
+            "is_correct": false,
+            "error_type": "Omits visual input",
+            "rationale": "Text alone cannot show the visible damage. The photo is necessary for photo analysis.",
+            "better_fit": "Use text only when an answer does not require an image.",
+            "feedback": {
+              "intrinsic": "The response could not inspect the damage.",
+              "instructional": "Include the customer photo with the written request."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "single_choice",
+        "concept_id": "customer-photo-support-app",
+        "item_key": "build-an-image-analysis-app/customer-photo-support-app/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. The app should provide the photo and written request.",
+      "points": 1
+    },
+    {
+      "import_key": "build-an-image-analysis-app-l2-q7",
+      "question_type": "fill_blank",
+      "question_text": "Use ___ for the written instruction.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "Use "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "input_text"
+            ],
+            "rejected_answers": [
+              "input_image",
+              "image_generation",
+              "image-generation-response",
+              "openai-responses-api"
+            ],
+            "placeholder": "content type"
+          },
+          {
+            "type": "text",
+            "text": " for the written instruction."
+          }
+        ],
+        "rejected_answers": [
+          "input_image",
+          "image_generation",
+          "image-generation-response",
+          "openai-responses-api"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "multimodal-python-request",
+        "feedback_for_incorrect": {
+          "intrinsic": "The instruction would be labeled as the wrong kind of content.",
+          "instructional": "Use input_text for words and input_image for pictures."
+        },
+        "item_key": "build-an-image-analysis-app/multimodal-python-request/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "input_text",
+      "explanation": "input_text identifies the words that guide the response.",
+      "points": 1
+    },
+    {
+      "import_key": "build-an-image-analysis-app-l2-q8",
+      "question_type": "arrange_sentence",
+      "question_text": "Arrange the steps for a Safari animal-identification request.",
+      "options": {
+        "word_bank": [
+          "Create a multi-part message",
+          "Upload a photo",
+          "Receive an answer",
+          "Get the question"
+        ],
+        "correct_order": [
+          "Upload a photo",
+          "Get the question",
+          "Create a multi-part message",
+          "Receive an answer"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "safari-animal-app",
+        "feedback_for_incorrect": {
+          "intrinsic": "The app could try to assemble or answer before it has both inputs.",
+          "instructional": "Collect the photo and question, combine them, then receive the answer."
+        },
+        "item_key": "build-an-image-analysis-app/safari-animal-app/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "Upload a photo Get the question Create a multi-part message Receive an answer",
+      "explanation": "The app gathers the photo and question before combining them, then receives an answer.",
+      "points": 1
+    },
+    {
+      "import_key": "build-an-image-analysis-app-l2-q9",
+      "question_type": "multiple_choice",
+      "question_text": "A retail team is building an app that answers questions about photos of store shelves. Which code choices should the developer make? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Create a client with key and endpoint",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The client uses the key and endpoint to connect to the Foundry resource. This starts the image-analysis flow.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Send text and image content together",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The shelf question is text and the shelf photo is image content. Both are needed for a photo-based answer.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Read the natural-language text response",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The image-analysis response is natural-language text. Code can read response.output_text.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Download an MP4 after polling",
+            "is_correct": false,
+            "error_type": "Confuses image analysis with video generation",
+            "rationale": "Downloading an MP4 after polling is a video-generation workflow. The retail task needs text about a shelf photo.",
+            "better_fit": "Use this after a completed video-generation job.",
+            "feedback": {
+              "intrinsic": "The team would wait for video output instead of receiving a shelf answer.",
+              "instructional": "Send the question and image, then read the natural-language response."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "multi_choice",
+        "concept_id": "image-analysis-code-flow",
+        "item_key": "build-an-image-analysis-app/image-analysis-code-flow/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. These choices connect the client, send both inputs, and read the answer.",
+      "points": 1
+    },
+    {
+      "import_key": "build-an-image-analysis-app-l2-q10",
+      "question_type": "multiple_choice",
+      "question_text": "A safari park guide is building an app to identify animals in visitor photos. Which choices should the guide include? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Let visitors upload photographs",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Visitor photographs provide the animal image. The app needs visual input to identify the animal.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Ask visitors for a natural-language prompt",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A prompt tells the app what the visitor wants to learn. It works with the uploaded photo.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Use output based on both inputs",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The intended result depends on both the photo and prompt. That matches the app's purpose.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Require a chart explanation only",
+            "is_correct": false,
+            "error_type": "Confuses photo identification with diagram explanation",
+            "rationale": "Chart explanation does not identify animals in visitor photos. It belongs to a learning-diagram use case.",
+            "better_fit": "Use chart explanation for learners uploading charts or diagrams.",
+            "feedback": {
+              "intrinsic": "Guests could not ask about animals in their photographs.",
+              "instructional": "Include animal photos, visitor questions, and responses based on both."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "multi_choice",
+        "concept_id": "safari-animal-app",
+        "item_key": "build-an-image-analysis-app/safari-animal-app/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. These choices fit a photo-based animal-identification app.",
+      "points": 1
+    },
+    {
+      "import_key": "build-an-image-analysis-app-l2-q11",
+      "question_type": "fill_blank",
+      "question_text": "Pass the deployment name as ___ when calling the model.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "Pass the deployment name as "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "MODEL_NAME"
+            ],
+            "rejected_answers": [
+              "ENDPOINT",
+              "FOUNDRY_KEY",
+              "image-generation-requirements",
+              "video-generation-requirements"
+            ],
+            "placeholder": "variable name"
+          },
+          {
+            "type": "text",
+            "text": " when calling the model."
+          }
+        ],
+        "rejected_answers": [
+          "ENDPOINT",
+          "FOUNDRY_KEY",
+          "image-generation-requirements",
+          "video-generation-requirements"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "image-analysis-deployment-requirements",
+        "feedback_for_incorrect": {
+          "intrinsic": "The request may not identify the intended deployment.",
+          "instructional": "Use MODEL_NAME for the deployment name; ENDPOINT is the address and FOUNDRY_KEY authenticates."
+        },
+        "item_key": "build-an-image-analysis-app/image-analysis-deployment-requirements/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "MODEL_NAME",
+      "explanation": "MODEL_NAME selects the deployment for the request.",
+      "points": 1
+    },
+    {
+      "import_key": "build-an-image-analysis-app-l2-q12",
+      "question_type": "multiple_choice",
+      "question_text": "A shelf-monitoring developer receives a shelf photo and asks, “Which products are out of stock?” Which request design should the developer choose?",
+      "options": {
+        "options": [
+          {
+            "text": "One message with input_text and input_image",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The question is text and the shelf photo is image content. Sending both together supports an answer based on both.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "One message with input_text only",
+            "is_correct": false,
+            "error_type": "Omits visual input",
+            "rationale": "Text alone cannot show which shelf spaces are empty. The photo supplies the needed visual evidence.",
+            "better_fit": "Use text only when the answer does not depend on a picture.",
+            "feedback": {
+              "intrinsic": "The response could not inspect the shelf.",
+              "instructional": "Include the written question and shelf image in the same message."
+            }
+          },
+          {
+            "text": "An image-generation tool call",
+            "is_correct": false,
+            "error_type": "Confuses analysis with generation",
+            "rationale": "Image generation creates imagery from a description. The task is to inspect an existing shelf photo.",
+            "better_fit": "Use image generation to create a new shelf illustration.",
+            "feedback": {
+              "intrinsic": "The developer would create an image instead of analyzing the shelf.",
+              "instructional": "Send the supplied photo as input_image with the question."
+            }
+          },
+          {
+            "text": "A video render job",
+            "is_correct": false,
+            "error_type": "Confuses image analysis with video generation",
+            "rationale": "A video job produces video output. This task needs a text answer about one image.",
+            "better_fit": "Use a video job when creating a video clip.",
+            "feedback": {
+              "intrinsic": "The store would wait for unrelated video output.",
+              "instructional": "Use a multimodal image request for a photo question."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "single_choice",
+        "concept_id": "multimodal-python-request",
+        "item_key": "build-an-image-analysis-app/multimodal-python-request/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. The model needs both the photo and written question.",
+      "points": 1
+    }
+  ],
+  "flashcards": []
+}

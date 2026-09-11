@@ -1,0 +1,505 @@
+{
+  "import_key": "generating-images-and-video-l3",
+  "title": "Generating Images and Video · Level 3",
+  "slo": "Describe how diffusion generates an image from a written prompt.",
+  "exercises": [
+    {
+      "import_key": "generating-images-and-video-l3-q1",
+      "question_type": "multiple_choice",
+      "question_text": "What is repeatedly removed as a diffusion image develops?",
+      "options": {
+        "options": [
+          {
+            "text": "Noise",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Diffusion repeatedly removes noise. Structure emerges as noise decreases.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Bounding boxes",
+            "is_correct": false,
+            "error_type": "Diffusion versus detection",
+            "rationale": "Bounding boxes locate detected objects. They are not removed during diffusion.",
+            "better_fit": "Use them when reporting detected-object locations.",
+            "feedback": null
+          },
+          {
+            "text": "Class labels",
+            "is_correct": false,
+            "error_type": "Diffusion versus classification",
+            "rationale": "Class labels identify predicted categories. They are not the material removed in diffusion.",
+            "better_fit": "Use them to represent classification results.",
+            "feedback": null
+          },
+          {
+            "text": "Filter kernels",
+            "is_correct": false,
+            "error_type": "Diffusion versus filtering",
+            "rationale": "Filter kernels are used in convolution operations. Diffusion iterations remove noise instead.",
+            "better_fit": "Use filter kernels for image-processing operations.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "diffusion-iterations",
+        "item_key": "generating-images-and-video/diffusion-iterations/r1/v2",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct.",
+      "points": 1
+    },
+    {
+      "import_key": "generating-images-and-video-l3-q2",
+      "question_type": "multiple_choice",
+      "question_text": "Which are parts of diffusion? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "It begins with random pixel noise.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Diffusion begins with random pixel noise. That is its starting visual state.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It uses prompt-related visual features.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Prompt-related visual features guide what the image becomes. They connect the request to the result.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It finds rectangular object boxes.",
+            "is_correct": false,
+            "error_type": "Diffusion versus detection",
+            "rationale": "Bounding boxes are object-detection output. Diffusion generates visual content.",
+            "better_fit": "Use this for object detection.",
+            "feedback": null
+          },
+          {
+            "text": "It assigns one category label to an image.",
+            "is_correct": false,
+            "error_type": "Diffusion versus classification",
+            "rationale": "Category labeling is image classification. It is not part of diffusion generation.",
+            "better_fit": "Use this for image classification.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "diffusion",
+        "item_key": "generating-images-and-video/diffusion/r1/v2",
+        "rung": 1
+      },
+      "correct_answer": "[0,1]",
+      "explanation": "Correct.",
+      "points": 1
+    },
+    {
+      "import_key": "generating-images-and-video-l3-q3",
+      "question_type": "true_false",
+      "question_text": "Video generation can ignore the order of events over time as long as each frame looks realistic.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "video-generation-and-temporal-progression",
+        "feedback_for_incorrect": {
+          "intrinsic": "The clip could become logically incoherent.",
+          "instructional": "Video generation requires temporal progression as well as realistic-looking frames."
+        },
+        "item_key": "generating-images-and-video/video-generation-and-temporal-progression/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct.",
+      "points": 1
+    },
+    {
+      "import_key": "generating-images-and-video-l3-q4",
+      "question_type": "true_false",
+      "question_text": "For a dog-and-stick prompt, intermediate diffusion results progressively form the requested scene from noise.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "dog-and-stick-diffusion-example",
+        "feedback_for_incorrect": {
+          "intrinsic": "The gradual formation of the scene would be missed.",
+          "instructional": "Diffusion produces increasingly structured intermediate results from noise."
+        },
+        "item_key": "generating-images-and-video/dog-and-stick-diffusion-example/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct.",
+      "points": 1
+    },
+    {
+      "import_key": "generating-images-and-video-l3-q5",
+      "question_type": "multiple_choice",
+      "question_text": "What technique transforms random pixel noise into an image that matches a prompt?",
+      "options": {
+        "options": [
+          {
+            "text": "Diffusion",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Diffusion transforms random pixel noise into a prompt-matching image. It works iteratively.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Convolutional filtering",
+            "is_correct": false,
+            "error_type": "Generation versus filtering",
+            "rationale": "Convolutional filtering applies kernels to an image. It does not generate a scene from noise.",
+            "better_fit": "Use it to blur, sharpen, or highlight edges.",
+            "feedback": null
+          },
+          {
+            "text": "Object detection",
+            "is_correct": false,
+            "error_type": "Generation versus detection",
+            "rationale": "Object detection identifies objects in an existing image. It does not synthesize a prompt-matching image.",
+            "better_fit": "Use it to locate objects in an image.",
+            "feedback": null
+          },
+          {
+            "text": "Image classification",
+            "is_correct": false,
+            "error_type": "Generation versus labeling",
+            "rationale": "Image classification predicts a label for an image. It does not transform noise into a scene.",
+            "better_fit": "Use it to assign a category to an image.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "diffusion",
+        "item_key": "generating-images-and-video/diffusion/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct.",
+      "points": 1
+    },
+    {
+      "import_key": "generating-images-and-video-l3-q6",
+      "question_type": "multiple_choice",
+      "question_text": "Which statements describe image synthesis? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "It creates requested visual content.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Image synthesis generates visual content. The content is requested through a description.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It can generate an image or video.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Image synthesis can generate images or video. Both are generated visual content.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It only labels existing images.",
+            "is_correct": false,
+            "error_type": "Synthesis versus classification",
+            "rationale": "Labeling existing images is classification. Synthesis creates new content instead.",
+            "better_fit": "Use classification when assigning labels to existing images.",
+            "feedback": null
+          },
+          {
+            "text": "It finds object locations with bounding boxes.",
+            "is_correct": false,
+            "error_type": "Synthesis versus detection",
+            "rationale": "Bounding boxes are object-detection output. They do not create requested visual content.",
+            "better_fit": "Use object detection to locate objects in an image.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "image-generation-and-synthesis",
+        "item_key": "generating-images-and-video/image-generation-and-synthesis/r1/v2",
+        "rung": 1
+      },
+      "correct_answer": "[0,1]",
+      "explanation": "Correct.",
+      "points": 1
+    },
+    {
+      "import_key": "generating-images-and-video-l3-q7",
+      "question_type": "fill_blank",
+      "question_text": "After each diffusion iteration, the model evaluates the developing image against the ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "After each diffusion iteration, the model evaluates the developing image against the "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "prompt"
+            ],
+            "rejected_answers": [
+              "class label",
+              "filter kernel",
+              "epoch",
+              "diffusion",
+              "epochs"
+            ],
+            "placeholder": "technical term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "class label",
+          "filter kernel",
+          "epoch",
+          "diffusion",
+          "epochs"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "diffusion-iterations",
+        "feedback_for_incorrect": {
+          "intrinsic": "The developing image would not be checked against the requested scene.",
+          "instructional": "The prompt, rather than a class label or epoch, guides the developing image."
+        },
+        "item_key": "generating-images-and-video/diffusion-iterations/r3/v2",
+        "rung": 3
+      },
+      "correct_answer": "prompt",
+      "explanation": "The prompt guides evaluation of the developing image.",
+      "points": 1
+    },
+    {
+      "import_key": "generating-images-and-video-l3-q8",
+      "question_type": "multiple_choice",
+      "question_text": "Which is a prompt for image generation?",
+      "options": {
+        "options": [
+          {
+            "text": "A dog carrying a stick in its mouth",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "This is a natural-language description of desired visual content. It can guide a generated scene.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A rectangular bounding box",
+            "is_correct": false,
+            "error_type": "Prompt versus detection output",
+            "rationale": "A bounding box records an object's location. It is not a requested scene description.",
+            "better_fit": "Use it as object-detection output.",
+            "feedback": null
+          },
+          {
+            "text": "A list of pixel class labels",
+            "is_correct": false,
+            "error_type": "Prompt versus segmentation output",
+            "rationale": "Pixel class labels describe segmentation results. They do not specify a scene to generate.",
+            "better_fit": "Use them to represent semantic segmentation output.",
+            "feedback": null
+          },
+          {
+            "text": "A predicted image category",
+            "is_correct": false,
+            "error_type": "Prompt versus classification output",
+            "rationale": "A category is a label predicted for an image. It is not a natural-language request for an image.",
+            "better_fit": "Use it as an image-classification result.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "prompts-for-image-generation",
+        "item_key": "generating-images-and-video/prompts-for-image-generation/r1/v2",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct.",
+      "points": 1
+    },
+    {
+      "import_key": "generating-images-and-video-l3-q9",
+      "question_type": "arrange_sentence",
+      "question_text": "Arrange the parts into a correct statement.",
+      "options": {
+        "word_bank": [
+          "Image synthesis",
+          "uses learned relationships",
+          "and visual features",
+          "between language",
+          "to create images."
+        ],
+        "correct_order": [
+          "Image synthesis",
+          "uses learned relationships",
+          "between language",
+          "and visual features",
+          "to create images."
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "image-generation-and-synthesis",
+        "feedback_for_incorrect": {
+          "intrinsic": "The statement is out of order.",
+          "instructional": "State the capability, the relationship it uses, then the result."
+        },
+        "item_key": "generating-images-and-video/image-generation-and-synthesis/r3/v2",
+        "rung": 3
+      },
+      "correct_answer": "Image synthesis uses learned relationships between language and visual features to create images.",
+      "explanation": "Image synthesis links language and visual features to create images.",
+      "points": 1
+    },
+    {
+      "import_key": "generating-images-and-video-l3-q10",
+      "question_type": "fill_blank",
+      "question_text": "In video generation, ___ means events unfold in a logical sequence over time.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "In video generation, "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "temporal progression"
+            ],
+            "rejected_answers": [
+              "image classification",
+              "diffusion",
+              "semantic segmentation",
+              "image-generation-and-synthesis"
+            ],
+            "placeholder": "technical term"
+          },
+          {
+            "type": "text",
+            "text": " means events unfold in a logical sequence over time."
+          }
+        ],
+        "rejected_answers": [
+          "image classification",
+          "diffusion",
+          "semantic segmentation",
+          "image-generation-and-synthesis"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "video-generation-and-temporal-progression",
+        "feedback_for_incorrect": {
+          "intrinsic": "The temporal requirement would be misidentified.",
+          "instructional": "Temporal progression refers to logical event order over time."
+        },
+        "item_key": "generating-images-and-video/video-generation-and-temporal-progression/r3/v2",
+        "rung": 3
+      },
+      "correct_answer": "temporal progression",
+      "explanation": "Temporal progression names logical event order over time.",
+      "points": 1
+    },
+    {
+      "import_key": "generating-images-and-video-l3-q11",
+      "question_type": "arrange_sentence",
+      "question_text": "Arrange the definition correctly.",
+      "options": {
+        "word_bank": [
+          "A prompt",
+          "is a natural-language",
+          "desired visual",
+          "description that guides",
+          "features."
+        ],
+        "correct_order": [
+          "A prompt",
+          "is a natural-language",
+          "description that guides",
+          "desired visual",
+          "features."
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "prompts-for-image-generation",
+        "feedback_for_incorrect": {
+          "intrinsic": "The definition does not read correctly.",
+          "instructional": "Define the prompt before stating what it guides."
+        },
+        "item_key": "generating-images-and-video/prompts-for-image-generation/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "A prompt is a natural-language description that guides desired visual features.",
+      "explanation": "A prompt is a natural-language description that guides visual features.",
+      "points": 1
+    },
+    {
+      "import_key": "generating-images-and-video-l3-q12",
+      "question_type": "fill_blank",
+      "question_text": "The stages that progressively turn noise into the dog-and-stick scene are diffusion ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "The stages that progressively turn noise into the dog-and-stick scene are diffusion "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "iterations"
+            ],
+            "rejected_answers": [
+              "epochs",
+              "prompts",
+              "bounding boxes",
+              "diffusion-iterations",
+              "prompts-for-image-generation"
+            ],
+            "placeholder": "technical term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "epochs",
+          "prompts",
+          "bounding boxes",
+          "diffusion-iterations",
+          "prompts-for-image-generation"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "dog-and-stick-diffusion-example",
+        "feedback_for_incorrect": {
+          "intrinsic": "The process stages would be misidentified.",
+          "instructional": "Diffusion iterations are the repeated stages that progressively form the requested scene."
+        },
+        "item_key": "generating-images-and-video/dog-and-stick-diffusion-example/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "iterations",
+      "explanation": "The dog-and-stick scene develops through a sequence of diffusion iterations.",
+      "points": 1
+    }
+  ],
+  "flashcards": []
+}

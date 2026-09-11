@@ -1,0 +1,1394 @@
+{
+  "schema_version": "exercise-bank-v1",
+  "lesson": "how-attention-creates-meaningful-embeddings",
+  "module": "2-introduction-to-generative-ai-and-agents",
+  "items": [
+    {
+      "item_key": "how-attention-creates-meaningful-embeddings/attention/r1/v1",
+      "concept_id": "attention",
+      "rung": 1,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "single_choice",
+        "prompt": "What does attention do for a token?",
+        "concept_id": "attention",
+        "options": [
+          {
+            "text": "Finds influence from surrounding tokens",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Attention examines surrounding tokens to determine their influence. Those influences help interpret the current token.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Hides later tokens in a sequence",
+            "is_correct": false,
+            "error_type": "Confuses attention with masked attention",
+            "rationale": "Hiding later tokens describes masked attention. General attention weighs contextual influence.",
+            "better_fit": "Use this when a model must not see future tokens during prediction.",
+            "feedback": null
+          },
+          {
+            "text": "Examines vector elements in parallel",
+            "is_correct": false,
+            "error_type": "Confuses attention with multi-head attention",
+            "rationale": "Parallel examination is associated with multi-head attention. Attention is the broader context-weighting mechanism.",
+            "better_fit": "Use this when simultaneous examination of vector elements is required.",
+            "feedback": null
+          },
+          {
+            "text": "Assigns a permanent token ID",
+            "is_correct": false,
+            "error_type": "Confuses attention with tokenization",
+            "rationale": "Tokenization assigns identifiers to text units. Attention works with contextual relationships between tokens.",
+            "better_fit": "Use this when describing how tokens receive identifiers.",
+            "feedback": null
+          }
+        ],
+        "feedback_for_correct": "Correct. Attention uses surrounding context to interpret a token."
+      },
+      "payload_hash": "28bbb938a41c272d50124205ca7558d80c0fec1b78abd2230c8af2b734938625",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "77d4fc62057eff8e40060c80208cfa6658a1b5b8838d81089d5b2eeb3297629b",
+      "telemetry": {}
+    },
+    {
+      "item_key": "how-attention-creates-meaningful-embeddings/attention/r1/v2",
+      "concept_id": "attention",
+      "rung": 1,
+      "variant": 2,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "multi_choice",
+        "prompt": "Which actions are part of an attention layer? Select all that apply.",
+        "concept_id": "attention",
+        "options": [
+          {
+            "text": "Examines a token in context",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Attention considers the current token within its sequence. Context supplies meaning clues.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Assigns weights to surrounding tokens",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Attention weights surrounding tokens. The weights represent contextual influence.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Uses weights to calculate embedding values",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Attention weights contribute to new embedding values. They make the representation context-sensitive.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Ignores every surrounding token",
+            "is_correct": false,
+            "error_type": "Misunderstands contextual influence",
+            "rationale": "Attention relies on surrounding context rather than discarding it. It distinguishes stronger clues from weaker ones.",
+            "better_fit": "This would only fit a system intentionally designed to avoid contextual information.",
+            "feedback": null
+          }
+        ],
+        "feedback_for_correct": "Correct. Attention examines context, weights it, and uses those weights in embedding calculation."
+      },
+      "payload_hash": "6c92ded66ebd1b3dcdc1a948560249424840106f17372fe78ae3c1df962fe63b",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "77d4fc62057eff8e40060c80208cfa6658a1b5b8838d81089d5b2eeb3297629b",
+      "telemetry": {}
+    },
+    {
+      "item_key": "how-attention-creates-meaningful-embeddings/attention/r2/v1",
+      "concept_id": "attention",
+      "rung": 2,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "true_false",
+        "prompt": "True or false?",
+        "concept_id": "attention",
+        "statement": "Attention assigns weights only to the current token and not to surrounding tokens.",
+        "correct_answer": false,
+        "feedback_for_correct": "Correct. Attention weights surrounding tokens according to their influence.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The contextual clues were omitted.",
+          "instructional": "Attention assigns weights to surrounding tokens, not only to the current token."
+        }
+      },
+      "payload_hash": "9e32d7687330f660b6b24b4a2e6d1376e88211aaba882e4d387bfa7e4300fcd7",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "77d4fc62057eff8e40060c80208cfa6658a1b5b8838d81089d5b2eeb3297629b",
+      "telemetry": {}
+    },
+    {
+      "item_key": "how-attention-creates-meaningful-embeddings/attention/r3/v1",
+      "concept_id": "attention",
+      "rung": 3,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "fill_gaps",
+        "prompt": "Complete the sentence with the correct technical term.",
+        "concept_id": "attention",
+        "parts": [
+          {
+            "type": "text",
+            "text": "An "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "attention",
+              "attention layer"
+            ],
+            "rejected_answers": [
+              "masked attention",
+              "multi-head attention",
+              "masked-attention",
+              "multi-head-attention"
+            ],
+            "placeholder": "technical term"
+          },
+          {
+            "type": "text",
+            "text": " layer assigns weights to surrounding tokens."
+          }
+        ],
+        "explanation": "Attention is the technique that weights contextual tokens to help calculate embedding values.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The term does not name the basic context-weighting technique.",
+          "instructional": "Use attention; masked attention hides later tokens, while multi-head attention adds parallel processing."
+        }
+      },
+      "payload_hash": "96644cfb54096aebe938624912edc5ef1a92fb5903a196c7911294d457ab80eb",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "77d4fc62057eff8e40060c80208cfa6658a1b5b8838d81089d5b2eeb3297629b",
+      "telemetry": {}
+    },
+    {
+      "item_key": "how-attention-creates-meaningful-embeddings/attention/r4/v1",
+      "concept_id": "attention",
+      "rung": 4,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Applying",
+        "question_type": "single_choice",
+        "prompt": "An expenses assistant must determine how nearby words change the meaning of “claim” in a policy question. Which technique should its model use?",
+        "concept_id": "attention",
+        "options": [
+          {
+            "text": "Attention",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Attention weighs nearby words to interpret the current token. That directly addresses the meaning-in-context decision.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Masked attention",
+            "is_correct": false,
+            "error_type": "Confuses context weighting with masking",
+            "rationale": "Masked attention prevents access to later positions. The scenario instead requires weighing contextual influence.",
+            "better_fit": "Use this for autoregressive prediction that cannot view future tokens.",
+            "feedback": {
+              "intrinsic": "Future-token restrictions were chosen instead of contextual interpretation.",
+              "instructional": "Attention identifies which nearby words influence a word’s meaning."
+            }
+          },
+          {
+            "text": "Multi-head attention",
+            "is_correct": false,
+            "error_type": "Confuses core technique with parallel variant",
+            "rationale": "Multi-head attention adds parallel processing. The stated decision is about the core act of contextual weighting.",
+            "better_fit": "Use this when simultaneous examination of vector elements is required.",
+            "feedback": {
+              "intrinsic": "A parallel variant was selected when contextual weighting is the need.",
+              "instructional": "Choose attention for using nearby words as meaning clues."
+            }
+          },
+          {
+            "text": "Positional encoding",
+            "is_correct": false,
+            "error_type": "Confuses influence with position",
+            "rationale": "Positional encoding represents sequence location. It does not determine which words exert more influence.",
+            "better_fit": "Use this when token order or location is the requirement.",
+            "feedback": {
+              "intrinsic": "Position is represented, but contextual influence is not weighed.",
+              "instructional": "Attention weighs influence; positional encoding represents location."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. Attention lets the model use nearby words as contextual clues."
+      },
+      "payload_hash": "e85b81f4127c47d3ad009208b704fe20dc9b234209936efef167504706ec46ff",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "77d4fc62057eff8e40060c80208cfa6658a1b5b8838d81089d5b2eeb3297629b",
+      "telemetry": {}
+    },
+    {
+      "item_key": "how-attention-creates-meaningful-embeddings/attention-weight-example/r1/v1",
+      "concept_id": "attention-weight-example",
+      "rung": 1,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "multi_choice",
+        "prompt": "For “bark” in “I heard a dog bark,” which contextual roles provide the strongest clues? Select all that apply.",
+        "concept_id": "attention-weight-example",
+        "options": [
+          {
+            "text": "The perception verb",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "“Heard” signals that the final word is likely a sound. It is a strong semantic clue.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "The animal noun",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "“Dog” strongly predicts a likely sound source. It is highly informative for interpreting bark.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "The first-person pronoun",
+            "is_correct": false,
+            "error_type": "Overweights a weak clue",
+            "rationale": "“I” identifies the speaker but not the sound. It is weaker than the perception verb and animal noun.",
+            "better_fit": "Use this when identifying the sentence subject.",
+            "feedback": null
+          },
+          {
+            "text": "The article",
+            "is_correct": false,
+            "error_type": "Overweights a weak clue",
+            "rationale": "“A” marks a noun phrase but provides little semantic evidence. It is weaker than the informative content words.",
+            "better_fit": "Use this when identifying a determiner.",
+            "feedback": null
+          }
+        ],
+        "feedback_for_correct": "Correct. The perception verb and animal noun are the strongest clues."
+      },
+      "payload_hash": "a5fc6369feaa6ebc122b901a6e4ef5b91a0568cfbab76de1a686cc9a9e5c8558",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "77d4fc62057eff8e40060c80208cfa6658a1b5b8838d81089d5b2eeb3297629b",
+      "telemetry": {}
+    },
+    {
+      "item_key": "how-attention-creates-meaningful-embeddings/attention-weight-example/r1/v2",
+      "concept_id": "attention-weight-example",
+      "rung": 1,
+      "variant": 2,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "single_choice",
+        "prompt": "Which token receives less attention weight than “dog” when interpreting “bark” in “I heard a dog bark”?",
+        "concept_id": "attention-weight-example",
+        "options": [
+          {
+            "text": "a",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The article is a weaker clue for bark than the animal noun. It contributes little semantic information.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "heard",
+            "is_correct": false,
+            "error_type": "Confuses a strong clue with a weak clue",
+            "rationale": "“Heard” strongly signals a sound-related interpretation. It receives more weight than the article.",
+            "better_fit": "Use this when identifying a strong clue for bark.",
+            "feedback": null
+          },
+          {
+            "text": "dog",
+            "is_correct": false,
+            "error_type": "Confuses a strong clue with a weak clue",
+            "rationale": "“Dog” is the strong animal clue for bark. It cannot be less weighted than itself in this comparison.",
+            "better_fit": "Use this when identifying the animal clue.",
+            "feedback": null
+          },
+          {
+            "text": "bark",
+            "is_correct": false,
+            "error_type": "Confuses current token with context",
+            "rationale": "“Bark” is the token being interpreted. The comparison concerns surrounding contextual tokens.",
+            "better_fit": "Use this when naming the current token under interpretation.",
+            "feedback": null
+          }
+        ],
+        "feedback_for_correct": "Correct. “A” provides less useful context than “dog.”"
+      },
+      "payload_hash": "a954f7de8b32dd119153d9e89d320b36670fa746c12157070c8151d65dead620",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "77d4fc62057eff8e40060c80208cfa6658a1b5b8838d81089d5b2eeb3297629b",
+      "telemetry": {}
+    },
+    {
+      "item_key": "how-attention-creates-meaningful-embeddings/attention-weight-example/r2/v1",
+      "concept_id": "attention-weight-example",
+      "rung": 2,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "true_false",
+        "prompt": "Decide whether this statement is true or false.",
+        "concept_id": "attention-weight-example",
+        "statement": "When interpreting “bark” in “I heard a dog bark,” “heard” and “dog” receive more weight than “I” or “a.”",
+        "correct_answer": true,
+        "feedback_for_correct": "Correct. Informative context tokens receive greater weight.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The strongest sound and animal clues were not prioritized.",
+          "instructional": "“Heard” and “dog” are stronger clues for bark than “I” and “a.”"
+        }
+      },
+      "payload_hash": "f2d6ade0daf8e0f7d0d73ae9e8cd1b7adc095d45e275d6e3649044f28096067a",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "77d4fc62057eff8e40060c80208cfa6658a1b5b8838d81089d5b2eeb3297629b",
+      "telemetry": {}
+    },
+    {
+      "item_key": "how-attention-creates-meaningful-embeddings/attention-weight-example/r3/v1",
+      "concept_id": "attention-weight-example",
+      "rung": 3,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "rearrange",
+        "prompt": "Arrange the parts to form a correct statement.",
+        "concept_id": "attention-weight-example",
+        "word_bank": [
+          "because they are",
+          "heard and dog",
+          "stronger clues for bark",
+          "receive more weight"
+        ],
+        "correct_order": [
+          "heard and dog",
+          "receive more weight",
+          "because they are",
+          "stronger clues for bark"
+        ],
+        "interchangeable_groups": [],
+        "explanation": "The statement names the clues, their higher weighting, and the reason for it.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The relationship between clues and weights is unclear.",
+          "instructional": "Place the informative clues first, followed by their higher weight and its reason."
+        }
+      },
+      "payload_hash": "cb509b509b83599323caa2d7c3dfcee90bf5ee65125c04ea1ddd02216d20d7c6",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "77d4fc62057eff8e40060c80208cfa6658a1b5b8838d81089d5b2eeb3297629b",
+      "telemetry": {}
+    },
+    {
+      "item_key": "how-attention-creates-meaningful-embeddings/attention-weight-example/r4/v1",
+      "concept_id": "attention-weight-example",
+      "rung": 4,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Applying",
+        "question_type": "multi_choice",
+        "prompt": "A developer diagnoses poor prediction of the final sound word in “I heard a dog bark.” Which contextual roles should receive higher attention weight? Select all that apply.",
+        "concept_id": "attention-weight-example",
+        "options": [
+          {
+            "text": "The verb indicating perception",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The perception verb narrows the likely final word toward a sound. It supplies useful contextual evidence.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "The noun naming the animal",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The animal noun narrows the likely sound to bark. It is highly predictive in this scenario.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "The sentence subject pronoun",
+            "is_correct": false,
+            "error_type": "Chooses a weak context clue",
+            "rationale": "The pronoun offers little predictive information about bark. It is less useful than the perception verb and animal noun.",
+            "better_fit": "Use this when locating the grammatical subject.",
+            "feedback": {
+              "intrinsic": "The model continues to rely on a weak clue.",
+              "instructional": "Prioritize the perception verb and animal noun because they predict bark."
+            }
+          },
+          {
+            "text": "The indefinite article",
+            "is_correct": false,
+            "error_type": "Chooses a weak context clue",
+            "rationale": "The article is grammatical but weakly informative about bark. It identifies neither a sound nor its source.",
+            "better_fit": "Use this when identifying a determiner.",
+            "feedback": {
+              "intrinsic": "A low-information word receives importance without improving prediction.",
+              "instructional": "Attention should favor the words supplying semantic clues about the sound."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. The perception verb and animal noun supply the strongest contextual evidence."
+      },
+      "payload_hash": "4717e6a3c4479adf0951fb499c72d5c6613c4ee684cc23779b8ff8972d3398b0",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "77d4fc62057eff8e40060c80208cfa6658a1b5b8838d81089d5b2eeb3297629b",
+      "telemetry": {}
+    },
+    {
+      "item_key": "how-attention-creates-meaningful-embeddings/multi-head-attention/r1/v1",
+      "concept_id": "multi-head-attention",
+      "rung": 1,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "single_choice",
+        "prompt": "What makes multi-head attention more efficient?",
+        "concept_id": "multi-head-attention",
+        "options": [
+          {
+            "text": "It examines vector elements in parallel",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Multi-head attention examines different vector elements in parallel. This parallel processing improves efficiency.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It hides later tokens",
+            "is_correct": false,
+            "error_type": "Confuses with masked attention",
+            "rationale": "Hiding later tokens is masked attention. It does not define multi-head attention’s efficiency benefit.",
+            "better_fit": "Use this when future positions must be excluded.",
+            "feedback": null
+          },
+          {
+            "text": "It assigns token IDs",
+            "is_correct": false,
+            "error_type": "Confuses with tokenization",
+            "rationale": "Tokenization assigns identifiers to tokens. Multi-head attention operates on vector representations.",
+            "better_fit": "Use this when describing token identification.",
+            "feedback": null
+          },
+          {
+            "text": "It stores prompt history",
+            "is_correct": false,
+            "error_type": "Confuses with conversation context",
+            "rationale": "Prompt history may provide context but is not a parallel attention method. It does not explain multi-head efficiency.",
+            "better_fit": "Use this when discussing continuity across conversation turns.",
+            "feedback": null
+          }
+        ],
+        "feedback_for_correct": "Correct. Parallel vector-element processing makes multi-head attention efficient."
+      },
+      "payload_hash": "9b482ead4b127338236c923df721bc2a5fafb5a312923777711491772f0d37bb",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "77d4fc62057eff8e40060c80208cfa6658a1b5b8838d81089d5b2eeb3297629b",
+      "telemetry": {}
+    },
+    {
+      "item_key": "how-attention-creates-meaningful-embeddings/multi-head-attention/r2/v1",
+      "concept_id": "multi-head-attention",
+      "rung": 2,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "true_false",
+        "prompt": "Is the following statement accurate?",
+        "concept_id": "multi-head-attention",
+        "statement": "Multi-head attention examines token-vector elements one at a time instead of in parallel.",
+        "correct_answer": false,
+        "feedback_for_correct": "Correct. Multi-head attention examines elements in parallel.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The efficiency benefit has been reversed.",
+          "instructional": "Multi-head attention processes different vector elements in parallel."
+        }
+      },
+      "payload_hash": "9a79b8f26e6ec2da054fd0662c0bb418d286809332a3abe5f29f31a30e51a03f",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "77d4fc62057eff8e40060c80208cfa6658a1b5b8838d81089d5b2eeb3297629b",
+      "telemetry": {}
+    },
+    {
+      "item_key": "how-attention-creates-meaningful-embeddings/multi-head-attention/r3/v1",
+      "concept_id": "multi-head-attention",
+      "rung": 3,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "fill_gaps",
+        "prompt": "Complete the sentence with the correct technical term.",
+        "concept_id": "multi-head-attention",
+        "parts": [
+          {
+            "type": "text",
+            "text": "In transformer processing, "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "multi-head attention"
+            ],
+            "rejected_answers": [
+              "attention",
+              "encoder",
+              "decoder",
+              "encoder-and-decoder"
+            ],
+            "placeholder": "technical term"
+          },
+          {
+            "type": "text",
+            "text": " considers different vector elements in parallel."
+          }
+        ],
+        "explanation": "Multi-head attention is the parallel approach for examining vector elements.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The selected term does not name the parallel method.",
+          "instructional": "Use multi-head attention; basic attention is the broader weighting technique."
+        }
+      },
+      "payload_hash": "6f00e28c14f7d67bb9a31a9e58c6ffba3219cf47bee04a2af67313fb7b2f1f58",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "77d4fc62057eff8e40060c80208cfa6658a1b5b8838d81089d5b2eeb3297629b",
+      "telemetry": {}
+    },
+    {
+      "item_key": "how-attention-creates-meaningful-embeddings/multi-head-attention/r3/v2",
+      "concept_id": "multi-head-attention",
+      "rung": 3,
+      "variant": 2,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "rearrange",
+        "prompt": "Arrange the process steps in order.",
+        "concept_id": "multi-head-attention",
+        "word_bank": [
+          "assign attention weights",
+          "Examine vector elements",
+          "calculate new values",
+          "in parallel"
+        ],
+        "correct_order": [
+          "Examine vector elements",
+          "in parallel",
+          "assign attention weights",
+          "calculate new values"
+        ],
+        "interchangeable_groups": [],
+        "explanation": "Multi-head attention examines elements in parallel, assigns weights, and calculates new vector values.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The process no longer connects parallel examination to new values.",
+          "instructional": "Keep parallel examination together before weight assignment and calculation."
+        }
+      },
+      "payload_hash": "fb5f6f7473ea81e363fd02074c8b9e14d7e204926cd00428a5e12bcd79ff5ade",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "77d4fc62057eff8e40060c80208cfa6658a1b5b8838d81089d5b2eeb3297629b",
+      "telemetry": {}
+    },
+    {
+      "item_key": "how-attention-creates-meaningful-embeddings/multi-head-attention/r4/v1",
+      "concept_id": "multi-head-attention",
+      "rung": 4,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Applying",
+        "question_type": "single_choice",
+        "prompt": "An engineer needs an assistant to examine different vector elements simultaneously to improve attention efficiency. Which approach should the engineer choose?",
+        "concept_id": "multi-head-attention",
+        "options": [
+          {
+            "text": "Multi-head attention",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Multi-head attention examines different vector elements in parallel. That meets the simultaneous-processing requirement.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Standard attention",
+            "is_correct": false,
+            "error_type": "Misses parallel requirement",
+            "rationale": "Standard attention weighs contextual influence. The scenario specifically requires simultaneous vector-element examination.",
+            "better_fit": "Use this when only contextual weighting is needed.",
+            "feedback": {
+              "intrinsic": "Context can be weighed, but the simultaneous-processing goal is unmet.",
+              "instructional": "Choose multi-head attention when parallel examination is required."
+            }
+          },
+          {
+            "text": "Masked attention",
+            "is_correct": false,
+            "error_type": "Confuses masking with parallelism",
+            "rationale": "Masked attention restricts visibility of later positions. It does not provide parallel vector analysis.",
+            "better_fit": "Use this when future tokens must be hidden.",
+            "feedback": {
+              "intrinsic": "Later tokens are blocked but vector elements are not processed in parallel.",
+              "instructional": "Multi-head attention, not masking, supplies parallel processing."
+            }
+          },
+          {
+            "text": "Decoder prediction",
+            "is_correct": false,
+            "error_type": "Confuses output generation with attention method",
+            "rationale": "Decoder prediction selects likely next tokens. It is not the requested attention mechanism.",
+            "better_fit": "Use this when describing next-token generation.",
+            "feedback": {
+              "intrinsic": "A generation stage was selected instead of an attention method.",
+              "instructional": "Use multi-head attention for parallel vector-element examination."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. Multi-head attention meets the simultaneous-processing requirement."
+      },
+      "payload_hash": "e94ad882ae04bf95805f7a1cccb89819b122cafa6a6488e0946b24d28a5fed08",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "77d4fc62057eff8e40060c80208cfa6658a1b5b8838d81089d5b2eeb3297629b",
+      "telemetry": {}
+    },
+    {
+      "item_key": "how-attention-creates-meaningful-embeddings/embedding/r1/v1",
+      "concept_id": "embedding",
+      "rung": 1,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "multi_choice",
+        "prompt": "Which statements describe an embedding? Select all that apply.",
+        "concept_id": "embedding",
+        "options": [
+          {
+            "text": "It is a transformed vector",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "An embedding is a transformed vector representation. Transformation allows it to contain learned information.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It contains contextual information",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Embeddings contain information from token relationships in context. Context helps distinguish meaning.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It represents semantic relationships",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Embeddings capture linguistic and semantic relationships. Their values reflect patterns of contextual use.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It is only a token position",
+            "is_correct": false,
+            "error_type": "Confuses with positional encoding",
+            "rationale": "A token position is supplied by positional encoding. An embedding contains contextual meaning information.",
+            "better_fit": "Use this when describing a token’s location in a sequence.",
+            "feedback": null
+          }
+        ],
+        "feedback_for_correct": "Correct. Embeddings are transformed vectors that carry contextual meaning."
+      },
+      "payload_hash": "04d5f3eaec36b485fb93bb87e0c12c03733aa6a957793e19d48d289dcb57e2a6",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "77d4fc62057eff8e40060c80208cfa6658a1b5b8838d81089d5b2eeb3297629b",
+      "telemetry": {}
+    },
+    {
+      "item_key": "how-attention-creates-meaningful-embeddings/embedding/r2/v1",
+      "concept_id": "embedding",
+      "rung": 2,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "true_false",
+        "prompt": "Evaluate this statement.",
+        "concept_id": "embedding",
+        "statement": "An embedding is a transformed vector with contextual linguistic and semantic information.",
+        "correct_answer": true,
+        "feedback_for_correct": "Correct. Embeddings represent contextual language and meaning.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The representation loses the context that distinguishes meaning.",
+          "instructional": "An embedding is transformed to contain contextual linguistic and semantic information."
+        }
+      },
+      "payload_hash": "617fcbd746c5669af7de09254a817a46aaa66cb726ea2e087e0787ccad4676f1",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "77d4fc62057eff8e40060c80208cfa6658a1b5b8838d81089d5b2eeb3297629b",
+      "telemetry": {}
+    },
+    {
+      "item_key": "how-attention-creates-meaningful-embeddings/embedding/r3/v1",
+      "concept_id": "embedding",
+      "rung": 3,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "rearrange",
+        "prompt": "Reconstruct the statement about how embeddings are formed.",
+        "concept_id": "embedding",
+        "word_bank": [
+          "in training",
+          "Embeddings are formed",
+          "data",
+          "from contexts"
+        ],
+        "correct_order": [
+          "Embeddings are formed",
+          "from contexts",
+          "in training",
+          "data"
+        ],
+        "interchangeable_groups": [],
+        "explanation": "Embeddings are formed from the contexts in training data, which differs from merely defining what an embedding is.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The source of embedding information is not stated coherently.",
+          "instructional": "Begin with embeddings, then identify contexts in training data as their source."
+        }
+      },
+      "payload_hash": "4a4d376274c897d50a1abdc10ac708de412773c42cc959d85d828abe74e4c6b2",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "77d4fc62057eff8e40060c80208cfa6658a1b5b8838d81089d5b2eeb3297629b",
+      "telemetry": {}
+    },
+    {
+      "item_key": "how-attention-creates-meaningful-embeddings/embedding/r3/v2",
+      "concept_id": "embedding",
+      "rung": 3,
+      "variant": 2,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "fill_gaps",
+        "prompt": "Complete the sentence with the correct technical term.",
+        "concept_id": "embedding",
+        "parts": [
+          {
+            "type": "text",
+            "text": "A transformed vector that contains contextual meaning is an "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "embedding"
+            ],
+            "rejected_answers": [
+              "token vector",
+              "positional encoding",
+              "attention",
+              "token-vector",
+              "positional-encoding"
+            ],
+            "placeholder": "technical term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "explanation": "An embedding is a transformed vector containing contextual linguistic and semantic information.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The selected term does not name a context-rich transformed vector.",
+          "instructional": "Use embedding; positional encoding gives location and attention helps calculate values."
+        }
+      },
+      "payload_hash": "a9480446845418211cde7fa2b0ac5f990d7390ce7ae2e75340e842d4bb920a50",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "77d4fc62057eff8e40060c80208cfa6658a1b5b8838d81089d5b2eeb3297629b",
+      "telemetry": {}
+    },
+    {
+      "item_key": "how-attention-creates-meaningful-embeddings/embedding/r4/v1",
+      "concept_id": "embedding",
+      "rung": 4,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Applying",
+        "question_type": "multi_choice",
+        "prompt": "An expenses assistant must represent how “travel” and “expenses” relate within policy sentences. Which vector properties should its developer require? Select all that apply.",
+        "concept_id": "embedding",
+        "options": [
+          {
+            "text": "A transformed representation",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "An embedding is a transformed vector rather than only an initial vector. Transformation captures learned information.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Contextual relationship information",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Embeddings encode how tokens relate in their sequences. This captures the policy relationship in the scenario.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Semantic information",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Embeddings carry semantic as well as linguistic context. That supports meaning-based relationships.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Only random initial values",
+            "is_correct": false,
+            "error_type": "Confuses initial vectors with embeddings",
+            "rationale": "Initial values alone do not capture learned context. They must be transformed into contextual embeddings.",
+            "better_fit": "Use this when describing vectors before contextual transformation.",
+            "feedback": {
+              "intrinsic": "The policy relationship remains uncaptured.",
+              "instructional": "Require transformed embeddings containing contextual and semantic information."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. Embeddings provide transformed vectors with contextual semantic relationships."
+      },
+      "payload_hash": "1d8f4e959cd069a509f03794ac07d117490bb4ec3d83094f9c9a0fe924df8c61",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "77d4fc62057eff8e40060c80208cfa6658a1b5b8838d81089d5b2eeb3297629b",
+      "telemetry": {}
+    },
+    {
+      "item_key": "how-attention-creates-meaningful-embeddings/learning-context-patterns/r1/v1",
+      "concept_id": "learning-context-patterns",
+      "rung": 1,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "single_choice",
+        "prompt": "How does a model learn which tokens influence each other?",
+        "concept_id": "learning-context-patterns",
+        "options": [
+          {
+            "text": "By processing more text iteratively",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Iterative exposure to text reveals recurring token relationships. The model learns these patterns over time.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "By knowing all influences initially",
+            "is_correct": false,
+            "error_type": "Misunderstands initial model knowledge",
+            "rationale": "A model initially lacks knowledge of token influences. It learns them from patterns in training text.",
+            "better_fit": "This would fit an already supplied rule system, not learned contextual patterns.",
+            "feedback": null
+          },
+          {
+            "text": "By using only token IDs",
+            "is_correct": false,
+            "error_type": "Confuses identifiers with context",
+            "rationale": "Token IDs distinguish tokens but do not reveal relationships. Contextual patterns are needed for relationship learning.",
+            "better_fit": "Use this when describing tokenization.",
+            "feedback": null
+          },
+          {
+            "text": "By ignoring nearby tokens",
+            "is_correct": false,
+            "error_type": "Rejects contextual learning",
+            "rationale": "Nearby tokens provide evidence about relationships. Ignoring them prevents learning contextual patterns.",
+            "better_fit": "This would fit a system deliberately excluding contextual evidence.",
+            "feedback": null
+          }
+        ],
+        "feedback_for_correct": "Correct. Repeated exposure to text lets a model learn contextual patterns."
+      },
+      "payload_hash": "a54b0863ef1eae411b50c554d6d8eb69336a26cea8a2cd6ba599de0dc4dba9b3",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "77d4fc62057eff8e40060c80208cfa6658a1b5b8838d81089d5b2eeb3297629b",
+      "telemetry": {}
+    },
+    {
+      "item_key": "how-attention-creates-meaningful-embeddings/learning-context-patterns/r1/v2",
+      "concept_id": "learning-context-patterns",
+      "rung": 1,
+      "variant": 2,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "multi_choice",
+        "prompt": "Which patterns help a model learn token relationships? Select all that apply.",
+        "concept_id": "learning-context-patterns",
+        "options": [
+          {
+            "text": "Tokens appearing near each other",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Proximity in sequences helps reveal token relationships. Nearby occurrence provides contextual evidence.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Tokens occurring together often",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Frequent co-occurrence helps reveal language patterns. Repetition strengthens the learning signal.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "More training text",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "More text provides additional repeated evidence. That supports iterative pattern learning.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A fixed set of initial values",
+            "is_correct": false,
+            "error_type": "Confuses initial values with learning",
+            "rationale": "Initial values do not themselves encode learned relationships. Training exposure changes representations to reflect patterns.",
+            "better_fit": "Use this when discussing representations before learning.",
+            "feedback": null
+          }
+        ],
+        "feedback_for_correct": "Correct. Proximity, co-occurrence, and repeated exposure reveal relationships."
+      },
+      "payload_hash": "3d6bbff3464a88e880806a7215d6476b3c4293dae1708f23f337c1b5e9bb4517",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "77d4fc62057eff8e40060c80208cfa6658a1b5b8838d81089d5b2eeb3297629b",
+      "telemetry": {}
+    },
+    {
+      "item_key": "how-attention-creates-meaningful-embeddings/learning-context-patterns/r2/v1",
+      "concept_id": "learning-context-patterns",
+      "rung": 2,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "true_false",
+        "prompt": "True or false?",
+        "concept_id": "learning-context-patterns",
+        "statement": "Before training, a model already knows which tokens commonly influence one another.",
+        "correct_answer": false,
+        "feedback_for_correct": "Correct. The model learns token influences from training patterns.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The model is credited with relationships it has not learned.",
+          "instructional": "Before training, the model does not know these relationships; it learns them iteratively from text."
+        }
+      },
+      "payload_hash": "2234316603c5e569683194bc1cb941def3fc8bc1c38402407d66241a564ca99b",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "77d4fc62057eff8e40060c80208cfa6658a1b5b8838d81089d5b2eeb3297629b",
+      "telemetry": {}
+    },
+    {
+      "item_key": "how-attention-creates-meaningful-embeddings/learning-context-patterns/r3/v1",
+      "concept_id": "learning-context-patterns",
+      "rung": 3,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "fill_gaps",
+        "prompt": "Complete the sentence with the correct technical phrase.",
+        "concept_id": "learning-context-patterns",
+        "parts": [
+          {
+            "type": "text",
+            "text": "As it processes more text, the model "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "iteratively learns",
+              "learns iteratively"
+            ],
+            "rejected_answers": [
+              "assigns token IDs",
+              "uses masked attention",
+              "attention",
+              "embedding-and-context"
+            ],
+            "placeholder": "technical phrase"
+          },
+          {
+            "type": "text",
+            "text": " which tokens commonly occur together."
+          }
+        ],
+        "explanation": "The model iteratively learns contextual patterns from repeated exposure to text.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The phrase does not describe repeated pattern learning.",
+          "instructional": "Use iteratively learns to describe how repeated text exposure teaches co-occurrence patterns."
+        }
+      },
+      "payload_hash": "84c28d173ae991d4d174d961e2d37466871918867264f40690efb712de970532",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "77d4fc62057eff8e40060c80208cfa6658a1b5b8838d81089d5b2eeb3297629b",
+      "telemetry": {}
+    },
+    {
+      "item_key": "how-attention-creates-meaningful-embeddings/learning-context-patterns/r4/v1",
+      "concept_id": "learning-context-patterns",
+      "rung": 4,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Applying",
+        "question_type": "single_choice",
+        "prompt": "An expenses assistant fails to recognize that terms repeatedly used together in policy language are related. What should the developer do to help it learn those relationships?",
+        "concept_id": "learning-context-patterns",
+        "options": [
+          {
+            "text": "Process more training text",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "More training text supplies repeated proximity and co-occurrence patterns. Those patterns teach token relationships.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Keep all vectors unchanged",
+            "is_correct": false,
+            "error_type": "Confuses fixed values with learning",
+            "rationale": "Learning changes representations to reflect text patterns. Unchanged values cannot gain contextual meaning.",
+            "better_fit": "Use this only for an initial representation before learning.",
+            "feedback": {
+              "intrinsic": "The missing relationships remain absent.",
+              "instructional": "Processing more text provides evidence from which the model learns contextual patterns."
+            }
+          },
+          {
+            "text": "Remove nearby-word context",
+            "is_correct": false,
+            "error_type": "Rejects contextual learning",
+            "rationale": "Nearby words are key evidence for learning relationships. Removing them eliminates useful training signals.",
+            "better_fit": "Use this only when contextual information must be intentionally excluded.",
+            "feedback": {
+              "intrinsic": "The evidence needed for relationships is discarded.",
+              "instructional": "Models learn from tokens that appear near and frequently with one another."
+            }
+          },
+          {
+            "text": "Use only token identifiers",
+            "is_correct": false,
+            "error_type": "Confuses IDs with learned relationships",
+            "rationale": "IDs label distinct tokens but do not encode co-occurrence patterns. Training exposure is needed to learn relationships.",
+            "better_fit": "Use this when describing tokenization.",
+            "feedback": {
+              "intrinsic": "Terms are labeled but not related semantically.",
+              "instructional": "More training text, not IDs alone, teaches contextual relationships."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. More training text provides repeated contextual evidence."
+      },
+      "payload_hash": "533f4612e58633fb29058eed4cd7d5cbf0fbdc69864a0097432ee657a0b2cc1a",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "77d4fc62057eff8e40060c80208cfa6658a1b5b8838d81089d5b2eeb3297629b",
+      "telemetry": {}
+    },
+    {
+      "item_key": "how-attention-creates-meaningful-embeddings/vector-space-and-cosine-similarity/r1/v1",
+      "concept_id": "vector-space-and-cosine-similarity",
+      "rung": 1,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "multi_choice",
+        "prompt": "Which statements about cosine similarity are correct? Select all that apply.",
+        "concept_id": "vector-space-and-cosine-similarity",
+        "options": [
+          {
+            "text": "It measures semantic closeness",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Cosine similarity can indicate semantic closeness between token vectors. It uses their directional relationship.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It compares vector directions",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Cosine similarity compares the directions in which vectors point. Direction reflects contextual similarity.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Similar contexts can give similar directions",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Tokens used in similar contexts tend to point similarly. This enables similarity comparisons.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It assigns token identifiers",
+            "is_correct": false,
+            "error_type": "Confuses similarity with tokenization",
+            "rationale": "Tokenization assigns identifiers to tokens. Cosine similarity compares vector directions instead.",
+            "better_fit": "Use this when describing token ID assignment.",
+            "feedback": null
+          }
+        ],
+        "feedback_for_correct": "Correct. Cosine similarity compares vector directions to estimate semantic closeness."
+      },
+      "payload_hash": "b103e19c034fde615465638002f671f778b8382a8d3929babeec9cd859c2ed59",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "77d4fc62057eff8e40060c80208cfa6658a1b5b8838d81089d5b2eeb3297629b",
+      "telemetry": {}
+    },
+    {
+      "item_key": "how-attention-creates-meaningful-embeddings/vector-space-and-cosine-similarity/r2/v1",
+      "concept_id": "vector-space-and-cosine-similarity",
+      "rung": 2,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "true_false",
+        "prompt": "Decide whether this statement is true or false.",
+        "concept_id": "vector-space-and-cosine-similarity",
+        "statement": "Tokens used in similar contexts tend to have vectors pointing in similar directions.",
+        "correct_answer": true,
+        "feedback_for_correct": "Correct. Similar contextual use tends to produce similar vector directions.",
+        "feedback_for_incorrect": {
+          "intrinsic": "Related token use is treated as unrelated in vector space.",
+          "instructional": "Similar contexts tend to produce similar vector directions, which cosine similarity can compare."
+        }
+      },
+      "payload_hash": "19762611e21c9905bb4bc516519c5763e502a9cf6e5ab11d0477316add3786c1",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "77d4fc62057eff8e40060c80208cfa6658a1b5b8838d81089d5b2eeb3297629b",
+      "telemetry": {}
+    },
+    {
+      "item_key": "how-attention-creates-meaningful-embeddings/vector-space-and-cosine-similarity/r3/v1",
+      "concept_id": "vector-space-and-cosine-similarity",
+      "rung": 3,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Understanding",
+        "question_type": "rearrange",
+        "prompt": "Put the pieces in the correct order.",
+        "concept_id": "vector-space-and-cosine-similarity",
+        "word_bank": [
+          "by comparing",
+          "Cosine similarity",
+          "vector directions",
+          "measures semantic closeness"
+        ],
+        "correct_order": [
+          "Cosine similarity",
+          "measures semantic closeness",
+          "by comparing",
+          "vector directions"
+        ],
+        "interchangeable_groups": [],
+        "explanation": "Cosine similarity is named first, followed by what it measures and the vector property it compares.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The measure and its basis are disconnected.",
+          "instructional": "Name cosine similarity, then its purpose, and finally the vector directions it compares."
+        }
+      },
+      "payload_hash": "2c3aa5d59932525d855fd7828f1cd7382ce2372372f9d6dfa78b80c1590b0291",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "77d4fc62057eff8e40060c80208cfa6658a1b5b8838d81089d5b2eeb3297629b",
+      "telemetry": {}
+    },
+    {
+      "item_key": "how-attention-creates-meaningful-embeddings/vector-space-and-cosine-similarity/r3/v2",
+      "concept_id": "vector-space-and-cosine-similarity",
+      "rung": 3,
+      "variant": 2,
+      "payload": {
+        "blooms_level": "Remembering",
+        "question_type": "fill_gaps",
+        "prompt": "Complete the sentence with the correct technical term.",
+        "concept_id": "vector-space-and-cosine-similarity",
+        "parts": [
+          {
+            "type": "text",
+            "text": "To compare semantic closeness between two embedding directions, use "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "cosine similarity"
+            ],
+            "rejected_answers": [
+              "attention",
+              "embedding",
+              "token vector",
+              "embedding-and-context",
+              "token-vector"
+            ],
+            "placeholder": "technical term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "explanation": "Cosine similarity measures semantic closeness by comparing vector directions.",
+        "feedback_for_incorrect": {
+          "intrinsic": "The selected term does not name a measure of vector closeness.",
+          "instructional": "Use cosine similarity; embeddings are vectors, while attention weighs context."
+        }
+      },
+      "payload_hash": "db67b8785dfcd91a210e413750906996b2301910d3e54f446d395a1b72939032",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "77d4fc62057eff8e40060c80208cfa6658a1b5b8838d81089d5b2eeb3297629b",
+      "telemetry": {}
+    },
+    {
+      "item_key": "how-attention-creates-meaningful-embeddings/vector-space-and-cosine-similarity/r4/v1",
+      "concept_id": "vector-space-and-cosine-similarity",
+      "rung": 4,
+      "variant": 1,
+      "payload": {
+        "blooms_level": "Applying",
+        "question_type": "multi_choice",
+        "prompt": "A developer compares embeddings to find terms closest in meaning to “dog.” Which terms should likely have higher cosine similarity with “dog”? Select all that apply.",
+        "concept_id": "vector-space-and-cosine-similarity",
+        "options": [
+          {
+            "text": "puppy",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Puppy is used in contexts similar to dog. It should have a similar vector direction.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "cat",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Cat is relatively closer in contextual use to dog than a vehicle or skateboard. Its vector direction is likely more similar.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "skateboard",
+            "is_correct": false,
+            "error_type": "Chooses a semantically distant token",
+            "rationale": "Skateboard is used in contexts unlike dog. Its vector direction is unlikely to be close to dog’s.",
+            "better_fit": "Use this as an example of a semantically distant token.",
+            "feedback": {
+              "intrinsic": "A distant concept is grouped with animal-related terms.",
+              "instructional": "Choose terms with similar contextual use, such as puppy and relatively cat."
+            }
+          },
+          {
+            "text": "car",
+            "is_correct": false,
+            "error_type": "Chooses a semantically distant token",
+            "rationale": "Car is a vehicle term used in contexts unlike dog. It is unlikely to have high cosine similarity with dog.",
+            "better_fit": "Use this as an example of a semantically distant token.",
+            "feedback": {
+              "intrinsic": "A vehicle is treated as closely related to an animal term.",
+              "instructional": "Higher cosine similarity reflects similar vector directions and contextual use."
+            }
+          }
+        ],
+        "feedback_for_correct": "Correct. Puppy and relatively cat should be closer to dog in vector space."
+      },
+      "payload_hash": "b6667552a89a2c6e839b2f9630549f3954887a4ef7f088402979b720ee227c16",
+      "provenance": "generated",
+      "pinned": false,
+      "status": "active",
+      "source_hash": "77d4fc62057eff8e40060c80208cfa6658a1b5b8838d81089d5b2eeb3297629b",
+      "telemetry": {}
+    }
+  ],
+  "flashcards": [
+    {
+      "front": "What does attention do?",
+      "back": "It weights surrounding tokens to interpret the current token.",
+      "hint": "Think: context clues."
+    },
+    {
+      "front": "What is multi-head attention?",
+      "back": "Attention that evaluates different vector elements in parallel.",
+      "hint": "Think: parallel processing."
+    },
+    {
+      "front": "What is an embedding?",
+      "back": "A transformed vector containing contextual linguistic and semantic information.",
+      "hint": "Think: meaning in context."
+    },
+    {
+      "front": "What does cosine similarity measure?",
+      "back": "Semantic closeness by comparing embedding vector directions.",
+      "hint": "Think: similar directions."
+    }
+  ]
+}

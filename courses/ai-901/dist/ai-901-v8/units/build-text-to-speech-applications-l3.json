@@ -1,0 +1,490 @@
+{
+  "import_key": "build-text-to-speech-applications-l3",
+  "title": "Build text-to-speech applications · Level 3",
+  "slo": "Identify the SDK objects and flow used to turn written text into audio.",
+  "exercises": [
+    {
+      "import_key": "build-text-to-speech-applications-l3-q1",
+      "question_type": "multiple_choice",
+      "question_text": "Which parts belong in a text-to-speech application flow? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Provide text to be spoken",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "TTS starts with written content. That content is provided as synthesis input.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Send the text to Azure Speech",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The application sends written input to Azure Speech. Cloud models use it to generate audio.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Receive generated audio",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Generated audio returns to the application. The app can play, stream, or save it.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Map microphone sounds into words",
+            "is_correct": false,
+            "error_type": "Confuses TTS with STT",
+            "rationale": "Mapping sounds into words is recognition work. TTS starts with words and produces sound.",
+            "better_fit": "Use this in a speech-recognition flow.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "tts-application-processing-flow",
+        "item_key": "build-text-to-speech-applications/tts-application-processing-flow/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. The flow moves from written text to returned audio.",
+      "points": 1
+    },
+    {
+      "import_key": "build-text-to-speech-applications-l3-q2",
+      "question_type": "multiple_choice",
+      "question_text": "Which SDK object converts text into synthesized audio?",
+      "options": {
+        "options": [
+          {
+            "text": "SpeechSynthesizer",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "SpeechSynthesizer converts written text into synthesized audio. It creates the spoken result.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "SpeechRecognizer",
+            "is_correct": false,
+            "error_type": "Confuses synthesis with recognition",
+            "rationale": "SpeechRecognizer turns spoken audio into text. It does not generate audio from text.",
+            "better_fit": "Use this when transcribing a speaker.",
+            "feedback": null
+          },
+          {
+            "text": "AudioOutputConfig",
+            "is_correct": false,
+            "error_type": "Confuses generation with destination",
+            "rationale": "AudioOutputConfig specifies where generated audio goes. It does not synthesize the audio itself.",
+            "better_fit": "Use this when choosing an output destination.",
+            "feedback": null
+          },
+          {
+            "text": "SpeechConfig",
+            "is_correct": false,
+            "error_type": "Confuses service settings with synthesis",
+            "rationale": "SpeechConfig holds service configuration such as credentials. It is not the object that creates synthesized audio.",
+            "better_fit": "Use this when setting endpoint and authentication details.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "speech-synthesizer-output-config",
+        "item_key": "build-text-to-speech-applications/speech-synthesizer-output-config/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. SpeechSynthesizer creates synthesized audio from text.",
+      "points": 1
+    },
+    {
+      "import_key": "build-text-to-speech-applications-l3-q3",
+      "question_type": "true_false",
+      "question_text": "The Azure Text-to-Speech SDK mainly converts microphone audio into written text.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "azure-speech-tts-sdk",
+        "feedback_for_incorrect": {
+          "intrinsic": "The app would listen when it needs to speak.",
+          "instructional": "Text-to-speech converts written words into audio."
+        },
+        "item_key": "build-text-to-speech-applications/azure-speech-tts-sdk/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct. That is speech-to-text.",
+      "points": 1
+    },
+    {
+      "import_key": "build-text-to-speech-applications-l3-q4",
+      "question_type": "fill_blank",
+      "question_text": "To specify the destination of synthesized audio, use ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "To specify the destination of synthesized audio, use "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "AudioOutputConfig"
+            ],
+            "rejected_answers": [
+              "SpeechSynthesizer",
+              "SpeechRecognizer",
+              "SpeechConfig",
+              "stt-recognition-objects",
+              "azure-speech-tts-sdk"
+            ],
+            "placeholder": "SDK object"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "SpeechSynthesizer",
+          "SpeechRecognizer",
+          "SpeechConfig",
+          "stt-recognition-objects",
+          "azure-speech-tts-sdk"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "speech-synthesizer-output-config",
+        "feedback_for_incorrect": {
+          "intrinsic": "The audio destination would not be configured.",
+          "instructional": "SpeechSynthesizer creates audio; AudioOutputConfig directs it."
+        },
+        "item_key": "build-text-to-speech-applications/speech-synthesizer-output-config/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "AudioOutputConfig",
+      "explanation": "AudioOutputConfig specifies where synthesized audio is played or saved.",
+      "points": 1
+    },
+    {
+      "import_key": "build-text-to-speech-applications-l3-q5",
+      "question_type": "arrange_sentence",
+      "question_text": "Arrange the SDK process in order.",
+      "options": {
+        "word_bank": [
+          "Generate audio",
+          "Send text",
+          "Play the audio",
+          "to Azure Speech"
+        ],
+        "correct_order": [
+          "Send text",
+          "to Azure Speech",
+          "Generate audio",
+          "Play the audio"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "azure-speech-tts-sdk",
+        "feedback_for_incorrect": {
+          "intrinsic": "The process would require audio before text is processed.",
+          "instructional": "Follow the path from written input to generated audio and playback."
+        },
+        "item_key": "build-text-to-speech-applications/azure-speech-tts-sdk/r3/v2",
+        "rung": 3
+      },
+      "correct_answer": "Send text to Azure Speech Generate audio Play the audio",
+      "explanation": "Azure Speech receives text before generating audio, which can then be played.",
+      "points": 1
+    },
+    {
+      "import_key": "build-text-to-speech-applications-l3-q6",
+      "question_type": "arrange_sentence",
+      "question_text": "Arrange the text-to-speech flow.",
+      "options": {
+        "word_bank": [
+          "Send text to Azure",
+          "Initialize the SDK",
+          "Receive generated audio",
+          "Provide text"
+        ],
+        "correct_order": [
+          "Initialize the SDK",
+          "Provide text",
+          "Send text to Azure",
+          "Receive generated audio"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "tts-application-processing-flow",
+        "feedback_for_incorrect": {
+          "intrinsic": "The app would use synthesis before setup or input is ready.",
+          "instructional": "Follow configuration, text input, service request, and returned audio."
+        },
+        "item_key": "build-text-to-speech-applications/tts-application-processing-flow/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "Initialize the SDK Provide text Send text to Azure Receive generated audio",
+      "explanation": "Initialize first, then provide and send text before receiving generated audio.",
+      "points": 1
+    },
+    {
+      "import_key": "build-text-to-speech-applications-l3-q7",
+      "question_type": "multiple_choice",
+      "question_text": "Which statements correctly describe text-to-speech placement? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "A desktop app can play speech immediately",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A desktop app is a client application. Client apps can synthesize and play speech right away.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A mobile app can play speech immediately",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Mobile apps are client applications. They can provide immediate spoken output.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A backend service can create audio for later",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A backend can generate audio files in advance. Those files can be played later.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A backend service requires microphone input",
+            "is_correct": false,
+            "error_type": "Confuses TTS with recognition",
+            "rationale": "TTS starts with written text, not required microphone input. A backend can generate files directly from text.",
+            "better_fit": "Use microphone input for speech-to-text transcription.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "tts-client-or-backend-choice",
+        "item_key": "build-text-to-speech-applications/tts-client-or-backend-choice/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. Clients support immediate playback, while backends can prepare audio for later.",
+      "points": 1
+    },
+    {
+      "import_key": "build-text-to-speech-applications-l3-q8",
+      "question_type": "multiple_choice",
+      "question_text": "Which voice name is used in the Python text-to-speech sample?",
+      "options": {
+        "options": [
+          {
+            "text": "en-US-Ava:DragonHDLatestNeural",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "This is the voice name specified by the sample. It identifies the neural voice used for synthesis.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "SpeechRecognizer",
+            "is_correct": false,
+            "error_type": "Confuses a voice with an object",
+            "rationale": "SpeechRecognizer is an object for recognizing speech. It is not a synthesis voice name.",
+            "better_fit": "Use this when creating speech-recognition functionality.",
+            "feedback": null
+          },
+          {
+            "text": "FOUNDRY_KEY",
+            "is_correct": false,
+            "error_type": "Confuses authentication with voice selection",
+            "rationale": "A key authenticates access to a service. It does not select the synthesized voice.",
+            "better_fit": "Use this when supplying credentials for initialization.",
+            "feedback": null
+          },
+          {
+            "text": "AudioOutputConfig",
+            "is_correct": false,
+            "error_type": "Confuses a voice with output configuration",
+            "rationale": "AudioOutputConfig determines where audio is delivered. It does not name a neural voice.",
+            "better_fit": "Use this when directing synthesized output to a speaker or file.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "tts-python-examples",
+        "item_key": "build-text-to-speech-applications/tts-python-examples/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. The sample uses en-US-Ava:DragonHDLatestNeural.",
+      "points": 1
+    },
+    {
+      "import_key": "build-text-to-speech-applications-l3-q9",
+      "question_type": "true_false",
+      "question_text": "A backend service is used only when audio must play immediately on a user's device.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "tts-client-or-backend-choice",
+        "feedback_for_incorrect": {
+          "intrinsic": "Delayed audio preparation would be assigned to the wrong architecture.",
+          "instructional": "Backends are appropriate for generating audio that will be used later."
+        },
+        "item_key": "build-text-to-speech-applications/tts-client-or-backend-choice/r2/v2",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct. A backend can create files for later playback.",
+      "points": 1
+    },
+    {
+      "import_key": "build-text-to-speech-applications-l3-q10",
+      "question_type": "fill_blank",
+      "question_text": "The Python sample uses ___ to synthesize text asynchronously.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "The Python sample uses "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "speak_text_async"
+            ],
+            "rejected_answers": [
+              "start_continuous_recognition",
+              "SpeechRecognizer",
+              "recognize_once_async",
+              "tts-application-flow",
+              "azure-speech-tts-sdk"
+            ],
+            "placeholder": "method name"
+          },
+          {
+            "type": "text",
+            "text": " to synthesize text asynchronously."
+          }
+        ],
+        "rejected_answers": [
+          "start_continuous_recognition",
+          "SpeechRecognizer",
+          "recognize_once_async",
+          "tts-application-flow",
+          "azure-speech-tts-sdk"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "tts-python-examples",
+        "feedback_for_incorrect": {
+          "intrinsic": "The intended synthesis operation would not start.",
+          "instructional": "Use speak_text_async for asynchronous TTS, not recognition methods."
+        },
+        "item_key": "build-text-to-speech-applications/tts-python-examples/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "speak_text_async",
+      "explanation": "speak_text_async starts asynchronous text synthesis.",
+      "points": 1
+    },
+    {
+      "import_key": "build-text-to-speech-applications-l3-q11",
+      "question_type": "multiple_choice",
+      "question_text": "A retailer must generate thousands of announcements overnight for stores to play the next day. Which decisions best fit this situation? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Use a backend service",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A backend can process announcements without immediate user playback. It fits overnight generation for later use.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Generate audio files for later playback",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The stores need reusable audio the next day. Saved files support delayed playback.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Use a client app for immediate playback",
+            "is_correct": false,
+            "error_type": "Chooses immediate-playback architecture",
+            "rationale": "Client apps suit speech that must play immediately. This requirement is batch preparation for later playback.",
+            "better_fit": "Use this when a user needs to hear speech immediately in an app.",
+            "feedback": {
+              "intrinsic": "The announcements would not be prepared as next-day files.",
+              "instructional": "Match later use with a backend that generates audio files."
+            }
+          },
+          {
+            "text": "Use AudioOutputConfig as the main service",
+            "is_correct": false,
+            "error_type": "Confuses an object with architecture",
+            "rationale": "AudioOutputConfig controls an audio destination. It does not decide the client-versus-backend architecture.",
+            "better_fit": "Use this when selecting where synthesized audio is delivered.",
+            "feedback": {
+              "intrinsic": "The overnight generation plan would still be missing.",
+              "instructional": "Choose the backend architecture first; configure output separately."
+            }
+          }
+        ],
+        "blooms_level": "Analyzing/Evaluating",
+        "original_question_type": "multi_choice",
+        "concept_id": "tts-client-or-backend-choice",
+        "item_key": "build-text-to-speech-applications/tts-client-or-backend-choice/r5/v1",
+        "rung": 5
+      },
+      "correct_answer": "[0,1]",
+      "explanation": "Correct. Backend-generated files fit overnight preparation and next-day playback.",
+      "points": 1
+    },
+    {
+      "import_key": "build-text-to-speech-applications-l3-q12",
+      "question_type": "arrange_sentence",
+      "question_text": "Arrange the Python sample actions.",
+      "options": {
+        "word_bank": [
+          "Get the result",
+          "Read console text",
+          "Check the reason",
+          "Call speak_text_async"
+        ],
+        "correct_order": [
+          "Read console text",
+          "Call speak_text_async",
+          "Get the result",
+          "Check the reason"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "tts-python-examples",
+        "feedback_for_incorrect": {
+          "intrinsic": "The code would inspect a result before producing it.",
+          "instructional": "Obtain input first, then synthesize, retrieve the result, and inspect it."
+        },
+        "item_key": "build-text-to-speech-applications/tts-python-examples/r3/v2",
+        "rung": 3
+      },
+      "correct_answer": "Read console text Call speak_text_async Get the result Check the reason",
+      "explanation": "The sample reads text, starts synthesis, gets the result, and checks its reason.",
+      "points": 1
+    }
+  ],
+  "flashcards": []
+}

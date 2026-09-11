@@ -1,0 +1,583 @@
+{
+  "import_key": "ocr-input-and-document-layout-l2",
+  "title": "OCR input and document layout · Level 2",
+  "slo": "Explain how OCR prepares an image and finds its text regions.",
+  "exercises": [
+    {
+      "import_key": "ocr-input-and-document-layout-l2-q1",
+      "question_type": "arrange_sentence",
+      "question_text": "Reconstruct the statement from the pieces.",
+      "options": {
+        "word_bank": [
+          "and white space",
+          "Layout analysis",
+          "in a document image",
+          "separates text, graphics,"
+        ],
+        "correct_order": [
+          "Layout analysis",
+          "separates text, graphics,",
+          "and white space",
+          "in a document image"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "text-region-detection",
+        "feedback_for_incorrect": {
+          "intrinsic": "Document region types would be confused.",
+          "instructional": "Name layout analysis, then state the region types it separates."
+        },
+        "item_key": "ocr-input-and-document-layout/text-region-detection/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "Layout analysis separates text, graphics, and white space in a document image",
+      "explanation": "Layout analysis separates text, graphics, and white space to reveal document structure.",
+      "points": 1
+    },
+    {
+      "import_key": "ocr-input-and-document-layout-l2-q2",
+      "question_type": "fill_blank",
+      "question_text": "The technology that converts visual text into editable, searchable text is ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "The technology that converts visual text into editable, searchable text is "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "OCR",
+              "optical character recognition"
+            ],
+            "rejected_answers": [
+              "field extraction",
+              "OCR output ingestion",
+              "field-extraction",
+              "ocr-output-ingestion"
+            ],
+            "placeholder": "technical term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "field extraction",
+          "OCR output ingestion",
+          "field-extraction",
+          "ocr-output-ingestion"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "ocr-basic-limits",
+        "feedback_for_incorrect": {
+          "intrinsic": "Visible words would not yet become searchable text.",
+          "instructional": "Use OCR; field extraction and output ingestion occur after recognition."
+        },
+        "item_key": "ocr-input-and-document-layout/ocr-basic-limits/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "[\"OCR\",\"optical character recognition\"]",
+      "explanation": "OCR is the visual-text conversion stage.",
+      "points": 1
+    },
+    {
+      "import_key": "ocr-input-and-document-layout-l2-q3",
+      "question_type": "multiple_choice",
+      "question_text": "A legal-document processor must separate a contract's text, signatures or graphics, and blank areas before character recognition. Which approaches fit this layout task? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Connected component analysis",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Connected component analysis is a stated layout-analysis approach. It can help distinguish document regions.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Projection-based segmentation",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Projection-based segmentation can separate visual regions in a document. It fits the stated layout task.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A U-Net model",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "U-Net is listed as a deep-learning approach for layout analysis. It can identify different visual regions.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A regression CNN for rotation",
+            "is_correct": false,
+            "error_type": "Layout versus skew correction",
+            "rationale": "A regression CNN can predict a rotation angle for skew correction. It does not separate text, graphics, and blank regions.",
+            "better_fit": "Use this when a document is rotated and text lines must be aligned.",
+            "feedback": {
+              "intrinsic": "The contract's regions could remain mixed even after its angle was measured.",
+              "instructional": "Use layout-analysis methods to separate regions; rotation models address skew."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "multi_choice",
+        "concept_id": "text-region-detection",
+        "item_key": "ocr-input-and-document-layout/text-region-detection/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. These approaches support layout analysis before character recognition.",
+      "points": 1
+    },
+    {
+      "import_key": "ocr-input-and-document-layout-l2-q4",
+      "question_type": "multiple_choice",
+      "question_text": "An expense-claim team has receipt photos and must make their visible words searchable before identifying dates and totals. What should it use first?",
+      "options": {
+        "options": [
+          {
+            "text": "OCR",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "OCR converts the receipt's visible words into searchable text data. Dates and totals can then be identified from that text.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Field extraction",
+            "is_correct": false,
+            "error_type": "Text conversion versus mapping",
+            "rationale": "Field extraction labels recognized values as dates, totals, or vendors. It needs OCR text first.",
+            "better_fit": "Use this after recognition when assigning business-field labels.",
+            "feedback": {
+              "intrinsic": "The team would try to label values before the photo's words were available as text.",
+              "instructional": "Start with OCR, then use field extraction to assign meaning."
+            }
+          },
+          {
+            "text": "OCR output ingestion",
+            "is_correct": false,
+            "error_type": "Later pipeline stage",
+            "rationale": "OCR output ingestion accepts results already produced by OCR. It cannot create results from a receipt photo.",
+            "better_fit": "Use this when OCR text and metadata are ready for a downstream process.",
+            "feedback": {
+              "intrinsic": "No recognized output would yet exist to ingest.",
+              "instructional": "Ingestion follows OCR; it does not replace visual-text recognition."
+            }
+          },
+          {
+            "text": "Key-value pairing",
+            "is_correct": false,
+            "error_type": "Association versus recognition",
+            "rationale": "Key-value pairing associates recognized labels with values. It does not turn image pixels into text.",
+            "better_fit": "Use this when recognized labels and nearby values must be associated.",
+            "feedback": {
+              "intrinsic": "There would be no reliable recognized labels or values to pair.",
+              "instructional": "OCR provides text before downstream association work."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "single_choice",
+        "concept_id": "ocr-basic-limits",
+        "item_key": "ocr-input-and-document-layout/ocr-basic-limits/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. OCR creates searchable text before values are identified.",
+      "points": 1
+    },
+    {
+      "import_key": "ocr-input-and-document-layout-l2-q5",
+      "question_type": "arrange_sentence",
+      "question_text": "Order the pieces correctly.",
+      "options": {
+        "word_bank": [
+          "and scanning imperfections",
+          "Noise reduction",
+          "before text detection",
+          "removes dust spots"
+        ],
+        "correct_order": [
+          "Noise reduction",
+          "removes dust spots",
+          "and scanning imperfections",
+          "before text detection"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "noise-and-contrast-enhancement",
+        "feedback_for_incorrect": {
+          "intrinsic": "Artifacts could remain when text areas are located.",
+          "instructional": "Put the cleanup action first, followed by what it removes and when."
+        },
+        "item_key": "ocr-input-and-document-layout/noise-and-contrast-enhancement/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "Noise reduction removes dust spots and scanning imperfections before text detection",
+      "explanation": "Noise reduction removes artifacts such as dust spots before text detection.",
+      "points": 1
+    },
+    {
+      "import_key": "ocr-input-and-document-layout-l2-q6",
+      "question_type": "fill_blank",
+      "question_text": "Correcting a document's rotation before text detection is called ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "Correcting a document's rotation before text detection is called "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "skew correction"
+            ],
+            "rejected_answers": [
+              "noise reduction",
+              "contrast adjustment",
+              "resolution optimization",
+              "text region detection",
+              "text-region-detection",
+              "image-acquisition-and-quality"
+            ],
+            "placeholder": "method"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "noise reduction",
+          "contrast adjustment",
+          "resolution optimization",
+          "text region detection",
+          "text-region-detection",
+          "image-acquisition-and-quality"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "ocr-preprocessing",
+        "feedback_for_incorrect": {
+          "intrinsic": "The document's text lines could remain tilted.",
+          "instructional": "Skew correction handles rotation; noise reduction and contrast adjustment address different image defects."
+        },
+        "item_key": "ocr-input-and-document-layout/ocr-preprocessing/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "skew correction",
+      "explanation": "Skew correction is a preprocessing operation that fixes document rotation before text detection.",
+      "points": 1
+    },
+    {
+      "import_key": "ocr-input-and-document-layout-l2-q7",
+      "question_type": "multiple_choice",
+      "question_text": "An accounts-payable specialist scans an invoice with dust spots and pale text. Which actions should be chosen before text detection? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Apply noise reduction",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Noise reduction removes dust spots and scanning artifacts. It prepares the invoice for text detection.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Adjust contrast",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Contrast adjustment makes pale text distinct from the background. It improves character visibility before detection.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Use an image-cleanup CNN",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Document-cleanup CNNs are an image-noise reduction approach. They can remove scanning imperfections.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Use row-column association",
+            "is_correct": false,
+            "error_type": "Cleanup versus table mapping",
+            "rationale": "Row-column association maps table values to field schemas. It does not remove dust or improve text contrast.",
+            "better_fit": "Use this when recognized table values must be associated with schema fields.",
+            "feedback": {
+              "intrinsic": "The dust and pale text would remain unchanged.",
+              "instructional": "Use cleanup methods for image defects; table association belongs later."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "multi_choice",
+        "concept_id": "noise-and-contrast-enhancement",
+        "item_key": "ocr-input-and-document-layout/noise-and-contrast-enhancement/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. Noise reduction and cleanup CNNs address artifacts, while contrast adjustment addresses pale text.",
+      "points": 1
+    },
+    {
+      "import_key": "ocr-input-and-document-layout-l2-q8",
+      "question_type": "multiple_choice",
+      "question_text": "A healthcare administrator scans a faint, slightly rotated form. Before text regions are found, which action should the system choose?",
+      "options": {
+        "options": [
+          {
+            "text": "Preprocess and enhance the image",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Preprocessing can adjust contrast for faint text and correct skew for rotation. Both operations occur before text detection.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Acquire the image again",
+            "is_correct": false,
+            "error_type": "Input versus improvement",
+            "rationale": "Acquisition admits an image to OCR but does not fix the stated quality problems. The existing image needs improvement.",
+            "better_fit": "Use this when the task is only to bring a new image source into OCR.",
+            "feedback": {
+              "intrinsic": "The same faint, tilted image could enter again unchanged.",
+              "instructional": "Use preprocessing to improve contrast and correct skew before detection."
+            }
+          },
+          {
+            "text": "Detect text regions first",
+            "is_correct": false,
+            "error_type": "Sequence error",
+            "rationale": "Detection follows preprocessing in the OCR pipeline. Faint text and rotation make preparation appropriate first.",
+            "better_fit": "Use this after image preparation when locating text-containing areas.",
+            "feedback": {
+              "intrinsic": "The weak, sloping text could be harder to locate reliably.",
+              "instructional": "Improve image quality first, then locate text regions."
+            }
+          },
+          {
+            "text": "Map values to fields",
+            "is_correct": false,
+            "error_type": "Downstream task",
+            "rationale": "Field mapping assigns recognized values to business fields after OCR. It cannot fix input-image quality.",
+            "better_fit": "Use this when recognized names, dates, or amounts need field labels.",
+            "feedback": {
+              "intrinsic": "No reliable recognized values would yet exist to map.",
+              "instructional": "First prepare, detect, and recognize the image text."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "single_choice",
+        "concept_id": "ocr-preprocessing",
+        "item_key": "ocr-input-and-document-layout/ocr-preprocessing/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. Preprocessing addresses both faintness and rotation before detection.",
+      "points": 1
+    },
+    {
+      "import_key": "ocr-input-and-document-layout-l2-q9",
+      "question_type": "fill_blank",
+      "question_text": "Intelligently upscaling a low-resolution text image is called ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "Intelligently upscaling a low-resolution text image is called "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "super-resolution",
+              "super-resolution models"
+            ],
+            "rejected_answers": [
+              "noise reduction",
+              "contrast adjustment",
+              "skew correction",
+              "image-cleanup-methods",
+              "preprocessing-and-image-enhancement"
+            ],
+            "placeholder": "method"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "noise reduction",
+          "contrast adjustment",
+          "skew correction",
+          "image-cleanup-methods",
+          "preprocessing-and-image-enhancement"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "skew-and-resolution-optimization",
+        "feedback_for_incorrect": {
+          "intrinsic": "Low-resolution characters could remain unsuitable for clear recognition.",
+          "instructional": "Use super-resolution for intelligent upscaling, not for noise, contrast, or rotation."
+        },
+        "item_key": "ocr-input-and-document-layout/skew-and-resolution-optimization/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "[\"super-resolution\",\"super-resolution models\"]",
+      "explanation": "Super-resolution models intelligently upscale low-resolution text images.",
+      "points": 1
+    },
+    {
+      "import_key": "ocr-input-and-document-layout-l2-q10",
+      "question_type": "arrange_sentence",
+      "question_text": "Arrange the parts to form a correct statement.",
+      "options": {
+        "word_bank": [
+          "where a text image",
+          "Image acquisition",
+          "enters OCR",
+          "is the stage"
+        ],
+        "correct_order": [
+          "Image acquisition",
+          "is the stage",
+          "where a text image",
+          "enters OCR"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "ocr-input-and-image-quality",
+        "feedback_for_incorrect": {
+          "intrinsic": "The entry stage would be confused with later processing.",
+          "instructional": "Begin with image acquisition and state that the image enters OCR there."
+        },
+        "item_key": "ocr-input-and-document-layout/ocr-input-and-image-quality/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "Image acquisition is the stage where a text image enters OCR",
+      "explanation": "Image acquisition is the entry point for an image containing text.",
+      "points": 1
+    },
+    {
+      "import_key": "ocr-input-and-document-layout-l2-q11",
+      "question_type": "multiple_choice",
+      "question_text": "A logistics coordinator receives a phone photo of a shipping form whose text lines slope because the form was photographed at an angle. What should the system apply?",
+      "options": {
+        "options": [
+          {
+            "text": "Skew correction",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Skew correction detects and corrects image rotation. It makes sloping text lines align horizontally.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Noise reduction",
+            "is_correct": false,
+            "error_type": "Rotation versus artifacts",
+            "rationale": "Noise reduction removes artifacts such as dust spots. The problem described is page angle, not noise.",
+            "better_fit": "Use this when dust or scanning imperfections obscure text.",
+            "feedback": {
+              "intrinsic": "The form's lines would still slope.",
+              "instructional": "Use skew correction for rotation; noise reduction addresses artifacts."
+            }
+          },
+          {
+            "text": "Contrast adjustment",
+            "is_correct": false,
+            "error_type": "Rotation versus contrast",
+            "rationale": "Contrast adjustment improves visibility against the background. It cannot align tilted text.",
+            "better_fit": "Use this when characters are faint or low-contrast.",
+            "feedback": {
+              "intrinsic": "The text could look clearer but remain tilted.",
+              "instructional": "Correct the angle with skew correction."
+            }
+          },
+          {
+            "text": "Layout analysis",
+            "is_correct": false,
+            "error_type": "Correction versus layout",
+            "rationale": "Layout analysis separates region types such as text and graphics. It does not correct image rotation.",
+            "better_fit": "Use this when separating document regions before character recognition.",
+            "feedback": {
+              "intrinsic": "The page could be segmented while its lines still sloped.",
+              "instructional": "Layout analysis identifies regions; skew correction fixes angle."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "single_choice",
+        "concept_id": "skew-and-resolution-optimization",
+        "item_key": "ocr-input-and-document-layout/skew-and-resolution-optimization/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. Skew correction aligns the form's text lines.",
+      "points": 1
+    },
+    {
+      "import_key": "ocr-input-and-document-layout-l2-q12",
+      "question_type": "multiple_choice",
+      "question_text": "A shipping workflow receives a scan, a photograph of a label, a PDF page rendered to an image, and a field-definition file. Which items should be supplied to the OCR input stage? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "The scan of the shipping form",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A scan is a text-containing image that OCR can accept as input. It belongs at image acquisition.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "The rendered PDF page",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Rendering a PDF page produces an image OCR can process. The rendered page is an acquisition input.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "The label photograph",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A photograph with visible label text is an OCR image input. It enters at acquisition.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "The field-definition file",
+            "is_correct": false,
+            "error_type": "Schema versus image input",
+            "rationale": "A field definition describes desired structured output rather than image content. It is used later to organize values.",
+            "better_fit": "Use this when extracted values must be aligned to a database or API schema.",
+            "feedback": {
+              "intrinsic": "OCR would receive no visible text from that file.",
+              "instructional": "Image acquisition requires a text-containing image; schemas organize later results."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "multi_choice",
+        "concept_id": "ocr-input-and-image-quality",
+        "item_key": "ocr-input-and-document-layout/ocr-input-and-image-quality/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. The three image sources can enter OCR; the field definition cannot.",
+      "points": 1
+    }
+  ],
+  "flashcards": []
+}

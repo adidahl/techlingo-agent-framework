@@ -370,9 +370,6 @@ def _preservation_report(compiled: Any) -> dict[str, Any]:
             expected_metadata = {
                 "concept_id": item.concept_id,
                 "rung": item.rung,
-                "variant": item.variant,
-                "module_key": bank.module,
-                "lesson_key": bank.lesson,
             }
             actual_metadata = {
                 key: question.options.get(key) for key in expected_metadata

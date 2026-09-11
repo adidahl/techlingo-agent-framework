@@ -1,0 +1,510 @@
+{
+  "import_key": "textrank-summaries-and-keywords-l3",
+  "title": "TextRank Summaries and Keywords · Level 3",
+  "slo": "Explain how TextRank selects important sentences or keywords.",
+  "exercises": [
+    {
+      "import_key": "textrank-summaries-and-keywords-l3-q1",
+      "question_type": "multiple_choice",
+      "question_text": "What is TextRank?",
+      "options": {
+        "options": [
+          {
+            "text": "An unsupervised graph-based ranking algorithm",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "TextRank represents connected text units in a graph and ranks them. It works without labeled training examples.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A supervised classifier trained on labeled examples",
+            "is_correct": false,
+            "error_type": "Confuses unsupervised and supervised learning",
+            "rationale": "TextRank does not learn from labeled examples. It calculates importance from graph connections.",
+            "better_fit": "This fits a model trained to assign labels such as topic or sentiment.",
+            "feedback": null
+          },
+          {
+            "text": "A frequency-analysis method that only counts words",
+            "is_correct": false,
+            "error_type": "Confuses graph ranking with frequency analysis",
+            "rationale": "Frequency analysis counts occurrences rather than ranking graph nodes. TextRank uses relationships among text units.",
+            "better_fit": "This fits a task requiring simple counts of repeated terms.",
+            "feedback": null
+          },
+          {
+            "text": "An abstractive system that writes new summary sentences",
+            "is_correct": false,
+            "error_type": "Confuses TextRank with abstractive summarization",
+            "rationale": "TextRank ranks existing units such as sentences or words. Writing new language is an abstractive approach.",
+            "better_fit": "This fits a summary task where generated wording is allowed.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "textrank-graph-based-unsupervised",
+        "item_key": "textrank-summaries-and-keywords/textrank-graph-based-unsupervised/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. TextRank is an unsupervised graph-ranking algorithm.",
+      "points": 1
+    },
+    {
+      "import_key": "textrank-summaries-and-keywords-l3-q2",
+      "question_type": "multiple_choice",
+      "question_text": "Which steps belong to TextRank sentence summarization? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Repeatedly update node ranks.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "TextRank iteratively recalculates node ranks. Connected nodes and weighted edges influence those updates.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Continue until scores converge.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The updates continue until the ranks settle. Convergence indicates stable scores.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Select high-ranked sentences.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The highest-ranked original sentences are selected for an extractive summary. Selection follows the ranking process.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Generate new summary language.",
+            "is_correct": false,
+            "error_type": "Confuses TextRank with abstractive summarization",
+            "rationale": "TextRank selects original sentences rather than composing new ones. New language is characteristic of abstractive summarization.",
+            "better_fit": "This fits an abstractive summary that paraphrases key themes.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "textrank-ranking-process-2",
+        "item_key": "textrank-summaries-and-keywords/textrank-ranking-process-2/r1/v2",
+        "rung": 1
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. TextRank iterates ranks, waits for convergence, and selects top sentences.",
+      "points": 1
+    },
+    {
+      "import_key": "textrank-summaries-and-keywords-l3-q3",
+      "question_type": "true_false",
+      "question_text": "TextRank can rank connected sentences or words without labeled training data.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "textrank-graph-based-unsupervised",
+        "feedback_for_incorrect": {
+          "intrinsic": "You would exclude a method that can work without labels.",
+          "instructional": "TextRank ranks connected text units using an unsupervised graph-based approach."
+        },
+        "item_key": "textrank-summaries-and-keywords/textrank-graph-based-unsupervised/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. TextRank is unsupervised.",
+      "points": 1
+    },
+    {
+      "import_key": "textrank-summaries-and-keywords-l3-q4",
+      "question_type": "true_false",
+      "question_text": "Abstractive summarization generates new language that conveys key themes.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "extractive-vs-abstractive-summarization",
+        "feedback_for_incorrect": {
+          "intrinsic": "You would reject the defining feature of an abstractive summary.",
+          "instructional": "Abstractive methods generate wording, whereas extractive methods select it."
+        },
+        "item_key": "textrank-summaries-and-keywords/extractive-vs-abstractive-summarization/r2/v2",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. New language distinguishes abstractive summaries.",
+      "points": 1
+    },
+    {
+      "import_key": "textrank-summaries-and-keywords-l3-q5",
+      "question_type": "multiple_choice",
+      "question_text": "What does an edge weight commonly measure in sentence-level TextRank?",
+      "options": {
+        "options": [
+          {
+            "text": "Similarity between two sentences",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "An edge weight expresses how similar two connected sentences are. It can be based on word overlap or cosine similarity.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "The length of one sentence",
+            "is_correct": false,
+            "error_type": "Confuses pairwise similarity with sentence length",
+            "rationale": "Sentence length describes one node, not the relationship between two nodes. Edge weights compare connected sentences.",
+            "better_fit": "This fits a feature that measures individual sentence length.",
+            "feedback": null
+          },
+          {
+            "text": "The final rank of a sentence",
+            "is_correct": false,
+            "error_type": "Confuses edge weights with node ranks",
+            "rationale": "Ranks belong to nodes after iterative updates. Edge weights are inputs describing connections.",
+            "better_fit": "This fits the importance score assigned to a node after ranking.",
+            "feedback": null
+          },
+          {
+            "text": "The number of keywords in the document",
+            "is_correct": false,
+            "error_type": "Confuses sentence edges with keyword output",
+            "rationale": "Keyword counts do not describe a pair of sentence nodes. An edge weight represents their similarity.",
+            "better_fit": "This fits a report about extracted keyword quantity.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "textrank-nodes-edges-similarity",
+        "item_key": "textrank-summaries-and-keywords/textrank-nodes-edges-similarity/r1/v2",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. Edge weights measure sentence similarity.",
+      "points": 1
+    },
+    {
+      "import_key": "textrank-summaries-and-keywords-l3-q6",
+      "question_type": "fill_blank",
+      "question_text": "A summary that generates new language is ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "A summary that generates new language is "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "abstractive summarization",
+              "abstractive"
+            ],
+            "rejected_answers": [
+              "extractive summarization",
+              "TextRank",
+              "frequency analysis",
+              "textrank-ranking-summary",
+              "semantic-summarization",
+              "classification-sentiment-summarization"
+            ],
+            "placeholder": "summary type"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "extractive summarization",
+          "TextRank",
+          "frequency analysis",
+          "textrank-ranking-summary",
+          "semantic-summarization",
+          "classification-sentiment-summarization"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "extractive-vs-abstractive-summarization",
+        "feedback_for_incorrect": {
+          "intrinsic": "The method would not meet the new-wording requirement.",
+          "instructional": "Abstractive is the summary type that generates new language."
+        },
+        "item_key": "textrank-summaries-and-keywords/extractive-vs-abstractive-summarization/r3/v2",
+        "rung": 3
+      },
+      "correct_answer": "[\"abstractive summarization\",\"abstractive\"]",
+      "explanation": "Abstractive summarization generates language to convey key themes.",
+      "points": 1
+    },
+    {
+      "import_key": "textrank-summaries-and-keywords-l3-q7",
+      "question_type": "fill_blank",
+      "question_text": "TextRank commonly uses a damping factor of ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "TextRank commonly uses a damping factor of "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "0.85"
+            ],
+            "rejected_answers": [
+              "1.0",
+              "0",
+              "cosine similarity",
+              "textrank-nodes-edges-similarity",
+              "extractive-abstractive-summarization",
+              "semantic-summarization"
+            ],
+            "placeholder": "value"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "1.0",
+          "0",
+          "cosine similarity",
+          "textrank-nodes-edges-similarity",
+          "extractive-abstractive-summarization",
+          "semantic-summarization"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "textrank-ranking-process-2",
+        "feedback_for_incorrect": {
+          "intrinsic": "The ranking formula would use the wrong stated parameter.",
+          "instructional": "Use 0.85 for the usual damping factor."
+        },
+        "item_key": "textrank-summaries-and-keywords/textrank-ranking-process-2/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "0.85",
+      "explanation": "The commonly stated TextRank damping factor is 0.85.",
+      "points": 1
+    },
+    {
+      "import_key": "textrank-summaries-and-keywords-l3-q8",
+      "question_type": "multiple_choice",
+      "question_text": "A legal analyst must choose a method for a contract brief where every output sentence must come verbatim from the contract. Which decisions best satisfy that constraint? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Use extractive summarization.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Extractive summarization selects source sentences rather than generating them. It therefore preserves verbatim wording.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Use TextRank to rank source sentences before selecting them.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "TextRank can rank the importance of source sentences. Selecting its top sentences remains an extractive process.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Check that each selected sentence appears in the contract.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "This validation directly tests the verbatim constraint. It helps ensure no generated wording enters the brief.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Use abstractive summarization to paraphrase obligations.",
+            "is_correct": false,
+            "error_type": "Confuses generated language with source selection",
+            "rationale": "Abstractive summarization generates language that may not appear in the contract. That conflicts with the verbatim requirement.",
+            "better_fit": "This fits a reader-friendly explanation where paraphrasing is allowed.",
+            "feedback": {
+              "intrinsic": "The brief could contain sentences not found in the contract.",
+              "instructional": "A verbatim constraint requires extractive sentence selection."
+            }
+          }
+        ],
+        "blooms_level": "Analyzing/Evaluating",
+        "original_question_type": "multi_choice",
+        "concept_id": "extractive-vs-abstractive-summarization",
+        "item_key": "textrank-summaries-and-keywords/extractive-vs-abstractive-summarization/r5/v1",
+        "rung": 5
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. The constraint favors extractive sentence selection and source verification.",
+      "points": 1
+    },
+    {
+      "import_key": "textrank-summaries-and-keywords-l3-q9",
+      "question_type": "multiple_choice",
+      "question_text": "In sentence-level TextRank, select the correct statements.",
+      "options": {
+        "options": [
+          {
+            "text": "Each sentence is a node.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Sentence-level TextRank represents each sentence as a graph node. Nodes are the items being ranked.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Connections between sentences are edges.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Edges link the sentence nodes. They represent relationships between sentences.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Edge weights can represent sentence similarity.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Weights indicate how strongly two sentence nodes relate. Word overlap or cosine similarity can supply those values.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Each sentence is automatically a keyword.",
+            "is_correct": false,
+            "error_type": "Confuses sentence and word-level TextRank",
+            "rationale": "Sentences are nodes in sentence-level TextRank. Keywords are high-ranked words in word-level TextRank.",
+            "better_fit": "This fits word-level TextRank output after ranking word nodes.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "textrank-nodes-edges-similarity",
+        "item_key": "textrank-summaries-and-keywords/textrank-nodes-edges-similarity/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. Sentences are nodes connected by similarity-weighted edges.",
+      "points": 1
+    },
+    {
+      "import_key": "textrank-summaries-and-keywords-l3-q10",
+      "question_type": "arrange_sentence",
+      "question_text": "Reconstruct the keyword-extraction statement.",
+      "options": {
+        "word_bank": [
+          "for the document's",
+          "Highest-ranked words",
+          "main topics",
+          "become key terms"
+        ],
+        "correct_order": [
+          "Highest-ranked words",
+          "become key terms",
+          "for the document's",
+          "main topics"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "textrank-keyword-extraction",
+        "feedback_for_incorrect": {
+          "intrinsic": "The result and its purpose would be unclear.",
+          "instructional": "Start with the ranked words, then state what they become and represent."
+        },
+        "item_key": "textrank-summaries-and-keywords/textrank-keyword-extraction/r3/v2",
+        "rung": 3
+      },
+      "correct_answer": "Highest-ranked words become key terms for the document's main topics",
+      "explanation": "High-ranked words become key terms representing the document's main topics.",
+      "points": 1
+    },
+    {
+      "import_key": "textrank-summaries-and-keywords-l3-q11",
+      "question_type": "arrange_sentence",
+      "question_text": "Put the graph description in order.",
+      "options": {
+        "word_bank": [
+          "Each connection",
+          "Each sentence",
+          "is an edge",
+          "is a node"
+        ],
+        "correct_order": [
+          "Each sentence",
+          "is a node",
+          "Each connection",
+          "is an edge"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "textrank-nodes-edges-similarity",
+        "feedback_for_incorrect": {
+          "intrinsic": "The graph roles would be reversed or unclear.",
+          "instructional": "State the role of each sentence first, then the role of each connection."
+        },
+        "item_key": "textrank-summaries-and-keywords/textrank-nodes-edges-similarity/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "Each sentence is a node Each connection is an edge",
+      "explanation": "Sentence units are nodes, while their relationships are edges.",
+      "points": 1
+    },
+    {
+      "import_key": "textrank-summaries-and-keywords-l3-q12",
+      "question_type": "multiple_choice",
+      "question_text": "At the word level, what can TextRank extract?",
+      "options": {
+        "options": [
+          {
+            "text": "Key terms representing main topics",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Word-level TextRank ranks word nodes. Its highest-ranked words become key terms for main topics.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Named entity categories",
+            "is_correct": false,
+            "error_type": "Confuses keywords with entity detection",
+            "rationale": "Entity detection classifies mentions such as people or places. TextRank keyword extraction identifies topic-representing terms.",
+            "better_fit": "This fits a task that labels names as people, organizations, or locations.",
+            "feedback": null
+          },
+          {
+            "text": "Newly generated summary paragraphs",
+            "is_correct": false,
+            "error_type": "Confuses keyword extraction with abstractive summarization",
+            "rationale": "Keyword extraction returns words or short terms, not generated paragraphs. New paragraphs are abstractive-summary output.",
+            "better_fit": "This fits a system designed to write a new summary.",
+            "feedback": null
+          },
+          {
+            "text": "A list ranked only by raw word frequency",
+            "is_correct": false,
+            "error_type": "Confuses TextRank with frequency analysis",
+            "rationale": "TextRank uses a graph of word co-occurrences rather than raw counts alone. Its output reflects graph rank.",
+            "better_fit": "This fits simple frequency analysis of repeated tokens.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "textrank-keyword-extraction",
+        "item_key": "textrank-summaries-and-keywords/textrank-keyword-extraction/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. High-ranked words become key terms.",
+      "points": 1
+    }
+  ],
+  "flashcards": []
+}

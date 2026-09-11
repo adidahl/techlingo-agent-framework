@@ -1,0 +1,477 @@
+{
+  "import_key": "use-general-purpose-models-l1",
+  "title": "Use general-purpose models · Level 1",
+  "slo": "Choose and prompt a general-purpose model for a text analysis task.",
+  "exercises": [
+    {
+      "import_key": "use-general-purpose-models-l1-q1",
+      "question_type": "multiple_choice",
+      "question_text": "Which statements describe entity linking? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "It identifies known entities",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Entity linking works with known entities. It identifies them before providing a reference link.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It provides a Wikipedia link",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A Wikipedia link is its distinguishing result. It connects a known entity to a reference page.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It differs from entity recognition",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Entity recognition assigns types and values. Entity linking identifies known entities and adds Wikipedia links.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It lists main concepts for search",
+            "is_correct": false,
+            "error_type": "Confuses linking with key phrases",
+            "rationale": "Listing main concepts is key phrase extraction. Entity linking is concerned with known entities and reference links.",
+            "better_fit": "Use this when indexing or searching by main concepts.",
+            "feedback": {
+              "intrinsic": "This would create search terms but not entity references.",
+              "instructional": "Entity linking identifies known entities and provides Wikipedia links."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "entity-linking",
+        "item_key": "use-general-purpose-models/entity-linking/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. Entity linking identifies known entities and provides Wikipedia links.",
+      "points": 1
+    },
+    {
+      "import_key": "use-general-purpose-models-l1-q2",
+      "question_type": "multiple_choice",
+      "question_text": "What does entity recognition identify?",
+      "options": {
+        "options": [
+          {
+            "text": "Typed people, places, dates, and values",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "It identifies specific values in text. It assigns categories such as Person, Location, DateTime, and Quantity.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Known entities with Wikipedia links",
+            "is_correct": false,
+            "error_type": "Confuses recognition with linking",
+            "rationale": "Wikipedia links are produced by entity linking. Entity recognition identifies values and their types.",
+            "better_fit": "Use this when known entities need reference links.",
+            "feedback": {
+              "intrinsic": "This would provide references instead of needed category labels.",
+              "instructional": "Entity recognition classifies values; entity linking provides Wikipedia links."
+            }
+          },
+          {
+            "text": "Main concepts for document search",
+            "is_correct": false,
+            "error_type": "Confuses recognition with key phrases",
+            "rationale": "Main concepts for search are key phrases. Entity recognition focuses on specific values and categories.",
+            "better_fit": "Use this when indexing content by its main concepts.",
+            "feedback": {
+              "intrinsic": "This would miss category labels for specific values.",
+              "instructional": "Key phrase extraction finds concepts; entity recognition identifies typed entities."
+            }
+          },
+          {
+            "text": "Personal details for redaction",
+            "is_correct": false,
+            "error_type": "Confuses recognition with PII detection",
+            "rationale": "PII detection focuses on sensitive personal information. Entity recognition has a broader role of labeling entity types.",
+            "better_fit": "Use this when sensitive personal information must be found or redacted.",
+            "feedback": {
+              "intrinsic": "This would focus on privacy rather than broad entity categories.",
+              "instructional": "Use entity recognition for typed entities such as dates, locations, and quantities."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "entity-recognition",
+        "item_key": "use-general-purpose-models/entity-recognition/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. Entity recognition identifies values and their types.",
+      "points": 1
+    },
+    {
+      "import_key": "use-general-purpose-models-l1-q3",
+      "question_type": "true_false",
+      "question_text": "Entity linking identifies entity types and values, but does not provide links to Wikipedia.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "entity-linking",
+        "feedback_for_incorrect": {
+          "intrinsic": "This removes the feature that distinguishes entity linking.",
+          "instructional": "Entity linking identifies known entities and provides a link to Wikipedia."
+        },
+        "item_key": "use-general-purpose-models/entity-linking/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct. Entity recognition identifies types and values, while entity linking provides Wikipedia links.",
+      "points": 1
+    },
+    {
+      "import_key": "use-general-purpose-models-l1-q4",
+      "question_type": "true_false",
+      "question_text": "Entity recognition can identify a person, a location, an organization, and a date in text.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "entity-recognition",
+        "feedback_for_incorrect": {
+          "intrinsic": "This would leave common values without useful category labels.",
+          "instructional": "Entity recognition can identify people, locations, organizations, dates, times, durations, and quantities."
+        },
+        "item_key": "use-general-purpose-models/entity-recognition/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. These are entity categories it can identify.",
+      "points": 1
+    },
+    {
+      "import_key": "use-general-purpose-models-l1-q5",
+      "question_type": "multiple_choice",
+      "question_text": "Which statements describe natural-language prompts? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "They are ordinary-language instructions",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A prompt is written in ordinary language. It directs a model to perform a task.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "They tell a model what task to do",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A prompt supplies an instruction. That instruction states the requested work.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "They can combine translation and summarization",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A prompt can request more than one task. Translation and summarization can be requested together.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "They are fixed structured results",
+            "is_correct": false,
+            "error_type": "Confuses prompts with output",
+            "rationale": "A prompt is an instruction, not a returned result. Fixed structured output is associated with specialized analyzers.",
+            "better_fit": "Use this when describing predictable output from a purpose-built analyzer.",
+            "feedback": {
+              "intrinsic": "This mistakes the request for the result.",
+              "instructional": "Natural-language prompts tell a model what to do."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "natural-language-prompts",
+        "item_key": "use-general-purpose-models/natural-language-prompts/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. Prompts are ordinary-language instructions and can combine tasks.",
+      "points": 1
+    },
+    {
+      "import_key": "use-general-purpose-models-l1-q6",
+      "question_type": "multiple_choice",
+      "question_text": "What is the chat playground?",
+      "options": {
+        "options": [
+          {
+            "text": "A chat interface for a deployed model",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "It is a Foundry portal chat interface. A deployed model receives prompts and returns responses there.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A page for testing AI services",
+            "is_correct": false,
+            "error_type": "Confuses the playground with the AI services tab",
+            "rationale": "The AI services tab is used to test available language capabilities. The chat playground is for conversations with a deployed model.",
+            "better_fit": "Use this for the portal area that tests available AI services.",
+            "feedback": {
+              "intrinsic": "This would open a different portal area from the deployed-model chat.",
+              "instructional": "Use the chat playground to send prompts and receive conversational responses."
+            }
+          },
+          {
+            "text": "An ordinary-language model instruction",
+            "is_correct": false,
+            "error_type": "Confuses an interface with a prompt",
+            "rationale": "An ordinary-language instruction is a natural-language prompt. The chat playground is where that prompt is entered.",
+            "better_fit": "Use this when naming the instruction given to a model.",
+            "feedback": {
+              "intrinsic": "This confuses what is typed with where it is typed.",
+              "instructional": "A prompt is the message; the chat playground is the interface."
+            }
+          },
+          {
+            "text": "A library for Azure Language code",
+            "is_correct": false,
+            "error_type": "Confuses an interface with an SDK",
+            "rationale": "A library provides code for an application. The chat playground is a portal interface.",
+            "better_fit": "Use this when coding against Azure Language capabilities.",
+            "feedback": {
+              "intrinsic": "This would select code rather than the portal conversation space.",
+              "instructional": "The chat playground supports interactive model exploration."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "chat-playground",
+        "item_key": "use-general-purpose-models/chat-playground/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. The chat playground is a chat interface for a deployed model.",
+      "points": 1
+    },
+    {
+      "import_key": "use-general-purpose-models-l1-q7",
+      "question_type": "true_false",
+      "question_text": "A natural-language prompt can request only one text analysis task at a time.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "natural-language-prompts",
+        "feedback_for_incorrect": {
+          "intrinsic": "This would split work that can be requested together.",
+          "instructional": "A general-purpose model can follow prompts that combine tasks, such as translation followed by summarization."
+        },
+        "item_key": "use-general-purpose-models/natural-language-prompts/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct. A single prompt can combine tasks.",
+      "points": 1
+    },
+    {
+      "import_key": "use-general-purpose-models-l1-q8",
+      "question_type": "true_false",
+      "question_text": "In the chat playground, you can ask follow-up questions in the same conversation because the model understands context.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "chat-playground",
+        "feedback_for_incorrect": {
+          "intrinsic": "This would prevent use of earlier messages to improve the analysis.",
+          "instructional": "A deployed model can understand conversation context in the chat playground."
+        },
+        "item_key": "use-general-purpose-models/chat-playground/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. Context supports continued conversation and refinement.",
+      "points": 1
+    },
+    {
+      "import_key": "use-general-purpose-models-l1-q9",
+      "question_type": "multiple_choice",
+      "question_text": "What is a general-purpose AI model?",
+      "options": {
+        "options": [
+          {
+            "text": "A model for many language tasks",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "It has broad language understanding. It can perform many tasks from ordinary-language instructions.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A tool for fixed language analysis",
+            "is_correct": false,
+            "error_type": "Confuses broad models with specialized tools",
+            "rationale": "Purpose-built tools focus on particular analysis tasks. They are not broad models for flexible language work.",
+            "better_fit": "Use this for a specific structured language analysis task.",
+            "feedback": {
+              "intrinsic": "This would narrow the available work to a fixed analyzer.",
+              "instructional": "A general-purpose model can handle many language tasks from natural-language prompts."
+            }
+          },
+          {
+            "text": "An API for model requests",
+            "is_correct": false,
+            "error_type": "Confuses a model with an API",
+            "rationale": "An API is a way for software to communicate. It is not the model that performs language analysis.",
+            "better_fit": "Use this when application code must send model requests.",
+            "feedback": {
+              "intrinsic": "This identifies a connection method instead of the analyst.",
+              "instructional": "The model performs the task; an API lets code communicate with it."
+            }
+          },
+          {
+            "text": "A Python library for language tools",
+            "is_correct": false,
+            "error_type": "Confuses a model with an SDK",
+            "rationale": "A client library supplies code for applications. It is not a language model.",
+            "better_fit": "Use this when writing code to access language services.",
+            "feedback": {
+              "intrinsic": "This selects application code rather than the model.",
+              "instructional": "An SDK helps an app connect; a general-purpose model handles the request."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "general-purpose-models",
+        "item_key": "use-general-purpose-models/general-purpose-models/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. A general-purpose model can handle many language tasks.",
+      "points": 1
+    },
+    {
+      "import_key": "use-general-purpose-models-l1-q10",
+      "question_type": "multiple_choice",
+      "question_text": "Which are useful purposes of key phrase extraction? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Identify main concepts in text",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "It identifies the main concepts or points. Those concepts describe the text's content.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Support document indexing",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Key phrases provide terms for indexing. Indexing organizes content around important concepts.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Find relevant documents",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Key phrases support searching by main concepts. This helps find relevant documents.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Assign entity types and values",
+            "is_correct": false,
+            "error_type": "Confuses key phrases with entity recognition",
+            "rationale": "Assigning categories to values is entity recognition. Key phrase extraction finds main concepts instead.",
+            "better_fit": "Use this when values need labels such as Person, Location, or DateTime.",
+            "feedback": {
+              "intrinsic": "This would return broad concepts instead of typed values.",
+              "instructional": "Use entity recognition for categories and key phrase extraction for main concepts."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "key-phrase-extraction",
+        "item_key": "use-general-purpose-models/key-phrase-extraction/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. Key phrase extraction supports indexing and finding relevant documents.",
+      "points": 1
+    },
+    {
+      "import_key": "use-general-purpose-models-l1-q11",
+      "question_type": "true_false",
+      "question_text": "A general-purpose AI model needs task-specific configuration or training before it can summarize text.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "general-purpose-models",
+        "feedback_for_incorrect": {
+          "intrinsic": "This would add unnecessary setup before requesting a summary.",
+          "instructional": "General-purpose models can perform tasks such as summarization without task-specific training."
+        },
+        "item_key": "use-general-purpose-models/general-purpose-models/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct. It can summarize from an ordinary-language instruction.",
+      "points": 1
+    },
+    {
+      "import_key": "use-general-purpose-models-l1-q12",
+      "question_type": "true_false",
+      "question_text": "Key phrase extraction identifies known entities and provides links to Wikipedia.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "key-phrase-extraction",
+        "feedback_for_incorrect": {
+          "intrinsic": "This would send a search-focused task to the wrong analysis.",
+          "instructional": "Key phrase extraction finds main concepts, while entity linking provides Wikipedia links for known entities."
+        },
+        "item_key": "use-general-purpose-models/key-phrase-extraction/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct. That is entity linking, not key phrase extraction.",
+      "points": 1
+    }
+  ],
+  "flashcards": [
+    {
+      "import_key": "use-general-purpose-models-l1-f0",
+      "front": "What is a general-purpose AI model?",
+      "back": "A model that handles many language tasks from ordinary-language prompts.",
+      "hint": "Think broad language tasks."
+    },
+    {
+      "import_key": "use-general-purpose-models-l1-f1",
+      "front": "What is a natural-language prompt?",
+      "back": "An ordinary-language instruction that tells a model what task to perform.",
+      "hint": "It is written for the model."
+    },
+    {
+      "import_key": "use-general-purpose-models-l1-f2",
+      "front": "What does key phrase extraction find?",
+      "back": "The main concepts or points in text.",
+      "hint": "Useful for search."
+    },
+    {
+      "import_key": "use-general-purpose-models-l1-f3",
+      "front": "What does entity linking add?",
+      "back": "A Wikipedia link for a known entity.",
+      "hint": "It differs from entity recognition."
+    }
+  ]
+}

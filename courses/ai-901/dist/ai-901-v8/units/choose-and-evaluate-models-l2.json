@@ -1,0 +1,557 @@
+{
+  "import_key": "choose-and-evaluate-models-l2",
+  "title": "Choose and evaluate models · Level 2",
+  "slo": "Choose a model approach for a task and explain how Foundry evaluates models.",
+  "exercises": [
+    {
+      "import_key": "choose-and-evaluate-models-l2-q1",
+      "question_type": "true_false",
+      "question_text": "Domain-tuned catalog models can fit industry-specific applications such as finance, healthcare, or legal work.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "task-based-model-selection",
+        "feedback_for_incorrect": {
+          "intrinsic": "A specialized business need could be treated as if every general model were equally targeted to that domain.",
+          "instructional": "For finance, healthcare, or legal applications, the catalog can provide domain-tuned model options."
+        },
+        "item_key": "choose-and-evaluate-models/task-based-model-selection/r2/v2",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. Domain-tuned catalog models are recommended for industry-specific applications.",
+      "points": 1
+    },
+    {
+      "import_key": "choose-and-evaluate-models-l2-q2",
+      "question_type": "fill_blank",
+      "question_text": "For high-volume production workloads that need fast responses, choose ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "For high-volume production workloads that need fast responses, choose "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "GPT-4.1",
+              "GPT 4.1"
+            ],
+            "rejected_answers": [
+              "GPT-5.x",
+              "Mistral Large 3",
+              "Claude Opus 4.5",
+              "gpt-5x",
+              "mistral-large-3",
+              "chat-model-selection"
+            ],
+            "placeholder": "model name"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "GPT-5.x",
+          "Mistral Large 3",
+          "Claude Opus 4.5",
+          "gpt-5x",
+          "mistral-large-3",
+          "chat-model-selection"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "gpt-41-realtime-model",
+        "feedback_for_incorrect": {
+          "intrinsic": "The workload could be assigned to a model selected for deep reasoning, balanced general use, or complex long-context work instead of speed at scale.",
+          "instructional": "Use GPT-4.1 for the speed-and-scale clue. GPT-5.x emphasizes reasoning, Mistral balances trade-offs, and Claude Opus 4.5 fits complex long-context tasks."
+        },
+        "item_key": "choose-and-evaluate-models/gpt-41-realtime-model/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "[\"GPT-4.1\",\"GPT 4.1\"]",
+      "explanation": "GPT-4.1 is optimized for speed, efficiency, and low-latency inference. It is better suited than reasoning-heavy models for high-volume production workloads.",
+      "points": 1
+    },
+    {
+      "import_key": "choose-and-evaluate-models-l2-q3",
+      "question_type": "arrange_sentence",
+      "question_text": "Put the pieces in the correct order.",
+      "options": {
+        "word_bank": [
+          "to trade",
+          "GPT-5.x supports",
+          "speed for accuracy",
+          "thinking levels"
+        ],
+        "correct_order": [
+          "GPT-5.x supports",
+          "thinking levels",
+          "to trade",
+          "speed for accuracy"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "gpt-5x",
+        "feedback_for_incorrect": {
+          "intrinsic": "The trade-off would be unclear to a teammate reading the statement.",
+          "instructional": "Place the model first, then its feature, then the purpose of that feature: trading speed for accuracy."
+        },
+        "item_key": "choose-and-evaluate-models/gpt-5x/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "GPT-5.x supports thinking levels to trade speed for accuracy",
+      "explanation": "The sentence links GPT-5.x to adjustable thinking levels and then states their purpose. Those levels let a developer favor speed or accuracy as needed.",
+      "points": 1
+    },
+    {
+      "import_key": "choose-and-evaluate-models-l2-q4",
+      "question_type": "multiple_choice",
+      "question_text": "A customer-support manager needs a virtual agent to answer many customer questions quickly, day and night. Which model fits best?",
+      "options": {
+        "options": [
+          {
+            "text": "GPT-4.1",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "GPT-4.1 is optimized for real-time chat and customer support. Its speed and low latency suit many customer questions.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "GPT-5.x",
+            "is_correct": false,
+            "error_type": "Confuses reasoning focus with low-latency scale",
+            "rationale": "GPT-5.x is optimized for multi-step reasoning, planning, and agentic workflows. The manager’s priority is rapid, high-volume support.",
+            "better_fit": "Choose GPT-5.x for structured logic, planning, or accuracy-focused multi-step work.",
+            "feedback": {
+              "intrinsic": "Customers may wait longer than necessary when the key need is fast support at scale.",
+              "instructional": "Choose for the main workload. GPT-4.1 is optimized for responsive customer-support chat."
+            }
+          },
+          {
+            "text": "Claude Opus 4.5",
+            "is_correct": false,
+            "error_type": "Confuses complex agent work with real-time support",
+            "rationale": "Claude Opus 4.5 is suited to sophisticated agents, complex code reasoning, and computer-use tasks. The scenario does not require those specialized strengths.",
+            "better_fit": "Choose Claude Opus 4.5 for long specifications, complex code reasoning, or multi-step computer use.",
+            "feedback": {
+              "intrinsic": "The manager could select for complex work while neglecting the high-volume speed requirement.",
+              "instructional": "Fast customer support points to GPT-4.1. Reserve Claude Opus 4.5 for its stated complex-agent strengths."
+            }
+          },
+          {
+            "text": "Mistral Large 3",
+            "is_correct": false,
+            "error_type": "Confuses balanced general use with optimized low latency",
+            "rationale": "Mistral Large 3 balances quality, throughput, cost, and latency. GPT-4.1 is specifically optimized for real-time, high-volume support.",
+            "better_fit": "Choose Mistral Large 3 for balanced multilingual drafting, reports, or mid-latency tasks.",
+            "feedback": {
+              "intrinsic": "The service might receive a balanced option when the central need is the fastest scalable chat.",
+              "instructional": "Balanced performance is different from an explicit low-latency focus. GPT-4.1 is the stronger fit here."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "single_choice",
+        "concept_id": "gpt-41-realtime-model",
+        "item_key": "choose-and-evaluate-models/gpt-41-realtime-model/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. GPT-4.1 is optimized for fast, high-volume real-time chat and customer support.",
+      "points": 1
+    },
+    {
+      "import_key": "choose-and-evaluate-models-l2-q5",
+      "question_type": "fill_blank",
+      "question_text": "For long specifications and multi-file diffs, use ___ when its large context window is useful.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "For long specifications and multi-file diffs, use "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "Claude Opus 4.5",
+              "Claude Opus"
+            ],
+            "rejected_answers": [
+              "GPT-5.x",
+              "Mistral Large 3",
+              "GPT-4.1",
+              "gpt-5x",
+              "mistral-large-3",
+              "coding-model-selection"
+            ],
+            "placeholder": "model name"
+          },
+          {
+            "type": "text",
+            "text": " when its large context window is useful."
+          }
+        ],
+        "rejected_answers": [
+          "GPT-5.x",
+          "Mistral Large 3",
+          "GPT-4.1",
+          "gpt-5x",
+          "mistral-large-3",
+          "coding-model-selection"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "claude-opus-45",
+        "feedback_for_incorrect": {
+          "intrinsic": "A long specification could be matched to a model whose stated focus is speed, balance, or different reasoning needs.",
+          "instructional": "Use Claude Opus 4.5 for the large-context clue. GPT-5.x emphasizes reasoning and planning, Mistral balances trade-offs, and GPT-4.1 emphasizes low latency."
+        },
+        "item_key": "choose-and-evaluate-models/claude-opus-45/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "[\"Claude Opus 4.5\",\"Claude Opus\"]",
+      "explanation": "Claude Opus 4.5 has large context and output windows. That makes it useful when a task includes long specifications or changes across several files.",
+      "points": 1
+    },
+    {
+      "import_key": "choose-and-evaluate-models-l2-q6",
+      "question_type": "multiple_choice",
+      "question_text": "A developer is building a technical-report assistant. The reports require several reasoning steps, and the developer can favor accuracy over speed. Which GPT-5.x choices fit? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Use it for structured logic",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "GPT-5.x is optimized for structured logic. That matches reports requiring connected reasoning steps.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Adjust thinking for accuracy",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Adjustable thinking levels let developers trade speed for accuracy. The scenario explicitly favors accuracy.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Use it for agent workflows",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "GPT-5.x is optimized for agentic workflows. It can fit a report assistant that handles structured work.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Choose it for fastest chat at scale",
+            "is_correct": false,
+            "error_type": "Confuses GPT-5.x with GPT-4.1",
+            "rationale": "Fast, high-volume chat is the stated fit for GPT-4.1. The report scenario instead emphasizes reasoning and accuracy.",
+            "better_fit": "Choose GPT-4.1 when rapid responses at scale are the main need.",
+            "feedback": {
+              "intrinsic": "This would focus the choice on speed when the report needs careful reasoning.",
+              "instructional": "Use the scenario’s main constraint. GPT-5.x fits when multi-step reasoning and accuracy matter more."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "multi_choice",
+        "concept_id": "gpt-5x",
+        "item_key": "choose-and-evaluate-models/gpt-5x/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. Each selected choice uses a stated GPT-5.x strength for reasoning-focused work.",
+      "points": 1
+    },
+    {
+      "import_key": "choose-and-evaluate-models-l2-q7",
+      "question_type": "arrange_sentence",
+      "question_text": "Order the pieces correctly.",
+      "options": {
+        "word_bank": [
+          "vector representations",
+          "Embedding models",
+          "for meaning",
+          "create semantic"
+        ],
+        "correct_order": [
+          "Embedding models",
+          "create semantic",
+          "vector representations",
+          "for meaning"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "task-based-model-selection",
+        "feedback_for_incorrect": {
+          "intrinsic": "The purpose of embeddings could be confused with ordinary chat generation.",
+          "instructional": "Begin with embedding models, then state that they create semantic vector representations for meaning."
+        },
+        "item_key": "choose-and-evaluate-models/task-based-model-selection/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "Embedding models create semantic vector representations for meaning",
+      "explanation": "The order identifies the model type, what it creates, and its purpose. Embeddings represent meaning as vectors rather than primarily producing chat replies.",
+      "points": 1
+    },
+    {
+      "import_key": "choose-and-evaluate-models-l2-q8",
+      "question_type": "fill_blank",
+      "question_text": "Large pretrained models such as GPT, Claude, and Mistral are called ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "Large pretrained models such as GPT, Claude, and Mistral are called "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "foundation models",
+              "foundation model"
+            ],
+            "rejected_answers": [
+              "language model",
+              "GPT-5.x",
+              "Azure-direct models",
+              "language-model",
+              "gpt-5x",
+              "azure-direct-and-community-models"
+            ],
+            "placeholder": "technical term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "language model",
+          "GPT-5.x",
+          "Azure-direct models",
+          "language-model",
+          "gpt-5x",
+          "azure-direct-and-community-models"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "foundation-models-and-model-families",
+        "feedback_for_incorrect": {
+          "intrinsic": "The term would describe either a broader category, one family, or a catalog source instead of this base-model type.",
+          "instructional": "Use “foundation model.” A language model is broader, GPT-5.x is one family, and Azure-direct describes a source."
+        },
+        "item_key": "choose-and-evaluate-models/foundation-models-and-model-families/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "[\"foundation models\",\"foundation model\"]",
+      "explanation": "This name identifies large pretrained models that provide broad capabilities before customization. GPT, Claude, and Mistral are listed as examples.",
+      "points": 1
+    },
+    {
+      "import_key": "choose-and-evaluate-models-l2-q9",
+      "question_type": "multiple_choice",
+      "question_text": "A developer receives a long product specification and must reason through changes across several code files. Which model should the developer choose?",
+      "options": {
+        "options": [
+          {
+            "text": "Claude Opus 4.5",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Claude Opus 4.5 has large context and output windows. It is useful for long specifications and multi-file diffs.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "GPT-4.1",
+            "is_correct": false,
+            "error_type": "Confuses real-time chat with long-context code reasoning",
+            "rationale": "GPT-4.1 is optimized for speed, efficiency, and low latency. The task instead needs long-context code reasoning.",
+            "better_fit": "Choose GPT-4.1 for real-time, high-volume customer support or interactive chat.",
+            "feedback": {
+              "intrinsic": "The developer may prioritize quick replies over working through the full specification.",
+              "instructional": "Match the need for long context and multi-file reasoning to Claude Opus 4.5."
+            }
+          },
+          {
+            "text": "Mistral Large 3",
+            "is_correct": false,
+            "error_type": "Confuses balanced general use with long-context frontier work",
+            "rationale": "Mistral Large 3 balances quality, throughput, cost, and latency. The scenario specifically calls for the large-context and complex-code strengths of Claude Opus 4.5.",
+            "better_fit": "Choose Mistral Large 3 for multilingual drafting, structured reports, or balanced mid-latency tasks.",
+            "feedback": {
+              "intrinsic": "The choice could miss the strongest fit for reasoning across a long specification and many files.",
+              "instructional": "Balanced general use is valuable, but the long-context code requirement points to Claude Opus 4.5."
+            }
+          },
+          {
+            "text": "An embedding model",
+            "is_correct": false,
+            "error_type": "Confuses coding reasoning with semantic vectors",
+            "rationale": "Embedding models create semantic vector representations. They are not the recommended type for complex code reasoning across files.",
+            "better_fit": "Choose an embedding model for semantic search by meaning.",
+            "feedback": {
+              "intrinsic": "The developer would have a representation for meaning rather than a model selected for the required reasoning task.",
+              "instructional": "Embedding models support semantic vectors. For complex code reasoning and long context, choose Claude Opus 4.5."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "single_choice",
+        "concept_id": "claude-opus-45",
+        "item_key": "choose-and-evaluate-models/claude-opus-45/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. Its large context and output windows support long specifications and multi-file work.",
+      "points": 1
+    },
+    {
+      "import_key": "choose-and-evaluate-models-l2-q10",
+      "question_type": "arrange_sentence",
+      "question_text": "Arrange the parts to form the correct statement.",
+      "options": {
+        "word_bank": [
+          "Mistral Large 3",
+          "offers strong quality",
+          "with efficient throughput",
+          "for general-purpose use"
+        ],
+        "correct_order": [
+          "Mistral Large 3",
+          "offers strong quality",
+          "with efficient throughput",
+          "for general-purpose use"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "mistral-large-3",
+        "feedback_for_incorrect": {
+          "intrinsic": "A reader could miss how Mistral Large 3 combines quality and throughput for general-purpose work.",
+          "instructional": "Start with the model, then state its strong quality, efficient throughput, and general-purpose use."
+        },
+        "item_key": "choose-and-evaluate-models/mistral-large-3/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "Mistral Large 3 offers strong quality with efficient throughput for general-purpose use",
+      "explanation": "This order forms a grammatical statement that matches the source description of Mistral Large 3 as a general-purpose model offering strong quality with efficient throughput.",
+      "points": 1
+    },
+    {
+      "import_key": "choose-and-evaluate-models-l2-q11",
+      "question_type": "multiple_choice",
+      "question_text": "A product-description team wants a general base model for its marketing content. It may deploy the model now and customize it later. Which approach should the team choose?",
+      "options": {
+        "options": [
+          {
+            "text": "Use a foundation model",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Foundation models provide general capabilities out of the box. They can be deployed immediately and later customized through fine-tuning.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Choose a model family only",
+            "is_correct": false,
+            "error_type": "Confuses a model group with a deployable base model",
+            "rationale": "A family helps identify related options. It does not itself provide the general base model to deploy and customize.",
+            "better_fit": "Use a model family when comparing related models by size, capability, or version.",
+            "feedback": {
+              "intrinsic": "The team would still need to select an actual model before creating product descriptions.",
+              "instructional": "A family is useful for comparison. Choose a foundation model when you need a deployable general base model."
+            }
+          },
+          {
+            "text": "Use GPT-5.x only",
+            "is_correct": false,
+            "error_type": "Confuses one family with all foundation models",
+            "rationale": "GPT-5.x is one model family with reasoning and planning strengths. The need described is for the broader foundation-model approach.",
+            "better_fit": "Choose GPT-5.x for multi-step reasoning, structured logic, planning, or agentic workflows.",
+            "feedback": {
+              "intrinsic": "The team could narrow its options before checking whether reasoning-heavy work is needed.",
+              "instructional": "GPT-5.x may be a candidate, but a foundation model is the category that meets the deploy-now, customize-later need."
+            }
+          },
+          {
+            "text": "Choose an Azure sales source",
+            "is_correct": false,
+            "error_type": "Confuses model source with model approach",
+            "rationale": "Azure-sold models are a catalog source with integration and compliance benefits. Source does not define whether the model is a general pretrained base model.",
+            "better_fit": "Use source when comparing Azure-sold models with partner or community models.",
+            "feedback": {
+              "intrinsic": "The team would know where a model comes from but not whether it fits the base-model approach.",
+              "instructional": "First identify the needed model approach. Then compare sources and other catalog details."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "single_choice",
+        "concept_id": "foundation-models-and-model-families",
+        "item_key": "choose-and-evaluate-models/foundation-models-and-model-families/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. Foundation models are general pretrained models that can be deployed now or customized later.",
+      "points": 1
+    },
+    {
+      "import_key": "choose-and-evaluate-models-l2-q12",
+      "question_type": "multiple_choice",
+      "question_text": "A communications manager needs multilingual product updates and structured business reports. The service also needs efficient throughput. Which Mistral Large 3 benefits fit? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Support multilingual drafting",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Mistral Large 3 supports multilingual drafting. That directly matches product updates in several languages.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Balance cost and latency",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Mistral Large 3 balances cost and latency. This supports a service that needs practical performance trade-offs.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Create structured business reports",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Structured business reports are a stated use for Mistral Large 3. The manager needs exactly this type of output.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Provide adjustable thinking levels",
+            "is_correct": false,
+            "error_type": "Confuses Mistral Large 3 with GPT-5.x",
+            "rationale": "Adjustable thinking levels are a GPT-5.x feature. Mistral Large 3 is described for balanced quality, throughput, cost, and latency.",
+            "better_fit": "Choose GPT-5.x when adjustable thinking can trade speed for accuracy.",
+            "feedback": {
+              "intrinsic": "The manager could expect a control that belongs to a different model family.",
+              "instructional": "Use Mistral for the language, reports, and balanced-throughput needs. Adjustable thinking is associated with GPT-5.x."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "multi_choice",
+        "concept_id": "mistral-large-3",
+        "item_key": "choose-and-evaluate-models/mistral-large-3/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. The selected benefits directly match the manager’s language, reporting, and throughput needs.",
+      "points": 1
+    }
+  ],
+  "flashcards": []
+}

@@ -1,0 +1,591 @@
+{
+  "import_key": "seeing-images-and-using-ai-safely-l2",
+  "title": "Seeing images and using AI safely · Level 2",
+  "slo": "Distinguish major computer-vision tasks and explain the purpose of AI guardrails.",
+  "exercises": [
+    {
+      "import_key": "seeing-images-and-using-ai-safely-l2-q1",
+      "question_type": "fill_blank",
+      "question_text": "A system that produces comprehensive image descriptions from visual features and associated text is a ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "A system that produces comprehensive image descriptions from visual features and associated text is a "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "multi-modal model",
+              "multimodal model"
+            ],
+            "rejected_answers": [
+              "computer vision",
+              "image classification",
+              "object detection",
+              "computer-vision",
+              "image-classification"
+            ],
+            "placeholder": "model type"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "computer vision",
+          "image classification",
+          "object detection",
+          "computer-vision",
+          "image-classification"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "multimodal-vision",
+        "feedback_for_incorrect": {
+          "intrinsic": "The selected term would not name the model type that integrates both modalities.",
+          "instructional": "Use multi-modal model when visual features and text descriptions are combined."
+        },
+        "item_key": "seeing-images-and-using-ai-safely/multimodal-vision/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "[\"multi-modal model\",\"multimodal model\"]",
+      "explanation": "A multi-modal model combines visual features with associated text descriptions.",
+      "points": 1
+    },
+    {
+      "import_key": "seeing-images-and-using-ai-safely-l2-q2",
+      "question_type": "arrange_sentence",
+      "question_text": "Reconstruct the statement.",
+      "options": {
+        "word_bank": [
+          "to learn",
+          "Image classification",
+          "the main subject",
+          "uses labeled images"
+        ],
+        "correct_order": [
+          "Image classification",
+          "uses labeled images",
+          "to learn",
+          "the main subject"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "image-classification",
+        "feedback_for_incorrect": {
+          "intrinsic": "The training relationship is unclear.",
+          "instructional": "Name the task, its labeled images, and what it learns."
+        },
+        "item_key": "seeing-images-and-using-ai-safely/image-classification/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "Image classification uses labeled images to learn the main subject",
+      "explanation": "The sentence describes the training method before the learning target.",
+      "points": 1
+    },
+    {
+      "import_key": "seeing-images-and-using-ai-safely-l2-q3",
+      "question_type": "multiple_choice",
+      "question_text": "A photo-service designer needs detailed written image descriptions that use image features and related text. Which model should the designer choose?",
+      "options": {
+        "options": [
+          {
+            "text": "A multi-modal model",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "A multi-modal model combines visual features and associated text descriptions. It is designed for comprehensive image descriptions.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Image classification",
+            "is_correct": false,
+            "error_type": "Label-versus-description confusion",
+            "rationale": "Image classification gives a main-subject label. It cannot provide the requested detailed written description.",
+            "better_fit": "Use it when one main-subject label is sufficient.",
+            "feedback": {
+              "intrinsic": "Users would receive only a label.",
+              "instructional": "Use a multi-modal model for comprehensive descriptions."
+            }
+          },
+          {
+            "text": "Object detection",
+            "is_correct": false,
+            "error_type": "Location-versus-description confusion",
+            "rationale": "Object detection provides locations of specific objects. It does not generate detailed written descriptions.",
+            "better_fit": "Use it when object positions are needed.",
+            "feedback": {
+              "intrinsic": "The service could locate objects without describing them.",
+              "instructional": "Descriptions combining image and text features require a multi-modal model."
+            }
+          },
+          {
+            "text": "Semantic segmentation",
+            "is_correct": false,
+            "error_type": "Pixels-versus-description confusion",
+            "rationale": "Semantic segmentation identifies individual pixels belonging to objects. It does not combine visual features with associated text.",
+            "better_fit": "Use it when exact object boundaries are required.",
+            "feedback": {
+              "intrinsic": "The service would receive boundaries instead of descriptions.",
+              "instructional": "Multi-modal models support detailed written image descriptions."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "single_choice",
+        "concept_id": "multimodal-vision",
+        "item_key": "seeing-images-and-using-ai-safely/multimodal-vision/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "0",
+      "explanation": "Correct—the design calls for a multi-modal model.",
+      "points": 1
+    },
+    {
+      "import_key": "seeing-images-and-using-ai-safely-l2-q4",
+      "question_type": "multiple_choice",
+      "question_text": "A retail catalog manager needs one label for every product photo, such as “shoe” or “bag.” Which choices fit the manager's goal? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Train with product photos labeled by subject.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Classification training uses images labeled by their main subject. Product categories provide suitable labels.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Predict one subject label for each new photo.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The manager needs a main-subject label for each photo. This is the expected classification output.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Draw a box around each product.",
+            "is_correct": false,
+            "error_type": "Detection confusion",
+            "rationale": "Boxes communicate object locations, which is object detection. The stated outcome is a label, not a position.",
+            "better_fit": "Use it when product locations in a multi-item photo matter.",
+            "feedback": {
+              "intrinsic": "This adds locations instead of the requested label.",
+              "instructional": "A single product label calls for image classification."
+            }
+          },
+          {
+            "text": "Identify every product pixel.",
+            "is_correct": false,
+            "error_type": "Segmentation confusion",
+            "rationale": "Pixel-level identification is semantic segmentation. It exceeds the manager's need for a category label.",
+            "better_fit": "Use it when exact product boundaries are required.",
+            "feedback": {
+              "intrinsic": "This creates unnecessary boundary detail.",
+              "instructional": "Classification predicts the main label."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "multi_choice",
+        "concept_id": "image-classification",
+        "item_key": "seeing-images-and-using-ai-safely/image-classification/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "[0,1]",
+      "explanation": "Correct—the goal is labeled product photos.",
+      "points": 1
+    },
+    {
+      "import_key": "seeing-images-and-using-ai-safely-l2-q5",
+      "question_type": "arrange_sentence",
+      "question_text": "Arrange the pieces into a correct statement.",
+      "options": {
+        "word_bank": [
+          "to reduce risk",
+          "Responsible AI",
+          "from harmful actions",
+          "uses guardrails"
+        ],
+        "correct_order": [
+          "Responsible AI",
+          "uses guardrails",
+          "to reduce risk",
+          "from harmful actions"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "responsible-ai-guardrails",
+        "feedback_for_incorrect": {
+          "intrinsic": "The purpose of guardrails is unclear.",
+          "instructional": "State the approach, then the guardrails and their purpose."
+        },
+        "item_key": "seeing-images-and-using-ai-safely/responsible-ai-guardrails/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "Responsible AI uses guardrails to reduce risk from harmful actions",
+      "explanation": "The sentence connects responsible AI, guardrails, and their risk-reduction purpose.",
+      "points": 1
+    },
+    {
+      "import_key": "seeing-images-and-using-ai-safely-l2-q6",
+      "question_type": "fill_blank",
+      "question_text": "AI systems trained to analyze photographs, videos, and camera feeds use ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "AI systems trained to analyze photographs, videos, and camera feeds use "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "computer vision"
+            ],
+            "rejected_answers": [
+              "information extraction",
+              "multi-modal model",
+              "image classification",
+              "information-extraction",
+              "multi-modal-model"
+            ],
+            "placeholder": "AI field"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "information extraction",
+          "multi-modal model",
+          "image classification",
+          "information-extraction",
+          "multi-modal-model"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "computer-vision-definition",
+        "feedback_for_incorrect": {
+          "intrinsic": "The selected term would not name the visual-analysis field.",
+          "instructional": "Use computer vision for AI that analyzes visual input."
+        },
+        "item_key": "seeing-images-and-using-ai-safely/computer-vision-definition/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "computer vision",
+      "explanation": "Computer vision is the AI field concerned with visual input.",
+      "points": 1
+    },
+    {
+      "import_key": "seeing-images-and-using-ai-safely-l2-q7",
+      "question_type": "multiple_choice",
+      "question_text": "A product manager is designing an AI assistant that could generate harmful replies. Which actions should the manager choose? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Add content filters.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Content filters are a safeguard that can reduce harmful generated content. They directly address part of the stated risk.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Consider guardrails during design.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Responsible AI requires guardrails from conception through design, implementation, and operation. Considering them during design is necessary.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Wait until operation to consider risks.",
+            "is_correct": false,
+            "error_type": "Late-lifecycle misconception",
+            "rationale": "Waiting until operation ignores the need to consider risks from conception onward. It can allow preventable risks into the system.",
+            "better_fit": "No responsible-AI scenario supports delaying all risk work until operation.",
+            "feedback": {
+              "intrinsic": "Avoidable harmful replies may reach users first.",
+              "instructional": "Consider guardrails throughout the lifecycle."
+            }
+          },
+          {
+            "text": "Assume filters solve every risk.",
+            "is_correct": false,
+            "error_type": "Single-safeguard misconception",
+            "rationale": "Content filters reduce one category of risk but do not make a system wholly responsible. Broader lifecycle guardrails remain necessary.",
+            "better_fit": "Use filters as one component of a broader safeguard strategy.",
+            "feedback": {
+              "intrinsic": "Other risks could remain unmanaged.",
+              "instructional": "Responsible AI requires more than filters alone."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "multi_choice",
+        "concept_id": "responsible-ai-guardrails",
+        "item_key": "seeing-images-and-using-ai-safely/responsible-ai-guardrails/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "[0,1]",
+      "explanation": "Correct—use content filters and lifecycle-wide guardrails.",
+      "points": 1
+    },
+    {
+      "import_key": "seeing-images-and-using-ai-safely-l2-q8",
+      "question_type": "multiple_choice",
+      "question_text": "A museum app must analyze visitor-uploaded photos, identify vintage computers, and describe what it sees. Which capability should the curator choose?",
+      "options": {
+        "options": [
+          {
+            "text": "Computer vision",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Computer vision analyzes visual input and can identify and describe uploaded images. It matches the museum app's image-based goal.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Information extraction",
+            "is_correct": false,
+            "error_type": "Field-extraction confusion",
+            "rationale": "Information extraction is for pulling targeted details from content. The app needs broader analysis and description of a photograph.",
+            "better_fit": "Use it when extracting a serial number shown in an image.",
+            "feedback": {
+              "intrinsic": "The app could miss the overall visual description.",
+              "instructional": "Use computer vision for broad visual analysis."
+            }
+          },
+          {
+            "text": "Text classification",
+            "is_correct": false,
+            "error_type": "Input-modality confusion",
+            "rationale": "Text classification assigns categories to written text. The curator's primary input is photographs.",
+            "better_fit": "Use it when classifying written visitor reviews.",
+            "feedback": {
+              "intrinsic": "The photos would not be analyzed as visual input.",
+              "instructional": "This decision concerns images, so choose computer vision."
+            }
+          },
+          {
+            "text": "Speech recognition",
+            "is_correct": false,
+            "error_type": "Audio-input confusion",
+            "rationale": "Speech recognition converts spoken audio to text. It does not analyze uploaded photographs.",
+            "better_fit": "Use it to transcribe visitors' spoken questions.",
+            "feedback": {
+              "intrinsic": "The photos would remain unanalyzed.",
+              "instructional": "Computer vision handles images and video."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "single_choice",
+        "concept_id": "computer-vision-definition",
+        "item_key": "seeing-images-and-using-ai-safely/computer-vision-definition/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "0",
+      "explanation": "Correct—the app needs visual analysis.",
+      "points": 1
+    },
+    {
+      "import_key": "seeing-images-and-using-ai-safely-l2-q9",
+      "question_type": "fill_blank",
+      "question_text": "To find specific items and report their positions in an image, use ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "To find specific items and report their positions in an image, use "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "object detection"
+            ],
+            "rejected_answers": [
+              "image classification",
+              "semantic segmentation",
+              "computer vision",
+              "image-classification",
+              "semantic-segmentation"
+            ],
+            "placeholder": "vision task"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "image classification",
+          "semantic segmentation",
+          "computer vision",
+          "image-classification",
+          "semantic-segmentation"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "object-detection",
+        "feedback_for_incorrect": {
+          "intrinsic": "The selected term would either label an image broadly or identify pixels.",
+          "instructional": "Use object detection for specific items and their positions."
+        },
+        "item_key": "seeing-images-and-using-ai-safely/object-detection/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "object detection",
+      "explanation": "Object detection identifies particular objects and reports where they are.",
+      "points": 1
+    },
+    {
+      "import_key": "seeing-images-and-using-ai-safely-l2-q10",
+      "question_type": "arrange_sentence",
+      "question_text": "Arrange the pieces into a correct statement.",
+      "options": {
+        "word_bank": [
+          "of object detection",
+          "Semantic segmentation",
+          "with pixel-level detail",
+          "is an advanced form"
+        ],
+        "correct_order": [
+          "Semantic segmentation",
+          "is an advanced form",
+          "of object detection",
+          "with pixel-level detail"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "semantic-segmentation",
+        "feedback_for_incorrect": {
+          "intrinsic": "The relationship between the two tasks is unclear.",
+          "instructional": "Start with semantic segmentation, then state that it extends object detection."
+        },
+        "item_key": "seeing-images-and-using-ai-safely/semantic-segmentation/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "Semantic segmentation is an advanced form of object detection with pixel-level detail",
+      "explanation": "The sentence explains segmentation's relationship to object detection and its higher level of detail.",
+      "points": 1
+    },
+    {
+      "import_key": "seeing-images-and-using-ai-safely-l2-q11",
+      "question_type": "multiple_choice",
+      "question_text": "A store manager uses shelf-camera images and needs to know where each item is on a shelf. Which task should the manager choose?",
+      "options": {
+        "options": [
+          {
+            "text": "Object detection",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The manager needs locations for specific shelf items. Object detection provides those locations.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Image classification",
+            "is_correct": false,
+            "error_type": "Label-versus-location confusion",
+            "rationale": "Classification gives one main-subject label for an image. It cannot show each item's shelf position.",
+            "better_fit": "Use it when a photo needs one overall label.",
+            "feedback": {
+              "intrinsic": "The manager would not see item positions.",
+              "instructional": "When locations matter, use object detection."
+            }
+          },
+          {
+            "text": "Semantic segmentation",
+            "is_correct": false,
+            "error_type": "Excess-detail confusion",
+            "rationale": "Segmentation identifies individual pixels belonging to objects. The manager needs positions, not exact pixel boundaries.",
+            "better_fit": "Use it when precise item boundaries are required.",
+            "feedback": {
+              "intrinsic": "This provides finer detail than the shelf-monitoring decision requires.",
+              "instructional": "Object detection is the appropriate location-focused task."
+            }
+          },
+          {
+            "text": "Text summarization",
+            "is_correct": false,
+            "error_type": "Text-versus-image confusion",
+            "rationale": "Text summarization condenses written material. It cannot identify objects in shelf-camera images.",
+            "better_fit": "Use it to condense a written stock report.",
+            "feedback": {
+              "intrinsic": "The shelf images would not yield item locations.",
+              "instructional": "Choose a computer-vision task for image input."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "single_choice",
+        "concept_id": "object-detection",
+        "item_key": "seeing-images-and-using-ai-safely/object-detection/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "0",
+      "explanation": "Correct—object detection identifies shelf-item locations.",
+      "points": 1
+    },
+    {
+      "import_key": "seeing-images-and-using-ai-safely-l2-q12",
+      "question_type": "multiple_choice",
+      "question_text": "A robotics engineer must isolate an object's exact boundary in an image before the robot grasps it. Which choices fit this need? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Use semantic segmentation.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Semantic segmentation supplies pixel-level object information. That detail supports identifying an exact boundary.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Identify the object's individual pixels.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Individual pixels define the object boundary in the image. This is the required segmentation output.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Use image classification for one label.",
+            "is_correct": false,
+            "error_type": "Label-versus-boundary confusion",
+            "rationale": "Classification supplies one main-subject label. It does not reveal an object's exact boundary.",
+            "better_fit": "Use it when only the image's main subject matters.",
+            "feedback": {
+              "intrinsic": "The robot would have a label but no grasp boundary.",
+              "instructional": "Exact boundaries require semantic segmentation."
+            }
+          },
+          {
+            "text": "Use object detection for only a box.",
+            "is_correct": false,
+            "error_type": "Box-versus-boundary confusion",
+            "rationale": "A location box can include pixels outside an object. The engineer needs the exact boundary instead.",
+            "better_fit": "Use it when an approximate object location is enough.",
+            "feedback": {
+              "intrinsic": "The grasp area could include background pixels.",
+              "instructional": "Use segmentation when individual pixels are required."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "multi_choice",
+        "concept_id": "semantic-segmentation",
+        "item_key": "seeing-images-and-using-ai-safely/semantic-segmentation/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "[0,1]",
+      "explanation": "Correct—this decision requires pixel-level boundaries.",
+      "points": 1
+    }
+  ],
+  "flashcards": []
+}

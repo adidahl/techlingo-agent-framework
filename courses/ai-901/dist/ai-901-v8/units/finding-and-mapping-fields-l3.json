@@ -1,0 +1,504 @@
+{
+  "import_key": "finding-and-mapping-fields-l3",
+  "title": "Finding and mapping fields · Level 3",
+  "slo": "Match OCR text values to the correct business fields.",
+  "exercises": [
+    {
+      "import_key": "finding-and-mapping-fields-l3-q1",
+      "question_type": "multiple_choice",
+      "question_text": "Which techniques can be used for field mapping and association? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Proximity analysis",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Proximity analysis uses closeness, alignment, position, and reading order. It supports label-value pairing.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Named entity recognition",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "NER identifies entities such as dates, amounts, and names. It is a linguistic clue for field association.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Reading order analysis",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Reading order follows natural text flow. It can associate labels with nearby values.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "OCR output ingestion",
+            "is_correct": false,
+            "error_type": "Receiving versus associating",
+            "rationale": "Ingestion receives text and metadata from OCR. Mapping uses clues to pair candidate values with fields.",
+            "better_fit": "Use ingestion at the start to receive OCR results and metadata.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "field-mapping-association",
+        "item_key": "finding-and-mapping-fields/field-mapping-association/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. These techniques use spatial or linguistic clues to pair values.",
+      "points": 1
+    },
+    {
+      "import_key": "finding-and-mapping-fields-l3-q2",
+      "question_type": "true_false",
+      "question_text": "A value's position can help distinguish an invoice number from a customer ID or phone number.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "ocr-output-ingestion",
+        "feedback_for_incorrect": {
+          "intrinsic": "A number could be placed in the wrong field.",
+          "instructional": "Bounding boxes, page locations, and reading order help interpret a number."
+        },
+        "item_key": "finding-and-mapping-fields/ocr-output-ingestion/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. Position provides context for the same-looking value.",
+      "points": 1
+    },
+    {
+      "import_key": "finding-and-mapping-fields-l3-q3",
+      "question_type": "multiple_choice",
+      "question_text": "A vendor sends the same standardized invoice form daily. The specialist sees the same labels and positions each time. Which approach best fits?",
+      "options": {
+        "options": [
+          {
+            "text": "Template-based detection",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The layout, labels, and positions are stable. Templates fit repeated known forms.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Machine learning-based detection",
+            "is_correct": false,
+            "error_type": "Overgeneralized solution",
+            "rationale": "Machine learning learns from examples across documents. A fixed form already supports simpler explicit rules.",
+            "better_fit": "Use it when layouts vary and a corpus of examples is available.",
+            "feedback": {
+              "intrinsic": "The specialist could add unnecessary model-training work.",
+              "instructional": "Repeated labels and positions are strong signals for templates."
+            }
+          },
+          {
+            "text": "Generative schema extraction",
+            "is_correct": false,
+            "error_type": "Unnecessary LLM approach",
+            "rationale": "Generative extraction uses an LLM to match text to schema fields. The stable layout makes direct template rules the closer fit.",
+            "better_fit": "Use it when an LLM must match changing content to a schema.",
+            "feedback": {
+              "intrinsic": "The workflow could become more complex than needed.",
+              "instructional": "Choose templates when field positions are already known."
+            }
+          },
+          {
+            "text": "OCR output ingestion",
+            "is_correct": false,
+            "error_type": "Input versus detection",
+            "rationale": "Ingestion receives OCR results and metadata. It does not select a method for detecting the fields.",
+            "better_fit": "Use it when receiving OCR text, confidence, position, and layout information.",
+            "feedback": {
+              "intrinsic": "The system would have inputs but no detection method.",
+              "instructional": "Ingestion supplies input; templates use known labels and positions."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "single_choice",
+        "concept_id": "template-based-field-detection",
+        "item_key": "finding-and-mapping-fields/template-based-field-detection/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. The repeated layout strongly favors templates.",
+      "points": 1
+    },
+    {
+      "import_key": "finding-and-mapping-fields-l3-q4",
+      "question_type": "arrange_sentence",
+      "question_text": "Order the pieces correctly.",
+      "options": {
+        "word_bank": [
+          "document text",
+          "Prompt-based extraction",
+          "and a schema",
+          "gives an LLM"
+        ],
+        "correct_order": [
+          "Prompt-based extraction",
+          "gives an LLM",
+          "document text",
+          "and a schema"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "generative-schema-extraction",
+        "feedback_for_incorrect": {
+          "intrinsic": "The relationship between the method and its inputs would be unclear.",
+          "instructional": "Name the method, then the LLM, then its text and schema inputs."
+        },
+        "item_key": "finding-and-mapping-fields/generative-schema-extraction/r3/v2",
+        "rung": 3
+      },
+      "correct_answer": "Prompt-based extraction gives an LLM document text and a schema",
+      "explanation": "Prompt-based extraction gives the LLM the text to inspect and the schema defining requested fields.",
+      "points": 1
+    },
+    {
+      "import_key": "finding-and-mapping-fields-l3-q5",
+      "question_type": "true_false",
+      "question_text": "Proximity analysis can use closeness, alignment, and position to pair labels with values.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "field-mapping-association",
+        "feedback_for_incorrect": {
+          "intrinsic": "A nearby amount could be linked to the wrong label.",
+          "instructional": "Proximity analysis uses closeness, alignment, position, and reading order."
+        },
+        "item_key": "finding-and-mapping-fields/field-mapping-association/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. These spatial relationships support key-value pairing.",
+      "points": 1
+    },
+    {
+      "import_key": "finding-and-mapping-fields-l3-q6",
+      "question_type": "multiple_choice",
+      "question_text": "A purchase-order team receives supplier forms with varied layouts and has labeled examples. Which machine-learning training choices can help extract supplier and product fields? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Supervised learning",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Supervised learning uses labeled field-location data. The team has labeled examples.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Multi-modal learning",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Multi-modal learning combines text, visual, and positional features. Those features help across varied layouts.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Self-supervised learning",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Self-supervised learning can learn from large document corpora. It can support document-pattern understanding.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Manual templates only",
+            "is_correct": false,
+            "error_type": "Template-only misconception",
+            "rationale": "Manual templates rely on stable layouts and explicit rules. The varied layouts and available examples support learned methods.",
+            "better_fit": "Use manual templates for stable known forms with consistent positions.",
+            "feedback": {
+              "intrinsic": "The team could need many rules as layouts vary.",
+              "instructional": "Labeled examples and varied forms support machine-learning training choices."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "multi_choice",
+        "concept_id": "machine-learning-based-detection",
+        "item_key": "finding-and-mapping-fields/machine-learning-based-detection/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. Each learning approach can support detection across varied forms.",
+      "points": 1
+    },
+    {
+      "import_key": "finding-and-mapping-fields-l3-q7",
+      "question_type": "true_false",
+      "question_text": "Field extraction only lists text found by OCR and does not assign business meaning.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "field-extraction-purpose",
+        "feedback_for_incorrect": {
+          "intrinsic": "The extracted value would remain unassigned.",
+          "instructional": "OCR finds text; field extraction maps it to meaningful labeled fields."
+        },
+        "item_key": "finding-and-mapping-fields/field-extraction-purpose/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct. It identifies what a value means and where it belongs.",
+      "points": 1
+    },
+    {
+      "import_key": "finding-and-mapping-fields-l3-q8",
+      "question_type": "multiple_choice",
+      "question_text": "A logistics manager processes shipping documents from many carriers and has a corpus of examples. Which reasons support machine learning-based detection? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "It learns relationships from examples",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Machine learning learns field relationships from example documents. The manager has a relevant corpus.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It can use contextual cues",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Transformer-based models can use contextual cues. This helps interpret fields across carrier layouts.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It can use visual and position features",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Multi-modal learning can use visual and positional features with text. Those features represent layout relationships.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It needs one fixed layout",
+            "is_correct": false,
+            "error_type": "Template strength confusion",
+            "rationale": "A fixed layout favors template detection. Machine learning can learn from a varied example corpus.",
+            "better_fit": "Use one fixed layout as a reason to select template-based detection.",
+            "feedback": {
+              "intrinsic": "The manager could reject a useful approach because forms vary.",
+              "instructional": "Varied layouts and a corpus of examples support machine learning."
+            }
+          }
+        ],
+        "blooms_level": "Analyzing/Evaluating",
+        "original_question_type": "multi_choice",
+        "concept_id": "machine-learning-based-detection",
+        "item_key": "finding-and-mapping-fields/machine-learning-based-detection/r5/v1",
+        "rung": 5
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. Examples, context, and multiple feature types support the decision.",
+      "points": 1
+    },
+    {
+      "import_key": "finding-and-mapping-fields-l3-q9",
+      "question_type": "multiple_choice",
+      "question_text": "A regulatory team processes one fixed government form. It needs fast, explainable extraction and can create rules for the form. Which approach should it choose?",
+      "options": {
+        "options": [
+          {
+            "text": "Template-based detection",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The form is fixed and the team can create rules for known positions. Templates are fast and explainable in this setting.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Machine learning-based detection",
+            "is_correct": false,
+            "error_type": "Ignores fixed-layout advantage",
+            "rationale": "Machine learning learns relationships from examples. The stated need for fixed-form rules and explainability favors templates.",
+            "better_fit": "Use it for varied layouts supported by a corpus of examples.",
+            "feedback": {
+              "intrinsic": "The team could overlook the direct fit of transparent rules.",
+              "instructional": "Fixed layout, manual rules, speed, and explainability support templates."
+            }
+          },
+          {
+            "text": "Generative schema extraction",
+            "is_correct": false,
+            "error_type": "Ignores rule fit",
+            "rationale": "Generative extraction uses an LLM and schema. The team already has a fixed form suited to explicit rules.",
+            "better_fit": "Use it when LLM schema matching is the required capability.",
+            "feedback": {
+              "intrinsic": "The solution could be less direct to audit.",
+              "instructional": "For a fixed form, templates provide the explainable rule-based choice."
+            }
+          },
+          {
+            "text": "Field mapping and association",
+            "is_correct": false,
+            "error_type": "Association versus detection",
+            "rationale": "Mapping associates candidates after detection. It does not choose the initial fixed-form detection method.",
+            "better_fit": "Use it when values must be paired through spatial or linguistic clues.",
+            "feedback": {
+              "intrinsic": "Candidates could be paired without a method for finding them.",
+              "instructional": "The required detection approach for a known layout is template-based detection."
+            }
+          }
+        ],
+        "blooms_level": "Analyzing/Evaluating",
+        "original_question_type": "single_choice",
+        "concept_id": "template-based-field-detection",
+        "item_key": "finding-and-mapping-fields/template-based-field-detection/r5/v1",
+        "rung": 5
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. Fixed forms and explainability fit templates.",
+      "points": 1
+    },
+    {
+      "import_key": "finding-and-mapping-fields-l3-q10",
+      "question_type": "fill_blank",
+      "question_text": "The step that determines that a recognized value belongs in a labeled business field is ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "The step that determines that a recognized value belongs in a labeled business field is "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "field extraction"
+            ],
+            "rejected_answers": [
+              "OCR",
+              "field mapping and association",
+              "template-based detection",
+              "semantic-mapping",
+              "field-mapping-and-association"
+            ],
+            "placeholder": "technical term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "OCR",
+          "field mapping and association",
+          "template-based detection",
+          "semantic-mapping",
+          "field-mapping-and-association"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "field-extraction-purpose",
+        "feedback_for_incorrect": {
+          "intrinsic": "The value would not receive a business-field interpretation.",
+          "instructional": "Use field extraction for the step that assigns meaning to recognized OCR values."
+        },
+        "item_key": "finding-and-mapping-fields/field-extraction-purpose/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "field extraction",
+      "explanation": "Field extraction gives recognized text a business role, such as invoice date or total amount.",
+      "points": 1
+    },
+    {
+      "import_key": "finding-and-mapping-fields-l3-q11",
+      "question_type": "multiple_choice",
+      "question_text": "An insurance-claims team receives changing form layouts. Its analyst needs an LLM to match text to fields in a defined schema. Which approach best fits?",
+      "options": {
+        "options": [
+          {
+            "text": "Generative schema extraction",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "This approach uses an LLM to match text to defined schema fields. That is the decision requirement in the scenario.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Template-based detection",
+            "is_correct": false,
+            "error_type": "Fixed-layout mismatch",
+            "rationale": "Templates rely on known layouts and manual rules. Changing layouts and LLM schema matching point elsewhere.",
+            "better_fit": "Use templates for fixed layouts with known labels and manually created rules.",
+            "feedback": {
+              "intrinsic": "The team could need many template changes as layouts shift.",
+              "instructional": "An LLM matching text to a schema indicates generative schema extraction."
+            }
+          },
+          {
+            "text": "Machine learning-based detection",
+            "is_correct": false,
+            "error_type": "Corpus training mismatch",
+            "rationale": "Machine learning learns from a corpus of examples. The key requirement here is direct LLM schema matching.",
+            "better_fit": "Use machine learning when example documents train extraction relationships.",
+            "feedback": {
+              "intrinsic": "The analyst could focus on training instead of providing the needed schema.",
+              "instructional": "The LLM-and-schema requirement identifies generative schema extraction."
+            }
+          },
+          {
+            "text": "Field mapping and association",
+            "is_correct": false,
+            "error_type": "Association versus LLM detection",
+            "rationale": "Mapping pairs candidates with fields through clues. It does not name the LLM-based detection approach.",
+            "better_fit": "Use mapping when candidates are linked by proximity or linguistic patterns.",
+            "feedback": {
+              "intrinsic": "The analyst could associate values without choosing the specified LLM method.",
+              "instructional": "The scenario asks for generative schema extraction."
+            }
+          }
+        ],
+        "blooms_level": "Analyzing/Evaluating",
+        "original_question_type": "single_choice",
+        "concept_id": "generative-schema-extraction",
+        "item_key": "finding-and-mapping-fields/generative-schema-extraction/r5/v1",
+        "rung": 5
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. An LLM matching text to an explicit schema is generative schema extraction.",
+      "points": 1
+    },
+    {
+      "import_key": "finding-and-mapping-fields-l3-q12",
+      "question_type": "arrange_sentence",
+      "question_text": "Put the pieces in the correct order.",
+      "options": {
+        "word_bank": [
+          "and positional metadata",
+          "OCR ingestion",
+          "from the OCR pipeline",
+          "receives raw text"
+        ],
+        "correct_order": [
+          "OCR ingestion",
+          "receives raw text",
+          "and positional metadata",
+          "from the OCR pipeline"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "ocr-output-ingestion",
+        "feedback_for_incorrect": {
+          "intrinsic": "Location details would be detached from the text they describe.",
+          "instructional": "Start with ingestion, then state the text and metadata it receives."
+        },
+        "item_key": "finding-and-mapping-fields/ocr-output-ingestion/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "OCR ingestion receives raw text and positional metadata from the OCR pipeline",
+      "explanation": "Ingestion receives recognized text together with metadata about location and order.",
+      "points": 1
+    }
+  ],
+  "flashcards": []
+}

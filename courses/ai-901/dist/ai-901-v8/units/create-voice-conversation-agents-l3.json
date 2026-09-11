@@ -1,0 +1,505 @@
+{
+  "import_key": "create-voice-conversation-agents-l3",
+  "title": "Create voice conversation agents · Level 3",
+  "slo": "Explain how Azure Voice Live supports a real-time spoken conversation agent.",
+  "exercises": [
+    {
+      "import_key": "create-voice-conversation-agents-l3-q1",
+      "question_type": "multiple_choice",
+      "question_text": "What happens between speech-to-text and text-to-speech in a voice conversation?",
+      "options": {
+        "options": [
+          {
+            "text": "Processing or reasoning",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Recognized text is analyzed or transformed before a response is spoken. This stage can decide what the agent says next.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Audio file upload",
+            "is_correct": false,
+            "error_type": "Confuses file input with reasoning",
+            "rationale": "Uploading can provide audio, but it does not analyze a request or create a response. It is not the middle pipeline stage.",
+            "better_fit": "Use this when an audio file is supplied for recognition.",
+            "feedback": null
+          },
+          {
+            "text": "Voice selection only",
+            "is_correct": false,
+            "error_type": "Confuses delivery settings with reasoning",
+            "rationale": "Voice selection affects the sound of output. It does not determine the response content.",
+            "better_fit": "Use this when choosing how synthesized speech should sound.",
+            "feedback": null
+          },
+          {
+            "text": "Batch job scheduling",
+            "is_correct": false,
+            "error_type": "Confuses live processing with batch work",
+            "rationale": "Batch scheduling delays work on stored audio. It is not part of the live response-making stage.",
+            "better_fit": "Use this for recordings processed asynchronously.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "speech-to-speech-pipeline",
+        "item_key": "create-voice-conversation-agents/speech-to-speech-pipeline/r1/v2",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. Processing or reasoning handles recognized text before synthesis.",
+      "points": 1
+    },
+    {
+      "import_key": "create-voice-conversation-agents-l3-q2",
+      "question_type": "multiple_choice",
+      "question_text": "What can the Voice Live API do? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Combine speech-to-text and reasoning",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The API combines recognition with reasoning and speech synthesis. This reduces separate integration work.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Return spoken responses",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Voice Live can return spoken audio to the user. This enables natural voice conversations.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Trigger actions when needed",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Voice Live can trigger actions as part of the interaction. It can also support optional avatars.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Require developers to manage infrastructure",
+            "is_correct": false,
+            "error_type": "Confuses managed service with self-managed backend",
+            "rationale": "Azure manages Voice Live models and infrastructure. Developers focus on the conversation experience instead.",
+            "better_fit": "Use this for a solution where the team maintains its own backend components.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "azure-speech-voice-live",
+        "item_key": "create-voice-conversation-agents/azure-speech-voice-live/r1/v2",
+        "rung": 1
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. Voice Live combines conversation capabilities and can speak or trigger actions.",
+      "points": 1
+    },
+    {
+      "import_key": "create-voice-conversation-agents-l3-q3",
+      "question_type": "fill_blank",
+      "question_text": "The middle stage of a speech-to-speech pipeline is ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "The middle stage of a speech-to-speech pipeline is "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "processing or reasoning",
+              "processing",
+              "reasoning"
+            ],
+            "rejected_answers": [
+              "speech-to-text",
+              "text-to-speech",
+              "Voice Live API",
+              "speech-to-speech-agent",
+              "voice-live-api"
+            ],
+            "placeholder": "stage name"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "speech-to-text",
+          "text-to-speech",
+          "Voice Live API",
+          "speech-to-speech-agent",
+          "voice-live-api"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "speech-to-speech-pipeline",
+        "feedback_for_incorrect": {
+          "intrinsic": "The pipeline would stop at recognition or jump to output without handling the request.",
+          "instructional": "Speech-to-text comes first and text-to-speech comes last; processing or reasoning sits between them."
+        },
+        "item_key": "create-voice-conversation-agents/speech-to-speech-pipeline/r3/v2",
+        "rung": 3
+      },
+      "correct_answer": "[\"processing or reasoning\",\"processing\",\"reasoning\"]",
+      "explanation": "Processing or reasoning works on recognized text between recognition and speech synthesis.",
+      "points": 1
+    },
+    {
+      "import_key": "create-voice-conversation-agents-l3-q4",
+      "question_type": "multiple_choice",
+      "question_text": "What is Azure Speech Voice Live designed to help build?",
+      "options": {
+        "options": [
+          {
+            "text": "Real-time conversational voice agents",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Voice Live is designed for agents that listen and respond with spoken audio in real time. It supports live voice conversations.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Stored audio transcription jobs",
+            "is_correct": false,
+            "error_type": "Confuses Voice Live with batch transcription",
+            "rationale": "Stored-audio transcription is a batch scenario rather than a live conversation. Voice Live focuses on immediate spoken interaction.",
+            "better_fit": "Use this for recordings that need transcription later.",
+            "feedback": null
+          },
+          {
+            "text": "Text-only chat agents",
+            "is_correct": false,
+            "error_type": "Confuses voice agents with text chat",
+            "rationale": "Text chat does not require voice input or output. Voice Live is intended for spoken interaction.",
+            "better_fit": "Use this when an agent communicates only through written messages.",
+            "feedback": null
+          },
+          {
+            "text": "Microphone hardware drivers",
+            "is_correct": false,
+            "error_type": "Confuses managed service with device software",
+            "rationale": "Drivers configure hardware rather than provide conversational AI services. Voice Live manages voice-conversation capabilities.",
+            "better_fit": "Use this when configuring a microphone device.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "azure-speech-voice-live",
+        "item_key": "create-voice-conversation-agents/azure-speech-voice-live/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. Voice Live supports live conversational voice agents.",
+      "points": 1
+    },
+    {
+      "import_key": "create-voice-conversation-agents-l3-q5",
+      "question_type": "multiple_choice",
+      "question_text": "Which Voice Live playground options are available? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Try preconfigured voice samples",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The playground provides preconfigured samples for quick exploration. Their setup is already supplied.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Create a new solution",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The playground allows a developer to create a new Voice Live solution. The new solution uses a selected generative AI model.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Enable proactive engagement",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "This option lets the agent initiate the interaction. It changes who starts the conversation.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Skip choosing an agent model",
+            "is_correct": false,
+            "error_type": "Confuses samples with new-solution setup",
+            "rationale": "A new solution requires a generative AI model to be selected. Only a preconfigured sample already has its setup in place.",
+            "better_fit": "Use this only when trying an already configured sample.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "voice-live-playground-settings",
+        "item_key": "create-voice-conversation-agents/voice-live-playground-settings/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. The playground offers samples, new solutions, and settings such as proactive engagement.",
+      "points": 1
+    },
+    {
+      "import_key": "create-voice-conversation-agents-l3-q6",
+      "question_type": "true_false",
+      "question_text": "Speech-to-speech requires users to read or type text instead of speaking.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "ai-agents-and-speech-to-speech",
+        "feedback_for_incorrect": {
+          "intrinsic": "The interaction would no longer be a natural voice conversation.",
+          "instructional": "Speech-to-speech accepts spoken audio and produces spoken audio."
+        },
+        "item_key": "create-voice-conversation-agents/ai-agents-and-speech-to-speech/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct. Speech-to-speech supports spoken interaction.",
+      "points": 1
+    },
+    {
+      "import_key": "create-voice-conversation-agents-l3-q7",
+      "question_type": "true_false",
+      "question_text": "Voice mode puts Voice Live speech configuration inside the agent definition.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "voice-live-playground-settings",
+        "feedback_for_incorrect": {
+          "intrinsic": "Speech setup would remain external and require more client-side work.",
+          "instructional": "Voice mode integrates Voice Live into the agent definition, reducing required client code."
+        },
+        "item_key": "create-voice-conversation-agents/voice-live-playground-settings/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. Voice mode encapsulates speech configuration in the agent definition.",
+      "points": 1
+    },
+    {
+      "import_key": "create-voice-conversation-agents-l3-q8",
+      "question_type": "multiple_choice",
+      "question_text": "Which extra packages are needed to run a Python Voice Live app? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "pyaudio",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "pyaudio is listed as a supporting package for the Python Voice Live app. It supports the application's audio handling.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "python-dotenv",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "python-dotenv is listed among the required supporting packages. It is part of the stated application setup.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "azure-identity",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "azure-identity is also a listed supporting requirement. It is used alongside the Voice Live package.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "azure-ai-vision",
+            "is_correct": false,
+            "error_type": "Confuses voice requirements with another AI service",
+            "rationale": "This package is not listed as a required supporting package for the Voice Live app. The stated extras are pyaudio, python-dotenv, and azure-identity.",
+            "better_fit": "Use this for image-related Azure AI work.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "voice-live-application-tools",
+        "item_key": "create-voice-conversation-agents/voice-live-application-tools/r1/v2",
+        "rung": 1
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. These are the listed supporting packages.",
+      "points": 1
+    },
+    {
+      "import_key": "create-voice-conversation-agents-l3-q9",
+      "question_type": "multiple_choice",
+      "question_text": "What does speech-to-speech do?",
+      "options": {
+        "options": [
+          {
+            "text": "Takes spoken audio and returns spoken audio",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Speech-to-speech begins with a person's voice and ends with a spoken response. Both input and output are audio.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Takes spoken audio and returns only text",
+            "is_correct": false,
+            "error_type": "Confuses speech-to-speech with speech-to-text",
+            "rationale": "This describes recognition without a spoken reply. It stops at text output.",
+            "better_fit": "Use this for transcription, captions, or dictation.",
+            "feedback": null
+          },
+          {
+            "text": "Takes text and returns spoken audio",
+            "is_correct": false,
+            "error_type": "Confuses speech-to-speech with text-to-speech",
+            "rationale": "This describes synthesis from written input. It does not understand a person's spoken request.",
+            "better_fit": "Use this when written content must be read aloud.",
+            "feedback": null
+          },
+          {
+            "text": "Stores recorded audio for later transcription",
+            "is_correct": false,
+            "error_type": "Confuses conversation with batch processing",
+            "rationale": "Saving recordings does not create an immediate spoken exchange. It is not voice input followed by voice output.",
+            "better_fit": "Use this for audio that can be processed later.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "ai-agents-and-speech-to-speech",
+        "item_key": "create-voice-conversation-agents/ai-agents-and-speech-to-speech/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. Speech-to-speech is voice in and voice out.",
+      "points": 1
+    },
+    {
+      "import_key": "create-voice-conversation-agents-l3-q10",
+      "question_type": "arrange_sentence",
+      "question_text": "Arrange the audio-flow steps.",
+      "options": {
+        "word_bank": [
+          "receive spoken response",
+          "Stream microphone audio",
+          "play it through speakers",
+          "to Azure Voice Live"
+        ],
+        "correct_order": [
+          "Stream microphone audio",
+          "to Azure Voice Live",
+          "receive spoken response",
+          "play it through speakers"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "voice-live-application-tools",
+        "feedback_for_incorrect": {
+          "intrinsic": "Audio could be played before a response arrived or sent to the wrong destination.",
+          "instructional": "Follow the conversation path from microphone to Voice Live and then from spoken response to speakers."
+        },
+        "item_key": "create-voice-conversation-agents/voice-live-application-tools/r3/v2",
+        "rung": 3
+      },
+      "correct_answer": "Stream microphone audio to Azure Voice Live receive spoken response play it through speakers",
+      "explanation": "The application sends microphone audio to Voice Live, receives spoken output, and plays that output through speakers.",
+      "points": 1
+    },
+    {
+      "import_key": "create-voice-conversation-agents-l3-q11",
+      "question_type": "fill_blank",
+      "question_text": "In a new Voice Live solution, choose a ___ for the agent to generate responses.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "In a new Voice Live solution, choose a "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "generative AI model",
+              "generative model"
+            ],
+            "rejected_answers": [
+              "acoustic model",
+              "SpeechRecognizer",
+              "SpeechSynthesizer",
+              "azure-speech-voice-live",
+              "speech-to-speech-pipeline"
+            ],
+            "placeholder": "model type"
+          },
+          {
+            "type": "text",
+            "text": " for the agent to generate responses."
+          }
+        ],
+        "rejected_answers": [
+          "acoustic model",
+          "SpeechRecognizer",
+          "SpeechSynthesizer",
+          "azure-speech-voice-live",
+          "speech-to-speech-pipeline"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "voice-live-playground-settings",
+        "feedback_for_incorrect": {
+          "intrinsic": "The agent would lack the selected model type used to generate its responses.",
+          "instructional": "Acoustic models support speech, while the selected generative AI model helps create the agent's response."
+        },
+        "item_key": "create-voice-conversation-agents/voice-live-playground-settings/r3/v2",
+        "rung": 3
+      },
+      "correct_answer": "[\"generative AI model\",\"generative model\"]",
+      "explanation": "A generative AI model helps the agent generate its responses alongside Voice Live acoustic models.",
+      "points": 1
+    },
+    {
+      "import_key": "create-voice-conversation-agents-l3-q12",
+      "question_type": "arrange_sentence",
+      "question_text": "Reconstruct the statement from the pieces.",
+      "options": {
+        "word_bank": [
+          "as input",
+          "Speech-to-speech",
+          "and produces spoken audio",
+          "takes spoken audio"
+        ],
+        "correct_order": [
+          "Speech-to-speech",
+          "takes spoken audio",
+          "as input",
+          "and produces spoken audio"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "ai-agents-and-speech-to-speech",
+        "feedback_for_incorrect": {
+          "intrinsic": "The relationship between the input and output would be unclear.",
+          "instructional": "State the capability first, then identify voice input before voice output."
+        },
+        "item_key": "create-voice-conversation-agents/ai-agents-and-speech-to-speech/r3/v2",
+        "rung": 3
+      },
+      "correct_answer": "Speech-to-speech takes spoken audio as input and produces spoken audio",
+      "explanation": "The statement names the capability, then its spoken input, then its spoken output.",
+      "points": 1
+    }
+  ],
+  "flashcards": []
+}

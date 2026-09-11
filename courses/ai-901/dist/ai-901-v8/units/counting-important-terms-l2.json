@@ -1,0 +1,569 @@
+{
+  "import_key": "counting-important-terms-l2",
+  "title": "Counting Important Terms · Level 2",
+  "slo": "Explain how frequency analysis and TF-IDF identify document topics.",
+  "exercises": [
+    {
+      "import_key": "counting-important-terms-l2-q1",
+      "question_type": "multiple_choice",
+      "question_text": "In the IDF formula, what is df(t)?",
+      "options": {
+        "options": [
+          {
+            "text": "Documents containing term t",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "df(t) is the number of items containing term t. It is used with N in log(N/df(t)).",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Uses of term t in one document",
+            "is_correct": false,
+            "error_type": "Confuses document frequency with TF",
+            "rationale": "Uses in one item are TF. df(t) counts how many items contain the term.",
+            "better_fit": "Choose this when calculating TF.",
+            "feedback": {
+              "intrinsic": "You would put a local count into a collection-wide calculation.",
+              "instructional": "df(t) counts items containing t, while TF counts uses within one item."
+            }
+          },
+          {
+            "text": "Total tokens in term t",
+            "is_correct": false,
+            "error_type": "Confuses IDF with tokenization",
+            "rationale": "IDF does not count the tokens inside a term. It uses the number of items containing that term.",
+            "better_fit": "This does not fit the IDF formula.",
+            "feedback": {
+              "intrinsic": "The rarity calculation would not reflect how widely the term appears.",
+              "instructional": "For IDF, count the items that contain the term, not the tokens in its spelling."
+            }
+          },
+          {
+            "text": "Similarity score for term t",
+            "is_correct": false,
+            "error_type": "Confuses IDF with vector similarity",
+            "rationale": "Similarity scores compare vectors. df(t) is a count of items containing a term.",
+            "better_fit": "Choose this when comparing semantic vectors.",
+            "feedback": {
+              "intrinsic": "You would replace a count with an unrelated comparison value.",
+              "instructional": "IDF uses counts of items, not vector similarity."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "idf-inverse-document-frequency",
+        "item_key": "counting-important-terms/idf-inverse-document-frequency/r1/v2",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. df(t) is the number of items that contain the term.",
+      "points": 1
+    },
+    {
+      "import_key": "counting-important-terms-l2-q2",
+      "question_type": "true_false",
+      "question_text": "TF-IDF gives low discriminative weight to a term that appears in every document.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "tf-idf",
+        "feedback_for_incorrect": {
+          "intrinsic": "A shared term would be treated as if it separated individual topics.",
+          "instructional": "When a term appears in every item, its IDF is zero, so it contributes no distinguishing TF-IDF weight."
+        },
+        "item_key": "counting-important-terms/tf-idf/r2/v2",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. A term in every item has IDF of zero and no discriminative TF-IDF weight.",
+      "points": 1
+    },
+    {
+      "import_key": "counting-important-terms-l2-q3",
+      "question_type": "multiple_choice",
+      "question_text": "Which statements describe Term Frequency (TF)? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "It counts a term in one document",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "This is the definition of TF. It is a within-item count.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Six uses give TF of 6",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "TF equals the number of appearances. Six appearances therefore give 6.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It is part of TF-IDF",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "TF is multiplied by IDF to calculate TF-IDF. It is one component of the score.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "It measures documents containing a term",
+            "is_correct": false,
+            "error_type": "Confuses TF with document frequency",
+            "rationale": "The number of items containing a term is df(t). TF counts appearances in one item.",
+            "better_fit": "Choose this when defining df(t) in the IDF formula.",
+            "feedback": {
+              "intrinsic": "You would use a collection count where an item count is needed.",
+              "instructional": "Keep the scopes separate: TF is within one item, while df(t) counts items containing a term."
+            }
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "term-frequency",
+        "item_key": "counting-important-terms/term-frequency/r1/v2",
+        "rung": 1
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. TF is a within-item count and one part of TF-IDF.",
+      "points": 1
+    },
+    {
+      "import_key": "counting-important-terms-l2-q4",
+      "question_type": "arrange_sentence",
+      "question_text": "Arrange the following steps to calculate TF-IDF.",
+      "options": {
+        "word_bank": [
+          "Multiply TF by IDF",
+          "Calculate TF",
+          "Get the TF-IDF score",
+          "Calculate IDF"
+        ],
+        "correct_order": [
+          "Calculate TF",
+          "Calculate IDF",
+          "Multiply TF by IDF",
+          "Get the TF-IDF score"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "tf-idf",
+        "feedback_for_incorrect": {
+          "intrinsic": "The calculation would not produce the intended combined score.",
+          "instructional": "Calculate the two inputs first, multiply them, and then identify the result as TF-IDF."
+        },
+        "item_key": "counting-important-terms/tf-idf/r3/v2",
+        "rung": 3
+      },
+      "correct_answer": "Calculate TF Calculate IDF Multiply TF by IDF Get the TF-IDF score",
+      "explanation": "TF and IDF must be available before they can be multiplied. Their product is the final relevance score.",
+      "points": 1
+    },
+    {
+      "import_key": "counting-important-terms-l2-q5",
+      "question_type": "fill_blank",
+      "question_text": "The measure that checks whether a term is rare or common across documents is ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "The measure that checks whether a term is rare or common across documents is "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "inverse document frequency",
+              "IDF"
+            ],
+            "rejected_answers": [
+              "term frequency",
+              "TF",
+              "TF-IDF",
+              "frequency analysis",
+              "tf-term-frequency",
+              "frequency-analysis"
+            ],
+            "placeholder": "technical term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "term frequency",
+          "TF",
+          "TF-IDF",
+          "frequency analysis",
+          "tf-term-frequency",
+          "frequency-analysis"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "idf-inverse-document-frequency",
+        "feedback_for_incorrect": {
+          "intrinsic": "The label would point to a different kind of count or score.",
+          "instructional": "Use IDF for collection-wide rarity. Frequency analysis and TF count occurrences; TF-IDF combines TF and IDF."
+        },
+        "item_key": "counting-important-terms/idf-inverse-document-frequency/r3/v2",
+        "rung": 3
+      },
+      "correct_answer": "[\"inverse document frequency\",\"IDF\"]",
+      "explanation": "This measure compares the number of items containing a term with the total collection size. TF counts within one item, and TF-IDF combines TF with IDF.",
+      "points": 1
+    },
+    {
+      "import_key": "counting-important-terms-l2-q6",
+      "question_type": "multiple_choice",
+      "question_text": "A support analyst has a large collection of support tickets. One ticket repeatedly mentions a term that is unusual in the rest of the collection. Which score should the analyst use to find that term?",
+      "options": {
+        "options": [
+          {
+            "text": "TF-IDF",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The term is frequent in one ticket and rare elsewhere. TF-IDF combines both facts into one score.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Raw frequency analysis",
+            "is_correct": false,
+            "error_type": "Uses within-document counts only",
+            "rationale": "Raw frequency counts appearances but does not account for rarity across the collection. It may elevate widely shared terms.",
+            "better_fit": "Choose this for a quick topic clue from one item.",
+            "feedback": {
+              "intrinsic": "You might highlight a common term rather than a distinctive one.",
+              "instructional": "Use TF-IDF when both repeated use in one item and rarity across the collection matter."
+            }
+          },
+          {
+            "text": "Term Frequency",
+            "is_correct": false,
+            "error_type": "Uses TF without IDF",
+            "rationale": "TF captures repeated use in the ticket. It does not measure whether the term is unusual elsewhere.",
+            "better_fit": "Choose this when only the count within one ticket is needed.",
+            "feedback": {
+              "intrinsic": "You would miss whether the term is common across the rest of the collection.",
+              "instructional": "TF is one input; TF-IDF adds IDF to account for rarity."
+            }
+          },
+          {
+            "text": "Inverse Document Frequency",
+            "is_correct": false,
+            "error_type": "Uses IDF without TF",
+            "rationale": "IDF captures rarity across the collection. It does not show whether the term is repeated in this ticket.",
+            "better_fit": "Choose this when measuring collection-wide rarity alone.",
+            "feedback": {
+              "intrinsic": "You would miss whether the rare term is important in this ticket.",
+              "instructional": "TF-IDF needs both within-item frequency and collection-wide rarity."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "single_choice",
+        "concept_id": "tf-idf",
+        "item_key": "counting-important-terms/tf-idf/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. TF-IDF rewards a term that is frequent here and relatively rare elsewhere.",
+      "points": 1
+    },
+    {
+      "import_key": "counting-important-terms-l2-q7",
+      "question_type": "fill_blank",
+      "question_text": "If “agent” appears six times in one document, its ___ is 6.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "If “agent” appears six times in one document, its "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "term frequency",
+              "TF"
+            ],
+            "rejected_answers": [
+              "IDF",
+              "inverse document frequency",
+              "TF-IDF"
+            ],
+            "placeholder": "measure"
+          },
+          {
+            "type": "text",
+            "text": " is 6."
+          }
+        ],
+        "rejected_answers": [
+          "IDF",
+          "inverse document frequency",
+          "TF-IDF"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "term-frequency",
+        "feedback_for_incorrect": {
+          "intrinsic": "The six-count result would be given the wrong name.",
+          "instructional": "Use TF for an appearance count in one item, not IDF or the combined TF-IDF score."
+        },
+        "item_key": "counting-important-terms/term-frequency/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "[\"term frequency\",\"TF\"]",
+      "explanation": "The measure is based only on the number of appearances in one item. IDF uses the collection, while TF-IDF combines two values.",
+      "points": 1
+    },
+    {
+      "import_key": "counting-important-terms-l2-q8",
+      "question_type": "arrange_sentence",
+      "question_text": "Arrange the parts to form the correct statement.",
+      "options": {
+        "word_bank": [
+          "one document",
+          "Terms common in many documents",
+          "from another",
+          "do not distinguish"
+        ],
+        "correct_order": [
+          "Terms common in many documents",
+          "do not distinguish",
+          "one document",
+          "from another"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "frequency-across-corpus-limitation",
+        "feedback_for_incorrect": {
+          "intrinsic": "The comparison claim would be unclear to a colleague.",
+          "instructional": "Place the shared terms first, followed by what they cannot do, then the two items being compared."
+        },
+        "item_key": "counting-important-terms/frequency-across-corpus-limitation/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "Terms common in many documents do not distinguish one document from another",
+      "explanation": "The sentence first identifies the shared terms, then explains their limitation: they cannot separate individual topics.",
+      "points": 1
+    },
+    {
+      "import_key": "counting-important-terms-l2-q9",
+      "question_type": "multiple_choice",
+      "question_text": "An analyst compares the Copilot Studio and Microsoft Foundry articles. Which terms have IDF of zero because both articles contain them? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "AI",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "This term occurs in both of the two samples. Its IDF is log(2/2), which is zero.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Microsoft",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "This term is in both samples. Therefore its IDF is zero.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "agent",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Both samples contain agent. A term present in every item has zero IDF.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "copilot",
+            "is_correct": false,
+            "error_type": "Confuses a document-specific term with a term in every document",
+            "rationale": "Copilot is specific to the Copilot Studio sample. It is not present in both samples.",
+            "better_fit": "Choose this as a term with distinguishing value for the Copilot Studio topic.",
+            "feedback": {
+              "intrinsic": "You would treat a distinguishing term as if it were shared.",
+              "instructional": "Only terms present in every item have IDF of zero in this two-item comparison."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "multi_choice",
+        "concept_id": "idf-inverse-document-frequency",
+        "item_key": "counting-important-terms/idf-inverse-document-frequency/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. Each selected term occurs in both items, so its IDF is zero.",
+      "points": 1
+    },
+    {
+      "import_key": "counting-important-terms-l2-q10",
+      "question_type": "fill_blank",
+      "question_text": "Counting occurrences of normalized tokens to infer a document's topic is ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "Counting occurrences of normalized tokens to infer a document's topic is "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "frequency analysis"
+            ],
+            "rejected_answers": [
+              "TF-IDF",
+              "term frequency",
+              "inverse document frequency",
+              "bag-of-words",
+              "keyterm-extraction-semantic"
+            ],
+            "placeholder": "technical term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "TF-IDF",
+          "term frequency",
+          "inverse document frequency",
+          "bag-of-words",
+          "keyterm-extraction-semantic"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "frequency-analysis",
+        "feedback_for_incorrect": {
+          "intrinsic": "The chosen label would make the counting task unclear.",
+          "instructional": "Use frequency analysis for overall normalized-token counts. TF is one count, IDF measures rarity, and TF-IDF combines both."
+        },
+        "item_key": "counting-important-terms/frequency-analysis/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "frequency analysis",
+      "explanation": "This method uses normalized token counts to indicate a subject. TF, IDF, and TF-IDF measure narrower or combined aspects.",
+      "points": 1
+    },
+    {
+      "import_key": "counting-important-terms-l2-q11",
+      "question_type": "multiple_choice",
+      "question_text": "A content analyst compares a Copilot Studio article with a Microsoft Foundry article. Which terms would best help identify their different topics? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "copilot",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Copilot is specific to one sample. It helps separate that topic from the Foundry sample.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "declarative",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Declarative identifies the configured-not-programmed approach. It is specific enough to distinguish the topic.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "foundry",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Foundry identifies the code-based development sample. It helps distinguish the two focuses.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "agent",
+            "is_correct": false,
+            "error_type": "Chooses a shared high-frequency term",
+            "rationale": "Agent appears frequently in both samples. It identifies their shared theme, not their difference.",
+            "better_fit": "Choose this when stating the broad theme common to both articles.",
+            "feedback": {
+              "intrinsic": "You would label both articles similarly instead of separating their focuses.",
+              "instructional": "Use terms that occur in one topic, not shared terms such as agent, to distinguish items."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "multi_choice",
+        "concept_id": "frequency-across-corpus-limitation",
+        "item_key": "counting-important-terms/frequency-across-corpus-limitation/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. These terms identify the separate topics more clearly than shared terms do.",
+      "points": 1
+    },
+    {
+      "import_key": "counting-important-terms-l2-q12",
+      "question_type": "multiple_choice",
+      "question_text": "A support analyst has one long customer-feedback report and needs a quick clue to its main topic. Which method should the analyst choose?",
+      "options": {
+        "options": [
+          {
+            "text": "Count normalized token occurrences",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "For one report, frequent normalized terms can suggest the main topic. This is frequency analysis.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Compare term rarity across documents",
+            "is_correct": false,
+            "error_type": "Confuses frequency analysis with TF-IDF",
+            "rationale": "The situation has one report, not a collection comparison. Rarity across items is the role of IDF.",
+            "better_fit": "Choose this when a collection contains many items with shared terms.",
+            "feedback": {
+              "intrinsic": "You would spend effort comparing items that are not part of the task.",
+              "instructional": "For one report, count normalized terms. Compare rarity only across a collection."
+            }
+          },
+          {
+            "text": "Rank sentences by graph links",
+            "is_correct": false,
+            "error_type": "Confuses frequency analysis with TextRank",
+            "rationale": "Graph-linked sentence ranking is TextRank. It is used to select representative sentences for a summary.",
+            "better_fit": "Choose this when selecting sentences for an extractive summary.",
+            "feedback": {
+              "intrinsic": "You would produce summary candidates instead of a quick topic clue.",
+              "instructional": "Topic clues from one report come from frequent normalized terms."
+            }
+          },
+          {
+            "text": "Compare word-vector orientations",
+            "is_correct": false,
+            "error_type": "Confuses frequency analysis with semantic similarity",
+            "rationale": "Vector orientations compare semantic similarity. They are not required for basic frequency counts.",
+            "better_fit": "Choose this when finding semantically related terms.",
+            "feedback": {
+              "intrinsic": "You would compare meanings instead of using the available counts.",
+              "instructional": "Frequency analysis is the direct method when the goal is to count important terms."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "single_choice",
+        "concept_id": "frequency-analysis",
+        "item_key": "counting-important-terms/frequency-analysis/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. Counting frequent normalized terms is useful for one report.",
+      "points": 1
+    }
+  ],
+  "flashcards": []
+}

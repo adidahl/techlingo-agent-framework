@@ -1,0 +1,1037 @@
+{
+  "import_key": "12-get-started-with-ai-powered-information-extraction-checkpoint",
+  "title": "12. Get started with AI-powered information extraction in Azure · Checkpoint",
+  "slo": "Review the key concepts of 12. Get started with AI-powered information extraction in Azure.",
+  "exercises": [
+    {
+      "import_key": "12-get-started-with-ai-powered-information-extraction-checkpoint-q1",
+      "question_type": "multiple_choice",
+      "question_text": "A support agency records calls and needs written records for follow-up. Which capability should its lead choose?",
+      "options": {
+        "options": [
+          {
+            "text": "Audio transcription",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Audio transcription converts spoken calls into written records. Those records support follow-up work.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Basic OCR",
+            "is_correct": false,
+            "error_type": "Confuses speech with printed text",
+            "rationale": "Basic OCR reads printed words in images. It does not transcribe callers' speech.",
+            "better_fit": "Use OCR for scanned forms or photographs of printed text.",
+            "feedback": {
+              "intrinsic": "Staff would still need to listen to calls for the spoken details.",
+              "instructional": "Choose transcription for recorded speech; OCR is for visible printed text."
+            }
+          },
+          {
+            "text": "Video attendance analysis",
+            "is_correct": false,
+            "error_type": "Confuses calls with video",
+            "rationale": "Video attendance analysis identifies people in visual media. It cannot create written call records.",
+            "better_fit": "Use it for a meeting recording when attendance is needed.",
+            "feedback": {
+              "intrinsic": "The agency would not receive the requested written call records.",
+              "instructional": "Attendance is a video insight; calls need transcription."
+            }
+          },
+          {
+            "text": "Invoice field extraction",
+            "is_correct": false,
+            "error_type": "Confuses calls with invoices",
+            "rationale": "Invoice extraction finds fields in invoices. It does not convert recorded speech into writing.",
+            "better_fit": "Use it for invoice numbers, totals, and other invoice fields.",
+            "feedback": {
+              "intrinsic": "Callers' requests would remain unavailable as written records.",
+              "instructional": "Use audio transcription for spoken calls, not invoice extraction."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "single_choice",
+        "concept_id": "audio-information-extraction",
+        "item_key": "extract-information-from-audio/audio-information-extraction/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. Transcription provides written records of spoken calls.",
+      "points": 1
+    },
+    {
+      "import_key": "12-get-started-with-ai-powered-information-extraction-checkpoint-q2",
+      "question_type": "multiple_choice",
+      "question_text": "A support agent analyzes Ava's voicemail to plan a reply. Which results should the agent use? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Caller: Ava from Contoso",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "This result identifies the caller. It helps the agent know who needs a response.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Action: Call or email Ava",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "This captures Ava's requested next step. It helps the agent plan an appropriate reply.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Number: 555-12345",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "This is Ava's callback number. It provides a direct way to return her call.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Tax: 140.99",
+            "is_correct": false,
+            "error_type": "Confuses voicemail with invoice data",
+            "rationale": "Tax is an invoice amount, not a voicemail result. It does not help respond to Ava's request.",
+            "better_fit": "Use tax when processing an invoice's extracted amounts.",
+            "feedback": {
+              "intrinsic": "The agent could focus on unrelated data instead of responding to Ava.",
+              "instructional": "Use call-related results: caller, requested action, and contact details."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "multi_choice",
+        "concept_id": "audio-voicemail-results",
+        "item_key": "extract-information-from-audio/audio-voicemail-results/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. These results identify Ava, her request, and how to reach her.",
+      "points": 1
+    },
+    {
+      "import_key": "12-get-started-with-ai-powered-information-extraction-checkpoint-q3",
+      "question_type": "arrange_sentence",
+      "question_text": "Order the pieces correctly.",
+      "options": {
+        "word_bank": [
+          "vendor name",
+          "An invoice schema",
+          "and invoice total",
+          "can include"
+        ],
+        "correct_order": [
+          "An invoice schema",
+          "can include",
+          "vendor name",
+          "and invoice total"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "invoice-schema-example",
+        "feedback_for_incorrect": {
+          "intrinsic": "The field names may sound disconnected from the invoice structure that contains them.",
+          "instructional": "Start with the invoice schema, state that it can include fields, then name the fields."
+        },
+        "item_key": "extract-fields-from-documents/invoice-schema-example/r3/v2",
+        "rung": 3
+      },
+      "correct_answer": "An invoice schema can include vendor name and invoice total",
+      "explanation": "The phrase starts with what is being described, then states its capability, followed by two fields it can contain. Vendor name and invoice total are both valid invoice fields.",
+      "points": 1
+    },
+    {
+      "import_key": "12-get-started-with-ai-powered-information-extraction-checkpoint-q4",
+      "question_type": "multiple_choice",
+      "question_text": "An expense-processing team must capture vendor, customer, and total from every scanned invoice. What should the team define or use? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "A schema with required fields",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The team needs to state which details are required, including vendor, customer, and total. A schema defines those fields and their structure.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Schema-based extraction",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Schema-based extraction captures the defined fields and their values. It goes beyond merely reading the invoice words.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Basic OCR only",
+            "is_correct": false,
+            "error_type": "Chooses text recognition without field structure",
+            "rationale": "Basic OCR can read visible invoice text. It does not understand the business fields or relationships needed by the team.",
+            "better_fit": "Use this when the only goal is to make printed invoice text searchable.",
+            "feedback": {
+              "intrinsic": "The team may receive readable words but still lack separate vendor, customer, and total values.",
+              "instructional": "OCR is useful for text recognition; defined business fields need a schema and schema-based extraction."
+            }
+          },
+          {
+            "text": "An unlabeled text search",
+            "is_correct": false,
+            "error_type": "Confuses searching text with extracting fields",
+            "rationale": "Searching text can find words but does not define which values belong in required fields. The task needs structured vendor, customer, and total values.",
+            "better_fit": "Use this when someone only needs to locate a word or phrase in readable text.",
+            "feedback": {
+              "intrinsic": "Different invoice layouts could make it hard to consistently capture the required details.",
+              "instructional": "A search finds text; a schema-based approach extracts defined fields consistently."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "multi_choice",
+        "concept_id": "schema-and-schema-based-extraction",
+        "item_key": "extract-fields-from-documents/schema-and-schema-based-extraction/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "[0,1]",
+      "explanation": "Correct. The team should define the required fields in a schema and use schema-based extraction to capture their values.",
+      "points": 1
+    },
+    {
+      "import_key": "12-get-started-with-ai-powered-information-extraction-checkpoint-q5",
+      "question_type": "fill_blank",
+      "question_text": "A software interface used to submit content programmatically is the Content Understanding ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "A software interface used to submit content programmatically is the Content Understanding "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "API"
+            ],
+            "rejected_answers": [
+              "Python SDK",
+              "Foundry portal",
+              "foundry-portal-testing",
+              "python-sdk-analysis"
+            ],
+            "placeholder": "term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "Python SDK",
+          "Foundry portal",
+          "foundry-portal-testing",
+          "python-sdk-analysis"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "content-understanding-api-client",
+        "feedback_for_incorrect": {
+          "intrinsic": "The sentence would name a related item, but not the interface used for programmatic requests.",
+          "instructional": "Use API here. The Python SDK helps write code, and the Foundry portal is for visual testing."
+        },
+        "item_key": "build-document-extraction-in-code/content-understanding-api-client/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "API",
+      "explanation": "An API is the interface used by an application to request analysis programmatically. The SDK provides code support for using that interface, while the portal supports visual testing.",
+      "points": 1
+    },
+    {
+      "import_key": "12-get-started-with-ai-powered-information-extraction-checkpoint-q6",
+      "question_type": "arrange_sentence",
+      "question_text": "Order the pieces to form a correct statement.",
+      "options": {
+        "word_bank": [
+          "Azure Content Understanding",
+          "analyzes documents,",
+          "audio, and",
+          "video content"
+        ],
+        "correct_order": [
+          "Azure Content Understanding",
+          "analyzes documents,",
+          "audio, and",
+          "video content"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "content-types-and-business-scenarios",
+        "feedback_for_incorrect": {
+          "intrinsic": "The statement would not clearly express the supported range.",
+          "instructional": "Start with the service, followed by the content types it analyzes."
+        },
+        "item_key": "understand-information-extraction/content-types-and-business-scenarios/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "Azure Content Understanding analyzes documents, audio, and video content",
+      "explanation": "The service supports documents, audio, and video as content types.",
+      "points": 1
+    },
+    {
+      "import_key": "12-get-started-with-ai-powered-information-extraction-checkpoint-q7",
+      "question_type": "multiple_choice",
+      "question_text": "An invoice processor receives an invoice labeled “Invoice #” and must place its number in the InvoiceNumber field. Which approach should the processor use?",
+      "options": {
+        "options": [
+          {
+            "text": "Semantic field extraction",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Semantic field extraction recognizes that Invoice # represents the invoice-number concept. It can therefore map the value to InvoiceNumber.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Basic OCR only",
+            "is_correct": false,
+            "error_type": "Chooses text reading without meaning mapping",
+            "rationale": "Basic OCR can read Invoice # and its number. It does not map the number to InvoiceNumber by meaning.",
+            "better_fit": "Use this when the goal is only to turn visible printed text into searchable digital text.",
+            "feedback": {
+              "intrinsic": "The label and number may be readable, but the number could remain unassigned to the intended field.",
+              "instructional": "OCR reads the words; semantic field extraction recognizes what the number represents."
+            }
+          },
+          {
+            "text": "A flat text field",
+            "is_correct": false,
+            "error_type": "Chooses unstructured text instead of semantic mapping",
+            "rationale": "A flat text field does not explain how Invoice # maps to the InvoiceNumber concept. The task requires meaning-based field mapping.",
+            "better_fit": "Use this when only one simple text value is needed without a structured mapping decision.",
+            "feedback": {
+              "intrinsic": "The number could be stored as plain text without being identified as the invoice number.",
+              "instructional": "Use semantic extraction to map the value to the correct schema field by meaning."
+            }
+          },
+          {
+            "text": "An Items collection",
+            "is_correct": false,
+            "error_type": "Chooses line-item structure instead of field mapping",
+            "rationale": "An Items collection stores multiple product records and their nested details. It does not map an invoice reference number to InvoiceNumber.",
+            "better_fit": "Use this when processing several ordered products with separate prices, quantities, and line totals.",
+            "feedback": {
+              "intrinsic": "The invoice reference could be treated like a product detail instead of a header field.",
+              "instructional": "Items organizes line items; semantic extraction maps the invoice number to its proper field."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "single_choice",
+        "concept_id": "semantic-field-extraction",
+        "item_key": "extract-fields-from-documents/semantic-field-extraction/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. Semantic field extraction recognizes that Invoice # and InvoiceNumber refer to the same invoice-number concept.",
+      "points": 1
+    },
+    {
+      "import_key": "12-get-started-with-ai-powered-information-extraction-checkpoint-q8",
+      "question_type": "fill_blank",
+      "question_text": "The technology that reads printed text from a scanned receipt is ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "The technology that reads printed text from a scanned receipt is "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "OCR",
+              "optical character recognition"
+            ],
+            "rejected_answers": [
+              "schema-based extraction",
+              "semantic extraction",
+              "schema-based-extraction",
+              "semantic-field-extraction"
+            ],
+            "placeholder": "technical term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "schema-based extraction",
+          "semantic extraction",
+          "schema-based-extraction",
+          "semantic-field-extraction"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "ocr-basic-limits",
+        "feedback_for_incorrect": {
+          "intrinsic": "The receipt text would not be identified as readable digital text by that term.",
+          "instructional": "Choose OCR for reading visible printed text. Schema-based extraction defines fields, while semantic extraction maps values by meaning."
+        },
+        "item_key": "extract-fields-from-documents/ocr-basic-limits/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "[\"OCR\",\"optical character recognition\"]",
+      "explanation": "OCR is the part that turns visible printed words in an image into editable, searchable digital text. Schema-based and semantic extraction add structure or meaning beyond text reading.",
+      "points": 1
+    },
+    {
+      "import_key": "12-get-started-with-ai-powered-information-extraction-checkpoint-q9",
+      "question_type": "arrange_sentence",
+      "question_text": "Order the validation process.",
+      "options": {
+        "word_bank": [
+          "review the outputs",
+          "Select an audio analyzer",
+          "view JSON results",
+          "run it on media"
+        ],
+        "correct_order": [
+          "Select an audio analyzer",
+          "run it on media",
+          "review the outputs",
+          "view JSON results"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "audio-portal-validation",
+        "feedback_for_incorrect": {
+          "intrinsic": "Results could be reviewed before any analysis has produced them.",
+          "instructional": "Select and run the analyzer first, then review its outputs and JSON."
+        },
+        "item_key": "extract-information-from-audio/audio-portal-validation/r3/v2",
+        "rung": 3
+      },
+      "correct_answer": "Select an audio analyzer run it on media review the outputs view JSON results",
+      "explanation": "The analyzer must be selected and run before its outputs and JSON result can be reviewed.",
+      "points": 1
+    },
+    {
+      "import_key": "12-get-started-with-ai-powered-information-extraction-checkpoint-q10",
+      "question_type": "multiple_choice",
+      "question_text": "A legal operations manager has contract PDFs, recorded support calls, and recorded meetings. Which jobs should the manager use Azure Content Understanding for? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Extract fields from contracts",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Contracts are unstructured documents that can contain extractable fields. This job fits structured extraction.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Identify information in calls",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Recorded calls can contain information that needs organizing. This job fits the service's ability to analyze unstructured content.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Extract meeting details",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Recorded meetings are video content with extractable details. This job fits the service's structured extraction capability.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Read image text only",
+            "is_correct": false,
+            "error_type": "Confuses Content Understanding with OCR",
+            "rationale": "Reading image text only is narrower than the manager's cross-content needs. The stated work involves contracts, calls, and meetings.",
+            "better_fit": "This fits a single image where only printed text is needed.",
+            "feedback": {
+              "intrinsic": "The calls and meetings would not be addressed.",
+              "instructional": "Choose the broader structured-extraction capability for these content types."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "multi_choice",
+        "concept_id": "azure-content-understanding-role",
+        "item_key": "understand-information-extraction/azure-content-understanding-role/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. Each selected job extracts information from unstructured content.",
+      "points": 1
+    },
+    {
+      "import_key": "12-get-started-with-ai-powered-information-extraction-checkpoint-q11",
+      "question_type": "fill_blank",
+      "question_text": "After invoice analysis completes, each content item can provide markdown and ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "After invoice analysis completes, each content item can provide markdown and "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "fields"
+            ],
+            "rejected_answers": [
+              "analyzerResults",
+              "Operation-Location URL",
+              "prebuilt-audio-sdk-flow",
+              "prebuilt-and-custom-analyzers"
+            ],
+            "placeholder": "term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "analyzerResults",
+          "Operation-Location URL",
+          "prebuilt-audio-sdk-flow",
+          "prebuilt-and-custom-analyzers"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "prebuilt-invoice-sdk-flow",
+        "feedback_for_incorrect": {
+          "intrinsic": "The response would point to job-checking information instead of the invoice values available after completion.",
+          "instructional": "Use fields for structured extracted values. Polling locations are used while waiting for the job."
+        },
+        "item_key": "build-document-extraction-in-code/prebuilt-invoice-sdk-flow/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "fields",
+      "explanation": "Completed content items can include markdown and extracted fields. analyzerResults and the Operation-Location URL are used to check an asynchronous operation rather than hold the content-item values.",
+      "points": 1
+    },
+    {
+      "import_key": "12-get-started-with-ai-powered-information-extraction-checkpoint-q12",
+      "question_type": "arrange_sentence",
+      "question_text": "Arrange the phrase that distinguishes a custom analyzer.",
+      "options": {
+        "word_bank": [
+          "to your extraction",
+          "A custom analyzer",
+          "requirements and schema",
+          "is tailored"
+        ],
+        "correct_order": [
+          "A custom analyzer",
+          "is tailored",
+          "to your extraction",
+          "requirements and schema"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "prebuilt-vs-custom-analyzers",
+        "feedback_for_incorrect": {
+          "intrinsic": "The custom-versus-prebuilt distinction would be unclear.",
+          "instructional": "Keep the tailoring relationship together in the completed statement."
+        },
+        "item_key": "use-analyzers-and-the-portal/prebuilt-vs-custom-analyzers/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "A custom analyzer is tailored to your extraction requirements and schema",
+      "explanation": "Custom analyzers are tailored to a user's extraction requirements and schema.",
+      "points": 1
+    },
+    {
+      "import_key": "12-get-started-with-ai-powered-information-extraction-checkpoint-q13",
+      "question_type": "multiple_choice",
+      "question_text": "Mia wants to verify expected receipt fields before building her application. What should she do first?",
+      "options": {
+        "options": [
+          {
+            "text": "Upload the receipt in the Foundry portal and run the analyzer",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The portal lets Mia test a real receipt and inspect fields before coding. This validates planned extraction.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Poll an API result URL",
+            "is_correct": false,
+            "error_type": "Premature API workflow",
+            "rationale": "Polling happens after an asynchronous API request. Mia needs an initial test before building code.",
+            "better_fit": "Use this when an application awaits an API operation.",
+            "feedback": {
+              "intrinsic": "Mia would need an API request before polling.",
+              "instructional": "Use portal testing before coding."
+            }
+          },
+          {
+            "text": "Read only the analyzer ID",
+            "is_correct": false,
+            "error_type": "Identity-output confusion",
+            "rationale": "An analyzer ID identifies the processor but does not verify fields. A receipt test is required.",
+            "better_fit": "Use this to identify the analyzer that produced a result.",
+            "feedback": {
+              "intrinsic": "Expected fields would remain unverified.",
+              "instructional": "Run the analyzer and inspect returned fields."
+            }
+          },
+          {
+            "text": "Convert the receipt to JSON herself",
+            "is_correct": false,
+            "error_type": "Input-output confusion",
+            "rationale": "The receipt is submitted as content and analysis returns JSON. Conversion does not test the analyzer.",
+            "better_fit": "Use JSON when reviewing returned analysis output.",
+            "feedback": {
+              "intrinsic": "An unnecessary conversion would delay testing.",
+              "instructional": "Upload the receipt directly in the portal."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "single_choice",
+        "concept_id": "foundry-portal-testing",
+        "item_key": "use-analyzers-and-the-portal/foundry-portal-testing/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. Portal testing validates fields before development.",
+      "points": 1
+    },
+    {
+      "import_key": "12-get-started-with-ai-powered-information-extraction-checkpoint-q14",
+      "question_type": "multiple_choice",
+      "question_text": "A company submits a scanned receipt for an expense claim, but the analysis is still running. What should its app do next?",
+      "options": {
+        "options": [
+          {
+            "text": "Poll the job until it succeeds.",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The analysis is asynchronous and still running. Polling repeatedly checks it until it succeeds.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Submit the same receipt again.",
+            "is_correct": false,
+            "error_type": "Confuses polling with starting a new analysis",
+            "rationale": "Submitting again starts another analysis request. It does not check the job already running.",
+            "better_fit": "Submit content when starting analysis for the first time.",
+            "feedback": {
+              "intrinsic": "The team could create duplicate work on the same receipt.",
+              "instructional": "Keep checking the existing job until it succeeds."
+            }
+          },
+          {
+            "text": "Replace the analyzer schema.",
+            "is_correct": false,
+            "error_type": "Confuses job status with analyzer design",
+            "rationale": "A schema defines fields and structure. It does not complete a job already in progress.",
+            "better_fit": "Change a schema when the needed extracted fields or structure changes.",
+            "feedback": {
+              "intrinsic": "The original receipt job would still be running.",
+              "instructional": "Use polling for a running job; schema design is a separate activity."
+            }
+          },
+          {
+            "text": "Read fields immediately.",
+            "is_correct": false,
+            "error_type": "Confuses completed output with an unfinished job",
+            "rationale": "Fields are read from completed structured results. A running job is not ready to provide its final result.",
+            "better_fit": "Read fields after the job succeeds.",
+            "feedback": {
+              "intrinsic": "The expense team could act before the receipt values are ready.",
+              "instructional": "Poll first, then read the completed fields."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "single_choice",
+        "concept_id": "asynchronous-analysis",
+        "item_key": "build-document-extraction-in-code/asynchronous-analysis/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. Since the job is still running, the app should poll it until it succeeds.",
+      "points": 1
+    },
+    {
+      "import_key": "12-get-started-with-ai-powered-information-extraction-checkpoint-q15",
+      "question_type": "arrange_sentence",
+      "question_text": "Order the pieces correctly.",
+      "options": {
+        "word_bank": [
+          "of the service",
+          "An endpoint",
+          "a client contacts",
+          "is the address"
+        ],
+        "correct_order": [
+          "An endpoint",
+          "is the address",
+          "of the service",
+          "a client contacts"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "endpoint-and-authentication",
+        "feedback_for_incorrect": {
+          "intrinsic": "The definition would no longer clearly say what an endpoint identifies.",
+          "instructional": "Begin with endpoint, then define it as an address and connect it to the service the client contacts."
+        },
+        "item_key": "build-document-extraction-in-code/endpoint-and-authentication/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "An endpoint is the address of the service a client contacts",
+      "explanation": "An endpoint identifies the address a client uses to contact a service. The phrase must connect the address to the service being contacted.",
+      "points": 1
+    },
+    {
+      "import_key": "12-get-started-with-ai-powered-information-extraction-checkpoint-q16",
+      "question_type": "true_false",
+      "question_text": "The extraction workflow submits content, analyzes it with AI, and returns structured output.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "extraction-workflow-and-ai-methods",
+        "feedback_for_incorrect": {
+          "intrinsic": "The connection between submitted content and returned results would be broken.",
+          "instructional": "The stages are ingestion, AI analysis, and structured output matching a model."
+        },
+        "item_key": "understand-information-extraction/extraction-workflow-and-ai-methods/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. The workflow moves from submitted content to analysis and structured output.",
+      "points": 1
+    },
+    {
+      "import_key": "12-get-started-with-ai-powered-information-extraction-checkpoint-q17",
+      "question_type": "multiple_choice",
+      "question_text": "Leo is validating a scanned invoice and must confirm both the vendor-address value and its location on the page. Which outputs should he review? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "The mapped Vendor address field",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The mapped field shows the address value associated with its field name. It verifies the field-value pairing.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "The document text",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Document text lets Leo verify the recognized address content. It supports checking the extracted wording.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "The text layout information",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Layout information helps verify where the address appeared. This addresses the location requirement.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "The confidence score alone",
+            "is_correct": false,
+            "error_type": "Insufficient-output choice",
+            "rationale": "Confidence indicates certainty but not location or field mapping. Leo needs document outputs for both checks.",
+            "better_fit": "Use this when assessing certainty in an extracted value.",
+            "feedback": {
+              "intrinsic": "The address location and mapping would remain unverified.",
+              "instructional": "Review mapped fields, document text, and layout information."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "multi_choice",
+        "concept_id": "document-text-and-layout-output",
+        "item_key": "use-analyzers-and-the-portal/document-text-and-layout-output/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. Those outputs connect the address field, value, and page position.",
+      "points": 1
+    },
+    {
+      "import_key": "12-get-started-with-ai-powered-information-extraction-checkpoint-q18",
+      "question_type": "multiple_choice",
+      "question_text": "A finance clerk receives many scanned receipts and must reduce manual entry of descriptions and amounts. Which approach should the clerk choose?",
+      "options": {
+        "options": [
+          {
+            "text": "AI-powered information extraction",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "This approach extracts relevant receipt details while reducing manual effort. It fits the clerk's stated goal.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Basic OCR only",
+            "is_correct": false,
+            "error_type": "Confuses broad extraction with text recognition",
+            "rationale": "Basic OCR reads text but may not identify the needed receipt fields. The clerk needs relevant details extracted for use.",
+            "better_fit": "This fits when editable printed text is the only required result.",
+            "feedback": {
+              "intrinsic": "The clerk may still need to identify descriptions and amounts manually.",
+              "instructional": "Receipt processing needs extracted details, not only recognized text."
+            }
+          },
+          {
+            "text": "Speech transcription",
+            "is_correct": false,
+            "error_type": "Confuses receipt images with audio",
+            "rationale": "Speech transcription is designed for spoken audio. A scanned receipt is document or image content.",
+            "better_fit": "This fits converting a recorded call into written words.",
+            "feedback": {
+              "intrinsic": "No speech is present to transcribe from the receipt.",
+              "instructional": "Match the method to the content type being processed."
+            }
+          },
+          {
+            "text": "Manual data entry",
+            "is_correct": false,
+            "error_type": "Misses automation goal",
+            "rationale": "Manual entry can record values but does not reduce manual work. The scenario specifically requires reducing that work.",
+            "better_fit": "This fits cases where information must be entered by a person.",
+            "feedback": {
+              "intrinsic": "The clerk would continue typing every receipt detail.",
+              "instructional": "Use extraction when the goal is to reduce hand entry."
+            }
+          }
+        ],
+        "blooms_level": "Applying",
+        "original_question_type": "single_choice",
+        "concept_id": "ai-information-extraction-purpose",
+        "item_key": "understand-information-extraction/ai-information-extraction-purpose/r4/v1",
+        "rung": 4
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. This approach extracts receipt details while reducing manual work.",
+      "points": 1
+    },
+    {
+      "import_key": "12-get-started-with-ai-powered-information-extraction-checkpoint-q19",
+      "question_type": "true_false",
+      "question_text": "In the Python SDK, poller.result() starts a new analysis request.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "python-sdk-analysis",
+        "feedback_for_incorrect": {
+          "intrinsic": "The code would try to wait before starting an analysis.",
+          "instructional": "Call begin_analyze first. Then use poller.result() while the SDK handles polling."
+        },
+        "item_key": "build-document-extraction-in-code/python-sdk-analysis/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct. begin_analyze starts analysis; poller.result() waits for the operation to finish.",
+      "points": 1
+    },
+    {
+      "import_key": "12-get-started-with-ai-powered-information-extraction-checkpoint-q20",
+      "question_type": "multiple_choice",
+      "question_text": "A developer must choose a reliable flow for a voicemail WAV file whose transcript and structured fields will be read after processing. Which choices should the developer select? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Use prebuilt-audioSearch",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "prebuilt-audioSearch is the appropriate prebuilt analyzer for audio. It fits a voicemail WAV input.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Provide an accessible voicemail URL",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The analysis flow requires an accessible URL to the voicemail file. This makes the audio available to the analyzer.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Wait before reading returned content",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The operation is asynchronous, so results arrive after processing. Waiting prevents a premature attempt to read output.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Use prebuilt-invoice",
+            "is_correct": false,
+            "error_type": "Incorrect analyzer decision",
+            "rationale": "prebuilt-invoice is designed for invoice content rather than audio. It is not a reliable choice for a voicemail WAV file.",
+            "better_fit": "Use prebuilt-invoice when the input is an invoice requiring invoice-field extraction.",
+            "feedback": {
+              "intrinsic": "The selected analyzer would not fit the voicemail input.",
+              "instructional": "Evaluate the media type first: a WAV voicemail requires prebuilt-audioSearch."
+            }
+          }
+        ],
+        "blooms_level": "Analyzing/Evaluating",
+        "original_question_type": "multi_choice",
+        "concept_id": "prebuilt-audio-sdk-flow",
+        "item_key": "extract-information-from-audio/prebuilt-audio-sdk-flow/r5/v1",
+        "rung": 5
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Use prebuilt-audioSearch for audio, provide an accessible voicemail URL, and wait or poll for the asynchronous operation to complete before reading the transcript and structured results.",
+      "points": 1
+    },
+    {
+      "import_key": "12-get-started-with-ai-powered-information-extraction-checkpoint-q21",
+      "question_type": "fill_blank",
+      "question_text": "The reusable configuration that specifies which fields an analyzer should extract is a ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "The reusable configuration that specifies which fields an analyzer should extract is a "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "schema"
+            ],
+            "rejected_answers": [
+              "analyzer",
+              "prebuilt analyzer",
+              "custom analyzer",
+              "schema-and-schema-based-extraction",
+              "prebuilt-and-custom-analyzers"
+            ],
+            "placeholder": "technical term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "analyzer",
+          "prebuilt analyzer",
+          "custom analyzer",
+          "schema-and-schema-based-extraction",
+          "prebuilt-and-custom-analyzers"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "analyzer-definition",
+        "feedback_for_incorrect": {
+          "intrinsic": "The requested field structure would remain undefined.",
+          "instructional": "A schema defines fields; an analyzer performs analysis."
+        },
+        "item_key": "use-analyzers-and-the-portal/analyzer-definition/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "schema",
+      "explanation": "A schema specifies fields and structure for extraction.",
+      "points": 1
+    },
+    {
+      "import_key": "12-get-started-with-ai-powered-information-extraction-checkpoint-q22",
+      "question_type": "true_false",
+      "question_text": "A confidence score tells how text is arranged on a page.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "structured-result-details",
+        "feedback_for_incorrect": {
+          "intrinsic": "A certainty measure would be used for the wrong purpose.",
+          "instructional": "Confidence applies to values, while layout applies to page text."
+        },
+        "item_key": "use-analyzers-and-the-portal/structured-result-details/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "false",
+      "explanation": "Correct. Layout describes arrangement; confidence describes certainty.",
+      "points": 1
+    },
+    {
+      "import_key": "12-get-started-with-ai-powered-information-extraction-checkpoint-q23",
+      "question_type": "fill_blank",
+      "question_text": "JSON is a text-based format for storing and exchanging ___ between systems.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "JSON is a text-based format for storing and exchanging "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "structured data"
+            ],
+            "rejected_answers": [
+              "unstructured content",
+              "markdown",
+              "transcript",
+              "unstructured-content",
+              "markdown-and-transcript-output"
+            ],
+            "placeholder": "data type"
+          },
+          {
+            "type": "text",
+            "text": " between systems."
+          }
+        ],
+        "rejected_answers": [
+          "unstructured content",
+          "markdown",
+          "transcript",
+          "unstructured-content",
+          "markdown-and-transcript-output"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "structured-machine-readable-data",
+        "feedback_for_incorrect": {
+          "intrinsic": "The answer would not identify the organized data being exchanged.",
+          "instructional": "Choose the phrase for data arranged into defined fields."
+        },
+        "item_key": "understand-information-extraction/structured-machine-readable-data/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "structured data",
+      "explanation": "JSON stores and exchanges data organized into fields.",
+      "points": 1
+    },
+    {
+      "import_key": "12-get-started-with-ai-powered-information-extraction-checkpoint-q24",
+      "question_type": "true_false",
+      "question_text": "Each record in an invoice Items collection can contain nested description, unit price, quantity, and line total fields.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "nested-items-collection",
+        "feedback_for_incorrect": {
+          "intrinsic": "A bike's price or quantity could become mixed with a helmet's or shirt's details.",
+          "instructional": "Items is a collection of records, and each record has its own nested product details."
+        },
+        "item_key": "extract-fields-from-documents/nested-items-collection/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. Each item record can keep its description, unit price, quantity, and line total together.",
+      "points": 1
+    }
+  ],
+  "flashcards": []
+}

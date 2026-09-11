@@ -249,6 +249,13 @@ class CompileConfig(BaseModel):
     levels: int = Field(default=3, ge=1, le=3)
     recycle: dict[str, float] = Field(default_factory=lambda: {"l2": 0.40, "l3": 0.30})
     session_size_hint: int = Field(default=12, ge=1)
+    # Opt-in exact progression budget.  Legacy workspaces retain their
+    # coverage-first shape until they explicitly declare this release contract.
+    level_session_size: int | None = Field(default=None, ge=1, le=100)
+    # Progression sessions and review sessions are distinct product contracts.
+    # Keep the former at the app's 12-question default while making the latter
+    # an explicit, deterministic release budget.
+    review_session_size: int = Field(default=24, ge=1, le=100)
     checkpoints: Literal["none", "per_module"] = "per_module"
     final_review: bool = True
     seed: int = 901

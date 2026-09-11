@@ -1,0 +1,527 @@
+{
+  "import_key": "text-analysis-basics-l3",
+  "title": "Text Analysis Basics · Level 3",
+  "slo": "Identify common text-analysis tasks for workplace text.",
+  "exercises": [
+    {
+      "import_key": "text-analysis-basics-l3-q1",
+      "question_type": "multiple_choice",
+      "question_text": "Which details can be PII? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "A telephone number",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Telephone numbers are sensitive personal details. They can be PII.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A home address",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Home addresses are personal details that can identify someone. They can be PII.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A financial account detail",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Financial account details are sensitive personal information. They can require protection and redaction.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "A positive sentiment label",
+            "is_correct": false,
+            "error_type": "Confuses PII with sentiment",
+            "rationale": "A positive label describes predicted tone. It is not a personal detail requiring redaction.",
+            "better_fit": "Use this as a possible output of sentiment analysis.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "pii-detection",
+        "item_key": "text-analysis-basics/pii-detection/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. These are sensitive personal details that can be PII.",
+      "points": 1
+    },
+    {
+      "import_key": "text-analysis-basics-l3-q2",
+      "question_type": "multiple_choice",
+      "question_text": "Which task predicts whether a post is positive, neutral, or negative?",
+      "options": {
+        "options": [
+          {
+            "text": "Sentiment analysis",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Sentiment analysis predicts positive, neutral, or negative tone. It is a form of text classification.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Text summarization",
+            "is_correct": false,
+            "error_type": "Confuses tone with shortening",
+            "rationale": "Summarization reduces volume while retaining salient points. It does not assign an emotional-tone label.",
+            "better_fit": "Use this when creating a shorter version that keeps main points.",
+            "feedback": null
+          },
+          {
+            "text": "Entity detection",
+            "is_correct": false,
+            "error_type": "Confuses tone with entities",
+            "rationale": "Entity detection identifies named items. It does not predict emotional tone.",
+            "better_fit": "Use this when extracting named people, places, dates, or organizations.",
+            "feedback": null
+          },
+          {
+            "text": "PII detection",
+            "is_correct": false,
+            "error_type": "Confuses tone with privacy protection",
+            "rationale": "PII detection finds sensitive details for redaction. It does not classify tone.",
+            "better_fit": "Use this when protecting private details before sharing.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "single_choice",
+        "concept_id": "classification-sentiment-summary",
+        "item_key": "text-analysis-basics/classification-sentiment-summary/r1/v1",
+        "rung": 1
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. Sentiment analysis predicts positive, neutral, or negative tone.",
+      "points": 1
+    },
+    {
+      "import_key": "text-analysis-basics-l3-q3",
+      "question_type": "true_false",
+      "question_text": "Language detection is often an early step in a multi-step text-processing workflow.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "language-keyterm-entity-detection",
+        "feedback_for_incorrect": {
+          "intrinsic": "Later work could begin without knowing which language it needs to handle.",
+          "instructional": "Language detection identifies the language or languages and is often used early in a workflow."
+        },
+        "item_key": "text-analysis-basics/language-keyterm-entity-detection/r2/v2",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. Knowing the language can guide later processing steps.",
+      "points": 1
+    },
+    {
+      "import_key": "text-analysis-basics-l3-q4",
+      "question_type": "true_false",
+      "question_text": "Customer feedback and contracts can be unstructured text because they do not have a fixed data structure.",
+      "options": {
+        "blooms_level": "Understanding",
+        "original_question_type": "true_false",
+        "concept_id": "unstructured-text-actionable-intelligence",
+        "feedback_for_incorrect": {
+          "intrinsic": "You would treat free-form workplace language as if it were already organized into fixed fields.",
+          "instructional": "Unstructured text lacks a fixed data structure, and customer feedback and contracts are examples."
+        },
+        "item_key": "text-analysis-basics/unstructured-text-actionable-intelligence/r2/v1",
+        "rung": 2
+      },
+      "correct_answer": "true",
+      "explanation": "Correct. Both can contain free-form language rather than fixed data fields.",
+      "points": 1
+    },
+    {
+      "import_key": "text-analysis-basics-l3-q5",
+      "question_type": "fill_blank",
+      "question_text": "Reducing a multi-page document to a short paragraph while retaining salient points is text ___.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "Reducing a multi-page document to a short paragraph while retaining salient points is text "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "summarization",
+              "summary"
+            ],
+            "rejected_answers": [
+              "classification",
+              "sentiment analysis",
+              "entity detection",
+              "language-keyterm-entity-detection",
+              "pii-detection-redaction",
+              "extractive-abstractive-summarization"
+            ],
+            "placeholder": "term"
+          },
+          {
+            "type": "text",
+            "text": "."
+          }
+        ],
+        "rejected_answers": [
+          "classification",
+          "sentiment analysis",
+          "entity detection",
+          "language-keyterm-entity-detection",
+          "pii-detection-redaction",
+          "extractive-abstractive-summarization"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "classification-sentiment-summary",
+        "feedback_for_incorrect": {
+          "intrinsic": "You would seek a label or named item when the need is a shorter version with key points.",
+          "instructional": "Use summarization for shortening while retaining important points."
+        },
+        "item_key": "text-analysis-basics/classification-sentiment-summary/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "[\"summarization\",\"summary\"]",
+      "explanation": "Summarization reduces language volume while retaining salient points.",
+      "points": 1
+    },
+    {
+      "import_key": "text-analysis-basics-l3-q6",
+      "question_type": "multiple_choice",
+      "question_text": "A communications manager plans to publish customer comments but discovers that some include private information. Which actions best protect privacy? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "Find names for redaction",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Names can be sensitive personal details. Finding them enables redaction before publication.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Find addresses for redaction",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Addresses can identify or locate a person. They should be considered for redaction.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Find telephone numbers for redaction",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Telephone numbers are sensitive personal details. Redacting them protects privacy.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Classify comments by sentiment",
+            "is_correct": false,
+            "error_type": "Confuses privacy protection with tone classification",
+            "rationale": "Sentiment analysis predicts emotional tone. It does not identify or hide private information.",
+            "better_fit": "Use this when deciding whether comments are positive, neutral, or negative.",
+            "feedback": {
+              "intrinsic": "A tone label would not prevent private details from being published.",
+              "instructional": "Protect privacy by finding and redacting sensitive personal details."
+            }
+          }
+        ],
+        "blooms_level": "Analyzing/Evaluating",
+        "original_question_type": "multi_choice",
+        "concept_id": "pii-detection",
+        "item_key": "text-analysis-basics/pii-detection/r5/v1",
+        "rung": 5
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. Redacting sensitive details directly protects privacy before publication.",
+      "points": 1
+    },
+    {
+      "import_key": "text-analysis-basics-l3-q7",
+      "question_type": "multiple_choice",
+      "question_text": "A director must review a long contract quickly and needs one paragraph that keeps its main points. Which approach best fits?",
+      "options": {
+        "options": [
+          {
+            "text": "Text summarization",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The director needs reduced text volume with salient points retained. Text summarization provides that output.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Text classification",
+            "is_correct": false,
+            "error_type": "Confuses reduction with categorization",
+            "rationale": "Classification assigns a content category. It does not create a concise version of the contract.",
+            "better_fit": "Use this when assigning a contract to a content category.",
+            "feedback": {
+              "intrinsic": "The director could receive a category but still need to read the long contract.",
+              "instructional": "Use summarization when a shorter version retaining key points is needed."
+            }
+          },
+          {
+            "text": "Sentiment analysis",
+            "is_correct": false,
+            "error_type": "Confuses main points with tone",
+            "rationale": "Sentiment analysis predicts emotional tone. It does not preserve the contract's main points in one paragraph.",
+            "better_fit": "Use this when classifying text by emotional tone.",
+            "feedback": {
+              "intrinsic": "The director could learn a tone label without a concise account of the contract.",
+              "instructional": "Summarization preserves salient points while reducing volume."
+            }
+          },
+          {
+            "text": "PII detection",
+            "is_correct": false,
+            "error_type": "Confuses summarization with redaction",
+            "rationale": "PII detection finds and redacts sensitive personal details. It does not reduce the document while retaining its key points.",
+            "better_fit": "Use this when private details must be hidden before sharing.",
+            "feedback": {
+              "intrinsic": "Private details might be hidden, but the director would still face a long contract.",
+              "instructional": "Use text summarization for a concise version that keeps the main points."
+            }
+          }
+        ],
+        "blooms_level": "Analyzing/Evaluating",
+        "original_question_type": "single_choice",
+        "concept_id": "classification-sentiment-summary",
+        "item_key": "text-analysis-basics/classification-sentiment-summary/r5/v1",
+        "rung": 5
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. Text summarization creates a shorter version while retaining salient points.",
+      "points": 1
+    },
+    {
+      "import_key": "text-analysis-basics-l3-q8",
+      "question_type": "arrange_sentence",
+      "question_text": "Arrange the parts to form the correct statement.",
+      "options": {
+        "word_bank": [
+          "Language detection",
+          "identifies the",
+          "in text",
+          "language or languages",
+          "first"
+        ],
+        "correct_order": [
+          "Language detection",
+          "identifies the",
+          "language or languages",
+          "in text",
+          "first"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "language-keyterm-entity-detection",
+        "feedback_for_incorrect": {
+          "intrinsic": "The statement no longer clearly says what language detection identifies.",
+          "instructional": "Start with the task, then state what it identifies and where."
+        },
+        "item_key": "text-analysis-basics/language-keyterm-entity-detection/r3/v2",
+        "rung": 3
+      },
+      "correct_answer": "Language detection identifies the language or languages in text first",
+      "explanation": "The sentence states that language detection identifies the language or languages in text and commonly comes first.",
+      "points": 1
+    },
+    {
+      "import_key": "text-analysis-basics-l3-q9",
+      "question_type": "multiple_choice",
+      "question_text": "Which statements describe NLP or text analysis? Select all that apply.",
+      "options": {
+        "options": [
+          {
+            "text": "NLP works with human language",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "NLP is the area of AI concerned with human language. This describes its scope.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Text analysis is a subset of NLP",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Text analysis is one activity within NLP. It uses language data to find useful information.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Text analysis extracts insights from text",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "Extracting meaning and insights is a central purpose of text analysis. This can be done on unstructured text.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "Text analysis only counts word frequency",
+            "is_correct": false,
+            "error_type": "Overgeneralizes one technique",
+            "rationale": "Word frequency is one technique that may support analysis. Text analysis also includes tasks such as detection and classification.",
+            "better_fit": "Use this for a task specifically limited to word-frequency analysis.",
+            "feedback": null
+          }
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "multi_choice",
+        "concept_id": "ai-nlp-text-analysis",
+        "item_key": "text-analysis-basics/ai-nlp-text-analysis/r1/v2",
+        "rung": 1
+      },
+      "correct_answer": "[0,1,2]",
+      "explanation": "Correct. NLP works with human language, and text analysis is an NLP activity.",
+      "points": 1
+    },
+    {
+      "import_key": "text-analysis-basics-l3-q10",
+      "question_type": "multiple_choice",
+      "question_text": "A legal-team analyst must pull company names, person names, locations, and dates from contracts for review. Which approach best fits?",
+      "options": {
+        "options": [
+          {
+            "text": "Entity detection",
+            "is_correct": true,
+            "error_type": null,
+            "rationale": "The requested items are named entity types. Entity detection extracts people, organizations, locations, and dates.",
+            "better_fit": null,
+            "feedback": null
+          },
+          {
+            "text": "PII detection",
+            "is_correct": false,
+            "error_type": "Confuses entities with sensitive details",
+            "rationale": "PII detection focuses on sensitive personal details for redaction. The request includes broader entities such as organizations and locations.",
+            "better_fit": "Use this when sensitive personal details must be found and hidden.",
+            "feedback": {
+              "intrinsic": "The analyst could miss requested entity types while focusing only on privacy.",
+              "instructional": "Entity detection covers named people, organizations, places, and dates."
+            }
+          },
+          {
+            "text": "Key term extraction",
+            "is_correct": false,
+            "error_type": "Confuses entities with topic phrases",
+            "rationale": "Key terms reveal themes and topics. They do not specifically identify the requested names and dates.",
+            "better_fit": "Use this when finding important topic phrases.",
+            "feedback": {
+              "intrinsic": "The analyst might receive themes instead of the requested entity list.",
+              "instructional": "Use entity detection for named entities."
+            }
+          },
+          {
+            "text": "Text classification",
+            "is_correct": false,
+            "error_type": "Confuses extraction with categories",
+            "rationale": "Classification assigns a category to a whole item. It does not extract a list of entities from it.",
+            "better_fit": "Use this when assigning each contract to a category.",
+            "feedback": {
+              "intrinsic": "The review would have categories but not the requested entity list.",
+              "instructional": "Entity detection extracts named items; classification labels whole items."
+            }
+          }
+        ],
+        "blooms_level": "Analyzing/Evaluating",
+        "original_question_type": "single_choice",
+        "concept_id": "language-keyterm-entity-detection",
+        "item_key": "text-analysis-basics/language-keyterm-entity-detection/r5/v1",
+        "rung": 5
+      },
+      "correct_answer": "0",
+      "explanation": "Correct. Entity detection identifies the requested named entity types.",
+      "points": 1
+    },
+    {
+      "import_key": "text-analysis-basics-l3-q11",
+      "question_type": "fill_blank",
+      "question_text": "Text analysis is a subset of ___ that works with human language.",
+      "options": {
+        "parts": [
+          {
+            "type": "text",
+            "text": "Text analysis is a subset of "
+          },
+          {
+            "type": "gap",
+            "accepted_answers": [
+              "natural language processing",
+              "NLP"
+            ],
+            "rejected_answers": [
+              "semantic language models",
+              "bag-of-words",
+              "semantic-language-models"
+            ],
+            "placeholder": "term"
+          },
+          {
+            "type": "text",
+            "text": " that works with human language."
+          }
+        ],
+        "rejected_answers": [
+          "semantic language models",
+          "bag-of-words",
+          "semantic-language-models"
+        ],
+        "blooms_level": "Remembering",
+        "original_question_type": "fill_gaps",
+        "concept_id": "ai-nlp-text-analysis",
+        "feedback_for_incorrect": {
+          "intrinsic": "Your choice names a method rather than the broader language area.",
+          "instructional": "Use NLP: semantic models and bag-of-words can support analysis, but neither is the broader field."
+        },
+        "item_key": "text-analysis-basics/ai-nlp-text-analysis/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "[\"natural language processing\",\"NLP\"]",
+      "explanation": "NLP is the broader area that works with human language. Text analysis is part of that area.",
+      "points": 1
+    },
+    {
+      "import_key": "text-analysis-basics-l3-q12",
+      "question_type": "arrange_sentence",
+      "question_text": "Put the pieces in the correct order.",
+      "options": {
+        "word_bank": [
+          "Organizations analyze",
+          "unstructured text",
+          "actionable intelligence",
+          "to create",
+          "for decisions"
+        ],
+        "correct_order": [
+          "Organizations analyze",
+          "unstructured text",
+          "to create",
+          "actionable intelligence",
+          "for decisions"
+        ],
+        "blooms_level": "Understanding",
+        "original_question_type": "rearrange",
+        "concept_id": "unstructured-text-actionable-intelligence",
+        "feedback_for_incorrect": {
+          "intrinsic": "The relationship between input and result becomes unclear.",
+          "instructional": "Place the action first, then what is analyzed, followed by the result and its purpose."
+        },
+        "item_key": "text-analysis-basics/unstructured-text-actionable-intelligence/r3/v1",
+        "rung": 3
+      },
+      "correct_answer": "Organizations analyze unstructured text to create actionable intelligence for decisions",
+      "explanation": "The order states the input, the analysis action, and the decision-support result.",
+      "points": 1
+    }
+  ],
+  "flashcards": []
+}
